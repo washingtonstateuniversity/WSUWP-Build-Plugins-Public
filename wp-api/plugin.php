@@ -4,7 +4,7 @@
  * Description: JSON-based REST API for WordPress, developed as part of GSoC 2013.
  * Author: Ryan McCue
  * Author URI: http://ryanmccue.info/
- * Version: 0.9
+ * Version: 1.0
  * Plugin URI: https://github.com/rmccue/WP-API
  */
 
@@ -13,7 +13,7 @@
  *
  * @var string
  */
-define('JSON_API_VERSION', '0.9');
+define('JSON_API_VERSION', '1.0');
 
 /**
  * Include our files for the API
@@ -23,6 +23,7 @@ include_once( dirname( __FILE__ ) . '/lib/class-jsonserializable.php' );
 include_once( dirname( __FILE__ ) . '/lib/class-wp-json-datetime.php' );
 
 include_once( dirname( __FILE__ ) . '/lib/class-wp-json-responsehandler.php' );
+include_once( dirname( __FILE__ ) . '/lib/class-wp-json-server.php' );
 include_once( dirname( __FILE__ ) . '/lib/class-wp-json-responseinterface.php' );
 include_once( dirname( __FILE__ ) . '/lib/class-wp-json-response.php' );
 
@@ -112,8 +113,6 @@ add_action( 'wp_json_server_before_serve', 'json_api_default_filters', 10, 1 );
 function json_api_loaded() {
 	if ( empty( $GLOBALS['wp']->query_vars['json_route'] ) )
 		return;
-
-	include_once( dirname( __FILE__ ) . '/lib/class-wp-json-server.php' );
 
 	/**
 	 * Whether this is a XMLRPC Request
