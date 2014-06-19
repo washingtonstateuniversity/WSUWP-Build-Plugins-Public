@@ -1,7 +1,7 @@
 (function($, window){
 
-	var GAcode = window.wsu_analytics['tracker_id'];
-	var _DN    = window.wsu_analytics['domain'];
+	var GAcode = window.wsu_analytics.tracker_id;
+	var _DN    = window.wsu_analytics.domain;
 	var _CP    = false;
 
 	var site_data = [
@@ -332,7 +332,7 @@
 		$.jtrack.defaults.debug.run = false;
 		$.jtrack.defaults.debug.v_console = false;
 		$.jtrack.defaults.debug.console = true;
-		$.jtrack({ load_analytics:{account:GAcode},options:jQuery.extend({},(_DN!=false?{'domainName':_DN}:{}),(_CP!=false?{'cookiePath':_CP}:{})), trackevents:data });
+		$.jtrack({ load_analytics:{account:GAcode},options:jQuery.extend({},(_DN!==false?{'domainName':_DN}:{}),(_CP!==false?{'cookiePath':_CP}:{})), trackevents:data });
 	}
 	tracker( site_data );
 
