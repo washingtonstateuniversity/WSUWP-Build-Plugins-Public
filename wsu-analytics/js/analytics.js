@@ -331,7 +331,7 @@
 	function tracker(data){
 		$.jtrack.defaults.debug.run = false;
 		$.jtrack.defaults.debug.v_console = false;
-		$.jtrack.defaults.debug.console = true;
+		$.jtrack.defaults.debug.console = false;
 		$.jtrack({ load_analytics:{account:GAcode},options:jQuery.extend({},(_DN!==false?{'domainName':_DN}:{}),(_CP!==false?{'cookiePath':_CP}:{})), trackevents:data });
 	}
 	tracker( site_data );
