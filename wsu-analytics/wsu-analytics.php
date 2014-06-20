@@ -13,7 +13,7 @@ class WSU_Analytics {
 	/**
 	 * @var string The current version of this plugin, or used to break script cache.
 	 */
-	var $version = '0.0.3';
+	var $version = '0.0.4';
 
 	/**
 	 * Add our hooks.
@@ -22,6 +22,7 @@ class WSU_Analytics {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'admin_init', array( $this, 'display_settings' ) );
 		add_action( 'wp_footer', array( $this, 'global_tracker' ), 999 );
+		add_action( 'admin_footer', array( $this, 'global_tracker' ), 999 );
 	}
 
 	/**
