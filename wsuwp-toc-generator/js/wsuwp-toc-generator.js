@@ -1,5 +1,4 @@
 (function($){
-	$('body').append('<div id="toc"></div>');
 	$('#toc').toc({
 		'selectors': 'h1,h2,h3,h4', //elements to use as headings
 		'container': 'main', //element to find all selectors in
