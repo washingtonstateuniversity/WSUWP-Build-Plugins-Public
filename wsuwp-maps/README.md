@@ -28,3 +28,7 @@ The available sizes are as follows:
 * largest - 731x549
 
 A custom size can be used by defining the width and height manually: `[wsuwp_map id="68DE9EF" width=400 height=200]`
+
+In some cases, you may have a custom map created by University Communications. Use your alias as part of the shortcode rather than the ID:
+
+`[wsuwp_map alias="my-custom-code" size="largest"]`

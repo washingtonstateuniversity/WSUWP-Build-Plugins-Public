@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP Maps
-Version: 0.1.0
+Version: 0.2.0
 Plugin URI: http://web.wsu.edu
 Description: A shortcode to display an embedded map from maps.wsu.edu.
 Author: washingtonstateuniversity, jeremyfelt
@@ -13,7 +13,7 @@ class WSUWP_Maps {
 	/**
 	 * @var string Current version of this plugin.
 	 */
-	var $plugin_version = '0.1.0';
+	var $plugin_version = '0.2.0';
 
 	/**
 	 * Setup hooks.
@@ -29,12 +29,19 @@ class WSUWP_Maps {
 		$defaults = array(
 			'size' => 'medium',
 			'id' => '',
+			'alias' => '',
 			'width' => '',
 			'height' => '',
 		);
 		$att = shortcode_atts( $defaults, $attributes );
 
-		$map_url = 'http://map.wsu.edu/t/' . sanitize_key( $att['id'] );
+		if ( '' !== $att['id'] ) {
+			$map_url = 'http://map.wsu.edu/t/' . sanitize_key( $att['id'] );
+		} elseif ( '' !== $att['alias'] ) {
+			$map_url = 'http://map.wsu.edu/rt/' . sanitize_key( $att['alias'] ) . '?mode=standalone';
+		} else {
+			$map_url = 'http://map.wsu.edu/t/942CFE9C'; // Default to the WSU label.
+		}
 
 		if ( 'small' === $att['size'] ) {
 			$x = 214;
