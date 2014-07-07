@@ -325,6 +325,15 @@
 				"label":"function(){ var result; $.each($.browser, function(i, val) { result += ' ' + i + ':' + val }); return result; }",
 				"alias":"jTrackEasterEgg"
 			}
+		},
+		{
+			"element":"a.modal",
+			"options":{
+				"category":"modal",
+				"skip_internal":"true",
+				"mode":"event",
+				"overwrites":"true"
+			}
 		}
 	];
 
