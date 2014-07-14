@@ -1,6 +1,6 @@
-(function($){
+(function($, args){
 	$('#toc').toc({
-		'selectors': 'h1,h2,h3,h4', //elements to use as headings
+		'selectors': args.selectors, //elements to use as headings
 		'container': 'main', //element to find all selectors in
 		'smoothScrolling': true, //enable or disable smooth scrolling on click
 		'prefix': 'toc', //prefix for anchor tags and class names
@@ -8,4 +8,4 @@
 			return $heading.text();
 		}
 	});
-}(jQuery));
+}(jQuery, WSUWP_TOC));
