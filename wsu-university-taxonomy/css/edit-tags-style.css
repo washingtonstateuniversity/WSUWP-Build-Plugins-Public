@@ -1,0 +1,21 @@
+.wrap {
+	max-width: 750px;
+}
+
+.wrap h3 {
+	border-bottom: 1px solid #333;
+	padding-bottom: 6px;
+}
+
+.wrap h4 {
+	font-size: 1.1em;
+}
+
+.wrap li {
+	display: inline-block;
+	width: 250px;
+}
+
+.wrap li em {
+	color: #999;
+}
