@@ -1,5 +1,7 @@
+/* jshint onevar: false, smarttabs: true */
+
 (function($){
-	var Jetpack_CSS = {
+	var WSU_CSS = {
 		modes: {
 			'default': 'text/css',
 			'less': 'text/x-less',
@@ -34,11 +36,12 @@
 		},
 		getMode: function() {
 			var mode = $( '#preprocessor_choices' ).val();
-			if ( '' === mode || ! this.modes[ mode ] )
+			if ( '' === mode || ! this.modes[ mode ] ) {
 				mode = 'default';
+			}
 			return this.modes[ mode ];
 		}
-	}
+	};
 
-	$( document ).ready( _.bind( Jetpack_CSS.init, Jetpack_CSS ) );
+	$( document ).ready( _.bind( WSU_CSS.init, WSU_CSS ) );
 })(jQuery);

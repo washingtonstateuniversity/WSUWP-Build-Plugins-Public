@@ -4,7 +4,7 @@
  * CSS preprocessor registration.
  *
  * To add a new preprocessor (or replace an existing one), hook into the
- * jetpack_custom_css_preprocessors filter and add an entry to the array
+ * wsu_custom_css_preprocessors filter and add an entry to the array
  * that is passed in.
  *
  * Format is:
@@ -16,23 +16,23 @@
  * @return array
  */
 
-function jetpack_register_css_preprocessors( $preprocessors ) {
+function wsu_register_css_preprocessors( $preprocessors ) {
 	$preprocessors['less'] = array(
 		'name' => 'LESS',
-		'callback' => 'jetpack_less_css_preprocess'
+		'callback' => 'wsu_less_css_preprocess'
 	);
 
 	$preprocessors['sass'] = array(
 		'name' => 'Sass (SCSS Syntax)',
-		'callback' => 'jetpack_sass_css_preprocess'
+		'callback' => 'wsu_sass_css_preprocess'
 	);
 
 	return $preprocessors;
 }
 
-add_filter( 'jetpack_custom_css_preprocessors', 'jetpack_register_css_preprocessors' );
+add_filter( 'wsu_custom_css_preprocessors', 'wsu_register_css_preprocessors' );
 
-function jetpack_less_css_preprocess( $less ) {
+function wsu_less_css_preprocess( $less ) {
 	require_once( dirname( __FILE__ ) . '/preprocessors/lessc.inc.php' );
 
 	$compiler = new lessc();
@@ -44,7 +44,7 @@ function jetpack_less_css_preprocess( $less ) {
 	}
 }
 
-function jetpack_sass_css_preprocess( $sass ) {
+function wsu_sass_css_preprocess( $sass ) {
 	require_once( dirname( __FILE__ ) . '/preprocessors/scss.inc.php' );
 
 	$compiler = new scssc();
