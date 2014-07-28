@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Search
-Version: 0.2.0
+Version: 0.3.0
 Plugin URI: http://web.wsu.edu
 Description: Connects to Search
 Author: washingtonstateuniversity, jeremyfelt
@@ -27,26 +27,30 @@ class WSU_Search {
 			$this->index_api_url = 'http://134.121.140.161:9200/wsu-local-dev/page/';
 		}
 
-		add_action( 'transition_post_status', array( $this, 'save_post' ), 10, 3 );
-		add_action( 'transition_post_status', array( $this, 'delete_post' ), 10, 3 );
+		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
+		add_action( 'before_delete_post', array( $this, 'remove_post_from_index' ), 10, 1 );
 	}
 
 	/**
 	 * When a post is saved, ensure that the most recent version is updated in the index. If this
 	 * does not yet exist in the index, then create the document and log the generated UUID.
 	 *
-	 * @param string  $new_status Post status being saved.
-	 * @param string  $old_status Previous post status.
-	 * @param WP_Post $post       The entire post object.
+	 * @param int     $post_id ID of the post being saved.
+	 * @param WP_Post $post    The entire post object.
 	 *
-	 * @return null
+	 * @return void
 	 */
-	public function save_post( $new_status, $old_status, $post ) {
+	public function save_post( $post_id, $post ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return NULL;
 		}
 
-		if ( 'publish' !== $new_status ) {
+		if ( 'auto-draft' === $post->post_status || 'revision' === $post->post_type ) {
+			return NULL;
+		}
+
+		if ( 'publish' !== $post->post_status ) {
+			$this->remove_post_from_index( $post_id );
 			return NULL;
 		}
 
@@ -60,9 +64,10 @@ class WSU_Search {
 		// If this document already has an ID, we'll PUT to update it. If not, we'll POST a new document.
 		if ( $search_id ) {
 			$args['method'] = 'PUT';
-			$this->index_api_url .= $this->_sanitize_es_id( $search_id );
+			$request_url = $this->index_api_url . $this->_sanitize_es_id( $search_id );
 		} else {
 			$args['method'] = 'POST';
+			$request_url = $this->index_api_url;
 		}
 
 		$data['title'] = $post->post_title;
@@ -111,7 +116,7 @@ class WSU_Search {
 
 		$args['body'] = json_encode( $data );
 
-		$response = wp_remote_post( $this->index_api_url, $args );
+		$response = wp_remote_post( $request_url, $args );
 		$response = wp_remote_retrieve_body( $response );
 
 		if ( ! empty( $response ) ) {
@@ -121,39 +126,31 @@ class WSU_Search {
 	}
 
 	/**
-	 * When a post is saved, delete it from the index if the end post status is something other
-	 * than 'publish'.
+	 * When a post is deleted, delete it from Elasticsearch as well.
 	 *
-	 * @param string  $new_status Post status being saved.
-	 * @param string  $old_status Previous post status.
-	 * @param WP_Post $post       The entire post object.
+	 * @param int $post_id ID of the post being deleted.
 	 *
 	 * @return null
 	 */
-	public function delete_post( $new_status, $old_status, $post ) {
+	public function remove_post_from_index( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return NULL;
 		}
 
-		// This document should be saving to a post status other than publish from a post status of publish.
-		if ( 'publish' === $new_status || 'publish' !== $old_status ) {
-			return NULL;
-		}
-
-		$search_id = get_post_meta( $post->ID, '_wsusearch_doc_id', true );
+		$search_id = get_post_meta( $post_id, '_wsusearch_doc_id', true );
 
 		// This document has not yet been saved, no need to delete.
-		if ( false === $search_id ) {
+		if ( empty( $search_id ) ) {
 			return NULL;
 		}
 
-		$this->index_api_url .= $this->_sanitize_es_id( $search_id );
+		$request_url = $this->index_api_url . $this->_sanitize_es_id( $search_id );
 
 		// Make a request to delete the existing document from Elasticsearch.
-		$response = wp_remote_request( $this->index_api_url, array( 'method' => 'DELETE' ) );
+		$response = wp_remote_request( $request_url, array( 'method' => 'DELETE' ) );
 
 		if ( ! is_wp_error( $response ) ) {
-			delete_post_meta( $post->ID, '_wsusearch_doc_id' );
+			delete_post_meta( $post_id, '_wsusearch_doc_id' );
 		}
 	}
 
