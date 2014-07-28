@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Search
-Version: 0.3.0
+Version: 0.4.0
 Plugin URI: http://web.wsu.edu
 Description: Connects to Search
 Author: washingtonstateuniversity, jeremyfelt
@@ -45,7 +45,7 @@ class WSU_Search {
 			return NULL;
 		}
 
-		if ( 'auto-draft' === $post->post_status || 'revision' === $post->post_type ) {
+		if ( ! in_array( $post->post_type, array( 'post', 'page' ) ) ) {
 			return NULL;
 		}
 
