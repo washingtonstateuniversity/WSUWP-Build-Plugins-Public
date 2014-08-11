@@ -4,7 +4,7 @@ Plugin Name: WSU Content Syndicate
 Plugin URI: http://web.wsu.edu
 Description: Retrieve content for display from throughout Washington State University
 Author: washingtonstateuniversity, jeremyfelt
-Version: 0.0.1
+Version: 0.0.2
 */
 
 class WSU_Content_Syndicate {
@@ -29,12 +29,38 @@ class WSU_Content_Syndicate {
 			'object' => 'json_data',
 			'host' => 'news.wsu.edu',
 			'query' => 'posts',
-			'format' => 'json',
+			'count' => false,
 		);
 
 		$atts = shortcode_atts( $defaults, $atts );
 
-		$response = wp_remote_get( esc_url( $atts['host'] . '/wp-json/' . $atts['query'] ) );
+		// We only support queries that start with "posts"
+		if ( 'posts' !== substr( $atts['query'], 0, 5 ) ) {
+			return '<!-- wsuwp_json ERROR - query not supported -->';
+		}
+
+		// We only support queries for wsu.edu domains by default
+		$host = parse_url( esc_url( $atts['host'] ) );
+		if ( empty( $host['host'] ) ) {
+			return '<!-- wsuwp_json ERROR - an empty host was supplied -->';
+		}
+
+		$host_parts = explode( '.', $host['host'] );
+		$host_edu = array_pop( $host_parts );
+		$host_wsu = array_pop( $host_parts );
+
+		if ( ( 'edu' !== $host_edu || 'wsu' !== $host_wsu ) && false === apply_filters( 'wsu_consyn_valid_domain', false, $host['host'] ) ) {
+			return '<!-- wsuwp_json ERROR - not a valid domain -->';
+		}
+
+		$request_url = esc_url( $host['host'] . '/wp-json/' . $atts['query'] );
+
+		if ( $atts['count'] ) {
+			$request_url = add_query_arg( array( 'filter[posts_per_page]' => absint( $atts['count'] ) ), $request_url );
+		}
+
+		$response = wp_remote_get( $request_url );
+
 		$data = wp_remote_retrieve_body( $response );
 
 		$new_data = array();
