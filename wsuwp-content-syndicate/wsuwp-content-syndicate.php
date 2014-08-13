@@ -4,7 +4,7 @@ Plugin Name: WSU Content Syndicate
 Plugin URI: http://web.wsu.edu
 Description: Retrieve content for display from throughout Washington State University
 Author: washingtonstateuniversity, jeremyfelt
-Version: 0.0.2
+Version: 0.0.3
 */
 
 class WSU_Content_Syndicate {
@@ -70,8 +70,10 @@ class WSU_Content_Syndicate {
 				$subset = new StdClass();
 				$subset->ID = $post->ID;
 				$subset->title = $post->title;
+				$subset->link = $post->link;
 				$subset->excerpt = $post->excerpt;
 				$subset->content = $post->content;
+				$subset->terms = $post->terms;
 				$subset->author_name = $post->author->name;
 				$subset->author_avatar = $post->author->avatar;
 				$new_data[] = $subset;
