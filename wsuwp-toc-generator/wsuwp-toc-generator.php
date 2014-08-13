@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP Table of Contents Generator
-Version: 0.4.0
+Version: 0.4.1
 Plugin URI: http://web.wsu.edu
 Description: A shortcode to generate a DOM element containing the table of contents for a long page.
 Author: washingtonstateuniversity, jeremyfelt
@@ -13,7 +13,7 @@ class WSUWP_TOC_Generator {
 	/**
 	 * @var string Current version of this plugin.
 	 */
-	var $plugin_version = '0.4.0';
+	var $plugin_version = '0.4.1';
 
 	/**
 	 * Setup hooks.
@@ -46,7 +46,7 @@ class WSUWP_TOC_Generator {
 		wp_enqueue_script( 'wsuwp-toc-generator' );
 
 		if ( 'content' === $attributes['position'] ) {
-			return '<div id="toc"></div>';
+			return '<div id="toc" class="toc toc-generated"></div>';
 		}
 
 		add_action( 'wp_footer', array( $this, 'footer_display_toc' ) );
@@ -75,7 +75,7 @@ class WSUWP_TOC_Generator {
 	 * Display the TOC element at the end of the page for custom positioning.
 	 */
 	public function footer_display_toc() {
-		echo '<div id="toc"></div>';
+		echo '<div id="toc" class="toc toc-generated"></div>';
 	}
 }
 new WSUWP_TOC_Generator();
