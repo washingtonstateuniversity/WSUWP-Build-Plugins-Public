@@ -4,7 +4,7 @@ Plugin Name: WSU Custom CSS
 Plugin URI: http://web.wsu.edu
 Description: Custom CSS via custom post type.
 Author: washingtonstateuniversity, jeremyfelt, automattic
-Version: 2.0.0
+Version: 2.1.0
 */
 
 /**
@@ -60,7 +60,14 @@ class WSU_Custom_CSS {
 		}
 
 		add_action( 'admin_enqueue_scripts', array( 'WSU_Custom_CSS', 'enqueue_scripts'       )        );
-		add_action( 'wp_head',               array( 'WSU_Custom_CSS', 'link_tag'              ), 101   );
+
+		$current_theme = wp_get_theme();
+
+		if ( 'spine' === $current_theme->template ) {
+			add_action( 'spine_enqueue_styles', array( 'WSU_Custom_CSS', 'link_tag' ), 10 );
+		} else {
+			add_action( 'wp_head',               array( 'WSU_Custom_CSS', 'link_tag'              ), 101   );
+		}
 
 		if ( !current_user_can( 'switch_themes' ) && !is_super_admin() ) {
 			return;
@@ -542,9 +549,19 @@ class WSU_Custom_CSS {
 		if ( WSU_Custom_CSS::is_preview() ) {
 			$href = add_query_arg( 'csspreview', 'true', $href );
 		}
-		?>
-		<link rel="stylesheet" id="custom-css-css" type="text/css" href="<?php echo esc_url( $href ); ?>" />
-		<?php
+
+		$current_theme = wp_get_theme();
+
+		// We plan on the style being enqueued in the Spine parent theme. This should be considered temporary
+		// until we can rewrite to handle more than the Spine theme.
+		if ( 'spine' === $current_theme->template ) {
+			wp_enqueue_style( 'spine-custom-css', esc_url( $href ), array(), spine_get_script_version() );
+		} else {
+			?>
+			<link rel="stylesheet" id="custom-css-css" type="text/css" href="<?php echo esc_url( $href ); ?>" />
+			<?php
+		}
+
 
 		do_action( 'safecss_link_tag_post' );
 	}
