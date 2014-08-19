@@ -19,6 +19,7 @@ cd "/var/repos/$2"
 # Checkout the project's master, fetch all changes, and then check out the
 # tag specified by the deploy request.
 unset GIT_DIR
+git checkout -- .
 git checkout master
 git fetch --all
 git checkout $1
@@ -29,25 +30,38 @@ git checkout $1
 find "/var/repos/$2" -type d -exec chmod 775 {} \;
 find "/var/repos/$2" -type f -exec chmod 664 {} \;
 
-# Our default action, a public theme being deployed by the team, requires
-# that we pull the tagged version of the theme and move it to the private
-# directory for full build and deploy. Private in this case means it is
-# not part of the collective public build of themes, but is a standalone
-# of any sort.
-if [ 'theme-public' == $4 ]; then
+# Individual themes can be private or public. All go into the individual directory
+# on the server. For private repositories, the deploy relationship should be
+# configured on the server first so that the public key is properly entered in
+# the repository's deployment settings.
+if [ 'theme-individual' == $4 ]; then
   # Remove the old theme directory if it exists.
-  if [ -d "/var/repos/wsuwp-platform/build-themes/private/$2" ]; then
-    rm -fr "/var/repos/wsuwp-platform/build-themes/private/$2"
+  if [ -d "/var/repos/wsuwp-platform/build-themes/individual/$2" ]; then
+    rm -fr "/var/repos/wsuwp-platform/build-themes/individual/$2"
   fi
 
-  # Copy over the new theme directory and remove its .git directory. We are
-  # unable to use rsync for this due to some restrictions on the server.
-  cp -r "/var/repos/$2" "/var/repos/wsuwp-platform/build-themes/private/$2"
-  rm -rf "/var/repos/wsuwp-platform/build-themes/private/$2/.git"
+  # Cpy over the new theme directory and remove its .git directory.
+  cp -r "/var/repos/$2" "/var/repos/wsuwp-platform/build-themes/individual/$2"
+  rm -rf "/var/repos/wsuwp-platform/build-themes/individual/$2/.git"
 fi
 
-# Our public plugins build is in a very specific place and does not follow
-# the git procedure that other actions follow.
+# Individual plugins can be private or public. All go into the individual directory
+# on the server. For private repositories, the deploy relationship should be
+# configured on the server first so that the public key is properly entered in
+# the repository's deployment settings.
+if [ 'plugin-individual' == $4 ]; then
+  # Remove the old plugin directory if it exists.
+  if [ -d "/var/repos/wsuwp-platform/build-plugins/individual/$2" ]; then
+    rm -fr "/var/repos/wsuwp-platform/build-plugins/individual/$2"
+  fi
+
+  # Copy over the new plugin directory and remove its .git directory.
+  cp -r "/var/repos/$2" "/var/repos/wsuwp-platform/build-plugins/individual/$2"
+  rm -rf "/var/repos/wsuwp-platform/build-themes/individual/$2/.git"
+fi
+
+# Replace the entire build-plugins/public directory when deploying a new
+# version of the public plugins group.
 if [ 'build-plugins-public' == $4 ]; then
   # Remove the old public directory if it exists.
   if [ -d "/var/repos/wsuwp-platform/build-plugins/public" ]; then
@@ -59,8 +73,21 @@ if [ 'build-plugins-public' == $4 ]; then
   rm -rf "/var/repos/wsuwp-platform/build-plugins/public/.git"
 fi
 
-# Our public themes build is in a very specific place and does not follow
-# the git procedure that other actions follow.
+# Replace the entire build-plugins/private directory when deploying a new
+# version of the private plugins group.
+if [ 'build-plugins-private' == $4 ]; then
+  # Remove the old public directory if it exists.
+  if [ -d "/var/repos/wsuwp-platform/build-plugins/private" ]; then
+    rm -fr "/var/repos/wsuwp-platform/build-plugins/private"
+  fi
+
+  # Copy over the new private plugins directory and remove its .git directory.
+  cp -r "/var/repos/$2" "/var/repos/wsuwp-platform/build-plugins/private"
+  rm -rf "/var/repos/wsuwp-platform/build-plugins/private/.git"
+fi
+
+# Replace the entire build-themes/public directory when deploying a new
+# version of the public themes group.
 if [ 'build-themes-public' == $4 ]; then
   # Remove the old public directory if it exists.
   if [ -d "/var/repos/wsuwp-platform/build-themes/public" ]; then
@@ -70,6 +97,19 @@ if [ 'build-themes-public' == $4 ]; then
   # Copy over the new public themes directory and remove its .git directory.
   cp -r "/var/repos/$2" "/var/repos/wsuwp-platform/build-themes/public"
   rm -rf "/var/repos/wsuwp-platform/build-themes/public/.git"
+fi
+
+# Replace the entire build-themes/private directory when deploying a new
+# version of the private themes group.
+if [ 'build-themes-private' == $4 ]; then
+  # Remove the old private directory if it exists.
+  if [ -d "/var/repos/wsuwp-platform/build-themes/private" ]; then
+    rm -rf "/var/repos/wsuwp-platform/build-themes/private"
+  fi
+
+  # Copy over the new private themes directory and remove its .git directory.
+  cp -r "/var/repos/$2" "/var/repos/wsuwp-platform/build-themes/private"
+  rm -rf "/var/repos/wsuwp-platform/build-themes/private/.git"
 fi
 
 # Build the project to prep for deployment.

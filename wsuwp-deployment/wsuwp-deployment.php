@@ -4,7 +4,7 @@ Plugin Name: WSUWP Deployment
 Plugin URI: http://web.wsu.edu
 Description: Receive deploy requests in WordPress and act accordingly.
 Author: washingtonstateuniversity, jeremyfelt
-Version: 0.3.0
+Version: 1.0.0
 */
 
 class WSU_Deployment {
@@ -23,12 +23,12 @@ class WSU_Deployment {
 	 * @var array List of deploy types allowed by default.
 	 */
 	var $allowed_deploy_types = array(
-		'theme-public',
-		'theme-private',
+		'theme-individual',
+		'plugin-individual',
 		'build-plugins-public',
+		'build-plugins-private',
 		'build-themes-public',
-		'plugin-public',
-		'plugin-private',
+		'build-themes-private',
 		'platform'
 	);
 
@@ -197,7 +197,7 @@ class WSU_Deployment {
 	 * Hand deployment details to the relevant script on the production machine. Script
 	 * is called as:
 	 *
-	 * deploy-build.sh 0.0.1 directory-of-theme https://github.com/washingtonstateuniversity/repository.git theme-public
+	 * deploy-build.sh 0.0.1 directory-of-theme https://github.com/washingtonstateuniversity/repository.git theme-individual
 	 * SCRIPT ^        TAG ^ DIRECTORY ^        REPOSITORY URL ^                                            TYPE ^
 	 *
 	 * @param string  $tag  Tagged version being deployed.
@@ -213,7 +213,7 @@ class WSU_Deployment {
 
 		$deploy_type = get_post_meta( $post->ID, '_deploy_type', true );
 		if ( ! in_array( $deploy_type, $this->allowed_deploy_types ) ) {
-			$deploy_type = 'theme-public';
+			$deploy_type = 'theme-individual';
 		}
 
 		$repository_url = get_post_meta( $post->ID, '_repository_url', true );
@@ -310,24 +310,26 @@ class WSU_Deployment {
 
 		// Force a deployment type from those we expect.
 		if ( ! in_array( $deployment_type, $this->allowed_deploy_types ) ) {
-			$deployment_type = 'theme-public';
+			$deployment_type = 'theme-individual';
 		}
 
 		wp_nonce_field( 'wsuwp-save-deploy-type', '_wsuwp_deploy_type_nonce' );
 		?>
 		<label for="wsuwp_deploy_type">Deployment Type:</label>
 		<select name="wsuwp_deploy_type" id="wsuwp_deploy_type">
-			<option value="theme-public" <?php selected( 'theme-public', $deployment_type, true ); ?>>Public Theme</option>
-			<option value="theme-private" <?php selected( 'theme-private', $deployment_type, true ); ?>>Private Theme</option>
-			<option value="plugin-private" <?php selected( 'plugin-private', $deployment_type, true ); ?>>Private Plugin</option>
+			<option value="theme-individual" <?php selected( 'theme-individual', $deployment_type, true ); ?>>Individual Theme</option>
+			<option value="plugin-individual" <?php selected( 'plugin-individual', $deployment_type, true ); ?>>Individual Plugin</option>
 			<option value="build-plugins-public" <?php selected( 'build-plugins-public', $deployment_type, true ); ?>>Build Plugins Public</option>
+			<option value="build-plugins-private" <?php selected( 'build-plugins-private', $deployment_type, true ); ?>>Build Plugins Private</option>
+			<option value="build-themes-public" <?php selected( 'build-themes-public', $deployment_type, true ); ?>>Build Themes Public</option>
+			<option value="build-themes-private" <?php selected( 'build-themes-private', $deployment_type, true ); ?>>Build Themes Private</option>
 			<option value="platform" <?php selected( 'platform', $deployment_type, true ); ?>>Platform</option>
 		</select>
 		<?php
 	}
 
 	/**
-	 * Save the deployment type to meta for the deployment instance. By default, we'll assume "theme-public".
+	 * Save the deployment type to meta for the deployment instance. By default, we'll assume "theme-individual".
 	 *
 	 * @param int     $post_id ID of the post being saved.
 	 * @param WP_Post $post    Post being saved.
@@ -350,7 +352,7 @@ class WSU_Deployment {
 		}
 
 		if ( ! isset( $_POST['wsuwp_deploy_type'] ) || ! in_array( $_POST['wsuwp_deploy_type'], $this->allowed_deploy_types ) ) {
-			$deploy_type = 'theme-public';
+			$deploy_type = 'theme-individual';
 		} else {
 			$deploy_type = $_POST['wsuwp_deploy_type'];
 		}
