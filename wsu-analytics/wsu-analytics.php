@@ -13,7 +13,7 @@ class WSU_Analytics {
 	/**
 	 * @var string The current version of this plugin, or used to break script cache.
 	 */
-	var $version = '0.0.5';
+	var $version = '0.1.0';
 
 	/**
 	 * Add our hooks.
@@ -128,6 +128,22 @@ class WSU_Analytics {
 
 		// The GA ID is ours by default, but can be filtered.
 		$global_id = apply_filters( 'wsu_analytics_ga_id', 'UA-52133513-1' );
+
+		if ( is_blog_admin() ) {
+			$page_view_type = 'Site Admin';
+		} elseif ( is_network_admin() ) {
+			$page_view_type = 'Network Admin';
+		} elseif ( ! is_admin() ) {
+			$page_view_type = 'Front End';
+		} else {
+			$page_view_type = 'Unknown';
+		}
+
+		if ( is_user_logged_in() ) {
+			$authenticated_user = 'Authenticated';
+		} else {
+			$authenticated_user = 'Not Authenticated';
+		}
 		?>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -135,6 +151,8 @@ class WSU_Analytics {
 				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 			ga('create', '<?php echo esc_attr( $global_id ); ?>', '<?php echo esc_attr( $cookie_domain ); ?>');
+			ga('set', 'dimension1', '<?php echo $page_view_type; ?>' );
+			ga('set', 'dimension2', '<?php echo $authenticated_user; ?>' );
 			ga('send', 'pageview');
 		</script>
 		<?php
