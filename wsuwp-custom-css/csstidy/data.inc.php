@@ -396,6 +396,7 @@ $GLOBALS['csstidy']['all_properties']['drop-initial-size'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['drop-initial-value'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['elevation'] = 'CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['empty-cells'] = 'CSS2.0,CSS2.1,CSS3.0';
+$GLOBALS['csstidy']['all_properties']['fill'] = 'CSS3.0'; // This is really SVG, not CSS 3.0.
 $GLOBALS['csstidy']['all_properties']['fit'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['fit-position'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['flex-align'] = 'CSS3.0';
