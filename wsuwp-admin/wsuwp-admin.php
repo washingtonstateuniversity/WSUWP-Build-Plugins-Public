@@ -4,7 +4,7 @@ Plugin Name: WSU Admin
 Plugin URI: http://web.wsu.edu
 Description: Customized portions of the admin area of WordPress for Washington State University
 Author: washingtonstateuniversity, jeremyfelt
-Version: 0.0.1
+Version: 0.1.0
 */
 
 class WSU_Admin {
@@ -16,6 +16,7 @@ class WSU_Admin {
 		add_filter( 'manage_posts_columns', array( $this, 'add_last_updated_column' ) );
 		add_action( 'manage_pages_custom_column', array( $this, 'last_updated_column_data' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'last_updated_column_data' ), 10, 2 );
+		add_filter( 'srm_max_redirects', array( $this, 'srm_max_redirects' ), 10, 1 );
 	}
 
 	/**
@@ -57,6 +58,15 @@ class WSU_Admin {
 			}
 			break;
 		}
+	}
+
+	/**
+	 * Filter the number of redirects supported by Safe Redirect Manager from the default of 150.
+	 *
+	 * @return int Number of redirects supported.
+	 */
+	public function srm_max_redirects() {
+		return 500;
 	}
 }
 new WSU_Admin();
