@@ -21,7 +21,7 @@
 			}
 		},
 		{
-			"element":"a[href*='portal.wsu.edu'],a[href*='applyweb.com/public/inquiry']",
+			"element":"a[href*='zzusis.wsu.edu'],a[href*='portal.wsu.edu'],a[href*='applyweb.com/public/inquiry']",
 			"options":{
 				"skip_internal":"true",
 				"mode":"event,_link",
