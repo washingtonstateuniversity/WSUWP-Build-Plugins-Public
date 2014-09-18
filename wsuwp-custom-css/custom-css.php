@@ -4,7 +4,7 @@ Plugin Name: WSU Custom CSS
 Plugin URI: http://web.wsu.edu
 Description: Custom CSS via custom post type.
 Author: washingtonstateuniversity, jeremyfelt, automattic
-Version: 2.1.1
+Version: 2.1.2
 */
 
 /**
@@ -427,17 +427,11 @@ class WSU_Custom_CSS {
 		$option = ( WSU_Custom_CSS::is_preview() ) ? 'safecss_preview' : 'safecss';
 
 		if ( 'safecss' == $option ) {
-			// Don't bother checking for a migrated 'safecss' option if it never existed
-			if ( false === get_option( 'safecss' ) || get_option( 'safecss_revision_migrated' ) ) {
-				$safecss_post = WSU_Custom_CSS::get_post();
-				$css = ( $compressed && $safecss_post['post_content_filtered'] ) ? $safecss_post['post_content_filtered'] : $safecss_post['post_content'];
+			$current_revision = WSU_Custom_CSS::get_current_revision();
+			if ( false === $current_revision ) {
+				$css = '';
 			} else {
-				$current_revision = WSU_Custom_CSS::get_current_revision();
-				if ( false === $current_revision ) {
-					$css = '';
-				} else {
-					$css = ( $compressed && $current_revision['post_content_filtered'] ) ? $current_revision['post_content_filtered'] : $current_revision['post_content'];
-				}
+				$css = ( $compressed && $current_revision['post_content_filtered'] ) ? $current_revision['post_content_filtered'] : $current_revision['post_content'];
 			}
 
 			// Fix for un-migrated Custom CSS
