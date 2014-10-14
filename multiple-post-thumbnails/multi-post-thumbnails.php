@@ -3,7 +3,7 @@
 Plugin Name: Multiple Post Thumbnails
 Plugin URI: http://wordpress.org/extend/plugins/multiple-post-thumbnails/
 Description: Adds the ability to add multiple post thumbnails to a post type.
-Version: 1.6.1
+Version: 1.6.3
 Author: Chris Scott
 Author URI: http://voceplatforms.com/
 */
@@ -170,7 +170,7 @@ if (!class_exists('MultiPostThumbnails')) {
 		 * @return void
 		 */
 		public function enqueue_admin_scripts( $hook ) {
-			global $wp_version;
+			global $wp_version, $post_ID;
 			
 			// only load on select pages
 			if ( ! in_array( $hook, array( 'post-new.php', 'post.php', 'media-upload-popup' ) ) )
@@ -180,7 +180,7 @@ if (!class_exists('MultiPostThumbnails')) {
 				add_thickbox();
 				wp_enqueue_script( "mpt-featured-image", $this->plugins_url( 'js/multi-post-thumbnails-admin.js', __FILE__ ), array( 'jquery', 'media-upload' ) );
 			} else { // 3.5+ media modal
-				wp_enqueue_media();
+				wp_enqueue_media( array( 'post' => ( $post_ID ? $post_ID : null ) ) );
 				wp_enqueue_script( "mpt-featured-image", $this->plugins_url( 'js/multi-post-thumbnails-admin.js', __FILE__ ), array( 'jquery', 'set-post-thumbnail' ) );
 				wp_enqueue_script( "mpt-featured-image-modal", $this->plugins_url( 'js/media-modal.js', __FILE__ ), array( 'jquery', 'media-models' ) );				
 			}
@@ -410,7 +410,7 @@ if (!class_exists('MultiPostThumbnails')) {
 				$content .= sprintf('<script>%s</script>', $modal_js);
 			}
 			
-			return $content;
+			return apply_filters( sprintf( '%s_%s_admin_post_thumbnail_html', $this->post_type, $this->id ), $content, $post_ID, $thumbnail_id );
 		}
 
 		/**
