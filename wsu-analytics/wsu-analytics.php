@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Analytics
-Version: 0.1.2
+Version: 0.1.3
 Plugin URI: http://web.wsu.edu
 Description: Manages analytics for sites on the WSUWP Platform
 Author: washingtonstateuniversity, jeremyfelt
@@ -13,7 +13,7 @@ class WSU_Analytics {
 	/**
 	 * @var string The current version of this plugin, or used to break script cache.
 	 */
-	var $version = '0.1.2';
+	var $version = '0.1.3';
 
 	/**
 	 * Add our hooks.
@@ -158,4 +158,4 @@ class WSU_Analytics {
 		<?php
 	}
 }
-new WSU_Analytics();
+$wsu_analytics = new WSU_Analytics();
