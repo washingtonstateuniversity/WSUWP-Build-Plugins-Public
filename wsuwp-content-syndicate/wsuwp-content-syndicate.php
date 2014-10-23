@@ -4,7 +4,7 @@ Plugin Name: WSU Content Syndicate
 Plugin URI: http://web.wsu.edu
 Description: Retrieve content for display from throughout Washington State University
 Author: washingtonstateuniversity, jeremyfelt
-Version: 0.2.0
+Version: 0.2.1
 */
 
 class WSU_Content_Syndicate {
@@ -54,6 +54,12 @@ class WSU_Content_Syndicate {
 
 		if ( ( 'edu' !== $host_edu || 'wsu' !== $host_wsu ) && false === apply_filters( 'wsu_consyn_valid_domain', false, $host['host'] ) ) {
 			return '<!-- wsuwp_json ERROR - not a valid domain -->';
+		}
+
+		$atts_key = md5( serialize( $atts ) );
+
+		if ( $content = wp_cache_get( $atts_key, 'wsuwp_content' ) ) {
+			return apply_filters( 'wsuwp_content_syndicate_json', $content, $atts );
 		}
 
 		// If a University Category slug is provided, ignore the query.
@@ -135,6 +141,8 @@ class WSU_Content_Syndicate {
 		echo '<script>var ' . esc_js( $atts['object'] ) . ' = ' . $data . ';</script>';
 		$content = ob_get_contents();
 		ob_end_clean();
+
+		wp_cache_add( $atts_key, $content, 'wsuwp_content', 300 );
 
 		$content = apply_filters( 'wsuwp_content_syndicate_json', $content, $atts );
 
