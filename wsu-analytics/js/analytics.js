@@ -30,6 +30,17 @@
 				"overwrites":"true"
 			}
 		},
+		// The MME faculty page URLS end with a non key/value parameter - e.g. faculty.html?jfelt - and don't like extra parameters.
+		{
+			"element":"a[href*='www.mme.wsu.edu/people/faculty/faculty.html']",
+			"options":{
+				"skip_internal":"true",
+				"mode":"event,_link",
+				"category":"internal",
+				"skip_campaign":"true",
+				"overwrites":"true"
+			}
+		},
 		{
 			"element":".youtube,.youtube2",
 			"options":{
