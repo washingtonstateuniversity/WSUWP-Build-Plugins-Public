@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Search
-Version: 0.4.0
+Version: 0.5.0
 Plugin URI: http://web.wsu.edu
 Description: Connects to Search
 Author: washingtonstateuniversity, jeremyfelt
@@ -49,6 +49,12 @@ class WSU_Search {
 			return NULL;
 		}
 
+		// The Restricted Site Access plugin sets `blog_public` to 2 for restricted sites. A "private"
+		// site is set to 0. We should only index if this is set to 1.
+		if ( 1 != get_option( 'blog_public' ) ) {
+			return NULL;
+		}
+
 		if ( 'publish' !== $post->post_status ) {
 			$this->remove_post_from_index( $post_id );
 			return NULL;
@@ -73,8 +79,10 @@ class WSU_Search {
 		$data['title'] = $post->post_title;
 		$data['date'] = $post->post_date;
 		$data['modified'] = $post->post_modified;
+		$data['author'] = get_the_author();
 		$data['content'] = $post->post_content;
 		$data['url'] = get_permalink( $post->ID );
+		$data['generator'] = apply_filters( 'wsusearch_schema_generator', 'wsuwp' );
 		$data['post_type'] = $post->post_type;
 
 		// Information about the site and network this came from.
@@ -97,6 +105,11 @@ class WSU_Search {
 		// Map each registered public taxonomy to the Elasticsearch document.
 		$taxonomies = get_taxonomies( array( 'public' => true ) );
 
+		// Don't index post format.
+		if ( isset( $taxonomies['post_format'] ) ) {
+			unset( $taxonomies['post_format'] );
+		}
+
 		foreach ( $taxonomies as $taxonomy ) {
 			$post_terms = wp_get_object_terms( $post->ID, $taxonomy, array( 'fields' => 'slugs' ) );
 			if ( ! is_wp_error( $post_terms ) ) {
@@ -116,12 +129,15 @@ class WSU_Search {
 
 		$args['body'] = json_encode( $data );
 
+		// wp_remote_retrieve_body handles a possible WP_Error from wp_remote_post.
 		$response = wp_remote_post( $request_url, $args );
 		$response = wp_remote_retrieve_body( $response );
 
 		if ( ! empty( $response ) ) {
 			$response_data = json_decode( $response );
-			update_post_meta( $post->ID, '_wsusearch_doc_id', $this->_sanitize_es_id( $response_data->_id ) );
+			if ( isset( $response_data->_id ) ) {
+				update_post_meta( $post->ID, '_wsusearch_doc_id', $this->_sanitize_es_id( $response_data->_id ) );
+			}
 		}
 	}
 
