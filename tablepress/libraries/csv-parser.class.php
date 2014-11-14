@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-// Prohibit direct script loading
+// Prohibit direct script loading.
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 /**
@@ -24,7 +24,6 @@ class CSV_Parser {
 	 * The used character for the enclosure of a cell. Defaults to quotation mark ".
 	 *
 	 * @since 1.0.0
-	 *
 	 * @var string
 	 */
 	protected $enclosure = '"';
@@ -33,8 +32,7 @@ class CSV_Parser {
 	 * Number of rows to analyze when attempting to auto-detect the CSV delimiter.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @var integer
+	 * @var int
 	 */
 	protected $delimiter_search_max_lines = 15;
 
@@ -42,7 +40,6 @@ class CSV_Parser {
 	 * Characters to ignore when attempting to auto-detect delimiter.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @var string
 	 */
 	protected $non_delimiter_chars = "a-zA-Z0-9\n\r";
@@ -51,7 +48,6 @@ class CSV_Parser {
 	 * The preferred delimiter characters, only used when all filtering method return multiple possible delimiters (happens very rarely).
 	 *
 	 * @since 1.0.0
-	 *
 	 * @var string
 	 */
 	protected $preferred_delimiter_chars = ";,\t";
@@ -60,7 +56,6 @@ class CSV_Parser {
 	 * The CSV data string that shall be parsed to an array.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @var string
 	 */
 	protected $import_data;
@@ -74,8 +69,7 @@ class CSV_Parser {
 	 *     or does not follow the common CSV standard. Please validate the parsed data manually.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @var integer
+	 * @var int
 	 */
 	public $error = 0;
 
@@ -83,7 +77,6 @@ class CSV_Parser {
 	 * Detailed error information.
 	 *
 	 * @since 1.0.0
-	 *
 	 * @var array
 	 */
 	public $error_info = array();
@@ -94,7 +87,7 @@ class CSV_Parser {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		// Intentionally left blank.
+		// Unused.
 	}
 
 	/**
@@ -106,7 +99,7 @@ class CSV_Parser {
 	 */
 	public function load_data( $data ) {
 		// Check for mandatory trailing line break.
-		if ( substr( $data, -1 ) !== "\n" ) {
+		if ( "\n" !== substr( $data, -1 ) ) {
 			$data .= "\n";
 		}
 		$this->import_data = $data;
@@ -129,19 +122,19 @@ class CSV_Parser {
 		// Walk through each character in the CSV string (up to $this->delimiter_search_max_lines) and search potential delimiter characters.
 		$data_length = strlen( $data );
 		for ( $i = 0; $i < $data_length; $i++ ) {
-			$prev_char = ( $i-1 >= 0 ) ? $data[ $i-1 ] : '';
+			$prev_char = ( $i - 1 >= 0 ) ? $data[ $i - 1 ] : '';
 			$curr_char = $data[ $i ];
-			$next_char = ( $i+1 < $data_length ) ? $data[ $i+1 ] : '';
+			$next_char = ( $i + 1 < $data_length ) ? $data[ $i + 1 ] : '';
 
 			if ( $curr_char === $this->enclosure ) {
-				// Open and closing quotes
+				// Open and closing quotes.
 				if ( ! $enclosed || $next_char !== $this->enclosure ) {
-					$enclosed = ! $enclosed; // Flip bool
+					$enclosed = ! $enclosed; // Flip bool.
 				} elseif ( $enclosed ) {
-					$i++; // Skip next character
+					$i++; // Skip next character.
 				}
 			} elseif ( ( "\n" === $curr_char && "\r" !== $prev_char || "\r" === $curr_char ) && ! $enclosed ) {
-				// Reached end of a line
+				// Reached end of a line.
 				$current_line++;
 				if ( $current_line >= $this->delimiter_search_max_lines ) {
 					break;
@@ -158,7 +151,7 @@ class CSV_Parser {
 			}
 		}
 
-		// Find most probable delimiter, by sorting their counts
+		// Find most probable delimiter, by sorting their counts.
 		$potential_delimiters = array();
 		foreach ( $delimiter_count as $char => $line_counts ) {
 			$is_possible_delimiter = $this->_check_delimiter_count( $char, $line_counts, $current_line );
@@ -167,7 +160,7 @@ class CSV_Parser {
 			}
 		}
 		ksort( $potential_delimiters );
-		// Return first array element, as that has the highest count
+		// Return first array element, as that has the highest count.
 		return array_shift( $potential_delimiters );
 	}
 
@@ -187,28 +180,28 @@ class CSV_Parser {
 			return false;
 		}
 
-		// Check if the count in every line is the same (or one higher for an "almost")
+		// Check if the count in every line is the same (or one higher for an "almost").
 		$first = null;
 		$equal = null;
 		$almost = false;
 		foreach ( $line_counts as $line => $count ) {
 			if ( is_null( $first ) ) {
 				$first = $count;
-			} elseif ( $count === $first && false !=== $equal ) {
+			} elseif ( $count === $first && false !== $equal ) {
 				$equal = true;
-			} elseif ( $count === $first + 1 && false !=== $equal ) {
+			} elseif ( $count === $first + 1 && false !== $equal ) {
 				$equal = true;
 				$almost = true;
 			} else {
 				$equal = false;
 			}
 		}
-		// Check equality only if there's more than one line
+		// Check equality only if there's more than one line.
 		if ( $number_lines > 1 && ! $equal ) {
 			return false;
 		}
 
-		// At this point, count is equal in all lines, so determine a string to sort priority
+		// At this point, count is equal in all lines, so determine a string to sort priority.
 		$match = ( $almost ) ? 2 : 1 ;
 		$pref = strpos( $this->preferred_delimiter_chars, $char );
 		$pref = ( false !== $pref ) ? str_pad( $pref, 3, '0', STR_PAD_LEFT ) : '999';
@@ -226,25 +219,26 @@ class CSV_Parser {
 	public function parse( $delimiter ) {
 		$data = &$this->import_data;
 
-		$white_spaces = str_replace( $delimiter, '', " \t\x0B\0" ); // Filter delimiter from the list, if it is a whitespace character
+		// Filter delimiter from the list, if it is a whitespace character.
+		$white_spaces = str_replace( $delimiter, '', " \t\x0B\0" );
 
-		$rows = array(); // Complete rows
-		$row = array(); // Row that is currently built
-		$column = 0; // Current column index
-		$cell_content = ''; // Content of the currently processed cell
+		$rows = array(); // Complete rows.
+		$row = array(); // Row that is currently built.
+		$column = 0; // Current column index.
+		$cell_content = ''; // Content of the currently processed cell.
 		$enclosed = false;
-		$was_enclosed = false; // To determine if the cell content will be trimmed of whitespace (only for enclosed cells)
+		$was_enclosed = false; // To determine if the cell content will be trimmed of whitespace (only for enclosed cells).
 
-		// Walk through each character in the CSV string
+		// Walk through each character in the CSV string.
 		$data_length = strlen( $data );
 		for ( $i = 0; $i < $data_length; $i++ ) {
 			$curr_char = $data[ $i ];
-			$next_char = ( $i+1 < $data_length ) ? $data[ $i+1 ] : '';
+			$next_char = ( $i + 1 < $data_length ) ? $data[ $i + 1 ] : '';
 
 			if ( $curr_char === $this->enclosure ) {
-				// Open/close quotes, and inline quotes
+				// Open/close quotes, and inline quotes.
 				if ( ! $enclosed ) {
-					if ( '' == ltrim( $cell_content, $white_spaces ) ) {
+					if ( '' === ltrim( $cell_content, $white_spaces ) ) {
 						$enclosed = true;
 						$was_enclosed = true;
 					} else {
@@ -262,12 +256,12 @@ class CSV_Parser {
 						$cell_content .= $curr_char;
 					}
 				} elseif ( $next_char === $this->enclosure ) {
-					// Enclosure character within enclosed cell (" encoded as "")
+					// Enclosure character within enclosed cell (" encoded as "").
 					$cell_content .= $curr_char;
 					$i++; // Skip next character
 				} elseif ( $next_char !== $delimiter && "\r" !== $next_char && "\n" !== $next_char ) {
-					// for-loop (instead of while-loop) that skips whitespace
-					for ( $x = ( $i+1 ); isset( $data[ $x ] ) && '' === ltrim( $data[ $x ], $white_spaces ); $x++ ) {}
+					// for-loop (instead of while-loop) that skips whitespace.
+					for ( $x = ( $i + 1 ); isset( $data[ $x ] ) && '' === ltrim( $data[ $x ], $white_spaces ); $x++ ) {}
 					if ( $data[ $x ] === $delimiter ) {
 						$enclosed = false;
 						$i = $x;
@@ -289,29 +283,30 @@ class CSV_Parser {
 						$enclosed = false;
 					}
 				} else {
-					// The " was the closing one for the cell
+					// The " was the closing one for the cell.
 					$enclosed = false;
 				}
 			} elseif ( ( $curr_char === $delimiter || "\n" === $curr_char || "\r" === $curr_char ) && ! $enclosed ) {
-				// End of cell (by $delimiter), or end of line (by line break, and not enclosed!)
+				// End of cell (by $delimiter), or end of line (by line break, and not enclosed!).
 
 				$row[ $column ] = ( $was_enclosed ) ? $cell_content : trim( $cell_content );
 				$cell_content = '';
 				$was_enclosed = false;
 				$column++;
 
-				// End of line
+				// End of line.
 				if ( "\n" === $curr_char || "\r" === $curr_char ) {
-					// Append completed row
+					// Append completed row.
 					$rows[] = $row;
 					$row = array();
 					$column = 0;
 					if ( "\r" === $curr_char && "\n" === $next_char ) {
-						$i++; // Skip next character in \r\n line breaks
+						// Skip next character in \r\n line breaks.
+						$i++;
 					}
 				}
 			} else {
-				// Append character to current cell
+				// Append character to current cell.
 				$cell_content .= $curr_char;
 			}
 		}
