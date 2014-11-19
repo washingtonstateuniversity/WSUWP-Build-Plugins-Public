@@ -5,7 +5,7 @@ Plugin URI: http://ucomm.wsu.edu/assets/
 Description: Allows users to register for assets.
 Author: washingtonstateuniversity, jeremyfelt
 Author URI: http://web.wsu.edu/
-Version: 0.2.2
+Version: 0.2.3
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
@@ -14,7 +14,7 @@ class WSU_UComm_Assets_Registration {
 	/**
 	 * @var string Script version used to break cache when needed.
 	 */
-	var $script_version = '0.2.2';
+	var $script_version = '0.2.3';
 
 	/**
 	 * @var string Post type slug for asset requests.
@@ -64,6 +64,7 @@ class WSU_UComm_Assets_Registration {
 		add_action( 'init',                         array( $this, 'register_post_type'   ), 10, 1 );
 		add_action( 'init',                         array( $this, 'temp_redirect'        ),  5, 1 );
 		add_action( 'wp_ajax_submit_asset_request', array( $this, 'submit_asset_request' ), 10, 1 );
+		add_action( 'wp_ajax_nopriv_submit_asset_request', array( $this, 'submit_asset_request' ), 10, 1 );
 		add_action( 'transition_post_status',       array( $this, 'grant_asset_access'   ), 10, 3 );
 		add_action( 'add_meta_boxes',               array( $this, 'add_meta_boxes'       ), 10, 2 );
 		add_action( 'save_post', array( $this, 'save_asset_file_types' ), 10, 3 );
