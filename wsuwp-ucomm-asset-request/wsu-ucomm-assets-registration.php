@@ -5,7 +5,7 @@ Plugin URI: http://ucomm.wsu.edu/assets/
 Description: Allows users to register for assets.
 Author: washingtonstateuniversity, jeremyfelt
 Author URI: http://web.wsu.edu/
-Version: 0.2.3
+Version: 0.2.4
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 */
 
@@ -14,7 +14,7 @@ class WSU_UComm_Assets_Registration {
 	/**
 	 * @var string Script version used to break cache when needed.
 	 */
-	var $script_version = '0.2.3';
+	var $script_version = '0.2.4';
 
 	/**
 	 * @var string Post type slug for asset requests.
@@ -62,7 +62,7 @@ class WSU_UComm_Assets_Registration {
 
 		add_action( 'wsuwp_sso_user_created',       array( $this, 'remove_user_roles'    ), 10, 1 );
 		add_action( 'init',                         array( $this, 'register_post_type'   ), 10, 1 );
-		add_action( 'init',                         array( $this, 'temp_redirect'        ),  5, 1 );
+		add_action( 'init',                         array( $this, 'https_redirect'        ),  5, 1 );
 		add_action( 'wp_ajax_submit_asset_request', array( $this, 'submit_asset_request' ), 10, 1 );
 		add_action( 'wp_ajax_nopriv_submit_asset_request', array( $this, 'submit_asset_request' ), 10, 1 );
 		add_action( 'transition_post_status',       array( $this, 'grant_asset_access'   ), 10, 3 );
@@ -74,12 +74,13 @@ class WSU_UComm_Assets_Registration {
 	}
 
 	/**
-	 * Add a temporary redirect to force all /assets/ traffic to /assets/font-request/ as that will
-	 * be the only asset available at first.
+	 * As our form requires visitors to be authenticated and makes requests to admin-ajax on the
+	 * back-end, we need to use HTTPS so that cookies and nonces translate properly throughout
+	 * the series of requests.
 	 */
-	public function temp_redirect() {
-		if ( '/assets/' === $_SERVER['REQUEST_URI'] ) {
-			wp_safe_redirect( site_url( '/font-request/' ) );
+	public function https_redirect() {
+		if ( '/font-request/' === $_SERVER['REQUEST_URI'] && ! is_ssl() ) {
+			wp_safe_redirect( str_replace( 'http://', 'https://', site_url( '/font-request/' ) ) );
 			die();
 		}
 	}
