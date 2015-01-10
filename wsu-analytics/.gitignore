@@ -1,0 +1,11 @@
+# Because OSX
+.DS_Store
+
+# Ignore Sublime project files.
+*.sublime*
+
+# Ignore PHPStorm project files.
+/.idea
+
+# Ignore Nod modules via Grunt.
+/node_modules/
