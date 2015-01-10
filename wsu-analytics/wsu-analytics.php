@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Analytics
-Version: 0.2.0
+Version: 0.2.1
 Plugin URI: http://web.wsu.edu
 Description: Manages analytics for sites on the WSUWP Platform
 Author: washingtonstateuniversity, jeremyfelt
@@ -13,7 +13,7 @@ class WSU_Analytics {
 	/**
 	 * @var string The current version of this plugin, or used to break script cache.
 	 */
-	var $version = '0.2.0';
+	var $version = '0.2.1';
 
 	/**
 	 * Add our hooks.
@@ -104,12 +104,7 @@ class WSU_Analytics {
 	}
 
 	public function mediaelement_scripts() {
-		global $wp_scripts;
-
-		wp_deregister_script( 'wp-mediaelement' );
-		$wp_scripts->registered['mediaelement']->extra['data'] = str_replace( '_wpmejsSettings', '_oldwpmejsSettings', $wp_scripts->registered['mediaelement']->extra['data'] );
 		wp_enqueue_script( 'wsu-mediaelement-events', plugins_url( '/js/mediaelement-events.js', __FILE__ ), array( 'mediaelement' ), false, true );
-		wp_enqueue_script( 'wp-mediaelement', '/wp-includes/js/mediaelement/wp-mediaelement.js', array( 'mediaelement' ), false, true );
 
 		return 'mediaelement';
 	}

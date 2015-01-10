@@ -1,6 +1,4 @@
-var _wpmejsSettings={
-	pluginPath: "/wp-includes/js/mediaelement/",
-	success: function( mejs ) {
+_wpmejsSettings.success = function( mejs ) {
 		//orginal default settings
 		var autoplay, loop;
 
@@ -33,5 +31,4 @@ var _wpmejsSettings={
 				jQuery.jtrack.trackEvent(pageTracker,"Audio", 'ending');
 			}, false);
 		}
-	}
-};
+	};
