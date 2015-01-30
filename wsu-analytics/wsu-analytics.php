@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Analytics
-Version: 0.2.1
+Version: 0.3.0
 Plugin URI: http://web.wsu.edu
 Description: Manages analytics for sites on the WSUWP Platform
 Author: washingtonstateuniversity, jeremyfelt
@@ -13,7 +13,7 @@ class WSU_Analytics {
 	/**
 	 * @var string The current version of this plugin, or used to break script cache.
 	 */
-	var $version = '0.2.1';
+	var $version = '0.3.0';
 
 	/**
 	 * Add our hooks.
@@ -25,6 +25,7 @@ class WSU_Analytics {
 		add_action( 'admin_init', array( $this, 'display_settings' ) );
 		add_action( 'wp_footer', array( $this, 'global_tracker' ), 999 );
 		add_action( 'admin_footer', array( $this, 'global_tracker' ), 999 );
+		add_action( 'wp_head', array( $this, 'display_site_verification' ), 99 );
 	}
 
 	/**
@@ -32,7 +33,11 @@ class WSU_Analytics {
 	 */
 	public function display_settings() {
 		register_setting( 'general', 'wsuwp_ga_id', array( $this, 'sanitize_ga_id' ) );
+		register_setting( 'general', 'wsuwp_google_verify', array( $this, 'sanitize_google_verify' ) );
+		register_setting( 'general', 'wsuwp_bing_verify', array( $this, 'sanitize_bing_verify' ) );
 		add_settings_field( 'wsuwp-ga-id', 'Google Analytics ID', array( $this, 'general_settings_ga_id'), 'general', 'default', array( 'label_for' => 'wsuwp_ga_id' ) );
+		add_settings_field( 'wsuwp-google-site-verify', 'Google Site Verification', array( $this, 'general_settings_google_site_verify' ), 'general', 'default', array( 'label_for' => 'wsuwp_google_verify' ) );
+		add_settings_field( 'wsuwp-bing-site-verify', 'Bing Site Verification', array( $this, 'general_settings_bing_site_verify' ), 'general', 'default', array( 'label_for' => 'wsuwp_bing_verify' ) );
 	}
 
 	/**
@@ -64,12 +69,68 @@ class WSU_Analytics {
 	}
 
 	/**
+	 * Sanitize the saved value for the Google Site Verification meta.
+	 *
+	 * @param string $google_verify
+	 *
+	 * @return string
+	 */
+	public function sanitize_google_verify( $google_verify ) {
+		return sanitize_text_field( $google_verify );
+	}
+
+	/**
+	 * Sanitize the saved value for the Bing Site Verification meta.
+	 *
+	 * @param $bing_verify
+	 *
+	 * @return string
+	 */
+	public function sanitize_bing_verify( $bing_verify ) {
+		return sanitize_text_field( $bing_verify );
+	}
+
+	/**
 	 * Display a field to capture the site's Google Analytics ID.
 	 */
 	public function general_settings_ga_id() {
 		$google_analytics_id = get_option( 'wsuwp_ga_id', false );
 
 		?><input id="wsuwp_ga_id" name="wsuwp_ga_id" value="<?php echo esc_attr( $google_analytics_id ); ?>" type="text" class="regular-text" /><?php
+	}
+
+	/**
+	 * Provide an input in general settings for the entry of Google Site Verification meta data.
+	 */
+	public function general_settings_google_site_verify() {
+		$google_verification = get_option( 'wsuwp_google_verify', false );
+
+		?><input id="wsuwp_google_verify" name="wsuwp_google_verify" value="<?php echo esc_attr( $google_verification ); ?>" type="text" class="regular-text" /><?php
+	}
+
+	/**
+	 * Provide an input in general settings for the entry of Bing Site Verification meta data.
+	 */
+	public function general_settings_bing_site_verify() {
+		$bing_verification = get_option( 'wsuwp_bing_verify', false );
+
+		?><input id="wsuwp_bing_verify" name="wsuwp_bing_verify" value="<?php echo esc_attr( $bing_verification ); ?>" type="text" class="regular-text" /><?php
+	}
+
+	/**
+	 * Output the verification tags used by Google and Bing to verify a site.
+	 */
+	public function display_site_verification() {
+		$google_verification = get_option( 'wsuwp_google_verify', false );
+		$bing_verification = get_option( 'wsuwp_bing_verify', false );
+
+		if ( $google_verification ) {
+			echo '<meta name="google-site-verification" content="' . esc_attr( $google_verification ) . '">' . "\n";
+		}
+
+		if ( $bing_verification ) {
+			echo '<meta name="msvalidate.01" content="' . esc_attr( $bing_verification ) . '" />' . "\n";
+		}
 	}
 
 	/**

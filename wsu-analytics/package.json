@@ -1,6 +1,6 @@
 {
 	"name": "wsuwp-plugin-analytics",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/washingtonstateuniversity/wsuwp-plugin-analytics.git"
