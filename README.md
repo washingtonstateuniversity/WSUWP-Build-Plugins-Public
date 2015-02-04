@@ -12,7 +12,6 @@
 * The Events Calendar
 * WordPress Importer
 * WP-API
-* WSU Analytics
 * WSU College Spots
 * WSU Extended Gravity Forms
 * WSU Fight Song
