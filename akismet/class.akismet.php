@@ -23,7 +23,7 @@ class Akismet {
 		self::$initiated = true;
 
 		add_action( 'wp_insert_comment', array( 'Akismet', 'auto_check_update_meta' ), 10, 2 );
-		add_action( 'preprocess_comment', array( 'Akismet', 'auto_check_comment' ), 1 );
+		add_filter( 'preprocess_comment', array( 'Akismet', 'auto_check_comment' ), 1 );
 		add_action( 'akismet_scheduled_delete', array( 'Akismet', 'delete_old_comments' ) );
 		add_action( 'akismet_scheduled_delete', array( 'Akismet', 'delete_old_comments_meta' ) );
 		add_action( 'akismet_schedule_cron_recheck', array( 'Akismet', 'cron_recheck' ) );
@@ -161,6 +161,7 @@ class Akismet {
 			if ( function_exists('wp_next_scheduled') && function_exists('wp_schedule_single_event') ) {
 				if ( !wp_next_scheduled( 'akismet_schedule_cron_recheck' ) ) {
 					wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
+					do_action( 'akismet_scheduled_recheck', 'invalid-response-' . $response[1] );
 				}
 			}
 
@@ -180,7 +181,7 @@ class Akismet {
 		self::set_last_comment( $commentdata );
 		self::fix_scheduled_recheck();
 
-		return self::$last_comment;
+		return $commentdata;
 	}
 	
 	public static function get_last_comment() {
@@ -547,6 +548,7 @@ class Akismet {
 		if ( get_option( 'akismet_alert_code' ) || $status == 'invalid' ) {
 			// since there is currently a problem with the key, reschedule a check for 6 hours hence
 			wp_schedule_single_event( time() + 21600, 'akismet_schedule_cron_recheck' );
+			do_action( 'akismet_scheduled_recheck', 'key-problem-' . get_option( 'akismet_alert_code' ) . '-' . $status );
 			return false;
 		}
 
@@ -608,6 +610,7 @@ class Akismet {
 
 				delete_comment_meta( $comment_id, 'akismet_rechecking' );
 				wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
+				do_action( 'akismet_scheduled_recheck', 'check-db-comment-' . $status );
 				return;
 			}
 			delete_comment_meta( $comment_id, 'akismet_rechecking' );
@@ -616,6 +619,7 @@ class Akismet {
 		$remaining = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->commentmeta} WHERE meta_key = 'akismet_error'" );
 		if ( $remaining && !wp_next_scheduled('akismet_schedule_cron_recheck') ) {
 			wp_schedule_single_event( time() + 1200, 'akismet_schedule_cron_recheck' );
+			do_action( 'akismet_scheduled_recheck', 'remaining' );
 		}
 	}
 
@@ -633,6 +637,7 @@ class Akismet {
 		if ( $future_check > $check_range ) {
 			wp_clear_scheduled_hook( 'akismet_schedule_cron_recheck' );
 			wp_schedule_single_event( time() + 300, 'akismet_schedule_cron_recheck' );
+			do_action( 'akismet_scheduled_recheck', 'fix-scheduled-recheck' );
 		}
 	}
 
@@ -809,11 +814,71 @@ class Akismet {
 			'timeout' => 15
 		);
 
-		$akismet_url = "http://{$http_host}/1.1/{$path}";
+		$akismet_url = $http_akismet_url = "http://{$http_host}/1.1/{$path}";
+
+		/**
+		 * Try SSL first; if that fails, try without it and don't try it again for a while.
+		 */
+
+		$ssl = $ssl_failed = false;
+
+		// Check if SSL requests were disabled fewer than X hours ago.
+		$ssl_disabled = get_option( 'akismet_ssl_disabled' );
+
+		if ( $ssl_disabled && $ssl_disabled < ( time() - 60 * 60 * 24 ) ) { // 24 hours
+			$ssl_disabled = false;
+			delete_option( 'akismet_ssl_disabled' );
+		}
+		else if ( $ssl_disabled ) {
+			do_action( 'akismet_ssl_disabled' );
+		}
+
+		if ( ! $ssl_disabled && function_exists( 'wp_http_supports') && ( $ssl = wp_http_supports( array( 'ssl' ) ) ) ) {
+			$akismet_url = set_url_scheme( $akismet_url, 'https' );
+
+			do_action( 'akismet_https_request_pre' );
+		}
+
 		$response = wp_remote_post( $akismet_url, $http_args );
+
 		Akismet::log( compact( 'akismet_url', 'http_args', 'response' ) );
-		if ( is_wp_error( $response ) )
+
+		if ( $ssl && is_wp_error( $response ) ) {
+			do_action( 'akismet_https_request_failure', $response );
+
+			// Intermittent connection problems may cause the first HTTPS
+			// request to fail and subsequent HTTP requests to succeed randomly.
+			// Retry the HTTPS request once before disabling SSL for a time.
+			$response = wp_remote_post( $akismet_url, $http_args );
+			
+			Akismet::log( compact( 'akismet_url', 'http_args', 'response' ) );
+
+			if ( is_wp_error( $response ) ) {
+				$ssl_failed = true;
+
+				do_action( 'akismet_https_request_failure', $response );
+
+				do_action( 'akismet_http_request_pre' );
+
+				// Try the request again without SSL.
+				$response = wp_remote_post( $http_akismet_url, $http_args );
+
+				Akismet::log( compact( 'http_akismet_url', 'http_args', 'response' ) );
+			}
+		}
+
+		if ( is_wp_error( $response ) ) {
+			do_action( 'akismet_request_failure', $response );
+
 			return array( '', '' );
+		}
+
+		if ( $ssl_failed ) {
+			// The request failed when using SSL but succeeded without it. Disable SSL for future requests.
+			update_option( 'akismet_ssl_disabled', time() );
+			
+			do_action( 'akismet_https_disabled' );
+		}
 
 		return array( $response['headers'], $response['body'] );
 	}
