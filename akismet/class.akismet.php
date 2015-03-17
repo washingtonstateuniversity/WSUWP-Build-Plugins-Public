@@ -42,6 +42,9 @@ class Akismet {
 		
 		add_action( 'transition_comment_status', array( 'Akismet', 'transition_comment_status' ), 10, 3 );
 
+		// Run this early in the pingback call, before doing a remote fetch of the source uri
+		add_action( 'xmlrpc_call', array( 'Akismet', 'pre_check_pingback' ) );
+
 		if ( '3.0.5' == $GLOBALS['wp_version'] ) {
 			remove_filter( 'comment_text', 'wp_kses_data' );
 			if ( is_admin() )
@@ -1020,5 +1023,66 @@ p {
 		if ( apply_filters( 'akismet_debug_log', defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) ) {
 			error_log( print_r( compact( 'akismet_debug' ), true ) );
 		}
+	}
+
+	public static function pre_check_pingback( $method ) {
+		if ( $method !== 'pingback.ping' )
+			return;
+
+		global $wp_xmlrpc_server;
+	
+		if ( !is_object( $wp_xmlrpc_server ) )
+			return false;
+	
+		// Lame: tightly coupled with the IXR class.
+		$args = $wp_xmlrpc_server->message->params;
+	
+		if ( !empty( $args[1] ) ) {
+			$post_id = url_to_postid( $args[1] );
+
+			// If this gets through the pre-check, make sure we properly identify the outbound request as a pingback verification
+			Akismet::pingback_forwarded_for( null, $args[0] );
+			add_filter( 'http_request_args', array( 'Akismet', 'pingback_forwarded_for' ), 10, 2 );
+
+			$comment = array(
+				'comment_author_url' => $args[0],
+				'comment_post_ID' => $post_id,
+				'comment_author' => '',
+				'comment_author_email' => '',
+				'comment_content' => '',
+				'comment_type' => 'pingback',
+				'akismet_pre_check' => '1',
+				'comment_pingback_target' => $args[1],
+			);
+
+			$comment = Akismet::auto_check_comment( $comment );
+
+			if ( isset( $comment['akismet_result'] ) && 'true' == $comment['akismet_result'] ) {
+				// Lame: tightly coupled with the IXR classes. Unfortunately the action provides no context and no way to return anything.
+				$wp_xmlrpc_server->error( new IXR_Error( 0, 'Invalid discovery target' ) );
+			}
+		}
+	}
+	
+	public static function pingback_forwarded_for( $r, $url ) {
+		static $urls = array();
+	
+		// Call this with $r == null to prime the callback to add headers on a specific URL
+		if ( is_null( $r ) && !in_array( $url, $urls ) ) {
+			$urls[] = $url;
+		}
+
+		// Add X-Pingback-Forwarded-For header, but only for requests to a specific URL (the apparent pingback source)
+		if ( is_array( $r ) && is_array( $r['headers'] ) && !isset( $r['headers']['X-Pingback-Forwarded-For'] ) && in_array( $url, $urls ) ) {
+			$remote_ip = preg_replace( '/[^a-fx0-9:.,]/i', '', $_SERVER['REMOTE_ADDR'] );
+		
+			// Note: this assumes REMOTE_ADDR is correct, and it may not be if a reverse proxy or CDN is in use
+			$r['headers']['X-Pingback-Forwarded-For'] = $remote_ip;
+
+			// Also identify the request as a pingback verification in the UA string so it appears in logs
+			$r['user-agent'] .= '; verifying pingback from ' . $remote_ip;
+		}
+
+		return $r;
 	}
 }
