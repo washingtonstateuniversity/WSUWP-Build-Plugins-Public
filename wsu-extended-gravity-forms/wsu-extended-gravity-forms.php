@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSU Extended Gravity Forms
-Version: 0.2.0
+Version: 0.2.1
 Plugin URI: https://web.wsu.edu/
 Description: Extends and modifies default functionality in Gravity Forms.
 Author: washingtonstateuniversity, jeremyfelt
@@ -25,6 +25,10 @@ class WSU_Extended_Gravity_Forms {
 	 * needing to be an administrator. Do not allow editors to modify settings.
 	 */
 	public function modify_roles() {
+		if ( ! class_exists( 'GFForms' ) ) {
+			return;
+		}
+
 		$editor = get_role( 'editor' );
 
 		// Provide access to most basic gravityforms functionality.
@@ -48,7 +52,9 @@ class WSU_Extended_Gravity_Forms {
 	 * Enqueue scripts needed for extended Gravity Forms support.
 	 */
 	public function load_scripts() {
-		wp_enqueue_script('gravity-forms-word-count', plugins_url( '/js/egf-word-count.js', __FILE__ ), array('jquery'), '0.1', true);
+		if ( class_exists( 'GFForms' ) ) {
+			wp_enqueue_script('gravity-forms-word-count', plugins_url( '/js/egf-word-count.js', __FILE__ ), array('jquery'), '0.1', true);
+		}
 	}
 }
 $wsu_extended_gravity_forms = new WSU_Extended_Gravity_Forms();
