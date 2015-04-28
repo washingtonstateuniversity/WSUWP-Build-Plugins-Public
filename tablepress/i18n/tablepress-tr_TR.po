@@ -1,8 +1,8 @@
-# Copyright (C) 2014 TablePress
+# Copyright (C) 2015 TablePress
 # This file is distributed under the same license as the TablePress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: TablePress v1.5\n"
+"Project-Id-Version: TablePress v1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tablepress\n"
 "POT-Creation-Date: 2014-10-12 12:29:20+00:00\n"
 "PO-Revision-Date: 2014-10-26 03:12+0200\n"
@@ -2486,9 +2486,6 @@ msgstr "http://tobias.baethge.com/"
 #~ msgstr ""
 #~ "Ayrıca, DataTable JavaScript kütüphane özellikleri de bu önizlemede "
 #~ "görünmez!"
-
-#~ msgid "Insert into Post"
-#~ msgstr "Yazıya Ekle"
 
 #~ msgid "TablePress Plugin page"
 #~ msgstr "TablePress Eklenti sayfası"

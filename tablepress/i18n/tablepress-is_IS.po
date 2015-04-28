@@ -1,8 +1,8 @@
-# Copyright (C) 2014 TablePress
+# Copyright (C) 2015 TablePress
 # This file is distributed under the same license as the TablePress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: TablePress v1.5\n"
+"Project-Id-Version: TablePress v1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tablepress\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2013-05-15 22:31:46+0000\n"
@@ -490,8 +490,8 @@ msgstr "http://tobias.baethge.com/"
 #. translators: plugin header field 'Version'
 #: tablepress.php:0
 #@ tablepress
-msgid "1.0"
-msgstr "1.0"
+msgid "1.5"
+msgstr "1.5"
 
 #: views/view-about.php:43
 #@ tablepress

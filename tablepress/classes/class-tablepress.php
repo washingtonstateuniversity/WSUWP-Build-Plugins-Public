@@ -26,7 +26,7 @@ abstract class TablePress {
 	 * @since 1.0.0
 	 * @const string
 	 */
-	const version = '1.5.1';
+	const version = '1.6';
 
 	/**
 	 * TablePress internal plugin version ("options scheme" version).
@@ -36,7 +36,7 @@ abstract class TablePress {
 	 * @since 1.0.0
 	 * @const int
 	 */
-	const db_version = 29;
+	const db_version = 30;
 
 	/**
 	 * TablePress "table scheme" (data format structure) version.
@@ -113,9 +113,9 @@ abstract class TablePress {
 			return;
 		}
 
-		// Check if minimum requirements are fulfilled, currently WordPress 4.0.
+		// Check if minimum requirements are fulfilled, currently WordPress 4.2.
 		include( ABSPATH . WPINC . '/version.php' ); // Include an unmodified $wp_version.
-		if ( version_compare( str_replace( '-src', '', $wp_version ), '4.0', '<' ) ) {
+		if ( version_compare( str_replace( '-src', '', $wp_version ), '4.2', '<' ) ) {
 			// Show error notice to admins, if WP is not installed in the minimum required version, in which case TablePress will not work.
 			if ( current_user_can( 'update_plugins' ) ) {
 				add_action( 'admin_notices', array( 'TablePress', 'show_minimum_requirements_error_notice' ) );
@@ -443,7 +443,7 @@ abstract class TablePress {
 	 */
 	public static function show_minimum_requirements_error_notice() {
 		// Message is not translated as it is shown on every admin screen, for which we don't want to load translations.
-		echo '<div class="error form-invalid"><p>' .
+		echo '<div class="notice notice-error form-invalid"><p>' .
 			'<strong>Attention:</strong> ' .
 			'The installed version of WordPress is too old for the TablePress plugin! TablePress requires an up-to-date version! <strong>Please <a href="' . esc_url( admin_url( 'update-core.php' ) ) . '">update your WordPress installation</a></strong>!' .
 			"</p></div>\n";

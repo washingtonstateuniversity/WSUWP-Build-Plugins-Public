@@ -4,17 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TablePress v1.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tablepress\n"
-"POT-Creation-Date: 2014-10-12 12:29:20+00:00\n"
-"PO-Revision-Date: 2014-10-29 21:03+0100\n"
+"POT-Creation-Date: 2014-11-02 18:23:23+00:00\n"
+"PO-Revision-Date: 2014-11-06 20:30+0100\n"
 "Last-Translator: Tobias Bäthge <wordpress@tobias.baethge.com>\n"
 "Language-Team: \n"
-"Language: ja_JP\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.6.10\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ../\n"
@@ -25,81 +25,79 @@ msgstr ""
 #: classes/class-admin-page-helper.php:79
 msgid "Thank you for using <a href=\"https://tablepress.org/\">TablePress</a>."
 msgstr ""
-"<a href=\"https://tablepress.org/\">TablePress</a>のご利用ありがとうございま"
-"す。"
+"<a href=\"http://tablepress.org/\">TablePress</a>를 사용해주셔서 감사합니다."
 
 # @ tablepress
 #: classes/class-admin-page-helper.php:80
 msgid "Support the plugin with your <a href=\"%s\">donation</a>!"
-msgstr ""
-"<a href=\"%s\">ご寄付</a>によりこのプラグインをサポートしていただけると幸いで"
-"す。"
+msgstr "플러그인을 <a href=\"%s\">기부</a>로 지원해주세요!"
 
 # @ tablepress
 #: classes/class-export.php:55 classes/class-import.php:80
 msgid "CSV - Character-Separated Values"
-msgstr "CSV - 文字区切り値"
+msgstr "CSV - 쉼표로 분리된 값"
 
 # @ tablepress
 #: classes/class-export.php:56 classes/class-import.php:82
 msgid "HTML - Hypertext Markup Language"
-msgstr "HTML - ハイパーテキスト マークアップ言語"
+msgstr "HTML - 하이퍼텍스트 기술용 언어"
 
 # @ tablepress
 #: classes/class-export.php:57 classes/class-import.php:84
 msgid "JSON - JavaScript Object Notation"
-msgstr "JSON - JavaScript Object Notation"
+msgstr "JSON - 자바스크립트 객체 표기법"
 
 # @ tablepress
 #: classes/class-export.php:60
 msgid "; (semicolon)"
-msgstr ";（セミコロン）"
+msgstr "; (세미콜론)"
 
 # @ tablepress
 #: classes/class-export.php:61
 msgid ", (comma)"
-msgstr ",（カンマ）"
+msgstr ", (쉼표)"
 
 # @ tablepress
 #: classes/class-export.php:62
 msgid "\\t (tabulator)"
-msgstr "\\t（タブ文字）"
+msgstr "\\t (표 작성기)"
 
 # @ tablepress
 #: classes/class-import.php:85
 msgid "XLS - Microsoft Excel 97-2003 (experimental)"
-msgstr "XLS - Microsoft Excel 97-2003（試用段階）"
+msgstr "XLS - 마이크로소프트 엑셀 97-2003 (실험적)"
 
 # @ tablepress
 #: classes/class-import.php:86
 msgid "XLSX - Microsoft Excel 2007-2013 (experimental)"
-msgstr "XLSX - Microsoft Excel 2007-2013（試用段階）"
+msgstr "XLSX - 마이크로소프트 엑셀 2007-2013 (실험적)"
 
 # @ tablepress
 #: classes/class-import.php:189 classes/class-import.php:301
 #: classes/class-import.php:407
 msgid "The imported file contains errors:"
-msgstr "インポートされたファイルに次のエラーがあります："
+msgstr "가져온 파일에 오류가 포함되어 있습니다:"
 
 # @ tablepress
 #: classes/class-render.php:272
 msgid "<!-- The table with the ID %s is empty! -->"
-msgstr "<!-- %s のテーブルが空です! -->"
+msgstr "<!-- ID %s에 해당하는 표가 비어있습니다! -->"
 
 # @ default
 # @ tablepress
-#: classes/class-render.php:410 views/view-list.php:422
+#: classes/class-render.php:410 views/view-list.php:421
 msgid "Edit"
-msgstr "編集"
+msgstr "편집"
 
+# @ tablepress
 #: classes/class-tablepress.php:363
 msgid "<em>unknown</em>"
-msgstr "<em>不明</em>"
+msgstr "<em>알 수 없음<em>"
 
 # @ tablepress
 #: classes/class-view.php:103
 msgid "TablePress Help"
-msgstr "TablePressヘルプ"
+msgstr "TablePress 도움말"
 
 # @ tablepress
 #: classes/class-view.php:105
@@ -108,16 +106,14 @@ msgid ""
 "\">plugin&#8217;s website</a> or on its page in the <a href=\"%s\">WordPress "
 "Plugin Directory</a>."
 msgstr ""
-"TablePressに関する詳細は、<a href=\"%1$s\">プラグインのWebサイト</a>、または"
-"<a href=\"%s\">WordPress Plugin Directory</a>でプラグインのページを参照してく"
-"ださい。"
+"TablePress에 대한 자세한 내용은 <a href=\"%1$s\">플러그인의 웹사이트</a> 또"
+"는 <a href=\"%s\">WordPress Plugin Directory</a> 페이지에서 볼 수 있습니다."
 
 # @ tablepress
 #: classes/class-view.php:106 views/view-about.php:114
 msgid ""
 "For technical information, please see the <a href=\"%s\">documentation</a>."
-msgstr ""
-"技術的な情報については、<a href=\"%s\">ドキュメント</a>を参照してください。"
+msgstr "기술 정보는 <a href=\"%s\">문서</a>를 참조해주세요."
 
 # @ tablepress
 #: classes/class-view.php:107
@@ -125,8 +121,8 @@ msgid ""
 "<a href=\"%1$s\">Support</a> is provided through the <a href=\"%2$s"
 "\">WordPress Support Forums</a>."
 msgstr ""
-"<a href=\"%1$s\">サポート</a>は、<a href=\"%2$s\">WordPressサポート フォーラ"
-"ム</a>を通じて提供します。"
+"<a href=\"%1$s\">지원</a>은 <a href=\"%2$s\">WordPress 지원 포럼</a>을 통해 "
+"제공됩니다."
 
 # @ tablepress
 #: classes/class-view.php:108 views/view-about.php:153
@@ -135,9 +131,9 @@ msgid ""
 "\">Frequently Asked Questions</a>, where you will find answers to the most "
 "common questions, and search through the forums."
 msgstr ""
-"サポートを利用する前に、一般的なご質問とそれに対する回答が掲載されている<a "
-"href=\"%s\">FAQ（よくある質問と回答集）</a>（英語）をお読みください。また、"
-"フォーラムの検索機能もご利用ください。"
+"지원을 요청하기 전에 가장 일반적인 질문에 대한 답변을 찾을 수 있는 <a href="
+"\"\"%s\"\">자주 묻는 질문</a>을 주의해서 읽어보시고, 포럼을 검색해보시기 바랍"
+"니다."
 
 # @ tablepress
 #: classes/class-view.php:109
@@ -145,13 +141,13 @@ msgid ""
 "If you like the plugin, <a href=\"%1$s\"><strong>a donation</strong></a> is "
 "recommended."
 msgstr ""
-"このプラグインを気に入っていただけたら、<a href=\"%1$s\"><strong>ご寄付</"
-"strong></a>をお願いします。"
+"이 플러그인이 마음에 드시면, <a href=\"%1$s\"><strong>기부</strong></a>를 권"
+"장합니다."
 
 # @ tablepress
 #: classes/class-view.php:112
 msgid "For more information:"
-msgstr "さらに詳しい情報はこちらを参照してください："
+msgstr "추가 정보:"
 
 # @ tablepress
 #: classes/class-view.php:147 controllers/controller-admin.php:142
@@ -165,362 +161,363 @@ msgstr "%1$s &lsaquo; %2$s"
 #: classes/class-view.php:158 classes/class-view.php:159
 msgid "Do you really want to delete this table?"
 msgid_plural "Do you really want to delete these tables?"
-msgstr[0] "このテーブルを削除してもよろしいですか？"
+msgstr[0] "정말로 이 표를 삭제하시겠습니까?"
 
 # @ tablepress
 #. Plugin Name of the plugin/theme
-#: classes/class-view.php:387
+#: classes/class-view.php:379
 msgid "TablePress"
 msgstr "TablePress"
 
 # @ tablepress
-#: classes/class-view.php:419 views/view-edit.php:453 views/view-edit.php:454
+#: classes/class-view.php:411 views/view-edit.php:451 views/view-edit.php:452
 #: views/view-options.php:55
 msgid "Save Changes"
-msgstr "変更を保存"
+msgstr "변경사항 저장"
 
 # @ tablepress
 #: controllers/controller-admin.php:205 views/view-about.php:91
 #: views/view-list.php:190
 msgid "Table"
-msgstr "テーブル"
+msgstr "표"
 
 # @ tablepress
 #: controllers/controller-admin.php:206 controllers/controller-admin.php:207
 msgid "Insert a Table from TablePress"
-msgstr "TablePressからテーブルを挿入"
+msgstr "TablePress에서 표 삽입"
 
 # @ tablepress
 #: controllers/controller-admin.php:288
 msgid "TablePress Table"
-msgstr "TablePressで作成したテーブル"
+msgstr "TablePress 표"
 
 # @ tablepress
 #: controllers/controller-admin.php:315
 msgid "Plugin page"
-msgstr "プラグイン ページ"
+msgstr "플러그인 페이지"
 
 # @ tablepress
 #: controllers/controller-admin.php:330
 msgid "Frequently Asked Questions"
-msgstr "よくある質問集"
+msgstr "자주 묻는 질문"
 
 # @ tablepress
 #: controllers/controller-admin.php:330
 msgid "FAQ"
-msgstr "FAQ"
+msgstr "자주 묻는 질문"
 
 # @ tablepress
 #: controllers/controller-admin.php:331
 msgid "Documentation"
-msgstr "ドキュメント"
+msgstr "문서"
 
 # @ tablepress
 #: controllers/controller-admin.php:332
 msgid "Support"
-msgstr "サポート"
+msgstr "지원"
 
 # @ tablepress
 #: controllers/controller-admin.php:333
 msgid "Support TablePress with your donation!"
-msgstr "ご寄付によりTablePressをサポートしてください!"
+msgstr "기부를 통해 TablePress를 지원하세요!"
 
 # @ tablepress
 #: controllers/controller-admin.php:333
 msgid "Donate"
-msgstr "寄付する"
+msgstr "기부"
 
 # @ default
-#: controllers/controller-admin.php:360 controllers/controller-admin.php:436
-#: controllers/controller-admin.php:867 controllers/controller-admin.php:936
-#: controllers/controller-admin.php:992 controllers/controller-admin.php:1070
-#: controllers/controller-admin.php:1110 controllers/controller-admin.php:1200
-#: controllers/controller-admin.php:1212 controllers/controller-admin.php:1843
-#: controllers/controller-admin.php:1874 controllers/controller-admin.php:1915
-#: controllers/controller-admin.php:1959 controllers/controller-admin.php:2003
-#: controllers/controller-admin.php:2031
+#: controllers/controller-admin.php:360 controllers/controller-admin.php:441
+#: controllers/controller-admin.php:872 controllers/controller-admin.php:941
+#: controllers/controller-admin.php:997 controllers/controller-admin.php:1075
+#: controllers/controller-admin.php:1115 controllers/controller-admin.php:1205
+#: controllers/controller-admin.php:1217 controllers/controller-admin.php:1848
+#: controllers/controller-admin.php:1879 controllers/controller-admin.php:1920
+#: controllers/controller-admin.php:1964 controllers/controller-admin.php:2008
+#: controllers/controller-admin.php:2036
 msgid "You do not have sufficient permissions to access this page."
-msgstr "このページにアクセスするには権限が不十分です。"
+msgstr "이 페이지에 접근할 수 있는 권한이 없습니다."
 
 # @ tablepress
-#: controllers/controller-admin.php:457
+#: controllers/controller-admin.php:462
 msgctxt ""
 "Default CSV delimiter in the translated language (\";\", \",\", or \"tab\")"
 msgid ","
 msgstr ","
 
-#: controllers/controller-admin.php:529
-msgid "Czech"
-msgstr "チェコ語"
-
 # @ tablepress
 #: controllers/controller-admin.php:534
-msgid "German"
-msgstr "ドイツ語"
+msgid "Czech"
+msgstr "체코어"
 
 # @ tablepress
 #: controllers/controller-admin.php:539
-msgid "English"
-msgstr "英語"
+msgid "German"
+msgstr "독일어"
 
 # @ tablepress
 #: controllers/controller-admin.php:544
-msgid "Spanish"
-msgstr "スペイン語"
+msgid "English"
+msgstr "영어"
 
 # @ tablepress
 #: controllers/controller-admin.php:549
-msgid "Finnish"
-msgstr "フィンランド語"
+msgid "Spanish"
+msgstr "스페인어"
 
 # @ tablepress
 #: controllers/controller-admin.php:554
-msgid "French"
-msgstr "フランス語"
+msgid "Finnish"
+msgstr "핀란드어"
 
 # @ tablepress
 #: controllers/controller-admin.php:559
-msgid "Hebrew"
-msgstr "ヘブライ語"
+msgid "French"
+msgstr "프랑스어"
 
 # @ tablepress
 #: controllers/controller-admin.php:564
-msgid "Italian"
-msgstr "イタリア語"
+msgid "Hebrew"
+msgstr "히브리어"
 
 # @ tablepress
 #: controllers/controller-admin.php:569
-msgid "Icelandic"
-msgstr "アイスランド語"
+msgid "Italian"
+msgstr "이탈리아어"
 
 # @ tablepress
 #: controllers/controller-admin.php:574
-msgid "Japanese"
-msgstr "日本語"
+msgid "Icelandic"
+msgstr "아이슬란드어"
 
 # @ tablepress
 #: controllers/controller-admin.php:579
-msgid "Latvian"
-msgstr "ラトビア語"
+msgid "Japanese"
+msgstr "일본어"
 
 # @ tablepress
 #: controllers/controller-admin.php:584
-msgid "Dutch"
-msgstr "オランダ語"
+msgid "Latvian"
+msgstr "라트비아어"
 
 # @ tablepress
 #: controllers/controller-admin.php:589
-msgid "Polish"
-msgstr "ポーランド語"
+msgid "Dutch"
+msgstr "네덜란드어"
 
 # @ tablepress
 #: controllers/controller-admin.php:594
-msgid "Brazilian Portuguese"
-msgstr "ブラジル系ポルトガル語"
+msgid "Polish"
+msgstr "폴란드어"
 
 # @ tablepress
 #: controllers/controller-admin.php:599
-msgid "Russian"
-msgstr "ロシア語"
+msgid "Brazilian Portuguese"
+msgstr "포르투갈어 (브라질)"
 
 # @ tablepress
 #: controllers/controller-admin.php:604
-msgid "Slovak"
-msgstr "スロバキア語"
+msgid "Russian"
+msgstr "러시아어"
 
+# @ tablepress
 #: controllers/controller-admin.php:609
-msgid "Serbian"
-msgstr "セルビア語"
+msgid "Slovak"
+msgstr "슬로바키아어"
 
 # @ tablepress
 #: controllers/controller-admin.php:614
-msgid "Turkish"
-msgstr "トルコ語"
-
-#: controllers/controller-admin.php:619
-msgid "Ukrainian"
-msgstr "ウクライナ語"
+msgid "Serbian"
+msgstr "세르비아어"
 
 # @ tablepress
+#: controllers/controller-admin.php:619
+msgid "Turkish"
+msgstr "터키어"
+
 #: controllers/controller-admin.php:624
-msgid "Chinese (Simplified)"
-msgstr "中国語（簡体字）"
+msgid "Ukrainian"
+msgstr "우크라이나어"
 
 # @ tablepress
 #: controllers/controller-admin.php:629
+msgid "Chinese (Simplified)"
+msgstr "중국어(간체)"
+
+# @ tablepress
+#: controllers/controller-admin.php:634
 msgid "Chinese (Taiwan)"
-msgstr "中国語（台湾）"
+msgstr "중국어(대만)"
 
 # @ tablepress
-#: controllers/controller-admin.php:685 controllers/controller-admin.php:686
-#: controllers/controller-admin.php:687
+#: controllers/controller-admin.php:690 controllers/controller-admin.php:691
+#: controllers/controller-admin.php:692
 msgid "All Tables"
-msgstr "すべてのテーブル"
+msgstr "모든 표"
 
 # @ tablepress
-#: controllers/controller-admin.php:692 controllers/controller-admin.php:693
+#: controllers/controller-admin.php:697 controllers/controller-admin.php:698
 #: views/view-add.php:41
 msgid "Add New Table"
-msgstr "新しいテーブルを追加"
-
-# @ tablepress
-#: controllers/controller-admin.php:694
-msgid "Add New"
-msgstr "新しく追加"
+msgstr "새로운 표 추가"
 
 # @ tablepress
 #: controllers/controller-admin.php:699
+msgid "Add New"
+msgstr "새로 추가"
+
+# @ tablepress
+#: controllers/controller-admin.php:704
 msgid "Edit Table"
-msgstr "テーブルを編集"
+msgstr "표 편집"
 
 # @ tablepress
-#: controllers/controller-admin.php:706 controllers/controller-admin.php:707
+#: controllers/controller-admin.php:711 controllers/controller-admin.php:712
 msgid "Import a Table"
-msgstr "テーブルをインポート"
+msgstr "표 가져오기"
 
 # @ tablepress
-#: controllers/controller-admin.php:708
+#: controllers/controller-admin.php:713
 msgctxt "navigation bar"
 msgid "Import"
-msgstr "インポート"
+msgstr "가져오기"
 
 # @ tablepress
-#: controllers/controller-admin.php:713 controllers/controller-admin.php:714
+#: controllers/controller-admin.php:718 controllers/controller-admin.php:719
 msgid "Export a Table"
-msgstr "テーブルをエクスポート"
+msgstr "표 내보내기"
 
 # @ tablepress
-#: controllers/controller-admin.php:715
+#: controllers/controller-admin.php:720
 msgctxt "navigation bar"
 msgid "Export"
-msgstr "エクスポート"
+msgstr "내보내기"
 
 # @ tablepress
-#: controllers/controller-admin.php:720 controllers/controller-admin.php:721
-#: controllers/controller-admin.php:722
+#: controllers/controller-admin.php:725 controllers/controller-admin.php:726
+#: controllers/controller-admin.php:727
 msgid "Plugin Options"
-msgstr "プラグインのオプション"
+msgstr "플러그인 옵션"
 
 # @ tablepress
-#: controllers/controller-admin.php:727 controllers/controller-admin.php:729
+#: controllers/controller-admin.php:732 controllers/controller-admin.php:734
 msgid "About"
-msgstr "プラグイン情報"
+msgstr "정보"
 
 # @ tablepress
-#: controllers/controller-admin.php:728
+#: controllers/controller-admin.php:733
 msgid "About TablePress"
-msgstr "TablePressについて"
+msgstr "TablePress 정보"
 
 # @ tablepress
-#: controllers/controller-admin.php:1292
+#: controllers/controller-admin.php:1297
 msgid "Imported from Manual Input"
-msgstr "手動入力からのインポート"
+msgstr "직접 입력에서 가져옴"
 
 # @ tablepress
-#: controllers/controller-admin.php:1955
+#: controllers/controller-admin.php:1960
 #: controllers/controller-admin_ajax.php:276
 msgid "The preview could not be loaded."
-msgstr "プレビューを読み込めませんでした。"
+msgstr "미리 보기를 불러올 수 없었습니다."
 
 # @ tablepress
-#: controllers/controller-admin.php:1955 controllers/controller-admin.php:1965
-#: views/view-edit.php:450 views/view-list.php:435
+#: controllers/controller-admin.php:1960 controllers/controller-admin.php:1970
+#: views/view-edit.php:448 views/view-list.php:434
 #: views/view-preview_table.php:53
 msgid "Preview"
-msgstr "プレビュー"
+msgstr "미리 보기"
 
 # @ tablepress
-#: controllers/controller-admin.php:1965
+#: controllers/controller-admin.php:1970
 msgid "The table could not be loaded."
-msgstr "テーブルを読み込めませんでした。"
+msgstr "표를 불러올 수 없었습니다."
 
 # @ tablepress
-#: controllers/controller-admin.php:2049
+#: controllers/controller-admin.php:2054
 msgid "TablePress was uninstalled successfully."
-msgstr "TablePressが正常にアンインストールされました。"
+msgstr "TablePress가 성공적으로 제거됐습니다."
 
 # @ tablepress
-#: controllers/controller-admin.php:2050
+#: controllers/controller-admin.php:2055
 msgid "All tables, data, and options were deleted."
-msgstr "すべてのテーブル、データ、オプションが削除されました。"
+msgstr "모든 표, 데이터 및 옵션을 삭제했습니다."
 
 # @ tablepress
-#: controllers/controller-admin.php:2052
+#: controllers/controller-admin.php:2057
 msgid ""
 "You may now ask the network admin to delete the plugin&#8217;s folder "
 "<code>tablepress</code> from the server, if no other site in the network "
 "uses it."
 msgstr ""
-"同じネットワーク内の他のサイトで使用しない場合は、ネットワーク管理者に依頼し"
-"て、プラグインのフォルダー（<code>tablepress</code>）をサーバーから削除するこ"
-"とができます。"
+"네트워크에 있는 다른 사이트에서 사용하지 않는 경우, 이제 네트워크 관리자에게 "
+"플러그인 폴더인 <code>tablepress</code>를 서버에서 삭제해줄 것을 요청할 수 있"
+"습니다."
 
 # @ tablepress
-#: controllers/controller-admin.php:2054
+#: controllers/controller-admin.php:2059
 msgid ""
 "You may now manually delete the plugin&#8217;s folder <code>tablepress</"
 "code> from the <code>plugins</code> directory on your server or use the "
 "&#8220;Delete&#8221; link for TablePress on the WordPress &#8220;"
 "Plugins&#8221; page."
 msgstr ""
-"プラグインのフォルダー（<code>tablepress</code>）をサーバーの<code>plugins</"
-"code>ディレクトリから手動で削除するか、WordPressの［プラグイン］ページで［削"
-"除］を使用してTablePressのリンクを削除することもできます。"
-
-# @ tablepress
-#: controllers/controller-admin.php:2057
-msgid ""
-"Your TablePress &#8220;Custom CSS&#8221; files have been deleted "
-"automatically."
-msgstr "作成したTablePressのカスタムCSSファイルが自動的に削除されました。"
-
-# @ tablepress
-#: controllers/controller-admin.php:2060
-msgid ""
-"Please also ask him to delete your TablePress &#8220;Custom CSS&#8221; files "
-"from the server."
-msgstr ""
-"TablePressのカスタムCSSファイルもサーバーから削除するように管理者に依頼してく"
-"ださい。"
+"이제 서버의 <code>plugins</code> 디렉터리에 있는 플러그인 폴더인 "
+"<code>tablepress</code>를 수동으로 삭제하거나 WordPress &#8220;플러그인"
+"&#8221; 페이지에서 TablePress의 &#8220;삭제&#8221; 링크를 사용할 수 있습니다."
 
 # @ tablepress
 #: controllers/controller-admin.php:2062
 msgid ""
-"You may now also delete your TablePress &#8220;Custom CSS&#8221; files in "
-"the <code>wp-content</code> folder."
+"Your TablePress &#8220;Custom CSS&#8221; files have been deleted "
+"automatically."
 msgstr ""
-"また、<code>wp-content</code>フォルダーから、作成したTablePressのカスタムCSS"
-"ファイルを削除することができます。"
+"TablePress &#8220; 사용자 정의 CSS&#8221; 파일이 자동으로 삭제되었습니다."
+
+# @ tablepress
+#: controllers/controller-admin.php:2065
+msgid ""
+"Please also ask him to delete your TablePress &#8220;Custom CSS&#8221; files "
+"from the server."
+msgstr ""
+"네트워크 관리자에게 TablePress &#8220;사용자 정의 CSS&#8221;를 서버에서 삭제"
+"해줄 것을 요청할 수도 있습니다."
 
 # @ tablepress
 #: controllers/controller-admin.php:2067
+msgid ""
+"You may now also delete your TablePress &#8220;Custom CSS&#8221; files in "
+"the <code>wp-content</code> folder."
+msgstr ""
+"이제 또한 <code>wp-content</code> 폴더의 TablePress &#8220;사용자 정의 "
+"CSS&#8221; 파일을 삭제할 수 있습니다."
+
+# @ tablepress
+#: controllers/controller-admin.php:2072
 msgid "Go to &#8220;Plugins&#8221; page"
-msgstr "［プラグイン］ページに移動"
+msgstr "&#8220;플러그인&#8221; 페이지로 가기"
 
 # @ tablepress
-#: controllers/controller-admin.php:2069
+#: controllers/controller-admin.php:2074
 msgid "Go to Dashboard"
-msgstr "ダッシュボードに移動"
+msgstr "대시보드로 가기"
 
 # @ tablepress
-#: controllers/controller-admin.php:2071 views/view-options.php:197
+#: controllers/controller-admin.php:2076 views/view-options.php:197
 #: views/view-options.php:204
 msgid "Uninstall TablePress"
-msgstr "TablePressをアンインストール"
+msgstr "TablePress 제거"
 
 # @ tablepress
 #: controllers/controller-admin_ajax.php:269 views/view-preview_table.php:64
 msgid "This is a preview of your table."
-msgstr "作成したテーブルのプレビューです。"
+msgstr "이것은 표의 미리 보기입니다."
 
 # @ tablepress
 #: controllers/controller-admin_ajax.php:270 views/view-preview_table.php:64
 msgid ""
 "Because of CSS styling in your theme, the table might look different on your "
 "page!"
-msgstr ""
-"テーマにCSSスタイルが指定されているため、実際のページとはテーブルの表示が異な"
-"る場合があります。"
+msgstr "테마의 CSS 스타일로 인해 표가 페이지에서 다르게 보일 수 있습니다!"
 
 # @ tablepress
 #: controllers/controller-admin_ajax.php:271 views/view-preview_table.php:64
@@ -528,8 +525,8 @@ msgid ""
 "The features of the DataTables JavaScript library are also not available or "
 "visible in this preview!"
 msgstr ""
-"このプレビューでは、DataTables JavaScriptライブラリの機能は使用できないか、表"
-"示されません。"
+"DataTables 자바스크립트 라이브러리의 기능을 사용할 수 없거나 미리보기에서 볼 "
+"수 없습니다!"
 
 # @ tablepress
 #: controllers/controller-admin_ajax.php:272 views/view-preview_table.php:65
@@ -537,59 +534,59 @@ msgid ""
 "To insert the table into a page, post, or text widget, copy the Shortcode %s "
 "and paste it into the editor."
 msgstr ""
-"ページ、投稿、テキスト ウィジェットにテーブルを挿入するには、ショートコード%s"
-"をコピーして、エディター内に貼り付けます。"
+"페이지, 글 또는 텍스트 위젯에 표를 삽입하려면, 단축코드 %s을(를) 복사하여 편"
+"집기에 붙여넣으세요."
 
 # @ tablepress
-#: controllers/controller-frontend.php:736 views/view-list.php:494
+#: controllers/controller-frontend.php:738 views/view-list.php:493
 msgid "%s ago"
-msgstr "%s前"
+msgstr "%s 전에"
 
 # @ tablepress
-#: models/model-table.php:530 views/view-editor_button_thickbox.php:328
-#: views/view-export.php:131 views/view-import.php:211 views/view-list.php:411
+#: models/model-table.php:530 views/view-editor_button_thickbox.php:327
+#: views/view-export.php:131 views/view-import.php:211 views/view-list.php:410
 msgid "(no name)"
-msgstr "（名前なし）"
+msgstr "(이름 없음)"
 
 # @ tablepress
 #: models/model-table.php:532
 msgid "Copy of %s"
-msgstr "%sのコピー"
+msgstr "%s의 사본"
 
 # @ tablepress
 #: views/view-about.php:42
 msgid "Plugin Purpose"
-msgstr "プラグインの目的"
+msgstr "플러그인 목적"
 
 # @ tablepress
 #: views/view-about.php:43
 msgid "Usage"
-msgstr "使用方法"
+msgstr "사용방법"
 
 # @ tablepress
 #: views/view-about.php:44
 msgid "More Information and Documentation"
-msgstr "詳細情報とドキュメント"
+msgstr "추가 정보 및 문서"
 
 # @ tablepress
 #: views/view-about.php:45
 msgid "Help and Support"
-msgstr "ヘルプとサポート"
+msgstr "도움말 및 지원"
 
 # @ tablepress
 #: views/view-about.php:46
 msgid "Author and License"
-msgstr "作成者とライセンス"
+msgstr "작성자 및 라이선스"
 
 # @ tablepress
 #: views/view-about.php:47
 msgid "Credits and Thanks"
-msgstr "クレジットと謝辞"
+msgstr "기여 및 감사의 말"
 
 # @ tablepress
 #: views/view-about.php:48
 msgid "Debug and Version Information"
-msgstr "デバッグとバージョン情報"
+msgstr "디버그 및 버전 정보"
 
 # @ tablepress
 #: views/view-about.php:62
@@ -597,8 +594,8 @@ msgid ""
 "TablePress allows you to create and manage tables in the admin area of "
 "WordPress."
 msgstr ""
-"TablePressでは、WordPressの管理領域でテーブルを作成し、管理することができま"
-"す。"
+"TablePress는 WordPress의 관리자 구역에서 표를 생성 및 관리할 수 있도록 합니"
+"다."
 
 # @ tablepress
 #: views/view-about.php:63
@@ -606,7 +603,8 @@ msgid ""
 "Tables may contain text, numbers and even HTML (e.g. to include images or "
 "links)."
 msgstr ""
-"テーブルには、テキスト、数字、HTML（例：画像やリンクの挿入）を入力できます。"
+"표는 텍스트, 숫자를 비롯하여 HTML(예시: 이미지 또는 링크 포함하기 위해)까지 "
+"포함할 수 있습니다"
 
 # @ tablepress
 #: views/view-about.php:64
@@ -614,8 +612,8 @@ msgid ""
 "You can then show the tables in your posts, on your pages, or in text "
 "widgets by using a Shortcode."
 msgstr ""
-"作成したテーブルは、ショートコードを使用して、投稿、ページ、テキスト ウィ"
-"ジェットに表示することができます。"
+"그런 다음 단축코드를 사용하여 글, 페이지 또는 텍스트 위젯에 표를 표시할 수 있"
+"습니다."
 
 # @ tablepress
 #: views/view-about.php:65
@@ -623,13 +621,13 @@ msgid ""
 "If you want to show your tables anywhere else in your theme, you can use a "
 "Template Tag function."
 msgstr ""
-"テーマ内のそれ以外の場所にテーブルを表示したい場合は、テンプレート タグ機能を"
-"使用することができます。"
+"테마의 다른 위치에서 표를 표시하고 싶은 경우, 양식 태그 기능을 사용할 수 있습"
+"니다."
 
 # @ tablepress
 #: views/view-about.php:81
 msgid "At first, you should add or import a table."
-msgstr "まず、テーブルを追加するかインポートします。"
+msgstr "먼저 표를 추가 또는 가져와야 합니다."
 
 # @ tablepress
 #: views/view-about.php:82
@@ -638,8 +636,8 @@ msgid ""
 "that you load an existing table from either a CSV, HTML, JSON, XLS, or XLSX "
 "file."
 msgstr ""
-"この操作により、プラグインによって空のテーブルが作成されるか、CSV、HTML、"
-"JSON、XLS、XLSXの形式のファイルから既存のテーブルが読み込まれます。"
+"이것은 플러그인이 귀하 대신 비어있는 표를 생성하거나 CSV, HTML, JSON, XLS, 또"
+"는 XLSX 파일에서 기존 표를 불러올 수 있다는 의미입니다."
 
 # @ tablepress
 #: views/view-about.php:85
@@ -649,16 +647,14 @@ msgid ""
 "select specific table features like alternating row colors or whether to "
 "print the name or description, if you want."
 msgstr ""
-"次に、データの編集、テーブルの構造の変更（行または列の挿入、削除、移動、並べ"
-"替え、行と列の入れ替えなど）、特定のテーブル機能の選択（行の色の変更、名前や"
-"説明の表示/非表示など）を行うことができます。"
+"그런 다음 귀하의 데이터를 편집하거나 표의 구조(예: 행이나 열을 삽입, 삭제, 이"
+"동 또는 교체하거나 정렬)를 변경할 수 있고 행 색상을 번갈아 표시하거나 이름 또"
+"는 설명을 인쇄할 것인지 여부 등 특정 표 기능을 선택할 수 있습니다."
 
 # @ tablepress
 #: views/view-about.php:86
 msgid "To easily add a link or an image to a cell, use the provided buttons."
-msgstr ""
-"用意されているボタンを使用して、セルにリンクや画像を簡単に追加することができ"
-"ます。"
+msgstr "셀에 링크 또는 이미지를 손쉽게 추가하려면, 제공된 버튼을 사용하세요."
 
 # @ tablepress
 #: views/view-about.php:87
@@ -666,8 +662,8 @@ msgid ""
 "Those will ask you for the necessary information and and corresponding HTML "
 "code will be added to the cell automatically."
 msgstr ""
-"これらのボタンを使用し、必要な情報を入力すると、それに対応するHTMLコードがセ"
-"ルに自動的に追加されます。"
+"그것들이 필요한 정보를 요청할 것이며, 해당 HTML 코드가 셀에 자동으로 추가됩니"
+"다."
 
 # @ tablepress
 #: views/view-about.php:90 views/view-list.php:188
@@ -675,8 +671,8 @@ msgid ""
 "To insert a table into a page, post, or text widget, copy its Shortcode %s "
 "and paste it at the desired place in the editor."
 msgstr ""
-"ページ、投稿、テキスト ウィジェットにテーブルを挿入するには、ショートコード%s"
-"をコピーして、エディターで目的の位置に貼り付けます。"
+"페이지, 글 또는 텍스트 위젯에 표를 삽입하려면, 단축코드 %s을(를) 복사한 후에 "
+"편집기에서 원하는 위치에 붙여넣으세요."
 
 # @ tablepress
 #: views/view-about.php:91 views/view-list.php:190
@@ -684,14 +680,13 @@ msgid ""
 "You can also click the &#8220;%s&#8221; button in the editor toolbar to "
 "select and insert a table."
 msgstr ""
-"エディターのツールバーの［%s］ボタンをクリックして、テーブルを選択して挿入す"
-"ることもできます。"
+"또한 편집기 툴바의 &#8220;%s&#8221; 버튼을 클릭하여 표를 선택 및 삽입할 수 있"
+"습니다."
 
 # @ tablepress
 #: views/view-about.php:94
 msgid "Tables can be styled by changing and adding CSS commands."
-msgstr ""
-"CSSコマンドを変更または追加することで、テーブルのスタイルを指定できます。"
+msgstr "CSS 명령을 변경 및 추가하여 표 스타일을 지정할 수 있습니다."
 
 # @ tablepress
 #: views/view-about.php:95
@@ -699,8 +694,8 @@ msgid ""
 "The plugin ships with default CSS stylesheets, which can be customized with "
 "own code or replaced with other stylesheets."
 msgstr ""
-"このプラグインにはデフォルトのCSSスタイルシートが含まれており、独自のコードを"
-"記述してカスタマイズするか、別のスタイルシートで置き換えることができます。"
+"플러그인은 자체 코드를 사용자 정의하거나 다른 스타일시트로으로 대체될 수 있"
+"는 기본 CSS 스타일 시트를 제공합니다."
 
 # @ tablepress
 #: views/view-about.php:96
@@ -708,8 +703,8 @@ msgid ""
 "For this, each table is given certain CSS classes that can be used as CSS "
 "selectors."
 msgstr ""
-"このため、各テーブルに、CSSセレクタとして使用できる特定のCSSクラスが指定され"
-"ます。"
+"이를 위해, 각 표는 CSS 선택자로서 사용될 수 있는 특정 CSS 클래스가 주어집니"
+"다."
 
 # @ tablepress
 #: views/view-about.php:97
@@ -717,8 +712,8 @@ msgid ""
 "Please see the <a href=\"%s\">documentation</a> for a list of these "
 "selectors and for styling examples."
 msgstr ""
-"これらのセレクタの一覧と、スタイル指定の例については、<a href=\"%s\">ドキュメ"
-"ント</a>を参照してください。"
+"<a href=\"\"%s\"\">문서</a>에서 이러한 선택자 목록 및 스타일 예제를 참조해주"
+"세요."
 
 # @ tablepress
 #: views/view-about.php:113
@@ -727,23 +722,23 @@ msgid ""
 "\">plugin&#8217;s website</a> or on its page in the <a href=\"%s\">WordPress "
 "Plugin Directory</a>."
 msgstr ""
-"TablePressに関する詳細は、<a href=\"%s\">プラグインのWebサイト</a>、または<a "
-"href=\"%s\">WordPress Plugin Directory</a>でプラグインのページを参照してくだ"
-"さい。"
+"TablePress에 대한 자세한 내용은 <a href=\"%s\">플러그인의 웹사이트</a> 또는 "
+"<a href=\"%s\">WordPress Plugin Directory</a> 페이지에서 볼 수 있습니다."
 
 # @ tablepress
 #: views/view-about.php:130
 msgid ""
 "This plugin was written and developed by <a href=\"%s\">Tobias Bäthge</a>."
-msgstr "このプラグインは、<a href=\"%s\">Tobias Bäthge</a>が開発しました。"
+msgstr ""
+"이 플러그인은 <a href=\"%s\">Tobias Bäthge</a>에 의해 작성 및 개발되었습니다."
 
 # @ tablepress
 #: views/view-about.php:131
 msgid ""
 "It is licensed as Free Software under GNU General Public License 2 (GPL 2)."
 msgstr ""
-"このプラグインは、GNU General Public License 2（GPL 2）の下でフリー ソフト"
-"ウェアとしてライセンスされます。"
+"GNU General Public License 2 (GPL 2)에 의해 무료 소프트웨어로서의 사용을 허가"
+"합니다."
 
 # @ tablepress
 #: views/view-about.php:133
@@ -751,8 +746,8 @@ msgid ""
 "If you like the plugin, <a href=\"%s\"><strong>giving a donation</strong></"
 "a> is recommended."
 msgstr ""
-"このプラグインを気に入っていただけたら、<a href=\"%s\"><strong>ご寄付</"
-"strong></a>をお願いいたします。"
+"이 플러그인이 마음에 드시면, <a href=\"%1$s\"><strong>기부해주시길</strong></"
+"a> 권장합니다."
 
 # @ tablepress
 #: views/view-about.php:134
@@ -760,8 +755,8 @@ msgid ""
 "Please rate and review the plugin in the <a href=\"%s\">WordPress Plugin "
 "Directory</a>."
 msgstr ""
-"<a href=\"%s\">WordPress Plugin Directory</a>で、プラグインの評価とレビューの"
-"記入にご協力ください。"
+"<a href=\"%s\">WordPress Plugin Directory</a>에서 플러그인에 대한 평가 및 사"
+"용기를 남겨주세요."
 
 # @ tablepress
 #: views/view-about.php:136
@@ -769,8 +764,9 @@ msgid ""
 "Donations and good ratings encourage me to further develop the plugin and to "
 "provide countless hours of support. Any amount is appreciated! Thanks!"
 msgstr ""
-"ご寄付や高い評価をいただけることで、プラグインの今後の開発や、多くの時間を割"
-"いているサポートの励みになります。金額は問いません。ご協力に感謝いたします。"
+"기부 및 좋은 평가는 플러그인을 더욱 개발하고 제품지원에 무수한 시간을 제공할 "
+"수 있도록 제 스스로를 격려합니다. 금액에 상관없이 감사히 받겠습니다! 감사합니"
+"다!"
 
 # @ tablepress
 #: views/view-about.php:152
@@ -778,8 +774,8 @@ msgid ""
 "<a href=\"%s\">Support</a> is provided through the <a href=\"%s\">WordPress "
 "Support Forums</a>."
 msgstr ""
-"<a href=\"%s\">サポート</a>は、<a href=\"%s\">WordPress Support Forums</"
-"a>（英語）を通じて提供します。"
+"<a href=\"%s\">지원은</a> <a href=\"%s\">WordPress Support Forums</a>을(를) "
+"통해 제공됩니다."
 
 # @ tablepress
 #: views/view-about.php:156
@@ -787,34 +783,34 @@ msgid ""
 "If you do not find an answer there, please <a href=\"%s\">open a new thread</"
 "a> in the WordPress Support Forums."
 msgstr ""
-"WordPress Support Forumsで解決策が見つからない場合は、<a href=\"%s\">新しいス"
-"レッドを作成</a>してください。"
+"거기서 해답을 찾지 못할 경우, WordPress Support Forums에서 <a href=\"%s\">새"
+"로운 스레드를 시작하세요.</a>"
 
 # @ tablepress
 #: views/view-about.php:173
 msgid "Please provide this information in bug reports and support requests."
-msgstr "バグ レポートとサポート リクエストにはこの情報を含めてください。"
+msgstr "버그 보고 및 지원 요청 시 이 정보를 제공해주세요."
 
 # @ tablepress
 #: views/view-about.php:209
 msgid "Special Thanks go to:"
-msgstr "謝辞： "
+msgstr "특별히 감사드릴 분(들):"
 
 # @ tablepress
 #: views/view-about.php:210
 msgid ""
 "Allan Jardine for <a href=\"http://www.datatables.net/\">DataTables</a>,"
-msgstr "<a href=\"http://www.datatables.net/\">DataTables</a>のAllan Jardine、"
+msgstr "<a href=\"http://www.datatables.net/\">DataTables</a>의 Allan Jardine,"
 
 # @ tablepress
 #: views/view-about.php:213
 msgid "Thanks to the translators:"
-msgstr "翻訳者への謝辞："
+msgstr "번역에 감사드립니다:"
 
 # @ tablepress
 #: views/view-about.php:218
 msgid "%s (thanks to %s)"
-msgstr "%s（協力：%s）"
+msgstr "%s (%s에게 감사드립니다)"
 
 # @ tablepress
 #: views/view-about.php:223
@@ -822,18 +818,17 @@ msgid ""
 "Thank you to all donors, contributors, supporters, reviewers and users of "
 "the plugin!"
 msgstr ""
-"ご寄付、ご協力、サポート、レビューをいただいた皆さん、そしてプラグインのユー"
-"ザーの皆さんに感謝いたします。"
+"플러그인의 기부자, 기여자, 후원자, 검토자 및 사용자 모두에게 감사드립니다!"
 
 # @ tablepress
 #: views/view-add.php:37
 msgid "Error: The table could not be added."
-msgstr "エラー：テーブルを追加できませんでした。"
+msgstr "오류: 표를 추가할 수 없었습니다."
 
 # @ tablepress
 #: views/view-add.php:42
 msgid "Add Table"
-msgstr "テーブルを追加"
+msgstr "표 추가"
 
 # @ tablepress
 #: views/view-add.php:57
@@ -841,215 +836,215 @@ msgid ""
 "To add a new table, enter its name, a description (optional), and the number "
 "of rows and columns into the form below."
 msgstr ""
-"新しいテーブルを追加するには、下のフォームにテーブルの名前、説明（省略可）、"
-"行と列の数を入力します。"
+"새로운 표를 추가하려면 아래 양식에 이름, 설명(옵션) 및 행과 열의 개수를 입력"
+"하세요."
 
 # @ tablepress
 #: views/view-add.php:60
 msgid ""
 "You can always change the name, description, and size of your table later."
-msgstr "テーブルの名前、説明、サイズは後で変更できます。"
+msgstr "나중에 표의 이름, 설명 및 크기를 언제든지 변경할 수 있습니다."
 
 # @ tablepress
-#: views/view-add.php:77 views/view-edit.php:237
-#: views/view-editor_button_thickbox.php:276 views/view-list.php:322
+#: views/view-add.php:77 views/view-edit.php:235
+#: views/view-editor_button_thickbox.php:275 views/view-list.php:321
 msgid "Table Name"
-msgstr "テーブルの名前"
+msgstr "표 이름"
 
 # @ tablepress
 #: views/view-add.php:78
 msgid "Enter Table Name here"
-msgstr "ここにテーブルの名前を入力します"
+msgstr "여기에 표 이름을 입력"
 
 # @ tablepress
 #: views/view-add.php:79
 msgid "The name or title of your table."
-msgstr "テーブルの名前またはタイトル。"
+msgstr "표의 이름 또는 제목입니다."
 
 # @ tablepress
-#: views/view-add.php:82 views/view-edit.php:241
-#: views/view-editor_button_thickbox.php:277 views/view-list.php:323
+#: views/view-add.php:82 views/view-edit.php:239
+#: views/view-editor_button_thickbox.php:276 views/view-list.php:322
 msgid "Description"
-msgstr "説明"
+msgstr "설명"
 
 # @ tablepress
 #: views/view-add.php:82
 msgid "(optional)"
-msgstr "（省略可）"
+msgstr "(옵션)"
 
 # @ tablepress
 #: views/view-add.php:83
 msgid "Enter Description here"
-msgstr "ここに説明を入力します"
+msgstr "여기에 설명을 입력하세요"
 
 # @ tablepress
 #: views/view-add.php:84
 msgid "A description of the contents of your table."
-msgstr "テーブルの内容に関する説明。"
+msgstr "표의 내용에 대한 설명"
 
 # @ tablepress
 #: views/view-add.php:87
 msgid "Number of Rows"
-msgstr "行数"
+msgstr "행 개수"
 
 # @ tablepress
-#: views/view-add.php:88 views/view-add.php:93 views/view-edit.php:426
-#: views/view-edit.php:429
+#: views/view-add.php:88 views/view-add.php:93 views/view-edit.php:424
+#: views/view-edit.php:427
 msgid "This field must contain a positive number."
-msgstr "このフィールドには正の数を入力してください。"
+msgstr "이 필드는 양수를 포함해야 합니다."
 
 # @ tablepress
 #: views/view-add.php:89
 msgid "The number of rows in your table."
-msgstr "テーブルの行数。"
+msgstr "표의 행 개수입니다."
 
 # @ tablepress
 #: views/view-add.php:92
 msgid "Number of Columns"
-msgstr "列数"
+msgstr "열 개수"
 
 # @ tablepress
 #: views/view-add.php:94
 msgid "The number of columns in your table."
-msgstr "テーブルの列数。"
+msgstr "표의 열 개수입니다."
 
 # @ tablepress
 #: views/view-edit.php:48
 msgid "The table was saved successfully."
-msgstr "テーブルが正常に保存されました。"
+msgstr "표를 성공적으로 저장했습니다."
 
 # @ tablepress
 #: views/view-edit.php:49
 msgid "The table was added successfully."
-msgstr "テーブルが正常に追加されました。"
+msgstr "표를 성공적으로 추가했습니다."
 
 # @ tablepress
 #: views/view-edit.php:50 views/view-list.php:102 views/view-list.php:103
 msgid "The table was copied successfully."
 msgid_plural "The tables were copied successfully."
-msgstr[0] "テーブルが正常にコピーされました。"
+msgstr[0] "표를 성공적으로 복사했습니다."
 
 # @ tablepress
 #: views/view-edit.php:50
 msgid ""
 "You are now seeing the copied table, which has the table ID &#8220;%s&#8221;."
-msgstr "コピーしたテーブルは、テーブルID「%s&」で表示されています。"
+msgstr "지금 표 ID &#8220;%s&#8221;의 복사된 표를 보고 계십니다."
 
 # @ tablepress
 #: views/view-edit.php:51
 msgid "The table was imported successfully."
-msgstr "テーブルが正常にインポートされました。"
+msgstr "표를 성공적으로 가져왔습니다."
 
 # @ tablepress
 #: views/view-edit.php:52
 msgid "The table was imported successfully from WP-Table Reloaded."
-msgstr "テーブルがWP-Table Reloadedプラグインから正常にインポートされました。"
+msgstr "WP-Table Reloaded에서 표를 성공적으로 가져왔습니다."
 
 # @ tablepress
 #: views/view-edit.php:53 views/view-list.php:101
 msgid "Error: The table could not be saved."
-msgstr "エラー：テーブルを保存できませんでした。"
+msgstr "오류: 표를 저장하지 못했습니다."
 
 # @ tablepress
 #: views/view-edit.php:54 views/view-list.php:100
 msgid "Error: The table could not be deleted."
-msgstr "エラー：テーブルを削除できませんでした。"
+msgstr "오류: 표를 삭제하지 못했습니다."
 
 # @ tablepress
 #: views/view-edit.php:55
 msgid "The table was saved successfully, and the table ID was changed."
-msgstr "テーブルが正常に保存され、テーブルIDが変更されました。"
+msgstr "표를 성공적으로 저장했고, 표 ID가 변경됐습니다."
 
 # @ tablepress
 #: views/view-edit.php:56
 msgid ""
 "The table was saved successfully, but the table ID could not be changed!"
-msgstr "テーブルが正常に保存されましたが、テーブルIDを変更できませんでした。"
+msgstr "표를 성공적으로 저장했으나, 표 ID를 변경하지 못했습니다!"
 
 # @ tablepress
 #: views/view-edit.php:80
 msgctxt "Insert Link dialog"
 msgid "Insert/edit link"
-msgstr "リンクを挿入/編集"
+msgstr "링크 삽입/편집"
 
 # @ tablepress
 #: views/view-edit.php:81
 msgctxt "Insert Link dialog"
 msgid "Update"
-msgstr "更新"
+msgstr "업데이트"
 
 # @ tablepress
 #: views/view-edit.php:82
 msgctxt "Insert Link dialog"
 msgid "Add Link"
-msgstr "リンクを追加"
+msgstr "링크 추가"
 
 # @ tablepress
 #: views/view-edit.php:83
 msgctxt "Insert Link dialog"
 msgid "(no title)"
-msgstr "（タイトルなし）"
+msgstr "(제목 없음)"
 
 # @ tablepress
 #: views/view-edit.php:84
 msgctxt "Insert Link dialog"
 msgid "No matches found."
-msgstr "一致する項目がありません。"
+msgstr "일치하는 항목을 찾을 수 없음."
 
 # @ tablepress
 #: views/view-edit.php:86
 msgctxt "Insert Link dialog"
 msgid "Link Text"
-msgstr "リンク テキスト"
+msgstr "링크 텍스트"
 
 # @ tablepress
 #: views/view-edit.php:121
 msgid "You can not delete all table rows!"
-msgstr "テーブルのすべての行を削除することはできません。"
+msgstr "표의 모든 행을 삭제할 수 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:122
 msgid "You can not delete all table columns!"
-msgstr "テーブルのすべての列を削除することはできません。"
+msgstr "표의 모든 열을 삭제할 수 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:123
 msgid "You did not select any rows!"
-msgstr "行が選択されていません。"
+msgstr "선택한 행이 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:124
 msgid "You did not select any columns!"
-msgstr "列が選択されていません。"
+msgstr "선택한 열이 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:125
 msgid "The value for the number of rows is invalid!"
-msgstr "行数の値が無効です。"
+msgstr "행 개수 값이 잘못됐습니다!"
 
 # @ tablepress
 #: views/view-edit.php:126
 msgid "The value for the number of columns is invalid!"
-msgstr "列数の値が無効です。"
+msgstr "열 개수 값이 잘못됐습니다!"
 
 # @ tablepress
 #: views/view-edit.php:127 views/view-edit.php:128
 msgid "Do you really want to delete the selected row?"
 msgid_plural "Do you really want to delete the selected rows?"
-msgstr[0] "選択した行を削除してもよろしいですか？"
+msgstr[0] "정말로 선택한 행을 삭제하시겠습니까?"
 
 # @ tablepress
 #: views/view-edit.php:129 views/view-edit.php:130
 msgid "Do you really want to delete the selected column?"
 msgid_plural "Do you really want to delete the selected columns?"
-msgstr[0] "選択した列を削除してもよろしいですか？"
+msgstr[0] "정말로 선택한 열을 삭제하시겠습니까?"
 
 # @ tablepress
 #: views/view-edit.php:131
 msgid ""
 "Please click into the cell that you want to edit using the &#8220;Advanced "
 "Editor&#8221;."
-msgstr "［高度なエディター］を使用して編集したいセルをクリックします。"
+msgstr "&#8220;고급 편집기&#8221;를 사용하여 편집할 셀을 클릭해주세요."
 
 # @ tablepress
 #: views/view-edit.php:132
@@ -1057,8 +1052,8 @@ msgid ""
 "To combine cells within a column, click into the cell below the cell that "
 "has the content the combined cells shall have."
 msgstr ""
-"同じ列の複数のセルを結合するには、結合後のセルに残す内容が含まれているセルの"
-"下のセルをクリックします。"
+"열의 셀들을 병합하려면, 병합된 셀의 내용이 포함될 셀의 아래쪽 셀을 클릭하세"
+"요."
 
 # @ tablepress
 #: views/view-edit.php:133
@@ -1066,8 +1061,8 @@ msgid ""
 "To combine cells within a row, click into the cell to the right of the cell "
 "that has the content the combined cells shall have."
 msgstr ""
-"同じ行の複数のセルを結合するには、結合後のセルに残す内容が含まれているセルの"
-"右側のセルをクリックします。"
+"행의 셀들을 병합하려면, 병합된 셀의 내용이 포함될 셀의 오른쪽쪽 셀을 클릭하세"
+"요."
 
 # @ tablepress
 #: views/view-edit.php:134
@@ -1075,13 +1070,13 @@ msgid ""
 "Attention: You have enabled the usage of the DataTables JavaScript library "
 "for features like sorting, search, or pagination."
 msgstr ""
-"注意：並べ替え、検索、ページ分割などの機能について、DataTables JavaScriptライ"
-"ブラリの使用を有効化しています。"
+"주의 : 정렬, 검색, 또는 페이지 매김과 같은 기능을 위한 DataTables 자바스크립"
+"트 라이브러리의 사용을 활성화하셨습니다."
 
 # @ tablepress
 #: views/view-edit.php:135
 msgid "Unfortunately, these can not be used in tables with combined cells."
-msgstr "これらの機能は、結合されたセルを含むテーブルでは使用できません。"
+msgstr "안타깝게도 이것들은 병합된 셀이 있는 표에서 사용될 수 었습니다."
 
 # @ tablepress
 #: views/view-edit.php:136
@@ -1089,26 +1084,25 @@ msgid ""
 "Do you want to proceed and automatically turn off the usage of DataTables "
 "for this table?"
 msgstr ""
-"続行すると、このテーブルでDataTablesの使用が自動的に無効化されますが、よろし"
-"いですか？"
+"계속 진행하시고 이 표에서 DataTables의 사용을 자동으로 해제하시겠습니까?"
 
 # @ tablepress
 #: views/view-edit.php:137
 msgid "Please click into the cell that you want to add a link to."
-msgstr "リンクを追加するセルをクリックします。"
+msgstr "링크를 추가할 셀을 클릭해주세요."
 
 # @ tablepress
 #: views/view-edit.php:138
 msgid ""
 "You can then enter the Link URL and Text or choose an existing page or post."
 msgstr ""
-"リンクURLとテキストを入力するか、既存のページまたは投稿を選択することができま"
-"す。"
+"그런 다음 링크 URL 및 텍스트를 입력하거나 기존 페이지 또는 글을 선택할 수 있"
+"습니다."
 
 # @ tablepress
 #: views/view-edit.php:139
 msgid "Please click into the cell that you want to add an image to."
-msgstr "画像を追加するセルをクリックします。"
+msgstr "이미지를 추가할 셀을 클릭해주세요."
 
 # @ tablepress
 #: views/view-edit.php:140
@@ -1116,18 +1110,18 @@ msgid ""
 "The Media Library will open, where you can select or upload the desired "
 "image or enter the image URL."
 msgstr ""
-"メディア ライブラリが開くので、目的の画像を選択またはアップロードするか、画像"
-"のURLを入力します。"
+"원하는 이미지를 선택 또는 업로드하거나 이미지 URL을 입력할 수 있는 미디어 라"
+"이브러리가 열립니다."
 
 # @ tablepress
 #: views/view-edit.php:141
 msgid "Click the &#8220;%s&#8221; button to insert the image."
-msgstr "［%s］ボタンをクリックして、画像を挿入します。"
+msgstr "이미지를 삽입하려면 &#8220;%s&#8221; 버튼을 클릭하세요."
 
 # @ tablepress
 #: views/view-edit.php:141 views/view-edit.php:195
 msgid "Insert into Table"
-msgstr "テーブルに挿入"
+msgstr "표에 삽입"
 
 # @ tablepress
 #: views/view-edit.php:142
@@ -1135,46 +1129,46 @@ msgid ""
 "The changes to this table were not saved yet and will be lost if you "
 "navigate away from this page."
 msgstr ""
-"このテーブルに加えた変更はまだ保存されていません。このページから移動すると、"
-"変更が失われます。"
+"이 표의 변경사항이 아직 저장되지 않았으며, 이 페이지에서 벗어날 경우 변경사항"
+"을 잃게 됩니다."
 
 # @ tablepress
 #: views/view-edit.php:143
 msgid "The Table Preview is being loaded..."
-msgstr "テーブルのプレビューを読み込んでいます..."
+msgstr "표의 미리 보기를 불러오는 중입니다..."
 
 # @ tablepress
 #: views/view-edit.php:144
 msgid "The Table Preview could not be loaded."
-msgstr "テーブルのプレビューを読み込めませんでした。"
+msgstr "표의 미리 보기를 불러올 수 없었습니다."
 
 # @ tablepress
 #: views/view-edit.php:145
 msgid "Saving successful"
-msgstr "正常に保存されました"
+msgstr "성공적으로 저장함"
 
 # @ tablepress
 #: views/view-edit.php:146
 msgid "Saving failed"
-msgstr "保存に失敗しました"
+msgstr "저장에 실패했음"
 
 # @ tablepress
 #: views/view-edit.php:147
 msgid "Changes are being saved..."
-msgstr "変更を保存中です..."
+msgstr "변경사항을 저장하는 중입니다..."
 
 # @ tablepress
 #: views/view-edit.php:148
 msgid "The Table ID field can not be empty. Please enter a Table ID!"
-msgstr ""
-"［テーブルID］フィールドは空欄にできません。テーブルIDを入力してください。"
+msgstr "표 ID 필드를 비워둘 수 없습니다. 표 ID를 입력해주세요!"
 
 # @ tablepress
 #: views/view-edit.php:149
 msgid ""
 "The Table ID &#8220;0&#8221; is not supported. Please enter a different "
 "Table ID!"
-msgstr "テーブルID「0」は使用できません。別のテーブルIDを入力してください。"
+msgstr ""
+"표 ID &#8220;0&#8221;을(를) 지원하지 않습니다. 다른 표 ID를 입력해주세요!"
 
 # @ tablepress
 #: views/view-edit.php:150
@@ -1182,598 +1176,601 @@ msgid ""
 "Do you really want to change the Table ID? All Shortcodes for this table in "
 "your pages and posts will have to be adjusted!"
 msgstr ""
-"テーブルIDを変更してもよろしいですか？ ページや投稿に貼り付けたこのテーブルの"
-"すべてのショートコードを調整する必要があります。"
+"정말로 표 ID를 변경하시길 원하십니까? 글 및 게시물에서 이 표에 대한 모든 단축"
+"코드를 조정해야 합니다."
 
 # @ tablepress
 #: views/view-edit.php:151
 msgid ""
 "The entered value in the field &#8220;Extra CSS classes&#8221; is invalid."
-msgstr "［追加のCSSクラス］フィールドに入力された値が無効です。"
+msgstr "필드 &#8220;추가 CSS 클래스&#8221;의 입력 값이 유효하지 않습니다."
 
 # @ tablepress
 #: views/view-edit.php:152
 msgid ""
 "The entered value in the field &#8220;Pagination Entries&#8221; is not a "
 "number."
-msgstr "［ページ番号入力］フィールドに入力された値が数値ではありません。"
+msgstr "필드 &#8220;페이지 매김 항목&#8221;의 입력 값이 숫자가 아닙니다."
 
 # @ tablepress
-#: views/view-edit.php:153 views/view-edit.php:300
+#: views/view-edit.php:153 views/view-edit.php:298
 msgid "Sort ascending"
-msgstr "昇順で並べ替え"
+msgstr "오름차순으로 정렬"
 
 # @ tablepress
-#: views/view-edit.php:154 views/view-edit.php:300
+#: views/view-edit.php:154 views/view-edit.php:298
 msgid "Sort descending"
-msgstr "降順で並べ替え"
+msgstr "내림차순으로 정렬"
 
 # @ tablepress
 #: views/view-edit.php:155
 msgid "You can not add rowspan to the first row!"
-msgstr "最初の行にはrowspanを追加できません。"
+msgstr "첫 번째 행에 rowspan을 추가할 수 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:156
 msgid "You can not add colspan to the first column!"
-msgstr "最初の列にはcolspanを追加できません。"
+msgstr "첫 번째 열에 colspan을 추가할 수 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:157
 msgid "You can not connect cells into the table head row!"
-msgstr "テーブルの見出し行のセルとは連結できません。"
+msgstr "표 처음 행에 셀을 연결할 수 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:158
 msgid "You can not connect cells out of the table foot row!"
-msgstr "テーブルのフッター行にセルを結合することはできません。"
+msgstr "표 마지막 행에 셀을 연결할 수 없습니다!"
 
 # @ tablepress
 #: views/view-edit.php:166
 msgid "Table Information"
-msgstr "テーブル情報"
+msgstr "표 정보"
 
 # @ tablepress
 #: views/view-edit.php:167
 msgid "Table Content"
-msgstr "テーブルの内容"
+msgstr "표 내용"
 
 # @ tablepress
 #: views/view-edit.php:168
 msgid "Table Manipulation"
-msgstr "テーブルの操作"
+msgstr "표 조작"
 
 # @ tablepress
-#: views/view-edit.php:169 views/view-edit.php:593
+#: views/view-edit.php:169 views/view-edit.php:591
 msgid "Table Options"
-msgstr "テーブルのオプション"
+msgstr "표 옵션"
 
 # @ tablepress
 #: views/view-edit.php:170
 msgid "Features of the DataTables JavaScript library"
-msgstr "DataTables JavaScriptライブラリの機能"
+msgstr "DataTables 자바스크립트 라이브러리 기능"
 
 # @ tablepress
-#: views/view-edit.php:228
+#: views/view-edit.php:226
 msgid "Table ID"
-msgstr "テーブルID"
+msgstr "표 ID"
 
 # @ tablepress
-#: views/view-edit.php:231
+#: views/view-edit.php:229
 msgid ""
 "The Table ID can only consist of letters, numbers, hyphens (-), and "
 "underscores (_)."
-msgstr ""
-"テーブルIDに入力できるのは、文字、数字、ハイフン（-）、アンダースコア（_）の"
-"みです。"
+msgstr "표 ID는 문자, 숫자, 공백, 하이픈(-) 및 밑줄(_)만 포함할 수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:232
+#: views/view-edit.php:230
 msgid "Shortcode"
-msgstr "ショートコード"
+msgstr "단축코드"
 
 # @ tablepress
-#: views/view-edit.php:245 views/view-list.php:326
+#: views/view-edit.php:243 views/view-list.php:325
 msgid "Last Modified"
-msgstr "最終変更日"
+msgstr "최근 수정"
 
 # @ tablepress
-#: views/view-edit.php:246
+#: views/view-edit.php:244
 msgid "%1$s by %2$s"
-msgstr "%1$s by %2$s"
+msgstr "%1$s에 %2$s이(가)"
+
+# @ tablepress
+#: views/view-edit.php:376
+msgid "Insert Link"
+msgstr "링크 삽입"
+
+# @ tablepress
+#: views/view-edit.php:377
+msgid "Insert Image"
+msgstr "이미지 삽입"
 
 # @ tablepress
 #: views/view-edit.php:378
-msgid "Insert Link"
-msgstr "リンクを挿入"
-
-# @ tablepress
-#: views/view-edit.php:379
-msgid "Insert Image"
-msgstr "画像を挿入"
-
-# @ tablepress
-#: views/view-edit.php:380
 msgid "Advanced Editor"
-msgstr "高度なエディター"
+msgstr "고급 편집기"
+
+# @ tablepress
+#: views/view-edit.php:381
+msgid "Combine cells"
+msgstr "셀 병합"
+
+# @ tablepress
+#: views/view-edit.php:382
+msgid "in a column (rowspan)"
+msgstr "열(rowspan)"
 
 # @ tablepress
 #: views/view-edit.php:383
-msgid "Combine cells"
-msgstr "セルを結合"
+msgid "in a row (colspan)"
+msgstr "행(colspan)"
 
 # @ tablepress
 #: views/view-edit.php:384
-msgid "in a column (rowspan)"
-msgstr "同じ列内（rowspan）"
-
-# @ tablepress
-#: views/view-edit.php:385
-msgid "in a row (colspan)"
-msgstr "同じ行内（colspan）"
-
-# @ tablepress
-#: views/view-edit.php:386
 msgid "?"
-msgstr "？"
+msgstr "?"
+
+# @ tablepress
+#: views/view-edit.php:384
+msgid "Help on combining cells"
+msgstr "셀 병합에 대한 도움말"
 
 # @ tablepress
 #: views/view-edit.php:386
-msgid "Help on combining cells"
-msgstr "セルの結合に関するヘルプ"
-
-# @ tablepress
-#: views/view-edit.php:388
 msgid "Table cells can span across more than one column or row."
-msgstr ""
-"テーブルのセルは、複数の列または行にまたがるように配置することができます。"
+msgstr "표의 셀은 두 개 이상의 열이나 행을 병합할 수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:389
+#: views/view-edit.php:387
 msgid ""
 "Combining consecutive cells within the same row is called &#8220;"
 "colspanning&#8221;."
-msgstr "同じ行内の連続するセルを結合することを、「colspan」と言います。"
+msgstr ""
+"동일한 행에서 연속적인 셀을 병합하는 것을 &#8220;colspanning&#8221;.이라고 합"
+"니다."
 
 # @ tablepress
-#: views/view-edit.php:390
+#: views/view-edit.php:388
 msgid ""
 "Combining consecutive cells within the same column is called &#8220;"
 "rowspanning&#8221;."
-msgstr "同じ列内の連続する複数のセルを結合することを、「rowspan」と言います。"
+msgstr ""
+"동일한 열에서 연속적인 셀을 병합하는 것을 &#8220;rowspanning&#8221;.이라고 합"
+"니다."
 
 # @ tablepress
-#: views/view-edit.php:391
+#: views/view-edit.php:389
 msgid ""
 "To combine adjacent cells in a row, add the keyword <code>#colspan#</code> "
 "to the cell to the right of the one with the content for the combined cell "
 "by using the corresponding button."
 msgstr ""
-"同じ行内の隣接するセルを結合するには、該当するボタンを使用して、結合後のセル"
-"に残す内容が含まれるセルの右側のセルに、キーワード<code>#colspan#</code>を追"
-"加します。"
+"행에서 인접한 셀을 병합하려면, 해당 버튼을 사용하여 키워드 <code>#colspan#</"
+"code>을(를) 병합한 셀의 내용이 있는 셀의 오른쪽 셀에 추가하세요."
 
 # @ tablepress
-#: views/view-edit.php:392
+#: views/view-edit.php:390
 msgid ""
 "To combine adjacent cells in a column, add the keyword <code>#rowspan#</"
 "code> to the cell below the one with the content for the combined cell by "
 "using the corresponding button."
 msgstr ""
-"同じレ宇内の隣接するセルを結合するには、該当するボタンを使用して、結合後のセ"
-"ルに残す内容が含まれるセルの下のセルに、キーワード<code>#rowspan#</code>を追"
-"加します。"
+"열에서 인접한 셀을 병합하려면, 해당 버튼을 사용하여 키워드 <code>#rowspan#</"
+"code>을(를) 병합한 셀의 내용이 있는 셀의 아래쪽 셀에 추가하세요."
 
 # @ tablepress
-#: views/view-edit.php:393
+#: views/view-edit.php:391
 msgid "Repeat this to add the keyword to all cells that shall be connected."
-msgstr "これを繰り返して、結合するすべてのセルにキーワードを追加します。"
+msgstr "연결될 모든 셀에 키워드를 추가하려면 이 과정을 반복하세요."
 
 # @ tablepress
-#: views/view-edit.php:394
+#: views/view-edit.php:392
 msgid ""
 "Be aware that the functions of the DataTables JavaScript library will not "
 "work on tables which have combined cells."
 msgstr ""
-"セルが結合されたテーブルでは、DataTables JavaScriptライブラリの機能が動作しな"
-"いことに注意してください。"
+"DataTables 자바스크립트 라이브러리의 기능은 병합된 셀에 작동하지 않음에 유의"
+"하세요."
 
 # @ tablepress
-#: views/view-edit.php:400 views/view-edit.php:412
+#: views/view-edit.php:398 views/view-edit.php:410
 msgid "Selected rows"
-msgstr "選択した行"
+msgstr "선택한 행"
 
 # @ tablepress
-#: views/view-edit.php:401 views/view-edit.php:406
+#: views/view-edit.php:399 views/view-edit.php:404
 msgid "Hide"
-msgstr "非表示"
+msgstr "숨기기"
 
 # @ tablepress
-#: views/view-edit.php:402 views/view-edit.php:407
+#: views/view-edit.php:400 views/view-edit.php:405
 msgid "Show"
-msgstr "表示"
+msgstr "표시"
 
 # @ tablepress
-#: views/view-edit.php:405 views/view-edit.php:418
+#: views/view-edit.php:403 views/view-edit.php:416
 msgid "Selected columns"
-msgstr "選択した列"
+msgstr "선택한 열"
 
 # @ tablepress
-#: views/view-edit.php:413 views/view-edit.php:419
+#: views/view-edit.php:411 views/view-edit.php:417
 msgid "Duplicate"
-msgstr "コピー"
+msgstr "중복"
 
 # @ tablepress
-#: views/view-edit.php:414 views/view-edit.php:420
+#: views/view-edit.php:412 views/view-edit.php:418
 msgid "Insert"
-msgstr "挿入"
+msgstr "삽입"
 
 # @ tablepress
-#: views/view-edit.php:415 views/view-edit.php:421 views/view-list.php:432
+#: views/view-edit.php:413 views/view-edit.php:419 views/view-list.php:431
 msgid "Delete"
-msgstr "削除"
+msgstr "삭제"
 
 # @ tablepress
-#: views/view-edit.php:426
+#: views/view-edit.php:424
 msgid "Add %s row(s)"
-msgstr "%s行を追加"
+msgstr "행 %s개 추가"
 
 # @ tablepress
-#: views/view-edit.php:426 views/view-edit.php:429
+#: views/view-edit.php:424 views/view-edit.php:427
 msgid "Add"
-msgstr "追加"
+msgstr "추가"
 
 # @ tablepress
-#: views/view-edit.php:429
+#: views/view-edit.php:427
 msgid "Add %s column(s)"
-msgstr "%s列を追加"
+msgstr "열 %s개 추가"
 
 # @ tablepress
-#: views/view-edit.php:433
+#: views/view-edit.php:431
 msgid ""
 "To use the Table Manipulation features, JavaScript needs to be enabled in "
 "your browser."
 msgstr ""
-"テーブル操作機能を使用するには、ご使用のブラウザーでJavaScriptを有効にする必"
-"要があります。"
+"표 조작 기능을 사용하려면, 브라우저에서 자바스크립트가 활성화되어야 합니다."
+
+# @ tablepress
+#: views/view-edit.php:475
+msgid "Other Actions"
+msgstr "기타 동작"
 
 # @ tablepress
 #: views/view-edit.php:477
-msgid "Other Actions"
-msgstr "その他の操作"
-
-# @ tablepress
-#: views/view-edit.php:479
 msgid "Copy Table"
-msgstr "テーブルのコピー"
+msgstr "표 복사"
 
 # @ tablepress
-#: views/view-edit.php:482
+#: views/view-edit.php:480
 msgid "Export Table"
-msgstr "テーブルをエクスポート"
+msgstr "표 내보내기"
 
 # @ tablepress
-#: views/view-edit.php:485
+#: views/view-edit.php:483
 msgid "Delete Table"
-msgstr "テーブルを削除"
+msgstr "표 삭제"
 
 # @ tablepress
-#: views/view-edit.php:513
+#: views/view-edit.php:511
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "취소"
 
 # @ tablepress
-#: views/view-edit.php:514
+#: views/view-edit.php:512
 msgid "OK"
-msgstr "OK"
+msgstr "확인"
 
 # @ tablepress
-#: views/view-edit.php:538 views/view-edit.php:593
+#: views/view-edit.php:536 views/view-edit.php:591
 msgid "Table Head Row"
-msgstr "テーブルの見出し行"
+msgstr "표 머리 행"
 
 # @ tablepress
-#: views/view-edit.php:539
+#: views/view-edit.php:537
 msgid "The first row of the table is the table header."
-msgstr "テーブルの最初の行をテーブル見出しにする"
+msgstr "표의 첫 번째 행은 표 머리글입니다."
 
 # @ tablepress
-#: views/view-edit.php:542
+#: views/view-edit.php:540
 msgid "Table Foot Row"
-msgstr "テーブルのフッター行"
+msgstr "표 바닥 행"
 
 # @ tablepress
-#: views/view-edit.php:543
+#: views/view-edit.php:541
 msgid "The last row of the table is the table footer."
-msgstr "テーブルの最後の行をテーブル フッターにする"
+msgstr "표의 첫 번째 행은 표 바닥글입니다."
 
 # @ tablepress
-#: views/view-edit.php:546
+#: views/view-edit.php:544
 msgid "Alternating Row Colors"
-msgstr "行の色を交互にする"
+msgstr "행 색상 번갈아 표시"
 
 # @ tablepress
-#: views/view-edit.php:547
+#: views/view-edit.php:545
 msgid "The background colors of consecutive rows shall alternate."
-msgstr "連続する行の背景色を別々の色にする"
+msgstr "연속되는 행의 배경 색은 번갈아 표시됩니다."
 
 # @ tablepress
-#: views/view-edit.php:550
+#: views/view-edit.php:548
 msgid "Row Hover Highlighting"
-msgstr "カーソルのある行をハイライト表示"
+msgstr "행 배회 시 강조"
 
 # @ tablepress
-#: views/view-edit.php:551
+#: views/view-edit.php:549
 msgid ""
 "Highlight a row while the mouse cursor hovers above it by changing its "
 "background color."
-msgstr ""
-"マウス カーソルを行に合わせている間、行の背景色を変更してハイライト表示する"
+msgstr "마우스 커서가 위에 머무르는 동안 배경 색상을 변경하여 행을 강조하세요."
 
 # @ tablepress
-#: views/view-edit.php:554
+#: views/view-edit.php:552
 msgid "Print Table Name"
-msgstr "テーブル名を表示"
+msgstr "표 이름 인쇄"
 
 # @ tablepress
-#: views/view-edit.php:557 views/view-edit.php:567
+#: views/view-edit.php:555 views/view-edit.php:565
 msgid "above"
-msgstr "上"
+msgstr "위"
 
 # @ tablepress
-#: views/view-edit.php:558 views/view-edit.php:568
+#: views/view-edit.php:556 views/view-edit.php:566
 msgid "below"
-msgstr "下"
+msgstr "아래"
 
 # @ tablepress
-#: views/view-edit.php:561
+#: views/view-edit.php:559
 msgid "Show the table name %s the table."
-msgstr "テーブル名をテーブルの%sに表示"
+msgstr "표 이름을 표의 %s에 표시합니다."
 
 # @ tablepress
-#: views/view-edit.php:564
+#: views/view-edit.php:562
 msgid "Print Table Description"
-msgstr "テーブルの説明の表示"
+msgstr "표 설명 인쇄"
 
 # @ tablepress
-#: views/view-edit.php:571
+#: views/view-edit.php:569
 msgid "Show the table description %s the table."
-msgstr "テーブルの説明をテーブルの%sに表示"
+msgstr "표 설명을 표의 %s에 표시합니다."
 
 # @ tablepress
-#: views/view-edit.php:574
+#: views/view-edit.php:572
 msgid "Extra CSS Classes"
-msgstr "追加のCSSクラス"
+msgstr "추가 CSS 클래스"
 
 # @ tablepress
-#: views/view-edit.php:575
+#: views/view-edit.php:573
 msgid ""
 "This field can only contain letters, numbers, spaces, hyphens (-), and "
 "underscores (_)."
-msgstr ""
-"このフィールドには、文字、数字、スペース、ハイフン（-）、アンダースコア（_）"
-"のみを入力できます。"
+msgstr "이 필드는 문자, 숫자, 공백, 하이픈(-) 및 밑줄(_)만 포함할 수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:575
+#: views/view-edit.php:573
 msgid "Additional CSS classes for styling purposes can be entered here."
-msgstr "スタイルの指定に使用する追加のCSSクラスを、ここに入力できます。"
+msgstr "스타일을 위한 추가 CSS 클래스를 여기에 입력할 수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:575
+#: views/view-edit.php:573
 msgid "This is NOT the place to enter <a href=\"%s\">Custom CSS</a> code!"
 msgstr ""
-"ここは<a href=\"%s\">カスタムCSS</a>コードを指定する場所ではありません。"
+"여기는 <a href=\"\"%s\"\">사용자 정의 CSS</a> 코드를 입력하는 위치가 아닙니"
+"다!"
 
 # @ tablepress
-#: views/view-edit.php:593
+#: views/view-edit.php:591
 msgid ""
 "These features and options are only available, when the &#8220;%1$s&#8221; "
 "checkbox in the &#8220;%2$s&#8221; section is checked."
 msgstr ""
-"これらの機能とオプションは、［%2$s］セクションの［%1$s］チェックボックスがオ"
-"ンになっている場合のにみ使用できます。"
+"이러한 기능 및 옵션은 &#8220;%2$s&#8221; 부분의 &#8220;%1$s&#8221; 확인란이 "
+"선택된 경우에만 사용할 수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:597
+#: views/view-edit.php:595
 msgid "Use DataTables"
-msgstr "DataTablesを使用"
+msgstr "DataTables 사용"
 
 # @ tablepress
-#: views/view-edit.php:598
+#: views/view-edit.php:596
 msgid ""
 "Use the following features of the DataTables JavaScript library with this "
 "table:"
-msgstr "このテーブルで以下のDataTables JavaScriptライブラリ機能を使用する： "
+msgstr "이 표에 DataTables 자바스크립트 라이브러리 기능을 사용하도록 합니다:"
 
 # @ tablepress
-#: views/view-edit.php:601
+#: views/view-edit.php:599
 msgid "Sorting"
-msgstr "並べ替え"
+msgstr "정렬 기준"
 
 # @ tablepress
-#: views/view-edit.php:602
+#: views/view-edit.php:600
 msgid "Enable sorting of the table by the visitor."
-msgstr "訪問者がテーブルの並べ替えを選択できるようにする"
+msgstr "방문자가 표를 정렬할 수 있도록 합니다."
 
 # @ tablepress
-#: views/view-edit.php:605
+#: views/view-edit.php:603
 msgid "Search/Filtering"
-msgstr "検索/フィルター"
+msgstr "검색/필터링"
 
 # @ tablepress
-#: views/view-edit.php:606
+#: views/view-edit.php:604
 msgid ""
 "Enable the visitor to filter or search the table. Only rows with the search "
 "word in them are shown."
 msgstr ""
-"訪問者がテーブルの検索またはフィルターを使用できるようにする。テーブル内で検"
-"索語を含む行だけが表示されます。"
+"방문자가 표를 필터 또는 검색할 수 있도록 합니다. 검색어를 포함하는 행만 표시"
+"하게 됩니다."
 
 # @ tablepress
-#: views/view-edit.php:609
+#: views/view-edit.php:607
 msgid "Pagination"
-msgstr "ページ番号"
+msgstr "페이지 매김"
 
 # @ tablepress
-#: views/view-edit.php:610
+#: views/view-edit.php:608
 msgid ""
 "Enable pagination of the table (viewing only a certain number of rows at a "
 "time) by the visitor."
 msgstr ""
-"テーブルのページ分割（一度に表示する行数の指定）を訪問者が使用できるようにす"
-"る"
+"방문자가 표를 페이지를 나눌 수 있도록 (페이지 당 설정한 행 개수만 표시하도"
+"록) 합니다."
 
 # @ tablepress
-#: views/view-edit.php:611
+#: views/view-edit.php:609
 msgid "Show %s rows per page."
-msgstr "1ページに%s行を表示します。"
+msgstr "페이지 당 %s개의 행을 표시합니다."
 
 # @ tablepress
-#: views/view-edit.php:614
+#: views/view-edit.php:612
 msgid "Pagination Length Change"
-msgstr "ページ分割の行数を変更"
+msgstr "페이지 매김 길이 변경"
 
 # @ tablepress
-#: views/view-edit.php:615
+#: views/view-edit.php:613
 msgid ""
 "Allow the visitor to change the number of rows shown when using pagination."
-msgstr "ページ分割で表示する行数を訪問者が変更できるようにする"
+msgstr ""
+"방문자가 페이지 매김 기능을 사용할 때 표시할 행 개수를 변경할 수 있도록 합니"
+"다."
 
 # @ tablepress
-#: views/view-edit.php:618
+#: views/view-edit.php:616
 msgid "Info"
-msgstr "情報"
+msgstr "정보"
 
 # @ tablepress
-#: views/view-edit.php:619
+#: views/view-edit.php:617
 msgid ""
 "Enable the table information display, with information about the currently "
 "visible data, like the number of rows."
 msgstr ""
-"行数など、現在表示されているデータに関する情報とともにテーブル情報の表示を有"
-"効にする"
+"행 개수와 같은 현재 표시되고있는 데이터에 대한 정보를 포함한 표 정보 표시를 "
+"활성화합니다."
 
 # @ tablepress
-#: views/view-edit.php:622
+#: views/view-edit.php:620
 msgid "Horizontal Scrolling"
-msgstr "水平スクロール"
+msgstr "가로 스크롤링"
 
 # @ tablepress
-#: views/view-edit.php:623
+#: views/view-edit.php:621
 msgid ""
 "Enable horizontal scrolling, to make viewing tables with many columns easier."
-msgstr "列数の多いテーブルを見やすくするために、水平スクロールを有効にする"
+msgstr "가로 스크롤링을 활성화하여 열이 많은 표를 쉽게 볼 수 있도록 합니다."
 
 # @ tablepress
-#: views/view-edit.php:629
+#: views/view-edit.php:627
 msgid "Custom Commands"
-msgstr "カスタム コマンド"
+msgstr "사용자 정의 명령"
 
 # @ tablepress
-#: views/view-edit.php:630
+#: views/view-edit.php:628
 msgid ""
 "Additional parameters from the <a href=\"http://www.datatables.net/"
 "\">DataTables documentation</a> to be added to the JS call."
 msgstr ""
-"<a href=\"http://www.datatables.net/\">DataTablesドキュメント</a>に記載されて"
-"いる追加のパラメーターをJS callに追加します。"
+"JS 호출에 추가될 <a href=\"http://www.datatables.net/\">DataTables 문서</a>"
+"의 추가 파라미터."
 
 # @ tablepress
-#: views/view-edit.php:630
+#: views/view-edit.php:628
 msgid "For advanced use only."
-msgstr "高度な用途でのみ使用してください。"
+msgstr "고급 전용."
 
-#: views/view-edit.php:648
+# @ tablepress
+#: views/view-edit.php:646
 msgid "Attention: Unfortunately, an error occurred."
-msgstr "Attention: Unfortunately, an error occurred."
+msgstr "주의: 안타깝게도 오류가 발생했습니다."
 
-#: views/view-edit.php:651
+# @ tablepress
+#: views/view-edit.php:649
 msgid "The internal data of table &#8220;%1$s&#8221 (ID %2$s) is corrupted."
-msgstr "テーブル「;%1$s」（ID %2$s）の内部データが破損しています。"
+msgstr "표 &#8220;%1$s&#8221 (ID %2$s)의 내부 데이터가 손상되었습니다."
 
-#: views/view-edit.php:653
+# @ tablepress
+#: views/view-edit.php:651
 msgid "The following error was registered: <code>%s</code>."
-msgstr "次のエラーが登録されました：<code>%s</code>"
+msgstr "다음 오류가 등록되었습니다: <code>%s</code>."
 
-#: views/view-edit.php:658
+# @ tablepress
+#: views/view-edit.php:656
 msgid ""
 "Because of this error, the table can not be edited at this time, to prevent "
 "possible further data loss."
 msgstr ""
-"このエラーのため、データがさらに消失しないように、現在テーブルを編集できなく"
-"なっています。"
+"이 오류로 인해, 추가적인 데이터 손실을 방지하기 위해 표에 대한 편집을 제한합"
+"니다."
 
 # @ tablepress
-#: views/view-edit.php:660
+#: views/view-edit.php:658
 msgid ""
 "Please see the <a href=\"%s\">TablePress FAQ page</a> for further "
 "instructions."
 msgstr ""
-"さらに詳しい説明は<a href=\"%s\">TablePress FAQページ</a>を参照してください。"
+"자세한 내용은 <a href=\"%s\">TablePress 자주 묻는 질문 페이지</a>를 참조해주"
+"세요."
 
 # @ tablepress
-#: views/view-edit.php:66
+#: views/view-edit.php:663
 msgid "Back to the List of Tables"
-msgstr "テーブルの一覧に戻る"
+msgstr "표 목록으로 돌아가기"
 
 # @ tablepress
-#: views/view-edit.php:683
+#: views/view-edit.php:681
 msgid ""
 "On this screen, you can edit the content and structure of the table with the "
 "ID %s."
-msgstr "この画面では、ID %sのテーブルの内容と構造を編集できます。"
+msgstr "이 화면에서 ID %s에 해당하는 표 내용 및 구조를 편집할 수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:684
+#: views/view-edit.php:682
 msgid ""
 "For example, you can insert things like text, images, or links into the "
 "table, or change the used table features. You can also insert, delete, move, "
 "hide, and swap columns and rows."
 msgstr ""
-"たとえば、テーブルにテキスト、画像、リンクを挿入したり、使用されているテーブ"
-"ル機能を変更したりできます。また、列や行の挿入、削除、移動、非表示、行と列の"
-"入れ替えを行うこともできます。"
+"예를 들어, 표에 텍스트, 이미지, 링크 같은 것들을 삽입하거나, 사용 중인 표 기"
+"능을 변경할 수 있습니다. 또한 열 및 행을 삽입, 삭제, 이동, 숨기기 및 교체할 "
+"수 있습니다."
 
 # @ tablepress
-#: views/view-edit.php:687
+#: views/view-edit.php:685
 msgid ""
 "To insert the table into a page, post, or text widget, copy the Shortcode %s "
 "and paste it at the desired place in the editor."
 msgstr ""
-"ページ、投稿、テキスト ウィジェットにテーブルを挿入するには、ショートコード%s"
-"をコピーして、エディターで目的の位置に貼り付けます。"
+"페이지, 글, 또는 텍스트 위젯에 표를 삽입하려면, 단축코드 %s을(를) 복사하여 편"
+"집기에서 원하는 위치에 붙여넣으세요."
 
 # @ tablepress
-#: views/view-edit.php:698
+#: views/view-edit.php:696
 msgid "TablePress Feature: Moving rows and columns"
-msgstr "TablePressの機能：行や列の移動"
+msgstr "TablePress 기능 : 행과 열 이동"
 
 # @ tablepress
-#: views/view-edit.php:699
+#: views/view-edit.php:697
 msgid ""
 "Did you know? You can drag and drop rows and columns via the row number and "
 "the column title. And the arrows next to the column title can be used for "
 "sorting."
 msgstr ""
-"ご存知でしたか？ 行番号や列タイトルを使って、行や列をドラッグ アンド ドロップ"
-"で移動できます。列タイトルの横にある矢印を使うと、並べ替えができます。"
+"알고 계셨습니까? 행 번호와 열 제목을 끌어놓아 행과 열을 제거할 수 있습니다. "
+"그리고 열 제목 옆의 화살표는 정렬에 사용될 수있다."
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:68
 #: views/view-editor_button_thickbox.php:171
 msgid "List of Tables"
-msgstr "テーブルの一覧"
+msgstr "표 목록"
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:174
 msgid "This is a list of all available tables."
-msgstr "使用可能なすべてのテーブルの一覧です。"
+msgstr "이것은 사용 가능한 모든 표의 목록입니다."
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:174
 msgid "You may insert a table into a post or page here."
-msgstr "ここでは、投稿またはページにテーブルを挿入できます。"
+msgstr "여기에서 글 또는 페이지에 표를 삽입할 수 있습니다."
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:176
@@ -1781,83 +1778,82 @@ msgid ""
 "Click the &#8220;%1$s&#8221; button for the desired table to automatically "
 "insert the<br />corresponding Shortcode (%2$s) into the editor."
 msgstr ""
-"目的のテーブルに対して［%1$s］ボタンをクリックすると、対応するショートコード"
-"（%2$s）が自動的にエディターに挿入されます。<br />"
+"원하는 표가 해당 단축코드 (%2$s)을(를) 편집기에 자동으로 삽입하려면 &#8220;"
+"%1$s&#8221; 버튼을 클릭하세요."
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:176
-#: views/view-editor_button_thickbox.php:357
+#: views/view-editor_button_thickbox.php:356
 msgid "Insert Shortcode"
-msgstr "ショートコードを挿入"
+msgstr "단축코드 삽입"
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:180 views/view-list.php:205
 msgid "Search results for &#8220;%s&#8221;"
-msgstr "「%s」の検索結果"
+msgstr "&#8220;%s&#8221;에 대한 검색 결과"
 
 # @ tablepress
 #: views/view-editor_button_thickbox.php:186 views/view-list.php:213
 msgid "Search Tables"
-msgstr "テーブルの検索"
+msgstr "표 검색"
 
 # @ tablepress
-#: views/view-editor_button_thickbox.php:275 views/view-list.php:321
+#: views/view-editor_button_thickbox.php:274 views/view-list.php:320
 msgid "ID"
 msgstr "ID"
 
 # @ tablepress
-#: views/view-editor_button_thickbox.php:278
+#: views/view-editor_button_thickbox.php:277
 msgid "Action"
-msgstr "操作"
+msgstr "동작"
 
 # @ tablepress
-#: views/view-editor_button_thickbox.php:343 views/view-list.php:451
+#: views/view-editor_button_thickbox.php:342 views/view-list.php:450
 msgid "(no description)"
-msgstr "（説明なし）"
+msgstr "(설명 없음)"
 
 # @ tablepress
-#: views/view-editor_button_thickbox.php:366 views/view-export.php:88
-#: views/view-list.php:569
+#: views/view-editor_button_thickbox.php:365 views/view-export.php:88
+#: views/view-list.php:568
 msgid "No tables found."
-msgstr "テーブルが見つかりません。"
+msgstr "표를 찾을 수 없었습니다."
 
 # @ tablepress
-#: views/view-editor_button_thickbox.php:368
+#: views/view-editor_button_thickbox.php:367
 msgid ""
 "You should add or import a table on the TablePress screens to get started!"
-msgstr ""
-"はじめに、TablePressの画面でテーブルを追加またはインポートしてください。"
+msgstr "시작하려면 TablePress 화면에서 표를 추가하거나 가져와야 합니다!"
 
 # @ tablepress
 #: views/view-export.php:35
 msgid "Error: The export failed."
-msgstr "エラー：エクスポートが失敗しました。"
+msgstr "오류: 내보내기에 실패했습니다."
 
 # @ tablepress
 #: views/view-export.php:36 views/view-list.php:106
 msgid "Error: This table could not be loaded!"
-msgstr "エラー：このテーブルを読み込めませんでした。"
+msgstr "오류: 이 표를 불러오지 못했습니다!"
 
 # @ tablepress
 #: views/view-export.php:37
 msgid "Error: The internal data of this table is corrupted!"
-msgstr "エラー：このテーブルの内部データが破損しています！"
+msgstr "오류: 이 표의 내부 데이터가 손상되었습니다!"
 
 # @ tablepress
 #: views/view-export.php:38
 msgid "Error: The ZIP file could not be created."
-msgstr "エラー：ZIPファイルを作成できませんでした。"
+msgstr "오류: ZIP 파일을 생성하지 못했습니다."
 
 # @ tablepress
 #: views/view-export.php:43 views/view-export.php:46
 msgid "Export Tables"
-msgstr "テーブルをエクスポート"
+msgstr "표 내보내기"
 
 # @ tablepress
 #: views/view-export.php:47
 msgctxt "button"
 msgid "Download Export File"
-msgstr "エクスポート ファイルをダウンロード"
+msgstr "내보내기 파일 다운로드"
 
 # @ tablepress
 #: views/view-export.php:63
@@ -1865,22 +1861,19 @@ msgid ""
 "Exporting a table allows you to use it in other programs, like spreadsheets "
 "applications."
 msgstr ""
-"テーブルをエクスポートすると、表計算アプリケーションなどの他のプログラムで使"
-"用できます。"
+"표를 내보내면 스프레드시트 응용 프로그램과 같은 다른 프로그램에서 사용할 수 "
+"있습니다."
 
 # @ tablepress
 #: views/view-export.php:64
 msgid ""
 "Regularly exporting tables is also recommended as a backup of your data."
-msgstr ""
-"データのバックアップとしてテーブルを定期的にエクスポートすることも推奨しま"
-"す。"
+msgstr "정기적으로 표를 내보내는 것은 또한 데이터의 백업으로 권장합니다."
 
 # @ tablepress
 #: views/view-export.php:67
 msgid "To export, select the tables and the desired export format."
-msgstr ""
-"エクスポートするには、テーブルと、使用したいエクスポート形式を選択します。"
+msgstr "내보내려면, 표 및 원하는 내보내기 형식을 선택하세요."
 
 # @ tablepress
 #: views/view-export.php:68
@@ -1888,42 +1881,39 @@ msgid ""
 "If you choose more than one table, the exported files will automatically be "
 "stored in a ZIP archive file."
 msgstr ""
-"複数のテーブルを選択すると、エクスポートされたファイルは自動的に1個のZIPアー"
-"カイブ ファイルとして保存されます。"
+"두 개 이상의 표를 선택할 경우, 내보낸 파일이 ZIP 압축 파일에 자동으로 저장됩"
+"니다."
 
 # @ tablepress
 #: views/view-export.php:70
 msgid ""
 "Be aware that for the CSV and HTML formats only the table data, but no table "
 "options are exported!"
-msgstr ""
-"CSV形式とHTML形式ではテーブルのデータのみがエクスポートされ、テーブルのオプ"
-"ションはエクスポートされないことに注意してください。"
+msgstr "CSV 및 HTML 형식은 표 데이터만 내보낼 뿐, 표 옵션은 내보내지 않습니다!"
 
 # @ tablepress
 #: views/view-export.php:71
 msgid "For the JSON format, the table data and the table options are exported."
-msgstr ""
-"JSON形式では、テーブルのデータとオプションの両方がエクスポートされます。"
+msgstr "JSON 형식에서는 표 데이터 및 표 옵션 을 내보냅니다."
 
 # @ tablepress
-#: views/view-export.php:89 views/view-list.php:578
+#: views/view-export.php:89 views/view-list.php:577
 msgid ""
 "You should <a href=\"%s\">add</a> or <a href=\"%s\">import</a> a table to "
 "get started!"
 msgstr ""
-"はじめに、テーブルを<a href=\"%s\">追加</a>または<a href=\"%s\">インポート</"
-"a>してください。"
+"시작하려면 표를 <a href=\"%s\">추가</a> 또는 <a href=\"%s\">가져오기</a> 하세"
+"요!"
 
 # @ tablepress
 #: views/view-export.php:107
 msgid "Tables to Export"
-msgstr "エクスポートするテーブル"
+msgstr "내보낼 표"
 
 # @ tablepress
 #: views/view-export.php:110
 msgid "Select all"
-msgstr "すべて選択"
+msgstr "모두 선택"
 
 # @ tablepress
 #: views/view-export.php:133 views/view-import.php:213
@@ -1936,72 +1926,69 @@ msgid ""
 "You can select multiple tables by holding down the &#8220;Ctrl&#8221; key "
 "(Windows) or the &#8220;Command&#8221; key (Mac)."
 msgstr ""
-"Ctrlキー（Windowsの場合）またはCommandキー（Macの場合）を押したままクリックす"
-"ることで、複数のテーブルを選択できます。"
+"&#8220;Ctrl&#8221; 키(윈도우) 또는 &#8220;Command&#8221;키(맥)를 누른 상태에"
+"서 여러 표를 선택할 수 있습니다."
 
 # @ tablepress
 #: views/view-export.php:147
 msgid "Export Format"
-msgstr "エクスポート形式"
+msgstr "내보내기 형식"
 
 # @ tablepress
 #: views/view-export.php:160
 msgid "CSV Delimiter"
-msgstr "CSVの区切り文字"
+msgstr "CSV 구분 문자"
 
 # @ tablepress
 #: views/view-export.php:169
 msgid "(Only needed for CSV export.)"
-msgstr "（CSV形式のエクスポートでのみ必要）"
+msgstr "(CSV 내보내기에만 필요함.)"
 
 # @ tablepress
 #: views/view-export.php:173
 msgid "ZIP file"
-msgstr "ZIPファイル"
+msgstr "ZIP 파일"
 
 # @ tablepress
 #: views/view-export.php:179
 msgid "Create a ZIP archive."
-msgstr "ZIPアーカイブ ファイルを作成します。"
+msgstr "ZIP 압축파일을 생성합니다."
 
 # @ tablepress
 #: views/view-export.php:179
 msgid "(Mandatory if more than one table is selected.)"
-msgstr "（複数のテーブルが選択されている場合には必須）"
+msgstr "(두 개 이상의 표가 선택되어 있는 경우 필수)."
 
 # @ tablepress
 #: views/view-export.php:182
 msgid ""
 "Note: Support for ZIP file creation seems not to be available on this server."
-msgstr ""
-"注：ZIPファイルの作成は、このサーバーではサポートされていないようです。"
+msgstr "참고 : ZIP 파일 생성은 이 서버에서 지원되지 않는 것 같습니다."
 
 # @ tablepress
 #: views/view-import.php:44 views/view-import.php:56
 msgid "Error: You did not select what to import from WP-Table Reloaded!"
-msgstr ""
-"エラー：WP-Table Reloadedプラグインからインポートする対象が選択されていませ"
-"ん。"
+msgstr "오류: WP-Table Reloaded에서 무엇을 가져올지 선택하지 않았습니다!"
 
 # @ tablepress
 #: views/view-import.php:49
 msgid "Error: The import failed."
-msgstr "エラー：インポートが失敗しました。"
+msgstr "오류: 가져오기에 실패했습니다."
 
 # @ tablepress
 #: views/view-import.php:50
 msgid "Error: Import of ZIP files is not available on this server."
-msgstr "エラー：ZIPファイルのインポートは、このサーバーでは使用できません。"
+msgstr "오류: ZIP 파일 가져오기를 이 서버에서 사용할 수 없습니다."
 
 # @ tablepress
 #: views/view-import.php:51
 msgid "Error: The ZIP file could not be opened."
-msgstr "エラー：このZIPファイルを開けませんでした。"
+msgstr "오류: ZIP 파일을 열 수 없습니다."
 
 # @ tablepress
 #: views/view-import.php:52
 msgid "Error: The data in the ZIP file is invalid."
-msgstr "エラー：ZIPファイル内のデータが無効です。"
+msgstr "오류: ZIP 파일 내의 데이터가 유효하지 않습니다."
 
 # @ tablepress
 #: views/view-import.php:53
@@ -2009,49 +1996,44 @@ msgid ""
 "Error: You selected to replace or append to an existing table, but did not "
 "select a table."
 msgstr ""
-"エラー：既存のテーブルの置き換えまたは追加を選択しましたが、テーブルが選択さ"
-"れていません。"
+"오류 : 기존 표를 교체 또는 추가하려고 선택하지만, 표를 선택하지 않았습니다."
 
 # @ tablepress
 #: views/view-import.php:54
 msgid "Error: The source for the import is invalid or could not be accessed."
-msgstr "エラー：インポートのソースが無効であるか、アクセスできませんでした。"
+msgstr "오류: 가져오기의 원본이 잘못되었거나 접근할 수 없습니다."
 
 # @ tablepress
 #: views/view-import.php:55
 msgid "Error: The data for the import is invalid."
-msgstr "エラー：インポートのデータが無効です。"
+msgstr "오류: 가져오기를 위한 데이터가 유효하지 않습니다."
 
 # @ tablepress
 #: views/view-import.php:57
 msgid ""
 "Error: Existing WP-Table Reloaded tables were not found in the database."
 msgstr ""
-"エラー：WP-Table Reloadedプラグインの既存のテーブルがデータベース内に見つかり"
-"ませんでした。"
+"오류 : 기존 WP-Table Reloaded 표가 데이터베이스에서 발견되지 않았습니다."
 
 # @ tablepress
 #: views/view-import.php:58
 msgid "Error: The tables from WP-Table Reloaded could not be imported."
-msgstr ""
-"エラー：WP-Table Reloadedプラグインのテーブルをインポートできませんでした。"
+msgstr "오류: WP-Table Reloaded에서 표를 가져올 수 없습니다."
 
 # @ tablepress
 #: views/view-import.php:59
 msgid "Error: The WP-Table Reloaded Dump File could not be imported!"
-msgstr ""
-"エラー：WP-Table Reloadedプラグインのダンプ ファイルをインポートできませんで"
-"した。"
+msgstr "오류: The WP-Table Reloaded 덤프 파일을 가져올 수 없습니다!"
 
 # @ tablepress
 #: views/view-import.php:63
 msgid "Import Tables"
-msgstr "テーブルをインポート"
+msgstr "표 가져오기"
 
 # @ tablepress
 #: views/view-import.php:65
 msgid "Import from WP-Table Reloaded"
-msgstr "WP-Table Reloadedからインポート"
+msgstr "WP-Table Reloaded에서 가져오기"
 
 # @ tablepress
 #: views/view-import.php:97
@@ -2060,25 +2042,22 @@ msgid ""
 "XLSX file from a spreadsheet application (e.g. Excel), an HTML file "
 "resembling a webpage, or its own JSON format."
 msgstr ""
-"TablePressでは、既存のデータからテーブルをインポートできます。インポートでき"
-"るデータは、表計算アプリケーション（Excelなど）で作成したCSV、XLS、XLSXの形式"
-"のファイル、Webページを作成する場合のようなHTMLファイル、独自のJSON形式などで"
-"す。"
+"TablePress는 스프레드시트 응용 프로그램(예: 엑셀)의 CSV, XLS 또는 XLSX 파일, "
+"웹페이지와 유사한 HTML 파일, 또는 자체 JSON 형식 등과 같은 기존 데이터에서 표"
+"를 가져올 수 있습니다."
 
 # @ tablepress
 #: views/view-import.php:98
 msgid ""
 "You can also import existing tables from the WP-Table Reloaded plugin below."
 msgstr ""
-"WP-Table Reloadedプラグインで作成した次の既存のテーブルもインポートできます。"
+"또한 아래 WP-Table Reloaded 플러그인에서 기존 표를 가져올 수도 있습니다."
 
 # @ tablepress
 #: views/view-import.php:102
 msgid ""
 "To import a table, select and enter the import source in the following form."
-msgstr ""
-"テーブルをインポートするには、次のフォームでインポートのソースを選択するか入"
-"力してください。"
+msgstr "표를 가져오려면, 다음 양식에서 가져오기 원본을 선택 및 입력하세요."
 
 # @ tablepress
 #: views/view-import.php:105
@@ -2086,18 +2065,18 @@ msgid ""
 "You can also choose to import it as a new table, to replace an existing "
 "table, or to append the rows to an existing table."
 msgstr ""
-"新しいテーブルとしてインポートするか、既存のテーブルを置き換えるか、既存の"
-"テーブルに行を追加するかを選択できます。"
+"또한 새로운 표로 가져오거나, 기존 표를 바꾸거나, 기존 표에 행으로 추가할 수"
+"도 있습니다."
 
 # @ tablepress
 #: views/view-import.php:126 views/view-import.php:251
 msgid "Import Source"
-msgstr "インポートのソース"
+msgstr "내보내기 원본"
 
 # @ tablepress
 #: views/view-import.php:128
 msgid "File Upload"
-msgstr "ファイルのアップロード"
+msgstr "파일 업로드"
 
 # @ tablepress
 #: views/view-import.php:129
@@ -2107,84 +2086,83 @@ msgstr "URL"
 # @ tablepress
 #: views/view-import.php:130
 msgid "File on server"
-msgstr "サーバー上のファイル"
+msgstr "서버에 위치한 파일"
 
 # @ tablepress
 #: views/view-import.php:131
 msgid "Manual Input"
-msgstr "手動入力"
+msgstr "직접 입력"
 
 # @ tablepress
 #: views/view-import.php:135 views/view-import.php:258
 msgid "Select file"
-msgstr "ファイルを選択"
+msgstr "파일 선택"
 
 # @ tablepress
 #: views/view-import.php:140 views/view-import.php:151
 #: views/view-import.php:162
 msgid "You can import multiple tables by placing them in a ZIP file."
-msgstr "複数のテーブルを1個のZIPファイルにまとめてインポートできます。"
+msgstr "ZIP파일에 추가하여 여러 개의 표를 한 번에 가져올 수 있습니다."
 
 # @ tablepress
 #: views/view-import.php:146
 msgid "File URL"
-msgstr "ファイルのURL"
+msgstr "파일 URL"
 
 # @ tablepress
 #: views/view-import.php:157
 msgid "Server Path to file"
-msgstr "サーバー上のファイルへのパス"
+msgstr "파일의 서버 경로"
 
 # @ tablepress
 #: views/view-import.php:168
 msgid "Import data"
-msgstr "データをインポート"
+msgstr "데이터 가져오기"
 
 # @ tablepress
 #: views/view-import.php:174
 msgid "Import Format"
-msgstr "インポート形式"
+msgstr "가져오기 형식"
 
 # @ tablepress
 #: views/view-import.php:186
 msgid "Import of HTML files is not available on your server."
-msgstr "ご使用のサーバーではHTMLファイルのインポートは使用できません。"
+msgstr "HTML 파일 가져오기를 이 서버에서 사용할 수 없습니다."
 
 # @ tablepress
 #: views/view-import.php:192
 msgid "Add, Replace, or Append?"
-msgstr "新規作成、置換、追加から選択"
+msgstr "추가, 교체 또는 행 추가?"
 
 # @ tablepress
 #: views/view-import.php:194
 msgid "Add as new table"
-msgstr "新しいテーブルとして追加"
+msgstr "새로운 표로 추가"
 
 # @ tablepress
 #: views/view-import.php:195
 msgid "Replace existing table"
-msgstr "既存のテーブルを置き換え"
+msgstr "기존 표를 교체"
 
 # @ tablepress
 #: views/view-import.php:196
 msgid "Append rows to existing table"
-msgstr "既存のテーブルに行を追加"
+msgstr "기존 표에 행 추가"
 
 # @ tablepress
 #: views/view-import.php:200
 msgid "Table to replace or append to"
-msgstr "置換/追加対象のテーブル"
+msgstr "교체하거나 행을 추가할 표"
 
-# @ tablepress
 #: views/view-import.php:203
 msgid "&mdash; Select &mdash;"
-msgstr "&mdash; 選択 &mdash;"
+msgstr "&mdash; 선택 &mdash;"
 
 # @ tablepress
 #: views/view-import.php:223
 msgctxt "button"
 msgid "Import"
-msgstr "インポート"
+msgstr "가져오기"
 
 # @ tablepress
 #: views/view-import.php:241
@@ -2192,8 +2170,8 @@ msgid ""
 "To import all tables from a WP-Table Reloaded installation, choose the "
 "relevant import source below."
 msgstr ""
-"WP-Table Reloadedプラグインからすべてのテーブルをインポートするには、関連する"
-"インポートのソースを下で選択します。"
+"WP-Table Reloaded 설치에서 모든 표를 가져오려면, 아래에서 관련 가져오기 원본"
+"을 선택하세요."
 
 # @ tablepress
 #: views/view-import.php:243
@@ -2201,8 +2179,8 @@ msgid ""
 "If WP-Table Reloaded is installed on this site, the &#8220;WordPress "
 "database&#8221; option is recommended."
 msgstr ""
-"このサイトにWP-Table Reloadedプラグインがインストールされている場合は、"
-"［WordPressデータベース］オプションを推奨します。"
+"WP-Table Reloaded가 이 사이트에 설치된 경우, &#8220;WordPress 데이터베이스"
+"&#8221; 옵션을 권장합니다."
 
 # @ tablepress
 #: views/view-import.php:244
@@ -2211,9 +2189,9 @@ msgid ""
 "Reloaded Dump File&#8221; there and upload it below, after choosing &#8220;"
 "WP-Table Reloaded Dump File&#8221;."
 msgstr ""
-"別のサイトからテーブルをインポートする場合は、そのサイトで「WP-Table Reloaded"
-"ダンプ ファイル」を作成し、下で［WP-Table Reloadedダンプ ファイル］を選択して"
-"から該当するファイルをアップロードします。"
+"다른 사이트에서 표를 가져 오려면, 거기서 &#8220;WP-Table Reloaded 덤프 파일"
+"&#8221;을 생성하고, &#8220;WP-Table Reloaded 덤프 파일&#8221;을 선택한 후, 아"
+"래에서 업로드하세요."
 
 # @ tablepress
 #: views/view-import.php:246
@@ -2221,39 +2199,38 @@ msgid ""
 "Before doing this, it is highly recommended to read the <a href=\"%s"
 "\">migration guide</a> on the TablePress website."
 msgstr ""
-"これを実行する前に、TablePressのWebサイトで<a href=\"%s\">migration guide</a>"
-"をお読みになることを推奨します。"
+"이것을 하기 전에, TablePress 웹사이트에서 <a href=\"%s\">이전 안내</a>를 읽"
+"을 것을 적극 권장합니다."
 
 # @ tablepress
 #: views/view-import.php:253
 msgid "WordPress database"
-msgstr "WordPressデータベース"
+msgstr "WordPress 데이터베이스"
 
 # @ tablepress
 #: views/view-import.php:254
 msgid "WP-Table Reloaded Dump File"
-msgstr "WP-Table Reloadedダンプ ファイル"
+msgstr "WP-Table Reloaded 덤프 파일"
 
 # @ tablepress
 #: views/view-import.php:268
 msgid "Import tables"
-msgstr "テーブルをインポート"
+msgstr "표 가져오기"
 
 # @ tablepress
 #: views/view-import.php:269
 msgid "Import all tables and their settings from WP-Table Reloaded."
-msgstr ""
-"WP-Table Reloadedプラグインからすべてのテーブルと設定をインポートします。"
+msgstr "WP-Table Reloaded에서 모든 표 및 설정 가져오기."
 
 # @ tablepress
 #: views/view-import.php:269
 msgid "<span class=\"description\">(recommended)</span>"
-msgstr "<span class=\"description\">（推奨）</span>"
+msgstr "<span class=\"설명\">(권장됨)</span>"
 
 # @ tablepress
 #: views/view-import.php:272
 msgid "Import styling"
-msgstr "スタイルをインポート"
+msgstr "스타일 가져오기"
 
 # @ tablepress
 #: views/view-import.php:273
@@ -2261,19 +2238,19 @@ msgid ""
 "Try to automatically convert the &#8220;Custom CSS&#8221; code from the "
 "&#8220;Plugin Options&#8221; screen of WP-Table Reloaded."
 msgstr ""
-"WP-Table Reloadedプラグインの［プラグインのオプション］画面から「カスタム"
-"CSS」を自動的に変換するよう試みます。"
+"WP-Table Reloaded의 &#8220;플러그인 옵션&#8221; 화면에서 &#8220;사용자 정의 "
+"CSS&#8221; 코드 변환을 시도하세요."
 
 # @ tablepress
 #: views/view-import.php:277
 msgctxt "button"
 msgid "Import from WP-Table Reloaded"
-msgstr "WP-Table Reloadedからインポート"
+msgstr "WP-Table Reloaded에서 가져오기"
 
 # @ tablepress
 #: views/view-import.php:294
 msgid "TablePress Feature: Import from WP-Table Reloaded"
-msgstr "TablePress機能：WP-Table Reloadedからインポート"
+msgstr "TablePress 기능: WP-Table Reloaded에서 가져오기"
 
 # @ tablepress
 #: views/view-import.php:295
@@ -2281,13 +2258,13 @@ msgid ""
 "You can import your existing tables and &#8220;Custom CSS&#8221; from WP-"
 "Table Reloaded into TablePress."
 msgstr ""
-"WP-Table ReloadedプラグインからTablePressに、既存のテーブルと「カスタムCSS」"
-"をインポートできます。"
+"WP-Table Reloade에서 기존 표 및 &#8220;사용자 정의 CSS&#8221;를 TablePress로 "
+"가져올 수 있습니다."
 
 # @ tablepress
 #: views/view-list.php:45
 msgid "To embed this table into a post or page, use this Shortcode:"
-msgstr "このテーブルの投稿またはページ埋め込みに使用するショートコード： "
+msgstr "이 표를 글 또는 페이지에 삽입하려면,이 단축코드를 사용하세요:"
 
 # @ tablepress
 #: views/view-list.php:46
@@ -2295,7 +2272,8 @@ msgid ""
 "Thank you very much! Your donation is highly appreciated. You just "
 "contributed to the further development of TablePress!"
 msgstr ""
-"ご寄付によりTablePressの今後の開発に貢献いただき、誠にありがとうございます!"
+"대단히 감사합니다! 기부에 깊은 감사를 드립니다. 방금 TablePress가 더욱 발전"
+"할 수 있도록 기여해주셨습니다!"
 
 # @ tablepress
 #: views/view-list.php:47
@@ -2304,19 +2282,19 @@ msgid ""
 "site. If you should change your mind, you&#8217;ll always find the &#8220;"
 "Donate&#8221; button on the <a href=\"%s\">TablePress website</a>."
 msgstr ""
-"ご寄付いただかなくても問題ありません! TablePressによってサイトに追加される機"
-"能をご活用ください。今後もしご寄付いただけるようなら、いつでも<a href=\"%s"
-"\">TablePressのWebサイト</a>に設置された［Donate］ボタンをご利用ください。"
+"문제 없음! 저는 여전히 TablePress가 귀하의 사이트에 제공하는 혜택을 누리시길 "
+"희망합니다. 마음이 바뀌실 경우, 언제든지 <a href=\"%s\">TablePress 웹사이트</"
+"a>에서  &#8220;Donate&#8221; 버튼을 찾으실 수 있습니다."
 
 # @ tablepress
 #: views/view-list.php:53
 msgid "Welcome!"
-msgstr "ようこそ!"
+msgstr "환영합니다!"
 
 # @ tablepress
 #: views/view-list.php:54
 msgid "Thank you for using TablePress for the first time!"
-msgstr "TablePressをご利用いただきありがとうございます。"
+msgstr "TablePress를 처음 사용해주셔서 감사합니다."
 
 # @ tablepress
 #: views/view-list.php:55
@@ -2325,19 +2303,19 @@ msgid ""
 "\">FAQ</a>, the <a href=\"%2$s\">documentation</a>, and the <a href=\"%3$s"
 "\">Support</a> section on the <a href=\"%4$s\">plugin website</a>."
 msgstr ""
-"ご不明の点やお困りの点があれば、<a href=\"%4$s\">プラグインのWebサイト</a>の"
-"<a href=\"%1$s\">FAQ</a>、<a href=\"%2$s\">ドキュメント</a>、<a href=\"%3$s"
-"\">サポート</a> セクションを参照してください。"
+"질문 또는 문제가 있을 경우, <a href=\"%4$s\">플러그인 웹 사이트</a>의 <a "
+"href=\"%1$s\">자주 묻는 질문</a>, <a href=\"%2$s\">문서</a> 및 <a href=\"%3$s"
+"\">지원</a> 섹션에 방문해주세요."
 
 # @ tablepress
 #: views/view-list.php:56 views/view-list.php:93
 msgid "Hide this message"
-msgstr "このメッセージを表示しない"
+msgstr "이 메시지 숨기기"
 
 # @ tablepress
 #: views/view-list.php:62
 msgid "Attention!"
-msgstr "ご注意!"
+msgstr "주의!"
 
 # @ tablepress
 #: views/view-list.php:63
@@ -2345,8 +2323,8 @@ msgid ""
 "You have activated the plugin WP-Table Reloaded, which can not be used "
 "together with TablePress."
 msgstr ""
-"WP-Table Reloadedプラグインがアクティブ化されています。これはTablePressと同時"
-"に使用することはできません。"
+"TablePress와 함께 사용할 수 없는 플러그인인 WP-Table Reloaded를 활성화하셨습"
+"니다."
 
 # @ tablepress
 #: views/view-list.php:64
@@ -2355,9 +2333,8 @@ msgid ""
 "TablePress, which not only fixes many problems, but also has more and better "
 "features than WP-Table Reloaded."
 msgstr ""
-"WP-Table ReloadedからTablePressに移行することを推奨します。TablePressでは、さ"
-"まざまな問題が修正されているだけでなく、WP-Table Reloadedよりもさらに使いやす"
-"い機能が多く提供されます。"
+"많은 문제를 해결할 뿐만 아니라 WP-Table Reloaded보다 더 많고 더 좋은 기능을 "
+"가지고 있는 TablePress로 전환하시길 적극 권장합니다."
 
 # @ tablepress
 #: views/view-list.php:65
@@ -2365,31 +2342,32 @@ msgid ""
 "Please follow the <a href=\"%s\">migration guide</a> to move your tables and "
 "then deactivate WP-Table Reloaded!"
 msgstr ""
-"<a href=\"%s\">migration guide</a>に従ってテーブルを移行し、WP-Table Reloaded"
-"を非アクティブ化してください。"
+"표를 이동하고 WP-Table Reloaded!를 비활성화하려면 <a href=\"%s\">이전 안내</"
+"a>를 따라주세요."
 
 # @ tablepress
 #: views/view-list.php:66
 msgid "Import your tables from WP-Table Reloaded"
-msgstr "WP-Table Reloadedからテーブルをインポート"
+msgstr "WP-Table Reloaded에서 표 가져오기"
 
 # @ tablepress
 #: views/view-list.php:73
 msgid "Tobias Bäthge, developer of TablePress"
-msgstr "TablePress開発者、Tobias Bäthge"
+msgstr "Tobias Bäthge, TablePress 개발자"
 
 # @ tablepress
 #: views/view-list.php:74
 msgid ""
 "Hi, my name is Tobias, I&#8217;m the developer of the TablePress plugin."
-msgstr "こんにちは。TablePressプラグインを開発したTobiasです。"
+msgstr ""
+"안녕하세요? 제 이름은 Tobias이고, 저는 TablePress 플러그인의 개발자입니다."
 
 # @ tablepress
 #: views/view-list.php:75
 msgid ""
 "Thanks for using it! You&#8217;ve installed TablePress over a month ago."
 msgstr ""
-"ご利用ありがとうございます。TablePressをインストールして1か月が過ぎました。"
+"사용해주셔서 감사합니다! TablePress를 설치하신지가 한 달 이상 되셨습니다."
 
 # @ tablepress
 #: views/view-list.php:76
@@ -2400,8 +2378,8 @@ msgid_plural ""
 "If everything works and you are satisfied with the results of managing your "
 "%s tables, isn&#8217;t that worth a coffee or two?"
 msgstr[0] ""
-"現在%s件のテーブルを管理されていますが、動作と機能に満足されていますか？ コー"
-"ヒー1～2杯分の価値はあるでしょうか？"
+"모든 것이 작동하고 %s개의 표를 관리한 결과에 만족하신다면, 커피 한두 잔의 값"
+"어치 정도는 되지 않습니까?"
 
 # @ tablepress
 #: views/view-list.php:77
@@ -2410,41 +2388,40 @@ msgid ""
 "development of this <em>free</em> software &mdash; things for which I spend "
 "countless hours of my free time! Thank you very much!"
 msgstr ""
-"可能であれば<a href=\"%s\">ご寄付</a>をいただき、この<em>フリー</em> ソフト"
-"ウェアのユーザー サポートと開発を継続できるようご支援いただけないでしょうか。"
-"これらの活動には私個人の時間を多く費やしています。ご理解のほどよろしくお願い"
-"いたします。"
+"<a href=\"%s\">기부</a>는 이 <em>무료</em> 소프트웨어에 대한 사용자 지원 및 "
+"개발(여가시간 중 무수한 시간을 여기에 할애한답니다!)을 계속할 수 있도록 도움"
+"을 줍니다. 대단히 감사합니다!"
 
 # @ tablepress
 #: views/view-list.php:78
 msgid "Sincerly, Tobias"
-msgstr "敬具、Tobias"
+msgstr "Tobias 드림"
 
 # @ tablepress
 #: views/view-list.php:79
 msgid "Sure, I&#8217;ll buy you a coffee and support TablePress!"
-msgstr "はい、コーヒー代を出してTablePressをサポートします。"
+msgstr "물론이죠. 커피 한 잔 사드리고 TablePress를 지원하겠습니다!"
 
 # @ tablepress
 #: views/view-list.php:80
 msgid "I already donated."
-msgstr "すでに寄付しました。"
+msgstr "이미 기부했습니다."
 
 # @ tablepress
 #: views/view-list.php:81
 msgid "No, thanks. Don&#8217;t ask again."
-msgstr "いいえ。このメッセージは今後表示しないでください。"
+msgstr "사양하겠습니다. 다시 묻지 마세요."
 
 # @ tablepress
 #: views/view-list.php:86
 msgid "Thank you for updating to TablePress %s!"
-msgstr "TablePress %sに更新していただきありがとうございます。"
+msgstr "TablePress %s(으)로 업데이트해주셔서 감사합니다!"
 
 # @ tablepress
 #: views/view-list.php:90
 msgid ""
 "Please read the <a href=\"%s\">release announcement</a> for more information."
-msgstr "詳細は、<a href=\"%s\">リリースに関するお知らせ</a>をお読みください。"
+msgstr "자세한 내용은 <a href=\"%s\">출시 공지</a>를 읽어주세요."
 
 # @ tablepress
 #: views/view-list.php:91
@@ -2453,70 +2430,69 @@ msgid ""
 "donation</a> towards the further support and development of TablePress is "
 "recommended. Thank you!"
 msgstr ""
-"新機能や機能拡張を気に入っていただけましたら、TablePressのさらなるサポートと"
-"開発のために<a href=\"%s\">ご寄付</a>をお願いいたします。ご協力に感謝いたしま"
-"す。"
+"새로운 기능과 향상된 기능을 원하실 경우, TablePress의 추가 지원 및 개발을 위"
+"해 <a href=\"%s\">기부하기</a>를 권장합니다. 감사합니다!"
 
 # @ tablepress
 #: views/view-list.php:98 views/view-list.php:99
 msgid "The table was deleted successfully."
 msgid_plural "The tables were deleted successfully."
-msgstr[0] "テーブルが正常に削除されました。"
+msgstr[0] "표가 성공적으로 삭제되었습니다."
 
 # @ tablepress
 #: views/view-list.php:102
 msgid "The copied table has the table ID &#8220;%s&#8221;."
-msgstr "コピーされたテーブルのテーブルIDは「%s」です。"
+msgstr "복사한 표의 ID는 &#8220;%s&#8221;입니다."
 
 # @ tablepress
 #: views/view-list.php:104
 msgid "Error: The table could not be copied."
-msgstr "エラー：テーブルをコピーできませんでした。"
+msgstr "오류: 표가 복사되지 않았습니다."
 
 # @ tablepress
 #: views/view-list.php:105
 msgid "Error: You did not specify a valid table ID."
-msgstr "エラー：有効なテーブルIDが指定されていません。"
+msgstr "오류: 유효한 표 ID를 지정하지 않았습니다."
 
 # @ tablepress
 #: views/view-list.php:107
 msgid "Error: This bulk action is invalid!"
-msgstr "エラー：この一括操作は無効です。"
+msgstr "오류: 이 일괄 동작은 유효하지 않습니다!"
 
 # @ tablepress
 #: views/view-list.php:108
 msgid "Error: You did not select any tables!"
-msgstr "エラー：テーブルが選択されていません。"
+msgstr "오류: 아무런 표도 선택하지 않았습니다!"
 
 # @ tablepress
 #: views/view-list.php:109
 msgid "Notice: Not all selected tables could be deleted!"
-msgstr "通知：選択されたテーブルをすべて削除することはできませんでした。"
+msgstr "알림: 선택한 표 중 일부를 삭제하지 못했습니다!"
 
 # @ tablepress
 #: views/view-list.php:110
 msgid "Notice: Not all selected tables could be copied!"
-msgstr "通知：選択されたテーブルをすべてコピーすることはできませんでした。"
+msgstr "알림: 선택한 표 중 일부를 복사하지 못했습니다!"
 
 # @ tablepress
 #: views/view-list.php:111
 msgid "The tables were imported successfully."
-msgstr "テーブルが正常にインポートされました。"
+msgstr "표를 성공적으로 가져왔습니다."
 
 # @ tablepress
 #: views/view-list.php:112
 msgid "The tables were imported successfully from WP-Table Reloaded."
-msgstr "WP-Table Reloadedプラグインからテーブルが正常にインポートされました。"
+msgstr "WP-Table Reloaded에서 표를 성공적으로 가져왔습니다."
 
 # @ tablepress
 #: views/view-list.php:118
 msgid "Tables"
-msgstr "テーブル"
+msgstr "표"
 
 # @ tablepress
 #: views/view-list.php:184
 msgid "This is a list of your tables."
-msgstr "テーブルの一覧です。"
+msgstr "이것은 표의 목록입니다."
 
 # @ tablepress
 #: views/view-list.php:185
@@ -2524,125 +2500,121 @@ msgid ""
 "Click the corresponding links within the list to edit, copy, delete, or "
 "preview a table."
 msgstr ""
-"テーブルを編集、コピー、削除、プレビューするには、一覧の中の該当するリンクを"
-"クリックします。"
+"목록에서 해당하는 링크를 클릭하여 표를 편집, 복사, 삭제 또는 미리 보세요."
 
 # @ tablepress
 #: views/view-list.php:189
 msgid "Each table has a unique ID that needs to be adjusted in that Shortcode."
-msgstr ""
-"各テーブルには一意のIDが付けられており、ショートコード内で調整する必要があり"
-"ます。"
+msgstr "각 표마다 단축코드에서 조정이 필요한 고유 ID가 존재합니다."
+
+# @ tablepress
+#: views/view-list.php:323
+msgid "Author"
+msgstr "작성자"
 
 # @ tablepress
 #: views/view-list.php:324
-msgid "Author"
-msgstr "作成者"
-
-# @ tablepress
-#: views/view-list.php:325
 msgid "Last Modified By"
-msgstr "最終変更者"
+msgstr "마지막으로 수정한 사람:"
 
 # @ tablepress
-#: views/view-list.php:415 views/view-list.php:422
+#: views/view-list.php:414 views/view-list.php:421
 msgid "Edit &#8220;%s&#8221;"
-msgstr "「%s」を編集"
+msgstr "&#8220;%s&#8221; 편집"
 
 # @ tablepress
-#: views/view-list.php:424
+#: views/view-list.php:423
 msgid "Show Shortcode"
-msgstr "ショートコードを表示"
+msgstr "단축코드 표시"
 
 # @ tablepress
-#: views/view-list.php:426
+#: views/view-list.php:425
 msgid "Copy &#8220;%s&#8221;"
-msgstr "「%s」をコピー"
+msgstr "&#8220;%s&#8221; 복사"
 
 # @ tablepress
-#: views/view-list.php:426
+#: views/view-list.php:425
 msgid "Copy"
-msgstr "コピー"
+msgstr "복사"
 
 # @ tablepress
-#: views/view-list.php:429
+#: views/view-list.php:428
 msgid "Export &#8220;%s&#8221;"
-msgstr "「%s」をエクスポート"
+msgstr "&#8220;%s&#8221; 내보내기"
 
 # @ tablepress
-#: views/view-list.php:429
+#: views/view-list.php:428
 msgctxt "row action"
 msgid "Export"
-msgstr "エクスポート"
+msgstr "내보내기"
 
 # @ tablepress
-#: views/view-list.php:432
+#: views/view-list.php:431
 msgid "Delete &#8220;%s&#8221;"
-msgstr "「%s」を削除"
+msgstr "삭제 &#8220;%s&#8221;"
 
 # @ tablepress
-#: views/view-list.php:435
+#: views/view-list.php:434
 msgid "Show a preview of &#8220;%s&#8221;"
-msgstr "「%s」のプレビューを表示"
+msgstr "&#8220;%s&#8221;의 미리보기 표시"
 
 # @ tablepress
-#: views/view-list.php:514
+#: views/view-list.php:513
 msgctxt "bulk action"
 msgid "Copy"
-msgstr "コピー"
+msgstr "복사"
 
 # @ tablepress
-#: views/view-list.php:517
+#: views/view-list.php:516
 msgctxt "bulk action"
 msgid "Export"
-msgstr "エクスポート"
+msgstr "내보내기"
 
 # @ tablepress
-#: views/view-list.php:520
+#: views/view-list.php:519
 msgctxt "bulk action"
 msgid "Delete"
-msgstr "削除"
+msgstr "삭제"
 
 # @ tablepress
-#: views/view-list.php:552
+#: views/view-list.php:551
 msgid "Select Bulk Action"
-msgstr "一括操作を選択"
+msgstr "대량 작업 선택"
 
 # @ tablepress
-#: views/view-list.php:554
+#: views/view-list.php:553
 msgid "Bulk Actions"
-msgstr "一括操作"
+msgstr "일괄 동작"
 
 # @ tablepress
-#: views/view-list.php:559
+#: views/view-list.php:558
 msgid "Apply"
-msgstr "適用"
+msgstr "적용"
 
 # @ tablepress
-#: views/view-list.php:580
+#: views/view-list.php:579
 msgid "You should <a href=\"%s\">add</a> a table to get started!"
-msgstr "はじめにテーブルを<a href=\"%s\">追加</a>してください。"
+msgstr "시작하려면 표를 <a href=\"%s\">추가</a>해야 합니다!"
 
 # @ tablepress
-#: views/view-list.php:582
+#: views/view-list.php:581
 msgid "You should <a href=\"%s\">import</a> a table to get started!"
-msgstr "はじめにテーブルを<a href=\"%s\">インポート</a>してください。"
+msgstr "시작하려면 표를 <a href=\"%s\">가져와야</a> 합니다!"
 
 # @ tablepress
 #: views/view-options.php:38
 msgid "Do you really want to uninstall TablePress and delete ALL data?"
-msgstr ""
-"TablePressをアンインストールしてすべてのデータを削除してもよろしいですか？"
+msgstr "정말로 TablePress를 제거하고 모든 데이터를 삭제하시겠습니까?"
 
 # @ tablepress
 #: views/view-options.php:39
 msgid "Are you really sure?"
-msgstr "本当によろしいですか？"
+msgstr "정말입니까?"
 
 # @ tablepress
 #: views/view-options.php:44
 msgid "Options saved successfully."
-msgstr "オプションが正常に保存されました。"
+msgstr "옵션을 성공적으로 저장했습니다."
 
 # @ tablepress
 #: views/view-options.php:45
@@ -2650,30 +2622,30 @@ msgid ""
 "Options saved successfully, but &#8220;Custom CSS&#8221; was not saved to "
 "file."
 msgstr ""
-"オプションが正常に保存されましたが、「カスタムCSS」はファイルに保存されていま"
-"せん。"
+"옵션이 성공적으로 저장되었습니다, 허나 &#8220;사용자 정의 CSS&#8221;가 파일"
+"로 저장되지 않았습니다."
 
 # @ tablepress
 #: views/view-options.php:46
 msgid "Error: Options could not be saved."
-msgstr "エラー：オプションを保存できませんでした。"
+msgstr "오류: 옵션을 저장하지 못했습니다."
 
 # @ tablepress
 #: views/view-options.php:47
 msgid ""
 "The WP-Table Reloaded &#8220;Custom CSS&#8221; was imported successfully."
 msgstr ""
-"WP-Table Reloadedプラグインの「カスタムCSS」が正常にインポートされました。"
+"WP-Table Reloaded &#8220;사용자 정의 CSS&#8221;를 성공적으로 가져왔습니다."
 
 # @ tablepress
 #: views/view-options.php:52
 msgid "Frontend Options"
-msgstr "フロントエンド オプション"
+msgstr "프런트 엔드 옵션"
 
 # @ tablepress
 #: views/view-options.php:54
 msgid "User Options"
-msgstr "ユーザー オプション"
+msgstr "사용자 옵션"
 
 # @ tablepress
 #: views/view-options.php:73
@@ -2681,8 +2653,8 @@ msgid ""
 "TablePress has several options which affect the plugin&#8217;s behavior in "
 "different areas."
 msgstr ""
-"TablePressには、別の領域のプラグインの動作に影響を与えるオプションがいくつか"
-"あります。"
+"TablePress는 다양한 영역에서 플러그인의 행동에 영향을 미칠 여러 옵션이 있습니"
+"다."
 
 # @ tablepress
 #: views/view-options.php:78
@@ -2690,8 +2662,8 @@ msgid ""
 "Frontend Options influence the styling of tables in pages, posts, or text "
 "widgets, by defining which CSS code shall be loaded."
 msgstr ""
-"フロントエンド オプションは、読み込むCSSコードを定義することによって、ペー"
-"ジ、投稿、テキスト ウィジェット内のテーブルのスタイル指定に影響を与えます。"
+"프런트 엔드 옵션은 불러와야 하는 코드를 정의하여 페이지, 글, 또는 텍스트 위젯"
+"의 표의 스타일에 영향을 줍니다."
 
 # @ tablepress
 #: views/view-options.php:81
@@ -2699,19 +2671,19 @@ msgid ""
 "In the User Options, every TablePress user can choose the position of the "
 "plugin in his WordPress admin menu, and his desired plugin language."
 msgstr ""
-"ユーザー オプションでは、すべてのTablePressユーザーが、それぞれのWordPress管"
-"理メニュー内でこのプラグインを表示する位置とプラグインの言語を選択できます。"
+"사용자 옵션에서는 모든 TablePress 사용자가 자신의 WordPress 관리자 메뉴에서 "
+"플러그인의 위치 및 자신의 원하는 플러그인 언어를 선택할 수 있습니다."
 
 # @ tablepress
 #: views/view-options.php:100
 msgid "Custom CSS"
-msgstr "カスタムCSS"
+msgstr "사용자 정의 CSS"
 
 # @ tablepress
 #: views/view-options.php:101
 msgid ""
 "Load these &#8220;Custom CSS&#8221; commands to influence the table styling:"
-msgstr "以下の「カスタムCSS」コマンドを読み込み、テーブルのスタイルを変更： "
+msgstr "표 스타일에 영향을 미칠 이 &#8220;사용자 정의 CSS&#8221;를 불러오세요:"
 
 # @ tablepress
 #: views/view-options.php:109
@@ -2719,13 +2691,13 @@ msgid ""
 "&#8220;Custom CSS&#8221; (<a href=\"%s\">Cascading Style Sheets</a>) can be "
 "used to change the styling or layout of a table."
 msgstr ""
-"「カスタムCSS」（<a href=\"%s\">カスケーディング スタイル シート</a>）を使用"
-"して、テーブルのスタイルまたはレイアウトを変更できます。"
+"표의 스타일 또는 레이아웃을 변경하려면 &#8220;사용자 정의 CSS&#8221; (<a "
+"href=\"%s\">캐스케이딩 스타일 시트</a>)를 사용할 수 있습니다."
 
 # @ tablepress
 #: views/view-options.php:111
 msgid "You can get styling examples from the <a href=\"%s\">FAQ</a>."
-msgstr "スタイル指定の例は、<a href=\"%s\">FAQ</a>を参照してください。"
+msgstr "<a href=\"%s\">자주 묻는 질문</a>에서 스타일 예제를 얻을 수 있습니다."
 
 # @ tablepress
 #: views/view-options.php:113
@@ -2733,8 +2705,8 @@ msgid ""
 "Information on available CSS selectors can be found in the <a href=\"%s"
 "\">documentation</a>."
 msgstr ""
-"使用可能なCSSセレクタの例は、<a href=\"%s\">ドキュメント</a>を参照してくださ"
-"い。"
+"사용 가능한 CSS 선택기에 대한 정보는 <a href=\"%s\">문서</a>에서 찾을 수 있습"
+"니다."
 
 # @ tablepress
 #: views/view-options.php:115
@@ -2742,48 +2714,48 @@ msgid ""
 "Please note that invalid CSS code will be stripped, if it can not be "
 "corrected automatically."
 msgstr ""
-"無効なCSSコードが含まれており、自動的に修正できない場合は、そのコードは削除さ"
-"れることに注意してください。"
+"유효하지 않은 CSS 코드는 자동으로 보정할 수 없는 경우 제거되오니 유의해주세"
+"요."
 
 # @ tablepress
 #: views/view-options.php:155
 msgid "Top-Level (top)"
-msgstr "トップ レベル（最上部）"
+msgstr "최상위 수준 (맨 위)"
 
 # @ tablepress
 #: views/view-options.php:156
 msgid "Top-Level (middle)"
-msgstr "トップ レベル（中間）"
+msgstr "최상위 수준 (중간)"
 
 # @ tablepress
 #: views/view-options.php:157
 msgid "Top-Level (bottom)"
-msgstr "トップ レベル（最下部）"
+msgstr "최상위 수준 (아래)"
 
 # @ tablepress
 #: views/view-options.php:166
 msgid "Admin menu entry"
-msgstr "管理メニュー項目"
+msgstr "관리자 메뉴 위치"
 
 # @ tablepress
 #: views/view-options.php:167
 msgid "TablePress shall be shown in this section of my admin menu: %s"
-msgstr "TablePressを表示する管理メニューのセクション：%s"
+msgstr "TablePress를 내 관리 메뉴의 다음 부분에 표시합니다: %s"
 
 # @ tablepress
 #: views/view-options.php:171
 msgid "WordPress Default (currently %s)"
-msgstr "WordPressのデフォルト（現在は%s）"
+msgstr "WordPress 기본 (현재 %s)"
 
 # @ tablepress
 #: views/view-options.php:179
 msgid "Plugin Language"
-msgstr "プラグインの言語"
+msgstr "플러그인 언어"
 
 # @ tablepress
 #: views/view-options.php:180
 msgid "I want to use TablePress in this language: %s"
-msgstr "TablePressを使用する言語：%s"
+msgstr "TablePress를 다음 언어로 사용하고 싶습니다: %s"
 
 # @ tablepress
 #: views/view-options.php:199
@@ -2791,8 +2763,8 @@ msgid ""
 "Uninstalling <strong>will permanently delete</strong> all TablePress tables "
 "and options from the database."
 msgstr ""
-"アンインストールを実行すると、TablePressのすべてのテーブルとオプションがデー"
-"タベースから<strong>完全に削除</strong>されます。"
+"제거과정에서 데이터베이스의 모든 TablePress 표와 옵션을 <strong>삭제</strong>"
+"합니다."
 
 # @ tablepress
 #: views/view-options.php:200
@@ -2800,17 +2772,15 @@ msgid ""
 "It is recommended that you create a backup of the tables (by exporting the "
 "tables in the JSON format), in case you later change your mind."
 msgstr ""
-"後で必要になったときのために、（テーブルをJSON形式でエクスポートして）テーブ"
-"ルのバックアップを作成することを推奨します。"
+"나중에 마음이 바뀔 경우에 대비하여, (JSON 형식의 표를 내보내) 표의 백업을 생"
+"성할 것을 권장합니다."
 
 # @ tablepress
 #: views/view-options.php:201
 msgid ""
 "You will manually need to remove the plugin&#8217;s files from the plugin "
 "folder afterwards."
-msgstr ""
-"プラグインのファイルは、後でプラグインのフォルダーから手動で削除する必要があ"
-"ります。"
+msgstr "나중에 플러그인 폴더에서 플러그인 파일을 수동으로 제거해야 합니다."
 
 # @ tablepress
 #: views/view-options.php:202
@@ -2818,8 +2788,7 @@ msgid ""
 "Be very careful with this and only click the button if you know what you are "
 "doing!"
 msgstr ""
-"この機能は慎重に使用してください。この操作について明確に理解している場合にの"
-"み、このボタンをクリックしてください。"
+"이것을 매우 조심하시고 무엇을 하는지 아시는 경우에만 버튼을 클릭하세요!"
 
 # @ tablepress
 #: views/view-options_custom_css.php:39
@@ -2827,8 +2796,7 @@ msgid ""
 "Attention: Further action is required to save the changes to your &#8220;"
 "Custom CSS&#8221;!"
 msgstr ""
-"注意：さらに操作を行うには、「カスタムCSS」に対する変更を保存する必要がありま"
-"す。"
+"&#8220;사용자 정의 CSS&#8221;에 변경사항을 저장하려면 추가 조치가 필요합니다!"
 
 # @ tablepress
 #: views/view-options_custom_css.php:108
@@ -2836,8 +2804,8 @@ msgid ""
 "Due to the configuration of your server, TablePress was not able to "
 "automatically save your &#8220;Custom CSS&#8221; to a file."
 msgstr ""
-"ご使用のサーバーの設定により、TablePressは「カスタムCSS」をファイルに自動保存"
-"できませんでした。"
+"서버의 구성으로 인해, TablePress가 &#8220;사용자 정의 CSS&#8221;를 파일로 자"
+"동 저장할 수 없었습니다."
 
 # @ tablepress
 #: views/view-options_custom_css.php:109
@@ -2845,18 +2813,18 @@ msgid ""
 "To try again with the same method that you use for updating plugins or "
 "themes, please fill out the &#8220;%s&#8221; form below."
 msgstr ""
-"プラグインまたはテーマの更新と同じ方法で再び操作を試すには、下の「%s」フォー"
-"ムに入力してください。"
+"플러그인이나 테마를 업데이트에 사용하는 것과 동일한 방법으로 다시 시도하려"
+"면, 아래의 &#8220;%s&#8221; 양식을 작성해주세요."
 
 # @ default
 #: views/view-options_custom_css.php:109
 msgid "Connection Information"
-msgstr "接続情報"
+msgstr "연결 정보"
 
 # @ tablepress
 #: views/view-options_custom_css.php:136
 msgid "Proceed without saving a file"
-msgstr "ファイルを保存せずに続行"
+msgstr "파일을 저장하지 않고 진행"
 
 # @ tablepress
 #: views/view-options_custom_css.php:138
@@ -2864,18 +2832,18 @@ msgid ""
 "To proceed without trying to save the &#8220;Custom CSS&#8221; to a file, "
 "click the button below."
 msgstr ""
-"「カスタムCSS」をファイルに保存せずに続行するには、下のボタンをクリックしま"
-"す。"
+"&#8220;사용자 정의 CSS&#8221; 파일로 저장하지 않고 계속 진행하려면 아래 버튼"
+"을 클릭하세요."
 
 # @ tablepress
 #: views/view-options_custom_css.php:139
 msgid "Your &#8220;Custom CSS&#8221; will then be loaded inline."
-msgstr "その場合、「カスタムCSS」はインラインで読み込まれます。"
+msgstr "&#8220; 사용자 정의 CSS &#8221;를 인라인에 불러옵니다."
 
 # @ tablepress
 #: views/view-options_custom_css.php:141
 msgid "Proceed without saving &#8220;Custom CSS&#8221; to a file"
-msgstr "「カスタムCSS」をファイルに保存せずに続行"
+msgstr "&#8220;사용자 정의 CSS&#8221; 파일로 저장하지 않고 계속 진행"
 
 # @ tablepress
 #. Plugin URI of the plugin/theme
@@ -2889,9 +2857,8 @@ msgid ""
 "without having to write HTML code, and it adds valuable functions for your "
 "visitors."
 msgstr ""
-"TablePressでは、HTMLコードを記述しなくても投稿やページ内にテーブルを作成し、"
-"管理することができます。また、Webサイトの訪問者向けに有用な機能が追加されま"
-"す。"
+"TablePress는 HTML 코드를 작성하지 않고도 귀하의 글과 페이지에 표를 생성 및 관"
+"리할 수 있도록 하며, 귀하의 방문자에게 중요한 기능을 제공합니다."
 
 # @ tablepress
 #. Author of the plugin/theme
@@ -2902,3 +2869,9 @@ msgstr "Tobias Bäthge"
 #. Author URI of the plugin/theme
 msgid "http://tobias.baethge.com/"
 msgstr "http://tobias.baethge.com/"
+
+# @ tablepress
+#. translators: plugin header field 'Version'
+#: tablepress.php:0
+msgid "1.5"
+msgstr "1.5"

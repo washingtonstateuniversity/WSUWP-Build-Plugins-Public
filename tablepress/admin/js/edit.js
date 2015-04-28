@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 
-/* global alert, confirm, tp, tablepress_strings, tablepress_options, ajaxurl, wpLink, tb_show, wp */
+/* global alert, confirm, tp, tablepress_strings, tablepress_options, ajaxurl, wpLink, tb_show, wp, JSON */
 
 // Ensure the global `tp` object exists.
 window.tp = window.tp || {};
@@ -199,18 +199,18 @@ jQuery( document ).ready( function( $ ) {
 					return;
 				}
 
-				$(this).closest( 'p' ).append( '<span class="animation-preview spinner" title="' + tablepress_strings.preparing_preview + '"/>' );
+				$(this).closest( 'p' ).append( '<span class="animation-preview spinner is-active" title="' + tablepress_strings.preparing_preview + '"/>' );
 				$( 'body' ).addClass( 'wait' );
 				$id( 'table-preview' ).empty(); // clear preview
 
-				$.post(
-						ajaxurl,
-						tp.table.prepare_ajax_request( 'tablepress_preview_table', '#nonce-preview-table' ),
-						function() { /* done with .success() below */ },
-						'json'
-					)
-					.success( tp.table.preview.ajax_success )
-					.error( tp.table.preview.ajax_error );
+				$.ajax({
+					'type': 'POST',
+					'url': ajaxurl,
+					'data': tp.table.prepare_ajax_request( 'tablepress_preview_table', '#nonce-preview-table' ),
+					'success': tp.table.preview.ajax_success,
+					'error': tp.table.preview.ajax_error,
+					'dataType': 'json'
+				} );
 
 				return false;
 			},
@@ -1036,18 +1036,18 @@ jQuery( document ).ready( function( $ ) {
 				return;
 			}
 
-			$(this).closest( 'p' ).append( '<span class="animation-saving spinner" title="' + tablepress_strings.saving_changes + '"/>' );
+			$(this).closest( 'p' ).append( '<span class="animation-saving spinner is-active" title="' + tablepress_strings.saving_changes + '"/>' );
 			$( '.save-changes-button' ).prop( 'disabled', true );
 			$( 'body' ).addClass( 'wait' );
 
-			$.post(
-					ajaxurl,
-					tp.table.prepare_ajax_request( 'tablepress_save_table', '#nonce-edit-table' ),
-					function() { /* done with .success() below */ },
-					'json'
-				)
-				.success( tp.save_changes.ajax_success )
-				.error( tp.save_changes.ajax_error );
+			$.ajax({
+				'type': 'POST',
+				'url': ajaxurl,
+				'data': tp.table.prepare_ajax_request( 'tablepress_save_table', '#nonce-edit-table' ),
+				'success': tp.save_changes.ajax_success,
+				'error': tp.save_changes.ajax_error,
+				'dataType': 'json'
+			} );
 		},
 		ajax_success: function( data, status /*, jqXHR */ ) {
 			if ( ( 'undefined' === typeof status ) || ( 'success' !== status ) ) {
@@ -1114,10 +1114,10 @@ jQuery( document ).ready( function( $ ) {
 			var delay,
 				div_class = 'save-changes-' + type;
 			if ( 'success' === type ) {
-				div_class += ' updated';
+				div_class += ' notice notice-success';
 				delay = 3000;
 			} else {
-				div_class += ' error';
+				div_class += ' notice notice-error';
 				delay = 6000;
 			}
 			$( '.animation-saving' ).closest( 'p' )

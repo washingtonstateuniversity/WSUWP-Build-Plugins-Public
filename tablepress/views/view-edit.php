@@ -57,7 +57,7 @@ class TablePress_Edit_View extends TablePress_View {
 		);
 		// Custom handling instead of $this->process_action_messages(). Also, $action_messages is used below.
 		if ( $data['message'] && isset( $action_messages[ $data['message'] ] ) ) {
-			$class = ( 'error' === substr( $data['message'], 0, 5 ) || in_array( $data['message'], array( 'success_save_error_id_change' ), true ) ) ? 'error' : 'updated' ;
+			$class = ( 'error' === substr( $data['message'], 0, 5 ) || in_array( $data['message'], array( 'success_save_error_id_change' ), true ) ) ? 'notice-error' : 'notice-success' ;
 			$this->add_header_message( "<strong>{$action_messages[ $data['message'] ]}</strong>", $class );
 		}
 
@@ -70,21 +70,8 @@ class TablePress_Edit_View extends TablePress_View {
 		add_filter( 'media_view_strings', array( $this, 'change_media_view_strings' ) );
 		wp_enqueue_media();
 
-		// Use modified version of wpLink, instead of default version (changes "Title" to "Link Text").
-		wp_deregister_script( 'wplink' );
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		// See wp-includes/script-loader.php for default parameters.
-		$wplink_url = plugins_url( "admin/js/tp_wplink{$suffix}.js", TABLEPRESS__FILE__ );
-		wp_enqueue_script( 'wplink', $wplink_url, array( 'jquery' ), TablePress::version, true );
-		wp_localize_script( 'wplink', 'wpLinkL10n', array(
-			'title' => _x( 'Insert/edit link', 'Insert Link dialog', 'tablepress' ),
-			'update' => _x( 'Update', 'Insert Link dialog', 'tablepress' ),
-			'save' => _x( 'Add Link', 'Insert Link dialog', 'tablepress' ),
-			'noTitle' => _x( '(no title)', 'Insert Link dialog', 'tablepress' ),
-			'noMatchesFound' => _x( 'No matches found.', 'Insert Link dialog', 'tablepress' ),
-			// The previous strings are default strings, this is a string that the modified tp_wplink.js inserts.
-			'link_text' => _x( 'Link Text', 'Insert Link dialog', 'tablepress' ),
-		) );
+		// Enqueue JS for the "Insert Link" button.
+		wp_enqueue_script( 'wplink' );
 
 		$this->admin_page->enqueue_style( 'edit' );
 		$this->admin_page->enqueue_script( 'edit', array( 'jquery', 'jquery-ui-sortable', 'json2' ), array(
@@ -301,23 +288,6 @@ class TablePress_Edit_View extends TablePress_View {
 			<th></th>
 		</tr>
 	</thead>
-	<tfoot>
-		<tr id="edit-form-foot">
-			<th></th>
-			<th></th>
-<?php
-	for ( $col_idx = 0; $col_idx < $columns; $col_idx++ ) {
-		$column_class = '';
-		if ( 0 === $visibility['columns'][ $col_idx ] ) {
-			$column_class = ' class="column-hidden"';
-		}
-		echo "\t\t\t<th{$column_class}><input type=\"checkbox\" class=\"hide-if-no-js\" />";
-		echo "<input type=\"hidden\" class=\"visibility\" name=\"table[visibility][columns][]\" value=\"{$visibility['columns'][ $col_idx ]}\" /></th>\n";
-	}
-?>
-			<th></th>
-		</tr>
-	</tfoot>
 	<tbody id="edit-form-body">
 <?php
 	foreach ( $table as $row_idx => $row_data ) {
@@ -353,6 +323,23 @@ class TablePress_Edit_View extends TablePress_View {
 	}
 ?>
 	</tbody>
+	<tfoot>
+		<tr id="edit-form-foot">
+			<th></th>
+			<th></th>
+<?php
+	for ( $col_idx = 0; $col_idx < $columns; $col_idx++ ) {
+		$column_class = '';
+		if ( 0 === $visibility['columns'][ $col_idx ] ) {
+			$column_class = ' class="column-hidden"';
+		}
+		echo "\t\t\t<th{$column_class}><input type=\"checkbox\" class=\"hide-if-no-js\" />";
+		echo "<input type=\"hidden\" class=\"visibility\" name=\"table[visibility][columns][]\" value=\"{$visibility['columns'][ $col_idx ]}\" /></th>\n";
+	}
+?>
+			<th></th>
+		</tr>
+	</tfoot>
 </table>
 <input type="hidden" id="number-rows" name="table[number][rows]" value="<?php echo $rows; ?>" />
 <input type="hidden" id="number-columns" name="table[number][columns]" value="<?php echo $columns; ?>" />

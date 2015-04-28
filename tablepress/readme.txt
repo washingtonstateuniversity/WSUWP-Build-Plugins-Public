@@ -2,9 +2,9 @@
 Contributors: TobiasBg
 Donate link: https://tablepress.org/donate/
 Tags: table,data,html,csv,excel
-Requires at least: 4.0
-Tested up to: 4.0
-Stable tag: 1.5.1
+Requires at least: 4.2
+Tested up to: 4.2
+Stable tag: 1.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,11 +56,11 @@ Many questions, regarding different features or styling, have been answered on t
 For support questions, bug reports, or feature requests, please use the [WordPress Support Forums](https://wordpress.org/support/plugin/tablepress). Please [search](https://wordpress.org/support/) through the forums first, and only [open a new thread](https://wordpress.org/support/plugin/tablepress) if you don't find an existing answer. Thank you!
 
 = Requirements? =
-In short: WordPress 4.0 or higher, while the latest version of WordPress is always recommended.
+In short: WordPress 4.2 or higher, while the latest version of WordPress is always recommended.
 
 = Languages and Localization? =
 The plugin currently comes with the following translations:
-Brazilian Portuguese, Chinese (Simplified), Chinese (Taiwan), Czech, Dutch, English, Finnish, French, German, Hebrew, Icelandic, Italian, Japanese, Latvian, Polish, Russian, Serbian, Slovak, Spanish, Turkish and Ukrainian.
+Brazilian Portuguese, Chinese (Simplified), Chinese (Taiwan), Czech, Dutch, English, Finnish, French, German, Hebrew, Icelandic, Italian, Japanese, Korean, Latvian, Polish, Russian, Serbian, Slovak, Spanish, Turkish and Ukrainian.
 
 Translations into other languages are always welcome! With the [Codestyling Localization](https://wordpress.org/plugins/codestyling-localization/) plugin, that's really easy. Just install the plugin, add your language, create the .po file, translate the strings, and create the .mo file. It will automatically be saved into the TablePress plugin folder. If you send me the .mo and .po files, I will gladly include them into future plugin releases.
 There is also a .pot file available in the "i18n" subfolder, which can be used e.g. with the [poEdit](http://www.poedit.net/) editor.
@@ -98,6 +98,23 @@ This plugin is Free Software, released and licensed under the GPL, version 2 (ht
 You may use it free of charge for any purpose.
 
 == Changelog ==
+
+= Version 1.6 =
+* Full compatibility with WordPress 4.2
+* Bugfix: Fixed integration of the "Insert Link" dialog.
+* Bugfix: Divisions by zero were not caught properly in formulas in cells.
+* Bugfix: Numbers were sometimes not imported correctly in the Excel importer.
+* Enhancement: Importing files encoded as UTF-16 should work better now.
+* Enhancement: Support dismissible notices in the admin screens.
+* Enhancement: Support better tabbing on the "Edit" screen.
+* Enhancement: Add page cache clearing for the WP Fastest Cache plugin.
+* Enhancement: Add a plugin filter hook that allows modifying the exported data by plugins.
+* Enhancement: Support more CSS3 properties when cleaning "Custom CSS" code.
+* Updated external libraries (CodeMirror, DataTables, Build tools).
+* Added Korean translation.
+* Updated several translations (Chinese (Taiwan), English, German).
+* Many internal changes and fixes for better stability, cleaner code, and documentation.
+* TablePress 1.6 requires WordPress 4.2!
 
 = Version 1.5.1 =
 * Bugfix: Some properties in Custom CSS code were erroneously removed.
@@ -182,6 +199,9 @@ Release candidate in which all intended features are included and very stable.
 Initial version where most features are ready and pretty stable.
 
 == Upgrade Notice ==
+
+= 1.6 =
+This update is a stability, maintenance, and compatibility release. Updating is recommended.
 
 = 1.5.1 =
 This update includes several new features, enhancements, and bugfixes. Updating is recommended.
