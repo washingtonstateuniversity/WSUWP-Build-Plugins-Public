@@ -1,0 +1,21 @@
+{
+    "name": "fusioneng/Shortcake",
+    "description": "Shortcake makes using WordPress shortcodes a piece of cake.",
+    "type": "wordpress-plugin",
+    "homepage": "https://github.com/fusioneng/Shortcake",
+    "authors": [
+        {
+            "name": "Fusion",
+            "email": "tech@fusion.net",
+            "homepage": "http://fusion.net"
+        }
+    ],
+    "require-dev": {
+        "wp-coding-standards/wpcs": "dev-develop"
+    },
+    "scripts": {
+        "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
+        "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
+    }
+}
+
