@@ -3,8 +3,8 @@
 Contributors: johnbillion  
 Tags: users, profiles, user switching, fast user switching, multisite, buddypress, bbpress, become, user management, developer  
 Requires at least: 3.1  
-Tested up to: 4.1.1  
-Stable tag: 1.0.5  
+Tested up to: 4.2.2  
+Stable tag: 1.0.6  
 License: GPL v2 or later  
 
 Instant switching between user accounts in WordPress.
@@ -123,10 +123,14 @@ When a user switches off, the `switch_off_user` hook is called with the old user
 
 == Upgrade Notice ==
 
-= 1.0.5 =
-* Norwegian translation by Per Søderlind.
+= 1.0.6 =
+* Correct the values passed to the `switch_back_user` action when a user switches back.
 
 == Changelog ==
+
+= 1.0.6 =
+* Correct the values passed to the `switch_back_user` action when a user switches back.
+* More code standards tweaks.
 
 = 1.0.5 =
 * Norwegian translation by Per Søderlind.
