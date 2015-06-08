@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.3 (June 8, 2015)
+
+* Add more flexbox support
+* Add support for align-items and justify-content
+
 ## 2.1.2 (September 18, 2014)
 
 * Add support for Opera keyframes

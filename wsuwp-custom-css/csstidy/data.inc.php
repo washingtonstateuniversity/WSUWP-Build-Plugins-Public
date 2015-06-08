@@ -64,9 +64,9 @@ $GLOBALS['csstidy']['units'] = array('in','cm','mm','pt','pc','px','rem','em','%
  * @global array $GLOBALS['csstidy']['at_rules']
  * @version 1.0
  */
-$GLOBALS['csstidy']['at_rules'] = array('page' => 'is','font-face' => 'is','charset' => 'iv', 'import' => 'iv','namespace' => 'iv','media' => 'at','keyframes' => 'at');
+$GLOBALS['csstidy']['at_rules'] = array('page' => 'is','font-face' => 'is','charset' => 'iv', 'import' => 'iv','namespace' => 'iv','media' => 'at','keyframes' => 'at', 'supports' => 'at');
 
- /**
+/**
  * Properties that need a value with unit
  *
  * @todo CSS3 properties
@@ -75,10 +75,10 @@ $GLOBALS['csstidy']['at_rules'] = array('page' => 'is','font-face' => 'is','char
  * @version 1.2
  */
 $GLOBALS['csstidy']['unit_values'] = array ('background', 'background-position', 'background-size', 'border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-width',
-                                            'border-top-width', 'border-right-width', 'border-left-width', 'border-bottom-width', 'bottom', 'border-spacing', 'column-gap', 'column-width',
-											'font-size', 'height', 'left', 'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'max-height',
-											'max-width', 'min-height', 'min-width', 'outline', 'outline-width', 'padding', 'padding-top', 'padding-right',
-											'padding-bottom', 'padding-left', 'perspective', 'right', 'top', 'text-indent', 'letter-spacing', 'word-spacing', 'width');
+	'border-top-width', 'border-right-width', 'border-left-width', 'border-bottom-width', 'bottom', 'border-spacing', 'column-gap', 'column-width',
+	'font-size', 'height', 'left', 'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'max-height',
+	'max-width', 'min-height', 'min-width', 'outline', 'outline-width', 'padding', 'padding-top', 'padding-right',
+	'padding-bottom', 'padding-left', 'perspective', 'right', 'top', 'text-indent', 'letter-spacing', 'word-spacing', 'width');
 
 /**
  * Properties that allow <color> as value
@@ -269,7 +269,7 @@ $GLOBALS['csstidy']['replace_colors']['whitesmoke'] = '#f5f5f5';
 $GLOBALS['csstidy']['replace_colors']['yellowgreen'] = '#9acd32';
 
 /**
- * A list of all shorthand properties that are devided into four properties and/or have four subvalues
+ * A list of all shorthand properties that are divided into four properties and/or have four subvalues
  *
  * @global array $GLOBALS['csstidy']['shorthands']
  * @todo Are there new ones in CSS3?
@@ -293,6 +293,9 @@ $GLOBALS['csstidy']['shorthands']['-moz-border-radius'] = 0;
  * @version 1.0
  * @see csstidy::property_is_next()
  */
+$GLOBALS['csstidy']['all_properties']['align-content'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['align-items'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['align-self'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['alignment-adjust'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['alignment-baseline'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['animation'] = 'CSS3.0';
@@ -399,11 +402,17 @@ $GLOBALS['csstidy']['all_properties']['empty-cells'] = 'CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['fill'] = 'CSS3.0'; // This is really SVG, not CSS 3.0.
 $GLOBALS['csstidy']['all_properties']['fit'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['fit-position'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['flex'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['flex-align'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['flex-basis'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['flex-direction'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['flex-flow'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['flex-grow'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['flex-line-pack'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['flex-order'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['flex-pack'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['flex-shrink'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['flex-wrap'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['float'] = 'CSS1.0,CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['float-offset'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['font'] = 'CSS1.0,CSS2.0,CSS2.1,CSS3.0';
@@ -429,6 +438,7 @@ $GLOBALS['csstidy']['all_properties']['image-orientation'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['image-rendering'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['image-resolution'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['inline-box-align'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['justify-content'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['left'] = 'CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['letter-spacing'] = 'CSS1.0,CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['line-break'] = 'CSS3.0';
@@ -464,6 +474,7 @@ $GLOBALS['csstidy']['all_properties']['nav-left'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['nav-right'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['nav-up'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['opacity'] = 'CSS3.0';
+$GLOBALS['csstidy']['all_properties']['order'] = 'CSS3.0';
 $GLOBALS['csstidy']['all_properties']['orphans'] = 'CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['outline'] = 'CSS2.0,CSS2.1,CSS3.0';
 $GLOBALS['csstidy']['all_properties']['outline-color'] = 'CSS2.0,CSS2.1,CSS3.0';
