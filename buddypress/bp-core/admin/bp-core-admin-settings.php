@@ -13,14 +13,14 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Main settings section description for the settings page
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_setting_callback_main_section() { }
 
 /**
  * Admin bar for logged out users setting field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses bp_form_option() To output the option value
  */
@@ -36,7 +36,7 @@ function bp_admin_setting_callback_admin_bar() {
 /**
  * Allow members to delete their accounts setting field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses checked() To display the checked attribute
  */
@@ -54,14 +54,14 @@ function bp_admin_setting_callback_account_deletion() {
 /**
  * Groups settings section description for the settings page
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_setting_callback_activity_section() { }
 
 /**
  * Allow Akismet setting field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses checked() To display the checked attribute
  */
@@ -77,7 +77,7 @@ function bp_admin_setting_callback_activity_akismet() {
 /**
  * Allow activity comments on blog posts and forum posts
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_setting_callback_blogforum_comments() {
 ?>
@@ -109,7 +109,7 @@ function bp_admin_setting_callback_heartbeat() {
  * legacy reasons, the option that we store is 1 if these comments are *disabled*. So we use this
  * function to flip the boolean before saving the intval.
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_sanitize_callback_blogforum_comments( $value = false ) {
 	return $value ? 0 : 1;
@@ -120,14 +120,14 @@ function bp_admin_sanitize_callback_blogforum_comments( $value = false ) {
 /**
  * Profile settings section description for the settings page
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_setting_callback_xprofile_section() { }
 
 /**
  * Enable BP->WP profile syncing field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses bp_form_option() To output the option value
  */
@@ -143,7 +143,7 @@ function bp_admin_setting_callback_profile_sync() {
 /**
  * Allow members to upload avatars field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses checked() To display the checked attribute
  */
@@ -161,14 +161,14 @@ function bp_admin_setting_callback_avatar_uploads() {
 /**
  * Groups settings section description for the settings page
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_setting_callback_groups_section() { }
 
 /**
  * Allow all users to create groups field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses checked() To display the checked attribute
  */
@@ -182,19 +182,31 @@ function bp_admin_setting_callback_group_creation() {
 <?php
 }
 
+/**
+ * 'Enable group avatars' field markup.
+ *
+ * @since BuddyPress (2.3.0)
+ */
+function bp_admin_setting_callback_group_avatar_uploads() {
+?>
+	<input id="bp-disable-group-avatar-uploads" name="bp-disable-group-avatar-uploads" type="checkbox" value="1" <?php checked( ! bp_disable_group_avatar_uploads() ); ?> />
+	<label for="bp-disable-group-avatar-uploads"><?php _e( 'Allow customizable avatars for groups', 'buddypress' ); ?></label>
+<?php
+}
+
 /** Forums Section ************************************************************/
 
 /**
  * Forums settings section description for the settings page
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_admin_setting_callback_bbpress_section() { }
 
 /**
  * bb-config.php location field
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  * @uses checked() To display the checked attribute
  * @uses bp_get_option() To get the config location
  * @uses bp_form_option() To get the sanitized form option
@@ -223,7 +235,7 @@ function bp_admin_setting_callback_bbpress_configuration() {
 /**
  * The main settings page
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses screen_icon() To display the screen icon
  * @uses settings_fields() To output the hidden fields for the form
@@ -242,7 +254,7 @@ function bp_core_admin_settings() {
 
 		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Settings', 'buddypress' ) ); ?></h2>
 
-		<form action="<?php echo esc_url( $form_action ); ?>" method="post">
+		<form action="<?php echo esc_url( $form_action ) ?>" method="post">
 
 			<?php settings_fields( 'buddypress' ); ?>
 
@@ -260,7 +272,7 @@ function bp_core_admin_settings() {
 /**
  * Save our settings
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  */
 function bp_core_admin_settings_save() {
 	global $wp_settings_fields;
@@ -280,10 +292,11 @@ function bp_core_admin_settings_save() {
 			}
 		}
 
-		// Some legacy options are not registered with the Settings API
+		// Some legacy options are not registered with the Settings API, or are reversed in the UI.
 		$legacy_options = array(
 			'bp-disable-account-deletion',
 			'bp-disable-avatar-uploads',
+			'bp-disable-group-avatar-uploads',
 			'bp_disable_blogforum_comments',
 			'bp-disable-profile-sync',
 			'bp_restrict_group_creation',
@@ -306,7 +319,7 @@ add_action( 'bp_admin_init', 'bp_core_admin_settings_save', 100 );
 /**
  * Output settings API option
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  *
  * @uses bp_get_bp_form_option()
  *
@@ -320,7 +333,7 @@ function bp_form_option( $option, $default = '' , $slug = false ) {
 	/**
 	 * Return settings API option
 	 *
-	 * @since BuddyPress (1.6)
+	 * @since BuddyPress (1.6.0)
 	 *
 	 * @uses bp_get_option()
 	 * @uses esc_attr()
@@ -336,17 +349,31 @@ function bp_form_option( $option, $default = '' , $slug = false ) {
 		$value = bp_get_option( $option, $default );
 
 		// Slug?
-		if ( true === $slug )
-			$value = esc_attr( apply_filters( 'editable_slug', $value ) );
+		if ( true === $slug ) {
 
-		// Not a slug
-		else
+			/**
+			 * Filters the slug value in the form field.
+			 *
+			 * @since BuddyPress (1.6.0)
+			 *
+			 * @param string $value Value being returned for the requested option.
+			 */
+			$value = esc_attr( apply_filters( 'editable_slug', $value ) );
+		} else { // Not a slug
 			$value = esc_attr( $value );
+		}
 
 		// Fallback to default
 		if ( empty( $value ) )
 			$value = $default;
 
-		// Allow plugins to further filter the output
+		/**
+		 * Filters the settings API option.
+		 *
+		 * @since BuddyPress (1.6.0)
+		 *
+		 * @param string $value  Value being returned for the requested option.
+		 * @param string $option Option whose value is being requested.
+		 */
 		return apply_filters( 'bp_get_form_option', $value, $option );
 	}

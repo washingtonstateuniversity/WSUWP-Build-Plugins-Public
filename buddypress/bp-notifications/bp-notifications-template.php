@@ -296,6 +296,8 @@ class BP_Notifications_Template {
 			'page'              => 1,
 			'per_page'          => 25,
 			'max'               => null,
+			'meta_query'        => false,
+			'date_query'        => false
 		) );
 
 		// Overrides
@@ -324,6 +326,8 @@ class BP_Notifications_Template {
 			'secondary_item_id' => $r['secondary_item_id'],
 			'component_name'    => $r['component_name'],
 			'component_action'  => $r['component_action'],
+			'meta_query'        => $r['meta_query'],
+			'date_query'        => $r['date_query'],
 			'is_new'            => $this->is_new,
 			'search_terms'      => $this->search_terms,
 			'order_by'          => $this->order_by,
@@ -534,6 +538,8 @@ function bp_has_notifications( $args = '' ) {
 		'search_terms'      => isset( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : '',
 		'order_by'          => 'date_notified',
 		'sort_order'        => 'DESC',
+		'meta_query'        => false,
+		'date_query'        => false,
 		'page'              => 1,
 		'per_page'          => 25,
 
@@ -824,10 +830,12 @@ function bp_the_notification_description() {
 		 * Filters the full-text description for a specific notification.
 		 *
 		 * @since BuddyPress (1.9.0)
+		 * @since BuddyPress (2.3.0) Added the `$notification` parameter.
 		 *
-		 * @param string $description Full-text description for a specific notification.
+		 * @param string $description  Full-text description for a specific notification.
+		 * @param object $notification Notification object.
 		 */
-		return apply_filters( 'bp_get_the_notification_description', $description );
+		return apply_filters( 'bp_get_the_notification_description', $description, $notification );
 	}
 
 /**
@@ -1176,7 +1184,12 @@ function bp_notifications_pagination_count() {
 		$from_num   = bp_core_number_format( $start_num );
 		$to_num     = bp_core_number_format( ( $start_num + ( $query_loop->pag_num - 1 ) > $query_loop->total_notification_count ) ? $query_loop->total_notification_count : $start_num + ( $query_loop->pag_num - 1 ) );
 		$total      = bp_core_number_format( $query_loop->total_notification_count );
-		$pag        = sprintf( _n( 'Viewing 1 notification', 'Viewing %1$s - %2$s of %3$s notifications', $total, 'buddypress' ), $from_num, $to_num, $total );
+
+		if ( 1 == $query_loop->total_notification_count ) {
+			$pag = __( 'Viewing 1 notification', 'buddypress' );
+		} else {
+			$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s notification', 'Viewing %1$s - %2$s of %3$s notifications', $query_loop->total_notification_count, 'buddypress' ), $from_num, $to_num, $total );
+		}
 
 		/**
 		 * Filters the pagination count for the current notification loop.

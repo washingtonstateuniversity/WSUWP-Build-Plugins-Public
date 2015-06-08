@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * Renders the Component Setup admin panel.
  *
  * @package BuddyPress
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  * @uses bp_core_admin_component_options()
  */
 function bp_core_admin_components_settings() {
@@ -44,13 +44,21 @@ function bp_core_admin_components_settings() {
  * Creates reusable markup for component setup on the Components and Pages dashboard panel.
  *
  * @package BuddyPress
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  * @todo Use settings API
  */
 function bp_core_admin_components_options() {
 
 	// Declare local variables
 	$deactivated_components = array();
+
+	/**
+	 * Filters the array of available components.
+	 *
+	 * @since BuddyPress (1.5.0)
+	 *
+	 * @param mixed $value Active components.
+	 */
 	$active_components      = apply_filters( 'bp_active_components', bp_get_option( 'bp-active-components' ) );
 
 	// The default components (if none are previously selected)
@@ -186,11 +194,13 @@ function bp_core_admin_components_options() {
 
 							<?php endif; ?>
 
-							<label class="screen-reader-text" for="bp_components[<?php echo esc_attr( $name ); ?>]"><?php sprintf( __( 'Select %s', 'buddypress' ), esc_html( $labels['title'] ) );  ?></label>
 						</th>
 						<td class="plugin-title" style="width: 190px;">
 							<span></span>
-							<strong><?php echo esc_html( $labels['title'] ); ?></strong>
+							<label for="bp_components[<?php echo esc_attr( $name ); ?>]">
+								<strong><?php echo esc_html( $labels['title'] ); ?></strong>
+							</label>
+
 							<div class="row-actions-visible">
 
 							</div>
@@ -227,7 +237,7 @@ function bp_core_admin_components_options() {
 /**
  * Handle saving the Component settings
  *
- * @since BuddyPress (1.6)
+ * @since BuddyPress (1.6.0)
  * @todo Use settings API when it supports saving network settings
  */
 function bp_core_admin_components_settings_handler() {
@@ -247,7 +257,7 @@ function bp_core_admin_components_settings_handler() {
 		$bp = buddypress();
 
 		// Save settings and upgrade schema
-		require_once( $bp->plugin_dir . '/bp-core/admin/bp-core-schema.php' );
+		require_once( $bp->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
 
 		$submitted = stripslashes_deep( $_POST['bp_components'] );
 		$bp->active_components = bp_core_admin_get_active_components_from_submitted_settings( $submitted );
@@ -286,7 +296,7 @@ add_action( 'bp_admin_init', 'bp_core_admin_components_settings_handler' );
  *   is not present, before merging the submitted components with the active
  *   ones.
  *
- * @since (BuddyPress) 1.7
+ * @since BuddyPress (1.7.0)
  *
  * @param array This is the array of component settings coming from the POST
  *   global. You should stripslashes_deep() before passing to this function
@@ -331,7 +341,7 @@ function bp_core_admin_get_active_components_from_submitted_settings( $submitted
  * We use this information both to build the markup for the admin screens, as
  * well as to do some processing on settings data submitted from those screens.
  *
- * @since (BuddyPress) 1.7
+ * @since BuddyPress (1.7.0)
  *
  * @param string $type 'all', 'optional', 'retired', 'required'
  * @return array An array of requested component data
@@ -354,7 +364,7 @@ function bp_core_admin_get_components( $type = 'all' ) {
 	$retired_components = array(
 		'forums' => array(
 			'title'       => __( 'Group Forums', 'buddypress' ),
-			'description' => sprintf( __( 'BuddyPress Forums are retired. Use %s.', 'buddypress' ), '<a href="http://bbpress.org">bbPress</a>' )
+			'description' => sprintf( __( 'BuddyPress Forums are retired. Use %s.', 'buddypress' ), '<a href="https://bbpress.org/">bbPress</a>' )
 		),
 	);
 
@@ -421,5 +431,15 @@ function bp_core_admin_get_components( $type = 'all' ) {
 
 	}
 
+	/**
+	 * Filters the list of component information.
+	 *
+	 * @since BuddyPress (2.0.0)
+	 *
+	 * @param array  $components Array of component information.
+	 * @param string $type       Type of component list requested.
+	 *                           Possible values include 'all', 'optional',
+	 *							 'retired', 'required'.
+	 */
 	return apply_filters( 'bp_core_admin_get_components', $components, $type );
 }
