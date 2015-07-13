@@ -1,0 +1,225 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery Carousel Without JetPack v0.7.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-04-24 14:22:26+0000\n"
+"Last-Translator: admin <admin@ushba.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%100/10==1 ? 2 : n%10==1 ? 0 : (n+9)%10>3 ? 2 : 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: carousel/jetpack-carousel.php:92
+#@ carousel
+msgid "Post Comment"
+msgstr "Написать комментарий"
+
+#: carousel/jetpack-carousel.php:94
+#@ carousel
+msgid "Loading Comments..."
+msgstr "Загрузка комментариев..."
+
+#: carousel/jetpack-carousel.php:96
+#@ carousel
+msgid "Please be sure to submit some text with your comment."
+msgstr "Убедитесь, что ваш комментарий содержит текст."
+
+#: carousel/jetpack-carousel.php:97
+#@ carousel
+msgid "Please provide an email address to comment."
+msgstr "Внесите электронный адрес."
+
+#: carousel/jetpack-carousel.php:98
+#@ carousel
+msgid "Please provide your name to comment."
+msgstr "Внесите ваше имя."
+
+#: carousel/jetpack-carousel.php:99
+#@ carousel
+msgid "Sorry, but there was an error posting your comment. Please try again later."
+msgstr "К сожалению, при отправке комментария произошла ошибка.\nПожалуйста, повторите отправку через несколько минут."
+
+#: carousel/jetpack-carousel.php:100
+#@ carousel
+msgid "Your comment was approved."
+msgstr "Комментарий подтвержден."
+
+#: carousel/jetpack-carousel.php:101
+#@ carousel
+msgid "Your comment is in moderation."
+msgstr "Комментрарий проверяется администрацией сайта."
+
+#: carousel/jetpack-carousel.php:102
+#@ carousel
+msgid "Camera"
+msgstr "Камера"
+
+#: carousel/jetpack-carousel.php:103
+#@ carousel
+msgid "Aperture"
+msgstr "Диафрагма"
+
+#: carousel/jetpack-carousel.php:104
+#@ carousel
+msgid "Shutter Speed"
+msgstr "Выдержка"
+
+#: carousel/jetpack-carousel.php:105
+#@ carousel
+msgid "Focal Length"
+msgstr "Фокусное расстояние"
+
+#: carousel/jetpack-carousel.php:115
+#, php-format
+#@ carousel
+msgid "Commenting as %s"
+msgstr "Комментировать как %s"
+
+#: carousel/jetpack-carousel.php:126
+#@ carousel
+msgid "Website"
+msgstr "Сайт"
+
+#: carousel/jetpack-carousel.php:251
+#@ carousel
+msgid "Missing attachment ID."
+msgstr "Приложение к электронному письму с таким номером не найдено."
+
+#: carousel/jetpack-carousel.php:288
+#@ carousel
+msgid "Nonce verification failed."
+msgstr "Специальная проверка не пройдена."
+
+#: carousel/jetpack-carousel.php:295
+#@ carousel
+msgid "Missing target blog ID."
+msgstr "Блог с таким номером не найден."
+
+#: carousel/jetpack-carousel.php:298
+#@ carousel
+msgid "Missing target post ID."
+msgstr "Пост с таким номером не найден."
+
+#: carousel/jetpack-carousel.php:301
+#@ carousel
+msgid "No comment text was submitted."
+msgstr "Комментарий не содержит текст."
+
+#: carousel/jetpack-carousel.php:313
+#@ carousel
+msgid "Comments on this post are closed."
+msgstr "Этот пост закрыт для комментариев."
+
+#: carousel/jetpack-carousel.php:323
+#@ carousel
+msgid "Sorry, but we could not authenticate your request."
+msgstr "Извините, мы не можем подтвердить ваш запрос."
+
+#: carousel/jetpack-carousel.php:332
+#@ carousel
+msgid "Please provide your name."
+msgstr "Внесите ваше имя."
+
+#: carousel/jetpack-carousel.php:335
+#@ carousel
+msgid "Please provide an email address."
+msgstr "Внесите электронный адрес."
+
+#: carousel/jetpack-carousel.php:338
+#@ carousel
+msgid "Please provide a valid email address."
+msgstr "Внесите правильный электронный адрес."
+
+#: carousel/jetpack-carousel.php:367
+#@ carousel
+msgid "Image Gallery Carousel"
+msgstr "Фотогалерея Carousel"
+
+#: carousel/jetpack-carousel.php:370
+#@ carousel
+msgid "Enable carousel"
+msgstr "Включить фотогалерею Carousel"
+
+#: carousel/jetpack-carousel.php:374
+#@ carousel
+msgid "Background color"
+msgstr "Цвет фона"
+
+#: carousel/jetpack-carousel.php:377
+#@ jetpack
+msgid "Metadata"
+msgstr "Метаданные"
+
+#: carousel/jetpack-carousel.php:434
+#@ carousel
+msgid "Show photo metadata (<a href=\"http://en.wikipedia.org/wiki/Exchangeable_image_file_format\" target=\"_blank\">Exif</a>) in carousel, when available."
+msgstr "Показать метаданные (<a href=\"http://ru.wikipedia.org/wiki/EXIF\" target=\"_blank\">Exif</a>) в фотогалерее Carousel, если доступны."
+
+#: carousel/jetpack-carousel.php:442
+#@ carousel
+msgid "Show map of photo location in carousel, when available."
+msgstr "Показать карту в фотогалерее Carousel, если доступна."
+
+#: carousel/jetpack-carousel.php:450
+#@ carousel
+msgid "Black"
+msgstr "Черный"
+
+#: carousel/jetpack-carousel.php:450
+#@ jetpack
+msgid "White"
+msgstr "Белый"
+
+#: carousel/jetpack-carousel.php:458
+#@ carousel
+msgid "Display images in full-size carousel slideshow."
+msgstr "Показать во весь экран в режиме слайд-шоу."
+
+#: carousel/jetpack-carousel.php:91
+#@ carousel
+msgid "Comment"
+msgstr "Комментировать"
+
+#: carousel/jetpack-carousel.php:93
+#@ carousel
+msgid "Write a Comment..."
+msgstr "Написать комментарий..."
+
+#: carousel/jetpack-carousel.php:95
+#, php-format
+#@ carousel
+msgid "View full size <span class=\"photo-size\">%1$s<span class=\"photo-size-times\">&times;</span>%2$s</span>"
+msgstr "Увеличить картинку <span class=\"photo-size\">%1$s<span class=\"photo-size-times\">&times;</span>%2$s</span>"
+
+#: carousel/jetpack-carousel.php:118
+#@ carousel
+msgid "You must be <a href=\"#\" class=\"jp-carousel-comment-login\">logged in</a> to post a comment."
+msgstr "Вы должны быть  <a href=\"#\" class=\"jp-carousel-comment-login\">авторизованы</a> чтобы оставить комментарий."
+
+#: carousel/jetpack-carousel.php:120
+#, php-format
+#@ carousel
+msgid "%s (Required)"
+msgstr "%s (Обязательно)"
+
+#: carousel/jetpack-carousel.php:122
+#@ carousel
+msgid "Email"
+msgstr "Электронный адрес"
+
+#: carousel/jetpack-carousel.php:124
+#@ carousel
+msgid "Name"
+msgstr "Имя"
+

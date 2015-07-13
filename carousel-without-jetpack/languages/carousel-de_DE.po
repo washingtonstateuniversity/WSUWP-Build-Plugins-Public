@@ -1,0 +1,317 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Gallery Carousel Without JetPack v0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2012-07-24 23:33:20+0000\n"
+"Last-Translator: admin <philipp@kulturweit-blog.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: jetpack-carousel.php:112
+#@ carousel
+msgid "Post Comment"
+msgstr "Kommentieren"
+
+#: jetpack-carousel.php:113
+#@ carousel
+msgid "Loading Comments..."
+msgstr "Lade Kommentare..."
+
+#: jetpack-carousel.php:114
+#@ carousel
+msgid "View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">&times;</span>{1}</span>"
+msgstr "Bild in voller Größe <span class=\"photo-size\">{0}<span class=\"photo-size-times\">&times;</span>{1}</span>"
+
+#: jetpack-carousel.php:115
+#@ carousel
+msgid "Please be sure to submit some text with your comment."
+msgstr "Gehe bitte sicher, dass du auch einen Text mit deinem Kommentar veröffentlichst."
+
+#: jetpack-carousel.php:116
+#@ carousel
+msgid "Please provide an email address to comment."
+msgstr "Bitte gebe zum Kommentieren deine eMail-Adresse an."
+
+#: jetpack-carousel.php:117
+#@ carousel
+msgid "Please provide your name to comment."
+msgstr "Bitte gebe zum Kommentieren deinen Namen an."
+
+#: jetpack-carousel.php:118
+#@ carousel
+msgid "Sorry, but there was an error posting your comment. Please try again later."
+msgstr "Sorry, aber es gab beim veröffentlichen deines Kommentars einen Fehler. Versuche es bitte noch mal."
+
+#: jetpack-carousel.php:119
+#@ carousel
+msgid "Your comment was approved."
+msgstr "Dein Kommentar wurde genehmigt."
+
+#: jetpack-carousel.php:120
+#@ carousel
+msgid "Your comment is in moderation."
+msgstr "Dein Kommentar wartet auf Moderation."
+
+#: jetpack-carousel.php:121
+#@ carousel
+msgid "Camera"
+msgstr "Kamera"
+
+#: jetpack-carousel.php:122
+#@ carousel
+msgid "Aperture"
+msgstr "Blende"
+
+#: jetpack-carousel.php:123
+#@ carousel
+msgid "Shutter Speed"
+msgstr "Verschlusszeit"
+
+#: jetpack-carousel.php:124
+#@ carousel
+msgid "Focal Length"
+msgstr "Brennweite"
+
+#: jetpack-carousel.php:131
+#, php-format
+#@ carousel
+msgid "Commenting as %s"
+msgstr "Du kommentierst als %s"
+
+#: jetpack-carousel.php:134
+#: jetpack-carousel_olf.php:132
+#@ carousel
+#@ jetpack
+msgid "Email (Required)"
+msgstr "eMail (benötigt)"
+
+#: jetpack-carousel.php:136
+#: jetpack-carousel_olf.php:134
+#@ carousel
+#@ jetpack
+msgid "Name (Required)"
+msgstr "Name (benötigt)"
+
+#: jetpack-carousel.php:138
+#: jetpack-carousel_olf.php:136
+#@ carousel
+#@ jetpack
+msgid "Website"
+msgstr "Webseite"
+
+#: jetpack-carousel.php:248
+#: jetpack-carousel_olf.php:246
+#@ carousel
+#@ jetpack
+msgid "Missing attachment ID."
+msgstr "Fehlende Anhangs-ID."
+
+#: jetpack-carousel.php:286
+#: jetpack-carousel_olf.php:284
+#@ carousel
+#@ jetpack
+msgid "Nonce verification failed."
+msgstr "Nonce-Verifizierung ist fehlgeschlagen."
+
+#: jetpack-carousel.php:293
+#: jetpack-carousel_olf.php:291
+#@ carousel
+#@ jetpack
+msgid "Missing target blog ID."
+msgstr "Fehlende Ziel-Blog-ID."
+
+#: jetpack-carousel.php:296
+#: jetpack-carousel_olf.php:294
+#@ carousel
+#@ jetpack
+msgid "Missing target post ID."
+msgstr "Fehlende Ziel-Artikel-ID."
+
+#: jetpack-carousel.php:299
+#: jetpack-carousel_olf.php:297
+#@ carousel
+#@ jetpack
+msgid "No comment text was submitted."
+msgstr "Es wurde kein Text mit dem Kommentar eingereicht."
+
+#: jetpack-carousel.php:311
+#: jetpack-carousel_olf.php:309
+#@ carousel
+#@ jetpack
+msgid "Comments on this post are closed."
+msgstr "Kommentare sind geschlossen."
+
+#: jetpack-carousel.php:321
+#: jetpack-carousel_olf.php:319
+#@ carousel
+#@ jetpack
+msgid "Sorry, but we could not authenticate your request."
+msgstr "Sorry, aber wir konnten deine Anfrage nicht authentifizieren."
+
+#: jetpack-carousel.php:329
+#: jetpack-carousel_olf.php:327
+#@ carousel
+#@ jetpack
+msgid "Please provide your name."
+msgstr "Bitte gebe deinen Namen an."
+
+#: jetpack-carousel.php:332
+#: jetpack-carousel_olf.php:330
+#@ carousel
+#@ jetpack
+msgid "Please provide an email address."
+msgstr "Bitte gebe deine eMail-Adresse an."
+
+#: jetpack-carousel.php:335
+#: jetpack-carousel_olf.php:333
+#@ carousel
+#@ jetpack
+msgid "Please provide a valid email address."
+msgstr "Bitte gebe eine gültige eMail-Adresse an."
+
+#: jetpack-carousel.php:362
+#: jetpack-carousel_olf.php:360
+#@ carousel
+#@ jetpack
+msgid "Image Gallery Carousel"
+msgstr "Bilder Karussell"
+
+#: jetpack-carousel.php:365
+#: jetpack-carousel_olf.php:363
+#@ carousel
+#@ jetpack
+msgid "Enable carousel"
+msgstr "Bilder-Karusell aktivieren"
+
+#: jetpack-carousel.php:369
+#: jetpack-carousel_olf.php:367
+#@ carousel
+#@ jetpack
+msgid "Background color"
+msgstr "Hintergrundfarbe"
+
+#: jetpack-carousel.php:372
+#: jetpack-carousel_olf.php:370
+#@ carousel
+#@ jetpack
+msgid "Metadata"
+msgstr "Metadaten"
+
+#: jetpack-carousel.php:429
+#: jetpack-carousel_olf.php:427
+#@ carousel
+#@ jetpack
+msgid "Show photo metadata (<a href=\"http://en.wikipedia.org/wiki/Exchangeable_image_file_format\" target=\"_blank\">Exif</a>) in carousel, when available."
+msgstr "Zeige wenn verfügbar die (<a href=\"http://en.wikipedia.org/wiki/Exchangeable_image_file_format\" target=\"_blank\">Exif</a>) Metadaten deiner Bilder im Karussell."
+
+#: jetpack-carousel.php:437
+#: jetpack-carousel_olf.php:435
+#@ carousel
+#@ jetpack
+msgid "Show map of photo location in carousel, when available."
+msgstr "Zeige eine Karte der Location deines Bildes, wenn verfügbar."
+
+#: jetpack-carousel.php:445
+#: jetpack-carousel_olf.php:443
+#@ carousel
+#@ jetpack
+msgid "Black"
+msgstr "Schwarz"
+
+#: jetpack-carousel.php:445
+#: jetpack-carousel_olf.php:443
+#@ carousel
+#@ jetpack
+msgid "White"
+msgstr "Weiß"
+
+#: jetpack-carousel.php:453
+#: jetpack-carousel_olf.php:451
+#@ carousel
+#@ jetpack
+msgid "Display images in full-size carousel slideshow."
+msgstr "Zeige Bilder in einem Diashow-Karussell mit voller Größe"
+
+#: jetpack-carousel_olf.php:110
+#@ jetpack
+msgid "Kommentieren"
+msgstr ""
+
+#: jetpack-carousel_olf.php:111
+#@ jetpack
+msgid "Lade Kommentare..."
+msgstr ""
+
+#: jetpack-carousel_olf.php:112
+#@ jetpack
+msgid "Volle Größe <span class=\"photo-size\">{0}<span class=\"photo-size-times\">&times;</span>{1}</span>"
+msgstr ""
+
+#: jetpack-carousel_olf.php:113
+#@ jetpack
+msgid "Gege bitte sicher, dass du auch einen Text mit deinem Kommentar ver&ouml;ffentlichst."
+msgstr ""
+
+#: jetpack-carousel_olf.php:114
+#@ jetpack
+msgid "Bitte gebe zum Kommentieren deine eMail-Adresse an."
+msgstr ""
+
+#: jetpack-carousel_olf.php:115
+#@ jetpack
+msgid "Bitte gebe zum Kommentieren deinen Namen an."
+msgstr ""
+
+#: jetpack-carousel_olf.php:116
+#@ jetpack
+msgid "Sorry, aber es gab beim ver&ouml;ffentlichen deines Kommentars einen Fehler. Versuche es bitte noch mal."
+msgstr ""
+
+#: jetpack-carousel_olf.php:117
+#@ jetpack
+msgid "Dein Kommentar wurde genehmigt."
+msgstr ""
+
+#: jetpack-carousel_olf.php:118
+#@ jetpack
+msgid "Dein Kommentar wartet auf Moderation."
+msgstr ""
+
+#: jetpack-carousel_olf.php:119
+#@ jetpack
+msgid "Kamera"
+msgstr ""
+
+#: jetpack-carousel_olf.php:120
+#@ jetpack
+msgid "Blende"
+msgstr ""
+
+#: jetpack-carousel_olf.php:121
+#@ jetpack
+msgid "Verschlusszeit"
+msgstr ""
+
+#: jetpack-carousel_olf.php:122
+#@ jetpack
+msgid "Brennweite"
+msgstr ""
+
+#: jetpack-carousel_olf.php:129
+#, php-format
+#@ jetpack
+msgid "Kommentiere als %s"
+msgstr ""
+
