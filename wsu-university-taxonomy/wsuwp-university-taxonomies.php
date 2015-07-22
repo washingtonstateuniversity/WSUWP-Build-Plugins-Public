@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.2.0
-Plugin URI: http://web.wsu.edu
+Version: 0.3.0
+Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt
-Author URI: http://web.wsu.edu
+Author URI: https://web.wsu.edu/
 */
 
 class WSUWP_University_Taxonomies {
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '1';
+	var $taxonomy_schema_version = '20150722-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -29,6 +29,11 @@ class WSUWP_University_Taxonomies {
 	var $university_location = 'wsuwp_university_location';
 
 	/**
+	 * @var string Taxonomy slug for the University Organization taxonomy.
+	 */
+	var $university_organization = 'wsuwp_university_org';
+
+	/**
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
@@ -37,11 +42,10 @@ class WSUWP_University_Taxonomies {
 		add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
 		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
-		add_action( 'load-edit-tags.php',    array( $this, 'compare_locations'              ), 10 );
-		add_action( 'load-edit-tags.php',    array( $this, 'compare_categories'             ), 10 );
-		add_action( 'load-edit-tags.php',    array( $this, 'display_locations'              ), 11 );
-		add_action( 'load-edit-tags.php',    array( $this, 'display_categories'             ), 11 );
+		add_action( 'load-edit-tags.php',    array( $this, 'compare_schema'                 ), 10 );
+		add_action( 'load-edit-tags.php',    array( $this, 'display_terms'                  ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
+		add_filter( 'pre_insert_term',       array( $this, 'prevent_term_creation'          ), 10, 2 );
 	}
 
 	/**
@@ -51,9 +55,7 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function pre_load_taxonomies( $site_id ) {
 		switch_to_blog( $site_id );
-		$this->load_locations();
-		$this->load_categories();
-		add_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+		$this->update_schema();
 		restore_current_blog();
 	}
 
@@ -71,8 +73,9 @@ class WSUWP_University_Taxonomies {
 	 * Update the taxonomy schema and version.
 	 */
 	public function update_schema() {
-		$this->load_categories();
-		$this->load_locations();
+		$this->load_terms( $this->university_category );
+		$this->load_terms( $this->university_location );
+		$this->load_terms( $this->university_organization );
 		update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 	}
 
@@ -89,6 +92,23 @@ class WSUWP_University_Taxonomies {
 		$wp_taxonomies['post_tag']->labels->name          = 'University Tags';
 		$wp_taxonomies['post_tag']->labels->singular_name = 'University Tag';
 		$wp_taxonomies['post_tag']->labels->menu_name     = 'University Tags';
+	}
+
+	/**
+	 * In normal term entry situations, we prevent new terms being created for the
+	 * taxonomies that we statically maintain.
+	 *
+	 * @param string $term     Term being added.
+	 * @param string $taxonomy Taxonomy of the term being added.
+	 *
+	 * @return string|WP_Error Pass on the term untouched if not one of our taxonomies. WP_Error otherwise.
+	 */
+	public function prevent_term_creation( $term, $taxonomy ) {
+		if ( in_array( $taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ) ) ) {
+			$term = new WP_Error( 'invalid_term', 'These terms cannot be modified.' );
+		}
+
+		return $term;
 	}
 
 	/**
@@ -142,6 +162,28 @@ class WSUWP_University_Taxonomies {
 			'query_var'         => $this->university_location,
 		);
 		register_taxonomy( $this->university_location, array( 'post', 'page', 'attachment' ), $args );
+
+		$labels = array(
+			'name' => 'University Organization',
+			'search_items'  => 'Search Organizations',
+			'all_items'     => 'All Organizations',
+			'edit_item'     => 'Edit Organization',
+			'update_item'   => 'Update Organization',
+			'add_new_item'  => 'Add New Organization',
+			'new_item_name' => 'New Organization Name',
+			'menu_name'     => 'University Organizations',
+		);
+		$args = array(
+			'labels'            => $labels,
+			'description'       => 'The central organization taxonomy for Washington State University',
+			'public'            => true,
+			'hierarchical'      => true,
+			'show_ui'           => true,
+			'show_in_menu'      => true,
+			'rewrite'           => false,
+			'query_var'         => $this->university_organization,
+		);
+		register_taxonomy( $this->university_organization, array( 'post', 'page' ), $args );
 	}
 
 	/**
@@ -157,89 +199,47 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Compare the current state of locations and populate anything that is missing.
+	 * Compare the existing schema version on taxonomy page loads and run update
+	 * process if a mismatch is present.
 	 */
-	public function compare_locations() {
-		if ( $this->university_location !== get_current_screen()->taxonomy ) {
+	public function compare_schema() {
+		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ) ) ) {
 			return;
 		}
 
 		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_locations();
-			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+			$this->update_schema();
 		}
 	}
 
 	/**
-	 * Load pre configured locations when requested.
+	 * Ensure all of the pre-configured terms for a given taxonomy are loaded with
+	 * the proper parent -> child relationships.
+	 *
+	 * @param string $taxonomy Taxonomy being loaded.
 	 */
-	public function load_locations() {
-		$this->clear_taxonomy_cache( $this->university_location );
+	public function load_terms( $taxonomy ) {
+		$this->clear_taxonomy_cache( $taxonomy );
 
-		// Get our current master list of locations.
-		$master_locations = $this->get_university_locations();
-
-		// Get our current list of top level locations.
-		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
-		$current_locations = wp_list_pluck( $current_locations, 'name' );
-
-		foreach ( $master_locations as $location => $child_locations ) {
-			$parent_id = false;
-
-			// If the parent location is not a term yet, insert it.
-			if ( ! in_array( $location, $current_locations ) ) {
-				$new_term    = wp_insert_term( $location, $this->university_location, array( 'parent' => 0 ) );
-				$parent_id = $new_term['term_id'];
-			}
-
-			// Loop through the parent's children to check term existence.
-			foreach( $child_locations as $child_location ) {
-				if ( ! in_array( $child_location, $current_locations ) ) {
-					if ( ! $parent_id ) {
-						$parent = get_term_by( 'name', $location, $this->university_location );
-						if ( isset( $parent->id ) ) {
-							$parent_id = $parent->id;
-						} else {
-							$parent_id = 0;
-						}
-					}
-					wp_insert_term( $child_location, $this->university_location, array( 'parent' => $parent_id ) );
-				}
-			}
-		}
-
-		$this->clear_taxonomy_cache( $this->university_location );
-	}
-
-	/**
-	 * Compare the current state of categories and populate anything that is missing.
-	 */
-	public function compare_categories() {
-		if ( $this->university_category !== get_current_screen()->taxonomy ) {
+		// Get a master list of terms used to populate this taxonomy.
+		if ( $this->university_category === $taxonomy ) {
+			$master_list = $this->get_university_categories();
+		} elseif ( $this->university_location === $taxonomy ) {
+			$master_list = $this->get_university_locations();
+		} elseif ( $this->university_organization === $taxonomy ) {
+			$master_list = $this->get_university_organizations();
+		} else {
 			return;
 		}
-
-		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_categories();
-			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
-		}
-	}
-
-	/**
-	 * Load pre-configured categories when requested.
-	 */
-	public function load_categories() {
-		$this->clear_taxonomy_cache( $this->university_category );
-
-		// Get our current master list of categories.
-		$master_list = $this->get_university_categories();
 
 		// Get our current list of top level parents.
-		$level1_exist  = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$level1_exist  = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => '0' ) );
 		$level1_assign = array();
 		foreach( $level1_exist as $level1 ) {
 			$level1_assign[ $level1->name ] = array( 'term_id' => $level1->term_id );
 		}
+
+		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
 
 		$level1_names = array_keys( $master_list );
 		/**
@@ -254,7 +254,7 @@ class WSUWP_University_Taxonomies {
 		 */
 		foreach( $level1_names as $level1_name ) {
 			if ( ! array_key_exists( $level1_name, $level1_assign ) ) {
-				$new_term = wp_insert_term( $level1_name, $this->university_category, array( 'parent' => '0' ) );
+				$new_term = wp_insert_term( $level1_name, $taxonomy, array( 'parent' => '0' ) );
 				if ( ! is_wp_error( $new_term ) ) {
 					$level1_assign[ $level1_name ] = array( 'term_id' => $new_term['term_id'] );
 				}
@@ -272,7 +272,7 @@ class WSUWP_University_Taxonomies {
 		 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
 		 */
 		foreach( $level1_names as $level1_name ) {
-			$level2_exists = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
+			$level2_exists = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
 			$level2_assign = array();
 
 			foreach( $level2_exists as $level2 ) {
@@ -292,7 +292,7 @@ class WSUWP_University_Taxonomies {
 			 */
 			foreach( $level2_names as $level2_name ) {
 				if ( ! array_key_exists( $level2_name, $level2_assign ) ) {
-					$new_term = wp_insert_term( $level2_name, $this->university_category, array( 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
+					$new_term = wp_insert_term( $level2_name, $taxonomy, array( 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
 					if ( ! is_wp_error( $new_term ) ) {
 						$level2_assign[ $level2_name ] = array( 'term_id' => $new_term['term_id'] );
 					}
@@ -303,19 +303,21 @@ class WSUWP_University_Taxonomies {
 			 * Look for mismatches between second and third level category relationships.
 			 */
 			foreach( $level2_names as $level2_name ) {
-				$level3_exists = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+				$level3_exists = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
 				$level3_exists = wp_list_pluck( $level3_exists, 'name' );
 
 				$level3_names = $master_list[ $level1_name ][ $level2_name ];
 				foreach( $level3_names as $level3_name ) {
 					if ( ! in_array( $level3_name, $level3_exists ) ) {
-						wp_insert_term( $level3_name, $this->university_category, array( 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+						wp_insert_term( $level3_name, $taxonomy, array( 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
 					}
 				}
 			}
 		}
 
-		$this->clear_taxonomy_cache( $this->university_category );
+		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
+
+		$this->clear_taxonomy_cache( $taxonomy );
 	}
 
 	/**
@@ -324,80 +326,47 @@ class WSUWP_University_Taxonomies {
 	 * @param string $hook Hook indicating the current admin page.
 	 */
 	public function admin_enqueue_scripts( $hook ) {
-		if ( 'edit-tags.php' !== $hook && 'post.php' !== $hook ) {
+		if ( 'edit-tags.php' !== $hook && 'post.php' !== $hook && 'post-new.php' !== $hook ) {
 			return;
 		}
 
-		if ( $this->university_category === get_current_screen()->taxonomy || $this->university_location === get_current_screen()->taxonomy ) {
+		if ( in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ) ) ) {
 			wp_enqueue_style( 'wsuwp-taxonomy-admin', plugins_url( 'css/edit-tags-style.css', __FILE__ ) );
 		}
 
-		if ( 'post.php' === $hook ) {
+		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			wp_enqueue_style( 'wsuwp-taxonomy-edit-post', plugins_url( 'css/edit-post.css', __FILE__ ) );
 		}
 
 	}
 
 	/**
-	 * Display a dashboard for University Locations. This offers a view of the existing
-	 * locations and removes the ability to add/edit terms of the taxonomy.
+	 * Display a dashboard for a custom taxonomy rather than the default term
+	 * management screen provided by WordPress core.
 	 */
-	public function display_locations() {
-		if ( $this->university_location !== get_current_screen()->taxonomy ) {
+	public function display_terms() {
+		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ) ) ) {
 			return;
 		}
 
-		// Setup the page.
-		global $title;
-		$tax = get_taxonomy( $this->university_location );
-		$title = $tax->labels->name;
-		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub"><h2>University Locations</h2>';
-
-		$parent_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => '0' ) );
-
-		foreach( $parent_terms as $term ) {
-			echo '<h3>' . esc_html( $term->name ) . '</h3>';
-			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
-			echo '<ul>';
-
-			foreach ( $child_terms as $child ) {
-				echo '<li>' . esc_html( $child->name ) . '</li>';
-			}
-			echo '</ul>';
-		}
-
-		// Close the page.
-		echo '</div>';
-		include( ABSPATH . 'wp-admin/admin-footer.php' );
-		die();
-	}
-
-	/**
-	 * Display a dashboard for University Categories. This offers a view of the existing
-	 * categories and removes the ability to add/edit terms of the taxonomy.
-	 */
-	public function display_categories() {
-		if ( $this->university_category !== get_current_screen()->taxonomy ) {
-			return;
-		}
+		$taxonomy = get_current_screen()->taxonomy;
 
 		// Setup the page.
 		global $title;
-		$tax = get_taxonomy( $this->university_category );
+		$tax = get_taxonomy( $taxonomy );
 		$title = $tax->labels->name;
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub""><h2>University Categories</h2>';
+		echo '<div class="wrap nosubsub""><h2>' . esc_html( $title ) . '</h2>';
 
-		$parent_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$parent_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => '0' ) );
 
 		foreach( $parent_terms as $term ) {
 			echo '<h3>' . esc_html( $term->name ) . '</h3>';
-			$child_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
+			$child_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 
 			foreach( $child_terms as $child ) {
 				echo '<h4>' . esc_html( $child->name ) . '</h4>';
-				$grandchild_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
+				$grandchild_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
 
 				echo '<ul>';
 
@@ -419,6 +388,35 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
+	 * Maintain an array of current university organizations.
+	 *
+	 * @return array University Organizations
+	 */
+	public function get_university_organizations() {
+		$organizations = array(
+			'Office' => array(
+				'International Programs' => array(),
+				'University Communications' => array(),
+			),
+			'College' => array(
+				'Carson College of Business' => array(),
+				'CAHNRS' => array(),
+				'College of Arts and Sciences' => array(),
+				'College of Education' => array(),
+				'College of Medical Sciences' => array(),
+				'College of Nursing' => array(),
+				'College of Pharmacy' => array(),
+				'College of Veterinary Medicine' => array(),
+				'Edward R. Murrow College of Communication' => array(),
+				'Honors College' => array(),
+				'Voiland College of Engineering and Architecture' => array(),
+			),
+		);
+
+		return $organizations;
+	}
+
+	/**
 	 * Maintain an array of current university locations.
 	 *
 	 * @return array Current university locations.
@@ -432,55 +430,55 @@ class WSUWP_University_Taxonomies {
 			'WSU Vancouver'                    => array(),
 			'WSU Global Campus'                => array(),
 			'WSU Extension'                    => array(
-				'Asotin County',
-				'Benton County',
-				'Chelan County',
-				'Clallam County',
-				'Clark County',
-				'Columbia County',
-				'Cowlitz County',
-				'Douglas County',
-				'Ferry County',
-				'Franklin County',
-				'Garfield County',
-				'Grant County',
-				'Grays Harbor County',
-				'Island County',
-				'Jefferson County',
-				'King County',
-				'Kitsap County',
-				'Kittitas County',
-				'Klickitat County',
-				'Lewis County',
-				'Lincoln County',
-				'Mason County',
-				'Okanogan County',
-				'Pacific County',
-				'Pend Oreille County',
-				'Pierce County',
-				'San Juan County',
-				'Skagit County',
-				'Skamania County',
-				'Snohomish County',
-				'Spokane County',
-				'Stevens County',
-				'Thurston County',
-				'Wahkiakum County',
-				'Walla Walla County',
-				'Whatcom County',
-				'Whitman County',
-				'Yakima County',
+				'Asotin County' => array(),
+				'Benton County' => array(),
+				'Chelan County' => array(),
+				'Clallam County' => array(),
+				'Clark County' => array(),
+				'Columbia County' => array(),
+				'Cowlitz County' => array(),
+				'Douglas County' => array(),
+				'Ferry County' => array(),
+				'Franklin County' => array(),
+				'Garfield County' => array(),
+				'Grant County' => array(),
+				'Grays Harbor County' => array(),
+				'Island County' => array(),
+				'Jefferson County' => array(),
+				'King County' => array(),
+				'Kitsap County' => array(),
+				'Kittitas County' => array(),
+				'Klickitat County' => array(),
+				'Lewis County' => array(),
+				'Lincoln County' => array(),
+				'Mason County' => array(),
+				'Okanogan County' => array(),
+				'Pacific County' => array(),
+				'Pend Oreille County' => array(),
+				'Pierce County' => array(),
+				'San Juan County' => array(),
+				'Skagit County' => array(),
+				'Skamania County' => array(),
+				'Snohomish County' => array(),
+				'Spokane County' => array(),
+				'Stevens County' => array(),
+				'Thurston County' => array(),
+				'Wahkiakum County' => array(),
+				'Walla Walla County' => array(),
+				'Whatcom County' => array(),
+				'Whitman County' => array(),
+				'Yakima County' => array(),
 			),
 			'WSU Seattle'                      => array(),
 			'WSU North Puget Sound at Everett' => array(),
 			'WSU Research Centers'             => array(
-				'Lind',
-				'Long Beach',
-				'Mount Vernon',
-				'Othello',
-				'Prosser',
-				'Puyallup',
-				'Wenatchee',
+				'Lind' => array(),
+				'Long Beach' => array(),
+				'Mount Vernon' => array(),
+				'Othello' => array(),
+				'Prosser' => array(),
+				'Puyallup' => array(),
+				'Wenatchee' => array(),
 			)
 		);
 
