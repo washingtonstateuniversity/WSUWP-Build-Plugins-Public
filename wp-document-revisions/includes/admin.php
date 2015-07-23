@@ -1139,7 +1139,7 @@ class Document_Revisions_Admin {
 	function filter_media_join( $join ) {
 		global $wpdb;
 
-		$join .= " LEFT OUTER JOIN {$wpdb->posts} wpdr_post_parent ON wpdr_post_parent.ID = {$wpdb->posts}.post_parent";
+		$join .= " LEFT OUTER JOIN {$wpdb->posts} wpdr_post_parent ON wpdr_post_parent.ID = {$wpdb->posts}.post_parent ";
 
 		return $join;
 	}
@@ -1163,7 +1163,7 @@ class Document_Revisions_Admin {
 		$where = str_replace( ' post_parent < 1', " {$wpdb->posts}.post_parent < 1", $where );
 		$where = str_replace( '(post_mime_type LIKE', "({$wpdb->posts}.post_mime_type LIKE", $where );
 
-		$where .= " AND ( wpdr_post_parent.post_type IS NULL OR wpdr_post_parent.post_type != 'document' )";
+		$where .= " AND ( wpdr_post_parent.post_type IS NULL OR wpdr_post_parent.post_type != 'document' ) ";
 
 		return $where;
 	}
