@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, borkweb, zbtirrell, barry.hughes, bordon
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.2.2
-Stable tag: 3.11
+Tested up to: 4.3 beta 3
+Stable tag: 3.11.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,9 +136,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.10 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.11.2 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.10 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.11.2 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -312,6 +312,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.11.2] 2015-07-30 =
+
+* Bug - Resolved issue where List View paging into the past only allowed you to go 1 page in the past (thanks to Richard from Prescott Art Store for reporting this!)
+* Bug - Fixed bug where the iCal export for Month View inappropriately observed the events-per-page limit causing some events to be excluded (thanks to Neil on the forums for the heads up!)
+
+= [3.11.1] 2015-07-28 =
+
+* Bug - Fixed bug where all events regardless of category were shown on category month views while paging through months (thanks to our long-time user Anthony of Design Big Dreams for the first report here!)
+* Bug - Fixed bug where events marked as "Hide From Event Listings" were visible while paging through months in Month View (thanks to Joel on the forums for the heads up!)
+* Bug - Fixed bug where recurring events were hidden in Month View when recurring event instances were disabled in List View (thanks to Rebecca Redding on the forum for letting us know!)
+* Bug - Fixed bug where all admin dashboard post queries inappropriately included event date SQL which caused query/sorting instability (thanks to everyone on the forums who reported this conflict post-launch!)
+
 = [3.11] 2015-07-22 =
 
 * Security - Added escaping to a number of previously un-escaped values
@@ -351,7 +363,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
 * Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
 * Bug - Fixed an issue where ticket prices were not displayed in List View when tickets were marked as "Free" (Cheers to liblogger and tracylove for the heads up!)
-* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates 
+* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
 * Bug - Fixed an issue where events with multiple prices showed inaccurate price ranges in list view (Props to Sonya for reporting this!)
 * Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately (Thank you mtmuddnadd for the help!)
 * Bug - Fixed a bug where titles containing certain special character combinations were getting partially stripped (Thank you webquest for the report!)
@@ -809,7 +821,9 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood. All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production.
+= 3.11 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.10 =
 
