@@ -3,8 +3,8 @@ Contributors: TobiasBg
 Donate link: https://tablepress.org/donate/
 Tags: table,data,html,csv,excel
 Requires at least: 4.2
-Tested up to: 4.2
-Stable tag: 1.6
+Tested up to: 4.3
+Stable tag: 1.6.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ Please visit the plugin website at https://tablepress.org/ for more information 
 If you like TablePress, please rate and review it here in the WordPress Plugin Directory, support it with your [donation](https://tablepress.org/donate/), or [flattr it](https://flattr.com/thing/783658/TablePress). Thank you!
 
 = TablePress Extensions =
-Additional features and useful enhancements are available as separate plugins, called [TablePress Extensions](http://tablepress.org/extensions/), on the plugin website.
+Additional features and useful enhancements are available as separate plugins, called [TablePress Extensions](https://tablepress.org/extensions/), on the plugin website.
 
 == Screenshots ==
 
@@ -98,6 +98,10 @@ This plugin is Free Software, released and licensed under the GPL, version 2 (ht
 You may use it free of charge for any purpose.
 
 == Changelog ==
+
+= Version 1.6.1 =
+* Bugfix: Update the DataTables JS library to fix issues with the JS features after the release of WordPress 4.3.
+* Updated translations (Chinese (Simplified)).
 
 = Version 1.6 =
 * Full compatibility with WordPress 4.2
@@ -199,6 +203,9 @@ Release candidate in which all intended features are included and very stable.
 Initial version where most features are ready and pretty stable.
 
 == Upgrade Notice ==
+
+= 1.6.1 =
+This update fixes an issue with the JavaScript features after the update to WordPress 4.3.
 
 = 1.6 =
 This update is a stability, maintenance, and compatibility release. Updating is recommended.

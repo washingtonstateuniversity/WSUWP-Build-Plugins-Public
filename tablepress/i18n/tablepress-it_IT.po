@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TablePress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: TablePress v1.6\n"
+"Project-Id-Version: TablePress v1.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tablepress\n"
 "POT-Creation-Date: 2014-10-12 12:29:20+00:00\n"
 "PO-Revision-Date: 2014-10-14 09:58+0100\n"
@@ -150,7 +150,7 @@ msgstr[0] "Vuoi veramente cancellare questa tabella?"
 msgstr[1] "Vuoi veramente cancellare queste tabelle?"
 
 # @ tablepress
-#. #-#-#-#-#  tablepress.pot (TablePress 1.6)  #-#-#-#-#
+#. #-#-#-#-#  tablepress.pot (TablePress 1.6.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: classes/class-view.php:387
 msgid "TablePress"
@@ -2434,6 +2434,6 @@ msgid "Tobias Bäthge"
 msgstr "Tobias Bäthge"
 
 #. Author URI of the plugin/theme
-msgid "http://tobias.baethge.com/"
-msgstr "http://tobias.baethge.com/"
+msgid "https://tobias.baethge.com/"
+msgstr "https://tobias.baethge.com/"
 

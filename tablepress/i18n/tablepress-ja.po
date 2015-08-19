@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the TablePress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: TablePress v1.6\n"
+"Project-Id-Version: TablePress v1.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tablepress\n"
 "POT-Creation-Date: 2014-10-12 12:29:20+00:00\n"
 "PO-Revision-Date: 2014-10-29 21:03+0100\n"
@@ -2900,5 +2900,5 @@ msgstr "Tobias Bäthge"
 
 # @ tablepress
 #. Author URI of the plugin/theme
-msgid "http://tobias.baethge.com/"
-msgstr "http://tobias.baethge.com/"
+msgid "https://tobias.baethge.com/"
+msgstr "https://tobias.baethge.com/"
