@@ -3,7 +3,7 @@
 Plugin Name: Gallery Carousel Without JetPack
 Plugin URI: http://www.wpbeginner.com/
 Description: Transform your standard galleries into an immersive full-screen experience without requiring you to connect to WordPress.com
-Version: 0.7.4
+Version: 0.7.5
 Author: Syed Balkhi
 Author URI: http://www.wpbeginner.com
 License: GPLv2 or later
@@ -21,16 +21,18 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Boostrap 'carousel' module so it'll work standalone
 */
 class CarouselWithoutJetpack {
+
 	/**
 	* Constructor
 	*/
-	function CarouselWithoutJetpack() {
-		// Plugin Details
-        $this->plugin = new stdClass;
-        $this->plugin->name = 'carousel-without-jetpack'; // Plugin Folder
-        $this->plugin->folder = WP_PLUGIN_DIR.'/'.$this->plugin->name; // Full Path to Plugin Folder
-        $this->plugin->url = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__)); // Full URL to Plugin Folder
+	function __construct() {
 
+		// Plugin Details
+        $this->plugin               = new stdClass;
+        $this->plugin->name 		= 'carousel-without-jetpack'; // Plugin Folder
+        $this->plugin->folder       = plugin_dir_path( __FILE__ );
+        $this->plugin->url          = plugin_dir_url( __FILE__ );
+        
 		// Include class.jetpack-options.php
 		// Ignore if Jetpack or another plugin has already done this
 		if (!class_exists('No_Jetpack_Options')) {

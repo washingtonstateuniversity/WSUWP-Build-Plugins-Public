@@ -3,7 +3,7 @@ Contributors: WPbeginner, smub, iamdpegg, n7studios
 Donate link:http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: gallery, lightbox, carousel, gallery carousel, jetpack, image gallery, wordpress gallery plugin, wordpress image gallery plugin, responsive gallery
 Requires at least: 3.4.1
-Tested up to: 4.0.1
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,11 @@ However, if you want to turn off comments on Media attachments, you can follow t
 
 
 == Changelog ==
+
+= 0.7.5 =
+* Updated it to match original JetPack plugin updates from 3.6.1
+* Tested with WordPress 4.3
+* Fix: plugin_dir_path() and plugin_dir_url() used for Multisite / symlink support
 
 = 0.7.4 =
 * Added French translation (props: Blacky)

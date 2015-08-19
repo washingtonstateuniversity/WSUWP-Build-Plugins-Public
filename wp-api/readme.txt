@@ -2,8 +2,8 @@
 Contributors: rmccue, rachelbaker
 Tags: json, rest, api, rest-api
 Requires at least: 3.9
-Tested up to: 4.1
-Stable tag: 1.2.2
+Tested up to: 4.3-alpha
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,23 @@ Drop this directory in and activate it. You need to be using pretty permalinks
 to use the plugin, as it uses custom rewrite rules to power the API.
 
 == Changelog ==
+
+= 1.2.3 =
+
+* Fix potential XSS vulnerability.
+
+  Requests from other origins could potentially run code on the API domain, allowing cross-origin access to authentication cookies or similar.
+
+  Reported by @xknown on 2015-07-23.
+
+= 1.2.2 =
+
+* Fix user access security vulnerability.
+
+  Authenticated users were able to escalate their privileges bypassing the
+  expected capabilities check.
+
+  Reported by @kacperszurek on 2015-05-16.
 
 = 1.2.1 =
 
