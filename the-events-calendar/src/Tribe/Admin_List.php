@@ -21,8 +21,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 */
 		public static function init() {
 			if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-				add_filter( 'tribe_events_query_posts_orderby', array( __CLASS__, 'override_tribe_events_query_orderby' ) );
-
 				// Logic for sorting events by event category or tags
 				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
 
@@ -45,14 +43,6 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				// Registers event start/end date as sortable columns
 				add_action( 'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array( __CLASS__, 'register_sortable_columns' ), 10, 2 );
 			}
-		}
-
-		/**
-		 * Override the orderby that is set up in Tribe__Events__Query. The dashboard event list has its own
-		 * orderby rules
-		 */
-		public static function override_tribe_events_query_orderby( $orderby ) {
-			return '';
 		}
 
 		/**
@@ -101,12 +91,12 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			// only add the start meta query if it is missing
 			if ( ! preg_match( '/tribe_event_start_date/', $clauses['join'] ) ) {
-				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
 			}
 
 			// only add the end meta query if it is missing
 			if ( ! preg_match( '/tribe_event_end_date/', $clauses['join'] ) ) {
-				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
 			}
 
 			if ( ! empty( $clauses['orderby'] ) ) {
