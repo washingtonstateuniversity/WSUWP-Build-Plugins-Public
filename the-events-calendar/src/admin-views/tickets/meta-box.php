@@ -29,7 +29,7 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 	<tr>
 		<td colspan="2" class="tribe_sectionheader updated">
 			<table class="eventtable ticket_list eventForm">
-				<tr>
+				<tr class="tribe-tickets-image-upload">
 					<td>
 						<?php esc_html_e( 'Upload image for the ticket header', 'the-events-calendar' ); ?>
 						<p class="description"><?php esc_html_e( 'The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like "retina" support use an image sized to 1160px wide.', 'the-events-calendar' ); ?></p>
@@ -38,7 +38,7 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php esc_html_e( 'Select an Image', 'the-events-calendar' ); ?>" />
 					</td>
 				</tr>
-				<tr>
+				<tr class="tribe-tickets-image-preview">
 					<td colspan="2">
 						<div class="tribe_preview" id="tribe_ticket_header_preview">
 							<?php echo $header_img; ?>
@@ -67,15 +67,9 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 	<tr id="ticket_form" class="ticket_form">
 		<td colspan="2" class="tribe_sectionheader">
 			<div id="tribe-loading"><span></span></div>
+			<h4 class="ticket_form_title_add"><?php esc_html_e( 'Add new ticket', 'tribe-events-calendar' ); ?></h4>
+			<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'tribe-events-calendar' ); ?></h4>
 			<table id="ticket_form_table" class="eventtable ticket_form">
-
-				<tr>
-					<td colspan="2">
-						<h4 class="ticket_form_title_add"><?php esc_html_e( 'Add new ticket', 'the-events-calendar' ); ?></h4>
-						<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'the-events-calendar' ); ?></h4>
-					</td>
-				</tr>
-
 				<tr>
 					<td width="20%"><label for="ticket_provider"><?php esc_html_e( 'Sell using:', 'the-events-calendar' ); ?></label></td>
 					<td>
@@ -117,6 +111,7 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 							   value='' />
 
 						<p class="description"><?php esc_html_e( '(0 or empty for free tickets)', 'the-events-calendar' ) ?></p>
+						<p class="no-update-message" style="display: none;"></p>
 					</td>
 				</tr>
 
@@ -191,12 +186,8 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 					<td></td>
 					<td>
 						<input type="hidden" name="ticket_id" id="ticket_id" class="ticket_field" value="" />
-
-						<input type="button" id="ticket_form_save" name="ticket_form_save" value="<?php esc_html_e( 'Save this ticket', 'the-events-calendar' ); ?>"
-							   class="button-primary" />
-
-						<input type="button" id="ticket_form_cancel" name="ticket_form_cancel" value="Cancel"
-							   class="button-secondary" />
+						<input type="button" id="ticket_form_save" name="ticket_form_save" value="<?php esc_html_e( 'Save this ticket', 'the-events-calendar' ); ?>" class="button-primary" />
+						<input type="button" id="ticket_form_cancel" name="ticket_form_cancel" value="<?php esc_attr_e( 'Cancel', 'the-events-calendar' ); ?>" class="button-secondary" />
 					</td>
 				</tr>
 			</table>
