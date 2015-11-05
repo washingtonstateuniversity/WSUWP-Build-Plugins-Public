@@ -1,2 +1,0 @@
-# WSUWP Video Backgrounds
-
