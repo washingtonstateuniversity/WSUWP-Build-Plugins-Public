@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP REST API
  * Description: JSON-based REST API for WordPress, developed as part of GSoC 2013.
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: WP REST API Team
  * Author URI: http://wp-api.org/
  * Plugin URI: https://github.com/WP-API/WP-API
@@ -13,7 +13,7 @@
  *
  * @var string
  */
-define( 'JSON_API_VERSION', '1.2.3' );
+define( 'JSON_API_VERSION', '1.2.4' );
 
 /**
  * Include our files for the API.
@@ -48,14 +48,14 @@ function json_api_init() {
 	global $wp;
 	$wp->add_query_var( 'json_route' );
 }
-add_action( 'init', 'json_api_init' );
+add_action( 'init', 'json_api_init', 11 ); // Prioritized over core rewrites
 
 /**
  * Add rewrite rules.
  */
 function json_api_register_rewrites() {
 	add_rewrite_rule( '^' . json_get_url_prefix() . '/?$','index.php?json_route=/','top' );
-	add_rewrite_rule( '^' . json_get_url_prefix() . '(.*)?','index.php?json_route=$matches[1]','top' );
+	add_rewrite_rule( '^' . json_get_url_prefix() . '/(.*)?','index.php?json_route=/$matches[1]','top' );
 }
 
 /**
