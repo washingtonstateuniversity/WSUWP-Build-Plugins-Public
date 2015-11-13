@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3.1
-Stable tag: 3.12.5
+Stable tag: 3.12.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,13 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+= [3.12.6] 2015-11-12 =
+
+* Fix - Remove constraints on defining new venues and organizers that were added prematurely (our thanks to Jeramey for highlighting this)
+* Fix - Resolve error encountered by users of some ticketing addons when accessing the orders report (our thanks to Sean for highlighting this)
+* Fix - Restore live reload functionality which was failing to function in some cases (our thanks to cityofroundrock for highlighting this)
+* Tweak - Alter month view logic for better isolation of different month views (such as when the calendar widget and main calendar view co-exist)
 
 = [3.12.5] 2015-11-05 =
 
