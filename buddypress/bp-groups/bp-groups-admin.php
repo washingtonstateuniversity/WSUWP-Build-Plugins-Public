@@ -312,10 +312,12 @@ function bp_groups_admin_load() {
 
 				// Process only those users who have had their roles changed
 				foreach ( (array) $_POST['bp-groups-role'] as $user_id => $new_role ) {
+					$user_id = (int) $user_id;
 
 					$existing_role = isset( $_POST['bp-groups-existing-role'][$user_id] ) ? $_POST['bp-groups-existing-role'][$user_id] : '';
 
 					if ( $existing_role != $new_role ) {
+						$result = false;
 
 						switch ( $new_role ) {
 							case 'mod' :
@@ -525,28 +527,28 @@ function bp_groups_admin_edit() {
 		}
 
 		if ( ! empty( $error_new ) ) {
-			$messages[] = sprintf( __( 'The following users could not be added to the group: %s', 'buddypress' ), '<em>' . implode( ', ', $error_new ) . '</em>' );
+			$messages[] = sprintf( __( 'The following users could not be added to the group: %s', 'buddypress' ), '<em>' . esc_html( implode( ', ', $error_new ) ) . '</em>' );
 		}
 
 		if ( ! empty( $success_new ) ) {
-			$messages[] = sprintf( __( 'The following users were successfully added to the group: %s', 'buddypress' ), '<em>' . implode( ', ', $success_new ) . '</em>' );
+			$messages[] = sprintf( __( 'The following users were successfully added to the group: %s', 'buddypress' ), '<em>' . esc_html( implode( ', ', $success_new ) ) . '</em>' );
 		}
 
 		if ( ! empty( $error_modified ) ) {
 			$error_modified = bp_groups_admin_get_usernames_from_ids( $error_modified );
-			$messages[] = sprintf( __( 'An error occurred when trying to modify the following members: %s', 'buddypress' ), '<em>' . implode( ', ', $error_modified ) . '</em>' );
+			$messages[] = sprintf( __( 'An error occurred when trying to modify the following members: %s', 'buddypress' ), '<em>' . esc_html( implode( ', ', $error_modified ) ) . '</em>' );
 		}
 
 		if ( ! empty( $success_modified ) ) {
 			$success_modified = bp_groups_admin_get_usernames_from_ids( $success_modified );
-			$messages[] = sprintf( __( 'The following members were successfully modified: %s', 'buddypress' ), '<em>' . implode( ', ', $success_modified ) . '</em>' );
+			$messages[] = sprintf( __( 'The following members were successfully modified: %s', 'buddypress' ), '<em>' . esc_html( implode( ', ', $success_modified ) ) . '</em>' );
 		}
 	}
 
 	$is_error = ! empty( $no_admins ) || ! empty( $errors ) || ! empty( $error_new ) || ! empty( $error_modified );
 
 	// Get the group from the database
-	$group      = groups_get_group( 'group_id=' . $_GET['gid'] );
+	$group      = groups_get_group( 'group_id=' . (int) $_GET['gid'] );
 
 	/** This filter is documented in bp-groups/bp-groups-template.php */
 	$group_name = isset( $group->name ) ? apply_filters( 'bp_get_group_name', $group->name ) : '';
