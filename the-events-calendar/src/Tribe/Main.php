@@ -991,7 +991,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'object_id'    => $_nav_menu_placeholder,
 					'post_content' => '',
 					'post_excerpt' => '',
-					'post_title'   => $post_type['args']->labels->all_items,
+					'post_title'   => $post_type->labels->all_items,
 					'post_type'    => 'nav_menu_item',
 					'type'         => 'custom',
 					'url'          => $archive_slug,
