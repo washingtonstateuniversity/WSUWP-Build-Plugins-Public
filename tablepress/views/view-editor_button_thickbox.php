@@ -63,7 +63,7 @@ class TablePress_Editor_Button_Thickbox_View extends TablePress_View {
 		_wp_admin_html_begin();
 
 		wp_print_styles( 'colors' );
-		wp_print_scripts( 'jquery' );
+		wp_print_scripts( 'jquery-core' );
 ?>
 <title><?php printf( __( '%1$s &lsaquo; %2$s', 'tablepress' ), __( 'List of Tables', 'tablepress' ), 'TablePress' ); ?></title>
 <style type="text/css">
@@ -125,6 +125,13 @@ body {
 	padding: 4px 7px 1px;
 	vertical-align: middle;
 }
+/* Responsiveness on the All Tables screen */
+@media screen and (max-width: 782px) {
+	.tablepress-editor-button-list .column-table_id {
+		display: none !important;
+		padding: 3px 8px 3px 35%;
+	}
+}
 
 /* Shortcode input field */
 #tablepress-page .table-shortcode-inline {
@@ -168,7 +175,7 @@ body.rtl {
 </head>
 <body class="wp-admin wp-core-ui js iframe<?php echo is_rtl() ? ' rtl' : ''; ?>">
 <div id="tablepress-page" class="wrap">
-<h2><?php printf( __( '%1$s &lsaquo; %2$s', 'tablepress' ), __( 'List of Tables', 'tablepress' ), 'TablePress' ); ?></h2>
+<h1><?php printf( __( '%1$s &lsaquo; %2$s', 'tablepress' ), __( 'List of Tables', 'tablepress' ), 'TablePress' ); ?></h1>
 <div id="poststuff">
 <p>
 <?php _e( 'This is a list of all available tables.', 'tablepress' ); ?> <?php _e( 'You may insert a table into a post or page here.', 'tablepress' ); ?>
@@ -190,7 +197,12 @@ body.rtl {
 </div>
 <script type="text/javascript">
 jQuery( document ).ready( function( $ ) {
-	$( '.tablepress-editor-button-list' ).on( 'click', '.insert-shortcode', function() {
+	// Toggle list table rows on small screens
+	$( '.tablepress-editor-button-list' )
+	.on( 'click', '.toggle-row', function() {
+		$( this ).closest( 'tr' ).toggleClass( 'is-expanded' );
+	})
+	.on( 'click', '.insert-shortcode', function() {
 		var win = window.dialogArguments || opener || parent || top;
 		win.send_to_editor( $(this).attr( 'title' ) );
 	} );
@@ -303,6 +315,17 @@ class TablePress_Editor_Button_Thickbox_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Gets the name of the default primary column.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return string Name of the default primary column, in this case, the table name.
+	 */
+	protected function get_default_primary_column_name() {
+		return 'table_name';
+	}
+
+	/**
 	 * Render a cell in the "table_id" column.
 	 *
 	 * @since 1.0.0
@@ -407,7 +430,7 @@ class TablePress_Editor_Button_Thickbox_List_Table extends WP_List_Table {
 		static $term, $json_encoded_term;
 		if ( is_null( $term ) || is_null( $json_encoded_term ) ) {
 			$term = wp_unslash( $_GET['s'] );
-			$json_encoded_term = substr( json_encode( $term ), 1, -1 );
+			$json_encoded_term = substr( wp_json_encode( $term ), 1, -1 );
 		}
 
 		// Load table again, with table data, but without options and visibility settings.
@@ -423,7 +446,7 @@ class TablePress_Editor_Button_Thickbox_List_Table extends WP_List_Table {
 		|| false !== stripos( $item['description'], $term )
 		|| false !== stripos( TablePress::get_user_display_name( $item['author'] ), $term )
 		|| false !== stripos( TablePress::format_datetime( $item['last_modified'], 'mysql', ' ' ), $term )
-		|| false !== stripos( json_encode( $item['data'] ), $json_encoded_term ) ) {
+		|| false !== stripos( wp_json_encode( $item['data'] ), $json_encoded_term ) ) {
 			return true;
 		}
 

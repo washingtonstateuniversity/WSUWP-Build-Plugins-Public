@@ -132,6 +132,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		'sInfoEmpty' => 'infoEmpty',
 		'bStateSave' => 'stateSave',
 		'bAutoWidth' => 'autoWidth',
+		'className' => 'className', // Replace "className" with itself, to avoid that the replacement for "sName" breaks it.
 		'sPrevious' => 'previous',
 		'sCellType' => 'cellType',
 		'oPaginate' => 'paginate',
@@ -243,7 +244,7 @@ class TablePress_Table_Model extends TablePress_Model {
 			'post_title' => $table['name'],
 			// 'post_author' => $table['author'],
 			'post_excerpt' => $table['description'],
-			'post_content' => json_encode( $table['data'] ),
+			'post_content' => wp_json_encode( $table['data'] ),
 			'post_mime_type' => 'application/json',
 		);
 
@@ -284,41 +285,16 @@ class TablePress_Table_Model extends TablePress_Model {
 			$table['is_corrupted'] = true;
 
 			// If possible, try to find out what error prevented the JSON from being decoded.
-			$table['json_error'] = $json_error = '';
-			if ( function_exists( 'json_last_error' ) ) {
-				// Constant JSON_ERROR_UTF8 is only available as of PHP 5.3.3.
-				if ( ! defined( 'JSON_ERROR_UTF8' ) ) {
-					define( 'JSON_ERROR_UTF8', 5 );
+			$table['json_error'] = 'The error could not be determined.';
+			// @TODO: The `function_exists` check can be removed once support for WP 4.3 is dropped, as a compat function was added in WP 4.4.
+			if ( function_exists( 'json_last_error_msg' ) ) {
+				$json_error_msg = json_last_error_msg();
+				if ( false !== $json_error_msg ) {
+					$table['json_error'] = $json_error_msg;
 				}
-
-				switch ( json_last_error() ) {
-					case JSON_ERROR_NONE:
-						// Should never happen here, as this is only called in case of an error.
-						$table['json_error'] = 'JSON_ERROR_NONE';
-						break;
-					case JSON_ERROR_DEPTH:
-						$table['json_error'] = 'JSON_ERROR_DEPTH';
-						break;
-					case JSON_ERROR_STATE_MISMATCH:
-						$table['json_error'] = 'JSON_ERROR_STATE_MISMATCH';
-						break;
-					case JSON_ERROR_CTRL_CHAR:
-						$table['json_error'] = 'JSON_ERROR_CTRL_CHAR';
-						break;
-					case JSON_ERROR_SYNTAX:
-						$table['json_error'] = 'JSON_ERROR_SYNTAX';
-						break;
-					case JSON_ERROR_UTF8:
-						$table['json_error'] = 'JSON_ERROR_UTF8';
-						break;
-					default:
-						$table['json_error'] = 'UNKNOWN ERROR';
-						break;
-				}
-				$json_error = " ({$table['json_error']})";
 			}
 
-			$table['description'] = "[ERROR] TABLE IS CORRUPTED{$json_error}!  DO NOT EDIT THIS TABLE NOW!\nInstead, please see https://tablepress.org/faq/corrupted-tables/ for instructions.\n-\n{$table['description']}";
+			$table['description'] = "[ERROR] TABLE IS CORRUPTED (JSON error: {$table['json_error']})!  DO NOT EDIT THIS TABLE NOW!\nInstead, please see https://tablepress.org/faq/corrupted-tables/ for instructions.\n-\n{$table['description']}";
 		} else {
 			// Specifically cast to an array again.
 			$table['data'] = (array) $table['data'];
@@ -1014,7 +990,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _add_table_options( $post_id, array $options ) {
-		$options = json_encode( $options );
+		$options = wp_json_encode( $options );
 		return $this->model_post->add_meta_field( $post_id, $this->table_options_field_name, $options );
 	}
 
@@ -1028,7 +1004,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _update_table_options( $post_id, array $options ) {
-		$options = json_encode( $options );
+		$options = wp_json_encode( $options );
 		return $this->model_post->update_meta_field( $post_id, $this->table_options_field_name, $options );
 	}
 
@@ -1058,7 +1034,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _add_table_visibility( $post_id, array $visibility ) {
-		$visibility = json_encode( $visibility );
+		$visibility = wp_json_encode( $visibility );
 		return $this->model_post->add_meta_field( $post_id, $this->table_visibility_field_name, $visibility );
 	}
 
@@ -1072,7 +1048,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _update_table_visibility( $post_id, array $visibility ) {
-		$visibility = json_encode( $visibility );
+		$visibility = wp_json_encode( $visibility );
 		return $this->model_post->update_meta_field( $post_id, $this->table_visibility_field_name, $visibility );
 	}
 
@@ -1294,7 +1270,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		// Extract the table IDs from the `_tablepress_export_table_id` post meta field.
 		$table_ids = array();
 		if ( isset( $post['postmeta'] ) && is_array( $post['postmeta'] ) ) {
-			foreach( $post['postmeta'] as $postmeta ) {
+			foreach ( $post['postmeta'] as $postmeta ) {
 				if ( '_tablepress_export_table_id' === $postmeta['key'] ) {
 					$table_ids = $postmeta['value'];
 					$table_ids = explode( ',', $table_ids );
@@ -1338,7 +1314,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		}
 
 		// Remove the `_tablepress_export_table_id` post meta field from the post meta fields.
-		foreach( $postmeta as $index => $meta ) {
+		foreach ( $postmeta as $index => $meta ) {
 			if ( '_tablepress_export_table_id' === $meta['key'] ) {
 				unset( $postmeta[ $index ] );
 			}

@@ -26,7 +26,7 @@ abstract class TablePress {
 	 * @since 1.0.0
 	 * @const string
 	 */
-	const version = '1.6.1';
+	const version = '1.7';
 
 	/**
 	 * TablePress internal plugin version ("options scheme" version).
@@ -36,7 +36,7 @@ abstract class TablePress {
 	 * @since 1.0.0
 	 * @const int
 	 */
-	const db_version = 31;
+	const db_version = 32;
 
 	/**
 	 * TablePress "table scheme" (data format structure) version.
@@ -113,9 +113,9 @@ abstract class TablePress {
 			return;
 		}
 
-		// Check if minimum requirements are fulfilled, currently WordPress 4.2.
+		// Check if minimum requirements are fulfilled, currently WordPress 4.3.
 		include( ABSPATH . WPINC . '/version.php' ); // Include an unmodified $wp_version.
-		if ( version_compare( str_replace( '-src', '', $wp_version ), '4.2', '<' ) ) {
+		if ( version_compare( str_replace( '-src', '', $wp_version ), '4.3', '<' ) ) {
 			// Show error notice to admins, if WP is not installed in the minimum required version, in which case TablePress will not work.
 			if ( current_user_can( 'update_plugins' ) ) {
 				add_action( 'admin_notices', array( 'TablePress', 'show_minimum_requirements_error_notice' ) );
@@ -346,6 +346,7 @@ abstract class TablePress {
 	 * @return string Nice looking string with the date and time.
 	 */
 	public static function format_datetime( $datetime, $type = 'mysql', $separator = ' ' ) {
+		// @TODO: Maybe change from using the stored WP Options to translated date/time schemes, like in https://core.trac.wordpress.org/changeset/35811.
 		if ( 'mysql' === $type ) {
 			return mysql2date( get_option( 'date_format' ), $datetime ) . $separator . mysql2date( get_option( 'time_format' ), $datetime );
 		} else {

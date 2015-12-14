@@ -74,7 +74,7 @@ class TablePress_Edit_View extends TablePress_View {
 		wp_enqueue_script( 'wplink' );
 
 		$this->admin_page->enqueue_style( 'edit' );
-		$this->admin_page->enqueue_script( 'edit', array( 'jquery', 'jquery-ui-sortable', 'json2' ), array(
+		$this->admin_page->enqueue_script( 'edit', array( 'jquery-core', 'jquery-ui-sortable', 'json2' ), array(
 			'options' => array(
 				/**
 				 * Filter whether debug output shall be printed to the page.
@@ -633,7 +633,7 @@ class TablePress_Edit_View extends TablePress_View {
 			<p><strong><?php _e( 'Attention: Unfortunately, an error occurred.', 'tablepress' ); ?></strong></p>
 			<p>
 				<?php
-					printf( __( 'The internal data of table &#8220;%1$s&#8221 (ID %2$s) is corrupted.', 'tablepress' ), esc_html( $data['table']['name'] ), esc_html( $data['table']['id'] ) );
+					printf( __( 'The internal data of table &#8220;%1$s&#8221; (ID %2$s) is corrupted.', 'tablepress' ), esc_html( $data['table']['name'] ), esc_html( $data['table']['id'] ) );
 					echo ' ';
 					printf( __( 'The following error was registered: <code>%s</code>.', 'tablepress' ), esc_html( $data['table']['json_error'] ) );
 				?>

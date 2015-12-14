@@ -153,7 +153,7 @@ abstract class TablePress_View {
 		if ( is_rtl() ) {
 			$this->admin_page->enqueue_style( 'common-rtl', array( 'tablepress-common' ) );
 		}
-		$this->admin_page->enqueue_script( 'common', array( 'jquery', 'postbox' ), array(
+		$this->admin_page->enqueue_script( 'common', array( 'jquery-core', 'postbox' ), array(
 			'common' => array(
 				'ays_delete_single_table' => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 1, 'tablepress' ),
 				'ays_delete_multiple_tables' => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 2, 'tablepress' ),
@@ -377,9 +377,9 @@ abstract class TablePress_View {
 	 */
 	protected function print_nav_tab_menu() {
 		?>
-		<h2 id="tablepress-nav" class="nav-tab-wrapper">
+		<h1 id="tablepress-nav" class="nav-tab-wrapper">
 			<?php
-			echo __( 'TablePress', 'tablepress' ) . '<span class="separator"></span>';
+			echo '<span class="plugin-name">' . __( 'TablePress', 'tablepress' ) . '</span><span class="separator"></span>';
 			foreach ( $this->data['view_actions'] as $action => $entry ) {
 				// Special case: Add a separator before the group that starts with "Plugin Options", for some spacing.
 				if ( 'options' === $action ) {
@@ -398,7 +398,7 @@ abstract class TablePress_View {
 				echo "<a class=\"nav-tab{$active}\" href=\"{$url}\">{$entry['nav_tab_title']}</a>";
 			}
 			?>
-		</h2>
+		</h1>
 		<?php
 	}
 

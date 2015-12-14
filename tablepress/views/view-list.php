@@ -40,7 +40,7 @@ class TablePress_List_View extends TablePress_View {
 		parent::setup( $action, $data );
 
 		add_thickbox();
-		$this->admin_page->enqueue_script( 'list', array( 'jquery' ), array(
+		$this->admin_page->enqueue_script( 'list', array( 'jquery-core' ), array(
 			'list' => array(
 				'shortcode_popup' => __( 'To embed this table into a post or page, use this Shortcode:', 'tablepress' ),
 				'donation-message-already-donated' => __( 'Thank you very much! Your donation is highly appreciated. You just contributed to the further development of TablePress!', 'tablepress' ),
@@ -354,6 +354,17 @@ class TablePress_All_Tables_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Gets the name of the default primary column.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return string Name of the default primary column, in this case, the table name.
+	 */
+	protected function get_default_primary_column_name() {
+		return 'table_name';
+	}
+
+	/**
 	 * Render a cell in the "cb" column.
 	 *
 	 * @since 1.0.0
@@ -622,7 +633,7 @@ class TablePress_All_Tables_List_Table extends WP_List_Table {
 		static $term, $json_encoded_term;
 		if ( is_null( $term ) || is_null( $json_encoded_term ) ) {
 			$term = wp_unslash( $_GET['s'] );
-			$json_encoded_term = substr( json_encode( $term ), 1, -1 );
+			$json_encoded_term = substr( wp_json_encode( $term ), 1, -1 );
 		}
 
 		static $debug;
@@ -646,7 +657,7 @@ class TablePress_All_Tables_List_Table extends WP_List_Table {
 		|| false !== stripos( TablePress::get_user_display_name( $item['author'] ), $term )
 		|| false !== stripos( TablePress::get_user_display_name( $item['options']['last_editor'] ), $term )
 		|| false !== stripos( TablePress::format_datetime( $item['last_modified'], 'mysql', ' ' ), $term )
-		|| false !== stripos( json_encode( $item['data'] ), $json_encoded_term ) ) {
+		|| false !== stripos( wp_json_encode( $item['data'] ), $json_encoded_term ) ) {
 			return true;
 		}
 

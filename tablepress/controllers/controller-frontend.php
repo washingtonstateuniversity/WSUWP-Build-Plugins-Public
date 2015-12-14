@@ -111,13 +111,12 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 		 * @param int $version The "Custom CSS" version.
 		 */
 		$custom_css_version = apply_filters( 'tablepress_custom_css_version', TablePress::$model_options->get( 'custom_css_version' ) );
-		$use_minified_css = ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG );
 
 		$tablepress_css = TablePress::load_class( 'TablePress_CSS', 'class-css.php', 'classes' );
 
 		// Determine Default CSS URL.
 		$rtl = ( is_rtl() ) ? '-rtl' : '';
-		$suffix = ( $use_minified_css ) ? '.min' : '';
+		$suffix = SCRIPT_DEBUG ? '' : '.min';
 		$unfiltered_default_css_url = plugins_url( "css/default{$rtl}{$suffix}.css", TABLEPRESS__FILE__ );
 		/**
 		 * Filter the URL from which the TablePress Default CSS file is loaded.
@@ -128,7 +127,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 		 */
 		$default_css_url = apply_filters( 'tablepress_default_css_url', $unfiltered_default_css_url );
 
-		$use_custom_css_combined_file = ( $use_default_css && $use_custom_css_file && $use_minified_css && ! is_rtl() && $unfiltered_default_css_url === $default_css_url && $tablepress_css->load_custom_css_from_file( 'combined' ) );
+		$use_custom_css_combined_file = ( $use_default_css && $use_custom_css_file && ! SCRIPT_DEBUG && ! is_rtl() && $unfiltered_default_css_url === $default_css_url && $tablepress_css->load_custom_css_from_file( 'combined' ) );
 
 		if ( $use_custom_css_combined_file ) {
 			$custom_css_combined_url = $tablepress_css->get_custom_css_location( 'combined', 'url' );
@@ -142,7 +141,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 				$custom_css_dependencies[] = 'tablepress-default';
 			}
 
-			$use_custom_css_minified_file = ( $use_custom_css_file && $use_minified_css && $tablepress_css->load_custom_css_from_file( 'minified' ) );
+			$use_custom_css_minified_file = ( $use_custom_css_file && ! SCRIPT_DEBUG && $tablepress_css->load_custom_css_from_file( 'minified' ) );
 			if ( $use_custom_css_minified_file ) {
 				$custom_css_minified_url = $tablepress_css->get_custom_css_location( 'minified', 'url' );
 				wp_enqueue_style( 'tablepress-custom', $custom_css_minified_url, $custom_css_dependencies, $custom_css_version );
@@ -218,8 +217,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 		 * @param string $js_file Path and file name of the DataTables JS library file.
 		 */
 		$js_url = apply_filters( 'tablepress_datatables_js_url', $js_url, $js_file );
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'tablepress-datatables', $js_url, array( 'jquery' ), TablePress::version, true );
+		wp_enqueue_script( 'tablepress-datatables', $js_url, array( 'jquery-core' ), TablePress::version, true );
 	}
 
 	/**
@@ -603,7 +601,7 @@ JS;
 		// Check if table output shall and can be loaded from the transient cache, otherwise generate the output.
 		if ( $render_options['cache_table_output'] && ! is_user_logged_in() ) {
 			// Hash the Render Options array to get a unique cache identifier.
-			$table_hash = md5( json_encode( $render_options ) );
+			$table_hash = md5( wp_json_encode( $render_options ) );
 			$transient_name = 'tablepress_' . $table_hash; // Attention: This string must not be longer than 45 characters!
 			$output = get_transient( $transient_name );
 			if ( false === $output || '' === $output ) {
@@ -623,7 +621,7 @@ JS;
 				if ( ! in_array( $transient_name, $caches_list, true ) ) {
 					$caches_list[] = $transient_name;
 				}
-				set_transient( $caches_list_transient_name, json_encode( $caches_list ), 2 * DAY_IN_SECONDS );
+				set_transient( $caches_list_transient_name, wp_json_encode( $caches_list ), 2 * DAY_IN_SECONDS );
 			} else {
 				/**
 				 * Filter the cache hit comment message.
@@ -735,7 +733,7 @@ JS;
 						$time_diff = $current_timestamp - $modified_timestamp;
 						// Time difference is only shown up to one day.
 						if ( $time_diff >= 0 && $time_diff < DAY_IN_SECONDS ) {
-							$output = sprintf( __( '%s ago', 'tablepress' ), human_time_diff( $modified_timestamp, $current_timestamp ) );
+							$output = sprintf( __( '%s ago', 'default' ), human_time_diff( $modified_timestamp, $current_timestamp ) ); // No `tablepress` text domain as translations are not loaded.
 						} else {
 							$output = TablePress::format_datetime( $table['last_modified'], 'mysql', '<br />' );
 						}

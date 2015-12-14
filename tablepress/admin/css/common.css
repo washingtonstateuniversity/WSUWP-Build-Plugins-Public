@@ -13,14 +13,19 @@
 }
 
 /* Nav Tab Menu */
+@media screen and (max-width: 1150px) {
+	/* Push nav bar down on small screens to not have tabs flow in mid-air, due to screen meta pushing */
+	#tablepress-nav {
+		padding-top: 30px;
+	}
+}
+#tablepress-nav .plugin-name {
+	float: left;
+	padding: 5px 0;
+}
 #tablepress-nav .separator {
 	margin: 6px;
-}
-#tablepress-nav .nav-tab {
-	border-bottom: 1px solid #cccccc;
-}
-#tablepress-nav .nav-tab-active {
-	border-bottom: 1px solid #f1f1f1;
+	float: left;
 }
 
 /* Add New Table form */
@@ -58,6 +63,13 @@
 /* Font weight for the table ID column */
 .tablepress-all-tables tbody .column-table_id {
 	font-weight: bold;
+}
+/* Responsiveness on the All Tables screen */
+@media screen and (max-width: 782px) {
+	.tablepress-all-tables .column-table_id {
+		display: none !important;
+		padding: 3px 8px 3px 35%;
+	}
 }
 
 /* Search results for WP_List_Table */
