@@ -80,13 +80,11 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	public function get_items( $request ) {
 
 		$prepared_args = array();
-		$prepared_args['include'] = $request['include'];
 		$prepared_args['order'] = $request['order'];
 		$prepared_args['number'] = $request['per_page'];
 		$prepared_args['offset'] = ( $request['page'] - 1 ) * $prepared_args['number'];
 		$orderby_possibles = array(
 			'id'              => 'ID',
-			'include'         => 'include',
 			'name'            => 'display_name',
 			'registered_date' => 'registered',
 		);
@@ -126,32 +124,27 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		}
 
 		$response = rest_ensure_response( $users );
-
-		// Store pagation values for headers then unset for count query.
-		$per_page = (int) $prepared_args['number'];
-		$page = ceil( ( ( (int) $prepared_args['offset'] ) / $per_page ) + 1 );
 		unset( $prepared_args['number'] );
 		unset( $prepared_args['offset'] );
-
 		$prepared_args['fields'] = 'ID';
 
 		$count_query = new WP_User_Query( $prepared_args );
 		$total_users = $count_query->get_total();
 		$response->header( 'X-WP-Total', (int) $total_users );
-		$max_pages = ceil( $total_users / $per_page );
+		$max_pages = ceil( $total_users / $request['per_page'] );
 		$response->header( 'X-WP-TotalPages', (int) $max_pages );
 
 		$base = add_query_arg( $request->get_query_params(), rest_url( '/wp/v2/users' ) );
-		if ( $page > 1 ) {
-			$prev_page = $page - 1;
+		if ( $request['page'] > 1 ) {
+			$prev_page = $request['page'] - 1;
 			if ( $prev_page > $max_pages ) {
 				$prev_page = $max_pages;
 			}
 			$prev_link = add_query_arg( 'page', $prev_page, $base );
 			$response->link_header( 'prev', $prev_link );
 		}
-		if ( $max_pages > $page ) {
-			$next_page = $page + 1;
+		if ( $max_pages > $request['page'] ) {
+			$next_page = $request['page'] + 1;
 			$next_link = add_query_arg( 'page', $next_page, $base );
 			$response->link_header( 'next', $next_link );
 		}
@@ -191,10 +184,10 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 			return new WP_Error( 'rest_not_logged_in', __( 'You are not currently logged in.' ), array( 'status' => 401 ) );
 		}
 
-		$get_request = new WP_REST_Request;
-		$get_request->set_param( 'id', $current_user_id );
-		$get_request->set_param( 'context', $request['context'] );
-		$response = $this->get_item( $get_request );
+		$response = $this->get_item( array(
+			'id'      => $current_user_id,
+			'context' => $request['context'],
+		));
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
@@ -257,10 +250,10 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		 */
 		do_action( 'rest_insert_user', $user, $request, true );
 
-		$get_request = new WP_REST_Request;
-		$get_request->set_param( 'id', $user_id );
-		$get_request->set_param( 'context', 'edit' );
-		$response = $this->get_item( $get_request );
+		$response = $this->get_item( array(
+			'id'      => $user_id,
+			'context' => 'edit',
+		));
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
 		$response->header( 'Location', rest_url( '/wp/v2/users/' . $user_id ) );
@@ -315,11 +308,10 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 
 		/* This action is documented in lib/endpoints/class-wp-rest-users-controller.php */
 		do_action( 'rest_insert_user', $user, $request, false );
-
-		$get_request = new WP_REST_Request;
-		$get_request->set_param( 'id', $user_id );
-		$get_request->set_param( 'context', 'edit' );
-		$response = $this->get_item( $get_request );
+		$response = $this->get_item( array(
+			'id'      => $user_id,
+			'context' => 'edit',
+		));
 
 		return rest_ensure_response( $response );
 	}
@@ -351,8 +343,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 			}
 		}
 
-		$get_request = new WP_REST_Request;
-		$get_request->set_param( 'id', $id );
+		$get_request = new WP_REST_Request( 'GET', rest_url( 'wp/v2/users/' . $id ) );
 		$get_request->set_param( 'context', 'edit' );
 		$orig_user = $this->prepare_item_for_response( $user, $get_request );
 
@@ -362,9 +353,6 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 			'deleted' => true,
 		);
 		$orig_user->set_data( $data );
-
-		/** Include admin user functions to get access to wp_delete_user() */
-		require_once ABSPATH . 'wp-admin/includes/user.php';
 
 		$result = wp_delete_user( $id, $reassign );
 
@@ -478,22 +466,22 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 */
 	public function prepare_item_for_response( $user, $request ) {
 		$data = array(
-			'id'                 => $user->ID,
-			'username'           => $user->user_login,
-			'name'               => $user->display_name,
-			'first_name'         => $user->first_name,
-			'last_name'          => $user->last_name,
-			'email'              => $user->user_email,
-			'url'                => $user->user_url,
-			'description'        => $user->description,
-			'link'               => get_author_posts_url( $user->ID ),
 			'avatar_urls'        => rest_get_avatar_urls( $user->user_email ),
+			'capabilities'       => $user->allcaps,
+			'description'        => $user->description,
+			'email'              => $user->user_email,
+			'extra_capabilities' => $user->caps,
+			'first_name'         => $user->first_name,
+			'id'                 => $user->ID,
+			'last_name'          => $user->last_name,
+			'link'               => get_author_posts_url( $user->ID ),
+			'name'               => $user->display_name,
 			'nickname'           => $user->nickname,
-			'slug'               => $user->user_nicename,
 			'registered_date'    => date( 'c', strtotime( $user->user_registered ) ),
 			'roles'              => $user->roles,
-			'capabilities'       => $user->allcaps,
-			'extra_capabilities' => $user->caps,
+			'slug'               => $user->user_nicename,
+			'url'                => $user->user_url,
+			'username'           => $user->user_login,
 		);
 
 		$context = ! empty( $request['context'] ) ? $request['context'] : 'embed';
@@ -635,9 +623,8 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		$avatar_sizes = rest_get_avatar_sizes();
 		foreach ( $avatar_sizes as $size ) {
 			$avatar_properties[ $size ] = array(
-				'description' => sprintf( __( 'Avatar URL with image size of %d pixels.' ), $size ),
-				'type'        => 'string',
-				'format'      => 'uri',
+				'description' => 'Avatar URL with image size of ' . $size . ' pixels.',
+				'type'        => 'uri',
 				'context'     => array( 'embed', 'view', 'edit' ),
 			);
 		}
@@ -650,13 +637,13 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id'          => array(
-					'description' => __( 'Unique identifier for the object.' ),
+					'description' => 'Unique identifier for the object.',
 					'type'        => 'integer',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'username'    => array(
-					'description' => __( 'Login name for the user.' ),
+					'description' => 'Login name for the user.',
 					'type'        => 'string',
 					'context'     => array( 'edit' ),
 					'required'    => true,
@@ -665,7 +652,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'name'        => array(
-					'description' => __( 'Display name for the object.' ),
+					'description' => 'Display name for the object.',
 					'type'        => 'string',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'arg_options' => array(
@@ -673,7 +660,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'first_name'  => array(
-					'description' => __( 'First name for the object.' ),
+					'description' => 'First name for the object.',
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -681,7 +668,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'last_name'   => array(
-					'description' => __( 'Last name for the object.' ),
+					'description' => 'Last name for the object.',
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -689,21 +676,21 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'email'       => array(
-					'description' => __( 'The email address for the object.' ),
+					'description' => 'The email address for the object.',
 					'type'        => 'string',
 					'format'      => 'email',
 					'context'     => array( 'view', 'edit' ),
 					'required'    => true,
 				),
 				'url'         => array(
-					'description' => __( 'URL of the object.' ),
+					'description' => 'URL of the object.',
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'description' => array(
-					'description' => __( 'Description of the object.' ),
+					'description' => 'Description of the object.',
 					'type'        => 'string',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'arg_options' => array(
@@ -711,21 +698,21 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'link'        => array(
-					'description' => __( 'Author URL to the object.' ),
+					'description' => 'Author URL to the object.',
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'avatar_urls'  => array(
-					'description' => __( 'Avatar URLs for the object.' ),
+					'description' => 'Avatar URLs for the object.',
 					'type'        => 'object',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'readonly'    => true,
 					'properties'  => $avatar_properties,
 				),
 				'nickname'    => array(
-					'description' => __( 'The nickname for the object.' ),
+					'description' => 'The nickname for the object.',
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -733,7 +720,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'slug'        => array(
-					'description' => __( 'An alphanumeric identifier for the object unique to its type.' ),
+					'description' => 'An alphanumeric identifier for the object unique to its type.',
 					'type'        => 'string',
 					'context'     => array( 'embed', 'view', 'edit' ),
 					'arg_options' => array(
@@ -741,29 +728,29 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 					),
 				),
 				'registered_date' => array(
-					'description' => __( 'Registration date for the user.' ),
+					'description' => 'Registration date for the user.',
 					'type'        => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'roles'           => array(
-					'description' => __( 'Roles assigned to the user.' ),
+					'description' => 'Roles assigned to the user.',
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'role'            => array(
-					'description' => __( 'Role assigned to the user.' ),
+					'description' => 'Role assigned to the user.',
 					'type'        => 'string',
 					'enum'        => array_keys( $wp_roles->role_objects ),
 				),
 				'capabilities'    => array(
-					'description' => __( 'All capabilities assigned to the user.' ),
+					'description' => 'All capabilities assigned to the user.',
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'extra_capabilities' => array(
-					'description' => __( 'Any extra capabilities assigned to the user.' ),
+					'description' => 'Any extra capabilities assigned to the user.',
 					'type'        => 'object',
 					'context'     => array( 'edit' ),
 					'readonly'    => true,
@@ -783,28 +770,17 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 
 		$query_params['context']['default'] = 'view';
 
-		$query_params['include'] = array(
-			'description'        => __( 'Limit result set to specific ids.' ),
-			'type'               => 'array',
-			'default'            => array(),
-			'sanitize_callback'  => 'wp_parse_id_list',
-		);
 		$query_params['order'] = array(
 			'default'            => 'asc',
-			'description'        => __( 'Order sort attribute ascending or descending.' ),
+			'description'        => 'Order sort attribute ascending or descending.',
 			'enum'               => array( 'asc', 'desc' ),
 			'sanitize_callback'  => 'sanitize_key',
 			'type'               => 'string',
 		);
 		$query_params['orderby'] = array(
 			'default'            => 'name',
-			'description'        => __( 'Sort collection by object attribute.' ),
-			'enum'               => array(
-				'id',
-				'include',
-				'name',
-				'registered_date',
-			),
+			'description'        => 'Sort collection by object attribute.',
+			'enum'               => array( 'id', 'name', 'registered_date' ),
 			'sanitize_callback'  => 'sanitize_key',
 			'type'               => 'string',
 		);

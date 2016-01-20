@@ -96,13 +96,13 @@ abstract class WP_REST_Meta_Controller extends WP_REST_Controller {
 			 */
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the object.' ),
+					'description' => 'Unique identifier for the object.',
 					'type'        => 'integer',
 					'context'     => array( 'edit' ),
 					'readonly'    => true,
 				),
 				'key' => array(
-					'description' => __( 'The key for the custom field.' ),
+					'description' => 'The key for the custom field.',
 					'type'        => 'string',
 					'context'     => array( 'edit' ),
 					'required'    => true,
@@ -111,7 +111,7 @@ abstract class WP_REST_Meta_Controller extends WP_REST_Controller {
 					),
 				),
 				'value' => array(
-					'description' => __( 'The value of the custom field.' ),
+					'description' => 'The value of the custom field.',
 					'type'        => 'string',
 					'context'     => array( 'edit' ),
 				),

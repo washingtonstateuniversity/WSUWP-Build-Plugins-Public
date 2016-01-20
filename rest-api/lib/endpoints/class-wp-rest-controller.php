@@ -221,19 +221,19 @@ abstract class WP_REST_Controller {
 		return array(
 			'context'                => $this->get_context_param(),
 			'page'                   => array(
-				'description'        => __( 'Current page of the collection.' ),
+				'description'        => 'Current page of the collection.',
 				'type'               => 'integer',
 				'default'            => 1,
 				'sanitize_callback'  => 'absint',
 			),
 			'per_page'               => array(
-				'description'        => __( 'Maximum number of items to be returned in result set.' ),
+				'description'        => 'Maximum number of items to be returned in result set.',
 				'type'               => 'integer',
 				'default'            => 10,
 				'sanitize_callback'  => 'absint',
 			),
 			'search'                 => array(
-				'description'        => __( 'Limit results to those matching a string.' ),
+				'description'        => 'Limit results to those matching a string.',
 				'type'               => 'string',
 				'sanitize_callback'  => 'sanitize_text_field',
 			),
@@ -250,7 +250,7 @@ abstract class WP_REST_Controller {
 	 */
 	public function get_context_param( $args = array() ) {
 		$param_details = array(
-			'description'        => __( 'Scope under which the request is made; determines fields present in response.' ),
+			'description'        => 'Scope under which the request is made; determines fields present in response.',
 			'type'               => 'string',
 		);
 		$schema = $this->get_item_schema();
@@ -441,7 +441,7 @@ abstract class WP_REST_Controller {
 	}
 
 	/**
-	 * Validate a parameter value that's based on a property from the item schema.
+	 * Validate an parameter value that's based on a property from the item schema.
 	 *
 	 * @param  mixed $value
 	 * @param  WP_REST_Request $request
@@ -501,7 +501,7 @@ abstract class WP_REST_Controller {
 	}
 
 	/**
-	 * Sanitize a parameter value that's based on a property from the item schema.
+	 * Sanitize an parameter value that's based on a property from the item schema.
 	 *
 	 * @param  mixed $value
 	 * @param  WP_REST_Request $request
@@ -519,7 +519,7 @@ abstract class WP_REST_Controller {
 		$property = $schema['properties'][ $parameter ];
 
 		if ( 'integer' === $property['type'] ) {
-			return (int) $value;
+			return intval( $value );
 		}
 
 		if ( isset( $property['format'] ) ) {
