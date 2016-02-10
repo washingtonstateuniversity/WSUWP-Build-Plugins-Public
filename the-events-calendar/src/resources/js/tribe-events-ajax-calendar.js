@@ -155,12 +155,6 @@
 
 			data.has_events = $date.hasClass( 'tribe-events-has-events' );
 
-			// Backwards compatibility
-			// @todo "Check if we can remove this check"
-			if ( data.has_events ) {
-				data.date_name = '';
-			}
-
 			$triggers.removeClass( 'mobile-active' )
 				// If full_date_name is empty then default to highlighting the first day of the current month
 				.filter( _active ).addClass( 'mobile-active' );
@@ -180,7 +174,7 @@
 
 			var $today = $wrapper.find( '.tribe-events-present' ),
 				$mobile_trigger = $wrapper.find( '.mobile-trigger' ),
-				$tribe_grid = $wrapper.find( '#tribe-events-content > .tribe-events-calendar' );
+				$tribe_grid = $wrapper.find( document.getElementById( 'tribe-events-content' ) ).find( '.tribe-events-calendar'  );
 
 			if ( !$( '#tribe-mobile-container' ).length ) {
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
@@ -408,11 +402,12 @@
 					eventDate: ts.date
 				};
 
-				if ( ts.category ) {
-					ts.params['tribe_event_category'] = ts.category;
-				}
-
 				ts.url_params = {};
+
+				if ( ts.category ) {
+					ts.params.tribe_event_category = ts.category;
+					ts.url_params.tribe_events_cat = ts.category;
+				}
 
 				if ( td.default_permalinks ) {
 					if( !ts.url_params.hasOwnProperty( 'post_type' ) ){
@@ -430,7 +425,7 @@
 
 				$( te ).trigger( 'tribe_ev_collectParams' );
 
-				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks ) {
+				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks || ts.category ) {
 					ts.do_string = true;
 					ts.pushstate = false;
 				}

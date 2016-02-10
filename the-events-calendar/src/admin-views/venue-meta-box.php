@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'tribe_events_venue_before_metabox', $post ); ?>
 <?php if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ): ?>
 	<tr class="venue">
-		<td class='tribe-table-field-label'><?php printf( __( '%s Name:', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
+		<td class='tribe-table-field-label'><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Venue]' size='25' value='<?php if ( isset( $_VenueVenue ) ) {
 				echo esc_attr( $_VenueVenue );
@@ -48,15 +48,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Country:', 'the-events-calendar' ); ?></td>
 	<td>
 		<?php
-		$countries = Tribe__Events__View_Helpers::constructCountries( $event->ID );
-		$defaultCountry = tribe_get_default_value( 'country' );
+		$countries = Tribe__View_Helpers::constructCountries( $event->ID );
+
 		if ( isset( $_VenueCountry ) && $_VenueCountry ) {
 			$current = $_VenueCountry;
-		} elseif ( isset( $defaultCountry[1] ) ) {
-			$current = $defaultCountry[1];
 		} else {
 			$current = null;
 		}
+
 		if ( is_array( $current ) && isset( $current[1] ) ) {
 			$current = $current[1];
 		}
@@ -91,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<select class="chosen" tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceSelect" name="venue[State]">
 			<option value=""><?php esc_html_e( 'Select a State:', 'the-events-calendar' ); ?></option>
 			<?php
-			foreach ( Tribe__Events__View_Helpers::loadStates() as $abbr => $fullname ) {
+			foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
 				echo '<option value="' . esc_attr( $abbr ) . '"';
 				selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ) );
 				echo '>' . esc_html( $fullname ) . '</option>';
@@ -186,11 +185,14 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 				name  : jQuery('[name=venue\\[Venue\\]]').get(0).value
 			},
 			function (result) {
-				if (result == 1) {
+				if (jQuery('[name=venue\\[Venue\\]]').get(0).value == "") {
+					jQuery('.tribe-venue-error').remove();
+					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( esc_html__( '%s Name can not be empty', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
+				} else if (result == 1) {
 					jQuery('.tribe-venue-error').remove();
 				} else {
 					jQuery('.tribe-venue-error').remove();
-					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
+					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( esc_html__( '%s Name already exists', 'the-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
 				}
 			}
 		);

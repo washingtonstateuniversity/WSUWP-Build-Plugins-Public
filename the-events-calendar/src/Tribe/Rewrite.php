@@ -14,6 +14,11 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 	 * Permalinks magic Happens over here!
 	 */
 	class Tribe__Events__Rewrite {
+		/**
+		 * If we wish to setup a rewrite rule that uses percent symbols, we'll need
+		 * to make use of this placeholder.
+		 */
+		const PERCENT_PLACEHOLDER = '~~TRIBE~PC~~';
 
 		/**
 		 * Static singleton variable
@@ -65,8 +70,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 		/**
 		 * Do not allow people to Hook methods twice by mistake
-		 *
-		 * @return void
 		 */
 		public function hooks( $remove = false ) {
 			if ( false === $this->hook_lock ) {
@@ -89,7 +92,6 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * Generate the Rewrite Rules
 		 *
 		 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
-		 * @return void
 		 */
 		public function filter_generate( WP_Rewrite $wp_rewrite ) {
 			// Gets the rewrite bases and completes any other required setup work
@@ -125,7 +127,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 */
 		public function generate_core_rules( Tribe__Events__Rewrite $rewrite ) {
 			$options = array(
-				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
+				'default_view' => Tribe__Settings_Manager::get_option( 'viewOption', 'month' ),
 			);
 
 			$rewrite
@@ -229,6 +231,8 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return object         Return Base Slugs with l10n variations
 		 */
 		public function get_bases( $method = 'regex' ) {
+			$tec = Tribe__Events__Main::instance();
+
 			/**
 			 * If you want to modify the base slugs before the i18n happens filter this use this filter
 			 * All the bases need to have a key and a value, they might be the same or not.
@@ -241,16 +245,16 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			 * @var array $bases
 			 */
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-				'month' => array( 'month', Tribe__Events__Main::instance()->monthSlug ),
-				'list' => array( 'list', Tribe__Events__Main::instance()->listSlug ),
-				'today' => array( 'today', Tribe__Events__Main::instance()->todaySlug ),
-				'day' => array( 'day', Tribe__Events__Main::instance()->daySlug ),
-				'tag' => (array) 'tag',
-				'tax' => (array) 'category',
+				'month' => array( 'month', $tec->monthSlug ),
+				'list' => array( 'list', $tec->listSlug ),
+				'today' => array( 'today', $tec->todaySlug ),
+				'day' => array( 'day', $tec->daySlug ),
+				'tag' => array( 'tag', $tec->tag_slug ),
+				'tax' => array( 'category', $tec->category_slug ),
 				'page' => (array) 'page',
 				'all' => (array) 'all',
-				'single' => (array) Tribe__Events__Main::instance()->getOption( 'singleEventSlug', 'event' ),
-				'archive' => (array) Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' ),
+				'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
+				'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
 			) );
 
 			// Remove duplicates (no need to have 'month' twice if no translations are in effect, etc)
@@ -408,6 +412,86 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			return $this->add( $regex, $args );
 		}
 
+		/**
+		 * Returns a sanitized version of $slug that can be used in rewrite rules.
+		 *
+		 * This is ideal for those times where we wish to support internationalized
+		 * URLs (ie, where "venue" in "venue/some-slug" may be rendered in non-ascii
+		 * characters).
+		 *
+		 * In the case of registering new post types, $permastruct_name should
+		 * generally match the CPT name itself.
+		 *
+		 * @param  string $slug
+		 * @param  string $permastruct_name
+		 * @return string
+		 */
+		public function prepare_slug( $slug, $permastruct_name ) {
+			$needs_handling = false;
+			$sanitized_slug = sanitize_title( $slug );
+
+			// Was UTF8 encoding required for the slug? %a0 type entities are a tell-tale of this
+			if ( preg_match( '/(%[0-9a-f]{2})+/', $sanitized_slug ) ) {
+				/**
+				 * Controls whether special UTF8 URL handling is setup for the set of
+				 * rules described by $permastruct_name.
+				 *
+				 * This only fires if Tribe__Events__Rewrite::prepare_slug() believes
+				 * handling is required.
+				 *
+				 * @var string $permastruct_name
+				 * @var string $possible_slug_name
+				 */
+				$needs_handling = apply_filters( 'tribe_events_rewrite_utf8_handling',
+					true,
+					$permastruct_name,
+					$possible_slug_name
+				);
+			}
+
+			if ( $needs_handling ) {
+				// User agents encode things the same way but in uppercase
+				$sanitized_slug = strtoupper( $sanitized_slug );
+
+				// UTF8 encoding results in lots of "%" chars in our string which play havoc
+				// with WP_Rewrite::generate_rewrite_rules(), so we swap them out temporarily
+				$sanitized_slug = str_replace( '%', self::PERCENT_PLACEHOLDER, $sanitized_slug );
+
+				// Restore the % chars later on
+				add_filter( $permastruct_name . '_rewrite_rules', array( $this, 'remove_percent_placeholders' ) );
+			}
+
+			/**
+			 * Provides an opportunity to modify the sanitized slug which will be used
+			 * in rewrite rules relating to $permastruct_name.
+			 *
+			 * @var string $prepared_slug
+			 * @var string $permastruct_name
+			 * @var string $original_slug
+			 */
+			return apply_filters( 'tribe_events_rewrite_prepared_slug',
+				preg_quote( $sanitized_slug ),
+				$permastruct_name,
+				$slug
+			);
+		}
+
+		/**
+		 * Converts any percentage placeholders in the array keys back to % symbols.
+		 *
+		 * @param  array $rules
+		 * @return array
+		 */
+		public function remove_percent_placeholders( array $rules ) {
+			$new_rules = array();
+
+			foreach ( $rules as $key => $value ) {
+				$key = str_replace( self::PERCENT_PLACEHOLDER, '%', $key );
+				$new_rules[$key] = $value;
+			}
+
+			return $new_rules;
+		}
 	} // end Tribe__Events__Rewrite class
 
 } // end if !class_exists Tribe__Events__Rewrite
