@@ -47,6 +47,10 @@ p.ticket_name {
 	display : inline;
 }
 
+.ticket_form p.description.detailed-description {
+	display : block;
+}
+
 .ticket_form h4.ticket_form_title_edit {
 	display : none;
 }
@@ -65,4 +69,14 @@ p.ticket_name {
 
 .tribe-tickets-remaining {
 	font-size: 10px;
+}
+
+.eventtable {
+	margin      : 0;
+	padding-top : 0;
+	width       : 100%;
+}
+
+#event_tickets, .eventtable.ticket_list.eventForm {
+	table-layout : fixed;
 }

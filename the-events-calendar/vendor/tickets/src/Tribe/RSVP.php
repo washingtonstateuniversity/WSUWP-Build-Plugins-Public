@@ -103,8 +103,8 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * @return Tribe__Tickets__RSVP
 	 */
 	public static function get_instance() {
-		if ( ! is_a( self::$instance, __CLASS__ ) ) {
-			self::$instance = new self();
+		if ( ! self::$instance ) {
+			self::$instance = new self;
 		}
 
 		return self::$instance;
@@ -123,8 +123,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 
 		parent::__construct();
 
-		$this->init();
-		$this->hooks();
+		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	/**
@@ -140,6 +139,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * Hooked to the init action
 	 */
 	public function init() {
+		$this->hooks();
 		$this->register_resources();
 		$this->register_types();
 		$this->generate_tickets();
@@ -242,7 +242,6 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * Generate and store all the attendees information for a new order.
 	 */
 	public function generate_tickets( ) {
-
 		if ( empty( $_POST['tickets_process'] ) || empty( $_POST['attendee'] ) || empty( $_POST['product_id'] ) ) {
 			return;
 		}
@@ -264,6 +263,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 
 		// Iterate over each product
 		foreach ( (array) $_POST['product_id'] as $product_id ) {
+			$order_attendee_id = 0;
 
 			// Get the event this tickets is for
 			$event_id = get_post_meta( $product_id, $this->event_key, true );
@@ -312,8 +312,37 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 				update_post_meta( $attendee_id, $this->order_key, $order_id );
 				update_post_meta( $attendee_id, $this->full_name, $attendee_full_name );
 				update_post_meta( $attendee_id, $this->email, $attendee_email );
+
+				/**
+				 * Action fired when an RSVP attendee ticket is created
+				 *
+				 * @var $attendee_id ID of the attendee post
+				 * @var $event_id Event post ID
+				 * @var $product_id RSVP ticket post ID
+				 * @var $order_attendee_id Attendee # for order
+				 */
+				do_action( 'event_tickets_rsvp_ticket_created', $attendee_id, $event_id, $product_id, $order_attendee_id );
+
+				$order_attendee_id++;
 			}
+
+			/**
+			 * Action fired when an RSVP has had attendee tickets generated for it
+			 *
+			 * @var $product_id RSVP ticket post ID
+			 * @var $order_id ID of the RSVP order
+			 * @var $qty Quantity ordered
+			 */
+			do_action( 'event_tickets_rsvp_tickets_generated_for_product', $product_id, $order_id, $qty );
 		}
+
+		/**
+		 * Action fired when an RSVP attendee tickets have been generated
+		 *
+		 * @var $order_id ID of the RSVP order
+		 */
+		do_action( 'event_tickets_rsvp_tickets_generated', $order_id );
+
 		if ( $has_tickets ) {
 			$this->send_tickets_email( $order_id ) ;
 		}
@@ -361,9 +390,12 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 		) );
 
 		foreach ( $query->posts as $post ) {
+			$product = get_post( get_post_meta( $post->ID, self::ATTENDEE_PRODUCT_KEY, true ) );
+
 			$attendees[] = array(
 				'event_id'      => get_post_meta( $post->ID, self::ATTENDEE_EVENT_KEY, true ),
-				'ticket_name'   => get_post( get_post_meta( $post->ID, self::ATTENDEE_PRODUCT_KEY, true ) )->post_title,
+				'product_id'    => $product->ID,
+				'ticket_name'   => $product->post_title,
 				'holder_name'   => get_post_meta( $post->ID, $this->full_name, true ),
 				'holder_email'  => get_post_meta( $post->ID, $this->email, true ),
 				'order_id'      => $order_id,
@@ -397,8 +429,12 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * @return bool
 	 */
 	public function save_ticket( $event_id, $ticket, $raw_data = array() ) {
+		// assume we are updating until we find out otherwise
+		$save_type = 'update';
 
 		if ( empty( $ticket->ID ) ) {
+			$save_type = 'create';
+
 			/* Create main product post */
 			$args = array(
 				'post_status'  => 'publish',
@@ -449,6 +485,26 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 		} else {
 			delete_post_meta( $ticket->ID, '_ticket_end_date' );
 		}
+
+		/**
+		 * Generic action fired after saving a ticket (by type)
+		 *
+		 * @var int Post ID of post the ticket is tied to
+		 * @var Tribe__Tickets__Ticket_Object Ticket that was just saved
+		 * @var array Ticket data
+		 * @var string Commerce engine class
+		 */
+		do_action( 'event_tickets_after_' . $save_type . '_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
+
+		/**
+		 * Generic action fired after saving a ticket
+		 *
+		 * @var int Post ID of post the ticket is tied to
+		 * @var Tribe__Tickets__Ticket_Object Ticket that was just saved
+		 * @var array Ticket data
+		 * @var string Commerce engine class
+		 */
+		do_action( 'event_tickets_after_save_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
 
 		return true;
 	}
@@ -620,14 +676,14 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 			return false;
 		}
 
-		$event = get_post_meta( $ticket_product, $this->event_key, true );
+		$event_id = get_post_meta( $ticket_product, $this->event_key, true );
 
-		if ( ! $event && '' === ( $event = get_post_meta( $ticket_product, self::ATTENDEE_EVENT_KEY, true ) ) ) {
+		if ( ! $event_id && '' === ( $event_id = get_post_meta( $ticket_product, self::ATTENDEE_EVENT_KEY, true ) ) ) {
 			return false;
 		}
 
-		if ( in_array( get_post_type( $event ), Tribe__Tickets__Main::instance()->post_types() ) ) {
-			return get_post( $event );
+		if ( in_array( get_post_type( $event_id ), Tribe__Tickets__Main::instance()->post_types() ) ) {
+			return get_post( $event_id );
 		}
 
 		return false;
@@ -693,6 +749,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 				'product_id'      => $product_id,
 				'check_in'        => $checkin,
 				'provider'        => __CLASS__,
+				'provider_slug'   => 'rsvp',
 			);
 		}
 

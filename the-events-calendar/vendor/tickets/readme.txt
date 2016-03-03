@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, Event Tickets, Event Tickets Plus
 Requires at least: 3.9
 Tested up to: 4.4
-Stable tag: 4.0.3
+Stable tag: 4.1beta1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -178,6 +178,14 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/18v2" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [4.1] unreleased =
+
+* Tweak - Conditonally show attendees link on Event Listing at the WordPress Administration
+
+= [4.0.5] 2016-02-17 =
+
+* Add - Add a loading graphic after clicking send email for the attendee's report
 
 = [4.0.4] 2015-12-23 =
 

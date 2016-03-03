@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '4.0.6';
+		const VERSION           = '4.0.7';
 		const MIN_ADDON_VERSION = '4.0';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -471,10 +471,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
-			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'maybe_update_known_range' ) );
-			add_action( 'tribe_events_csv_import_complete', array( $this, 'rebuild_known_range' ) );
+			add_action( 'save_post_' . self::POSTTYPE, array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_update_known_range' ) );
+			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
-			add_action( 'delete_post', array( $this, 'maybe_rebuild_known_range' ) );
+			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
@@ -2780,47 +2780,58 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Returns the GCal export link for a given event id.
 		 *
-		 * @param int $postId The post id requested.
+		 * @param int|WP_Post|null $post The Event Post Object or ID, if left empty will give get the current post.
 		 *
 		 * @return string The URL for the GCal export link.
 		 */
-		public function googleCalendarLink( $postId = null ) {
-			global $post;
-			$tribeEvents = self::instance();
-
-			if ( $postId === null || ! is_numeric( $postId ) ) {
-				$postId = $post->ID;
+		public function googleCalendarLink( $post = null ) {
+			if ( is_null( $post ) ) {
+				$post = self::postIdHelper( $post );
 			}
-			// protecting for reccuring because the post object will have the start/end date available
-			$start_date = isset( $post->EventStartDate )
-				? strtotime( $post->EventStartDate )
-				: strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
-			$end_date   = isset( $post->EventEndDate )
-				? strtotime( $post->EventEndDate . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '' ) )
-				: strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '' ) );
 
-			$dates    = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
-			$location = trim( $tribeEvents->fullAddressString( $postId ) );
-			$base_url = 'http://www.google.com/calendar/event';
+			if ( is_numeric( $post ) ) {
+				$post = WP_Post::get_instance( $post );
+			}
 
-			$event_details = apply_filters( 'the_content', get_the_content() );
+			if ( ! $post instanceof WP_Post ) {
+				return false;
+			}
+
+			// After this point we know that we have a safe WP_Post object
+			// Fetch if the Event is a Full Day Event
+			$is_all_day = Tribe__Date_Utils::is_all_day( get_post_meta( $post->ID, '_EventAllDay', true ) );
+
+			// Fetch the required Date TimeStamps
+			$start_date = Tribe__Events__Timezones::event_start_timestamp( $post->ID );
+			// Google Requires that a Full Day event end day happens on the next Day
+			$end_date   = Tribe__Events__Timezones::event_end_timestamp( $post->ID ) + ( $is_all_day ? DAY_IN_SECONDS : 0 );
+
+			if ( $is_all_day ) {
+				$dates = date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date );
+			} else {
+				$dates = date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
+			}
+
+			// Fetch the
+			$location = trim( $this->fullAddressString( $post->ID ) );
+
+			$event_details = apply_filters( 'the_content', get_the_content( $post->ID ) );
 
  			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
 			// And that character will automatically replace newlines on urlencode()
 			$event_details = str_replace ( '</p>', '</p> ', $event_details );
-
 			$event_details = strip_tags( $event_details );
 
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
 
-				$event_url     = get_permalink();
+				$event_url     = get_permalink( $post->ID );
 				$event_details = substr( $event_details, 0, 996 );
 
 				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
 				if ( strlen( $event_url ) < 900 ) {
-					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );
+					$event_details .= sprintf( esc_html__( ' (View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), $this->singular_event_label, $event_url );
 				}
 			}
 
@@ -2833,7 +2844,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'trp'      => 'false',
 				'sprop'    => 'website:' . home_url(),
 			);
-			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $postId );
+
+			$timezone = Tribe__Events__Timezones::get_event_timezone_string( $post->ID );
+			$timezone = Tribe__Events__Timezones::maybe_get_tz_name( $timezone );
+
+			// If we have a good timezone string we setup it; UTC doesn't work on Google
+			if ( false !== $timezone ) {
+				$params['ctz'] = urlencode( $timezone );
+			}
+
+			/**
+			 * Allow users to Filter our Google Calendar Link params
+			 * @var array Params used in the add_query_arg
+			 * @var int   Event ID
+			 */
+			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $post->ID );
+
+			$base_url = 'http://www.google.com/calendar/event';
 			$url    = add_query_arg( $params, $base_url );
 
 			return $url;
@@ -3042,11 +3069,43 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return mixed The meta.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ) {
-			$value = get_post_meta( $id, $meta, $single );
+			// Fetch Status to check what we need to do
+			$status = get_post_status( $id );
+
+			// If the post doesn't exist just bail the get_post_meta
+			if ( is_string( $status ) && 'auto-draft' !== $status ) {
+				$value = get_post_meta( $id, $meta, $single );
+			} else {
+				$value = false;
+			}
+
 			if ( $value === false ) {
-				$method = str_replace( '_Event', '', $meta );
+				$method = str_replace( array( '_Event', '_Organizer', '_Venue' ), '', $meta );
+				$filter = str_replace( array( '_Event', '_Organizer', '_Venue' ), array( '', 'Organizer', 'Venue' ), $meta );
+
 				$default = call_user_func( array( $this->defaults(), strtolower( $method ) ) );
-				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
+
+				/**
+				 * Used to Filter the default value for a Specific meta
+				 *
+				 * @deprecated 4.0.7
+				 * @var $default
+				 * @var $id
+				 * @var $meta
+				 * @var $single
+				 */
+				$value = apply_filters( 'filter_eventsDefault' . $filter, $default, $id, $meta, $single );
+
+				/**
+				 * Used to Filter the default value for a Specific meta
+				 *
+				 * @since 4.0.7
+				 * @var $value
+				 * @var $id
+				 * @var $meta
+				 * @var $single
+				 */
+				$value = apply_filters( 'tribe_get_meta_default_value_' . $filter, $value, $id, $meta, $single );
 			}
 			return $value;
 		}
@@ -3072,7 +3131,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$valid_post_id   = "tribe_get_{$post_type}_id";
 			$create          = "create$posttype";
 			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
-			$doing_preview   = ($_REQUEST['wp-preview'] == 'dopreview');
+			$doing_preview   = ( $_REQUEST['wp-preview'] == 'dopreview' );
 
 			if ( empty( $_POST[ $posttype ][ $posttype_id ] ) ) {
 				// the event is set to use a new metapost
@@ -3214,106 +3273,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
 			return $organizers;
-		}
-
-		/**
-		 * Intended to run when the save_post_tribe_events action is fired.
-		 *
-		 * At this point we know an event is being updated or created and, if the post is going to
-		 * be visible, we can set up a further action to handle updating our record of the
-		 * populated date range once the post meta containing the start and end date for the post
-		 * has saved.
-		 */
-		public function maybe_update_known_range( $post_id ) {
-			// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
-			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
-				$this->rebuild_known_range();
-				return;
-			}
-
-			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ) );
-		}
-
-		/**
-		 * Intelligently updates our record of the earliest start date/latest event date in
-		 * the system. If the existing earliest/latest values have not been superseded by the new post's
-		 * start/end date then no update takes place.
-		 *
-		 * This is deliberately hooked into save_post, rather than save_post_tribe_events, to avoid issues
-		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
-		 * actually being called (relates to a core WP bug).
-		 */
-		public function update_known_range( $object_id ) {
-
-			$current_min = tribe_events_earliest_date();
-			$current_max = tribe_events_latest_date();
-
-			$event_start = tribe_get_start_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
-			$event_end   = tribe_get_end_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
-
-			if ( $current_min > $event_start ) {
-				tribe_update_option( 'earliest_date', $event_start );
-			}
-			if ( $current_max < $event_end ) {
-				tribe_update_option( 'latest_date', $event_end );
-			}
-		}
-
-		/**
-		 * Fires on delete_post and decides whether or not to rebuild our record or
-		 * earliest/latest event dates (which will be done when deleted_post fires,
-		 * so that the deleted event is removed from the db before we recalculate).
-		 *
-		 * @param $post_id
-		 */
-		public function maybe_rebuild_known_range( $post_id ) {
-			if ( self::POSTTYPE === get_post_type( $post_id ) ) {
-				add_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
-			}
-		}
-
-		/**
-		 * Determine the earliest start date and latest end date currently in the database
-		 * and store those values for future use.
-		 */
-		public function rebuild_known_range() {
-			global $wpdb;
-			remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
-
-			$earliest = strtotime(
-				$wpdb->get_var(
-					 $wpdb->prepare(
-						  "
-				SELECT MIN(meta_value) FROM $wpdb->postmeta
-				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventStartDate'
-				AND post_type = '%s'
-				AND post_status IN ('publish', 'private', 'protected')
-			", self::POSTTYPE
-					 )
-				)
-			);
-
-			$latest = strtotime(
-				$wpdb->get_var(
-					 $wpdb->prepare(
-						  "
-				SELECT MAX(meta_value) FROM $wpdb->postmeta
-				JOIN $wpdb->posts ON post_id = ID
-				WHERE meta_key = '_EventEndDate'
-				AND post_type = '%s'
-				AND post_status IN ('publish', 'private', 'protected')
-			", self::POSTTYPE
-					 )
-				)
-			);
-
-			if ( $earliest ) {
-				tribe_update_option( 'earliest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest ) );
-			}
-			if ( $latest ) {
-				tribe_update_option( 'latest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $latest ) );
-			}
 		}
 
 		/**
@@ -4099,7 +4058,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// If we successfully located the next/prev event, we should have precisely one element in $results
 			if ( $event ) {
 				if ( ! $anchor ) {
-					$anchor = apply_filters( 'the_title', $event->post_title );
+					$anchor = apply_filters( 'the_title', $event->post_title, $event->ID );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					// get the nicely filtered post title
 					$title = apply_filters( 'the_title', $event->post_title, $event->ID );
