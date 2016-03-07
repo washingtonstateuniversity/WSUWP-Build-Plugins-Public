@@ -997,8 +997,9 @@ class Document_Revisions {
 	function filename_rewrite( $file ) {
 
 		//verify this is a document
-		if ( !$this->verify_post_type( $_POST['post_id'] ) )
+		if ( ! isset( $_POST['post_id'] ) || ! $this->verify_post_type( $_POST['post_id'] ) ) {
 			return $file;
+		}
 
 		//hash and replace filename, appending extension
 		$file['name'] = md5( $file['name'] .time() ) . $this->get_extension( $file['name'] );
@@ -1019,8 +1020,9 @@ class Document_Revisions {
 	function rewrite_file_url( $file ) {
 
 		//verify that this is a document
-		if ( !$this->verify_post_type( $_POST['post_id'] ) )
+		if ( ! isset( $_POST['post_id'] ) || ! $this->verify_post_type( $_POST['post_id'] ) ) {
 			return $file;
+		}
 
 		$file['url'] = get_permalink( $_POST['post_id'] );
 
