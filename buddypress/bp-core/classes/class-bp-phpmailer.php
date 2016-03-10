@@ -75,7 +75,7 @@ class BP_PHPMailer implements BP_Email_Delivery {
 
 		$recipient = $email->get_from();
 		try {
-			$phpmailer->SetFrom( $recipient->get_address(), $recipient->get_name() );
+			$phpmailer->SetFrom( $recipient->get_address(), $recipient->get_name(), false );
 		} catch ( phpmailerException $e ) {
 		}
 
@@ -123,6 +123,9 @@ class BP_PHPMailer implements BP_Email_Delivery {
 		 * @param PHPMailer $phpmailer The PHPMailer instance.
 		 */
 		do_action( 'bp_phpmailer_init', $phpmailer );
+
+		/** This filter is documented in wp-includes/pluggable.php */
+		do_action_ref_array( 'phpmailer_init', array( &$phpmailer ) );
 
 		try {
 			return $phpmailer->Send();

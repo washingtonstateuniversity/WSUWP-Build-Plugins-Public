@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later (license.txt).
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress 2.5.0\n"
+"Project-Id-Version: BuddyPress 2.5.1\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2016-03-02 16:43:18+00:00\n"
+"POT-Creation-Date: 2016-03-09 23:02:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -458,10 +458,6 @@ msgstr ""
 msgid "Load Newest"
 msgstr ""
 
-#: bp-activity/bp-activity-functions.php:561
-msgid "%s comments"
-msgstr ""
-
 #: bp-activity/bp-activity-functions.php:1430
 msgid "Posted a status update"
 msgstr ""
@@ -626,7 +622,7 @@ msgid ""
 msgstr ""
 
 #: bp-activity/bp-activity-template.php:2768
-#: bp-core/bp-core-attachments.php:684 bp-forums/bp-forums-template.php:2532
+#: bp-core/bp-core-attachments.php:719 bp-forums/bp-forums-template.php:2532
 #: bp-groups/classes/class-bp-groups-component.php:660
 #: bp-groups/classes/class-bp-groups-list-table.php:327
 #: bp-groups/classes/class-bp-groups-list-table.php:485
@@ -1481,472 +1477,6 @@ msgstr ""
 msgid "User removed from spam."
 msgstr ""
 
-#: bp-core/admin/bp-core-admin-schema.php:544
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] {{poster.name}} replied to one of your updates"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:546
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} replied to one of your updates:\n"
-"\n"
-"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
-"\n"
-"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up "
-"on the conversation."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:548
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} replied to one of your updates:\n"
-"\n"
-"\"{{usermessage}}\"\n"
-"\n"
-"Go to the discussion to reply or catch up on the conversation: "
-"{{{thread.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:552
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] {{poster.name}} replied to one of your comments"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:554
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} replied to one of your comments:\n"
-"\n"
-"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
-"\n"
-"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up "
-"on the conversation."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:556
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} replied to one of your comments:\n"
-"\n"
-"\"{{usermessage}}\"\n"
-"\n"
-"Go to the discussion to reply or catch up on the conversation: "
-"{{{thread.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:560
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] {{poster.name}} mentioned you in a status update"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:562
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} mentioned you in a status update:\n"
-"\n"
-"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
-"\n"
-"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch "
-"up on the conversation."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:564
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} mentioned you in a status update:\n"
-"\n"
-"\"{{usermessage}}\"\n"
-"\n"
-"Go to the discussion to reply or catch up on the conversation: "
-"{{{mentioned.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:568
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] {{poster.name}} mentioned you in an update"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:570
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} mentioned you in the group \"{{group.name}}\":\n"
-"\n"
-"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
-"\n"
-"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch "
-"up on the conversation."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:572
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{poster.name}} mentioned you in the group \"{{group.name}}\":\n"
-"\n"
-"\"{{usermessage}}\"\n"
-"\n"
-"Go to the discussion to reply or catch up on the conversation: "
-"{{{mentioned.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:576
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Activate your account"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:578
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Thanks for registering!\n"
-"\n"
-"To complete the activation of your account, go to the following link: <a "
-"href=\"{{{activate.url}}}\">{{{activate.url}}}</a>"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:580
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Thanks for registering!\n"
-"\n"
-"To complete the activation of your account, go to the following link: "
-"{{{activate.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:584
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Activate {{{user-site.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:586
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Thanks for registering!\n"
-"\n"
-"To complete the activation of your account and site, go to the following "
-"link: <a href=\"{{{activate-site.url}}}\">{{{activate-site.url}}}</a>.\n"
-"\n"
-"After you activate, you can visit your site at <a "
-"href=\"{{{user-site.url}}}\">{{{user-site.url}}}</a>."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:588
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Thanks for registering!\n"
-"\n"
-"To complete the activation of your account and site, go to the following "
-"link: {{{activate-site.url}}}\n"
-"\n"
-"After you activate, you can visit your site at {{{user-site.url}}}."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:592
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] New friendship request from {{initiator.name}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:594
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"<a href=\"{{{initiator.url}}}\">{{initiator.name}}</a> wants to add you as "
-"a friend.\n"
-"\n"
-"To accept this request and manage all of your pending requests, visit: <a "
-"href=\"{{{friend-requests.url}}}\">{{{friend-requests.url}}}</a>"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:596
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{initiator.name}} wants to add you as a friend.\n"
-"\n"
-"To accept this request and manage all of your pending requests, visit: "
-"{{{friend-requests.url}}}\n"
-"\n"
-"To view {{initiator.name}}'s profile, visit: {{{initiator.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:600
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] {{friend.name}} accepted your friendship request"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:602
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"<a href=\"{{{friendship.url}}}\">{{friend.name}}</a> accepted your friend "
-"request."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:604
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{friend.name}} accepted your friend request.\n"
-"\n"
-"To learn more about them, visit their profile: {{{friendship.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:608
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Group details updated"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:610
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Group details for the group &quot;<a "
-"href=\"{{{group.url}}}\">{{group.name}}</a>&quot; were updated:\n"
-"<blockquote>{{changed_text}}</blockquote>"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:612
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Group details for the group &quot;{{group.name}}&quot; were updated:\n"
-"\n"
-"{{changed_text}}\n"
-"\n"
-"To view the group, visit: {{{group.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:616
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] You have an invitation to the group: \"{{group.name}}\""
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:618
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"<a href=\"{{{inviter.url}}}\">{{inviter.name}}</a> has invited you to join "
-"the group: &quot;{{group.name}}&quot;.\n"
-"<a href=\"{{{invites.url}}}\">Go here to accept your invitation</a> or <a "
-"href=\"{{{group.url}}}\">visit the group</a> to learn more."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:620
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{inviter.name}} has invited you to join the group: "
-"&quot;{{group.name}}&quot;.\n"
-"\n"
-"To accept your invitation, visit: {{{invites.url}}}\n"
-"\n"
-"To learn more about the group, visit {{{group.url}}}.\n"
-"To view {{inviter.name}}'s profile, visit: {{{inviter.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:624
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] You have been promoted in the group: \"{{group.name}}\""
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:626
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"You have been promoted to <b>{{promoted_to}}</b> in the group &quot;<a "
-"href=\"{{{group.url}}}\">{{group.name}}</a>&quot;."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:628
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"You have been promoted to {{promoted_to}} in the group: "
-"&quot;{{group.name}}&quot;.\n"
-"\n"
-"To visit the group, go to: {{{group.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:632
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Membership request for group: {{group.name}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:634
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"<a href=\"{{{profile.url}}}\">{{requesting-user.name}}</a> wants to join "
-"the group &quot;{{group.name}}&quot;. As you are an administrator of this "
-"group, you must either accept or reject the membership request.\n"
-"\n"
-"<a href=\"{{{group-requests.url}}}\">Go here to manage this</a> and all "
-"other pending requests."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:636
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{requesting-user.name}} wants to join the group "
-"&quot;{{group.name}}&quot;. As you are the administrator of this group, you "
-"must either accept or reject the membership request.\n"
-"\n"
-"To manage this and all other pending requests, visit: "
-"{{{group-requests.url}}}\n"
-"\n"
-"To view {{requesting-user.name}}'s profile, visit: {{{profile.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:640
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] New message from {{sender.name}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:642
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{sender.name}} sent you a new message: &quot;{{usersubject}}&quot;\n"
-"\n"
-"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
-"\n"
-"<a href=\"{{{message.url}}}\">Go to the discussion</a> to reply or catch up "
-"on the conversation."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:644
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"{{sender.name}} sent you a new message: &quot;{{usersubject}}&quot;\n"
-"\n"
-"&quot;{{usermessage}}&quot;\n"
-"\n"
-"Go to the discussion to reply or catch up on the conversation: "
-"{{{message.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:648
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Verify your new email address"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:650
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"You recently changed the email address associated with your account on "
-"{{site.name}}. If this is correct, <a href=\"{{{verify.url}}}\">go here to "
-"confirm the change</a>.\n"
-"\n"
-"Otherwise, you can safely ignore and delete this email if you have changed "
-"your mind, or if you think you have received this email in error."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:652
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"You recently changed the email address associated with your account on "
-"{{site.name}}. If this is correct, go to the following link to confirm the "
-"change: {{{verify.url}}}\n"
-"\n"
-"Otherwise, you can safely ignore and delete this email if you have changed "
-"your mind, or if you think you have received this email in error."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:656
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Membership request for group \"{{group.name}}\" accepted"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:658
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Your membership request for the group &quot;<a "
-"href=\"{{{group.url}}}\">{{group.name}}</a>&quot; has been accepted."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:660
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Your membership request for the group &quot;{{group.name}}&quot; has been "
-"accepted.\n"
-"\n"
-"To view the group, visit: {{{group.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:664
-#. translators: do not remove {} brackets or translate its contents.
-msgid "[{{{site.name}}}] Membership request for group \"{{group.name}}\" rejected"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:666
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Your membership request for the group &quot;<a "
-"href=\"{{{group.url}}}\">{{group.name}}</a>&quot; has been rejected."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:668
-#. translators: do not remove {} brackets or translate its contents.
-msgid ""
-"Your membership request for the group &quot;{{group.name}}&quot; has been "
-"rejected.\n"
-"\n"
-"To request membership again, visit: {{{group.url}}}"
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:673
-msgid "A member has replied to an activity update that the recipient posted."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:674
-msgid ""
-"A member has replied to a comment on an activity update that the recipient "
-"posted."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:675
-msgid "Recipient was mentioned in an activity update."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:676
-msgid "Recipient was mentioned in a group activity update."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:677
-msgid "Recipient has registered for an account."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:678
-msgid "Recipient has registered for an account and site."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:679
-msgid "A member has sent a friend request to the recipient."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:680
-msgid "Recipient has had a friend request accepted by a member."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:681
-msgid "A group's details were updated."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:682
-msgid "A member has sent a group invitation to the recipient."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:683
-msgid "Recipient's status within a group has changed."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:684
-msgid "A member has requested permission to join a group."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:685
-msgid "Recipient has received a private message."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:686
-msgid "Recipient has changed their email address."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:687
-msgid "Recipient had requested to join a group, which was accepted."
-msgstr ""
-
-#: bp-core/admin/bp-core-admin-schema.php:688
-msgid "Recipient had requested to join a group, which was rejected."
-msgstr ""
-
 #: bp-core/admin/bp-core-admin-settings.php:31
 msgid "Show the Toolbar for logged out users"
 msgstr ""
@@ -2208,155 +1738,155 @@ msgid ""
 "toolbar as soon as possible."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:557
+#: bp-core/bp-core-attachments.php:592
 msgid "You have attempted to queue too many files."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:558
+#: bp-core/bp-core-attachments.php:593
 msgid "%s exceeds the maximum upload size for this site."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:559
+#: bp-core/bp-core-attachments.php:594
 msgid "This file is empty. Please try another."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:560
+#: bp-core/bp-core-attachments.php:595
 msgid "This file type is not allowed. Please try another."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:561
+#: bp-core/bp-core-attachments.php:596
 msgid "This file is not an image. Please try another."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:562
+#: bp-core/bp-core-attachments.php:597
 msgid "Memory exceeded. Please try another smaller file."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:563
+#: bp-core/bp-core-attachments.php:598
 msgid "This is larger than the maximum size. Please try another."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:564
+#: bp-core/bp-core-attachments.php:599
 msgid "An error occurred. Please try again later."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:565
+#: bp-core/bp-core-attachments.php:600
 msgid "There was a configuration error. Please contact the server administrator."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:566
+#: bp-core/bp-core-attachments.php:601
 msgid "You may only upload 1 file."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:567
+#: bp-core/bp-core-attachments.php:602
 msgid "HTTP error."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:568 bp-core/bp-core-avatars.php:1022
+#: bp-core/bp-core-attachments.php:603 bp-core/bp-core-avatars.php:1047
 msgid "Upload failed."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:569
+#: bp-core/bp-core-attachments.php:604
 msgid "Please try uploading this file with the %1$sbrowser uploader%2$s."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:570
+#: bp-core/bp-core-attachments.php:605
 msgid ""
 "%s exceeds the maximum upload size for the multi-file uploader when used in "
 "your browser."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:571
+#: bp-core/bp-core-attachments.php:606
 msgid "IO error."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:572
+#: bp-core/bp-core-attachments.php:607
 msgid "Security error."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:573
+#: bp-core/bp-core-attachments.php:608
 msgid "File canceled."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:574
+#: bp-core/bp-core-attachments.php:609
 msgid "Upload stopped."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:575
+#: bp-core/bp-core-attachments.php:610
 msgid "Dismiss"
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:576
+#: bp-core/bp-core-attachments.php:611
 msgid "Crunching&hellip;"
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:577
+#: bp-core/bp-core-attachments.php:612
 msgid "Make sure to upload a unique file"
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:578
+#: bp-core/bp-core-attachments.php:613
 msgid "&#8220;%s&#8221; has failed to upload."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:579
+#: bp-core/bp-core-attachments.php:614
 msgid ""
 "If you&#39;d like to delete the existing profile photo but not upload a new "
 "one, please use the delete tab."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:681
+#: bp-core/bp-core-attachments.php:716
 msgid "Upload"
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:689
+#: bp-core/bp-core-attachments.php:724
 msgid "Take Photo"
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:693
+#: bp-core/bp-core-attachments.php:728
 msgid "Please allow us to access to your camera."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:694
+#: bp-core/bp-core-attachments.php:729
 msgid "Please wait as we access your camera."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:695
+#: bp-core/bp-core-attachments.php:730
 msgid "Camera loaded. Click on the \"Capture\" button to take your photo."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:696
+#: bp-core/bp-core-attachments.php:731
 msgid ""
 "It looks like you do not have a webcam or we were unable to get permission "
 "to use your webcam. Please upload a photo instead."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:697
+#: bp-core/bp-core-attachments.php:732
 msgid "Your browser is not supported. Please upload a photo instead."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:698
+#: bp-core/bp-core-attachments.php:733
 msgid "Video error. Please upload a photo instead."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:699
+#: bp-core/bp-core-attachments.php:734
 msgid "Your profile photo is ready. Click on the \"Save\" button to use this photo."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:700
+#: bp-core/bp-core-attachments.php:735
 msgid "No photo was captured. Click on the \"Capture\" button to take your photo."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:747
+#: bp-core/bp-core-attachments.php:782
 msgid ""
 "For better results, make sure to upload an image that is larger than %1$spx "
 "wide, and %2$spx tall."
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:1242 bp-core/bp-core-avatars.php:862
+#: bp-core/bp-core-attachments.php:1294 bp-core/bp-core-avatars.php:887
 msgid "Upload Failed! Error was: %s"
 msgstr ""
 
-#: bp-core/bp-core-attachments.php:1247
+#: bp-core/bp-core-attachments.php:1299
 msgid "There was a problem uploading the cover image."
 msgstr ""
 
@@ -2364,17 +1894,17 @@ msgstr ""
 msgid "Profile Photo"
 msgstr ""
 
-#: bp-core/bp-core-avatars.php:890
+#: bp-core/bp-core-avatars.php:915
 msgid "Upload failed! Error was: %s"
 msgstr ""
 
-#: bp-core/bp-core-avatars.php:896
+#: bp-core/bp-core-avatars.php:921
 msgid ""
 "You have selected an image that is smaller than recommended. For best "
 "results, upload a picture larger than %d x %d pixels."
 msgstr ""
 
-#: bp-core/bp-core-avatars.php:1371 bp-core/bp-core-template.php:185
+#: bp-core/bp-core-avatars.php:1411 bp-core/bp-core-template.php:185
 #: bp-core/bp-core-template.php:204 bp-core/classes/class-bp-core-user.php:186
 #: bp-core/classes/class-bp-core-user.php:187
 #: bp-core/classes/class-bp-core-user.php:188
@@ -2530,6 +2060,472 @@ msgstr ""
 #: bp-core/classes/class-bp-core-login-widget.php:115
 #: bp-core/deprecated/2.1.php:190
 msgid "Log In"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3139
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] {{poster.name}} replied to one of your updates"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3141
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} replied to one of your updates:\n"
+"\n"
+"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
+"\n"
+"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up "
+"on the conversation."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3143
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} replied to one of your updates:\n"
+"\n"
+"\"{{usermessage}}\"\n"
+"\n"
+"Go to the discussion to reply or catch up on the conversation: "
+"{{{thread.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3147
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] {{poster.name}} replied to one of your comments"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3149
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} replied to one of your comments:\n"
+"\n"
+"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
+"\n"
+"<a href=\"{{{thread.url}}}\">Go to the discussion</a> to reply or catch up "
+"on the conversation."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3151
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} replied to one of your comments:\n"
+"\n"
+"\"{{usermessage}}\"\n"
+"\n"
+"Go to the discussion to reply or catch up on the conversation: "
+"{{{thread.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3155
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] {{poster.name}} mentioned you in a status update"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3157
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} mentioned you in a status update:\n"
+"\n"
+"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
+"\n"
+"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch "
+"up on the conversation."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3159
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} mentioned you in a status update:\n"
+"\n"
+"\"{{usermessage}}\"\n"
+"\n"
+"Go to the discussion to reply or catch up on the conversation: "
+"{{{mentioned.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3163
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] {{poster.name}} mentioned you in an update"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3165
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} mentioned you in the group \"{{group.name}}\":\n"
+"\n"
+"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
+"\n"
+"<a href=\"{{{mentioned.url}}}\">Go to the discussion</a> to reply or catch "
+"up on the conversation."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3167
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{poster.name}} mentioned you in the group \"{{group.name}}\":\n"
+"\n"
+"\"{{usermessage}}\"\n"
+"\n"
+"Go to the discussion to reply or catch up on the conversation: "
+"{{{mentioned.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3171
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Activate your account"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3173
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Thanks for registering!\n"
+"\n"
+"To complete the activation of your account, go to the following link: <a "
+"href=\"{{{activate.url}}}\">{{{activate.url}}}</a>"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3175
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Thanks for registering!\n"
+"\n"
+"To complete the activation of your account, go to the following link: "
+"{{{activate.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3179
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Activate {{{user-site.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3181
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Thanks for registering!\n"
+"\n"
+"To complete the activation of your account and site, go to the following "
+"link: <a href=\"{{{activate-site.url}}}\">{{{activate-site.url}}}</a>.\n"
+"\n"
+"After you activate, you can visit your site at <a "
+"href=\"{{{user-site.url}}}\">{{{user-site.url}}}</a>."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3183
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Thanks for registering!\n"
+"\n"
+"To complete the activation of your account and site, go to the following "
+"link: {{{activate-site.url}}}\n"
+"\n"
+"After you activate, you can visit your site at {{{user-site.url}}}."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3187
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] New friendship request from {{initiator.name}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3189
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"<a href=\"{{{initiator.url}}}\">{{initiator.name}}</a> wants to add you as "
+"a friend.\n"
+"\n"
+"To accept this request and manage all of your pending requests, visit: <a "
+"href=\"{{{friend-requests.url}}}\">{{{friend-requests.url}}}</a>"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3191
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{initiator.name}} wants to add you as a friend.\n"
+"\n"
+"To accept this request and manage all of your pending requests, visit: "
+"{{{friend-requests.url}}}\n"
+"\n"
+"To view {{initiator.name}}'s profile, visit: {{{initiator.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3195
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] {{friend.name}} accepted your friendship request"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3197
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"<a href=\"{{{friendship.url}}}\">{{friend.name}}</a> accepted your friend "
+"request."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3199
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{friend.name}} accepted your friend request.\n"
+"\n"
+"To learn more about them, visit their profile: {{{friendship.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3203
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Group details updated"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3205
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Group details for the group &quot;<a "
+"href=\"{{{group.url}}}\">{{group.name}}</a>&quot; were updated:\n"
+"<blockquote>{{changed_text}}</blockquote>"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3207
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Group details for the group &quot;{{group.name}}&quot; were updated:\n"
+"\n"
+"{{changed_text}}\n"
+"\n"
+"To view the group, visit: {{{group.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3211
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] You have an invitation to the group: \"{{group.name}}\""
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3213
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"<a href=\"{{{inviter.url}}}\">{{inviter.name}}</a> has invited you to join "
+"the group: &quot;{{group.name}}&quot;.\n"
+"<a href=\"{{{invites.url}}}\">Go here to accept your invitation</a> or <a "
+"href=\"{{{group.url}}}\">visit the group</a> to learn more."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3215
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{inviter.name}} has invited you to join the group: "
+"&quot;{{group.name}}&quot;.\n"
+"\n"
+"To accept your invitation, visit: {{{invites.url}}}\n"
+"\n"
+"To learn more about the group, visit {{{group.url}}}.\n"
+"To view {{inviter.name}}'s profile, visit: {{{inviter.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3219
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] You have been promoted in the group: \"{{group.name}}\""
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3221
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"You have been promoted to <b>{{promoted_to}}</b> in the group &quot;<a "
+"href=\"{{{group.url}}}\">{{group.name}}</a>&quot;."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3223
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"You have been promoted to {{promoted_to}} in the group: "
+"&quot;{{group.name}}&quot;.\n"
+"\n"
+"To visit the group, go to: {{{group.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3227
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Membership request for group: {{group.name}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3229
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"<a href=\"{{{profile.url}}}\">{{requesting-user.name}}</a> wants to join "
+"the group &quot;{{group.name}}&quot;. As you are an administrator of this "
+"group, you must either accept or reject the membership request.\n"
+"\n"
+"<a href=\"{{{group-requests.url}}}\">Go here to manage this</a> and all "
+"other pending requests."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3231
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{requesting-user.name}} wants to join the group "
+"&quot;{{group.name}}&quot;. As you are the administrator of this group, you "
+"must either accept or reject the membership request.\n"
+"\n"
+"To manage this and all other pending requests, visit: "
+"{{{group-requests.url}}}\n"
+"\n"
+"To view {{requesting-user.name}}'s profile, visit: {{{profile.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3235
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] New message from {{sender.name}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3237
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{sender.name}} sent you a new message: &quot;{{usersubject}}&quot;\n"
+"\n"
+"<blockquote>&quot;{{usermessage}}&quot;</blockquote>\n"
+"\n"
+"<a href=\"{{{message.url}}}\">Go to the discussion</a> to reply or catch up "
+"on the conversation."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3239
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"{{sender.name}} sent you a new message: &quot;{{usersubject}}&quot;\n"
+"\n"
+"&quot;{{usermessage}}&quot;\n"
+"\n"
+"Go to the discussion to reply or catch up on the conversation: "
+"{{{message.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3243
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Verify your new email address"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3245
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"You recently changed the email address associated with your account on "
+"{{site.name}}. If this is correct, <a href=\"{{{verify.url}}}\">go here to "
+"confirm the change</a>.\n"
+"\n"
+"Otherwise, you can safely ignore and delete this email if you have changed "
+"your mind, or if you think you have received this email in error."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3247
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"You recently changed the email address associated with your account on "
+"{{site.name}}. If this is correct, go to the following link to confirm the "
+"change: {{{verify.url}}}\n"
+"\n"
+"Otherwise, you can safely ignore and delete this email if you have changed "
+"your mind, or if you think you have received this email in error."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3251
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Membership request for group \"{{group.name}}\" accepted"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3253
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Your membership request for the group &quot;<a "
+"href=\"{{{group.url}}}\">{{group.name}}</a>&quot; has been accepted."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3255
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Your membership request for the group &quot;{{group.name}}&quot; has been "
+"accepted.\n"
+"\n"
+"To view the group, visit: {{{group.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3259
+#. translators: do not remove {} brackets or translate its contents.
+msgid "[{{{site.name}}}] Membership request for group \"{{group.name}}\" rejected"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3261
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Your membership request for the group &quot;<a "
+"href=\"{{{group.url}}}\">{{group.name}}</a>&quot; has been rejected."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3263
+#. translators: do not remove {} brackets or translate its contents.
+msgid ""
+"Your membership request for the group &quot;{{group.name}}&quot; has been "
+"rejected.\n"
+"\n"
+"To request membership again, visit: {{{group.url}}}"
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3277
+msgid "A member has replied to an activity update that the recipient posted."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3278
+msgid ""
+"A member has replied to a comment on an activity update that the recipient "
+"posted."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3279
+msgid "Recipient was mentioned in an activity update."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3280
+msgid "Recipient was mentioned in a group activity update."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3281
+msgid "Recipient has registered for an account."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3282
+msgid "Recipient has registered for an account and site."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3283
+msgid "A member has sent a friend request to the recipient."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3284
+msgid "Recipient has had a friend request accepted by a member."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3285
+msgid "A group's details were updated."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3286
+msgid "A member has sent a group invitation to the recipient."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3287
+msgid "Recipient's status within a group has changed."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3288
+msgid "A member has requested permission to join a group."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3289
+msgid "Recipient has received a private message."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3290
+msgid "Recipient has changed their email address."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3291
+msgid "Recipient had requested to join a group, which was accepted."
+msgstr ""
+
+#: bp-core/bp-core-functions.php:3292
+msgid "Recipient had requested to join a group, which was rejected."
 msgstr ""
 
 #: bp-core/bp-core-template.php:132
@@ -7620,6 +7616,11 @@ msgstr ""
 #: bp-activity/bp-activity-functions.php:550
 msgctxt "Post Type generic comments activity admin filter"
 msgid "New item comment posted"
+msgstr ""
+
+#: bp-activity/bp-activity-functions.php:561
+msgctxt "Post Type generic comments activity front filter"
+msgid "Item comments"
 msgstr ""
 
 #: bp-activity/bp-activity-functions.php:1581
