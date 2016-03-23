@@ -1,4 +1,10 @@
 <?php
+/**
+ * This template renders the RSVP ticket form
+ *
+ * @version 4.1
+ *
+ */
 
 $is_there_any_product         = false;
 $is_there_any_product_to_sell = false;
@@ -111,6 +117,12 @@ $messages_class = $messages ? 'tribe-rsvp-message-display' : '';
 							</td>
 							<td colspan="3">
 								<input type="email" name="attendee[email]" id="tribe-tickets-email">
+							</td>
+						</tr>
+						<tr class="tribe-tickets-attendees-list-optout">
+							<td colspan="4">
+								<input type="checkbox" name="attendee[optout]" id="tribe-tickets-attendees-list-optout">
+								<label for="tribe-tickets-attendees-list-optout"><?php esc_html_e( 'Hide from Attendees List', 'event-tickets' ); ?></label>
 							</td>
 						</tr>
 					</table>

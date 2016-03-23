@@ -6,6 +6,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/nav.php
  *
  * @package TribeEventsCalendar
+ * @version 4.1
  *
  */
 global $wp_query;
@@ -22,7 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php if ( tribe_has_previous_event() ) : ?>
 		<li class="<?php echo esc_attr( tribe_left_navigation_classes() ); ?>">
-			<a href="<?php echo esc_url( tribe_get_listview_prev_link() ); ?>" rel="prev"><?php printf( '<span>&laquo; </span> ' . esc_html__( 'Previous %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
+			<a href="<?php echo esc_url( tribe_get_listview_prev_link() ); ?>" rel="prev"><?php printf( '<span>&laquo;</span> ' . esc_html__( 'Previous %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
+
 		</li><!-- .tribe-events-nav-left -->
 	<?php endif; ?>
 
