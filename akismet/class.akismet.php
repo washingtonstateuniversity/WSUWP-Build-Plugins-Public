@@ -53,6 +53,10 @@ class Akismet {
 
 		// Run this early in the pingback call, before doing a remote fetch of the source uri
 		add_action( 'xmlrpc_call', array( 'Akismet', 'pre_check_pingback' ) );
+		
+		// Jetpack compatibility
+		add_filter( 'jetpack_options_whitelist', array( 'Akismet', 'add_to_jetpack_options_whitelist' ) );
+		add_action( 'update_option_wordpress_api_key', array( 'Akismet', 'updated_option' ), 10, 2 );
 	}
 
 	public static function get_api_key() {
@@ -79,6 +83,37 @@ class Akismet {
 			return 'failed';
 
 		return $response[1];
+	}
+
+	/**
+	 * Add the akismet option to the Jetpack options management whitelist.
+	 *
+	 * @param array $options The list of whitelisted option names.
+	 * @return array The updated whitelist
+	 */
+	public static function add_to_jetpack_options_whitelist( $options ) {
+		$options[] = 'wordpress_api_key';
+		return $options;
+	}
+
+	/**
+	 * When the akismet option is updated, run the registration call.
+	 *
+	 * This should only be run when the option is updated from the Jetpack/WP.com
+	 * API call, and only if the new key is different than the old key.
+	 *
+	 * @param mixed  $old_value   The old option value.
+	 * @param mixed  $value       The new option value.
+	 */
+	function updated_option( $old_value, $value ) {
+		// Not an API call
+		if ( ! class_exists( 'WPCOM_JSON_API_Update_Option_Endpoint' ) ) {
+			return;
+		}
+		// Only run the registration if the old key is different.
+		if ( $old_value !== $value ) {
+			self::verify_key( $value );
+		}
 	}
 
 	public static function auto_check_comment( $commentdata ) {
@@ -130,7 +165,7 @@ class Akismet {
 
 			// Send any potentially useful $_SERVER vars, but avoid sending junk we don't need.
 			if ( preg_match( "/^(HTTP_|REMOTE_ADDR|REQUEST_URI|DOCUMENT_URI)/", $key ) ) {
-				$form[ "$key" ] = $value;
+				$comment[ "$key" ] = $value;
 			}
 		}
 
