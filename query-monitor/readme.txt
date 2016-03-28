@@ -2,8 +2,8 @@
 Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
-Tested up to: 4.4
-Stable tag: 2.9.1
+Tested up to: 4.5
+Stable tag: 2.10.0
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
@@ -20,7 +20,7 @@ Here's an overview of what's shown:
 
  * Shows all database queries performed on the current page
  * Shows **affected rows** and time for all queries
- * Show notifications for **slow queries** and **queries with errors**
+ * Shows notifications for **slow queries**, **duplicate queries**, and **queries with errors**
  * Filter queries by **query type** (`SELECT`, `UPDATE`, `DELETE`, etc)
  * Filter queries by **component** (WordPress core, Plugin X, Plugin Y, theme)
  * Filter queries by **calling function**
@@ -172,6 +172,16 @@ You'll need to hook into the `qm/collect/db_objects` filter and add an item to t
 No, I do not accept donations. If you like the plugin, I'd love for you to [leave a review](https://wordpress.org/support/view/plugin-reviews/query-monitor). Tell all your friends about the plugin too!
 
 == Changelog ==
+
+= 2.10.0 =
+
+* Add a new panel which lists duplicated database queries.
+* Add support for displaying QM's output when viewing an embed.
+* Differentiate regular plugins from mu-plugins when displaying components.
+* Ensure early errors are always reported regardless of system level error reporting.
+* Ensure that script and style dependency highlighting is restricted to the scripts and styles tables, respectively.
+* Rearrange the Environment section output a little.
+* Various minor tweaks.
 
 = 2.9.1 =
 
