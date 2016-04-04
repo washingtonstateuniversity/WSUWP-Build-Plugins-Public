@@ -105,7 +105,7 @@ class Akismet {
 	 * @param mixed  $old_value   The old option value.
 	 * @param mixed  $value       The new option value.
 	 */
-	function updated_option( $old_value, $value ) {
+	public static function updated_option( $old_value, $value ) {
 		// Not an API call
 		if ( ! class_exists( 'WPCOM_JSON_API_Update_Option_Endpoint' ) ) {
 			return;
@@ -289,7 +289,9 @@ class Akismet {
 					elseif ( self::$last_comment['akismet_result'] == 'false' ) {
 						update_comment_meta( $comment->comment_ID, 'akismet_result', 'false' );
 						self::update_comment_history( $comment->comment_ID, '', 'check-ham' );
-						if ( $comment->comment_approved == 'spam' ) {
+						// Status could be spam or trash, depending on the WP version and whether this change applies:
+						// https://core.trac.wordpress.org/changeset/34726
+						if ( $comment->comment_approved == 'spam' || $comment->comment_approved == 'trash' ) {
 							if ( wp_blacklist_check($comment->comment_author, $comment->comment_author_email, $comment->comment_author_url, $comment->comment_content, $comment->comment_author_IP, $comment->comment_agent) )
 								self::update_comment_history( $comment->comment_ID, '', 'wp-blacklisted' );
 							else
@@ -748,7 +750,7 @@ class Akismet {
 		$comment1 = (array) $comment1;
 		$comment2 = (array) $comment2;
 		
-		return (
+		$comments_match = (
 			   isset( $comment1['comment_post_ID'], $comment2['comment_post_ID'] )
 			&& intval( $comment1['comment_post_ID'] ) == intval( $comment2['comment_post_ID'] )
 			&& (
@@ -760,6 +762,9 @@ class Akismet {
 				substr( $comment1['comment_author'], 0, 248 ) == substr( $comment2['comment_author'], 0, 248 )
 				|| substr( stripslashes( $comment1['comment_author'] ), 0, 248 ) == substr( $comment2['comment_author'], 0, 248 )
 				|| substr( $comment1['comment_author'], 0, 248 ) == substr( stripslashes( $comment2['comment_author'] ), 0, 248 )
+				// Certain long comment author names will be truncated to nothing, depending on their encoding.
+				|| ( ! $comment1['comment_author'] && strlen( $comment2['comment_author'] ) > 248 )
+				|| ( ! $comment2['comment_author'] && strlen( $comment1['comment_author'] ) > 248 )
 				)
 			&& (
 				// The email max length is 100 characters, limited by the VARCHAR(100) column type.
@@ -772,6 +777,8 @@ class Akismet {
 				|| ( ! $comment2['comment_author_email'] && strlen( $comment1['comment_author_email'] ) > 100 )
 			)
 		);
+
+		return $comments_match;
 	}
 	
 	// Does the supplied comment match the details of the one most recently stored in self::$last_comment?
