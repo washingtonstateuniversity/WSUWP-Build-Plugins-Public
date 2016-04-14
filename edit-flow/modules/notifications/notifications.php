@@ -24,7 +24,6 @@ class EF_Notifications extends EF_Module {
 	 * Register the module with Edit Flow but don't do anything else
 	 */
 	function __construct () {
-		global $edit_flow;
 		
 		// Register the module with Edit Flow
 		$this->module_url = $this->get_module_url( __FILE__ );
@@ -965,8 +964,10 @@ jQuery(document).ready(function($) {
 					break;
 			}
 			$new_user = get_user_by( $search, $user );
-			if ( ! $new_user || ! is_user_member_of_blog( $new_user->ID ) )
+			if ( ! $new_user || ! is_user_member_of_blog( $new_user->ID ) ) {
+				unset( $users[ $key ] );
 				continue;
+			}
 			switch( $return ) {
 				case 'user_login':
 					$users[$key] = $new_user->user_login;
@@ -1134,7 +1135,7 @@ jQuery(document).ready(function($) {
 	*/
 	private function get_scheduled_datetime( $post ) {
 			
-			$scheduled_ts = strtotime( $post->post_date_gmt );
+			$scheduled_ts = strtotime( $post->post_date );
 
 			$date = date_i18n( get_option( 'date_format' ), $scheduled_ts );
 			$time = date_i18n( get_option( 'time_format' ), $scheduled_ts );

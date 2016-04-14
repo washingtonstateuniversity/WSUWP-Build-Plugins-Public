@@ -3,12 +3,14 @@ Contributors: batmoo, danielbachhuber, sbressler, automattic
 Donate link: http://editflow.org/contribute/
 Tags: edit flow, workflow, editorial, newsroom, management, journalism, post status, custom status, notifications, email, comments, editorial comments, usergroups, calendars, editorial calendar, story budget
 Requires at least: 3.4
-Tested up to: 3.8
-Stable tag: 0.8
+Tested up to: 4.5
+Stable tag: 0.8.1
 
 Redefining your editorial workflow.
 
 == Description ==
+
+[![Build Status](https://travis-ci.org/Automattic/Edit-Flow.svg?branch=master)](https://travis-ci.org/Automattic/Edit-Flow)
 
 Edit Flow empowers you to collaborate with your editorial team inside WordPress. We've made it modular so you can customize it to your needs:
 
@@ -20,7 +22,7 @@ Edit Flow empowers you to collaborate with your editorial team inside WordPress.
 * [Story Budget](http://editflow.org/features/story-budget/) - View your upcoming content budget.
 * [User Groups](http://editflow.org/features/user-groups/) - Keep your users organized by department or function.
 
-More details for each feature, screenshots and documentation can be found on [our website](http://www.editflow.org/).
+More details for each feature, screenshots and documentation can be found on [our website](http://editflow.org/).
 
 We'd love to hear from you! For support questions, feedback and ideas, please use the [WordPress.org forums](http://wordpress.org/tags/edit-flow?forum_id=10), which we look at often. If you'd like to contribute code, [we'd love to have you involved](http://editflow.org/contribute/).
 
@@ -53,6 +55,12 @@ For support questions, feedback and ideas, please use the [WordPress.org forums]
 5. View all of your upcoming posts with the more traditional story budget view, and hit the print button to take it to your planning meeting.
 
 == Upgrade Notice ==
+
+= 0.8.1 =
+Added Composer support.
+
+= 0.8 =
+Final readme and versioning changes for v0.8
 
 = 0.7.5 =
 New localizations; myriad of bug fixes
@@ -91,6 +99,13 @@ Proper support for custom post types. We removed the option to enable/disable Cu
 New features, including story budget and editorial metadata, a completely rewritten calendar view, and many bug fixes, including one for editorial comments appearing in the admin.
 
 == Changelog ==
+
+= 0.8.1 (Apr 14, 2016) =
+* New German localization thanks to [Circleview](https://github.com/Circleview)
+* New Spanish localization thanks to Andrew Kurtis from [Web Hosting Hub](http://www.webhostinghub.com/).
+* Performance improvements for the calendar, custom statuses, and editorial metadata
+* Bug fix: Show "(no title)" on the calendar when a post doesn't have a title.
+* Bug fix: Persist the future date position of a post on the calendar when a post is updated.
 
 = 0.8 (Dec 19, 2013) =
 * New feature: Dashboard Notepad. Editors and admins can use a notepad widget on the dashboard to leave instructions, important announcements, etc. for every WordPress user.
@@ -282,3 +297,4 @@ The following folks did some tremendous work helping with the release of Edit Fl
 
 = 0.1.5 =
 * Ability to assign custom statuses to posts
+
