@@ -3,7 +3,7 @@
 Plugin Name: TinyMCE Advanced
 Plugin URI: http://www.laptoptips.ca/projects/tinymce-advanced/
 Description: Enables advanced features and plugins in TinyMCE, the visual editor in WordPress.
-Version: 4.3.8
+Version: 4.3.10.1
 Author: Andrew Ozz
 Author URI: http://www.laptoptips.ca/
 License: GPL2
@@ -107,6 +107,8 @@ class Tinymce_Advanced {
 	}
 
 	public function disable_for_editor( $settings, $editor_id ) {
+		static $editor_style_added = false;
+
 		if ( empty( $this->admin_settings ) ) {
 			$this->load_settings();
 		}
@@ -131,11 +133,37 @@ class Tinymce_Advanced {
 			}
 		}
 
+		if ( ! $this->disabled_for_editor && ! $editor_style_added ) {
+			if ( $this->check_admin_setting( 'importcss' ) && $this->has_editor_style() !== 'present' ) {
+				add_editor_style();
+			}
+
+			$editor_style_added = true;
+		}
+
 		return $settings;
 	}
 
 	private function is_disabled() {
 		return $this->disabled_for_editor;
+	}
+
+	private function has_editor_style() {
+		if ( ! current_theme_supports( 'editor-style' ) ) {
+			return 'not-supporetd';
+		}
+
+		$editor_stylesheets = get_editor_stylesheets();
+
+		if ( is_array( $editor_stylesheets ) ) {
+			foreach ( $editor_stylesheets as $url ) {
+				if ( strpos( $url, 'editor-style.css' ) !== false ) {
+					return 'present';
+				}
+			}
+		}
+
+		return 'not-present';
 	}
 
 	// When using a plugin that changes the paths dinamically, set these earlier than 'plugins_loaded' 50.
@@ -540,6 +568,10 @@ class Tinymce_Advanced {
 			$init['paste_data_images'] = true;
 		}
 
+		if ( in_array( 'table', $this->plugins, true ) ) {
+			$init['table_toolbar'] = false;
+		}
+
 		return $init;
 	}
 
@@ -596,12 +628,6 @@ class Tinymce_Advanced {
 	public function mce_external_plugins( $mce_plugins ) {
 		if ( $this->is_disabled() ) {
 			return $mce_plugins;
-		}
-
-		// import user created editor-style.css
-		// Deprecated since
-		if ( $this->check_admin_setting( 'editorstyle' ) && ! current_theme_supports( 'editor-style' ) ) {
-			add_editor_style();
 		}
 
 		if ( ! is_array( $this->plugins ) ) {

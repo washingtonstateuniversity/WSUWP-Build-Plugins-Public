@@ -52,7 +52,7 @@ if ( isset( $_POST['tadv-save'] ) ) {
 		$plugins_array = array( 'anchor', 'code', 'insertdatetime', 'nonbreaking', 'print', 'searchreplace',
 			'table', 'visualblocks', 'visualchars' );
 	}
-	
+
 	if ( ! empty( $_POST['fontsize_formats'] ) ) {
 		$options_array[] = 'fontsize_formats';
 	}
@@ -68,10 +68,6 @@ if ( isset( $_POST['tadv-save'] ) ) {
 
 	if ( ! empty( $_POST['paste_images'] ) ) {
 		$admin_settings_array[] = 'paste_images';
-	}
-
-	if ( ! empty( $_POST['editorstyle'] ) ) {
-		$admin_settings_array[] = 'editorstyle';
 	}
 
 	if ( ! empty( $_POST['disabled_plugins'] ) && is_array( $_POST['disabled_plugins'] ) ) {
@@ -467,22 +463,48 @@ if ( ! is_multisite() || current_user_can( 'manage_sites' ) ) {
 	<h3><?php _e( 'Advanced Options', 'tinymce-advanced' ); ?></h3>
 	<?php
 
-	// The 'editorstyle' option for (very) old themes was deprecated. Still supported if present.
+	$has_editor_style = $this->has_editor_style();
+	$disabled = ' disabled';
 
-	if ( current_theme_supports( 'editor-style' ) ) {
-		?>
-		<div>
-			<label><input type="checkbox" name="importcss" id="importcss" <?php if ( $this->check_admin_setting( 'importcss' ) ) echo ' checked="checked"'; ?> />
-			<?php _e( 'Create CSS classes menu', 'tinymce-advanced' ); ?></label>
-			<p>
-				<?php _e( 'Load the CSS classes used in editor-style.css and replace the Formats button and sub-menu.', 'tinymce-advanced' ); ?>
-			</p>
-		</div>
-		<?php
+	if ( $has_editor_style === 'not-supporetd' || $has_editor_style === 'not-present' ) {
+		add_editor_style();
+	}
+
+	if ( $this->has_editor_style() === 'present' ) {
+		$disabled = '';
+		$has_editor_style = 'present';
 	}
 
 	?>
+	<div>
+		<label><input type="checkbox" name="importcss" id="importcss" <?php if ( ! $disabled && $this->check_admin_setting( 'importcss' ) ) echo ' checked="checked"'; echo $disabled; ?> />
+		<?php _e( 'Create CSS classes menu', 'tinymce-advanced' ); ?></label>
+		<p>
+		<?php
 
+		_e( 'Load the CSS classes used in editor-style.css and replace the Formats menu.', 'tinymce-advanced' );
+
+		if ( $has_editor_style === 'not-supporetd' ) {
+			?>
+				<br>
+				<span class="tadv-error"><?php _e( 'ERROR:', 'tinymce-advanced' ); ?></span>
+				<?php _e( 'Your theme does not support editor-style.css.', 'tinymce-advanced' ); ?>
+			<?php
+		} elseif ( $disabled ) {
+			?>
+				<br>
+				<span class="tadv-error"><?php _e( 'ERROR:', 'tinymce-advanced' ); ?></span>
+				<?php _e( 'A stylesheet file named editor-style.css was not added by your theme.', 'tinymce-advanced' ); ?>
+			<?php
+		}
+
+		if ( $has_editor_style === 'not-supporetd' || $disabled ) {
+			_e( 'To use this option, add editor-style.css to your theme or a child theme. Enabling this option will also load that stylesheet in the editor.', 'tinymce-advanced' );
+		}
+
+		?>
+		</p>
+	</div>
 	<div>
 		<label><input type="checkbox" name="no_autop" id="no_autop" <?php if ( $this->check_admin_setting( 'no_autop' ) ) echo ' checked="checked"'; ?> />
 		<?php _e( 'Keep paragraph tags', 'tinymce-advanced' ); ?></label>

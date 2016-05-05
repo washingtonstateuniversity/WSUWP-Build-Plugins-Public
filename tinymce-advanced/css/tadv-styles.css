@@ -276,3 +276,8 @@ div.tadv-error {
 .tadvdropzone .tadv-placeholder {
 	height: 28px;
 }
+
+.tadv-error {
+	color: #d54e21;
+	font-weight: bold;
+}
