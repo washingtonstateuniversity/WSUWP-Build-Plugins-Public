@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later (license.txt).
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress 2.5.2\n"
+"Project-Id-Version: BuddyPress 2.5.3\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2016-03-31 19:09:12+00:00\n"
+"POT-Creation-Date: 2016-05-24 17:17:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1983,11 +1983,11 @@ msgstr ""
 msgid "The current user is being initialized without using $wp->init()."
 msgstr ""
 
-#: bp-core/bp-core-filters.php:400 bp-core/bp-core-filters.php:433
+#: bp-core/bp-core-filters.php:410 bp-core/bp-core-filters.php:443
 msgid "[User Set]"
 msgstr ""
 
-#: bp-core/bp-core-filters.php:576
+#: bp-core/bp-core-filters.php:586
 msgid "Page %s"
 msgstr ""
 
@@ -2944,42 +2944,42 @@ msgid_plural "Please upload only these file types: %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:385
+#: bp-core/classes/class-bp-attachment-avatar.php:386
 #: bp-xprofile/bp-xprofile-screens.php:260
 msgid "There was a problem cropping your profile photo."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:386
+#: bp-core/classes/class-bp-attachment-avatar.php:387
 #: bp-xprofile/bp-xprofile-screens.php:274
 msgid "Your new profile photo was uploaded successfully."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:387
+#: bp-core/classes/class-bp-attachment-avatar.php:388
 #: bp-xprofile/bp-xprofile-actions.php:42
 msgid "There was a problem deleting your profile photo. Please try again."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:388
+#: bp-core/classes/class-bp-attachment-avatar.php:389
 #: bp-xprofile/bp-xprofile-actions.php:40
 msgid "Your profile photo was deleted successfully!"
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:403
+#: bp-core/classes/class-bp-attachment-avatar.php:404
 #: bp-groups/bp-groups-screens.php:1022
 msgid "There was a problem cropping the group profile photo."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:404
+#: bp-core/classes/class-bp-attachment-avatar.php:405
 #: bp-groups/bp-groups-actions.php:346
 msgid "The group profile photo was uploaded successfully."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:405
+#: bp-core/classes/class-bp-attachment-avatar.php:406
 #: bp-groups/bp-groups-screens.php:979
 msgid "There was a problem deleting the group profile photo. Please try again."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-avatar.php:406
+#: bp-core/classes/class-bp-attachment-avatar.php:407
 #: bp-groups/bp-groups-screens.php:977
 msgid "The group profile photo was deleted successfully!"
 msgstr ""
@@ -2988,27 +2988,27 @@ msgstr ""
 msgid "That image is too big. Please upload one smaller than %s"
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-cover-image.php:244
+#: bp-core/classes/class-bp-attachment-cover-image.php:243
 msgid "Your new cover image was uploaded successfully."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-cover-image.php:245
+#: bp-core/classes/class-bp-attachment-cover-image.php:244
 msgid "There was a problem deleting your cover image. Please try again."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-cover-image.php:246
+#: bp-core/classes/class-bp-attachment-cover-image.php:245
 msgid "Your cover image was deleted successfully!"
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-cover-image.php:262
+#: bp-core/classes/class-bp-attachment-cover-image.php:261
 msgid "The group cover image was uploaded successfully."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-cover-image.php:263
+#: bp-core/classes/class-bp-attachment-cover-image.php:262
 msgid "There was a problem deleting the group cover image. Please try again."
 msgstr ""
 
-#: bp-core/classes/class-bp-attachment-cover-image.php:264
+#: bp-core/classes/class-bp-attachment-cover-image.php:263
 msgid "The group cover image was deleted successfully!"
 msgstr ""
 
@@ -4981,7 +4981,7 @@ msgid ""
 msgstr ""
 
 #: bp-members/bp-members-functions.php:1417
-#: bp-members/bp-members-functions.php:2417
+#: bp-members/bp-members-functions.php:2416
 msgid "<strong>ERROR</strong>: Your account has been marked as a spammer."
 msgstr ""
 
@@ -5026,52 +5026,52 @@ msgstr ""
 msgid "Sorry, that username already exists!"
 msgstr ""
 
-#: bp-members/bp-members-functions.php:1922
-#: bp-members/bp-members-functions.php:1949
+#: bp-members/bp-members-functions.php:1921
+#: bp-members/bp-members-functions.php:1948
 msgid "Invalid activation key."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:1929
+#: bp-members/bp-members-functions.php:1928
 msgid "The user is already active."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:1931
+#: bp-members/bp-members-functions.php:1930
 msgid "The site is already active."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:1964
+#: bp-members/bp-members-functions.php:1963
 msgid "Could not create user"
 msgstr ""
 
-#: bp-members/bp-members-functions.php:1978
+#: bp-members/bp-members-functions.php:1977
 msgid "That username is already activated."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:2282
+#: bp-members/bp-members-functions.php:2281
 msgid ""
 "If you have not received an email yet, <a href=\"%s\">click here to resend "
 "it</a>."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:2284
+#: bp-members/bp-members-functions.php:2283
 msgid ""
 "<strong>ERROR</strong>: Your account has not been activated. Check your "
 "email for the activation link."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:2315
+#: bp-members/bp-members-functions.php:2314
 msgid "<strong>ERROR</strong>: Your account has already been activated."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:2317
+#: bp-members/bp-members-functions.php:2316
 msgid "Activation email resent! Please check your inbox or spam folder."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:2452
+#: bp-members/bp-members-functions.php:2451
 msgid "Member type already exists."
 msgstr ""
 
-#: bp-members/bp-members-functions.php:2475
+#: bp-members/bp-members-functions.php:2474
 msgid "You may not register a member type with this name."
 msgstr ""
 
@@ -5087,7 +5087,7 @@ msgstr ""
 msgid "This is a required field"
 msgstr ""
 
-#: bp-members/bp-members-screens.php:370
+#: bp-members/bp-members-screens.php:362
 msgid "Your account is now active!"
 msgstr ""
 
@@ -7840,7 +7840,7 @@ msgctxt "buddypress tools intro"
 msgid "Use the %s to repair these relationships."
 msgstr ""
 
-#: bp-core/bp-core-customizer-email.php:34 bp-core/bp-core-filters.php:1105
+#: bp-core/bp-core-customizer-email.php:34 bp-core/bp-core-filters.php:1115
 msgctxt "screen heading"
 msgid "BuddyPress Emails"
 msgstr ""
@@ -7877,17 +7877,17 @@ msgctxt "email"
 msgid "unsubscribe"
 msgstr ""
 
-#: bp-core/bp-core-filters.php:772
+#: bp-core/bp-core-filters.php:782
 msgctxt "customizer menu type label"
 msgid "Custom Link"
 msgstr ""
 
-#: bp-core/bp-core-filters.php:793
+#: bp-core/bp-core-filters.php:803
 msgctxt "customizer menu section title"
 msgid "BuddyPress (logged-in)"
 msgstr ""
 
-#: bp-core/bp-core-filters.php:798
+#: bp-core/bp-core-filters.php:808
 msgctxt "customizer menu section title"
 msgid "BuddyPress (logged-out)"
 msgstr ""
@@ -8082,7 +8082,7 @@ msgctxt "email type taxonomy singular name"
 msgid "Email"
 msgstr ""
 
-#: bp-core/bp-core-taxonomy.php:34
+#: bp-core/bp-core-taxonomy.php:33
 msgctxt "email type taxonomy description"
 msgid "BuddyPress email types"
 msgstr ""
