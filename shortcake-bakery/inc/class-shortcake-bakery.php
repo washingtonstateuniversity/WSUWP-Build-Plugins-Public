@@ -12,6 +12,7 @@ class Shortcake_Bakery {
 		'Shortcake_Bakery\Shortcodes\Facebook',
 		'Shortcake_Bakery\Shortcodes\Flickr',
 		'Shortcake_Bakery\Shortcodes\Giphy',
+		'Shortcake_Bakery\Shortcodes\GoogleDocs',
 		'Shortcake_Bakery\Shortcodes\Guardian',
 		'Shortcake_Bakery\Shortcodes\Iframe',
 		'Shortcake_Bakery\Shortcodes\Image_Comparison',
@@ -52,7 +53,7 @@ class Shortcake_Bakery {
 		add_action( 'shortcode_ui_after_do_shortcode', function( $shortcode ) {
 			return Shortcake_Bakery::get_shortcake_admin_dependencies();
 		});
-		add_action( 'admin_enqueue_scripts', array( $this, 'action_admin_enqueue_scripts' ) );
+		add_action( 'shortcode_ui_loaded_editor', array( $this, 'action_admin_enqueue_scripts' ) );
 		add_action( 'media_buttons', array( $this, 'action_media_buttons' ) );
 		add_action( 'wp_ajax_shortcake_bakery_embed_reverse', array( $this, 'action_ajax_shortcake_bakery_embed_reverse' ) );
 	}
@@ -75,7 +76,7 @@ class Shortcake_Bakery {
 			$this->registered_shortcodes[ $shortcode_tag ] = $class;
 			add_shortcode( $shortcode_tag, array( $this, 'do_shortcode_callback' ) );
 			$class::setup_actions();
-			$ui_args = $class::get_shortcode_ui_args();
+			$ui_args = apply_filters( 'shortcake_bakery_shortcode_ui_args', $class::get_shortcode_ui_args(), $shortcode_tag );
 			if ( ! empty( $ui_args ) && function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
 				shortcode_ui_register_for_shortcode( $shortcode_tag, $ui_args );
 			}
@@ -139,6 +140,7 @@ class Shortcake_Bakery {
 			'nonces' => array(
 				'customEmbedReverse' => wp_create_nonce( 'embed-reverse' ),
 			),
+			'shortcodes' => array_flip( $this->registered_shortcodes ),
 		);
 
 		wp_localize_script( 'shortcake-bakery-admin', 'ShortcakeBakery', $strings );

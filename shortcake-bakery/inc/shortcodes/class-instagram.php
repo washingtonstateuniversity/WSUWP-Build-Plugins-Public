@@ -25,7 +25,7 @@ class Instagram extends Shortcode {
 			return $content;
 		}
 
-		$needle = '#<blockquote class="instagram-media.+<a href="(https://instagram\.com/p/[^/]+/)"[^>]+>.+(?=</blockquote>)</blockquote>\n?(<script[^>]+src="//platform\.instagram\.com/[^>]+></script>)?#';
+		$needle = '#<blockquote class="instagram-media.+<a href="(https://(www\.)?instagram\.com/p/[^/]+/)"[^>]+>.+(?=</blockquote>)</blockquote>\n?(<script[^>]+src="//platform\.instagram\.com/[^>]+></script>)?#';
 		if ( preg_match_all( $needle, $content, $matches ) ) {
 			$replacements = array();
 			$shortcode_tag = self::get_shortcode_tag();
@@ -60,9 +60,9 @@ class Instagram extends Shortcode {
 			return '';
 		}
 
-		$needle = '#(https?:)?//instagr(\.am|am\.com)/p/([^/]+)#i';
+		$needle = '#(https?:)?//(www\.)?instagr(\.am|am\.com)/p/([^/]+)#i';
 		if ( preg_match( $needle, $attrs['url'], $matches ) ) {
-			$photo_id = $matches[3];
+			$photo_id = $matches[4];
 		} else {
 			return '';
 		}
