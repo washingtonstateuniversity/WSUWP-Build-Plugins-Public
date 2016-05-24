@@ -3,8 +3,8 @@
 Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, shane.pearlman, thatdudebutch
 Tags: events, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, Event Tickets, Event Tickets Plus
 Requires at least: 3.9
-Tested up to: 4.4.2
-Stable tag: 4.1.1
+Tested up to: 4.5.1
+Stable tag: 4.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,14 @@ If you’ve identified a bug and want to submit a patch, we’d welcome it at ou
 * jQuery 1.11.x
 * Event Tickets 4.0 or above
 * The Events Calendar 4.0 or above (optional)
+
+== Screenshots ==
+
+1. RSVP setup
+2. Attendees report
+3. RSVP to an event
+4. Customize tickets with an image
+5. Ticket settings
 
 == Documentation ==
 
@@ -179,12 +187,25 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.1.4] TBD =
+
+* Tweak - Make the visibility of the delete ticket link filterable [45683]
+
+= [4.1.3] 2016-04-28 =
+
+* Tweak - Added back the purchaser name and email address to the attendee reports for all tickets. We had inadvertently removed those in a previous release. #facepalm [45082]
+* Tweak - Fixed an error where tickets on custom post types would not save or display on the front end. That was annoying to anyone trying to create RSVPs or tickets on anything other than a default page or post.
+
+= [4.1.2] 2016-04-11 =
+
+* Fix - Removed a notice on attendees list when a non-existent email method is on a hook
+
 = [4.1.1] 2016-03-30 =
 
 * Tweak - Add filters for generated attendee and order data; tribe_tickets_attendee_data and tribe_tickets_order_data, respectively
 * Tweak - Relocated the generation of tickets to the template_redirect action because init was too early for proper permalink fetching
-* Fix - Resolved issue where purchasing tickets was impossible if ticket stock was set to unlimited
-* Fix - Fixed issue where the customer name and customer email address had been removed from the attendee export CSV
+* Fix - Resolved issue where purchasing tickets was impossible if ticket stock was set to unlimited (thanks to James for reporting this one)
+* Fix - Fixed issue where the customer name and customer email address had been removed from the attendee export CSV (nice find here by Joe in our forums)
 
 = [4.1] 2016-03-15 =
 
