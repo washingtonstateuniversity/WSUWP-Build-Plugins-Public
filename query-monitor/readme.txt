@@ -3,14 +3,14 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.5
-Stable tag: 2.10.0
+Stable tag: 2.11.0
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
 
 == Description ==
 
-Query Monitor is a debugging plugin for anyone developing with WordPress. It has some advanced features not available in other debugging plugins, including automatic AJAX debugging, REST API debugging, and the ability to narrow down things by plugin or theme.
+Query Monitor is a debugging plugin for anyone developing with WordPress. It has some advanced features not available in other debugging plugins, including debugging of AJAX calls, REST API requests, redirects, and the ability to narrow down its output by plugin or theme.
 
 For complete information, please see [Query Monitor's GitHub repo](https://github.com/johnbillion/query-monitor).
 
@@ -18,27 +18,28 @@ Here's an overview of what's shown:
 
 = Database Queries =
 
- * Shows all database queries performed on the current page
- * Shows **affected rows** and time for all queries
- * Shows notifications for **slow queries**, **duplicate queries**, and **queries with errors**
- * Filter queries by **query type** (`SELECT`, `UPDATE`, `DELETE`, etc)
- * Filter queries by **component** (WordPress core, Plugin X, Plugin Y, theme)
- * Filter queries by **calling function**
- * View **aggregate query information** grouped by component, calling function, and type
- * Super advanced: Supports **multiple instances of wpdb** on one page (more info in the FAQ)
+ * Shows all database queries performed on the current request
+ * Shows affected rows and time for all queries
+ * Shows notifications for slow queries, duplicate queries, and queries with errors
+ * Filter queries by query type (`SELECT`, `UPDATE`, `DELETE`, etc)
+ * Filter queries by component (WordPress core, Plugin X, Plugin Y, theme)
+ * Filter queries by calling function
+ * View aggregate query information grouped by component, calling function, and type
+ * Super advanced: Supports multiple instances of wpdb on one page (more info in the FAQ)
 
 Filtering queries by component or calling function makes it easy to see which plugins, themes, or functions on your site are making the most (or the slowest) database queries.
 
 = Hooks =
 
- * Shows all hooks fired on the current page, along with hooked actions, their priorities, and their components
- * Filter hooks by **part of their name**
- * Filter actions by **component** (WordPress core, Plugin X, Plugin Y, theme)
+ * Shows all hooks fired on the current request, along with hooked actions, their priorities, and their components
+ * Filter hooks by part of their name
+ * Filter actions by component (WordPress core, Plugin X, Plugin Y, theme)
 
 = Theme =
 
- * Shows the **template filename** for the current page
- * Shows the available **body classes** for the current page
+ * Shows the template filename for the current request
+ * Shows all template parts used on the current request
+ * Shows the available body classes for the current request
  * Shows the active theme name
 
 = PHP Errors =
@@ -48,30 +49,30 @@ Filtering queries by component or calling function makes it easy to see which pl
 
 = Request =
 
- * Shows **matched rewrite rules** and associated query strings
- * Shows **query vars** for the current request, and highlights **custom query vars**
- * Shows the **queried object** details
- * Shows details of the **current blog** (multisite only) and **current site** (multi-network only)
+ * Shows matched rewrite rules and associated query strings
+ * Shows query vars for the current request, and highlights custom query vars
+ * Shows the queried object details
+ * Shows details of the current blog (multisite only) and current site (multi-network only)
 
 = Rewrite Rules =
 
- * Shows **all matching rewrite rules** for a given request
+ * Shows all matching rewrite rules for a given request
 
 = Scripts & Styles =
 
- * Shows all **enqueued scripts and styles** on the current page, along with their URL and version
- * Shows their **dependencies and dependents**, and alerts you to any **broken dependencies**
+ * Shows all enqueued scripts and styles on the current request, along with their URL and version
+ * Shows their dependencies and dependents, and alerts you to any broken dependencies
 
 = Languages =
 
- * Shows you **language settings** and text domains
- * Shows you the **MO files** for each text domain and which ones were loaded or not
+ * Shows you language settings and text domains
+ * Shows you the MO files for each text domain and which ones were loaded or not
 
 = HTTP Requests =
 
- * Shows all HTTP requests performed on the current page (as long as they use WordPress' HTTP API)
+ * Shows all HTTP requests performed on the current request (as long as they use WordPress' HTTP API)
  * Shows the response code, call stack, transport, component, timeout, and time taken
- * Highlights **erroneous responses**, such as failed requests and anything without a `200` response code
+ * Highlights erroneous responses, such as failed requests and anything without a `200` response code
 
 = Redirects =
 
@@ -79,7 +80,7 @@ Filtering queries by component or calling function makes it easy to see which pl
 
 = AJAX =
 
-The response from any jQuery AJAX request on the page will contain various debugging information in its headers. Any errors also get output to the developer console. **No hooking required**.
+The response from any jQuery AJAX request on the page will contain various debugging information in its headers. Any errors also get output to the developer console. No hooking required.
 
 Currently this includes PHP errors and some overview information such as memory usage, but this will be built upon in future versions.
 
@@ -91,22 +92,22 @@ Currently this includes PHP errors and some overview information such as memory 
 
 = Admin Screen =
 
- * Shows the correct names for **custom column filters and actions** on all admin screens that have a listing table
+ * Shows the correct names for custom column filters and actions on all admin screens that have a listing table
  * Shows the state of `get_current_screen()` and a few variables
 
 = Environment Information =
 
- * Shows **various PHP information** such as memory limit and error reporting levels
+ * Shows various PHP information such as memory limit and error reporting levels
  * Highlights the fact when any of these are overridden at runtime
- * Shows **various MySQL information**, including caching and performance related configuration
+ * Shows various MySQL information, including caching and performance related configuration
  * Highlights the fact when any performance related configurations are not optimal
- * Shows various details about **WordPress** and the **web server**
+ * Shows various details about WordPress and the web server
  * Shows version numbers for all the things
 
 = Everything Else =
 
- * Shows any **transients that were set**, along with their timeout, component, and call stack
- * Shows all **WordPress conditionals** on the current page, highlighted nicely
+ * Shows any transients that were set, along with their timeout, component, and call stack
+ * Shows all WordPress conditionals on the current request, highlighted nicely
  * Shows an overview at the top, including page generation time and memory limit as absolute values and as % of their respective limits
 
 = Authentication =
@@ -172,6 +173,20 @@ You'll need to hook into the `qm/collect/db_objects` filter and add an item to t
 No, I do not accept donations. If you like the plugin, I'd love for you to [leave a review](https://wordpress.org/support/view/plugin-reviews/query-monitor). Tell all your friends about the plugin too!
 
 == Changelog ==
+
+= 2.11.0 =
+
+* Template parts used in the current request are now listed along with the template file.
+* Fix the REST API output for embedded requests and internal API calls.
+* Enable QM's output to appear in customiser preview responses.
+* Add support for the AMP plugin by Automattic, which short-circuits template output.
+* Highlight the fact when an HTTP request has disabled certificate verification.
+* Take into account custom content directory locations that are outside of ABSPATH when removing leading paths from file names.
+* Even more fallback support for when jQuery is broken or isn't available.
+* Introduce a collector for the object cache. Only outputs an overview at the moment.
+* Better formatting in the Duplicate Queries panel.
+* Introduce a fallback method of detecting errors in queries when `QM_DB` is not in use.
+* Improve the initial state of QM's output when the admin toolbar is not in use.
 
 = 2.10.0 =
 
@@ -419,7 +434,7 @@ No, I do not accept donations. If you like the plugin, I'd love for you to [leav
 * Show QM output on the log in screen
 
 = 2.2.4 =
-* Add filtering to the qyer panel
+* Add filtering to the query panel
 
 = 2.2.3 =
 * Show component information indicating whether a plugin, theme or core was responsible for each database query
