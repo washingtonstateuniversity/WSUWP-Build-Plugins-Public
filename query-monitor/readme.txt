@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.5
-Stable tag: 2.11.0
+Stable tag: 2.11.1
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
@@ -173,6 +173,13 @@ You'll need to hook into the `qm/collect/db_objects` filter and add an item to t
 No, I do not accept donations. If you like the plugin, I'd love for you to [leave a review](https://wordpress.org/support/view/plugin-reviews/query-monitor). Tell all your friends about the plugin too!
 
 == Changelog ==
+
+= 2.11.1 =
+
+* Fix Undefined index: `cache_misses`.
+* Don't load QM during cron requests because we've no persistent storage yet and no means of outputting data that's collected.
+* Tweak some colours to bring them inline with the WordPress admin area colours.
+* Better handling for HTTP requests which don't include the `ssl` argument for any reason.
 
 = 2.11.0 =
 
