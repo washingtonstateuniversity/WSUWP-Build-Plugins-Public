@@ -1,7 +1,7 @@
 <?php
 /*
-Description: Event Tickets allows you to sell tickets to events
-Version: 4.1.3
+Description: Event Tickets allows your guests to RSVP from any post, page, or event.
+Version: 4.2
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/28
 License: GPLv2 or later
