@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.5.2
-Stable tag: 4.2
+Tested up to: 4.5.3
+Stable tag: 4.2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,9 +15,11 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 Create and manage your calendar of events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
 
-The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://m.tri.be/2a">Check out the available add-ons.</a>
+The Events Calendar is built and supported by Modern Tribe's WordPress artisans. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more?
 
-><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3">sticky post</a> before creating a new thread.
+<strong><a href="http://m.tri.be/2a">Check out the available add-ons.</a></strong>
+
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but we check the support forums at WordPress.org once a week. Please read our <a href="https://wordpress.org/support/topic/read-this-first-welcome-to-the-events-calendar-support-forum">sticky post</a> before creating a new thread.
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
@@ -287,15 +289,30 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [4.2.1.1] 2016-06-28 =
+
+* Fix - Ensure translations load as expected with all supported versions of WordPress (thanks to @JacobALund for originally reporting this on .org forums)
+
+= [4.2.1] 2016-06-22 =
+
+* Tweak - Adjust the caching rules for Month View for faster loading
+* Fix - Replace a bad return type to avoid unnecessary notices in the error log
+* Fix - Add missing styles for correctly hide screen reader text
+* Fix - Fixes `tribe_get_event_link()` which wasn't working when passing second parameter as `true'
+* Tweak - Reduce the ginormous font size of Month View titles in skeleton styles
+* Fix - Add styling to adjust List View description to full width
+* Fix - Miscellaneous tweaks to improve the Month and Day views
+* Fix - Fix a shorthand array that was causing errors in PHP 5.2 and 5.3 when importing events
+
 = [4.2] 2016-06-08 =
 
 * Feature - Added Google Maps API key field in the Settings tab to avoid map timeouts and errors on larger sites (Thanks to Yan for reporting this!)
-* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on UserVoice!) 
-* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues 
-* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on UserVoice!) 
-* Feature - Added an oEmbed template for events 
-* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!) 
-* Feature - Added support for attaching custom post types to events 
+* Feature - Added support for featured image, multiple organizers, excerpt and more custom fields in the .csv file import function for events (Thank you to Graphic Designer for posting on UserVoice!)
+* Feature - Added support for featured image, description, map details and more custom fields in the .csv file import function for venues
+* Feature - Added support for featured image and description in the .csv file import function for organizers (Thank you to Rebecca for posting on UserVoice!)
+* Feature - Added an oEmbed template for events
+* Feature - Improve performance of a query used to determine if there are free/uncosted events (Thank you @fabianmarz for the pull request!)
+* Feature - Added support for attaching custom post types to events
 * Tweak - Improved filtering of the `tribe_event_featured_image()` function (Cheers to @fabianmarz!)
 * Tweak - Add an encoding class for the CSV importer to prevent non utf8 characters from preventing imports (Thanks to screenrage for the report!)
 * Tweak - Improved our JSON-LD output to ensure consistency (Props to @garrettjohnson and Lars!)
