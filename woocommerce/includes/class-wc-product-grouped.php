@@ -133,11 +133,12 @@ class WC_Product_Grouped extends WC_Product {
 		$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
 		$child_prices     = array();
 
-		foreach ( $this->get_children() as $child_id )
-			$child_prices[] = get_post_meta( $child_id, '_price', true );
-
-		$child_prices     = array_unique( $child_prices );
-		$get_price_method = 'get_price_' . $tax_display_mode . 'uding_tax';
+		foreach ( $this->get_children() as $child_id ) {
+			$child          = wc_get_product( $child_id );
+			if ( '' !== $child->get_price() ) {
+				$child_prices[] = 'incl' === $tax_display_mode ? $child->get_price_including_tax() : $child->get_price_excluding_tax();
+			}
+		}
 
 		if ( ! empty( $child_prices ) ) {
 			$min_price = min( $child_prices );
@@ -147,18 +148,15 @@ class WC_Product_Grouped extends WC_Product {
 			$max_price = '';
 		}
 
-		if ( $min_price ) {
-			if ( $min_price == $max_price ) {
-				$display_price = wc_price( $this->$get_price_method( 1, $min_price ) );
+		if ( '' !== $min_price ) {
+			$price   = $min_price !== $max_price ? sprintf( _x( '%1$s&ndash;%2$s', 'Price range: from-to', 'woocommerce' ), wc_price( $min_price ), wc_price( $max_price ) ) : wc_price( $min_price );
+			$is_free = $min_price == 0 && $max_price == 0;
+
+			if ( $is_free ) {
+				$price = apply_filters( 'woocommerce_grouped_free_price_html', __( 'Free!', 'woocommerce' ), $this );
 			} else {
-				$from          = wc_price( $this->$get_price_method( 1, $min_price ) );
-				$to            = wc_price( $this->$get_price_method( 1, $max_price ) );
-				$display_price = sprintf( _x( '%1$s&ndash;%2$s', 'Price range: from-to', 'woocommerce' ), $from, $to );
+				$price = apply_filters( 'woocommerce_grouped_price_html', $price . $this->get_price_suffix(), $this );
 			}
-
-			$price .= $display_price . $this->get_price_suffix();
-
-			$price = apply_filters( 'woocommerce_grouped_price_html', $price, $this );
 		} else {
 			$price = apply_filters( 'woocommerce_grouped_empty_price_html', '', $this );
 		}
