@@ -299,15 +299,15 @@ msgstr "Rezervoval: %1$s (%2$s)"
 msgid " on %s"
 msgstr ", dne %s"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:58
 msgid "Attendee %d"
 msgstr "Účastník %d"
 
-#: vendor/tickets/src/views/tickets/orders-rsvp.php:68
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:63
 msgid "RSVP: "
 msgstr "Rezervace: "
 
-#: vendor/tickets/src/views/tickets/orders.php:57
+#: vendor/tickets/src/views/tickets/orders.php:51
 msgid "Update %s"
 msgstr "Aktualizovat %s"
 
@@ -315,14 +315,15 @@ msgstr "Aktualizovat %s"
 msgid "Login to RSVP"
 msgstr "Pro rezervování se musíte přihlásit"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:292
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:281
 msgid "Customer Name"
 msgstr "Jméno zákazníka"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:293
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:282
 msgid "Customer Email Address"
 msgstr "Emailová adresa zákazníka"
 
+#: vendor/tickets/src/views/tickets/orders-rsvp.php:51
 #: vendor/tickets/src/views/tickets/rsvp.php:138
 msgid "Don't list me on the public attendee list"
 msgstr "Neuvádějte mě na veřejném seznamu účastníků"
@@ -551,72 +552,72 @@ msgstr "Účastník %1$s"
 msgid "Your tickets from %s"
 msgstr "Vaše vstupenky z webu %s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:720
+#: vendor/tickets/src/Tribe/RSVP.php:719
 msgid "Your RSVP has been received! Check your email for your RSVP confirmation."
 msgstr "Vaše rezervace byla přijata. Potvrzení rezervace najdete ve své emailové schránce."
 
-#: vendor/tickets/src/Tribe/RSVP.php:726
+#: vendor/tickets/src/Tribe/RSVP.php:725
 msgid "You can't RSVP more than the total remaining tickets."
 msgstr "Nemůžete rezervovat více než kolik je k dispozici zbývajících vstupenek."
 
-#: vendor/tickets/src/Tribe/RSVP.php:731
+#: vendor/tickets/src/Tribe/RSVP.php:730
 msgid "In order to RSVP, you must enter your name and a valid email address."
 msgstr "Pro provedení rezervace musíte zadat své jméno a platnou emailovou adresu."
 
-#: vendor/tickets/src/Tribe/RSVP.php:870
+#: vendor/tickets/src/Tribe/RSVP.php:869
 msgid "(deleted)"
 msgstr "(smazáno)"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1127
+#: vendor/tickets/src/Tribe/RSVP.php:1126
 msgid "Return to the %1$sAttendees Report%2$s."
 msgstr "Zpět na %1$spřehled účastníků%2$s."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1134
+#: vendor/tickets/src/Tribe/RSVP.php:1133
 msgid "Post updated. %1$s"
 msgstr "Příspěvek byl aktualizován. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1138
+#: vendor/tickets/src/Tribe/RSVP.php:1137
 msgid "Post published. %1$s"
 msgstr "Příspěvek byl publikován. %1$s"
 
-#: vendor/tickets/src/Tribe/RSVP.php:1141
+#: vendor/tickets/src/Tribe/RSVP.php:1140
 msgid "Post submitted."
 msgstr "Příspěvek byl odeslán ke schválení."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1142
+#: vendor/tickets/src/Tribe/RSVP.php:1141
 msgid "Post scheduled."
 msgstr "Příspěvek bude automaticky publikován."
 
-#: vendor/tickets/src/Tribe/RSVP.php:1143
+#: vendor/tickets/src/Tribe/RSVP.php:1142
 msgid "Post draft updated."
 msgstr "Koncept příspěvku byl uložen."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:404
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:384
 msgid "Cheatin Huh?"
 msgstr "Co zkúšáš, jak zkúšáš?"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:387
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:367
 msgid "Invalid Event ID"
 msgstr "Neplatné ID akce"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:410
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:390
 msgid "Empty user and email"
 msgstr "Nebylo zadáno uživatelské jméno a emailová adresa"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:422
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:402
 msgid "Invalid Email"
 msgstr "Neplatná emailová adresa"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:428
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:408
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:424
 msgid "Invalid User ID"
 msgstr "Neplatné ID uživatele."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:465
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:445
 msgid "Error when sending the email"
 msgstr "Došlo k chybě při odesílání emailu"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:470
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:450
 msgid "Email sent successfully!"
 msgstr "Email byl úspěšně odeslán!"
 
@@ -2989,7 +2990,7 @@ msgstr "CSV"
 
 #: common/src/Tribe/Settings.php:215
 #: src/Tribe/Admin/Bar/Default_Configurator.php:95 src/Tribe/Main.php:4093
-#: vendor/tickets/common/src/Tribe/Settings.php:215
+#: vendor/tickets/common/src/Tribe/Settings.php:214
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -3073,53 +3074,53 @@ msgid "Hmmm... something's wrong with this validator. Please contact %ssupport%s
 msgstr "Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím %spodporu%s."
 
 #: common/src/Tribe/Settings.php:214 common/src/Tribe/Settings.php:235
-#: vendor/tickets/common/src/Tribe/Settings.php:214
-#: vendor/tickets/common/src/Tribe/Settings.php:235
+#: vendor/tickets/common/src/Tribe/Settings.php:213
+#: vendor/tickets/common/src/Tribe/Settings.php:234
 msgid "Events Settings"
 msgstr "Nastavení akcí"
 
 #: common/src/Tribe/Settings.php:300
-#: vendor/tickets/common/src/Tribe/Settings.php:300
+#: vendor/tickets/common/src/Tribe/Settings.php:299
 msgid "%s Settings"
 msgstr "Nastavení %s"
 
 #: common/src/Tribe/Settings.php:314
-#: vendor/tickets/common/src/Tribe/Settings.php:314
+#: vendor/tickets/common/src/Tribe/Settings.php:313
 msgid "You've requested a non-existent tab."
 msgstr "Požadovaný panel neexistuje."
 
 #: common/src/Tribe/Settings.php:322
-#: vendor/tickets/common/src/Tribe/Settings.php:322
+#: vendor/tickets/common/src/Tribe/Settings.php:321
 msgid "Save Changes"
 msgstr "Uložit změny"
 
 #: common/src/Tribe/Settings.php:370
-#: vendor/tickets/common/src/Tribe/Settings.php:370
+#: vendor/tickets/common/src/Tribe/Settings.php:369
 msgid "You don't have permission to do that."
 msgstr "Nemáte dostatečné oprávnění pro tuto činnost."
 
 #: common/src/Tribe/Settings.php:376
-#: vendor/tickets/common/src/Tribe/Settings.php:376
+#: vendor/tickets/common/src/Tribe/Settings.php:375
 msgid "The request was sent insecurely."
 msgstr "Požadavek byl odeslán nezabezpečený."
 
 #: common/src/Tribe/Settings.php:382
-#: vendor/tickets/common/src/Tribe/Settings.php:382
+#: vendor/tickets/common/src/Tribe/Settings.php:381
 msgid "The request wasn't sent from this tab."
 msgstr "Požadavek nebyl odeslán z tohoto panelu."
 
 #: common/src/Tribe/Settings.php:550
-#: vendor/tickets/common/src/Tribe/Settings.php:550
+#: vendor/tickets/common/src/Tribe/Settings.php:549
 msgid "Your form had the following errors:"
 msgstr "Ve formuláři se vyskytly následující chyby:"
 
 #: common/src/Tribe/Settings.php:560
-#: vendor/tickets/common/src/Tribe/Settings.php:560
+#: vendor/tickets/common/src/Tribe/Settings.php:559
 msgid "None of your settings were saved. Please try again."
 msgstr "Žádné z vašich nastavení nebylo uloženo. Zkuste to prosím znovu."
 
 #: common/src/Tribe/Settings.php:561
-#: vendor/tickets/common/src/Tribe/Settings.php:561
+#: vendor/tickets/common/src/Tribe/Settings.php:560
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Výše uvedené nastavení nebylo uloženo. Ostatní nastavení byla úspěšně uložena."
@@ -3226,33 +3227,33 @@ msgstr "Kontrolní kód"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:83
 #: vendor/tickets/src/Tribe/Attendees_Table.php:263
-#: vendor/tickets/src/Tribe/Attendees_Table.php:356
+#: vendor/tickets/src/Tribe/Attendees_Table.php:355
 msgid "Check in"
 msgstr "Zaregistrovat"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:264
-#: vendor/tickets/src/Tribe/Attendees_Table.php:357
+#: vendor/tickets/src/Tribe/Attendees_Table.php:356
 msgid "Undo Check in"
 msgstr "Zrušit registraci"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:329
+#: vendor/tickets/src/Tribe/Attendees_Table.php:328
 msgid "Print"
 msgstr "Tisk"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:330
+#: vendor/tickets/src/Tribe/Attendees_Table.php:329
 #: vendor/tickets/src/views/tickets/rsvp.php:118
 msgid "Email"
 msgstr "Email"
 
-#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:331
+#: src/Tribe/iCal.php:120 vendor/tickets/src/Tribe/Attendees_Table.php:330
 msgid "Export"
 msgstr "Exportovat"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:337
+#: vendor/tickets/src/Tribe/Attendees_Table.php:336
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr "Filtrovat podle jména kupce, čísla vstupenky, objednávky nebo kontrolního kódu"
 
-#: vendor/tickets/src/Tribe/Attendees_Table.php:358
+#: vendor/tickets/src/Tribe/Attendees_Table.php:357
 #: vendor/tickets/src/admin-views/list.php:43
 msgid "Delete"
 msgstr "Smazat"
@@ -3307,15 +3308,15 @@ msgstr "Sloupce"
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Pomocí záložky &#8222;Nastavení zobrazených informací&#8220; si můžete vybrat, které sloupce chcete zobrazit. Tento výběr se projeví při výpisu, při odesílání emailem, při tisku a při exportu do CSV souboru."
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:322
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:311
 msgid "Yes"
 msgstr "Ano"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:360
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:340
 msgid "attendees"
 msgstr "ucastnici"
 
-#: vendor/tickets/src/Tribe/Tickets_Handler.php:464
+#: vendor/tickets/src/Tribe/Tickets_Handler.php:444
 msgid "Attendee List for: %s"
 msgstr "Seznam účastníků na: %s"
 
@@ -4626,7 +4627,7 @@ msgid "Could not save %s."
 msgstr "Soubor %s nelze uložit."
 
 #: common/src/Tribe/Settings.php:583 src/Tribe/Importer/Options.php:54
-#: vendor/tickets/common/src/Tribe/Settings.php:583
+#: vendor/tickets/common/src/Tribe/Settings.php:585
 msgid "Settings saved."
 msgstr "Nastavení bylo uloženo."
 
@@ -4677,7 +4678,7 @@ msgstr "Akce"
 msgid "Event"
 msgstr "Akce"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624

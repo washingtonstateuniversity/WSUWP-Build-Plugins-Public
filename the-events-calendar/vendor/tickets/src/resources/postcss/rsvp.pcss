@@ -27,7 +27,6 @@
 	}
 }
 
-
 .tribe-rsvp-message-display .tribe-rsvp-messages {
 	display: block;
 }
@@ -123,17 +122,22 @@
 }
 
 .user-details {
-	-js-display: flex;
-	display: flex;
-	flex-flow: row wrap;
-	margin: 0 0 1em 0;
+	margin: 0 0 1.5em 0;
 
 	p {
-		margin: 0 1em .25em 0;
+		margin: 0 0 .5em 0;
 	}
 }
 
 .tribe-answer {
+	line-height: 2;
+
+	.type-label {
+		padding-right: .5em;
+	}
+	label {
+		display: block;
+	}
 	select {
 		background: white;
 		border: 1px solid #ddd;
@@ -145,11 +149,6 @@
 		margin-bottom: 20px;
 		line-height: 1.2;
 	}
-}
-
-.ticket-meta {
-	display: inline-block;
-	float: right;
 }
 
 .event-tickets-meta-label {

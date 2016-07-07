@@ -132,17 +132,23 @@
 }
 
 .user-details {
-	-js-display: flex;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-flow: row wrap;
-	    flex-flow: row wrap;
-	margin: 0 0 1em 0;
+	margin: 0 0 1.5em 0;
 }
 
 .user-details p {
-	margin: 0 1em .25em 0;
+	margin: 0 0 .5em 0;
+}
+
+.tribe-answer {
+	line-height: 2;
+}
+
+.tribe-answer .type-label {
+	padding-right: .5em;
+}
+
+.tribe-answer label {
+	display: block;
 }
 
 .tribe-answer select {
@@ -153,11 +159,6 @@
 .tribe-rsvp h2 {
 	margin-bottom: 20px;
 	line-height: 1.2;
-}
-
-.ticket-meta {
-	display: inline-block;
-	float: right;
 }
 
 .event-tickets-meta-label {

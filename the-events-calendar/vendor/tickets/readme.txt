@@ -3,8 +3,8 @@
 Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, shane.pearlman, thatdudebutch, aguseo, tribecari, trishasalas
 Tags: events, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, Event Tickets, Event Tickets Plus
 Requires at least: 3.9
-Tested up to: 4.5.1
-Stable tag: 4.2
+Tested up to: 4.5.2
+Stable tag: 4.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -191,7 +191,21 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [4.2] 2016-06-07 =
+= [4.2.2] 2016-07-06 =
+
+* Fix - Send an email acknowledgement, rather than a set of tickets, when a user confirms they will not attend an event (RSVPs) [62549]
+* Tweak - Add a period to the ticket header image setting [44797]
+* Fix - Removed the ticket description in the admin area to allow for more room for tickets sold notes [61962]
+* Fix - Displays the name of the ticket for each attendee on the order confirmation page [62548]
+* Fix - Fixed issue where front-end attendees table check-in state would not show the correct value [62692]
+
+= [4.2.1] 2016-06-22 =
+* Tweak - Create a readable ID on CSV and email exports when they're available
+* Fix - Display all visible columns in attendees CSV and email export reports
+* Fix - Correct how attendee meta meta is handled on all pages
+* Fix - Remove notices in the attendees export by CSV and email when Community Tickets is activated
+
+= [4.2] 2016-06-08 =
 
 * Feature - Add a shortcode listing those upcoming events the user has indicated they will attend
 * Feature - Make it possible to disable the ticket form for logged out users
