@@ -40,7 +40,7 @@ if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 	return;
 }
 
-# No autoloaders for us. See https://github.com/johnbillion/QueryMonitor/issues/7
+# No autoloaders for us. See https://github.com/johnbillion/query-monitor/issues/7
 $qm_dir = dirname( dirname( __FILE__ ) );
 if ( ! is_readable( $backtrace = "{$qm_dir}/classes/Backtrace.php" ) ) {
 	return;
@@ -85,6 +85,10 @@ class QM_DB extends wpdb {
 	 */
 	function query( $query ) {
 		if ( ! $this->ready ) {
+			if ( isset( $this->check_current_query ) ) {
+				// This property was introduced in WP 4.2
+				$this->check_current_query = true;
+			}
 			return false;
 		}
 

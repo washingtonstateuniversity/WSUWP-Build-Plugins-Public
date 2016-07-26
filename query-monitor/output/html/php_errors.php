@@ -44,10 +44,10 @@ class QM_Output_Html_PHP_Errors extends QM_Output_Html {
 		echo '<tbody>';
 
 		$types = array(
-			'warning'    => __( 'Warning', 'query-monitor' ),
-			'notice'     => __( 'Notice', 'query-monitor' ),
-			'strict'     => __( 'Strict', 'query-monitor' ),
-			'deprecated' => __( 'Deprecated', 'query-monitor' ),
+			'warning'    => _x( 'Warning', 'PHP error level', 'query-monitor' ),
+			'notice'     => _x( 'Notice', 'PHP error level', 'query-monitor' ),
+			'strict'     => _x( 'Strict', 'PHP error level', 'query-monitor' ),
+			'deprecated' => _x( 'Deprecated', 'PHP error level', 'query-monitor' ),
 		);
 
 		foreach ( $types as $type => $title ) {
@@ -142,6 +142,7 @@ class QM_Output_Html_PHP_Errors extends QM_Output_Html {
 			$menu[] = $this->menu( array(
 				'id'    => 'query-monitor-warnings',
 				'title' => esc_html( sprintf(
+					/* translators: %s: Number of PHP warnings */
 					__( 'PHP Warnings (%s)', 'query-monitor' ),
 					number_format_i18n( count( $data['errors']['warning'] ) )
 				) )
@@ -151,6 +152,7 @@ class QM_Output_Html_PHP_Errors extends QM_Output_Html {
 			$menu[] = $this->menu( array(
 				'id'    => 'query-monitor-notices',
 				'title' => esc_html( sprintf(
+					/* translators: %s: Number of PHP notices */
 					__( 'PHP Notices (%s)', 'query-monitor' ),
 					number_format_i18n( count( $data['errors']['notice'] ) )
 				) )
@@ -160,6 +162,7 @@ class QM_Output_Html_PHP_Errors extends QM_Output_Html {
 			$menu[] = $this->menu( array(
 				'id'    => 'query-monitor-stricts',
 				'title' => esc_html( sprintf(
+					/* translators: %s: Number of strict PHP errors */
 					__( 'PHP Stricts (%s)', 'query-monitor' ),
 					number_format_i18n( count( $data['errors']['strict'] ) )
 				) )
@@ -169,6 +172,7 @@ class QM_Output_Html_PHP_Errors extends QM_Output_Html {
 			$menu[] = $this->menu( array(
 				'id'    => 'query-monitor-deprecated',
 				'title' => esc_html( sprintf(
+					/* translators: %s: Number of deprecated PHP errors */
 					__( 'PHP Deprecated (%s)', 'query-monitor' ),
 					number_format_i18n( count( $data['errors']['deprecated'] ) )
 				) )

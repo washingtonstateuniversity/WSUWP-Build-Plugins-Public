@@ -73,6 +73,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 				printf(
 					'<br><span class="qm-info">&nbsp;%s</span>',
 					esc_html( sprintf(
+						/* translators: %s: Original value of a variable */
 						__( 'Overridden at runtime from %s', 'query-monitor' ),
 						$val['before']
 					) )
@@ -103,6 +104,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 				if ( 1 === count( $data['db'] ) ) {
 					$name = __( 'Database', 'query-monitor' );
 				} else {
+					/* translators: %s: Name of database controller */
 					$name = sprintf( __( 'Database: %s', 'query-monitor' ), $id );
 				}
 
@@ -133,6 +135,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 				echo '<tr>';
 
 				$first  = true;
+				/* translators: %s: Search term */
 				$search = __( 'https://www.google.com/search?q=mysql+performance+%s', 'query-monitor' );
 
 				foreach ( $db['variables'] as $setting ) {
@@ -151,7 +154,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 					if ( $show_warning ) {
 						$append .= sprintf(
 							'&nbsp;<span class="qm-info">(<a href="%s" target="_blank">%s</a>)</span>',
-							esc_url( sprintf( $search, $key ) ),
+							esc_url( sprintf( $search, urlencode( $key ) ) ),
 							esc_html__( 'Help', 'query-monitor' )
 						);
 					}
