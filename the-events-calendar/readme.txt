@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.5.3
-Stable tag: 4.2.2
+Stable tag: 4.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -289,6 +289,13 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+= [4.2.3] 2016-07-21 =
+
+* Fix - In month view, be sure to unhook JSON-LD output when calling unhook function
+* Fix - Incorrect JSON-LD event start and end times (thank you @jjbte for reporting on .org forums)
+* Fix - Show Google Map and Link checkbox so they show when editing an event (Reported originally by Michael of @NailedIT in the .org forum)
+* Fix - Use Community Events Venue Edit Link when on Community Events Forms instead of Admin (also as a result of the report abve from @NailedIT. Thanks again.)
 
 = [4.2.2] 2016-07-06 =
 
