@@ -2,13 +2,69 @@
 # This file is distributed under the same license as the Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-06-26 10:02:51+0000\n"
+"PO-Revision-Date: 2016-08-16 18:39:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.1.0-alpha\n"
 "Project-Id-Version: Stable (latest release)\n"
+
+#: common/src/Tribe/App_Shop.php:160
+#: vendor/tickets/common/src/Tribe/App_Shop.php:160
+msgid "The iCal Importer helps you keep your events calendar full of interesting events! You can import events from any website that publishes an iCal (aka ICS) feed and add them to your listings. The recurring import feature lets you keep your calendar brimming without manual oversight (though you can review every imported event if you like). Add filtering by keyword or geographic region and you can be sure that the kinds of events you get are the kinds you want."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:154
+#: vendor/tickets/common/src/Tribe/App_Shop.php:154
+msgid "With the Facebook Events add-on, imported events are manually or automagically created as entries in The Events Calendar. Basic event data along with venue and organizer are populated appropriately. No more entering information in two places, or having to recreate someone else's listing for a public event you want to include on your WordPress calendar."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:158
+#: vendor/tickets/common/src/Tribe/App_Shop.php:158
+msgid "iCal Importer"
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:145
+#: vendor/tickets/common/src/Tribe/App_Shop.php:145
+msgid "The Eventbrite Tickets add-on allows you to create & sell tickets through The Events Calendar using the power of %1$sEventbrite%2$s. Whether you’re creating your ticket on the WordPress dashboard or importing the details of an already-existing event from %1$sEventbrite.com%2$s, this add-on brings the power of the Eventbrite API to your calendar."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:135
+#: vendor/tickets/common/src/Tribe/App_Shop.php:135
+msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Shopp, WP eCommerce, or Easy Digital Downloads. Use it on your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your events listings."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:127
+#: vendor/tickets/common/src/Tribe/App_Shop.php:127
+msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:128
+#: vendor/tickets/common/src/Tribe/App_Shop.php:128
+msgctxt "Names of required plugins for Community Tickets"
+msgid "Event Tickets Plus and Community Events"
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:121
+#: vendor/tickets/common/src/Tribe/App_Shop.php:121
+msgid "Enable users to submit events to your calendar with Community Events. You can require user accounts or allow visitors to submit without an account. Want to make sure that nothing fishy is going on? Just turn on moderation. Decide if users can edit and manage their own events, or simply submit. Plus, no scary form setup! Just activate, configure the options & off you go."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:112
+#: vendor/tickets/common/src/Tribe/App_Shop.php:112
+msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:105
+#: vendor/tickets/common/src/Tribe/App_Shop.php:105
+msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
+msgstr ""
+
+#: common/src/Tribe/App_Shop.php:103
+#: vendor/tickets/common/src/Tribe/App_Shop.php:103
+msgid "Filter Bar"
+msgstr ""
 
 #: common/src/Tribe/Credits.php:31
 #: vendor/tickets/common/src/Tribe/Credits.php:31
@@ -25,46 +81,41 @@ msgstr ""
 msgid "Rate %1$sEvent Tickets%2$s %3$s"
 msgstr ""
 
-#: common/src/admin-views/app-shop.php:23
-#: vendor/tickets/common/src/admin-views/app-shop.php:23
-msgid "Get Add-Ons"
-msgstr ""
-
-#: src/Tribe/Venue.php:149
+#: src/Tribe/Venue.php:150
 msgid "venue"
-msgstr ""
+msgstr "място"
 
-#: src/Tribe/Venue.php:158
+#: src/Tribe/Venue.php:159
 msgid "venues"
-msgstr ""
+msgstr "места"
 
 #: vendor/tickets/src/Tribe/RSVP.php:603
 msgid "You confirmed you will not be attending %s"
-msgstr ""
+msgstr "Потвърдихте, че няма да присъствате на %s"
 
 #: vendor/tickets/src/views/tickets/email-non-attendance.php:248
 msgid "Thank you for confirming that you will not be attending the above event."
-msgstr ""
+msgstr "Благодарим ви за потвърждението че няма да участвате в събитието по-горе."
 
 #: vendor/tickets/src/views/tickets/orders-rsvp.php:71
 msgid "Type: "
-msgstr ""
+msgstr "Тип:"
 
 #: src/Tribe/Organizer.php:161
 msgid "organizer"
-msgstr ""
+msgstr "организатор"
 
 #: common/src/Tribe/Log/Admin.php:132
 #: vendor/tickets/common/src/Tribe/Log/Admin.php:132
 msgctxt "log selector"
 msgid "None currently available"
-msgstr ""
+msgstr "Недостъпен все още"
 
 #: common/src/Tribe/Log/Admin.php:147
 #: vendor/tickets/common/src/Tribe/Log/Admin.php:147
 msgctxt "log engines"
 msgid "None currently available"
-msgstr ""
+msgstr "Недостъпен все още"
 
 #: common/src/Tribe/Log/File_Logger.php:116
 #: vendor/tickets/common/src/Tribe/Log/File_Logger.php:116
@@ -82,15 +133,15 @@ msgstr ""
 
 #: common/src/Tribe/Log.php:309 vendor/tickets/common/src/Tribe/Log.php:309
 msgid "Disabled"
-msgstr ""
+msgstr "Изключен"
 
 #: common/src/Tribe/Log.php:310 vendor/tickets/common/src/Tribe/Log.php:310
 msgid "Only errors"
-msgstr ""
+msgstr "Само грешки"
 
 #: common/src/Tribe/Log.php:311 vendor/tickets/common/src/Tribe/Log.php:311
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Предупреждения и грешки"
 
 #: common/src/Tribe/Log.php:312 vendor/tickets/common/src/Tribe/Log.php:312
 msgid "Full debug (all events)"
@@ -104,7 +155,7 @@ msgstr ""
 #: common/src/Tribe/Validate.php:183
 #: vendor/tickets/common/src/Tribe/Validate.php:183
 msgid "%s must contain numbers, letters, dashes and undescores only"
-msgstr ""
+msgstr "%s трябва да съдържа само числа, букви, тирета и долни черти"
 
 #: common/src/admin-views/event-log.php:21
 #: vendor/tickets/common/src/admin-views/event-log.php:21
@@ -144,7 +195,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:59
 msgid "Click here"
-msgstr ""
+msgstr "Натиснете тук"
 
 #: src/Tribe/Importer/Admin_Page.php:95
 msgid "Default encoding for imported csv file"
@@ -152,15 +203,15 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Excerpt"
-msgstr ""
+msgstr "Кратко описание на събитието"
 
 #: src/Tribe/Importer/Column_Mapper.php:69
 msgid "Event Timezone"
-msgstr ""
+msgstr "Времева зона на събитието"
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Hide Event From Event Listings"
-msgstr ""
+msgstr "Скрий събитието от списъкът със събития"
 
 #: src/Tribe/Importer/Column_Mapper.php:72
 msgid "Event Sticky in Month View"
@@ -226,23 +277,23 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:36
 msgid "Ticket Description"
-msgstr ""
+msgstr "Описание на билета"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:37
 msgid "Ticket Start Sale Date"
-msgstr ""
+msgstr "Начална дата на продажба на билети"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:38
 msgid "Ticket Start Sale Time"
-msgstr ""
+msgstr "Начален час на продажба на билети"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:39
 msgid "Ticket End Sale Date"
-msgstr ""
+msgstr "Крайна дата на продажба на билети"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:40
 msgid "Ticket End Sale Time"
-msgstr ""
+msgstr "Краен час на продажба на билети"
 
 #: vendor/tickets/src/Tribe/CSV_Importer/Column_Names.php:41
 msgid "Ticket Stock"
@@ -259,31 +310,31 @@ msgstr ""
 
 #: vendor/tickets/src/Tribe/Main.php:530
 msgid "Buy"
-msgstr ""
+msgstr "Купуване"
 
 #: vendor/tickets/src/Tribe/Tickets.php:1285
 msgid "Tickets are not yet available."
-msgstr ""
+msgstr "Билетите не са достъпни все още."
 
 #: vendor/tickets/src/Tribe/Tickets.php:1287
 msgid "Tickets are no longer available."
-msgstr ""
+msgstr "Билетите вече не са достъпни."
 
 #: vendor/tickets/src/Tribe/Tickets.php:1289
 msgid "There are no tickets available at this time."
-msgstr ""
+msgstr "Няма достъпни билети към този момент."
 
 #: vendor/tickets/src/Tribe/Tickets_View.php:511
 msgid "Going"
-msgstr ""
+msgstr "Ще присъства"
 
 #: vendor/tickets/src/Tribe/Tickets_View.php:512
 msgid "Not Going"
-msgstr ""
+msgstr "Няма да присъства"
 
 #: vendor/tickets/src/Tribe/Tickets_View.php:608
 msgid "Ticket"
-msgstr ""
+msgstr "Билет"
 
 #: vendor/tickets/src/Tribe/Tickets_View.php:674
 msgid "This RSVP is no longer active."
@@ -295,7 +346,7 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:64
 msgid "Login requirements"
-msgstr ""
+msgstr "Изисквания за вход"
 
 #: vendor/tickets/src/admin-views/tribe-options-tickets.php:69
 msgid "You can require that users log into your site before they are able to RSVP (or buy tickets). Please review your WordPress Membership option (via the General Settings admin screen) before adjusting this setting."
@@ -303,7 +354,7 @@ msgstr ""
 
 #: vendor/tickets/src/views/shortcodes/my-attendance-list-logged-out.php:8
 msgid "To see a list of events you are attending you will need to login."
-msgstr ""
+msgstr "Трябва да сте влезли, за видите списъка със събития на които ще участвате."
 
 #: vendor/tickets/src/views/shortcodes/my-attendance-list.php:28
 msgid "You have not indicated your attendance for any upcoming events."
@@ -1109,13 +1160,15 @@ msgstr ""
 msgid " and "
 msgstr " и "
 
-#: common/src/Tribe/Admin/Help_Page.php:192
+#: common/src/Tribe/Admin/Help_Page.php:192 common/src/Tribe/App_Shop.php:142
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:192
+#: vendor/tickets/common/src/Tribe/App_Shop.php:142
 msgid "Eventbrite Tickets"
 msgstr ""
 
-#: common/src/Tribe/Admin/Help_Page.php:208
+#: common/src/Tribe/Admin/Help_Page.php:208 common/src/Tribe/App_Shop.php:152
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:208
+#: vendor/tickets/common/src/Tribe/App_Shop.php:152
 msgid "Facebook Events"
 msgstr ""
 
@@ -1124,13 +1177,15 @@ msgstr ""
 msgid "Events Filter Bar"
 msgstr ""
 
-#: common/src/Tribe/Admin/Help_Page.php:224
+#: common/src/Tribe/Admin/Help_Page.php:224 common/src/Tribe/App_Shop.php:132
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:224
+#: vendor/tickets/common/src/Tribe/App_Shop.php:132
 msgid "Event Tickets Plus"
 msgstr ""
 
-#: common/src/Tribe/Admin/Help_Page.php:233
+#: common/src/Tribe/Admin/Help_Page.php:233 common/src/Tribe/App_Shop.php:125
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:233
+#: vendor/tickets/common/src/Tribe/App_Shop.php:125
 msgid "Community Tickets"
 msgstr ""
 
@@ -1259,8 +1314,10 @@ msgstr "Имате нужда от ъпгрейд !"
 msgid "You are up to date!"
 msgstr "Разполагате с най-новата версия!"
 
-#: common/src/Tribe/Admin/Help_Page.php:183 src/Tribe/Main.php:637
+#: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:109
+#: src/Tribe/Main.php:637
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
+#: vendor/tickets/common/src/Tribe/App_Shop.php:109
 msgid "Events Calendar PRO"
 msgstr ""
 
@@ -1275,7 +1332,9 @@ msgid "Latest Version:"
 msgstr "Последна версия:"
 
 #: common/src/Tribe/Admin/Help_Page.php:811
+#: common/src/admin-views/app-shop.php:26
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:811
+#: vendor/tickets/common/src/admin-views/app-shop.php:26
 msgid "Requires:"
 msgstr "Изисква:"
 
@@ -2366,9 +2425,10 @@ msgstr "Търсите нещо специално?"
 msgid "Pro"
 msgstr "Про"
 
-#: common/src/Tribe/Admin/Help_Page.php:200
+#: common/src/Tribe/Admin/Help_Page.php:200 common/src/Tribe/App_Shop.php:119
 #: src/admin-views/admin-update-message.php:53
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:200
+#: vendor/tickets/common/src/Tribe/App_Shop.php:119
 msgid "Community Events"
 msgstr "Community Events"
 
@@ -2445,16 +2505,6 @@ msgstr "Продуктови версии, Ръководства и общес�
 #: vendor/tickets/common/src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
 msgstr "Tribe Event Add-Ons"
-
-#: common/src/admin-views/app-shop.php:54
-#: vendor/tickets/common/src/admin-views/app-shop.php:54
-msgid "Version"
-msgstr "Версия"
-
-#: common/src/admin-views/app-shop.php:57
-#: vendor/tickets/common/src/admin-views/app-shop.php:57
-msgid "Last Update"
-msgstr "Последна актуализация"
 
 #: src/admin-views/event-sidebar-options.php:13
 msgid "Hide From %s Listings"
@@ -4336,11 +4386,11 @@ msgstr "Филипини"
 msgid "Pitcairn"
 msgstr "Питкерн"
 
-#: src/Tribe/Venue.php:310
+#: src/Tribe/Venue.php:311
 msgid "Unnamed Venue"
 msgstr "Място без име"
 
-#: common/src/Tribe/View_Helpers.php:46 src/Tribe/Venue.php:271
+#: common/src/Tribe/View_Helpers.php:46 src/Tribe/Venue.php:272
 #: src/functions/template-tags/venue.php:272
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
@@ -4425,7 +4475,7 @@ msgstr "Начална дата"
 msgid "End Date"
 msgstr "Крайна дата"
 
-#: src/Tribe/Admin_List.php:330 src/views/single-event.php:27
+#: src/Tribe/Admin_List.php:330 src/views/single-event.php:28
 msgid "All %s"
 msgstr "Всички %s"
 
@@ -4457,11 +4507,11 @@ msgstr "Час:"
 msgid "Merge Duplicates"
 msgstr "Обединяване на повторенията"
 
-#: common/src/Tribe/App_Shop.php:67 common/src/Tribe/App_Shop.php:68
-#: common/src/Tribe/App_Shop.php:91
-#: vendor/tickets/common/src/Tribe/App_Shop.php:67
-#: vendor/tickets/common/src/Tribe/App_Shop.php:68
-#: vendor/tickets/common/src/Tribe/App_Shop.php:91
+#: common/src/Tribe/App_Shop.php:48 common/src/Tribe/App_Shop.php:49
+#: common/src/Tribe/App_Shop.php:72
+#: vendor/tickets/common/src/Tribe/App_Shop.php:48
+#: vendor/tickets/common/src/Tribe/App_Shop.php:49
+#: vendor/tickets/common/src/Tribe/App_Shop.php:72
 msgid "Event Add-Ons"
 msgstr "Приставки за събития"
 
@@ -4677,12 +4727,12 @@ msgstr "Списък със събитията"
 msgid "Upcoming Events"
 msgstr "Предстоящи събития"
 
-#: src/Tribe/Importer/Admin_Page.php:196 src/Tribe/Venue.php:141
+#: src/Tribe/Importer/Admin_Page.php:196 src/Tribe/Venue.php:142
 #: src/functions/template-tags/venue.php:52
 msgid "Venues"
 msgstr "Места"
 
-#: src/Tribe/Venue.php:132
+#: src/Tribe/Venue.php:133
 #: src/functions/advanced-functions/meta_registration.php:126
 #: src/functions/template-tags/venue.php:41
 msgid "Venue"
@@ -4712,7 +4762,7 @@ msgstr "Събития"
 msgid "Event"
 msgstr "Събитие"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.3) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.2.4) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:624
