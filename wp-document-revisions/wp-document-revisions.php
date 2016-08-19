@@ -751,9 +751,12 @@ class Document_Revisions {
 		$disposition = ( apply_filters( 'document_content_disposition_inline', true ) ) ? 'inline' : 'attachment';
 		@header( 'Content-Disposition: ' . $disposition . '; filename="' . $filename . '"' );
 
-		//filetype and length
-		//@header( 'Content-Type: ' . $mimetype ); // always send this
-		//@header( 'Content-Length: ' . filesize( $file ) );
+		// Add content type and length headers if the file is being served via
+		// S3 stream. If not, then we allow the web server to set the permissions.
+		if ( 0 === strpos( $file, 's3://', 0 ) ) {
+			@header( 'Content-Type: ' . $mimetype );
+			@header( 'Content-Length: ' . filesize( $file ) );
+		}
 
 		//modified
 		$last_modified = gmdate( 'D, d M Y H:i:s', filemtime( $file ) );
