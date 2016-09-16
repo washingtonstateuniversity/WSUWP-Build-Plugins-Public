@@ -26,7 +26,7 @@ GNU General Public License for more details.
 	background-color: #f60;
 }
 
-#wp-admin-bar-query-monitor-deprecated,
+#wp-admin-bar-query-monitor-deprecateds,
 #wp-admin-bar-query-monitor-stricts {
 	background-color: #555 !important;
 }
@@ -78,7 +78,7 @@ GNU General Public License for more details.
 }
 
 body.admin-color-light #wp-admin-bar-query-monitor:not(.qm-all-clear):not(:hover):not(.hover) .ab-label,
-#wp-admin-bar-query-monitor-deprecated a,
+#wp-admin-bar-query-monitor-deprecateds a,
 #wp-admin-bar-query-monitor-stricts a,
 #wp-admin-bar-query-monitor-notices a,
 #wp-admin-bar-query-monitor-expensive a,
@@ -89,6 +89,7 @@ body.admin-color-light #wp-admin-bar-query-monitor:not(.qm-all-clear):not(:hover
 
 #wp-admin-bar-query-monitor small {
 	font-size: 11px !important;
+	text-transform: uppercase !important;
 }
 
 #wp-admin-bar-query-monitor.hover a small,
@@ -286,7 +287,8 @@ body.wp-admin.folded #qm {
 }
 
 .qm td,
-.qm th {
+.qm th,
+.qm caption {
 	background: #fff !important;
 	box-sizing: border-box !important;
 	text-align: left !important;
@@ -303,11 +305,9 @@ body.wp-admin.folded #qm {
 	-webkit-font-smoothing: auto !important;
 }
 
-.qm .qm-totally-legit-spacer td {
-	background-color: #f1f1f1 !important;
-	border-right-color: #f1f1f1 !important;
-	border-left-color: #f1f1f1 !important;
-	height: 20px !important;
+.qm caption,
+.qm th[scope=col] {
+	border-bottom-width: 0 !important;
 }
 
 .qm tbody tr:hover th,
@@ -369,20 +369,16 @@ body.wp-admin.folded #qm {
 	padding: 0 !important;
 }
 
-.qm ol {
-	margin: 0 !important;
-	padding: 0 0 0 30px !important;
-	list-style: decimal !important;
-}
-
+.qm ol,
 .qm ul {
 	margin: 0 !important;
-	padding: 0 0 0 10px !important;
+	padding: 0 !important;
 	list-style: none !important;
 }
 
 .qm li {
-	margin-bottom: 2px !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 .qm pre {
@@ -601,6 +597,17 @@ select.qm-filter {
 .qm .qm-sorted-desc .qm-sort-desc:before {
 	color: #333 !important;
 	content: "\25bc" !important;
+}
+
+.qm .screen-reader-text {
+	position: absolute !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	height: 1px !important;
+	width: 1px !important;
+	overflow: hidden !important;
+	clip: rect(0 0 0 0) !important;
+	border: 0 !important;
 }
 
 /* RTL */
