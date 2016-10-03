@@ -3,7 +3,7 @@ Contributors: rmccue, rachelbaker, danielbachhuber, joehoyle
 Tags: json, rest, api, rest-api
 Requires at least: 4.4
 Tested up to: 4.5
-Stable tag: 2.0-beta13.1
+Stable tag: 2.0-beta13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,9 +16,9 @@ This plugin provides an easy to use REST API, available via HTTP. Grab your site
 
 Want to get your site's posts? Simply send a `GET` request to `/wp-json/wp/v2/posts`. Update user with ID 4? Send a `PUT` request to `/wp-json/wp/v2/users/4`. Get all posts with the search term "awesome"? `GET /wp-json/wp/v2/posts?filter[s]=awesome`. It's that easy.
 
-WP API exposes a simple yet easy interface to WP Query, the posts API, post meta API, users API, revisions API and many more. Chances are, if you can do it with WordPress, WP API will let you do it.
+The WordPress REST API exposes a simple yet easy interface to WP Query, the posts API, post meta API, users API, revisions API and many more. Chances are, if you can do it with WordPress, the API will let you do it.
 
-WP API also includes an easy-to-use Javascript API based on Backbone models, allowing plugin and theme developers to get up and running without needing to know anything about the details of getting connected.
+The REST API also includes an easy-to-use JavaScript API based on Backbone models, allowing plugin and theme developers to get up and running without needing to know anything about the details of getting connected.
 
 Check out [our documentation][docs] for information on what's available in the API and how to use it. We've also got documentation on extending the API with extra data for plugin and theme developers!
 
@@ -37,10 +37,6 @@ For full-flavoured API support, you'll need to be using pretty permalinks to use
 Once you've installed and activated the plugin, [check out the documentation](http://v2.wp-api.org/) for details on your newly available endpoints.
 
 == Changelog ==
-
-= 2.0 Beta 13.1 (May 25, 2016) =
-
-* SECURITY: Return error when request can't context==edit for users.
 
 = 2.0 Beta 13.0 (March 29, 2016) =
 
