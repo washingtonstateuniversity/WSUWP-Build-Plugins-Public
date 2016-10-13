@@ -1,8 +1,8 @@
 <div id="tribe-app-shop" class="wrap">
 
 	<div class="header">
-		<h1><?php esc_html_e( 'Tribe Event Add-Ons', 'tribe-common' ); ?></h1>
-		<a href="https://theeventscalendar.com/?utm_campaign=in-app&utm_source=addonspage&utm_medium=top-banner" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( 'images/app-shop-banner.jpg', false, 'common' ) ); ?>" /></a>
+		<h1><?php esc_html_e( 'Events Add-Ons', 'tribe-common' ); ?></h1>
+		<a class="button" href="https://theeventscalendar.com/?utm_campaign=in-app&utm_source=addonspage&utm_medium=top-banner" target="_blank"><?php esc_html_e( 'Browse All Add-Ons', 'tribe-common' ); ?></a>
 	</div>
 
 	<div class="content-wrapper">
@@ -11,9 +11,9 @@
 			$i = 0;
 			foreach ( $products as $product ) {
 				?>
-				<div class="tribe-addon<?php echo ( $i % 4 == 0 ) ? ' first tribe-clearfix' : '';?>">
+				<div class="tribe-addon<?php echo ( 0 === $i ) ? ' first' : '';?>">
 					<div class="thumb">
-						<a href="<?php echo esc_url( $product->link ); ?>"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, 'common' ) ); ?>" /></a>
+						<a href="<?php echo esc_url( $product->link ); ?>"><img src="<?php echo esc_url( tribe_resource_url( $product->image, false, null, $main ) ); ?>" /></a>
 					</div>
 					<div class="caption">
 						<h4><a href="<?php echo esc_url( $product->link ); ?>"><?php echo esc_html( $product->title ); ?></a></h4>
@@ -29,7 +29,7 @@
 							?>
 						</div>
 
-						<a class="button button-primary" href="<?php echo esc_url( $product->link ); ?>">Get This Add-on</a>
+						<a class="button button-primary" href="<?php echo esc_url( $product->link ); ?>"><?php esc_html_e( 'Buy This Add-On', 'tribe-common' ); ?></a>
 					</div>
 				</div>
 

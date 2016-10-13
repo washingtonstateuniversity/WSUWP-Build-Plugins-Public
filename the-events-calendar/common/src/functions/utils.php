@@ -57,3 +57,65 @@ if ( ! function_exists( 'tribe_register_plugin' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'tribe_append_path' ) ) {
+	/**
+	 * Append a path fragment to a URL preserving query arguments
+	 * and fragments.
+	 *
+	 * @param string $url A full URL in the `http://example.com/?query=var#frag` format.
+	 * @param string $path The path to append to the existing, if any, one., e.g. `/some/path`
+	 *
+	 * @return mixed|string
+	 *
+	 * @since 4.3
+	 */
+	function tribe_append_path( $url, $path ) {
+		$path = trim( $path, '/' );
+
+		$query = @parse_url( $url, PHP_URL_QUERY );
+		$frag  = @parse_url( $url, PHP_URL_FRAGMENT );
+
+		if ( ! ( empty( $query ) && empty( $frag ) ) ) {
+			$url   = str_replace( '?' . $query, '', $url );
+			$url   = str_replace( '#' . $frag, '', $url );
+			$query = $query ? '?' . $query : '';
+			$frag  = $frag ? '#' . $frag : '';
+		}
+
+		$url = trailingslashit( esc_url_raw( trailingslashit( $url ) . $path ) );
+		$url .= $query . $frag;
+
+		return $url;
+	}
+}
+
+if ( ! function_exists( 'tribe_exit' ) ) {
+	/**
+	 * Filterable `die` wrapper.
+	 *
+	 * @param string $status
+	 *
+	 * @return void|mixed Depending on the handler this function might return
+	 *                    a value or `die` before anything is returned.
+	 */
+	function tribe_exit( $status = '' ) {
+		$handler = 'die';
+
+		/**
+		 * Filters the callback to call in place of `die()`.
+		 *
+		 * @param callable $handler The `die` replacement callback.
+		 * @param string   $status  The exit/die status.
+		 */
+		$handler = apply_filters( 'tribe_exit', $handler, $status );
+
+		// Die and exit are language constructs that cannot be used as callbacks on all PHP runtimes
+		if ( 'die' === $handler || 'exit' === $handler ) {
+			exit;
+		}
+
+		return call_user_func( $handler, $status );
+	}
+}
+

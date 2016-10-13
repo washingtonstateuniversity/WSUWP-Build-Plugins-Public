@@ -7,7 +7,7 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/single-event.php
  *
  * @package TribeEventsCalendar
- * @version 4.2.4
+ * @version  4.3
  *
  */
 
@@ -25,7 +25,7 @@ $event_id = get_the_ID();
 <div id="tribe-events-content" class="tribe-events-single">
 
 	<p class="tribe-events-back">
-		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html__( 'All %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
+		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
 	<!-- Notices -->

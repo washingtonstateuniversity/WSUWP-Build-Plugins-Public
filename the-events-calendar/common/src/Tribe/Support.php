@@ -13,7 +13,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 	class Tribe__Support {
 
 		public static $support;
-		public $rewrite_rules_purged = false;
+		public        $rewrite_rules_purged = false;
 
 		/**
 		 * @var Tribe__Support__Obfuscator
@@ -44,10 +44,14 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
 			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
+
+			add_action( 'rest_api_init', array( __CLASS__, 'create_sysinfo_endpoint' ) );
+			add_action( 'wp_ajax_tribe_toggle_sysinfo_optin', array( __CLASS__, 'ajax_sysinfo_optin' ) );
 		}
 
 		/**
 		 * Display help tab info in events settings
+		 *
 		 * @param Tribe__Admin__Help_Page $help The Help Page Instance
 		 */
 		public function append_system_info( Tribe__Admin__Help_Page $help ) {
@@ -158,7 +162,6 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'Site URL'               => get_site_url(),
 				'Site Language'          => get_option( 'WPLANG' ) ? get_option( 'WPLANG' ) : esc_html__( 'English', 'tribe-common' ),
 				'Character Set'          => get_option( 'blog_charset' ),
-				'WP Permalinks'          => get_option( 'permalink_structure' ),
 				'Name'                   => $user->display_name,
 				'Email'                  => $user->user_email,
 				'Install keys'           => $keys,
@@ -186,6 +189,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			if ( $this->rewrite_rules_purged ) {
 				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
 			}
+
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
 			return $systeminfo;
@@ -269,6 +273,137 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 			$this->obfuscator = $obfuscator;
 		}
 
+		/**
+		 * Creates Fields in Help Tab to Opt In to System Info
+		 *
+		 * @return string
+		 */
+		public static function opt_in() {
+
+			$checked   = '';
+			$optin_key = get_option( 'tribe_systeminfo_optin' );
+			if ( $optin_key ) {
+				$checked = 'checked';
+			}
+
+			$opt_in = '<p class="system-info"><input name="tribe_auto_sysinfo_opt_in" id="tribe_auto_sysinfo_opt_in" type="checkbox" value="optin" ' . esc_attr( $checked ) . '/><label for="tribe_auto_sysinfo_opt_in">' . esc_html__( 'Yes, automatically share my system information with the Modern Tribe support team', 'tribe-common' ) . '</label></p>';
+			$opt_in .= '<p class="tooltip description">' . esc_html__( 'Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties.', 'tribe-common' ) . '</p>';
+			$opt_in .= '<p class="tribe-sysinfo-optin-msg"></p>';
+
+			return $opt_in;
+		}
+
+		/**
+		 * Method to send back sysinfo
+		 *
+		 * @param $query
+		 *
+		 * @return string|void
+		 *
+		 */
+		public static function sysinfo_query( $query ) {
+
+			$optin_key = get_option( 'tribe_systeminfo_optin' );
+
+			if ( ! $optin_key ) {
+				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
+			}
+
+			$key = $query['key'];
+			if ( $key != $optin_key ) {
+				wp_send_json_error( __( 'Invalid Key', 'tribe-common' ) );
+			}
+
+			$support    = Tribe__Support::getInstance();
+			$systeminfo = $support->formattedSupportStats();
+
+			return $systeminfo;
+		}
+
+		/*
+		 * Create Unique Enpoint Per Site
+		 */
+		public static function create_sysinfo_endpoint() {
+			$optin_key = get_option( 'tribe_systeminfo_optin' );
+			if ( $optin_key ) {
+				register_rest_route( 'tribe_events/v2', '/(?P<key>[a-z0-9\-]+)/sysinfo/', array(
+					'methods'  => 'GET',
+					'callback' => array( 'Tribe__Support', 'sysinfo_query' ),
+				) );
+			}
+		}
+
+		/**
+		 * Ajax Method to Create Unique Key and send to tec.com
+		 */
+		public static function ajax_sysinfo_optin() {
+
+			if ( ! isset( $_POST['confirm'] ) || ! wp_verify_nonce( $_POST['confirm'], 'sysinfo_optin_nonce' ) ) {
+				wp_send_json_error( __( 'Permission Error', 'tribe-common' ) );
+			}
+
+			if ( 'generate' == $_POST['generate_key'] ) {
+
+				$random    = base_convert( rand( 0, getrandmax() ), 10, 36 );
+				$optin_key = hash( 'sha1', $random );
+				update_option( 'tribe_systeminfo_optin', $optin_key );
+
+				//Only Connect If a License Exists
+				$keys = apply_filters( 'tribe-pue-install-keys', array() );
+				if ( is_array( $keys ) && ! empty( $keys ) ) {
+					Tribe__Support::send_sysinfo_key( $optin_key );
+				} else {
+					wp_send_json_success( __( 'Unique System Info Key Generated', 'tribe-common' ) );
+				}
+
+			} elseif ( 'remove' == $_POST['generate_key'] ) {
+				$optin_key = get_option( 'tribe_systeminfo_optin' );
+
+				delete_option( 'tribe_systeminfo_optin' );
+
+				Tribe__Support::send_sysinfo_key( $optin_key, null, 'remove' );
+
+			}
+
+			wp_send_json_error( __( 'Permission Error', 'tribe-common' ) );
+
+		}
+
+		/**
+		 * Contact Tribe Website to Add SysInfo Key
+		 *
+		 * @param null $optin_key provide key for system info
+		 * @param null $url domain of current site
+		 * @param null $remove string used if removing $optin_key from tec.com
+		 * @param null $pueadd boolean to disable messaging when coming from pue script
+		 */
+		public static function send_sysinfo_key( $optin_key = null, $url = null, $remove = null, $pueadd = false ) {
+
+			$url   = $url ? $url : urlencode( str_replace( array( 'http://', 'https://' ), '', get_site_url() ) );
+			$pue   = new Tribe__PUE__Checker( 'https://theeventscalendar.com/', 'events-calendar' );
+			$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . $remove;
+			if ( $remove ) {
+				$query = $pue->get_pue_update_url() . 'wp-json/tribe_system/v2/customer-info/' . $optin_key . '/' . $url . '?status=remove';
+			}
+			$response = wp_remote_get( esc_url( $query ) );
+
+			$response = json_decode( wp_remote_retrieve_body( $response ) );
+
+			if ( ! $pueadd ) {
+				// make sure the response came back okay
+				if ( ! isset( $response->success ) ) {
+					//on error delete the key
+					delete_option( 'tribe_systeminfo_optin' );
+
+					//send error response
+					wp_send_json_error( $response );
+				}
+
+				wp_send_json_success( $response->data );
+			}
+		}
+
+
 		/****************** SINGLETON GUTS ******************/
 
 		/**
@@ -279,7 +414,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 		public static function getInstance() {
 			if ( null == self::$instance ) {
-				$instance       = new self;
+				$instance = new self;
 				$instance->set_obfuscator( new Tribe__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
 				self::$instance = $instance;
 			}
