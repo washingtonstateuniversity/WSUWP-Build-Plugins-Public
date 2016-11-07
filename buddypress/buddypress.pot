@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later (license.txt).
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress 2.7.0\n"
+"Project-Id-Version: BuddyPress 2.7.2\n"
 "Report-Msgid-Bugs-To: https://buddypress.trac.wordpress.org\n"
-"POT-Creation-Date: 2016-10-19 18:24:39+00:00\n"
+"POT-Creation-Date: 2016-11-04 16:38:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -733,7 +733,7 @@ msgstr ""
 
 #: bp-activity/classes/class-bp-activity-activity.php:360
 #: bp-activity/classes/class-bp-activity-template.php:144
-#: bp-groups/bp-groups-functions.php:594
+#: bp-groups/bp-groups-functions.php:603
 #: bp-groups/classes/class-bp-groups-group-members-template.php:99
 #: bp-groups/classes/class-bp-groups-group.php:917
 #: bp-groups/classes/class-bp-groups-invite-template.php:84
@@ -2014,10 +2014,6 @@ msgstr ""
 
 #: bp-core/bp-core-customizer-email.php:357
 msgid "Footer text"
-msgstr ""
-
-#: bp-core/bp-core-dependency.php:229
-msgid "The current user is being initialized without using $wp->init()."
 msgstr ""
 
 #: bp-core/bp-core-filters.php:408 bp-core/bp-core-filters.php:441
@@ -4104,7 +4100,7 @@ msgstr ""
 msgid "There was an error leaving the group."
 msgstr ""
 
-#: bp-groups/bp-groups-actions.php:465 bp-groups/bp-groups-functions.php:451
+#: bp-groups/bp-groups-actions.php:465 bp-groups/bp-groups-functions.php:460
 msgid "You successfully left the group."
 msgstr ""
 
@@ -4539,24 +4535,24 @@ msgstr ""
 msgid "%1$s edited the forum topic %2$s in the group %3$s"
 msgstr ""
 
-#: bp-groups/bp-groups-functions.php:161
+#: bp-groups/bp-groups-functions.php:170
 #: bp-groups/classes/class-bp-groups-member.php:299
 msgid "Group Admin"
 msgstr ""
 
-#: bp-groups/bp-groups-functions.php:442
+#: bp-groups/bp-groups-functions.php:451
 msgid "As the only admin, you cannot leave the group."
 msgstr ""
 
-#: bp-groups/bp-groups-functions.php:1212
+#: bp-groups/bp-groups-functions.php:1221
 msgid "%1$s posted an update in the group %2$s"
 msgstr ""
 
-#: bp-groups/bp-groups-functions.php:2151
+#: bp-groups/bp-groups-functions.php:2160
 msgid "Group type already exists."
 msgstr ""
 
-#: bp-groups/bp-groups-functions.php:2178
+#: bp-groups/bp-groups-functions.php:2187
 msgid "You may not register a group type with this name."
 msgstr ""
 
@@ -5220,7 +5216,7 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: bp-loader.php:754
+#: bp-loader.php:753
 msgid "BuddyPress Default"
 msgstr ""
 
@@ -7907,74 +7903,74 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:464
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:470
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:465
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:471
 msgid "Date format"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:486
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:487
 msgid "Time elapsed"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:486
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:487
 msgid "<code>4 years ago</code>, <code>4 years from now</code>"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:493
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:494
 msgid "Custom:"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:495
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:496
 msgid "Enter custom time format"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:496
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:497
 msgid "Example:"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:498
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:499
 msgid "Documentation on date and time formatting"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:507
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:513
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:508
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:514
 msgid "Range"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:520
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:521
 msgid "Absolute"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:525
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:541
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:526
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:542
 msgid "Start:"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:527
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:556
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:528
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:557
 msgid "End:"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:536
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:537
 msgid "Relative"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:547
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:561
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:548
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:562
 msgid "Select range"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:550
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:564
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:551
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:565
 msgid "years ago"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:552
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:566
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:553
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:567
 msgid "years from now"
 msgstr ""
 
-#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:625
+#: bp-xprofile/classes/class-bp-xprofile-field-type-datebox.php:626
 msgid "F j, Y"
 msgstr ""
 

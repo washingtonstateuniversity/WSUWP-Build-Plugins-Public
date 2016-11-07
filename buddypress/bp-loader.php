@@ -15,7 +15,7 @@
  * Description: BuddyPress helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.
  * Author:      The BuddyPress Community
  * Author URI:  https://buddypress.org/
- * Version:     2.7.0
+ * Version:     2.7.2
  * Text Domain: buddypress
  * Domain Path: /bp-languages/
  * License:     GPLv2 or later (license.txt)
@@ -308,7 +308,7 @@ class BuddyPress {
 
 		// Whether to refrain from loading deprecated functions
 		if ( ! defined( 'BP_IGNORE_DEPRECATED' ) ) {
-			define( 'BP_IGNORE_DEPRECATED', true );
+			define( 'BP_IGNORE_DEPRECATED', false );
 		}
 
 		// The search slug has to be defined nice and early because of the way
@@ -330,7 +330,7 @@ class BuddyPress {
 
 		/** Versions **********************************************************/
 
-		$this->version    = '2.7.0';
+		$this->version    = '2.7.2';
 		$this->db_version = 11105;
 
 		/** Loading ***********************************************************/
@@ -339,7 +339,6 @@ class BuddyPress {
 		 * Whether to load deprecated code or not.
 		 *
 		 * @since 2.0.0
-		 * @since 2.7.0 Defaults to false (do not load deprecated code) for new installs.
 		 *
 		 * @const constant BP_IGNORE_DEPRECATED Whether or not to ignore deprecated functionality.
 		 */
@@ -510,7 +509,7 @@ class BuddyPress {
 		}
 
 		// Skip or load deprecated content
-		if ( $this->load_deprecated || ! bp_get_option( '_bp_ignore_deprecated_code' ) ) {
+		if ( true === $this->load_deprecated ) {
 			require( $this->plugin_dir . 'bp-core/deprecated/1.2.php' );
 			require( $this->plugin_dir . 'bp-core/deprecated/1.5.php' );
 			require( $this->plugin_dir . 'bp-core/deprecated/1.6.php' );
