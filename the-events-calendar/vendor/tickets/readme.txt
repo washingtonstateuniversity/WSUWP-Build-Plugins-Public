@@ -4,7 +4,7 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, Event Tickets, Event Tickets Plus
 Requires at least: 3.9
 Tested up to: 4.6.1
-Stable tag: 4.3
+Stable tag: 4.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -206,6 +206,16 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/18v2" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [4.3.1.1] 2016-10-20 =
+
+* Fix - Corrected a packaging issue from the 4.3.1 release [67936]
+
+= [4.3.1] 2016-10-20 =
+
+* Tweak - Registered plugin as active with Tribe Common. [66657]
+* Fix - When searching in the attendees list the ticket meta details can still be toggled after search [61783]
+* Fix - Fixed an issue where long file names would break plugin updates on some Windows installations [62552]
 
 = [4.3] 2016-10-13 =
 

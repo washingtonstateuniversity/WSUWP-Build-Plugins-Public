@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.6.1
-Stable tag: 4.3.1.1
+Stable tag: 4.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,7 +85,7 @@ Collect free RSVPs with Event Tickets or add paid ticketing features with [Event
 
 = Bulk Event Import =
 
-Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. Event Aggregator provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
+Fill your calendar with events from your favorite sources, including Facebook, Meetup, Google Calendar, iCalendar, CSV, and ICS. [Event Aggregator](http://m.tri.be/197u) provides a convenient dashboard to manage scheduled imports, manual imports, filters, one-way sync, import history, and more.
 
 = User-Submitted Events =
 
@@ -314,6 +314,15 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.3.2] 2016-11-02 =
+
+* Fix - Fixes an issue where the text in the Location search field was URL encoded when using the back or forward button for navigation. [61742]
+* Fix - Aggregator Errors will not show more than once daily as comments (Thanks @Jacob for your report on the forums) [68094]
+* Fix - Event Aggregator ICS default configuration now are been Selected Correctly [67885]
+* Fix - Shortcode Month view now will display tooltips correctly [68094]
+* Fix - Avoid loading the select2 JavaScript library twice when Advanced Custom Fields is activated (props to @ryan for the initial report [43605]
+* Fix - Avoid errors and notices on calendar page when X theme and WPML plugins are active (thanks @ingrid for reporting this one) [64400]
 
 = [4.3.1.1] 2016-10-20 =
 

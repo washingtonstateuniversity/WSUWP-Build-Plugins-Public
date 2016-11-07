@@ -195,6 +195,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'maybe_display_json_error_on_plugins_page' ), 1 );
 			add_action( 'admin_init', array( $this, 'general_notifications' ) );
+
+			// Package name
+			add_filter( 'upgrader_pre_download', array( Tribe__PUE__Package_Handler::instance(), 'filter_upgrader_pre_download' ), 5, 3 );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -576,6 +579,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$response['status']     = isset( $plugin_info->api_message ) ? 2 : 1;
 				$response['message']    = isset( $plugin_info->api_message ) ? wp_kses( $plugin_info->api_message, 'data' ) : $default_success_msg;
 				$response['expiration'] = $expiration;
+
+				if ( isset( $plugin_info->daily_limit ) ) {
+					$response['daily_limit'] = intval( $plugin_info->daily_limit );
+				}
 			}
 
 			return $response;
