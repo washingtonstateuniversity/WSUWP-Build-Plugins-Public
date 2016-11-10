@@ -3,7 +3,7 @@ Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, code
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 2.6.7
+Stable tag: 2.6.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -125,7 +125,7 @@ For extending or theming WooCommerce, see our [codex](https://docs.woocommerce.c
 
 If you get stuck, you can ask for help in the [WooCommerce Plugin Forum](https://wordpress.org/support/plugin/woocommerce).
 
-For help with premium add-ons from WooThemes, use [our helpdesk](https://support.woothemes.com/).
+For help with premium extensions from WooThemes, use [our helpdesk](https://support.woothemes.com/).
 
 = Will WooCommerce work with my theme? =
 
@@ -157,6 +157,12 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woothemes/wooc
 6. A product archive (grid).
 
 == Changelog ==
+
+= 2.6.8 - 10/11/16 =
+* Fix - REQUEST_URI was missing a trailing slash when being compared in the cache prevention functions.
+* Fix - Prevent issues when sending empty prices to PayPal.
+* Fix - Invalid email check.
+* Tweak - New extensions screen.
 
 = 2.6.7 - 26/10/16 =
 * Fix - Use FLOOR and CEIL to get price filter values. Fixes the issue where max price is capped at 99.
