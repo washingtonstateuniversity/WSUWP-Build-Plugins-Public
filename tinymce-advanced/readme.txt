@@ -1,9 +1,9 @@
 === TinyMCE Advanced ===
 Contributors: azaozz
 Tags: wysiwyg, formatting, tinymce, write, editor
-Requires at least: 4.6
-Tested up to: 4.6
-Stable tag: 4.4.1
+Requires at least: 4.7
+Tested up to: 4.7
+Stable tag: 4.4.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,15 +11,9 @@ Extends and enhances TinyMCE, the WordPress Visual Editor.
 
 == Description ==
 
-This plugin will let you add, remove and arrange the buttons that are shown 
-on the Visual Editor toolbar. You can configure up to four rows of buttons 
-including Font Sizes, Font Family, text and background colors, tables, etc.
-It will also let you enable the editor menu, see the [screenshots](screenshots).
+This plugin will let you add, remove and arrange the buttons that are shown on the Visual Editor toolbar. You can configure up to four rows of buttons including Font Sizes, Font Family, text and background colors, tables, etc. It will also let you enable the editor menu, see the [screenshots](screenshots).
 
-It includes 15 plugins for [TinyMCE](http://tinymce.com/) that are automatically 
-enabled or disabled depending on the buttons you have chosen. In addition this 
-plugin adds some commonly used options as keeping the paragraph tags in the Text 
-editor and importing the CSS classes from the theme's editor-style.css.
+It includes 15 plugins for [TinyMCE](http://tinymce.com/) that are automatically enabled or disabled depending on the buttons you have chosen. In addition this plugin adds some commonly used options as keeping the paragraph tags in the Text editor and importing the CSS classes from the theme's editor-style.css.
 
 = Some of the features added by this plugin =
 
@@ -29,16 +23,17 @@ editor and importing the CSS classes from the theme's editor-style.css.
 * Ability to set Font Family and Font Sizes.
 * And many others.
 
-With this plugin you can also enable the TinyMCE menu above the toolbars. 
-This will make the editor even more powerful and convenient.
+With this plugin you can also enable the TinyMCE menu above the toolbars. This will make the editor even more powerful and convenient.
 
 == Installation ==
 
-Best is to install directly from WordPress. If manual installation is required, 
-please make sure that the plugin files are in a folder named "tinymce-advanced" 
-(not two nested folders) in the WordPress plugins folder, usually "wp-content/plugins".
+Best is to install directly from WordPress. If manual installation is required, please make sure that the plugin files are in a folder named "tinymce-advanced" (not two nested folders) in the WordPress plugins folder, usually "wp-content/plugins".
 
 == Changelog ==
+
+= 4.4.3 =
+* Updated for WordPress 4.7 and TinyMCE 4.4.3.
+* Fixed missing "Source code" button bug.
 
 = 4.4.1 =
 * Updated for WordPress 4.6 and TinyMCE 4.4.1.
@@ -184,10 +179,7 @@ These styles are imported from your current theme editor-style.css file. However
 
 = I have just installed this plugin, but it does not do anything. =
 
-Change some buttons on one of the toolbars, save your changes, clear your browser cache, and try again. 
-If that does not work try reloding the Edit page several times while holding down Shift or Ctrl.
-There may also be a network cache somewhere between you and your host. You may need to wait for a few hours 
-until this cache expires.
+Change some buttons on one of the toolbars, save your changes, clear your browser cache, and try again. If that does not work try reloding the Edit page several times while holding down Shift or Ctrl. There may also be a network cache somewhere between you and your host. You may need to wait for a few hours until this cache expires.
 
 = When I add "Smilies", they do not show in the editor. =
 

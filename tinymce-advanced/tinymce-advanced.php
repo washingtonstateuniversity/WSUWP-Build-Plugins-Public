@@ -3,7 +3,7 @@
 Plugin Name: TinyMCE Advanced
 Plugin URI: http://www.laptoptips.ca/projects/tinymce-advanced/
 Description: Enables advanced features and plugins in TinyMCE, the visual editor in WordPress.
-Version: 4.4.1
+Version: 4.4.3
 Author: Andrew Ozz
 Author URI: http://www.laptoptips.ca/
 License: GPL2
@@ -31,7 +31,7 @@ if ( ! class_exists('Tinymce_Advanced') ) :
 
 class Tinymce_Advanced {
 
-	private $required_version = '4.6-beta';
+	private $required_version = '4.7-beta';
 	private $user_settings;
 	private $admin_settings;
 	private $admin_options;
@@ -437,6 +437,9 @@ class Tinymce_Advanced {
 
 		if ( in_array( 'searchreplace', $this->used_buttons, true ) )
 			$plugins[] = 'searchreplace';
+
+		if ( in_array( 'code', $this->used_buttons, true ) )
+			$plugins[] = 'code';
 
 	//	if ( in_array( 'insertlayer', $this->used_buttons, true ) )
 	//		$plugins[] = 'layer';
