@@ -4,8 +4,8 @@ Contributors: ModernTribe, borkweb, zbtirrell, barry.hughes, bordoni, brianjesse
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.6
-Stable tag: 4.3.3
+Tested up to: 4.7
+Stable tag: 4.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -314,6 +314,13 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.3.4] 2016-12-08 =
+
+* Tweak - Tribe Common now is loaded only once across our plugin suite, improves performance on some cases [65755]
+* Fix - Featured Images for Event Aggregator imports are works as expected again. [69465]
+* Fix - Google Calendar and iCalendar files are now updating it's repective events [68684]
+* Fix - On demand Event Aggregator records will update events corretly [69542]
 
 = [4.3.3] 2016-11-16 =
 
