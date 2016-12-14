@@ -7018,7 +7018,7 @@ msgstr "リスト"
 msgid "month"
 msgstr "月"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:766

@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7
-Stable tag: 4.3.4.1
+Stable tag: 4.3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,7 +77,7 @@ Looking for something else? We’ve got add-ons available to take your calendar 
 
 = PRO Features =
 
-Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
+Add recurring events, a whole recurring events, a whole range of new views ( week / map / photo / venue / organizer) & widgets (calendar / featured venue / week / event countdown), shortcodes, custom event attributes, default content, location search, much more with [Events Calendar PRO](http://m.tri.be/2c)
 
 = Event Ticketing =
 
@@ -314,6 +314,10 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.3.4.2] 2016-12-13 =
+
+* Fix - Correct an oversight leading to breakages of the /all/ events archive for Events Calendar PRO users [70662]
 
 = [4.3.4.1] 2016-12-09 =
 
