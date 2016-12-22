@@ -715,7 +715,7 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 		}
 
 		// Comment status.
-		if ( ! empty( $request['reviews_allowed'] ) ) {
+		if ( isset( $request['reviews_allowed'] ) ) {
 			$data->comment_status = $request['reviews_allowed'] ? 'open' : 'closed';
 		}
 
@@ -763,6 +763,10 @@ class WC_REST_Products_Controller extends WC_REST_Posts_Controller {
 					}
 
 					$attachment_id = wc_rest_set_uploaded_image_as_attachment( $upload, $product_id );
+				}
+
+				if ( ! wp_attachment_is_image( $attachment_id ) ) {
+					throw new WC_REST_Exception( 'woocommerce_product_ĩnvalid_image_id', sprintf( __( '#%s is an invalid image ID.', 'woocommerce' ), $attachment_id ), 400 );
 				}
 
 				if ( isset( $image['position'] ) && 0 === $image['position'] ) {
