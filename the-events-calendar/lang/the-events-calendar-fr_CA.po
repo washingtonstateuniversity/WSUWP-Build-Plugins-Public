@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-12-10 18:40:15+0000\n"
+"PO-Revision-Date: 2016-12-15 05:47:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +14,7 @@ msgstr ""
 #: common/src/admin-views/app-shop.php:31
 #: vendor/tickets/common/src/admin-views/app-shop.php:31
 msgid "Installed"
-msgstr ""
+msgstr "Installé"
 
 #: common/src/admin-views/app-shop.php:29
 #: vendor/tickets/common/src/admin-views/app-shop.php:29
@@ -29,24 +29,24 @@ msgstr ""
 #: common/src/Tribe/Extension.php:144
 #: vendor/tickets/common/src/Tribe/Extension.php:144
 msgid "Tutorial"
-msgstr ""
+msgstr "Didacticiel"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:92
 msgctxt "the final separator in a list of two or more items"
 msgid " and "
-msgstr ""
+msgstr "et"
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 #: vendor/tickets/common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
-msgstr ""
+msgstr "Afin de pouvoir utiliser %1$s, veuillez installer et activer la dernière version de %2$s."
 
 #: src/Tribe/Aggregator/Service.php:398
 msgid "Unknown service message"
@@ -111,15 +111,15 @@ msgstr ""
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:14
 msgid "Click to hide history"
-msgstr ""
+msgstr "Cliquer pour masquer l'historique"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:13
 msgid "Click to view the history"
-msgstr ""
+msgstr "Cliquer pour afficher l'historique"
 
 #: vendor/tickets/src/admin-views/ticket-type-history.php:9
 msgid "Ticket history:"
-msgstr ""
+msgstr "Historique du billet"
 
 #: vendor/tickets/src/admin-views/move-tickets.php:89
 msgctxt "move tickets dialog"
@@ -7057,7 +7057,7 @@ msgstr "liste"
 msgid "month"
 msgstr "mois"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.3.4.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 src/Tribe/Main.php:766
