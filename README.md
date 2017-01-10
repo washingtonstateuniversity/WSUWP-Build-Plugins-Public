@@ -2,7 +2,6 @@
 
 * Akismet
 * BU Navigation
-* Custom Javascript Editor
 * Custom Posts Per Page
 * [Duplicate and Merge Posts](https://github.com/Exygy/duplicate-and-merge-posts) ([Forked](https://github.com/washingtonstateuniversity/duplicate-and-merge-posts))
 * Edit Flow
@@ -14,7 +13,6 @@
 * TablePress
 * The Events Calendar
 * WordPress Importer
-* WP-API
 * WP By Email
 * [WP Document Revisions](https://github.com/benbalter/wp-document-revisions/) ([Forked](https://github.com/washingtonstateuniversity/wp-document-revisions/)) -
 * WSUWP Ucomm Asset Request
