@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-01-26 19:38:45+0000\n"
+"PO-Revision-Date: 2017-02-08 15:05:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4098
 msgid "Keyword"
-msgstr "Suchbegriff"
+msgstr "Begriff"
 
 #: vendor/tickets/src/template-tags/tickets.php:243
 msgctxt "ticket stock message (pending stock)"
@@ -4426,7 +4426,7 @@ msgstr "Ihre aktuelle Veranstaltungs-URL ist %s"
 #: src/functions/template-tags/loop.php:162
 #: src/functions/template-tags/loop.php:171
 msgid "%1$s for %2$s"
-msgstr "%1$s im %2$s"
+msgstr "%1$s f&uuml;r %2$s"
 
 #: src/functions/template-tags/loop.php:157
 msgid "Past %s"
@@ -7570,7 +7570,7 @@ msgstr "list"
 msgid "month"
 msgstr "Monat"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.4.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.4.1.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 common/src/Tribe/Customizer.php:565
@@ -7885,7 +7885,7 @@ msgstr "Anfangsdatum"
 
 #: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1642
 msgid "%s Categories"
-msgstr "%ss-Kategorien"
+msgstr "Kategorien"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
