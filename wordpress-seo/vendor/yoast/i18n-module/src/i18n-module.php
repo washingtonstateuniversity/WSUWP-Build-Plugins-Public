@@ -3,7 +3,7 @@
 /**
  * This class defines a promo box and checks your translation site's API for stats about it, then shows them to the user.
  */
-class yoast_i18n {
+class Yoast_I18n_v2 {
 
 	/**
 	 * Your translation site's logo
@@ -49,7 +49,7 @@ class yoast_i18n {
 	private $locale;
 
 	/**
-	 * Will contain the locale's name, obtained from yoru translation site
+	 * Will contain the locale's name, obtained from your translation site
 	 *
 	 * @access private
 	 * @var string
