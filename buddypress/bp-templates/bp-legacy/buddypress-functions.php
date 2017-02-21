@@ -300,7 +300,7 @@ class BP_Legacy extends BP_Theme_Compat {
 			'remove_fav'	      => __( 'Remove Favorite', 'buddypress' ),
 			'show_all'            => __( 'Show all', 'buddypress' ),
 			'show_all_comments'   => __( 'Show all comments for this thread', 'buddypress' ),
-			'show_x_comments'     => __( 'Show all %d comments', 'buddypress' ),
+			'show_x_comments'     => __( 'Show all comments (%d)', 'buddypress' ),
 			'unsaved_changes'     => __( 'Your profile has unsaved changes. If you leave the page, the changes will be lost.', 'buddypress' ),
 			'view'                => __( 'View', 'buddypress' ),
 		) );
@@ -687,8 +687,16 @@ function bp_legacy_theme_ajax_querystring( $query_string, $object ) {
 
 	// Activity stream filtering on action.
 	if ( ! empty( $_BP_COOKIE['bp-' . $object . '-filter'] ) && '-1' != $_BP_COOKIE['bp-' . $object . '-filter'] ) {
-		$qs[] = 'type='   . $_BP_COOKIE['bp-' . $object . '-filter'];
-		$qs[] = 'action=' . $_BP_COOKIE['bp-' . $object . '-filter'];
+		$qs[] = 'type=' . $_BP_COOKIE['bp-' . $object . '-filter'];
+
+		if ( bp_is_active( 'activity' ) ) {
+			$actions = bp_activity_get_actions_for_context();
+			foreach ( $actions as $action ) {
+				if ( $action['key'] === $_BP_COOKIE['bp-' . $object . '-filter'] ) {
+					$qs[] = 'action=' . $_BP_COOKIE['bp-' . $object . '-filter'];
+				}
+			}
+		}
 	}
 
 	if ( ! empty( $_BP_COOKIE['bp-' . $object . '-scope'] ) ) {
@@ -969,7 +977,7 @@ function bp_legacy_theme_post_update() {
 	}
 
 	if ( ! empty( $last_recorded ) ) {
-		remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10, 1 );
+		remove_filter( 'bp_get_activity_css_class', 'bp_activity_newest_class', 10 );
 	}
 
 	exit;
@@ -1103,16 +1111,18 @@ function bp_legacy_theme_delete_activity_comment() {
 	// Check the nonce.
 	check_admin_referer( 'bp_activity_delete_link' );
 
-	if ( ! is_user_logged_in() )
+	if ( empty( $_POST['id'] ) || ! is_numeric( $_POST['id'] ) ) {
 		exit( '-1' );
+	}
+
+	if ( ! is_user_logged_in() ) {
+		exit( '-1' );
+	}
 
 	$comment = new BP_Activity_Activity( $_POST['id'] );
 
 	// Check access.
 	if ( ! bp_current_user_can( 'bp_moderate' ) && $comment->user_id != bp_loggedin_user_id() )
-		exit( '-1' );
-
-	if ( empty( $_POST['id'] ) || ! is_numeric( $_POST['id'] ) )
 		exit( '-1' );
 
 	/** This action is documented in bp-activity/bp-activity-actions.php */
@@ -1248,7 +1258,7 @@ function bp_legacy_theme_get_single_activity_content() {
 	remove_filter( 'bp_get_activity_content_body', 'bp_activity_truncate_entry', 5 );
 
 	/** This filter is documented in bp-activity/bp-activity-template.php */
-	$content = apply_filters( 'bp_get_activity_content_body', $activity->content );
+	$content = apply_filters_ref_array( 'bp_get_activity_content_body', array( $activity->content, &$activity ) );
 
 	exit( $content );
 }

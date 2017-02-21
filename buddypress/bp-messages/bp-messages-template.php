@@ -10,11 +10,6 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
-	require dirname( __FILE__ ) . '/classes/class-bp-messages-box-template.php';
-	require dirname( __FILE__ ) . '/classes/class-bp-messages-thread-template.php';
-}
-
 /**
  * Retrieve private message threads for display in inbox/sentbox/notices.
  *
@@ -1577,7 +1572,14 @@ function bp_get_the_thread_recipients() {
  */
 function bp_get_thread_recipients_count() {
 	global $thread_template;
-	return count( $thread_template->thread->recipients );
+	/**
+	 * Filters the total number of recipients in a thread.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param int $count Total recipients number.
+	 */
+	return (int) apply_filters( 'bp_get_thread_recipients_count', count( $thread_template->thread->recipients ) );
 }
 
 /**

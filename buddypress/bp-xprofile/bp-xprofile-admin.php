@@ -10,10 +10,6 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
-	require dirname( __FILE__ ) . '/classes/class-bp-xprofile-user-admin.php';
-}
-
 /**
  * Creates the administration interface menus and checks to see if the DB
  * tables are set up.
@@ -149,12 +145,12 @@ function xprofile_admin_screen( $message = '', $type = 'error' ) {
 						<div class="tab-toolbar">
 							<div class="tab-toolbar-left">
 								<a class="button-primary" href="users.php?page=bp-profile-setup&amp;group_id=<?php echo esc_attr( $group->id ); ?>&amp;mode=add_field"><?php _e( 'Add New Field', 'buddypress' ); ?></a>
-								<a class="button edit" href="users.php?page=bp-profile-setup&amp;mode=edit_group&amp;group_id=<?php echo esc_attr( $group->id ); ?>"><?php _e( 'Edit Group', 'buddypress' ); ?></a>
+								<a class="button edit" href="users.php?page=bp-profile-setup&amp;mode=edit_group&amp;group_id=<?php echo esc_attr( $group->id ); ?>"><?php _ex( 'Edit Group', 'Edit Profile Fields Group', 'buddypress' ); ?></a>
 
 								<?php if ( $group->can_delete ) : ?>
 
 									<div class="delete-button">
-										<a class="confirm submitdelete deletion ajax-option-delete" href="users.php?page=bp-profile-setup&amp;mode=delete_group&amp;group_id=<?php echo esc_attr( $group->id ); ?>"><?php _e( 'Delete Group', 'buddypress' ); ?></a>
+										<a class="confirm submitdelete deletion ajax-option-delete" href="users.php?page=bp-profile-setup&amp;mode=delete_group&amp;group_id=<?php echo esc_attr( $group->id ); ?>"><?php _ex( 'Delete Group', 'Delete Profile Fields Group', 'buddypress' ); ?></a>
 									</div>
 
 								<?php endif; ?>
@@ -229,8 +225,8 @@ function xprofile_admin_screen( $message = '', $type = 'error' ) {
 
 				<?php endforeach; else : ?>
 
-					<div id="message" class="error"><p><?php _e( 'You have no groups.', 'buddypress' ); ?></p></div>
-					<p><a href="users.php?page=bp-profile-setup&amp;mode=add_group"><?php _e( 'Add New Group', 'buddypress' ); ?></a></p>
+					<div id="message" class="error"><p><?php _ex( 'You have no groups.', 'You have no profile fields groups.', 'buddypress' ); ?></p></div>
+					<p><a href="users.php?page=bp-profile-setup&amp;mode=add_group"><?php _ex( 'Add New Group', 'Add New Profile Fields Group', 'buddypress' ); ?></a></p>
 
 				<?php endif; ?>
 
@@ -319,10 +315,10 @@ function xprofile_admin_delete_group( $group_id ) {
 	$group = new BP_XProfile_Group( $group_id );
 
 	if ( !$group->delete() ) {
-		$message = __( 'There was an error deleting the group. Please try again.', 'buddypress' );
+		$message = _x( 'There was an error deleting the group. Please try again.', 'Error when deleting profile fields group', 'buddypress' );
 		$type    = 'error';
 	} else {
-		$message = __( 'The group was deleted successfully.', 'buddypress' );
+		$message = _x( 'The group was deleted successfully.', 'Profile fields group was deleted successfully', 'buddypress' );
 		$type    = 'success';
 
 		/**
@@ -377,7 +373,7 @@ function xprofile_admin_manage_field( $group_id, $field_id = null ) {
 			}
 
 			$field->field_order = $wpdb->get_var( $wpdb->prepare( "SELECT field_order FROM {$bp->profile->table_name_fields} WHERE id = %d", $field_id ) );
-			if ( empty( $field->field_order ) || is_wp_error( $field->field_order ) ) {
+			if ( ! is_numeric( $field->field_order ) || is_wp_error( $field->field_order ) ) {
 				$field->field_order = (int) $wpdb->get_var( $wpdb->prepare( "SELECT max(field_order) FROM {$bp->profile->table_name_fields} WHERE group_id = %d", $group_id ) );
 				$field->field_order++;
 			}
@@ -467,7 +463,7 @@ function xprofile_admin_manage_field( $group_id, $field_id = null ) {
  * @since 1.0.0
  *
  * @global string $message The feedback message to show.
- * @global $type The type of feedback message to show.
+ * @global string $type The type of feedback message to show.
  *
  * @param int    $field_id    The field to delete.
  * @param string $field_type  The type of field being deleted.
@@ -560,9 +556,31 @@ add_action( 'wp_ajax_xprofile_reorder_groups', 'xprofile_ajax_reorder_field_grou
 function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 	global $field;
 
-	$field = $admin_field; ?>
+	$field = $admin_field;
 
-	<fieldset id="draggable_field_<?php echo esc_attr( $field->id ); ?>"class="sortable<?php echo ' ' . $field->type; if ( !empty( $class ) ) echo ' ' . $class; ?>">
+	$field_edit_url = add_query_arg(
+		array(
+			'page'     => 'bp-profile-setup',
+			'group_id' => (int) $field->group_id,
+			'field_id' => (int) $field->id,
+			'mode'     => 'edit_field'
+		),
+		admin_url( 'users.php' )
+	);
+
+	if ( $field->can_delete ) {
+		$field_delete_url = add_query_arg(
+			array(
+				'page'     => 'bp-profile-setup',
+				'field_id' => (int) $field->id,
+				'mode'     => 'delete_field'
+			),
+			admin_url( 'users.php' ) . '#tabs-' . (int) $field->group_id
+		);
+	}
+	?>
+
+	<fieldset id="draggable_field_<?php echo esc_attr( $field->id ); ?>" class="sortable<?php echo ' ' . $field->type; if ( !empty( $class ) ) echo ' ' . $class; ?>">
 		<legend>
 			<span>
 				<?php bp_the_profile_field_name(); ?>
@@ -613,12 +631,12 @@ function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 			<?php endif; ?>
 
 			<div class="actions">
-				<a class="button edit" href="users.php?page=bp-profile-setup&amp;group_id=<?php echo esc_attr( $admin_group->id ); ?>&amp;field_id=<?php echo esc_attr( $field->id ); ?>&amp;mode=edit_field"><?php _e( 'Edit', 'buddypress' ); ?></a>
+				<a class="button edit" href="<?php echo esc_url( $field_edit_url ); ?>"><?php _ex( 'Edit', 'Edit field link', 'buddypress' ); ?></a>
 
 				<?php if ( $field->can_delete ) : ?>
 
 					<div class="delete-button">
-						<a class="confirm submit-delete deletion" href="users.php?page=bp-profile-setup&amp;field_id=<?php echo esc_attr( $field->id ); ?>&amp;mode=delete_field"><?php _e( 'Delete', 'buddypress' ); ?></a>
+						<a class="confirm submit-delete deletion" href="<?php echo esc_url( $field_delete_url ); ?>"><?php _ex( 'Delete', 'Delete field link', 'buddypress' ); ?></a>
 					</div>
 
 				<?php endif; ?>
@@ -682,7 +700,7 @@ function bp_xprofile_admin_form_field_types( $select_field_type ) {
 		printf( '<optgroup label="%1$s">', esc_attr( $category ) );  // Already i18n'd in each profile type class.
 
 		// Sort these fields types alphabetically.
-		uasort( $fields, create_function( '$a, $b', 'return strnatcmp( $a[1]->name, $b[1]->name );' ) );
+		uasort( $fields, function( $a, $b ) { return strnatcmp( $a[1]->name, $b[1]->name ); } );
 
 		foreach ( $fields as $field_type_obj ) {
 			$field_name     = $field_type_obj[0];
