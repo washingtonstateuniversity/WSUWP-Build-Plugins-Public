@@ -2,16 +2,124 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-07-11 17:13:15+0000\n"
+"PO-Revision-Date: 2017-02-10 01:16:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: GlotPress/2.3.0-alpha\n"
+"X-Generator: GlotPress/2.3.0\n"
 "Language: ru\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
 
-#: src/Tribe/Main.php:4098
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:52
+msgid "The URL to the term archive page"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:48
+msgid "The number of posts associated with the term"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:44
+msgid "The term parent term if any"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
+msgid "The term description"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
+msgid "The taxonomy the term belongs to"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
+msgid "The term slug"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
+msgid "The term name"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:24
+msgid "The WordPress term ID"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
+msgid "The link to the image in the specified size on the site"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
+msgid "The image mime-type"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
+msgid "The image height in pixels in the specified size"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:24
+msgid "The image width in pixels in the specified size"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:44
+msgid "The details about each size available for the image"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:40
+msgid "The image natura height in pixels"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:36
+msgid "The image natural width in pixels"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:32
+msgid "The image file extension"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:28
+msgid "The image WordPress post ID"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:24
+msgid "The URL to the full size version of the image"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:44
+msgid "The date seconds"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:40
+msgid "The date minutes"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:36
+msgid "The date hour"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:32
+msgid "The date day"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:28
+msgid "The date month"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:24
+msgid "The date year"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
+msgid "An sorted array of all the numeric values for the cost"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:28
+msgid "The position of the currency symbol in the cost string"
+msgstr ""
+
+#: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:24
+msgid "The cost currency symbol"
+msgstr ""
+
+#: src/Tribe/Main.php:4114
 msgid "Keyword"
 msgstr ""
 
@@ -143,7 +251,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:72
 msgid "Start/End:"
-msgstr ""
+msgstr "Начало/Конец:"
 
 #: src/admin-views/event-sidebar-options.php:33
 msgid "Featured events are highlighted on the front end in views, archives, and widgets."
@@ -155,11 +263,11 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:202
 msgid "Show Google Map Link?"
-msgstr ""
+msgstr "Показать ссылку на карту Google?"
 
 #: src/admin-views/create-venue-fields.php:184
 msgid "Show Google Map?"
-msgstr ""
+msgstr "Показать карту Google?"
 
 #: src/admin-views/create-venue-fields.php:161
 msgid "Venue URL"
@@ -190,7 +298,7 @@ msgstr ""
 msgid "Export Events"
 msgstr ""
 
-#: src/Tribe/Main.php:705
+#: src/Tribe/Main.php:721
 msgctxt "featured events slug"
 msgid "featured"
 msgstr ""
@@ -217,7 +325,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:247
 msgid "Delete this"
-msgstr ""
+msgstr "Удалить это"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
 msgid "Event Date:"
@@ -274,7 +382,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:189
 msgid "Button Color"
-msgstr ""
+msgstr "Цвет кнопки"
 
 #: src/Tribe/Customizer/Global_Elements.php:167
 msgid "Filter Bar Color"
@@ -282,7 +390,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:145
 msgid "Link Color"
-msgstr ""
+msgstr "Цвет ссылки"
 
 #: src/Tribe/Customizer/Global_Elements.php:114
 msgid "Options selected here will override what was selected in the \"General Theme\" section"
@@ -434,51 +542,51 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:53
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 #: src/Tribe/Asset/Dynamic.php:52
 msgid "November"
-msgstr ""
+msgstr "Ноябрь"
 
 #: src/Tribe/Asset/Dynamic.php:51
 msgid "October"
-msgstr ""
+msgstr "Октябрь"
 
 #: src/Tribe/Asset/Dynamic.php:50
 msgid "September"
-msgstr ""
+msgstr "Сентябрь"
 
 #: src/Tribe/Asset/Dynamic.php:49
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 #: src/Tribe/Asset/Dynamic.php:48
 msgid "July"
-msgstr ""
+msgstr "Июль"
 
 #: src/Tribe/Asset/Dynamic.php:47
 msgid "June"
-msgstr ""
+msgstr "Июнь"
 
 #: src/Tribe/Asset/Dynamic.php:46 src/Tribe/Asset/Dynamic.php:60
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: src/Tribe/Asset/Dynamic.php:45
 msgid "April"
-msgstr ""
+msgstr "Апрель"
 
 #: src/Tribe/Asset/Dynamic.php:44
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 #: src/Tribe/Asset/Dynamic.php:43
 msgid "February"
-msgstr ""
+msgstr "Февраль"
 
 #: src/Tribe/Asset/Dynamic.php:42
 msgid "January"
-msgstr ""
+msgstr "Январь"
 
 #: src/Tribe/Asset/Dynamic.php:39
 msgid "Sat"
@@ -510,31 +618,31 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:30
 msgid "Saturday"
-msgstr ""
+msgstr "Суббота"
 
 #: src/Tribe/Asset/Dynamic.php:29
 msgid "Friday"
-msgstr ""
+msgstr "Пятница"
 
 #: src/Tribe/Asset/Dynamic.php:28
 msgid "Thursday"
-msgstr ""
+msgstr "Четверг"
 
 #: src/Tribe/Asset/Dynamic.php:27
 msgid "Wednesday"
-msgstr ""
+msgstr "Среда"
 
 #: src/Tribe/Asset/Dynamic.php:26
 msgid "Tuesday"
-msgstr ""
+msgstr "Вторник"
 
 #: src/Tribe/Asset/Dynamic.php:25
 msgid "Monday"
-msgstr ""
+msgstr "Понедельник"
 
 #: src/Tribe/Asset/Dynamic.php:24
 msgid "Sunday"
-msgstr ""
+msgstr "Воскресенье"
 
 #: src/Tribe/Admin/Front_Page_View.php:18
 msgctxt "Static front page setting"
@@ -596,7 +704,7 @@ msgstr ""
 #: common/src/admin-views/app-shop.php:29
 #: vendor/tickets/common/src/admin-views/app-shop.php:29
 msgid "Installed Add-Ons"
-msgstr ""
+msgstr "Установленные дополнения"
 
 #: common/src/Tribe/Extension.php:368
 #: vendor/tickets/common/src/Tribe/Extension.php:368
@@ -625,7 +733,7 @@ msgstr ""
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:410
+#: src/Tribe/Aggregator/Service.php:416
 msgid "Unknown service message"
 msgstr ""
 
@@ -633,7 +741,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:868
+#: src/Tribe/Aggregator/Record/Abstract.php:876
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
 msgstr ""
 
@@ -769,12 +877,12 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:397
 msgctxt "attendee export"
 msgid "Customer Email Address"
-msgstr ""
+msgstr "Email клиента"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:396
 msgctxt "attendee export"
 msgid "Customer Name"
-msgstr ""
+msgstr "Имя клиента"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:395
 msgctxt "attendee export"
@@ -784,7 +892,7 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:394
 msgctxt "attendee export"
 msgid "Order Status"
-msgstr ""
+msgstr "Статус заказа"
 
 #: vendor/tickets/src/Tribe/Tickets_Handler.php:393
 msgctxt "attendee export"
@@ -863,7 +971,7 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Attendees_Table.php:307
 msgctxt "row action"
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: vendor/tickets/src/Tribe/Attendees_Table.php:304
 msgctxt "row action"
@@ -907,12 +1015,12 @@ msgstr ""
 #: vendor/tickets/src/Tribe/Admin/Ticket_History.php:35
 msgctxt "attendee table"
 msgid "Hide history"
-msgstr ""
+msgstr "Скрыть историю"
 
 #: vendor/tickets/src/Tribe/Admin/Ticket_History.php:34
 msgctxt "attendee table"
 msgid "View history"
-msgstr ""
+msgstr "Просмотреть историю"
 
 #: vendor/tickets/src/Tribe/Admin/Move_Tickets.php:710
 msgid "This ticket was moved to %1$s from %2$s"
@@ -1057,7 +1165,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:52
 msgid "Connect to Facebook"
-msgstr ""
+msgstr "Подключиться к Facebook"
 
 #: src/admin-views/tribe-options-addons-api.php:51
 msgid "You need to connect to Facebook for Event Aggregator to work properly"
@@ -1082,17 +1190,17 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:175
 msgid "Status:"
-msgstr ""
+msgstr "Статус:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:155
 #: src/admin-views/aggregator/tabs/import-form.php:167
 msgid "Start Time"
-msgstr ""
+msgstr "Время начала"
 
 #: src/admin-views/aggregator/tabs/import-form.php:151
 #: src/admin-views/aggregator/tabs/import-form.php:163
 msgid "Select All"
-msgstr ""
+msgstr "Выбрать все"
 
 #: src/admin-views/aggregator/tabs/import-form.php:141
 msgid "The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file's columns to the appropriate Event fields."
@@ -1148,7 +1256,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:197
 msgid "Enter your API key"
-msgstr ""
+msgstr "Введите свой API ключ"
 
 #: src/admin-views/aggregator/status.php:195
 msgid "You have not entered a Meetup API key"
@@ -1156,7 +1264,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:191
 msgid "API key entered"
-msgstr ""
+msgstr "API ключ введен"
 
 #: src/admin-views/aggregator/status.php:176
 msgid "The service has disabled oAuth. Some types of events may not import."
@@ -1243,7 +1351,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:36
 msgid "Check your license key"
-msgstr ""
+msgstr "Проверьте ваш лицензионный ключ"
 
 #: src/admin-views/aggregator/status.php:35
 msgid "Your license is invalid"
@@ -1255,7 +1363,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:30
 msgid "You do not have a license"
-msgstr ""
+msgstr "У вас нет лицензии"
 
 #: src/admin-views/aggregator/status.php:23
 msgid "Your license is valid"
@@ -1439,7 +1547,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:31
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: src/admin-views/aggregator/settings.php:18
 msgid "No default category"
@@ -1488,7 +1596,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:60
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: src/admin-views/aggregator/origins/meetup.php:58
 msgid "Meetup API Key:"
@@ -1516,7 +1624,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:5
 msgid "Choose File"
-msgstr ""
+msgstr "Выбрать файл"
 
 #: src/admin-views/aggregator/origins/ical.php:76
 msgid "Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics"
@@ -1630,7 +1738,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/csv.php:68
 #: src/admin-views/aggregator/origins/ics.php:34
 msgid "No file chosen"
-msgstr ""
+msgstr "Не выбран файл"
 
 #: src/admin-views/aggregator/origins/csv.php:43
 msgid "Upload a CSV File"
@@ -1639,7 +1747,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/csv.php:42
 #: src/admin-views/aggregator/origins/ics.php:8
 msgid "Upload"
-msgstr ""
+msgstr "Загрузить"
 
 #: src/admin-views/aggregator/origins/csv.php:41
 msgid "Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library."
@@ -1724,7 +1832,7 @@ msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
 msgstr ""
 
-#: src/Tribe/Main.php:916
+#: src/Tribe/Main.php:932
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
 msgstr ""
 
@@ -1798,7 +1906,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:333 src/Tribe/Ignored_Events.php:335
 #: src/admin-views/aggregator/meta-box.php:5
 msgid "Source:"
-msgstr ""
+msgstr "Источник:"
 
 #: src/Tribe/Ignored_Events.php:307
 msgid "Last Import"
@@ -1897,7 +2005,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:35 src/Tribe/Ignored_Events.php:51
 #: src/Tribe/Ignored_Events.php:426
 msgid "Delete Permanently"
-msgstr ""
+msgstr "Удалить навсегда"
 
 #: src/Tribe/Aggregator.php:407
 msgid "Renew your Event Aggregator Facebook token"
@@ -1963,35 +2071,35 @@ msgstr ""
 msgid "Scheduled Imports"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:534
+#: src/Tribe/Aggregator/Tabs/New.php:536
 msgid "Renew your Event Aggregator license"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:531
+#: src/Tribe/Aggregator/Tabs/New.php:533
 msgid "Renew your license in order to import events from Facebook, iCalendar, Google, or Meetup."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:530
+#: src/Tribe/Aggregator/Tabs/New.php:532
 msgid "Your Event Aggregator license is expired."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:510
+#: src/Tribe/Aggregator/Tabs/New.php:512
 msgid "Learn More"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:505 src/Tribe/Aggregator/Tabs/New.php:512
+#: src/Tribe/Aggregator/Tabs/New.php:507 src/Tribe/Aggregator/Tabs/New.php:514
 msgid "opens in a new window"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:503
+#: src/Tribe/Aggregator/Tabs/New.php:505
 msgid "Buy It Now"
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:500
+#: src/Tribe/Aggregator/Tabs/New.php:502
 msgid "With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy."
 msgstr ""
 
-#: src/Tribe/Aggregator/Tabs/New.php:498
+#: src/Tribe/Aggregator/Tabs/New.php:500
 msgid "Import Using Event Aggregator"
 msgstr ""
 
@@ -2158,7 +2266,7 @@ msgstr ""
 msgid "There was a problem processing your import. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Service.php:192
+#: src/Tribe/Aggregator/Service.php:195
 msgid "Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter."
 msgstr ""
 
@@ -2554,7 +2662,7 @@ msgstr ""
 msgid "Eventbrite"
 msgstr ""
 
-#: src/Tribe/Aggregator/Record/Abstract.php:827
+#: src/Tribe/Aggregator/Record/Abstract.php:835
 msgid "Deleted Attachment: %d"
 msgstr ""
 
@@ -2591,12 +2699,12 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:93
 msgid "Hide Filters"
-msgstr ""
+msgstr "Скрыть фильтры"
 
 #: src/Tribe/Aggregator/Page.php:92
 #: src/Tribe/Aggregator/Record/List_Table.php:469
 msgid "View Filters"
-msgstr ""
+msgstr "Посмотреть фильтры"
 
 #: src/Tribe/Aggregator/Page.php:91
 msgid "Removing this scheduled import will stop automatic imports from the source. No events will be deleted."
@@ -2716,7 +2824,7 @@ msgstr ""
 msgid "You must map columns from the CSV file to specific fields in order to perform a CSV import."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:65 src/Tribe/Aggregator/Service.php:198
+#: src/Tribe/Aggregator/Errors.php:65
 msgid "There may be an issue with the Event Aggregator server. Please try your import again later."
 msgstr ""
 
@@ -2850,9 +2958,9 @@ msgstr ""
 msgid "iCalendar"
 msgstr ""
 
-#: src/Tribe/Aggregator/API/Origins.php:31 src/Tribe/Aggregator/Service.php:252
+#: src/Tribe/Aggregator/API/Origins.php:31 src/Tribe/Aggregator/Service.php:258
 msgid "CSV File"
-msgstr ""
+msgstr "Файл CSV"
 
 #: src/Tribe/Admin_List.php:330
 msgctxt "%s Event count in admin list"
@@ -2989,7 +3097,7 @@ msgid "There is an update for %s. You'll need to %scheck your license%s to have 
 msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:678 common/src/Tribe/PUE/Notices.php:269
-#: src/Tribe/Aggregator/Record/Abstract.php:842
+#: src/Tribe/Aggregator/Record/Abstract.php:850
 #: vendor/tickets/common/src/Tribe/PUE/Checker.php:678
 #: vendor/tickets/common/src/Tribe/PUE/Notices.php:269
 msgid " (opens in a new window)"
@@ -3576,7 +3684,7 @@ msgstr "Шаблоны, добавленные или обновленные в 
 msgid "No notable changes detected"
 msgstr "Значимых изменений не обнаружено"
 
-#: src/Tribe/Main.php:2561
+#: src/Tribe/Main.php:2577
 msgid " (View Full %1$s Description Here: %2$s)"
 msgstr " (Посмотреть полное %1$s описание здесь: %2$s)"
 
@@ -3818,137 +3926,137 @@ msgstr "Не найдено %s в этом месяце. Попробуйте п
 msgid "No %1$s scheduled for %2$s. Please try another day."
 msgstr "Не найдено %1$s запланированное на %2$s. Попробуйте  поискать в другой день."
 
-#: src/Tribe/Main.php:3919
+#: src/Tribe/Main.php:3935
 msgid "Check out the %savailable add-ons%s."
 msgstr "Проверьте %sдоступные дополнения%s."
 
-#: src/Tribe/Main.php:1788
+#: src/Tribe/Main.php:1804
 msgid "Without a defined location your event will not display a %sGoogle Rich Snippet%s on the search results."
 msgstr "Без указания места проведения ваше событие не покажет %sGoogle Rich Snippet%s в результатах поиска."
 
-#: src/Tribe/Main.php:1719 src/Tribe/Main.php:1739
+#: src/Tribe/Main.php:1735 src/Tribe/Main.php:1755
 msgid "%1$s scheduled for: %2$s."
 msgstr "%1$s запланировано на: %2$s."
 
-#: src/Tribe/Main.php:1700
+#: src/Tribe/Main.php:1716
 msgid "%1$s draft updated. %2$sPreview %3$s"
 msgstr "%1$s черновик обновлен. %2$sПревью %3$s"
 
-#: src/Tribe/Main.php:1691
+#: src/Tribe/Main.php:1707
 msgid "%1$s scheduled for: %2$s. %3$sPreview %4$s"
 msgstr "%1$s запланировано на: %2$s. %3$sПревью %4$s"
 
-#: src/Tribe/Main.php:1685
+#: src/Tribe/Main.php:1701
 msgid "%1$s submitted. %2$sPreview %3$s"
 msgstr "%1$s добавлено. %2$sПревью %3$s"
 
-#: src/Tribe/Main.php:1679
+#: src/Tribe/Main.php:1695
 msgid "Event published. %1$sView %2$s"
 msgstr "Мероприятие опубликовано. %1$sПросмотреть %2$s"
 
-#: src/Tribe/Main.php:1668
+#: src/Tribe/Main.php:1684
 msgid "%1$s updated. %2$sView %3$s"
 msgstr "%1$s обновлено. %2$sПросмотреть %3$s"
 
-#: src/Tribe/Main.php:1372
+#: src/Tribe/Main.php:1388
 msgid "It appears as if the tribe-common libraries cannot be found! The directory should be in the \"common/\" directory in the events calendar plugin."
 msgstr "Похоже, что библиотеки tribe-common не могут быть найдены! Эта директория должна быть в директории \"common/\" в плагине the events calendar."
 
-#: src/Tribe/Main.php:1012 vendor/tickets/src/Tribe/Main.php:477
+#: src/Tribe/Main.php:1028 vendor/tickets/src/Tribe/Main.php:477
 msgid "If you have a valid license for one of our paid plugins, you can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr "Если у вас есть лицензия для одного из наших платных плагинов, вы можете %s в наших форумах премиальной поддержки. Наша команда поддержки наблюдает за форумами и ответит на ваше сообщение в течении 24-48 часов (в течение недели)."
 
-#: src/Tribe/Main.php:1011 vendor/tickets/src/Tribe/Main.php:471
+#: src/Tribe/Main.php:1027 vendor/tickets/src/Tribe/Main.php:471
 #: vendor/tickets/src/Tribe/Main.php:476
 msgid "post a thread"
 msgstr "написать сообщение"
 
-#: src/Tribe/Main.php:1007
+#: src/Tribe/Main.php:1023
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
 msgstr ""
 
-#: src/Tribe/Main.php:1003 vendor/tickets/src/Tribe/Main.php:465
+#: src/Tribe/Main.php:1019 vendor/tickets/src/Tribe/Main.php:465
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
 msgstr ""
 
-#: src/Tribe/Main.php:1002 vendor/tickets/src/Tribe/Main.php:464
+#: src/Tribe/Main.php:1018 vendor/tickets/src/Tribe/Main.php:464
 msgid "open-source forum on WordPress.org"
 msgstr "открытый форум на WordPress.org"
 
-#: src/Tribe/Main.php:998
+#: src/Tribe/Main.php:1014
 msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
 msgstr ""
 
-#: src/Tribe/Main.php:997 src/Tribe/Main.php:1005
+#: src/Tribe/Main.php:1013 src/Tribe/Main.php:1021
 #: vendor/tickets/src/Tribe/Main.php:467
 msgid "premium support on our website"
 msgstr "премиум поддержка на нашем веб-сайте"
 
-#: src/Tribe/Main.php:995
+#: src/Tribe/Main.php:1011
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
 msgstr ""
 
-#: src/Tribe/Main.php:994
+#: src/Tribe/Main.php:1010
 msgid "Events Tickets"
 msgstr ""
 
-#: src/Tribe/Main.php:979
+#: src/Tribe/Main.php:995
 msgid "Customizing the Events plugins"
 msgstr ""
 
-#: src/Tribe/Main.php:979
+#: src/Tribe/Main.php:995
 msgid "%s: Code and guides for customizing your calendar in useful and interesting ways."
 msgstr ""
 
-#: src/Tribe/Main.php:977 vendor/tickets/src/Tribe/Main.php:427
+#: src/Tribe/Main.php:993 vendor/tickets/src/Tribe/Main.php:427
 msgid "Troubleshooting common problems"
 msgstr "Разрешение типичных проблем"
 
-#: src/Tribe/Main.php:977
+#: src/Tribe/Main.php:993
 msgid "%s: Do you see an issue with your calendar? Go here first to find where it’s coming from and how to fix it."
 msgstr ""
 
-#: src/Tribe/Main.php:975
+#: src/Tribe/Main.php:991
 msgid "Using stylesheets and page templates"
 msgstr ""
 
-#: src/Tribe/Main.php:975
+#: src/Tribe/Main.php:991
 msgid "%s: An overview of the default templates and styles that are included in the plugin, as well as how to change them."
 msgstr ""
 
-#: src/Tribe/Main.php:973
+#: src/Tribe/Main.php:989
 msgid "Themer’s Guide"
 msgstr ""
 
-#: src/Tribe/Main.php:973
+#: src/Tribe/Main.php:989
 msgid "%s: Our most comprehensive outline for customizing the calendar to suit your needs, including custom layouts and styles."
 msgstr ""
 
-#: src/Tribe/Main.php:971 vendor/tickets/src/Tribe/Main.php:426
+#: src/Tribe/Main.php:987 vendor/tickets/src/Tribe/Main.php:426
 msgid "Features overview"
 msgstr ""
 
-#: src/Tribe/Main.php:971
+#: src/Tribe/Main.php:987
 msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
 msgstr ""
 
-#: src/Tribe/Main.php:969 vendor/tickets/src/Tribe/Main.php:425
+#: src/Tribe/Main.php:985 vendor/tickets/src/Tribe/Main.php:425
 msgid "Settings overview"
 msgstr ""
 
-#: src/Tribe/Main.php:969
+#: src/Tribe/Main.php:985
 msgid "%s: A thorough walkthrough of The Events Calendar and the settings that are available to you."
 msgstr ""
 
-#: src/Tribe/Main.php:966
+#: src/Tribe/Main.php:982
 msgid "Support for The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:955
+#: src/Tribe/Main.php:971
 msgid "We are committed to helping make your calendar spectacular and have a wealth of resources available, including a handy %s to get your calendar up and running."
 msgstr ""
 
-#: src/Tribe/Main.php:953 vendor/tickets/src/Tribe/Main.php:445
+#: src/Tribe/Main.php:969 vendor/tickets/src/Tribe/Main.php:445
 msgid "New User Primer"
 msgstr ""
 
@@ -4064,7 +4172,7 @@ msgstr ""
 #: common/src/admin-views/tribe-options-help.php:14
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:14
 msgid "Getting Support"
-msgstr ""
+msgstr "Получить поддержку"
 
 #: common/src/admin-views/tribe-options-help.php:11
 #: vendor/tickets/common/src/admin-views/tribe-options-help.php:11
@@ -4090,7 +4198,7 @@ msgstr ""
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/Main.php:930
+#: src/Tribe/Main.php:946
 msgid "<a href=\"%s\">edit Events settings</a>."
 msgstr ""
 
@@ -4112,7 +4220,7 @@ msgstr ""
 #: common/src/Tribe/Admin/Help_Page.php:817
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:817
 msgid "Rating:"
-msgstr ""
+msgstr "Рейтинг:"
 
 #: common/src/Tribe/Admin/Help_Page.php:814
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:814
@@ -4237,17 +4345,17 @@ msgstr ""
 msgid "Editing the ticket price is currently disallowed."
 msgstr ""
 
-#: src/Tribe/Main.php:933
+#: src/Tribe/Main.php:949
 msgid "%1$s or %2$s"
 msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -4675,7 +4783,7 @@ msgid "More..."
 msgstr "Больше..."
 
 #: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
-#: src/Tribe/Main.php:1006
+#: src/Tribe/Main.php:1022
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:183
 #: vendor/tickets/common/src/Tribe/App_Shop.php:111
 msgid "Events Calendar PRO"
@@ -5265,7 +5373,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:129
 msgid "Timezone:"
-msgstr ""
+msgstr "Часовой пояс:"
 
 #: src/admin-views/events-meta-box.php:83
 #: src/admin-views/events-meta-box.php:122
@@ -6402,7 +6510,7 @@ msgstr "Венгрия"
 #: common/src/Tribe/View_Helpers.php:144
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:144
 msgid "Hong Kong"
-msgstr "Гонг-Конг"
+msgstr "Гонконг"
 
 #: common/src/Tribe/View_Helpers.php:143
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:143
@@ -6573,7 +6681,7 @@ msgstr "Сальвадор"
 #: common/src/Tribe/View_Helpers.php:110
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:110
 msgid "Egypt"
-msgstr "Египт"
+msgstr "Египет"
 
 #: common/src/Tribe/View_Helpers.php:109
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:109
@@ -6688,7 +6796,7 @@ msgstr "Центральная Африканская Республика"
 #: common/src/Tribe/View_Helpers.php:86
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:86
 msgid "Cayman Islands"
-msgstr "Кайманские острова"
+msgstr "Каймановы острова"
 
 #: common/src/Tribe/View_Helpers.php:85
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:85
@@ -7275,49 +7383,49 @@ msgstr "Лицензионный ключ"
 msgid "Error"
 msgstr "Ошибка"
 
-#: src/Tribe/Main.php:4202
+#: src/Tribe/Main.php:4218
 msgid "Once Every 30 Mins"
 msgstr "Каждые 30 минут"
 
-#: src/Tribe/Main.php:4129
+#: src/Tribe/Main.php:4145
 msgid "Day Of"
 msgstr "День"
 
-#: src/Tribe/Main.php:4127
+#: src/Tribe/Main.php:4143
 msgid "%s From"
 msgstr "%s Из"
 
-#: src/Tribe/Main.php:4125
+#: src/Tribe/Main.php:4141
 msgid "%s In"
 msgstr "%s В "
 
-#: src/Tribe/Main.php:4122 src/Tribe/Main.php:4138
+#: src/Tribe/Main.php:4138 src/Tribe/Main.php:4154
 #: src/admin-views/aggregator/origins/refine.php:7
 msgid "Date"
 msgstr "Дата"
 
-#: src/Tribe/Main.php:4097
+#: src/Tribe/Main.php:4113
 msgid "Search"
 msgstr "Поиск"
 
-#: src/Tribe/Main.php:4072
+#: src/Tribe/Main.php:4088
 msgid "Day"
 msgstr "День"
 
-#: src/Tribe/Main.php:4055
+#: src/Tribe/Main.php:4071
 msgid "Month"
 msgstr "Месяц"
 
-#: src/Tribe/Main.php:4037
+#: src/Tribe/Main.php:4053
 msgid "List"
 msgstr "Список"
 
-#: src/Tribe/Main.php:4021
+#: src/Tribe/Main.php:4037
 msgid "Calendar"
 msgstr "Календарь"
 
 #: common/src/Tribe/Settings.php:242
-#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4020
+#: src/Tribe/Admin/Bar/Default_Configurator.php:89 src/Tribe/Main.php:4036
 #: vendor/tickets/common/src/Tribe/Settings.php:242
 msgid "Settings"
 msgstr "Параметры"
@@ -7331,7 +7439,7 @@ msgstr "CSV"
 msgid "Add %s"
 msgstr "Добавить %s"
 
-#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:3971
+#: src/Tribe/Admin/Bar/Default_Configurator.php:45 src/Tribe/Main.php:3987
 msgid "View Calendar"
 msgstr "Просмотреть календарь"
 
@@ -7339,55 +7447,55 @@ msgstr "Просмотреть календарь"
 msgid "%s"
 msgstr "%s"
 
-#: src/Tribe/Main.php:3918
+#: src/Tribe/Main.php:3934
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Ищете дополнительные функции, включая повторяющиеся мероприятия, продажу билетов, публично отправленные мероприятия, новые виды и другое?"
 
-#: src/Tribe/Main.php:3913
+#: src/Tribe/Main.php:3929
 msgid "Additional Functionality"
 msgstr "Дополнительные функции"
 
-#: src/Tribe/Main.php:3868
+#: src/Tribe/Main.php:3884
 msgid "News from Modern Tribe"
 msgstr "Новости от Modern Tribe"
 
-#: src/Tribe/Main.php:3848
+#: src/Tribe/Main.php:3864
 msgid "View All Add-Ons"
 msgstr "Просмотреть все расширения"
 
-#: src/Tribe/Main.php:3845
+#: src/Tribe/Main.php:3861
 msgid "Support"
 msgstr "Поддержка"
 
-#: src/Tribe/Main.php:3498 src/Tribe/Main.php:3509
+#: src/Tribe/Main.php:3514 src/Tribe/Main.php:3525
 msgid "%s Information"
 msgstr "Информация %s"
 
-#: src/Tribe/Main.php:3491
+#: src/Tribe/Main.php:3507
 msgid "%s Options"
 msgstr "Настройки %s "
 
-#: src/Tribe/Main.php:3421 src/Tribe/Main.php:3456
+#: src/Tribe/Main.php:3437 src/Tribe/Main.php:3472
 #: src/functions/template-tags/day.php:157
 #: src/functions/template-tags/day.php:178
 msgid "Date out of range."
 msgstr "Дата за пределами диапазона."
 
-#: src/Tribe/Main.php:2186
+#: src/Tribe/Main.php:2202
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:2185 src/functions/template-tags/general.php:91
+#: src/Tribe/Main.php:2201 src/functions/template-tags/general.php:91
 msgid "events"
-msgstr ""
+msgstr "мероприятия"
 
-#: src/Tribe/Main.php:2184 src/functions/template-tags/general.php:69
+#: src/Tribe/Main.php:2200 src/functions/template-tags/general.php:69
 msgid "event"
-msgstr ""
+msgstr "мероприятие"
 
-#: src/Tribe/Main.php:2183
+#: src/Tribe/Main.php:2199
 msgid "page"
-msgstr ""
+msgstr "страница"
 
 #: common/src/Tribe/Settings_Manager.php:219
 #: vendor/tickets/common/src/Tribe/Settings_Manager.php:219
@@ -7426,129 +7534,129 @@ msgstr "Доступные %s"
 msgid "My %s"
 msgstr "Мои %s"
 
-#: src/Tribe/Main.php:1724 src/Tribe/Main.php:1744
+#: src/Tribe/Main.php:1740 src/Tribe/Main.php:1760
 msgid "%s draft updated."
 msgstr "%s черновик обновлен."
 
-#: src/Tribe/Main.php:1717 src/Tribe/Main.php:1737
+#: src/Tribe/Main.php:1733 src/Tribe/Main.php:1753
 msgid "%s submitted."
 msgstr "%s подтверждено."
 
-#: src/Tribe/Main.php:1715 src/Tribe/Main.php:1735
+#: src/Tribe/Main.php:1731 src/Tribe/Main.php:1751
 msgid "%s published."
 msgstr "%s опубликовано."
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1734
+#: src/Tribe/Main.php:1750
 msgid "%s restored to revision from %s"
 msgstr "%s перемещено на пересмотр из %s"
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:1694 src/Tribe/Main.php:1722 src/Tribe/Main.php:1742
+#: src/Tribe/Main.php:1710 src/Tribe/Main.php:1738 src/Tribe/Main.php:1758
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: src/Tribe/Main.php:1683 src/Tribe/Main.php:1716 src/Tribe/Main.php:1736
+#: src/Tribe/Main.php:1699 src/Tribe/Main.php:1732 src/Tribe/Main.php:1752
 msgid "%s saved."
 msgstr "%s сохранено."
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1677 src/Tribe/Main.php:1714
+#: src/Tribe/Main.php:1693 src/Tribe/Main.php:1730
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:1675 src/Tribe/Main.php:1709 src/Tribe/Main.php:1712
-#: src/Tribe/Main.php:1729 src/Tribe/Main.php:1732
+#: src/Tribe/Main.php:1691 src/Tribe/Main.php:1725 src/Tribe/Main.php:1728
+#: src/Tribe/Main.php:1745 src/Tribe/Main.php:1748
 msgid "%s updated."
 msgstr "%s обновлено."
 
-#: src/Tribe/Main.php:1674 src/Tribe/Main.php:1711 src/Tribe/Main.php:1731
+#: src/Tribe/Main.php:1690 src/Tribe/Main.php:1727 src/Tribe/Main.php:1747
 msgid "Custom field deleted."
 msgstr "Настраиваемое поле удалено."
 
-#: src/Tribe/Main.php:1673 src/Tribe/Main.php:1710 src/Tribe/Main.php:1730
+#: src/Tribe/Main.php:1689 src/Tribe/Main.php:1726 src/Tribe/Main.php:1746
 msgid "Custom field updated."
 msgstr "Настраиваемое поле обновлено."
 
-#: src/Tribe/Main.php:1651
+#: src/Tribe/Main.php:1667
 msgid "New %s Category Name"
 msgstr "Новое имя Категории %s"
 
-#: src/Tribe/Main.php:1650
+#: src/Tribe/Main.php:1666
 msgid "Add New %s Category"
 msgstr "Добавить новую %s Категорию"
 
-#: src/Tribe/Main.php:1649
+#: src/Tribe/Main.php:1665
 msgid "Update %s Category"
 msgstr "Обновить %s Категорию"
 
-#: src/Tribe/Main.php:1648
+#: src/Tribe/Main.php:1664
 msgid "Edit %s Category"
 msgstr "Изменить %s Категорию"
 
-#: src/Tribe/Main.php:1647
+#: src/Tribe/Main.php:1663
 msgid "Parent %s Category:"
 msgstr "Родительская %s Категория:"
 
-#: src/Tribe/Main.php:1646
+#: src/Tribe/Main.php:1662
 msgid "Parent %s Category"
 msgstr "Родительская %s Категория"
 
-#: src/Tribe/Main.php:1645
+#: src/Tribe/Main.php:1661
 msgid "All %s Categories"
 msgstr "Все Категории %s "
 
-#: src/Tribe/Main.php:1644
+#: src/Tribe/Main.php:1660
 msgid "Search %s Categories"
 msgstr "Искать Категории %s"
 
-#: src/Tribe/Main.php:1643
+#: src/Tribe/Main.php:1659
 msgid "%s Category"
 msgstr "%s Категории"
 
-#: src/Tribe/Main.php:1633 src/Tribe/Organizer.php:78 src/Tribe/Venue.php:84
+#: src/Tribe/Main.php:1649 src/Tribe/Organizer.php:78 src/Tribe/Venue.php:84
 msgid "No %s found in Trash"
 msgstr "%s в корзине не найдены"
 
-#: src/Tribe/Main.php:1632 src/Tribe/Organizer.php:77 src/Tribe/Venue.php:83
+#: src/Tribe/Main.php:1648 src/Tribe/Organizer.php:77 src/Tribe/Venue.php:83
 msgid "No %s found"
 msgstr "%s не найдены"
 
-#: src/Tribe/Main.php:1631 src/Tribe/Organizer.php:76 src/Tribe/Venue.php:82
+#: src/Tribe/Main.php:1647 src/Tribe/Organizer.php:76 src/Tribe/Venue.php:82
 msgid "Search %s"
 msgstr "Искать %s"
 
-#: src/Tribe/Main.php:1630 src/Tribe/Organizer.php:75 src/Tribe/Venue.php:81
+#: src/Tribe/Main.php:1646 src/Tribe/Organizer.php:75 src/Tribe/Venue.php:81
 #: vendor/tickets/src/views/tickets/orders.php:26
 msgid "View %s"
 msgstr "Просмотреть %s"
 
-#: src/Tribe/Main.php:1629 src/Tribe/Organizer.php:74 src/Tribe/Venue.php:80
+#: src/Tribe/Main.php:1645 src/Tribe/Organizer.php:74 src/Tribe/Venue.php:80
 msgid "New %s"
 msgstr "Новое %s"
 
-#: src/Tribe/Main.php:1627 src/Tribe/Main.php:1758 src/Tribe/Main.php:1759
+#: src/Tribe/Main.php:1643 src/Tribe/Main.php:1774 src/Tribe/Main.php:1775
 #: src/Tribe/Organizer.php:72 src/Tribe/Venue.php:78
 msgid "Add New %s"
 msgstr "Добавить новое %s"
 
-#: src/Tribe/Main.php:1626 src/Tribe/Organizer.php:71 src/Tribe/Venue.php:77
+#: src/Tribe/Main.php:1642 src/Tribe/Organizer.php:71 src/Tribe/Venue.php:77
 msgid "Add New"
 msgstr "Добавить новое"
 
-#: src/Tribe/Main.php:1593 src/Tribe/Main.php:2181
+#: src/Tribe/Main.php:1609 src/Tribe/Main.php:2197
 msgid "tag"
 msgstr "тэг"
 
-#: src/Tribe/Main.php:1579 src/Tribe/Main.php:2182
+#: src/Tribe/Main.php:1595 src/Tribe/Main.php:2198
 msgid "category"
 msgstr "рубрика"
 
-#: src/Tribe/Main.php:1360
+#: src/Tribe/Main.php:1376
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "Извините, для The Events Calendar нужен PHP %s или выше. Обратитесь к вашему веб-хосту по поводу новой версии PHP."
 
-#: src/Tribe/Main.php:1357
+#: src/Tribe/Main.php:1373
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr "Извините, для The Events Calendar нужен WordPress %s или выше. Пожалуйста, обновите вашу установку WordPress."
 
@@ -7570,53 +7678,53 @@ msgstr "Помощь"
 msgid "Display"
 msgstr "Показать"
 
-#: src/Tribe/Main.php:1206
+#: src/Tribe/Main.php:1222
 msgid "The following plugins are out of date: %1$s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %2$sLearn More%3$s."
 msgstr ""
 
-#: src/Tribe/Main.php:1194
+#: src/Tribe/Main.php:1210
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr "Ваша версия The Events Calendar не находится в соответствии с одним из ваших расширений The Events Calendar. Пожалуйста, %sобновите сейчас.%s"
 
-#: src/Tribe/Main.php:728
+#: src/Tribe/Main.php:744
 msgid "Initializing Tribe Events on %s"
 msgstr "Инициализация Tribe Events на %s"
 
-#: src/Tribe/Main.php:704
+#: src/Tribe/Main.php:720
 msgid "today"
 msgstr "сегодня"
 
-#: src/Tribe/Main.php:703
+#: src/Tribe/Main.php:719
 msgid "day"
 msgstr "день"
 
-#: src/Tribe/Main.php:702
+#: src/Tribe/Main.php:718
 msgid "past"
 msgstr "прошедшее"
 
-#: src/Tribe/Main.php:701
+#: src/Tribe/Main.php:717
 msgid "upcoming"
 msgstr "будущее"
 
-#: src/Tribe/Main.php:700
+#: src/Tribe/Main.php:716
 msgid "list"
 msgstr "список"
 
-#: src/Tribe/Main.php:699
+#: src/Tribe/Main.php:715
 msgid "month"
 msgstr "месяц"
 
-#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.4.1.1) 
+#. #-#-#-#-#  tmp-the-events-calendar.pot (The Events Calendar 4.4.2) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:48 common/src/Tribe/Customizer.php:565
-#: src/Tribe/Main.php:692 src/Tribe/Main.php:993
+#: src/Tribe/Main.php:708 src/Tribe/Main.php:1009
 #: vendor/tickets/common/src/Tribe/Admin/Help_Page.php:48
 #: vendor/tickets/common/src/Tribe/Customizer.php:565
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: src/Tribe/Main.php:1063 src/admin-views/aggregator/tabs/import-form.php:157
+#: src/Tribe/Main.php:1079 src/admin-views/aggregator/tabs/import-form.php:157
 #: src/admin-views/aggregator/tabs/import-form.php:169
 #: src/functions/template-tags/general.php:58
 msgid "Event"
@@ -7624,7 +7732,7 @@ msgstr "Мероприятие"
 
 #: common/src/Tribe/Settings.php:165 common/src/Tribe/Settings.php:229
 #: common/src/Tribe/Settings.php:230 src/Tribe/Importer/Admin_Page.php:206
-#: src/Tribe/Main.php:1055 src/functions/template-tags/general.php:80
+#: src/Tribe/Main.php:1071 src/functions/template-tags/general.php:80
 #: vendor/tickets/common/src/Tribe/Settings.php:165
 #: vendor/tickets/common/src/Tribe/Settings.php:229
 #: vendor/tickets/common/src/Tribe/Settings.php:230
@@ -7649,7 +7757,7 @@ msgstr "Место проведения"
 msgid "Venues"
 msgstr "Место проведения"
 
-#: src/Tribe/List_Widget.php:217
+#: src/Tribe/List_Widget.php:219
 msgid "Upcoming Events"
 msgstr "Будущие мероприятия"
 
@@ -7919,7 +8027,7 @@ msgstr "Дата окончания"
 msgid "Start Date"
 msgstr "Дата начала"
 
-#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1642
+#: src/Tribe/Admin_List.php:246 src/Tribe/Main.php:1658
 msgid "%s Categories"
 msgstr "%s Категории"
 
@@ -7943,26 +8051,26 @@ msgid "Please wait while timezone data is added to your events."
 msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:188 src/Tribe/Main.php:1628
-#: src/Tribe/Main.php:4458 src/Tribe/Main.php:4505 src/Tribe/Organizer.php:73
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:188 src/Tribe/Main.php:1644
+#: src/Tribe/Main.php:4474 src/Tribe/Main.php:4521 src/Tribe/Organizer.php:73
 #: src/Tribe/Venue.php:79
 msgid "Edit %s"
 msgstr "Редактировать %s"
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151 src/Tribe/Main.php:4442
-#: src/Tribe/Main.php:4499
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:151 src/Tribe/Main.php:4458
+#: src/Tribe/Main.php:4515
 msgid "Use Saved %s:"
 msgstr "Использовать сохранение %s:"
 
-#: src/Tribe/Main.php:925
+#: src/Tribe/Main.php:941
 msgid " ask the site administrator set a different Events URL slug."
 msgstr ""
 
-#: src/Tribe/Main.php:919
+#: src/Tribe/Main.php:935
 msgid "Ask the site administrator to edit the %s slug"
 msgstr ""
 
-#: src/Tribe/Main.php:921
+#: src/Tribe/Main.php:937
 msgid "<a href=\"%s\">Edit the %s slug</a>"
 msgstr ""
 
@@ -7970,7 +8078,7 @@ msgstr ""
 msgid "Thanks for Updating The Events Calendar"
 msgstr "Спасибо за обновление The Events Calendar"
 
-#: src/Tribe/Main.php:784 src/Tribe/Main.php:786
+#: src/Tribe/Main.php:800 src/Tribe/Main.php:802
 #: src/deprecated/Tribe__Events__Activation_Page.php:195
 msgid "Welcome to The Events Calendar"
 msgstr "Добро пожаловать The Events Calendar"
@@ -8003,7 +8111,7 @@ msgstr "Перейти на страницу плагина"
 #: src/functions/template-tags/venue.php:274
 #: vendor/tickets/common/src/Tribe/View_Helpers.php:46
 msgid "United States"
-msgstr "Соединенные штаты"
+msgstr "Соединенные Штаты"
 
 #: src/Tribe/Venue.php:315
 msgid "Unnamed Venue"

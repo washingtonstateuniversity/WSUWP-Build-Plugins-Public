@@ -269,12 +269,12 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function to_utc( $datetime, $tzstring, $format = null ) {
-		if ( self::is_utc_offset( $tzstring ) ) {
-			return self::apply_offset( $datetime, $tzstring, true );
+		if ( Tribe__Events__Timezones::is_utc_offset( $tzstring ) ) {
+			return Tribe__Events__Timezones::apply_offset( $datetime, $tzstring, true );
 		}
 
-		$local = self::get_timezone( $tzstring );
-		$utc   = self::get_timezone( 'UTC' );
+		$local = Tribe__Events__Timezones::get_timezone( $tzstring );
+		$utc   = Tribe__Events__Timezones::get_timezone( 'UTC' );
 
 		$new_datetime = date_create( $datetime, $local );
 
@@ -348,12 +348,12 @@ class Tribe__Timezones {
 	 * @return string
 	 */
 	public static function to_tz( $datetime, $tzstring ) {
-		if ( self::is_utc_offset( $tzstring ) ) {
-			return self::apply_offset( $datetime, $tzstring );
+		if ( Tribe__Events__Timezones::is_utc_offset( $tzstring ) ) {
+			return Tribe__Events__Timezones::apply_offset( $datetime, $tzstring );
 		}
 
-		$local = self::get_timezone( $tzstring );
-		$utc   = self::get_timezone( 'UTC' );
+		$local = Tribe__Events__Timezones::get_timezone( $tzstring );
+		$utc   = Tribe__Events__Timezones::get_timezone( 'UTC' );
 
 		$new_datetime = date_create( $datetime, $utc );
 

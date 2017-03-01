@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.7.2
-Stable tag: 4.4.2
+Stable tag: 4.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -315,6 +315,15 @@ The plugin is made with love by [Modern Tribe Inc](http://m.tri.be/2s).
 Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [4.4.3] 2017-02-22 =
+
+* Fix - Resolved issue where iCal exports on month view were exporting more events than intended (thanks to @s2ldesign for reporting in our forums) [72133]
+* Fix - Resolved meta width issue for maps when Pro is active (gracias a @ANTONIO JOSE por el reporte del error)  [69844, 72272]
+* Fix - Resolved issue where featured images were not being imported via Event Aggregator Facebook imports (cheers to @Cody for the inital bug report) [72764]
+* Fix - Resolved issue where translated 'all' slugs were not respected (thank you @Marianne for your report in the forums) [71996]
+* Tweak - Translation improvements and fixes (@Katja - thanks! ) [70068]
+* Tweak - Allow "-1" when specifying the "Month view events per day" setting [70497]
 
 = [4.4.2] 2017-02-09 =
 

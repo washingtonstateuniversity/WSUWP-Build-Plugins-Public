@@ -31,7 +31,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '4.4.2';
+		const VERSION             = '4.4.3';
 		const MIN_ADDON_VERSION   = '4.4';
 		const MIN_COMMON_VERSION  = '4.4';
 		const WP_PLUGIN_URL       = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -93,6 +93,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tag_slug = 'tag';
 		public $monthSlug = 'month';
 		public $featured_slug = 'featured';
+		public $all_slug = 'all';
 
 		/** @deprecated 4.0 */
 		public $taxRewriteSlug = 'event/category';
@@ -719,6 +720,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
 			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
+			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
