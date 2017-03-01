@@ -612,7 +612,7 @@ class TablePress_Edit_View extends TablePress_View {
 	?>
 	<tr class="<?php echo current_user_can( 'unfiltered_html' ) ? 'top-border' : 'hidden'; ?>">
 		<th class="column-1" scope="row"><?php _e( 'Custom Commands', 'tablepress' ); ?>:</th>
-		<td class="column-2"><label for="option-datatables-custom-commands"><input type="text" id="option-datatables-custom-commands" class="large-text" name="table[options][datatables_custom_commands]" value="<?php echo esc_attr( $options['datatables_custom_commands'] ); ?>" /><p class="description"><?php echo __( 'Additional parameters from the <a href="http://www.datatables.net/">DataTables documentation</a> to be added to the JS call.', 'tablepress' ) . ' ' . __( 'For advanced use only.', 'tablepress' ); ?></p></label></td>
+		<td class="column-2"><label for="option-datatables-custom-commands"><input type="text" id="option-datatables-custom-commands" class="large-text" name="table[options][datatables_custom_commands]" value="<?php echo esc_attr( $options['datatables_custom_commands'] ); ?>" /><p class="description"><?php printf( __( 'Additional parameters from the <a href="%s">DataTables documentation</a> to be added to the JS call.', 'tablepress' ), 'http://www.datatables.net/' ) . ' ' . __( 'For advanced use only.', 'tablepress' ); ?></p></label></td>
 	</tr>
 </tbody>
 </table>
@@ -635,7 +635,7 @@ class TablePress_Edit_View extends TablePress_View {
 				<?php
 					printf( __( 'The internal data of table &#8220;%1$s&#8221; (ID %2$s) is corrupted.', 'tablepress' ), esc_html( $data['table']['name'] ), esc_html( $data['table']['id'] ) );
 					echo ' ';
-					printf( __( 'The following error was registered: <code>%s</code>.', 'tablepress' ), esc_html( $data['table']['json_error'] ) );
+					printf( __( 'The following error was registered: %s.', 'tablepress' ), '<code>' . esc_html( $data['table']['json_error'] ) . '</code>' );
 				?>
 			</p>
 			<p>

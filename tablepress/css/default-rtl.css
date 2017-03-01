@@ -105,6 +105,9 @@
 	float: right;
 	white-space: nowrap;
 }
+.dataTables_wrapper .dataTables_filter input {
+	margin-right: 0.5em;
+}
 
 /* Table information */
 .dataTables_info {
@@ -201,6 +204,13 @@
 }
 .dataTables_scrollBody {
 	-webkit-overflow-scrolling: touch;
+}
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody th > div.dataTables_sizing,
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody td > div.dataTables_sizing {
+	height: 0;
+	overflow: hidden;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 /* Sorting */

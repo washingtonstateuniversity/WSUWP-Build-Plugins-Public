@@ -67,11 +67,11 @@ class TablePress_Import {
 	 */
 	public function __construct() {
 		/** This filter is documented in the WordPress function unzip_file() in wp-admin/includes/file.php */
-		if ( class_exists( 'ZipArchive' ) && apply_filters( 'unzip_file_use_ziparchive', true ) ) {
+		if ( class_exists( 'ZipArchive', false ) && apply_filters( 'unzip_file_use_ziparchive', true ) ) {
 			$this->zip_support_available = true;
 		}
 
-		if ( class_exists( 'DOMDocument' ) && function_exists( 'simplexml_import_dom' ) && function_exists( 'libxml_use_internal_errors' ) ) {
+		if ( class_exists( 'DOMDocument', false ) && function_exists( 'simplexml_import_dom' ) && function_exists( 'libxml_use_internal_errors' ) ) {
 			$this->html_import_support_available = true;
 		}
 
@@ -164,7 +164,7 @@ class TablePress_Import {
 		// Prepend XML declaration, for better encoding support.
 		$temp_data = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . $temp_data;
 		if ( function_exists( 'libxml_disable_entity_loader' ) ) {
-			// Don't expand external entities (see http://websec.io/2012/08/27/Preventing-XXE-in-PHP.html).
+			// Don't expand external entities, see http://websec.io/2012/08/27/Preventing-XXE-in-PHP.html.
 			libxml_disable_entity_loader( true );
 		}
 		// No warnings/errors raised, but stored internally.
@@ -245,7 +245,7 @@ class TablePress_Import {
 				if ( 1 === preg_match( '#<t(?:d|h).*?>(.*)</t(?:d|h)>#is', $cell->asXML(), $matches ) ) {
 					/*
 					 * Decode HTML entities again, as there might be some left especially in attributes of HTML tags in the cells,
-					 * see http://php.net/manual/en/simplexmlelement.asxml.php#107137 .
+					 * see https://secure.php.net/manual/en/simplexmlelement.asxml.php#107137.
 					 */
 					$matches[1] = html_entity_decode( $matches[1], ENT_NOQUOTES, 'UTF-8' );
 					$new_row[] = $matches[1];
@@ -270,12 +270,9 @@ class TablePress_Import {
 		if ( is_null( $json_table ) ) {
 			// If possible, try to find out what error prevented the JSON from being decoded.
 			$json_error = 'The error could not be determined.';
-			// @TODO: The `function_exists` check can be removed once support for WP 4.3 is dropped, as a compat function was added in WP 4.4.
-			if ( function_exists( 'json_last_error_msg' ) ) {
-				$json_error_msg = json_last_error_msg();
-				if ( false !== $json_error_msg ) {
-					$json_error = $json_error_msg;
-				}
+			$json_error_msg = json_last_error_msg();
+			if ( false !== $json_error_msg ) {
+				$json_error = $json_error_msg;
 			}
 			$output = '<strong>' . __( 'The imported file contains errors:', 'tablepress' ) . "</strong><br /><br />JSON error: {$json_error}<br />";
 			wp_die( $output, 'Import Error', array( 'response' => 200, 'back_link' => true ) );

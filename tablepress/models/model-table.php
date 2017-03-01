@@ -222,16 +222,9 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return array Post.
 	 */
 	protected function _table_to_post( array $table, $post_id ) {
-		/*
-		 * Sanitize each cell, if the user is not allowed to work with unfiltered HTML.
-		 * Table name and description are sanitized by WordPress directly, but the JSON would break if we don't do it ourselves.
-		 */
+		// Sanitize each cell, table name, and table description, if the user is not allowed to work with unfiltered HTML.
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			foreach ( $table['data'] as $row_idx => $row ) {
-				foreach ( $row as $column_idx => $cell_content ) {
-					$table['data'][ $row_idx ][ $column_idx ] = wp_kses_post( $cell_content ); // equals wp_filter_post_kses(), but without the unncessary slashes handling
-				}
-			}
+			$table = $this->sanitize( $table );
 		}
 
 		// New posts have a post ID of false in WordPress.
@@ -258,7 +251,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 *
 	 * @param WP_Post $post      Post.
 	 * @param string  $table_id  Table ID.
-	 * @param bool    $with_data Whether the table data shall be loaded.
+	 * @param bool    $load_data Whether the table data shall be loaded.
 	 * @return array Table.
 	 */
 	protected function _post_to_table( $post, $table_id, $load_data ) {
@@ -286,12 +279,9 @@ class TablePress_Table_Model extends TablePress_Model {
 
 			// If possible, try to find out what error prevented the JSON from being decoded.
 			$table['json_error'] = 'The error could not be determined.';
-			// @TODO: The `function_exists` check can be removed once support for WP 4.3 is dropped, as a compat function was added in WP 4.4.
-			if ( function_exists( 'json_last_error_msg' ) ) {
-				$json_error_msg = json_last_error_msg();
-				if ( false !== $json_error_msg ) {
-					$table['json_error'] = $json_error_msg;
-				}
+			$json_error_msg = json_last_error_msg();
+			if ( false !== $json_error_msg ) {
+				$table['json_error'] = $json_error_msg;
 			}
 
 			$table['description'] = "[ERROR] TABLE IS CORRUPTED (JSON error: {$table['json_error']})!  DO NOT EDIT THIS TABLE NOW!\nInstead, please see https://tablepress.org/faq/corrupted-tables/ for instructions.\n-\n{$table['description']}";
@@ -381,6 +371,31 @@ class TablePress_Table_Model extends TablePress_Model {
 	}
 
 	/**
+	 * Sanitize the table to remove undesired HTML code using KSES.
+	 *
+	 * @since 1.8.0
+	 *
+	 * @param array $table Table.
+	 * @return array Sanitized table.
+	 */
+	public function sanitize( array $table ) {
+		// Sanitize the table name and description.
+		$fields_to_sanitize = array( 'name', 'description' );
+		foreach ( $fields_to_sanitize as $field ) {
+			$table[ $field ] = wp_kses_post( $table[ $field ] );
+		}
+
+		// Sanitize each cell.
+		foreach ( $table['data'] as $row_idx => $row ) {
+			foreach ( $row as $column_idx => $cell_content ) {
+				$table['data'][ $row_idx ][ $column_idx ] = wp_kses_post( $cell_content ); // equals wp_filter_post_kses(), but without the unncessary slashes handling
+			}
+		}
+
+		return $table;
+	}
+
+	/**
 	 * Save a table.
 	 *
 	 * @since 1.0.0
@@ -422,7 +437,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		// At this point, post was successfully added.
 
 		// Invalidate table output caches that belong to this table.
-		$this->_invalidate_table_output_cache( $table['id'] );
+		$this->invalidate_table_output_cache( $table['id'] );
 		// Flush caching plugins' caches.
 		$this->_flush_caching_plugins_caches();
 
@@ -559,7 +574,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		$this->_remove_post_id( $table_id );
 
 		// Invalidate table output caches that belong to this table.
-		$this->_invalidate_table_output_cache( $table_id );
+		$this->invalidate_table_output_cache( $table_id );
 		// Flush caching plugins' caches.
 		$this->_flush_caching_plugins_caches();
 
@@ -591,7 +606,7 @@ class TablePress_Table_Model extends TablePress_Model {
 			$this->model_post->delete( $post_id ); // Post Meta fields will be deleted automatically by that function.
 			unset( $tables['table_post'][ $table_id ] );
 			// Invalidate table output caches that belong to this table.
-			$this->_invalidate_table_output_cache( $table_id );
+			$this->invalidate_table_output_cache( $table_id );
 		}
 
 		$this->tables->update( $tables );
@@ -641,10 +656,11 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * Delete all transients used for output caching of a table (e.g. when the table is updated or deleted).
 	 *
 	 * @since 1.0.0
+	 * @since 1.8.0 Renamed from _invalidate_table_output_cache to invalidate_table_output_cache and made public.
 	 *
 	 * @param string $table_id Table ID.
 	 */
-	protected function _invalidate_table_output_cache( $table_id ) {
+	public function invalidate_table_output_cache( $table_id ) {
 		$caches_list_transient_name = 'tablepress_c_' . md5( $table_id );
 		$caches_list = get_transient( $caches_list_transient_name );
 		if ( false !== $caches_list ) {
@@ -1210,7 +1226,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		}
 
 		foreach ( $table_post as $table_id => $post_id ) {
-			$this->_invalidate_table_output_cache( $table_id );
+			$this->invalidate_table_output_cache( $table_id );
 		}
 	}
 

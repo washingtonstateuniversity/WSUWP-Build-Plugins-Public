@@ -26,7 +26,7 @@ abstract class TablePress {
 	 * @since 1.0.0
 	 * @const string
 	 */
-	const version = '1.7';
+	const version = '1.8';
 
 	/**
 	 * TablePress internal plugin version ("options scheme" version).
@@ -36,7 +36,7 @@ abstract class TablePress {
 	 * @since 1.0.0
 	 * @const int
 	 */
-	const db_version = 32;
+	const db_version = 34;
 
 	/**
 	 * TablePress "table scheme" (data format structure) version.
@@ -113,9 +113,9 @@ abstract class TablePress {
 			return;
 		}
 
-		// Check if minimum requirements are fulfilled, currently WordPress 4.3.
+		// Check if minimum requirements are fulfilled, currently WordPress 4.7.
 		include( ABSPATH . WPINC . '/version.php' ); // Include an unmodified $wp_version.
-		if ( version_compare( str_replace( '-src', '', $wp_version ), '4.3', '<' ) ) {
+		if ( version_compare( str_replace( '-src', '', $wp_version ), '4.7', '<' ) ) {
 			// Show error notice to admins, if WP is not installed in the minimum required version, in which case TablePress will not work.
 			if ( current_user_can( 'update_plugins' ) ) {
 				add_action( 'admin_notices', array( 'TablePress', 'show_minimum_requirements_error_notice' ) );
@@ -202,7 +202,7 @@ abstract class TablePress {
 		 * @param string $class Name of the class that shall be loaded.
 		 */
 		$class = apply_filters( 'tablepress_load_class_name', $class );
-		if ( ! class_exists( $class ) ) {
+		if ( ! class_exists( $class, false ) ) {
 			self::load_file( $file, $folder );
 		}
 		$the_class = new $class( $params );
@@ -362,7 +362,7 @@ abstract class TablePress {
 	 */
 	public static function get_user_display_name( $user_id ) {
 		$user = get_userdata( $user_id );
-		return ( $user && isset( $user->display_name ) ) ? $user->display_name : __( '<em>unknown</em>', 'tablepress' );
+		return ( $user && isset( $user->display_name ) ) ? $user->display_name : sprintf( '<em>%s</em>', __( 'unknown', 'tablepress' ) );
 	}
 
 	/**

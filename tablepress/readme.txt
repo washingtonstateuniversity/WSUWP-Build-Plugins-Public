@@ -2,9 +2,9 @@
 Contributors: TobiasBg
 Donate link: https://tablepress.org/donate/
 Tags: table,data,html,csv,excel
-Requires at least: 4.3
-Tested up to: 4.4
-Stable tag: 1.7
+Requires at least: 4.7
+Tested up to: 4.7.2
+Stable tag: 1.8
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,10 +56,10 @@ Many questions, regarding different features or styling, have been answered on t
 For support questions, bug reports, or feature requests, please use the [WordPress Support Forums](https://wordpress.org/support/plugin/tablepress). Please [search](https://wordpress.org/support/) through the forums first, and only [open a new thread](https://wordpress.org/support/plugin/tablepress) if you don't find an existing answer. Thank you!
 
 = Requirements? =
-In short: WordPress 4.3 or higher, while the latest version of WordPress is always recommended.
+In short: WordPress 4.7 or higher, while the latest version of WordPress is always recommended.
 
 = Languages and Localization? =
-TablePress supports the ["Translate WordPress" platform](https://translate.wordpress.org/). With that, translating is possible on a website from which so-called Language Packs are automatically generated and shipped to plugin users. For a list of existing Language Packs, please see the sidebar on the TablePress page in the [WordPress Plugin Repository](https://wordpress.org/plugins/tablepress/).
+TablePress supports the ["Translate WordPress" platform](https://translate.wordpress.org/). With that, translating is possible on a website from which so-called Language Packs are automatically generated and shipped to plugin users. For a list of existing Language Packs, please see the sidebar on the TablePress page in the [WordPress Plugin Directory](https://wordpress.org/plugins/tablepress/).
 
 It is therefore no longer necessary to generate and translate *.po and *.mo files manually. Instead, just go to the [TablePress translations page](https://translate.wordpress.org/projects/wp-plugins/tablepress), log in with a free wordpress.org account and start translating TablePress into your language.
 
@@ -99,12 +99,23 @@ You may use it free of charge for any purpose.
 
 == Changelog ==
 
+= Version 1.8 =
+* Full compatibility with WordPress 4.7
+* Updated external libraries (CodeMirror, DataTables, Build tools).
+* Enhancement: Better spacing between the label and input field for the search in tables.
+* Enhancement: Update list of allowed CSS properties in "Custom CSS".
+* Enhancement: Make it easier for other plugins to clear the TablePress output cache.
+* Enhancement: Simplification of some strings/text, to make translations easier.
+* Bugfix: Better sanitization of HTML code in the Preview (thanks to Gerard Arall).
+* Some internal changes and fixes for better stability, cleaner code, translations, and documentation.
+* TablePress 1.8 requires WordPress 4.7!
+
 = Version 1.7 =
 * Full compatibility with WordPress 4.4
 * Bugfix: Properly align tabs and heading in the main navigation bar at the top.
 * Bugfix: Restore layout on small screens (responsiveness) for the "All Tables" screen.
 * Bugfix: Restore layout of the overlay when inserting tables into posts/pages.
-* Bugfix: Make input fiels on the "Edit" screen resizable in both directions again.
+* Bugfix: Make input fields on the "Edit" screen resizable in both directions again.
 * Bugfix: Restore sorting arrows on the "Edit" screen.
 * Bugfix: Some strings were unclear, had typos, or used wrong HTML entities.
 * Bugfix: Prevent certain "Custom Commands" from being rewritten to a new syntax in the wrong way.
@@ -223,6 +234,9 @@ Release candidate in which all intended features are included and very stable.
 Initial version where most features are ready and pretty stable.
 
 == Upgrade Notice ==
+
+= 1.8 =
+This update is a stability, maintenance, and compatibility release. Updating is recommended.
 
 = 1.7 =
 This update is a stability, maintenance, and compatibility release. Updating is recommended.
