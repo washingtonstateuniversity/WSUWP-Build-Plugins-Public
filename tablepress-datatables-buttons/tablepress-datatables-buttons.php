@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 // Init TablePress_DataTables_Buttons.
 add_action( 'tablepress_run', array( 'TablePress_DataTables_Buttons', 'init' ) );
-TablePress_DataTables_Buttons::init_update_checker();
+//TablePress_DataTables_Buttons::init_update_checker();
 
 /**
  * TablePress Extension: DataTables Buttons
