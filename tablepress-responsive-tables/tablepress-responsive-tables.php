@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 // Init TablePress_Responsive_Tables.
 add_action( 'tablepress_run', array( 'TablePress_Responsive_Tables', 'init' ) );
-TablePress_Responsive_Tables::init_update_checker();
+//TablePress_Responsive_Tables::init_update_checker();
 
 /**
  * TablePress Extension: Responsive Tables
