@@ -26,9 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 function wc_get_object_terms( $object_id, $taxonomy, $field = null, $index_key = null ) {
-	// Test if terms exists.
-	// get_the_terms() return false when don't found terms.
-	if ( $terms = get_the_terms( $object_id, $taxonomy ) ) {
+	// Test if terms exists. get_the_terms() return false when it finds no terms.
+	$terms = get_the_terms( $object_id, $taxonomy );
+
+	if ( $terms && ! is_wp_error( $terms ) ) {
 		if ( ! is_null( $field ) ) {
 			$terms = wp_list_pluck( $terms, $field, $index_key );
 		}
@@ -150,10 +151,13 @@ function wc_get_product_terms( $product_id, $taxonomy, $args = array() ) {
  * @return int
  */
 function _wc_get_product_terms_name_num_usort_callback( $a, $b ) {
-	if ( $a->name + 0 === $b->name + 0 ) {
+    $a_name = (int) $a->name;
+    $b_name = (int) $b->name;
+
+	if ( $a_name === $b_name ) {
 		return 0;
 	}
-	return ( $a->name + 0 < $b->name + 0 ) ? -1 : 1;
+	return ( $a_name < $b_name ) ? -1 : 1;
 }
 
 /**

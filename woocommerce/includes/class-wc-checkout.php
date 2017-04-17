@@ -91,7 +91,7 @@ class WC_Checkout {
 			case 'enable_guest_checkout' :
 				$bool_value = wc_string_to_bool( $value );
 
-				if ( $bool_value !== $this->is_registration_required() ) {
+				if ( $bool_value === $this->is_registration_required() ) {
 					remove_filter( 'woocommerce_checkout_registration_required', '__return_true', 0 );
 					remove_filter( 'woocommerce_checkout_registration_required', '__return_false', 0 );
 					add_filter( 'woocommerce_checkout_registration_required', $bool_value ? '__return_false' : '__return_true', 0 );
@@ -558,7 +558,7 @@ class WC_Checkout {
 			}
 		}
 
-		if ( in_array( 'shipping', $skipped ) && WC()->cart->needs_shipping_address() ) {
+		if ( in_array( 'shipping', $skipped ) && ( WC()->cart->needs_shipping_address() || wc_ship_to_billing_address_only() ) ) {
 			foreach ( $this->get_checkout_fields( 'shipping' ) as $key => $field ) {
 				$data[ $key ] = isset( $data[ 'billing_' . substr( $key, 9 ) ] ) ? $data[ 'billing_' . substr( $key, 9 ) ] : '';
 			}

@@ -1229,8 +1229,26 @@ class WC_AJAX {
 			wp_die();
 		}
 
-		$data_store      = WC_Data_Store::load( 'customer' );
-		$ids             = $data_store->search_customers( $term );
+		// Stop if it is not numeric and smaller than 3 characters.
+		if ( ! is_numeric( $term ) && 2 >= strlen( $term ) ) {
+			wp_die();
+		}
+
+		// Search by ID.
+		if ( is_numeric( $term ) ) {
+			$customer = new WC_Customer( intval( $term ) );
+
+			// Customer does not exists.
+			if ( 0 === $customer->get_id() ) {
+				wp_die();
+			}
+
+			$ids = array( $customer->get_id() );
+		} else {
+			$data_store = WC_Data_Store::load( 'customer' );
+			$ids        = $data_store->search_customers( $term );
+		}
+
 		$found_customers = array();
 
 		if ( ! empty( $_GET['exclude'] ) ) {
@@ -1805,7 +1823,7 @@ class WC_AJAX {
 			}
 
 			if ( 'false' !== $data['date_to'] ) {
-				$variation->set_date_on_sale_from( wc_clean( $data['date_to'] ) );
+				$variation->set_date_on_sale_to( wc_clean( $data['date_to'] ) );
 			}
 
 			$variation->save();

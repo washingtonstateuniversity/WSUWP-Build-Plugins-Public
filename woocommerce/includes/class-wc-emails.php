@@ -24,6 +24,11 @@ class WC_Emails {
 	protected static $_instance = null;
 
 	/**
+	 * Background emailer class.
+	 */
+	protected static $background_emailer;
+
+	/**
 	 * Main WC_Emails Instance.
 	 *
 	 * Ensures only one instance of WC_Emails is loaded or can be loaded.
@@ -83,21 +88,26 @@ class WC_Emails {
 			'woocommerce_created_customer',
 		) );
 
-		foreach ( $email_actions as $action ) {
-			add_action( $action, array( __CLASS__, 'queue_transactional_email' ), 10, 10 );
+		if ( apply_filters( 'woocommerce_defer_transactional_emails', false ) ) {
+			self::$background_emailer = new WC_Background_Emailer();
+
+			foreach ( $email_actions as $action ) {
+				add_action( $action, array( __CLASS__, 'queue_transactional_email' ), 10, 10 );
+			}
+		} else {
+			foreach ( $email_actions as $action ) {
+				add_action( $action, array( __CLASS__, 'send_transactional_email' ), 10, 10 );
+			}
 		}
 	}
 
 	/**
-	 * Queue transactional email via cron so it's not sent in current request.
+	 * Queue transactional email so it's not sent in current request.
 	 */
 	public static function queue_transactional_email() {
-		$filter = current_filter();
-		$args   = func_get_args();
-
-		wp_schedule_single_event( time() + 5, 'woocommerce_send_queued_transactional_email', array(
-			'filter' => $filter,
-			'args'   => $args,
+		self::$background_emailer->push_to_queue( array(
+			'filter' => current_filter(),
+			'args'   => func_get_args(),
 		) );
 	}
 
@@ -112,6 +122,11 @@ class WC_Emails {
 	public static function send_queued_transactional_email( $filter = '', $args = array() ) {
 		if ( apply_filters( 'woocommerce_allow_send_queued_transactional_email', true, $filter, $args ) ) {
 			self::instance(); // Init self so emails exist.
+
+			// Ensure gateways are loaded in case they need to insert data into the emails.
+			WC()->payment_gateways();
+			WC()->shipping();
+
 			do_action_ref_array( $filter . '_notification', $args );
 		}
 	}
@@ -124,9 +139,15 @@ class WC_Emails {
 	 * @param array $args Email args (default: []).
 	 */
 	public static function send_transactional_email( $args = array() ) {
-		$args = func_get_args();
-		self::instance(); // Init self so emails exist.
-		do_action_ref_array( current_filter() . '_notification', $args );
+		try {
+			$args = func_get_args();
+			self::instance(); // Init self so emails exist.
+			do_action_ref_array( current_filter() . '_notification', $args );
+		} catch ( Exception $e ) {
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				trigger_error( 'Transactional email triggered fatal error for callback ' . current_filter(), E_USER_WARNING );
+			}
+		}
 	}
 
 	/**
@@ -436,6 +457,10 @@ class WC_Emails {
 	 * @param WC_Product $product
 	 */
 	public function low_stock( $product ) {
+		if ( 'no' === get_option( 'woocommerce_notify_low_stock', 'yes' ) ) {
+			return;
+		}
+
 		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product low in stock', 'woocommerce' ) );
 		/* translators: 1: product name 2: items in stock */
 		$message = sprintf(
@@ -459,6 +484,10 @@ class WC_Emails {
 	 * @param WC_Product $product
 	 */
 	public function no_stock( $product ) {
+		if ( 'no' === get_option( 'woocommerce_notify_no_stock', 'yes' ) ) {
+			return;
+		}
+
 		$subject = sprintf( '[%s] %s', $this->get_blogname(), __( 'Product out of stock', 'woocommerce' ) );
 		/* translators: %s: product name */
 		$message = sprintf( __( '%s is out of stock.', 'woocommerce' ), html_entity_decode( strip_tags( $product->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ) );

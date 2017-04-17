@@ -577,7 +577,7 @@ if ( ! function_exists( 'woocommerce_product_loop_end' ) ) {
 if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
 
 	/**
-	 * Show the product title in the product loop. By default this is an H3.
+	 * Show the product title in the product loop. By default this is an H2.
 	 */
 	function woocommerce_template_loop_product_title() {
 		echo '<h2 class="woocommerce-loop-product__title">' . get_the_title() . '</h2>';
@@ -974,7 +974,7 @@ if ( ! function_exists( 'woocommerce_grouped_add_to_cart' ) ) {
 
 		wc_get_template( 'single-product/add-to-cart/grouped.php', array(
 			'grouped_product'    => $product,
-			'grouped_products'   => array_filter( array_map( 'wc_get_product', $product->get_children() ), 'wc_products_array_filter_visible' ),
+			'grouped_products'   => array_map( 'wc_get_product', $product->get_children() ),
 			'quantites_required' => false,
 		) );
 	}
@@ -1269,6 +1269,10 @@ if ( ! function_exists( 'woocommerce_related_products' ) ) {
 	function woocommerce_related_products( $args = array() ) {
 		global $product, $woocommerce_loop;
 
+		if ( ! $product ) {
+			return;
+		}
+
 		$defaults = array(
 			'posts_per_page' => 2,
 			'columns'        => 2,
@@ -1277,10 +1281,6 @@ if ( ! function_exists( 'woocommerce_related_products' ) ) {
 		);
 
 		$args = wp_parse_args( $args, $defaults );
-
-		if ( ! $product ) {
-			return;
-		}
 
 		// Get visble related products then sort them at random.
 		$args['related_products'] = array_filter( array_map( 'wc_get_product', wc_get_related_products( $product->get_id(), $args['posts_per_page'], $product->get_upsell_ids() ) ), 'wc_products_array_filter_visible' );
@@ -1308,6 +1308,10 @@ if ( ! function_exists( 'woocommerce_upsell_display' ) ) {
 	 */
 	function woocommerce_upsell_display( $limit = '-1', $columns = 4, $orderby = 'rand', $order = 'desc' ) {
 		global $product, $woocommerce_loop;
+
+		if ( ! $product ) {
+			return;
+		}
 
 		// Handle the legacy filter which controlled posts per page etc.
 		$args = apply_filters( 'woocommerce_upsell_display_args', array(
@@ -1375,11 +1379,15 @@ if ( ! function_exists( 'woocommerce_cross_sell_display' ) ) {
 	 * @param  string $order (default: 'desc')
 	 */
 	function woocommerce_cross_sell_display( $limit = 2, $columns = 2, $orderby = 'rand', $order = 'desc' ) {
+		global $woocommerce_loop;
+
 		if ( is_checkout() ) {
 			return;
 		}
 		// Get visble cross sells then sort them at random.
-		$cross_sells = array_filter( array_map( 'wc_get_product', WC()->cart->get_cross_sells() ), 'wc_products_array_filter_visible' );
+		$cross_sells                 = array_filter( array_map( 'wc_get_product', WC()->cart->get_cross_sells() ), 'wc_products_array_filter_visible' );
+		$woocommerce_loop['name']    = 'cross-sells';
+		$woocommerce_loop['columns'] = apply_filters( 'woocommerce_cross_sells_columns', $columns );
 
 		// Handle orderby and limit results.
 		$orderby     = apply_filters( 'woocommerce_cross_sells_orderby', $orderby );
