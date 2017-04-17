@@ -3,7 +3,7 @@ Contributors: washingtonstateuniversity, ssheilah
 Tags: embed, form, iframe, radius, hobsonsradius, wsu
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 4.7
+Stable tag: Trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

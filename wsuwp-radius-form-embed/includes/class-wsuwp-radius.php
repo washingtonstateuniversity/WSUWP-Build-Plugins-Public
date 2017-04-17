@@ -43,7 +43,7 @@ class WSUWP_Radius {
 			$url = esc_url( $a['url'] );
 			$height = absint( $a['height'] );
 			$title = esc_attr( $a['title'] );
-			return "<iframe scrolling='no' title='{$title}'; src='{$url}' style='width:100%; height:{$height}vh;'></iframe>";
+			return "<iframe scrolling='no' title='{$title}'; src='{$url}' style='width:100%; height:{$height}px;'></iframe>";
 		} else {
 			return '<p>Unable to import the form. Please use the correct format: [radius_form url="https://wsuonline..." title="form title" height="150"] </p>';
 		}
