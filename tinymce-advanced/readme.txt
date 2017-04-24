@@ -31,6 +31,10 @@ Best is to install directly from WordPress. If manual installation is required, 
 
 == Changelog ==
 
+= 4.5.6 =
+* Updated for WordPress 4.7.4 and TinyMCE 4.5.6.
+* Fixed PHP notice after importing settings.
+
 = 4.4.3 =
 * Updated for WordPress 4.7 and TinyMCE 4.4.3.
 * Fixed missing "Source code" button bug.
