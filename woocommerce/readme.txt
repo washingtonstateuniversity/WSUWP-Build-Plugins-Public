@@ -3,7 +3,7 @@ Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, code
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -160,6 +160,46 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 6. A product archive (grid).
 
 == Changelog ==
+
+= 3.0.4 - 2017-04-20 =
+* Fix - Variations were not inheriting the product image and shipping class ID.
+* Fix - Prevent rating/review counts being duplicated when duplicating products.
+* Fix - Fixed gallery navigation between images with long captions.
+* Fix - Support transparent PNG in the gallery by setting a background color.
+* Fix - Removed name/company from the shipping address Google map links.
+* Fix - Fixed the address field sorting script on the checkout.
+* Fix - Fixed the upgrade routine for grouped products so that parents are unset.
+* Fix - Fixed support for WordPress 4.7 user locale settings.
+* Fix - Fixed default option filter for product types in the product meta box.
+* Fix - Improved the css in Twenty Seventeen for dark color schemes.
+* Fix - Fixed display of refunds in sales report.
+* Fix - Updated `single-product/add-to-cart/variable.php` template version to 3.0.0 since it had changes since 2.6.
+* Fix - Fixed warnings when product attribute do not exists.
+* Fix - Used a div for comment-form-rating to prevent invalid nested markup.
+* Fix - Fixed some logic that checks if order taxes are compound.
+* Fix - Fixed SKU checks to only exclude products that are trashed.
+* Fix - Fixed display of download permissions in first email sent after checkout.
+* Fix - Hidden the backorder notification stock text when notification is disabled.
+* Fix - Fixed incorrect stock numbers in low stock emails.
+* Tweak - Removed the non-functional order total input box, and combined the recalculation buttons into one working button.
+* Tweak - Updated Guided Tour videos.
+* Tweak - Updated js-cookie.js to 2.1.4.
+* Tweak - Updated schema.org URLs to use HTTPS.
+* Tweak - Status report request timeouts.
+* REST API - Fixed an issue that prevented deleting a term if errors were thrown during creation.
+* REST API - Fixed reports endpoint when querying by date.
+* REST API - Fixed ignored order parameters when changing order status.
+* Dev - Support guest orders in `wc_get_orders` function.
+* Dev - Fixed downloadable variation filters for download URLs.
+* Dev - Added safeguards to prevent infinite loops while saving coupons, products and orders in admin.
+* Dev - Added a fallback for `queue_transactional_email` if background sending is disabled.
+* Dev - Added `has_shipping_address` helper method.
+* Dev - Introduced `woocommerce_order_item_get_formatted_meta_data` filter.
+* Dev - Made wc_add_order_item pass correct values to woocommerce_new_order_item.
+* Dev - Fixed `legacy_posted_data` access in checkout class.
+* Dev - Fixed undefined property notice in `WC_Order_Item::offsetGet`.
+* Dev - Fixed PHP 7.1 warnings when using non-float values to `wc_get_weight()`.
+* Dev - Fixed incorrect variable name in `wc_add_order_item()`.
 
 = 3.0.3 - 2017-04-13 =
 * Fix - Fixed an issue with variation tax-classes when set to 'parent'. This made taxes apply on top of the tax inclusive price in certain setups.
@@ -319,5 +359,5 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 
 == Upgrade Notice ==
 
-= 3.0.3 =
+= 3.0.4 =
 3.0 is a major update. [Make a full site backup](https://docs.woocommerce.com/document/backup-wordpress-content), update your theme and extensions, and [review update best practices](https://docs.woocommerce.com/document/how-to-update-your-site) before upgrading.
