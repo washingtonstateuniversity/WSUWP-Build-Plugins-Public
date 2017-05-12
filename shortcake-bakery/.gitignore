@@ -1,7 +1,0 @@
-.svn
-/node_modules
-/vendor
-.DS_Store
-.sass-cache
-composer.lock
-_SpecRunner.html
