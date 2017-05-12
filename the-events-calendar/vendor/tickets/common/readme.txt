@@ -1,1 +1,0 @@
-=== Tribe Common ===
