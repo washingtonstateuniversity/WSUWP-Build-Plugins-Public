@@ -4037,7 +4037,7 @@ msgstr "Modern Tribe, Inc."
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
-msgstr "O calendário de eventos é um plugin extensível, cuidadosamente criado que lhe permite facilmente partilhar os seus eventos. Belo. Sólido. Espéctacular."
+msgstr ""
 
 #: src/views/widgets/list-widget.php:101
 msgid "There are no upcoming %s at this time."

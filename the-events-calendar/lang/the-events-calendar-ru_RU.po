@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-02-10 01:16:54+0000\n"
+"PO-Revision-Date: 2017-05-17 13:00:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1295,7 +1295,7 @@ msgstr ""
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
@@ -1397,7 +1397,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:188
 msgid "Category:"
-msgstr ""
+msgstr "Рубрика:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:176
 msgid "Status:"
@@ -1804,7 +1804,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:138
 msgid "meetup.com/example"
-msgstr ""
+msgstr "meetup.com/example"
 
 #: src/admin-views/aggregator/origins/meetup.php:61
 msgid "Save"
@@ -1868,7 +1868,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/gcal.php:82
 msgid "https://calendar.google.com/calendar/ical/example/basic.ics"
-msgstr ""
+msgstr "https://calendar.google.com/calendar/ical/example/basic.ics"
 
 #: src/admin-views/aggregator/origins/gcal.php:7
 #: src/admin-views/aggregator/origins/ical.php:7
@@ -1881,7 +1881,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/facebook.php:110
 msgid "facebook.com/example"
-msgstr ""
+msgstr "facebook.com/example"
 
 #: src/admin-views/aggregator/origins/facebook.php:63
 #: src/admin-views/aggregator/origins/gcal.php:36
@@ -3936,7 +3936,7 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:654
 msgid "Thanks for setting up a valid key. It will expire on %s"
-msgstr ""
+msgstr "Спасибо за установку правильного ключа, он истекает %s"
 
 #: src/Tribe/Main.php:933
 msgid "<a href=\"%s\">edit Events settings</a>."
@@ -4043,7 +4043,7 @@ msgstr "организаторы"
 #: src/admin-views/aggregator/origins/url.php:122
 #: src/admin-views/aggregator/tabs/import-form.php:208
 msgid "Cancel"
-msgstr "Адмова"
+msgstr ""
 
 #: common/src/Tribe/Validate.php:211
 msgid "%s must be a positive number or percent."
@@ -4051,7 +4051,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:936
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s или %2$s"
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
@@ -4455,7 +4455,7 @@ msgstr "Больше..."
 #: common/src/Tribe/Admin/Help_Page.php:183 common/src/Tribe/App_Shop.php:111
 #: src/Tribe/Main.php:1042
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "The Events Calendar PRO"
 
 #: common/src/Tribe/Admin/Help_Page.php:402
 #: common/src/Tribe/Admin/Help_Page.php:777
@@ -4922,7 +4922,7 @@ msgstr "%s Веб-сайт"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:486
 msgid "Location:"
-msgstr ""
+msgstr "Местоположение:"
 
 #: src/admin-views/events-meta-box.php:129
 msgid "Timezone:"

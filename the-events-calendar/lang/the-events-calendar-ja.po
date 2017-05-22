@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-03 21:30:15+0000\n"
+"PO-Revision-Date: 2017-05-06 12:55:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:460
 msgid "Other URLs"
-msgstr ""
+msgstr "他の URL"
 
 #: src/admin-views/aggregator/settings.php:411
 msgid "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar."
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:410
 msgid "Import Event Settings"
-msgstr ""
+msgstr "イベント設定をインポート"
 
 #: src/admin-views/aggregator/settings.php:400
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
@@ -573,15 +573,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:273 src/Tribe/Aggregator/Settings.php:274
 msgid "24 hours"
-msgstr ""
+msgstr "24時間"
 
 #: src/Tribe/Aggregator/Settings.php:277 src/Tribe/Aggregator/Settings.php:278
 msgid "72 hours"
-msgstr ""
+msgstr "72時間"
 
 #: src/Tribe/Aggregator/Settings.php:281
 msgid "One week"
-msgstr ""
+msgstr "1週間"
 
 #: src/Tribe/Aggregator/Service.php:518
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
@@ -589,43 +589,43 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:282
 msgid "a week"
-msgstr ""
+msgstr "1週間"
 
 #: src/Tribe/Aggregator/Settings.php:285
 msgid "Two weeks"
-msgstr ""
+msgstr "2週間"
 
 #: src/Tribe/Aggregator/Settings.php:286
 msgid "two weeks"
-msgstr ""
+msgstr "2週間"
 
 #: src/Tribe/Aggregator/Settings.php:289
 msgid "Three weeks"
-msgstr ""
+msgstr "3週間"
 
 #: src/Tribe/Aggregator/Settings.php:293
 msgid "One month"
-msgstr ""
+msgstr "1ヶ月"
 
 #: src/Tribe/Aggregator/Settings.php:294
 msgid "a month"
-msgstr ""
+msgstr "1ヶ月"
 
 #: src/Tribe/Aggregator/Settings.php:297
 msgid "Two months"
-msgstr ""
+msgstr "2ヶ月"
 
 #: src/Tribe/Aggregator/Settings.php:298
 msgid "two months"
-msgstr ""
+msgstr "2ヶ月"
 
 #: src/Tribe/Aggregator/Settings.php:301
 msgid "Three months"
-msgstr ""
+msgstr "3ヶ月"
 
 #: src/Tribe/Aggregator/Settings.php:302
 msgid "three months"
-msgstr ""
+msgstr "3ヶ月"
 
 #: src/Tribe/Aggregator/Tabs/New.php:364
 msgid "%1$d new event tag was created."
@@ -650,7 +650,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Url.php:17
 msgid "Other URL"
-msgstr ""
+msgstr "その他の URL"
 
 #: src/Tribe/Aggregator/Service.php:497
 msgid "Events could not be imported. The import parameters were invalid."
@@ -658,7 +658,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:290
 msgid "three weeks"
-msgstr ""
+msgstr "3週間"
 
 #: src/Tribe/Aggregator/Service.php:504
 msgid "Events could not be imported. The URL provided did not have events in the proper format."
@@ -667,7 +667,7 @@ msgstr ""
 #: src/Tribe/Venue.php:201
 msgctxt "Metabox title"
 msgid "Location"
-msgstr ""
+msgstr "場所"
 
 #: src/admin-views/aggregator/settings.php:55
 msgid "Import events but preserve local changes to event fields."
@@ -680,12 +680,12 @@ msgstr ""
 #: src/functions/template-tags/loop.php:171
 msgctxt "day_view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%2$sの%1$s"
 
 #: src/functions/template-tags/loop.php:162
 msgctxt "month view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%2$sの%1$s"
 
 #: src/admin-views/tribe-options-display.php:185
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
@@ -694,7 +694,7 @@ msgstr ""
 #: src/Tribe/Main.php:708
 msgctxt "all events slug"
 msgid "all"
-msgstr ""
+msgstr "all"
 
 #: common/src/Tribe/Validate.php:245
 msgid "%s must be a whole number."
@@ -810,7 +810,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4090
 msgid "Keyword"
-msgstr ""
+msgstr "キーワード"
 
 #: src/functions/template-tags/loop.php:130
 msgctxt "featured events title"
@@ -835,7 +835,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:72
 msgid "Start/End:"
-msgstr ""
+msgstr "開始/終了:"
 
 #: src/admin-views/event-sidebar-options.php:33
 msgid "Featured events are highlighted on the front end in views, archives, and widgets."
@@ -986,35 +986,35 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:339
 msgid "Custom"
-msgstr ""
+msgstr "カスタム"
 
 #: src/Tribe/Customizer/General_Theme.php:333
 msgid "Sunshine"
-msgstr ""
+msgstr "サンシャイン"
 
 #: src/Tribe/Customizer/General_Theme.php:327
 msgid "Skyfall"
-msgstr ""
+msgstr "スカイフォール"
 
 #: src/Tribe/Customizer/General_Theme.php:321
 msgid "Malacite"
-msgstr ""
+msgstr "マラカイト"
 
 #: src/Tribe/Customizer/General_Theme.php:315
 msgid "Lagoon"
-msgstr ""
+msgstr "ラグーン"
 
 #: src/Tribe/Customizer/General_Theme.php:309
 msgid "Evergreen"
-msgstr ""
+msgstr "エバーグリーン"
 
 #: src/Tribe/Customizer/General_Theme.php:303
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: src/Tribe/Customizer/General_Theme.php:297
 msgid "Deep Sea"
-msgstr ""
+msgstr "ディープシー"
 
 #: src/Tribe/Customizer/General_Theme.php:291
 msgid "Blue Steel"
@@ -1030,7 +1030,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:228
 msgid "Accent Color"
-msgstr ""
+msgstr "アクセント色"
 
 #: src/Tribe/Customizer/General_Theme.php:197
 msgid "Global configurations for the styling of The Events Calendar"
@@ -1082,151 +1082,151 @@ msgstr ""
 
 #: src/Tribe/Asset/Dynamic.php:67
 msgid "Dec"
-msgstr ""
+msgstr "12月"
 
 #: src/Tribe/Asset/Dynamic.php:66
 msgid "Nov"
-msgstr ""
+msgstr "11月"
 
 #: src/Tribe/Asset/Dynamic.php:65
 msgid "Oct"
-msgstr ""
+msgstr "10月"
 
 #: src/Tribe/Asset/Dynamic.php:64
 msgid "Sep"
-msgstr ""
+msgstr "9月"
 
 #: src/Tribe/Asset/Dynamic.php:63
 msgid "Aug"
-msgstr ""
+msgstr "8月"
 
 #: src/Tribe/Asset/Dynamic.php:62
 msgid "Jul"
-msgstr ""
+msgstr "7月"
 
 #: src/Tribe/Asset/Dynamic.php:61
 msgid "Jun"
-msgstr ""
+msgstr "6月"
 
 #: src/Tribe/Asset/Dynamic.php:59
 msgid "Apr"
-msgstr ""
+msgstr "4月"
 
 #: src/Tribe/Asset/Dynamic.php:58
 msgid "Mar"
-msgstr ""
+msgstr "3月"
 
 #: src/Tribe/Asset/Dynamic.php:57
 msgid "Feb"
-msgstr ""
+msgstr "2月"
 
 #: src/Tribe/Asset/Dynamic.php:56
 msgid "Jan"
-msgstr ""
+msgstr "1月"
 
 #: src/Tribe/Asset/Dynamic.php:53
 msgid "December"
-msgstr ""
+msgstr "12月"
 
 #: src/Tribe/Asset/Dynamic.php:52
 msgid "November"
-msgstr ""
+msgstr "11月"
 
 #: src/Tribe/Asset/Dynamic.php:51
 msgid "October"
-msgstr ""
+msgstr "10月"
 
 #: src/Tribe/Asset/Dynamic.php:50
 msgid "September"
-msgstr ""
+msgstr "9月"
 
 #: src/Tribe/Asset/Dynamic.php:49
 msgid "August"
-msgstr ""
+msgstr "8月"
 
 #: src/Tribe/Asset/Dynamic.php:48
 msgid "July"
-msgstr ""
+msgstr "7月"
 
 #: src/Tribe/Asset/Dynamic.php:47
 msgid "June"
-msgstr ""
+msgstr "6月"
 
 #: src/Tribe/Asset/Dynamic.php:46 src/Tribe/Asset/Dynamic.php:60
 msgid "May"
-msgstr ""
+msgstr "5月"
 
 #: src/Tribe/Asset/Dynamic.php:45
 msgid "April"
-msgstr ""
+msgstr "4月"
 
 #: src/Tribe/Asset/Dynamic.php:44
 msgid "March"
-msgstr ""
+msgstr "3月"
 
 #: src/Tribe/Asset/Dynamic.php:43
 msgid "February"
-msgstr ""
+msgstr "2月"
 
 #: src/Tribe/Asset/Dynamic.php:42
 msgid "January"
-msgstr ""
+msgstr "1月"
 
 #: src/Tribe/Asset/Dynamic.php:39
 msgid "Sat"
-msgstr ""
+msgstr "土"
 
 #: src/Tribe/Asset/Dynamic.php:38
 msgid "Fri"
-msgstr ""
+msgstr "金"
 
 #: src/Tribe/Asset/Dynamic.php:37
 msgid "Thu"
-msgstr ""
+msgstr "木"
 
 #: src/Tribe/Asset/Dynamic.php:36
 msgid "Wed"
-msgstr ""
+msgstr "水"
 
 #: src/Tribe/Asset/Dynamic.php:35
 msgid "Tue"
-msgstr ""
+msgstr "火"
 
 #: src/Tribe/Asset/Dynamic.php:34
 msgid "Mon"
-msgstr ""
+msgstr "月"
 
 #: src/Tribe/Asset/Dynamic.php:33
 msgid "Sun"
-msgstr ""
+msgstr "日"
 
 #: src/Tribe/Asset/Dynamic.php:30
 msgid "Saturday"
-msgstr ""
+msgstr "土曜日"
 
 #: src/Tribe/Asset/Dynamic.php:29
 msgid "Friday"
-msgstr ""
+msgstr "金曜日"
 
 #: src/Tribe/Asset/Dynamic.php:28
 msgid "Thursday"
-msgstr ""
+msgstr "木曜日"
 
 #: src/Tribe/Asset/Dynamic.php:27
 msgid "Wednesday"
-msgstr ""
+msgstr "水曜日"
 
 #: src/Tribe/Asset/Dynamic.php:26
 msgid "Tuesday"
-msgstr ""
+msgstr "火曜日"
 
 #: src/Tribe/Asset/Dynamic.php:25
 msgid "Monday"
-msgstr ""
+msgstr "月曜日"
 
 #: src/Tribe/Asset/Dynamic.php:24
 msgid "Sunday"
-msgstr ""
+msgstr "日曜日"
 
 #: src/Tribe/Admin/Front_Page_View.php:18
 msgctxt "Static front page setting"
@@ -1235,7 +1235,7 @@ msgstr ""
 
 #: common/src/Tribe/Settings.php:269 common/src/Tribe/Settings.php:270
 msgid "Events Help"
-msgstr ""
+msgstr "イベントのヘルプ"
 
 #: common/src/Tribe/PUE/Checker.php:1316
 msgid "Expired license. Consult your network administrator."
@@ -1326,7 +1326,7 @@ msgstr ""
 #: src/views/single-event.php:28
 msgctxt "%s Events plural label"
 msgid "All %s"
-msgstr ""
+msgstr "すべての%s"
 
 #: src/io/csv/admin-views/header.php:17
 msgid "Legacy Events Import"
@@ -1395,11 +1395,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:188
 msgid "Category:"
-msgstr ""
+msgstr "カテゴリー:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:176
 msgid "Status:"
-msgstr ""
+msgstr "ステータス:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:156
 #: src/admin-views/aggregator/tabs/import-form.php:168
@@ -2036,12 +2036,12 @@ msgstr ""
 #: src/Tribe/Utils/Radius.php:55
 msgctxt "Abbreviation for the kilometers unit of measure"
 msgid "km"
-msgstr ""
+msgstr "km"
 
 #: src/Tribe/Utils/Radius.php:53
 msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 #: src/Tribe/Main.php:919
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
@@ -2327,7 +2327,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Tabs/New.php:385
 msgctxt "separator between date and time"
 msgid " at "
-msgstr ""
+msgstr " @ "
 
 #: src/Tribe/Aggregator/Tabs/New.php:381
 msgid "Your scheduled import was saved and the first import is complete!"
@@ -2615,7 +2615,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Records.php:165
 msgctxt "record"
 msgid "Add New"
-msgstr ""
+msgstr "新規追加"
 
 #: src/Tribe/Aggregator/Records.php:164
 msgctxt "add new on admin bar"
@@ -2788,7 +2788,7 @@ msgstr ""
 msgctxt "records"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
+msgstr[0] "すべて <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
@@ -2902,12 +2902,12 @@ msgstr ""
 #: src/Tribe/Aggregator/Page.php:81
 msgctxt "Meridian: pm"
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: src/Tribe/Aggregator/Page.php:80
 msgctxt "Meridian: am"
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #: src/Tribe/Aggregator/Migrate.php:435
 msgid "Success! The settings from iCal Importer have been migrated to Event Aggregator. You can view your migrated imports on the Scheduled Imports tab."
@@ -3159,11 +3159,11 @@ msgstr ""
 
 #: common/src/admin-views/app-shop.php:5
 msgid "Browse All Add-Ons"
-msgstr ""
+msgstr "すべてのアドオンを見る"
 
 #: common/src/admin-views/app-shop.php:4
 msgid "Events Add-Ons"
-msgstr ""
+msgstr "イベントアドオン"
 
 #: common/src/Tribe/View_Helpers.php:99
 msgid "C&ocirc;te d'Ivoire"
@@ -5565,7 +5565,7 @@ msgstr "ニューカレドニア"
 
 #: common/src/Tribe/View_Helpers.php:200
 msgid "Netherlands Antilles"
-msgstr "オランダ領アンティル諸島"
+msgstr "オランダ領アンティル"
 
 #: common/src/Tribe/View_Helpers.php:199
 msgid "Netherlands"
@@ -6308,7 +6308,7 @@ msgstr ""
 
 #: src/Tribe/Template/Month.php:377 src/Tribe/Template_Factory.php:306
 msgid "There were no results found."
-msgstr "何も見つかりませんでした。"
+msgstr "一致するものが見つかりませんでした。"
 
 #: src/Tribe/Template/Month.php:375
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-03 16:38:38+0000\n"
+"PO-Revision-Date: 2017-05-19 15:38:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgstr "Import des paramètres des évènements"
 
 #: src/admin-views/aggregator/settings.php:400
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
-msgstr ""
+msgstr "Quand on importe un site utilisant The Event Calendar, l’API REST  essaiera de chercher des évènements dans le futur. Les ressources d’hébergement de ce site Web peuvent avoir une incidence sur le succès des importations. Choisir une période plus courte peut améliorer les résultats."
 
 #: src/admin-views/aggregator/origins/url.php:84
 msgid "Enter the url for the calendar, website, or event you would like to import. Event Aggregator will attempt to import events at that location."
@@ -33,7 +33,7 @@ msgstr "Entrez l'URL de l'agenda, du site web ou de l'évènement que vous dési
 
 #: src/Tribe/REST/V1/Messages.php:23
 msgid "The 'categories' parameter contains invalid category slugs or IDs"
-msgstr ""
+msgstr "Le paramètre catégorie contient un identifiant ou un ID de catégorie invalide."
 
 #: src/Tribe/REST/V1/Messages.php:14
 msgid "The requested post ID does not exist or is not an event"
@@ -81,7 +81,7 @@ msgstr "The Events Calendar REST API"
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:90
 msgid "The Events Calendar REST API allows accessing upcoming events information easily and conveniently."
-msgstr ""
+msgstr "La REST API de The Event Calendar autorise un accès simplifié aux détails des évènements."
 
 #: src/Tribe/REST/V1/Messages.php:16
 msgid "The event does not have an organizer assigned"
@@ -105,11 +105,11 @@ msgstr "Identifiant du post de l'événement"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:465
 msgid "Events should contain the specified string in the title or description"
-msgstr ""
+msgstr "Les évènements doivent contenir la chaîne spécifiée dans le titre ou la description"
 
 #: src/Tribe/REST/V1/Messages.php:24
 msgid "The 'tags' parameter contains invalid tag slugs or IDs"
-msgstr ""
+msgstr "Le paramètre étiquette contient un identifiant ou un ID de catégorie invalide."
 
 #: src/Tribe/REST/V1/Messages.php:25
 msgid "The requested event archive page does not exist"
@@ -122,7 +122,7 @@ msgstr "environ"
 
 #: src/admin-views/aggregator/origins/url.php:89
 msgid "Event Aggregator will try to fetch events starting in %s from the current date or the specified date;"
-msgstr ""
+msgstr "Event Aggregator essaiera de chercher les évènements dans %s depuis la date du jour ou une date spécifique;"
 
 #: src/admin-views/aggregator/origins/url.php:83
 msgid "example.com/"
@@ -164,7 +164,7 @@ msgstr "Date de début de l'événement dans le fuseau horaire du site ou de l'�
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:89
 msgid "An array of each component of the event start date"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de début d’un évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:94
 msgid "The event end date in the event or site timezone"
@@ -172,7 +172,7 @@ msgstr "Date de fin de l'évènement dans le fuseau horaire du site ou de l'év�
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:98
 msgid "An array of each component of the event end date"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de fin d’un évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:103
 msgid "The event start date in UTC time"
@@ -180,7 +180,7 @@ msgstr "Date de début de l’évènement en heure UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:107
 msgid "An array of each component of the event start date in UTC time"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de début d’un évènement en UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:112
 msgid "The event end date in UTC time"
@@ -188,11 +188,11 @@ msgstr "Date de fin de l’évènement en heure UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:116
 msgid "An array of each component of the event end date in UTC time"
-msgstr ""
+msgstr "Un tableau de chaque composant de la date de fin d’un évènement en UTC"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:125
 msgid "The abbreviated event timezone string"
-msgstr ""
+msgstr "Abréviation du fuseau horaire de l’évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:129
 msgid "The event cost including the currency symbol"
@@ -220,7 +220,7 @@ msgstr "Si un évènement doit être caché de la vue agenda ou non"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:154
 msgid "Whether an event is sticky in the calendar view or not"
-msgstr ""
+msgstr "Si un évènement est épinglé dans l’agenda ou pas"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:158
 msgid "Whethere the event is featured in the calendar or not"
@@ -249,11 +249,11 @@ msgstr "Identifiant post WordPress de l'organisateur"
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:32
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:32
 msgid "An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created."
-msgstr ""
+msgstr "Un tableau contenant les informations d’origine de l’organisateur, ceci ne devrait pas changer après sa création."
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:36
 msgid "The organizer author WordPress post ID"
-msgstr ""
+msgstr "L’ID WordPress de l’auteur de l’organisateur"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:40
 msgid "The organizer creation date in the site timezone"
@@ -361,27 +361,27 @@ msgstr "L'API de The Events Calendar ne fournit par le site d'origine correcteme
 
 #: src/Tribe/REST/V1/EA_Messages.php:14
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data."
-msgstr ""
+msgstr "L’évènement ne peut  pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais retourne des données mal formées."
 
 #: src/Tribe/REST/V1/EA_Messages.php:15
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the archive control data."
-msgstr ""
+msgstr "L’évènement ne peut  pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais il y a eu une erreur pendant le contrôle des données."
 
 #: src/Tribe/REST/V1/EA_Messages.php:16
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the total number of events."
-msgstr ""
+msgstr "L’évènement ne peut  pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais il y a eu une erreur pendant le calcul du nombre total d’évènements."
 
 #: src/Tribe/REST/V1/EA_Messages.php:17
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned malformed data in regard to the total number of events."
-msgstr ""
+msgstr "L’évènement ne peut  pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais retourne des données erronées par rapport au nombre total d’évènements."
 
 #: src/Tribe/REST/V1/EA_Messages.php:19
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned an empty archive page."
-msgstr ""
+msgstr "L’évènement ne peut  pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais retourne une page d’archive vide."
 
 #: src/Tribe/REST/V1/EA_Messages.php:20
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching the event data."
-msgstr ""
+msgstr "L’évènement ne peut  pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais il y a eu une  erreur pendant la recherche des données d’évènement."
 
 #: src/Tribe/REST/V1/EA_Messages.php:22
 msgid "The requested URL does not have any upcoming and published events matching the search criteria."
@@ -389,7 +389,7 @@ msgstr "L'URL demandée ne présente aucun prochain évènement publié correspo
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:433
 msgid "The archive page to return"
-msgstr ""
+msgstr "La page d’archive a retourner"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:441
 msgid "The number of events to return on each page"
@@ -397,11 +397,11 @@ msgstr "Le nombre d'évènements à renvoyer sur chaque page."
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:473
 msgid "Events should be assigned one of the specified categories slugs or IDs"
-msgstr ""
+msgstr "Les évènements devraient être attribués à l’identifiant de catégorie ou ID spécifiés."
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:481
 msgid "Events should be assigned one of the specified tags slugs or IDs"
-msgstr ""
+msgstr "Les évènements devraient être attribués à l’identifiant d’étiquettes ou ID spécifiés."
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:489
 msgid "Returns all the upcoming events matching the search criteria"
@@ -417,7 +417,7 @@ msgstr "L'événement avec l'identifiant spécifié n'est pas accessible"
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:124
 msgid "Returns the documentation for The Events Calendar REST API in Swagger consumable format."
-msgstr ""
+msgstr "Retourne la documentation pour l’API REST The EVent Calendar dans un format facilement lisible."
 
 #: src/Tribe/REST/V1/Messages.php:26
 msgid "The requested post ID does not exist or is not an venue"
@@ -457,11 +457,11 @@ msgstr "En savoir plus."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
-msgstr ""
+msgstr "le paramètre «per_page» doit être un entier positif supérieur à 1"
 
 #: src/Tribe/REST/V1/Messages.php:20
 msgid "The 'start_date' parameter must be in a supported format"
-msgstr ""
+msgstr "Le paramètre «start_date» doit être dans un format supporté"
 
 #: src/admin-views/aggregator/settings.php:377
 msgid "The default event category for events imported via other URLs"
@@ -469,11 +469,11 @@ msgstr "Catégorie d'évènement par défaut pour les évènements importés via
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:60
 msgid "The TEC REST API link to fetc this event"
-msgstr ""
+msgstr "Le lien API REST de The Event Calendar pour chercher cet évènement"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:121
 msgid "The event timezone string"
-msgstr ""
+msgstr "Le fuseau horaire de l’évènement"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:28
 msgid "The organizer ID used to globally identify in Event Aggregator"
@@ -485,7 +485,7 @@ msgstr "Date de la dernière modification de l'organisateur en horaire UTC"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:36
 msgid "The venue author WordPress post ID"
-msgstr ""
+msgstr "L’ID WordPress de l’auteur du lieu"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:52
 msgid "The venue last modification date in UTC time"
@@ -521,15 +521,15 @@ msgstr "Les évènements n'ont pas pu être importés. Event Aggregator ne suppo
 
 #: src/Tribe/REST/V1/EA_Messages.php:13
 msgid "Events could not be imported. The Events Calendar REST API is disabled on the requested URL."
-msgstr ""
+msgstr "Les Évènements ne peuvent pas être importés. L’API REST de The Event Calendar est désactivée sur l’URL demandée."
 
 #: src/Tribe/REST/V1/EA_Messages.php:18
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but there was an error while fetching an archive page."
-msgstr ""
+msgstr "L’évènement ne peut pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais il y a eu un problème lors de la recherche de la page d’archive."
 
 #: src/Tribe/REST/V1/EA_Messages.php:21
 msgid "Events could not be imported. The URL provided could be reached and has The Events Calendar REST API enabled, but returned empty event data."
-msgstr ""
+msgstr "L’évènement ne peut pas être importé. L’URL fournie a pu être joint et a l’API REST The Event Calendar activée mais retourne des données d’évènements vide."
 
 #: src/Tribe/REST/V1/EA_Messages.php:58
 msgid "Try to adjust your import settings and try again."
@@ -545,7 +545,7 @@ msgstr "L'identifiant du post de l'évènement est manquant."
 
 #: src/Tribe/REST/V1/Messages.php:21
 msgid "The 'end_date' parameter must be in a supported format"
-msgstr ""
+msgstr "Le paramètre «end_date» doit être dans un format supporté."
 
 #: src/admin-views/aggregator/origins/url.php:7
 msgid "One-time imports include currently listed upcoming events, while scheduled imports automatically grab new events and updates from this url on a set schedule."
@@ -643,11 +643,11 @@ msgstr "L’identifiant de l’évènement utilisé pour globalement identifier 
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:32
 msgid "An Array containing the lineage of where this event comes from, this should not change after the event is created."
-msgstr ""
+msgstr "Un tableau contenant l'historique de l’évènement, il ne devrait pas être modifié après sa création."
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:36
 msgid "The event author WordPress post ID"
-msgstr ""
+msgstr "L’ID WordPress de l’auteur de l’évènement."
 
 #: src/Tribe/Aggregator/Record/Url.php:17
 msgid "Other URL"
@@ -723,7 +723,7 @@ msgstr "La taxonomie du terme appartient à"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:32
 msgid "The term slug"
-msgstr ""
+msgstr "L’identifiant du terme"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:28
 msgid "The term name"
@@ -735,11 +735,11 @@ msgstr "Identifiant WordPress du terme"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:36
 msgid "The link to the image in the specified size on the site"
-msgstr ""
+msgstr "Lien vers l’image dans la taille spécifiée sur le site"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:32
 msgid "The image mime-type"
-msgstr ""
+msgstr "le type mime de l’image"
 
 #: common/src/Tribe/Documentation/Swagger/Image_Size_Definition_Provider.php:28
 msgid "The image height in pixels in the specified size"
@@ -799,11 +799,11 @@ msgstr "Année de la date"
 
 #: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:33
 msgid "An sorted array of all the numeric values for the cost"
-msgstr ""
+msgstr "Un tableau trié avec toutes les valeurs numérique du prix"
 
 #: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:28
 msgid "The position of the currency symbol in the cost string"
-msgstr ""
+msgstr "Position du symbole monétaire dans la chaîne prix"
 
 #: common/src/Tribe/Documentation/Swagger/Cost_Details_Definition_Provider.php:24
 msgid "The cost currency symbol"
@@ -1031,7 +1031,7 @@ msgstr "Couleur de surbrillance des évènements "
 
 #: src/Tribe/Customizer/General_Theme.php:228
 msgid "Accent Color"
-msgstr ""
+msgstr "Couleur d'accent"
 
 #: src/Tribe/Customizer/General_Theme.php:197
 msgid "Global configurations for the styling of The Events Calendar"
@@ -2056,8 +2056,8 @@ msgstr "Ancien import"
 #: src/Tribe/Ignored_Events.php:859
 msgid "Migration: %d Legacy Ignored Post was migrated sucessfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated sucessfully. To see the migrated events you will first need to refresh this screen."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Migration: %d ancien évènement ignoré a été migré avec succès. Pour voir l’évènement migré, vous devrez rafraîchir votre page."
+msgstr[1] "Migration: %d anciens évènements ignorés ont été migré avec succès. Pour voir les évènements migrés, vous devrez rafraîchir votre page."
 
 #: src/Tribe/Ignored_Events.php:852
 msgid "Event %d: %s"
@@ -2066,14 +2066,14 @@ msgstr "Évènement %d : %s"
 #: src/Tribe/Ignored_Events.php:840
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Migration: échec pour %d ancien article ignoré."
+msgstr[1] "Migration: échec pour %d anciens articles ignorés."
 
 #: src/Tribe/Ignored_Events.php:828
 msgid "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated but %d failed. To see the migrated events you will first need to refresh this screen."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Migration: %d ancien évènement ignoré a été migré mais %d a échoué. Pour voir l’évènement migré, vous devrez rafraîchir votre page."
+msgstr[1] "Migration: %d anciens évènements ignorés ont été migré mais %d on échoués. Pour voir les évènements migrés, vous devrez rafraîchir votre page"
 
 #: src/Tribe/Ignored_Events.php:804
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
@@ -2578,8 +2578,8 @@ msgstr "Planifier"
 msgctxt "event aggregator status"
 msgid "Failed <span class=\"count\">(%s)</span>"
 msgid_plural "Failed <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<span class=\"count\">(%s)</span> Échoué"
+msgstr[1] "<span class=\"count\">(%s)</span> Échoués"
 
 #: src/Tribe/Aggregator/Records.php:221
 msgctxt "event aggregator status"
@@ -2685,7 +2685,7 @@ msgstr "Votre import est actuellement en cours. Ne vous inquiétez pas, vous pou
 
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:211
 msgid "Could not process queue for Import Record %1$d: %2$s"
-msgstr ""
+msgstr "Impossible d’importer la file d’attente pour les enregistrements %1$d: %2$s"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:608
 msgid "Select %s"
@@ -3378,7 +3378,7 @@ msgstr "The Events Calendar PRO est un module payant de notre extension WordPres
 
 #: common/src/Tribe/App_Shop.php:135
 msgid "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
-msgstr ""
+msgstr "It is awesome that your calendar is <em>THE PLACE</em> to get hooked up with prime choice ways to spend time. You have more events than Jabba the Hutt has rolls. Too bad visitors are hiring a personal assistant to go through all the choices. Ever wish you could just filter the calendar to only show events in walking distance, on a weekend, that are free? BOOM. Now you can. Introducing… the Filter Bar."
 
 #: common/src/Tribe/Admin/Help_Page.php:216 common/src/Tribe/App_Shop.php:133
 msgid "Filter Bar"
@@ -4789,7 +4789,7 @@ msgstr "Réglages de base du thème"
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "Les réglages ci-dessous contrôlent l’affichage de votre calendrier. Si l’affichage est incorrect, essayez une autre des trois feuilles de styles disponibles ou utilisez un modèle de page issu de votre thème.</p><p>Il se peut qu’aucune de ces solutions ne réponde à 100 % à vos besoins. Dans ce cas, consultez <a href=\"%s\">notre guide de création de thèmes</a> pour effectuer des modifications personnalisées."
+msgstr "Les réglages ci-dessous contrôlent l’affichage de votre calendrier. Si l’affichage est incorrect, essayez une autre des trois feuilles de styles disponibles ou utilisez un modèle de page issu de votre thème.</p><p>Il se peut qu’aucune de ces solutions ne réponde à 100&#37; à vos besoins. Dans ce cas, consultez <a href=\"%s\">notre guide de création de thèmes</a> pour effectuer des modifications personnalisées."
 
 #: src/admin-views/tribe-options-display.php:44
 msgid "Display Settings"
