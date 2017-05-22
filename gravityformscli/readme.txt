@@ -2,8 +2,8 @@
 Contributors: rocketgenius, stevehenty
 Tags: gravity forms
 Requires at least: 4.2
-Tested up to: 4.7.2
-Stable tag: 1.0-beta-2
+Tested up to: 4.7.5
+Stable tag: trunk
 License: GPL-3.0+
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,22 +85,32 @@ Commands:
 
 = Installing Gravity Forms and Add-Ons =
 
-The above commands all require Gravity Forms to be installed. If Gravity Forms is not installed then you can use this add-on to install it along with all the other official Gravity Forms add-ons.
+The above commands all require Gravity Forms to be installed. However, if Gravity Forms is not installed then you can use this add-on to install it along with all the other official Gravity Forms add-ons.
+
+The install command will download and install the latest version Gravity Forms available for auto-update and then run the database setup.
+
+A valid license key is required either in the GF_LICENSE_KEY constant or the --key option.
 
 Examples:
 
-wp gf install -key=xxxxx
-wp gf install gravityformspolls -key=xxxxx
-wp gf install gravityformsquiz -key=xxxxx
+* wp gf install -key=xxxxx
+* wp gf install -key=xxxxx --activate
+* wp gf install gravityformspolls -key=xxxxx
+* wp gf install gravityformsquiz -key=xxxxx
 
-A valid license key is required either in the GF_LICENSE_KEY constant or the --key option.
+The database can be set up using the setup command. The command will not re-run the setup unless the --force flag is set.
+
+Examples:
+
+* wp gf setup
+* wp gf setup --force
 
 
 = Requirements =
 
 1. Wordpress 4.2+
 2. Gravity Forms 1.9.17.8
-3. WP-CLI
+3. WP-CLI version 1.0+
 
 = Support =
 
@@ -115,6 +125,15 @@ https://www.gravityhelp.com/request-support/
 1.  Go to the Plugin management page of WordPress admin section and enable the 'Gravity Forms CLI' plugin
 
 == ChangeLog ==
+
+= 1.0-beta-3 =
+- Added the wp gf setup command
+- Fixed an issue with the install command where the database was not setup until visiting the WP dashboard.
+- Updated the WP-CLI requirement to 1.0+
+
+= 1.0-beta-2 =
+- Added support for the WP-CLI package index.
+- Fixed entry export.
 
 = 1.0-beta-1 =
 - All new!
