@@ -1,10 +1,10 @@
 === WP Document Revisions ===
-Contributors: benbalter  
-Donate link: http://ben.balter.com/donate/  
-Tags: documents, uploads, attachments, document management, enterprise, version control, revisions, collaboration, journalism, government, files, revision log, document management, intranet, digital asset management, dam  
+Contributors: benbalter
+Donate link: http://ben.balter.com/donate/
+Tags: documents, uploads, attachments, document management, enterprise, version control, revisions, collaboration, journalism, government, files, revision log, document management, intranet, digital asset management, dam
 Requires at least: 3.9
-Tested up to: 3.9.1
-Stable tag: 2.0.0
+Tested up to: 4.7.5
+Stable tag: 2.2.0
 === WP Document Revisions ===
 
 [![Build Status](https://secure.travis-ci.org/benbalter/wp-document-revisions.png?branch=master)](http://travis-ci.org/benbalter/wp-document-revisions)
@@ -83,8 +83,6 @@ A document management and version control plugin that allows teams of any size t
 * Russian - Evgeny Vlasov
 * Dutch - @tijscruysen
 
-*WP Document Revisions was developed by a [law student and a business student](http://ben.balter.com) with a [grant from Google](http://code.google.com/soc/), and in close coordination with and under the watchful eye of WordPress.org's lead developers (Although neither relationship should imply an endorsement). Special thanks to Jon Cave, Aaron Jorbin, Mitcho Erlewine, and Andrew Nacin for their guidance.*
-
 [Photo via [antphotos](http://www.flickr.com/photos/antphotos/3903433061/)]
 
 == Documentation ==
@@ -93,6 +91,14 @@ For more information, please see [the plugin documentation](/docs).
 
 
 == Changelog ==
+
+= 2.2.0 =
+
+* [Add filter to allow opt-out of WebDAV Edit Document](https://github.com/benbalter/wp-document-revisions/pull/74)
+* [Filter documents from the grid view in Media, queried via Ajax](https://github.com/benbalter/wp-document-revisions/pull/78)
+* [Added code to preserve file exts on revision links](https://github.com/benbalter/wp-document-revisions/pull/81), and
+* [Verify a post ID has been passed before verifying post type](https://github.com/benbalter/wp-document-revisions/pull/86)
+* [Use H2 for "Feed Privacy" heading](https://github.com/benbalter/wp-document-revisions/pull/91)
 
 = 2.0.0 =
 * Note: The project is looking for additional contributors. Please consider contributing your time: https://github.com/benbalter/wp-document-revisions/blob/master/docs/how-to-contribute.md
@@ -158,7 +164,7 @@ For more information, please see [the plugin documentation](/docs).
 * Added Spanish Translation Support (es_ES -- special thanks to [TradiArt](http://www.tradiart.com/))
 * Document URL slug (used for archive and prefixing all documents) now customizable via settings page and translatable. (e.g., http://domain.com/documentos/2012/04/test.txt rather than /documents/)
 * Subscribers and unauthenticated users no longer have the ability to read revisions by default (you can override this setting using the [Members plugin](http://wordpress.org/extend/plugins/members/).
-* Attempts to access unauthorized files now properly respond with HTTP code 403 (rather than 500 previously). Note: attempting to access private documents will continue to result in 404s.  
+* Attempts to access unauthorized files now properly respond with HTTP code 403 (rather than 500 previously). Note: attempting to access private documents will continue to result in 404s.
 * Enhanced authentication prior to serving files now provides developers more granular control of permissions via `serve_document_auth` filter.
 * Better Edit Flow support (can now toggle document support on and off using native Edit Flow user interface). Note: You may need to manually toggle on custom status support for documents after upgrading.
 * Default document upload directory now honors WordPress-wide defaults and features enhanced multisite support
@@ -264,13 +270,6 @@ For more information, please see [the plugin documentation](/docs).
 
 = 0.1 =
 * Proof of concept prototype
-
-
-== Donate ==
-
-Enjoy using WP Document Revisions? The most valuable way you can support the project is by [contributing your time](https://github.com/benbalter/WP-Document-Revisions/blob/master/docs/how-to-contribute.md).
-
-No time to contribute? Consider [making a small donation](http://ben.balter.com/donate/?utm_source=wiki&utm_medium=donate&utm_campaign=wp-document-revisions) to support the project's continued development.
 
 
 == Frequently Asked Questions ==
