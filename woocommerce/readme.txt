@@ -2,8 +2,8 @@
 Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, claudiulodro, woothemes, iCaleb
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
 Requires at least: 4.4
-Tested up to: 4.7
-Stable tag: 3.0.7
+Tested up to: 4.8
+Stable tag: 3.0.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -160,6 +160,36 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 6. A product archive (grid).
 
 == Changelog ==
+
+= 3.0.8 - 2017-06-06 =
+* Fix - Include multi-dimensional array support in oAuth1.0.
+* Fix - Stock/backorder notice when stock management is disabled.
+* Fix - Handle shipping item taxes if set to avoid the legacy fallback.
+* Fix - Variations should inherit purchase_note from parent.
+* Fix - Check if subtotal is blank, not empty, before setting for order items.
+* Fix - Cancelled email should be send for processing orders, not pending.
+* Fix - Missing variable in legacy API.
+* Fix - Correct price query when on a post type archive.
+* Fix - Missing $ip Variable in geolocation class.
+* Fix - A single multi-word attribute is fine for variation titles.
+* Fix - Gallery should be updated even if empty in REST API.
+* Fix - Fix saving of text attributes with special chars.
+* Fix - Undefined index warning when saving variations with stock management disabled.
+* Fix - Use meta id instead of key in WC_Order_Item::offsetGet.
+* Fix - Format parent stock qty on read.
+* Fix - Hide replies from recent reviews widgets.
+* Fix - Use formatted weight and dimensions for variations.
+* Fix - Ensure we have child before getting price to fix a notice in grouped products.
+* Fix - Fixed unicode characters when saving webhook delivery logs.
+* Fix - Avoid deprecated ID in legacy API.
+* Fix - Add correct args to woocommerce_shipping_zone_method_deleted and woocommerce_shortcode_products_query hooks.
+* Fix - Correctly append cache in product widget.
+* Fix - Add ability to invalidate cache by object ID.
+* Fix - Notice in structured data class.
+* Fix - Only delete if an object has an ID in CRUD to avoid wp_delete_post using global ID.
+* Fix - Avoid notices on checkout by ensuring all legacy data is correctly set.
+* Fix - Add failed to processing event for the processing email.
+* Fix - Store user ID and use that to determine if the session should be loaded or not. Ensures user data is correct and shipping calculator data is stored.
 
 = 3.0.7 - 2017-05-16 =
 * Fix - Display of grouped product permalinks + names.
@@ -429,5 +459,5 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 
 == Upgrade Notice ==
 
-= 3.0.7 =
+= 3.0.8 =
 3.0 is a major update. Make a full site backup, update your theme and extensions, and [review update best practices](https://docs.woocommerce.com/document/how-to-update-your-site) before upgrading.
