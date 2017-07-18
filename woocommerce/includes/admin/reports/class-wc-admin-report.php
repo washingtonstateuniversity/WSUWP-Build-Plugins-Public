@@ -300,8 +300,9 @@ class WC_Admin_Report {
 					$where_value = "{$value['operator']} '{$value['value']}'";
 				}
 
-				if ( ! empty( $where_value ) )
+				if ( ! empty( $where_value ) ) {
 					$query['where'] .= " AND {$value['key']} {$where_value}";
+				}
 			}
 		}
 
@@ -557,7 +558,7 @@ class WC_Admin_Report {
 			break;
 
 			case '7day' :
-				$this->start_date    = strtotime( '-6 days', current_time( 'timestamp' ) );
+				$this->start_date    = strtotime( '-6 days', strtotime( 'midnight', current_time( 'timestamp' ) ) );
 				$this->end_date      = strtotime( 'midnight', current_time( 'timestamp' ) );
 				$this->chart_groupby = 'day';
 			break;
