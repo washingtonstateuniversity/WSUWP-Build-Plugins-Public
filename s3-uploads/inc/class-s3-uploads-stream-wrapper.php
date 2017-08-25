@@ -159,6 +159,7 @@ class S3_Uploads_Stream_Wrapper
 					try {
 						$p = $this->params;
 						$p['Body'] = '';
+						$p = apply_filters( 's3_uploads_putObject_params', $p );
 						$this->getClient()->putObject($p);
 					} catch (Exception $e) {
 						return $this->triggerError($e->getMessage());
@@ -212,13 +213,22 @@ class S3_Uploads_Stream_Wrapper
 		 * Theses are the parameters passed to S3Client::putObject()
 		 * See; http://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_putObject
 		 *
-		 * @param array $params S3Client::putObject paramteres.
+		 * @param array $params S3Client::putObject parameters.
 		 */
 		$params = apply_filters( 's3_uploads_putObject_params',  $params );
 
 		$this->clearCacheKey("s3://{$params['Bucket']}/{$params['Key']}");
 		return $this->boolCall(function () use ($params) {
-			return (bool) $this->getClient()->putObject($params);
+			$bool = (bool) $this->getClient()->putObject($params);
+
+			/**
+			 * Action when a new object has been uploaded to s3.
+			 *
+			 * @param array  $params S3Client::putObject parameters.
+			 */
+			do_action( 's3_uploads_putObject', $params );
+
+			return $bool;
 		});
 	}
 
@@ -235,6 +245,11 @@ class S3_Uploads_Stream_Wrapper
 				$this->body->seek($offset, $whence);
 				return true;
 			});
+	}
+
+	public function stream_metadata($path, $option, $value)
+	{
+		return false;
 	}
 
 	public function stream_tell()

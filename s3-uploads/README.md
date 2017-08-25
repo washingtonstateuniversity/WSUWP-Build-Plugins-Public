@@ -37,8 +37,9 @@ Once you have `git clone`d the repo, or added it as a Git Submodule, add the fol
 define( 'S3_UPLOADS_BUCKET', 'my-bucket' );
 define( 'S3_UPLOADS_KEY', '' );
 define( 'S3_UPLOADS_SECRET', '' );
-define( 'S3_UPLOADS_REGION', '' ); // the s3 bucket region, required for Frankfurt and Beijing.
+define( 'S3_UPLOADS_REGION', '' ); // the s3 bucket region, required for Frankfurt, Beijing & Sydney.
 ```
+Please refer to this region list http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region for the S3_UPLOADS_REGION values.
 
 You must then enable the plugin. To do this via WP-CLI use command:
 
@@ -136,8 +137,22 @@ in your `wp-config.php`:
 define( 'S3_UPLOADS_AUTOENABLE', false );
 ```
 
-To then enabled S3 Uploads rewriting, use the wp-cli command: `wp s3-uploads enable` / `wp s3-uploads disable`
+To then enable S3 Uploads rewriting, use the wp-cli command: `wp s3-uploads enable` / `wp s3-uploads disable`
 to toggle the behaviour.
+
+URL Rewrites
+=======
+By default, S3 Uploads will use the canonical S3 URIs for referencing the uploads, i.e. `[bucket name].s3.amazonaws.com/uploads/[file path]`. If you want to use another URL to serve the images from (for instance, if you [wish to use S3 as an origin for CloudFlare](https://support.cloudflare.com/hc/en-us/articles/200168926-How-do-I-use-CloudFlare-with-Amazon-s-S3-Service-)), you should define `S3_UPLOADS_BUCKET_URL` in your `wp-config.php`:
+
+```PHP
+// Define the base bucket URL (without trailing slash)
+define( 'S3_UPLOADS_BUCKET_URL', 'https://your.origin.url.example/path' );
+```
+S3 Uploads' URL rewriting feature can be disabled if the current website does not require it, nginx proxy to s3 etc. In this case the plugin will only upload files to the S3 bucket.
+```PHP
+// disable URL rewriting alltogether
+define( 'S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL', true );
+```
 
 Offline Development
 =======

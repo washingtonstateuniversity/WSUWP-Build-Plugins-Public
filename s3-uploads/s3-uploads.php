@@ -15,6 +15,12 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 add_action( 'plugins_loaded', 's3_uploads_init' );
 
 function s3_uploads_init() {
+	// Ensure the AWS SDK can be loaded.
+	if ( ! class_exists( '\\Aws\\S3\\S3Client' ) ) {
+		// Require AWS Autoloader file.
+		require_once dirname( __FILE__ ) . '/lib/aws-sdk/aws-autoloader.php';
+	}
+
 	if ( ! s3_uploads_check_requirements() ) {
 		return;
 	}
@@ -45,7 +51,7 @@ function s3_uploads_init() {
  * @return bool True if the requirements are met, else false.
  */
 function s3_uploads_check_requirements() {
-	if ( version_compare( '5.3.3', PHP_VERSION, '>' ) ) {
+	if ( version_compare( '5.5.0', PHP_VERSION, '>' ) ) {
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 			add_action( 'admin_notices', 's3_uploads_outdated_php_version_notice' );
 		}
@@ -62,7 +68,7 @@ function s3_uploads_check_requirements() {
  * This has to be a named function for compatibility with PHP 5.2.
  */
 function s3_uploads_outdated_php_version_notice() {
-	printf( '<div class="error"><p>The S3 Uploads plugin requires PHP version 5.3.3 or higher. Your server is running PHP version %s.</p></div>',
+	printf( '<div class="error"><p>The S3 Uploads plugin requires PHP version 5.5.0 or higher. Your server is running PHP version %s.</p></div>',
 		PHP_VERSION
 	);
 }
@@ -107,6 +113,3 @@ function s3_uploads_autoload( $class_name ) {
 }
 
 spl_autoload_register( 's3_uploads_autoload' );
-
-// Require AWS Autoloader file.
-require_once dirname( __FILE__ ) . '/lib/aws-sdk/aws-autoloader.php';
