@@ -2,7 +2,7 @@
 Contributors: rocketgenius, stevehenty
 Tags: gravity forms
 Requires at least: 4.2
-Tested up to: 4.7.5
+Tested up to: 4.8.1
 Stable tag: trunk
 License: GPL-3.0+
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,8 +23,10 @@ Entry Management
 
 *   wp help gf
 *   wp help gf form
-*   wp help gf field
+*   wp help gf form field
+*   wp help gf form notification
 *   wp help gf entry
+*   wp help gf entry notification
 *   wp help gf tool
 
 = Form Management =
@@ -45,7 +47,8 @@ Commands:
 
 = Field Management =
 
-wp gf field [command]
+* wp gf form field [command]
+* wp gf field [command] (alias)
 
 Commands:
 
@@ -56,6 +59,21 @@ Commands:
 *  get - Returns the JSON representation of a field.
 *  list  - Displays a list of fields for a form.
 *  update - Updates a field.
+
+= Notification Management =
+
+* wp gf form notification [command]
+* wp gf notification [command] (alias)
+
+Commands:
+
+*  create - Creates a new notification.
+*  delete - Deletes a notification.
+*  duplicate - Duplicates a notification.
+*  edit - Launch system editor to edit the notification configuration.
+*  list - Lists the notification.
+*  get - Returns the notification JSON.
+*  update - Updates a notification.
 
 = Entry Management =
 
@@ -73,13 +91,22 @@ Commands:
 *  list - Displays a list of entries.
 *  update - Updates an entry.
 
+= Entry Notifications =
+
+wp gf entry notification [command]
+
+Commands:
+
+*  get - Returns the notifications for the given entry.
+*  send - Sends the notifications for the given entry.
+
 = Misc Tools =
 
 wp gf tool [command]
 
 Commands:
 
-*  clear_transients
+*  clear-transients
 *  empty-trash           Delete the trashed entries.
 *  verify-checksums      Verify Gravity Forms files against the checksums.
 
@@ -98,12 +125,27 @@ Examples:
 * wp gf install gravityformspolls -key=xxxxx
 * wp gf install gravityformsquiz -key=xxxxx
 
-The database can be set up using the setup command. The command will not re-run the setup unless the --force flag is set.
+Once installed, the database can be set up or upgraded separately using the setup command. The command will not re-run the setup unless the --force flag is set.
 
 Examples:
 
 * wp gf setup
 * wp gf setup --force
+
+Gravity Forms and official add-ons can be updated using the update command.
+
+Examples:
+
+* wp gf update
+* wp gf update gravityformspolls
+
+
+Check the current version using the version command.
+
+Examples:
+
+* wp gf version
+* wp gf version gravityformspolls
 
 
 = Requirements =
@@ -125,6 +167,18 @@ https://www.gravityhelp.com/request-support/
 1.  Go to the Plugin management page of WordPress admin section and enable the 'Gravity Forms CLI' plugin
 
 == ChangeLog ==
+
+= 1.0-rc-1 =
+- Added the --file arg to the wp gf form update command to allow forms to be updated from an export file.
+- Fixed a fatal error when using the install command.
+
+= 1.0-beta-5 =
+- Added the wp gf form notification command.
+- Added the wp gf entry notification command.
+- Added the wp version command.
+- Added the wp update command.
+- Updated the install and update commands to download the latest hotfix version by default.
+- Fixed an issue with wp gf form export <form-id> where the form ID is ignored.
 
 = 1.0-beta-4 =
 - Updated the install command to pass the --force value to the setup command.

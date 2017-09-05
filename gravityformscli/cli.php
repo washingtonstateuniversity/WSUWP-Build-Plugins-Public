@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms CLI
 Plugin URI: http://www.gravityforms.com
 Description: Manage Gravity Forms with the WP CLI.
-Version: 1.0-beta-4
+Version: 1.0-rc-1
 Author: Rocketgenius
 Author URI: http://www.gravityforms.com
 License: GPL-3.0+
@@ -28,7 +28,7 @@ along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
 // Defines the current version of the CLI add-on
-define( 'GF_CLI_VERSION', '1.0-beta-4' );
+define( 'GF_CLI_VERSION', '1.0-rc-1' );
 
 define( 'GF_CLI_MIN_GF_VERSION', '1.9.17.8' );
 
@@ -77,8 +77,12 @@ class GF_CLI_Bootstrap {
 			// Adds WP-CLI commands, and maps them to the appropriate class.
 			WP_CLI::add_command( 'gf', 'GF_CLI_Root' );
 			WP_CLI::add_command( 'gf form', 'GF_CLI_Form', $command_args );
-			WP_CLI::add_command( 'gf field', 'GF_CLI_Field', $command_args );
+			WP_CLI::add_command( 'gf form notification', 'GF_CLI_Form_Notification', $command_args );
+			WP_CLI::add_command( 'gf notification', 'GF_CLI_Form_Notification', $command_args );
+			WP_CLI::add_command( 'gf form field', 'GF_CLI_Form_Field', $command_args );
+			WP_CLI::add_command( 'gf field', 'GF_CLI_Form_Field', $command_args );
 			WP_CLI::add_command( 'gf entry', 'GF_CLI_Entry', $command_args );
+			WP_CLI::add_command( 'gf entry notification', 'GF_CLI_Entry_Notification', $command_args );
 			WP_CLI::add_command( 'gf tool', 'GF_CLI_Tool', $command_args );
 		}
 	}

@@ -78,7 +78,9 @@ class GF_CLI_Form extends WP_CLI_Command {
 		// Run through each of the forms
 		foreach ( $forms_array as &$form ) {
 			// Change the label
-			$form['entry_count'] = $form['lead_count'];
+			if ( ! isset( $form['entry_count'] ) ) {
+				$form['entry_count'] = $form['lead_count'];
+			}
 		}
 		// Define each of the columns displayed
 		$fields = array(
@@ -111,11 +113,10 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gf export 1
-	 *     wp gf export
+	 *     wp gf form export 1
+	 *     wp gf form export
 	 *
 	 * @synopsis [<form-id>] [--dir=<dir>] [--porcelain]
-	 * @alias export
 	 */
 	function export( $args, $assoc_args ) {
 
@@ -123,7 +124,7 @@ class GF_CLI_Form extends WP_CLI_Command {
 		require_once( GFCommon::get_base_path() . '/export.php' );
 
 		// If the form ID is passed, use it.  Otherwise, get all form IDs
-		$form_ids = isset( $args['form-id'] ) ? array( $args['form-id'] ) : GFFormsModel::get_form_ids();
+		$form_ids = isset( $args[0] ) ? array( $args[0] ) : GFFormsModel::get_form_ids();
 
 		// Get all form meta for our selected forms
 		$forms = RGFormsModel::get_form_meta_by_id( $form_ids );
@@ -179,7 +180,7 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gf import /path/to/forms.json
+	 *     wp gf form import /path/to/forms.json
 	 *
 	 * @synopsis <path_to_json_file>
 	 * @alias import
@@ -219,7 +220,7 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gf create "My New Form" "The description"
+	 *     wp gf form create "My New Form" "The description"
 	 *
 	 * @synopsis [<title>] [<description>] [--form-json=<form-json>] [--porcelain]
 	 * @subcommand create
@@ -337,7 +338,7 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gf get 1
+	 *     wp gf form get 1
 	 *
 	 * @synopsis <form-id>
 	 * @subcommand get
@@ -373,7 +374,7 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gf delete 1
+	 *     wp gf form delete 1
 	 *
 	 * @synopsis <form-id>... [--force]
 	 */
@@ -427,7 +428,7 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gravityforms duplicate 1
+	 *     wp gf form duplicate 1
 	 *
 	 * @synopsis <form-id> [--porcelain]
 	 * @subcommand duplicate
@@ -470,26 +471,49 @@ class GF_CLI_Form extends WP_CLI_Command {
 	 * <form-id>
 	 * : The Form ID
 	 *
-	 * --form-json=<form-json>
+	 * [--form-json=<form-json>]
 	 * : The JSON representation of the form
+	 *
+	 * [--file=<file>]
+	 * : The path to a file containing JSON representation of the form
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gravityforms update 1 --form-json='{snip}'
+	 *     wp gf form update 1 --form-json='{snip}'
 	 *
-	 * @synopsis <form-id> --form-json=<form-json>
+	 * @synopsis <form-id> [--form-json=<form-json>] [--file=<file>]
 	 */
 	function update( $args, $assoc_args ) {
-		// Set the form ID from the arguments passed
-		$form_id     = $args[0];
-		// Set the JSON data to be used for the update
-		$json_config = $assoc_args['form-json'];
-		// Decode the JSON
-		$form        = json_decode( $json_config, ARRAY_A );
+
+		$form_id = $args[0];
+
+		if ( isset( $assoc_args['form-json'] ) ) {
+			$json_config = $assoc_args['form-json'];
+		} elseif ( isset( $assoc_args['file'] ) ) {
+			if ( ! file_exists( $assoc_args['file'] ) ) {
+				WP_CLI::error( 'Please check the path: ' . $assoc_args['file'] );
+			}
+
+			$json_config = file_get_contents( $assoc_args['file'] );
+		} else {
+			WP_CLI::error( 'Either --form-json or --file must be set' );
+			return;
+		}
+
+		$form = json_decode( $json_config, ARRAY_A );
 
 		// If the form data passed is empty, throw an error
 		if ( empty( $form ) ) {
-			WP_CLI::error( 'Form not valid' );
+			WP_CLI::error( 'Invalid JSON' );
+		}
+
+		if ( ! isset( $form['id'] ) && isset( $form['0'] ) && is_array( $form['0'] ) ) {
+			// Looks like an export file. Take the first form.
+
+			if ( isset( $form['1'] ) && is_array( $form['1'] ) ) {
+				WP_CLI::confirm( 'It looks like there are multiple Forms in the file. Should we use the first one and ignore the rest?' );
+			}
+			$form = $form['0'];
 		}
 
 		// Add the form ID to the form object

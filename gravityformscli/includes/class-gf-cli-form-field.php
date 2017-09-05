@@ -9,7 +9,7 @@
  * @author   Rockegenius
  * @copyright Copyright (c) 2016, Rocketgenius
  */
-class GF_CLI_Field extends WP_CLI_Command {
+class GF_CLI_Form_Field extends WP_CLI_Command {
 
 	/**
 	 * Creates a field and adds it to a form.
@@ -29,7 +29,7 @@ class GF_CLI_Field extends WP_CLI_Command {
 	 * : The field label. Defaults to 'Untitled'
 	 *
 	 * [--field-json=<field-json>]
-	 * : Allows the values to be defined using JSON rather than the typical options.
+	 * : A JSON string.
 	 *
 	 * ## EXAMPLES
 	 *
@@ -130,7 +130,7 @@ class GF_CLI_Field extends WP_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp gf get 1 3
+	 *     wp gf field get 1 3
 	 *
 	 * @synopsis <form-id> <field-id>
 	 */
