@@ -15,7 +15,13 @@ var MediaController = wp.media.controller.State.extend({
 		});
 
 		this.props.on( 'change:action', this.refresh, this );
+		this.on( 'activate', this.activate, this );
 
+	},
+
+	activate: function() {
+		var $el = this.frame.$el;
+		_.defer( function() { $el.addClass( 'hide-router' ); } );
 	},
 
 	refresh: function() {
@@ -42,7 +48,6 @@ var MediaController = wp.media.controller.State.extend({
 		}
 
 		this.reset();
-		this.resetState();
 		this.frame.close();
 	},
 
@@ -55,12 +60,11 @@ var MediaController = wp.media.controller.State.extend({
 		this.props.set( 'currentShortcode', null );
 		this.props.set( 'search', null );
 		this.props.set( 'insertCallback', this.insertCallback );
-	},
 
-	resetState: function() {
 		var menuItem = this.frame.menu.get().get('shortcode-ui');
 		menuItem.options.text = shortcodeUIData.strings.media_frame_title;
 		menuItem.render();
+
 		this.frame.setState( 'insert' );
 	},
 
@@ -98,6 +102,17 @@ var MediaController = wp.media.controller.State.extend({
 			this.frame.once( 'close', function() {
 				this.frame.mediaController.toggleSidebar( false );
 			}.bind( this ) );
+
+			/*
+			 * Action run after an edit shortcode overlay is rendered.
+			 *
+			 * Called as `shortcode-ui.render_edit`.
+			 *
+			 * @param shortcodeModel (object)
+			 *           Reference to the shortcode model used in this overlay.
+			 */
+			var hookName = 'shortcode-ui.render_edit';
+			wp.shortcake.hooks.doAction( hookName, currentShortcode );
 
 		}.bind( this ) );
 
