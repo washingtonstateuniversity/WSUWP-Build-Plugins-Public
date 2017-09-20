@@ -4,7 +4,7 @@ Contributors: ModernTribe, aguseo, borkweb, barry.hughes, bordoni, brianjessee, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.5
-Stable tag: 4.5.11
+Stable tag: 4.5.12.2
 Tested up to: 4.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -327,6 +327,32 @@ Please see the changelog for the complete list of changes in this release. Remem
 
 == Changelog ==
 
+= [4.5.12.2] 2017-09-08 =
+
+* Fix - Fixed an issue where manually running Scheduled Imports would always result in a failed import [87321]
+
+= [4.5.12.1] 2017-09-07 =
+
+* Fix - Fixed an issue where events imported via Event Aggregator from an iCal-like source would be duplicated in place of being updated [87654]
+
+= [4.5.12] 2017-09-06 =
+
+* Fix - Fixed an issue where, with certain date formats chosen in the Events display settings, the "Next Month" link navigation wasn't working (props to @tttammi and others for reporting this issue!) [86937]
+* Fix - Fixed a typo in REST API Swagger documentation that mentioned "organizer" when it should have stated "venue".
+* Fix - Fixed issues with Event Aggregator queueing system where events might be duplicated or incorrectly updated [79975]
+* Fix - Prevent notice when the Aggregator Record title is an array [82149]
+* Fix - Allows Aggregator Google Map settings to extend the Global Setting by default (props to queerio for reporting this!) [67639]
+* Fix - Prevent Warnings when throwing WordPress admin notices from Aggregator daily usage limit (props to cigarplanner for reporting this!) [83187]
+* Fix - Resolved problem where Aggregator wouldn't allow you to remove filtering terms for Records [76949]
+* Fix - Allow any datepicker format to be used on Aggregator filtering Events (props to matthewseymour for reporting this!) [77819]
+* Fix - Added check to see if log directory is readable before listing logs within it (thank you @rodrigochallengeday-org and @richmondmom for reporting this) [86091]
+* Tweak - Datatables Head and Foot checkboxes will not select all items, only the current page [77395]
+* Tweak - Included tooltip for Aggregator "Hide & Ignore" button for events [67890]
+* Tweak - Added all the Aggregator Origins to the Admin Bar [68693]
+* Tweak - Added filters: `tribe_get_state_options`
+* Tweak - Added template tags: `maybe_format_from_datepicker()`
+* Language - 2 new strings added, 90 updated, 0 fuzzied, and 1 obsoleted
+
 = [4.5.11] 2017-08-24 =
 
 * Fix - Avoid Event Aggregator previews or scheduled imports being marked as failures [84259]
@@ -338,7 +364,7 @@ Please see the changelog for the complete list of changes in this release. Remem
 * Fix - Fixed an issue where the mobile.php template file would often fail to include an event's featured image [74291]
 * Fix - Resolved issue where invalid linked post IDs prevent proper updates on linked posts (props to Mathew L. and a few others for highlighting this issue) [71802]
 * Fix - Do not hijack the blog when the main events page is configured to appear on the site's homepage (our thanks to Jason and others for flagging this problem) [72094]
-* Fix - remove extra trailing double-quotes at the end of the timepicker data-format attributes [85603]
+* Fix - Remove extra trailing double-quotes at the end of the timepicker data-format attributes [85603]
 * Fix - Fixed an issues where Event Aggregator scheduled imports could not run other than manually [81639]
 * Tweak - Prevent stray commas from showing up for some event venues in the List View [72289]
 * Tweak - Prevent stray commas from showing up for some event venues in the Day View [85429]
