@@ -6443,7 +6443,7 @@ msgstr "Nenhum %1$s agendado listado sob %2$s. Verifique %3$s próximos para est
 msgid "This %s has passed."
 msgstr "Este %s já decorreu."
 
-#: src/Tribe/Template/Month.php:899
+#: src/Tribe/Template/Month.php:908
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr "A data solicitada \"%s\" não é válida &ndash; alternativamente exibindo o mês corrente."
 
@@ -6788,11 +6788,11 @@ msgstr "Categoria de %s"
 
 #: src/Tribe/Main.php:1715 src/Tribe/Organizer.php:78 src/Tribe/Venue.php:84
 msgid "No %s found in Trash"
-msgstr "Nenhum %s encontrado no Lixo."
+msgstr ""
 
 #: src/Tribe/Main.php:1714 src/Tribe/Organizer.php:77 src/Tribe/Venue.php:83
 msgid "No %s found"
-msgstr "Sem nenhum(ns) %s encontrado(s)"
+msgstr ""
 
 #: src/Tribe/Main.php:1713 src/Tribe/Organizer.php:76 src/Tribe/Venue.php:82
 msgid "Search %s"
@@ -6881,7 +6881,7 @@ msgstr "lista"
 msgid "month"
 msgstr "mês"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.2) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.5.12.3) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:565
