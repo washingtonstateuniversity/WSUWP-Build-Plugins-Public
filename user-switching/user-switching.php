@@ -10,7 +10,7 @@
  *
  * Plugin Name: User Switching
  * Description: Instant switching between user accounts in WordPress
- * Version:     1.1.0
+ * Version:     1.2.0
  * Plugin URI:  https://johnblackbourn.com/wordpress-plugin-user-switching/
  * Author:      John Blackbourn
  * Author URI:  https://johnblackbourn.com/
@@ -182,7 +182,7 @@ class user_switching {
 					} else {
 						wp_safe_redirect( add_query_arg( $args, admin_url() ) );
 					}
-					die();
+					exit;
 
 				} else {
 					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
@@ -208,6 +208,12 @@ class user_switching {
 				// Switch user:
 				if ( switch_to_user( $old_user->ID, self::remember(), false ) ) {
 
+					if ( ! empty( $_REQUEST['interim-login'] ) ) {
+						$GLOBALS['interim_login'] = 'success';
+						login_header( '', '' );
+						exit;
+					}
+
 					$redirect_to = self::get_redirect( $old_user, $current_user );
 					$args = array(
 						'user_switched' => 'true',
@@ -218,7 +224,7 @@ class user_switching {
 					} else {
 						wp_safe_redirect( add_query_arg( $args, admin_url( 'users.php' ) ) );
 					}
-					die();
+					exit;
 				} else {
 					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
 				}
@@ -246,7 +252,7 @@ class user_switching {
 					} else {
 						wp_safe_redirect( add_query_arg( $args, home_url() ) );
 					}
-					die();
+					exit;
 				} else {
 					/* Translators: "switch off" means to temporarily log out */
 					wp_die( esc_html__( 'Could not switch off.', 'user-switching' ) );
@@ -500,13 +506,9 @@ class user_switching {
 	}
 
 	/**
-	 * Adds a 'Switch back to {user}' link to the Meta sidebar widget if the admin toolbar isn't showing.
+	 * Adds a 'Switch back to {user}' link to the Meta sidebar widget.
 	 */
 	public function action_wp_meta() {
-		if ( is_admin_bar_showing() ) {
-			return;
-		}
-
 		$old_user = self::get_old_user();
 
 		if ( $old_user instanceof WP_User ) {
@@ -566,12 +568,21 @@ class user_switching {
 				$old_user->user_login
 			);
 			$url = self::switch_back_url( $old_user );
-			if ( ! empty( $_REQUEST['redirect_to'] ) ) {
+
+			if ( ! empty( $_REQUEST['interim-login'] ) ) {
+				$url = add_query_arg( array(
+					'interim-login' => '1',
+				), $url );
+			} elseif ( ! empty( $_REQUEST['redirect_to'] ) ) {
 				$url = add_query_arg( array(
 					'redirect_to' => urlencode( wp_unslash( $_REQUEST['redirect_to'] ) ), // WPCS: sanitization ok
 				), $url );
 			}
-			$message .= '<p class="message" id="user_switching_switch_on"><span class="dashicons dashicons-admin-users" style="color:#56c234"></span> <a href="' . esc_url( $url ) . '">' . esc_html( $link ) . '</a></p>';
+
+			$message .= '<p class="message" id="user_switching_switch_on">';
+			$message .= '<span class="dashicons dashicons-admin-users" style="color:#56c234"></span> ';
+			$message .= '<a href="' . esc_url( $url ) . '" onclick="window.location.href=\'' . esc_url( $url ) . '\';return false;">' . esc_html( $link ) . '</a>';
+			$message .= '</p>';
 		}
 
 		return $message;
