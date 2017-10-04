@@ -20,7 +20,7 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The event WordPress post ID', 'the-events-calendar' ),
 				),
 				'global_id' => array(
@@ -29,11 +29,10 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				),
 				'global_id_lineage' => array(
 					'type' => 'array',
-					'items' => array( 'type' => 'string' ),
 					'description' => __( 'An Array containing the lineage of where this event comes from, this should not change after the event is created.', 'the-events-calendar' ),
 				),
 				'author' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The event author WordPress post ID', 'the-events-calendar' ),
 				),
 				'date' => array(
@@ -51,10 +50,6 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 				'modified_utc' => array(
 					'type' => 'string',
 					'description' => __( 'The event last modification date in UTC time', 'the-events-calendar' ),
-				),
-				'status' => array(
-					'type' => 'string',
-					'description' => __( 'The event status', 'the-events-calendar' ),
 				),
 				'url' => array(
 					'type' => 'string',
@@ -143,23 +138,23 @@ class Tribe__Events__REST__V1__Documentation__Event_Definition_Provider
 					'description' => __( 'The event website URL', 'the-events-calendar' ),
 				),
 				'show_map' => array(
-					'type' => 'boolean',
+					'type' => 'bool',
 					'description' => __( 'Whether the map should be shown for the event or not', 'the-events-calendar' ),
 				),
 				'show_map_link' => array(
-					'type' => 'boolean',
+					'type' => 'bool',
 					'description' => __( 'Whether the map link should be shown for the event or not', 'the-events-calendar' ),
 				),
 				'hide_from_listings' => array(
-					'type'        => 'boolean',
+					'type'        => 'bool',
 					'description' => __( 'Whether an event should be hidden from the calendar view or not', 'the-events-calendar' )
 				),
 				'sticky'             => array(
-					'type'        => 'boolean',
+					'type'        => 'bool',
 					'description' => __( 'Whether an event is sticky in the calendar view or not', 'the-events-calendar' )
 				),
 				'featured'           => array(
-					'type'        => 'boolean',
+					'type'        => 'bool',
 					'description' => __( 'Whether the event is featured in the calendar or not', 'the-events-calendar' )
 				),
 				'categories' => array(

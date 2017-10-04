@@ -17,30 +17,30 @@ class Tribe__Documentation__Swagger__Date_Details_Definition_Provider
 	 */
 	public function get_documentation() {
 		$documentation = array(
-			'type'       => 'object',
+			'type'       => 'array',
 			'properties' => array(
 				'year'    => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The date year', 'tribe-common' ),
 				),
 				'month' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The date month', 'tribe-common' ),
 				),
 				'day' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The date day', 'tribe-common' ),
 				),
 				'hour' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The date hour', 'tribe-common' ),
 				),
 				'minutes' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The date minutes', 'tribe-common' ),
 				),
 				'seconds' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The date seconds', 'tribe-common' ),
 				),
 			),

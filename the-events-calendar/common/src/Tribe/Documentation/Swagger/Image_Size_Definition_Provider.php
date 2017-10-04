@@ -20,11 +20,11 @@ class Tribe__Documentation__Swagger__Image_Size_Definition_Provider
 			'type'       => 'object',
 			'properties' => array(
 				'width' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The image width in pixels in the specified size', 'tribe-common' ),
 				),
 				'height' => array(
-					'type' => 'integer',
+					'type' => 'int',
 					'description' => __( 'The image height in pixels in the specified size', 'tribe-common' ),
 				),
 				'mime-type' => array(

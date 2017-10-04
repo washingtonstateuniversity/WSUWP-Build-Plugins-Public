@@ -101,10 +101,7 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 			$cost = $this->maybe_replace_cost_with_free( $cost );
 
 			if ( $with_currency_symbol ) {
-				$event_id = Tribe__Main::post_id_helper( $event );
-				$currency_symbol = get_post_meta( $event_id, '_EventCurrencySymbol', true );
-				$currency_position = get_post_meta( $event_id, '_EventCurrencyPosition', true );
-				$cost = $this->maybe_format_with_currency( $cost, $event, $currency_symbol, $currency_position );
+				$cost = $this->maybe_format_with_currency( $cost );
 			}
 
 			$cost = esc_html( $cost );
