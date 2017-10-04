@@ -32,9 +32,9 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * @license http://opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
+ * @license https://opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
  * @package CSSTidy
  * @author Florian Schmitz (floele at gmail dot com) 2005-2007
  * @author Brett Zamir (brettz9 at yahoo dot com) 2007
@@ -269,6 +269,10 @@ class CSSTidy_print {
 					$import_components[0] = '\'' . trim( substr( $import_components[0], 4, -1 ), "'\"" ) . '\'';
 					$this->import[ $i ] = implode( ' ', $import_components );
 					$this->parser->log( 'Optimised @import : Removed "url("', 'Information' );
+				} elseif ( ! preg_match( '/^".+"$/', $this->import[ $i ] ) ) {
+					// Fixes a bug for @import ".." instead of the expected @import url("..")/
+					// If it comes in due to @import ".." the "" will be missing and the output will become @import .. (which is an error)/
+					$this->import[ $i ] = '"' . $this->import[ $i ] . '"';
 				}
 				$output .= $template[0] . '@import ' . $template[5] . $this->import[ $i ] . $template[6] . $template[13];
 			}

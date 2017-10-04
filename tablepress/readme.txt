@@ -3,10 +3,10 @@ Contributors: TobiasBg
 Donate link: https://tablepress.org/donate/
 Tags: table,data,html,csv,excel
 Requires at least: 4.7
-Tested up to: 4.7.2
-Stable tag: 1.8
+Tested up to: 4.8.2
+Stable tag: 1.8.1
 License: GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Embed beautiful and feature-rich tables into your posts and pages, without having to write code.
 
@@ -88,16 +88,26 @@ You may also add certain features (like sorting, pagination, filtering, alternat
 
 == Acknowledgements ==
 
-Special thanks go to [Allan Jardine](http://www.sprymedia.co.uk/) for the [DataTables JavaScript library](http://www.datatables.net/).
+Special thanks go to [Allan Jardine](https://www.sprymedia.co.uk/) for the [DataTables JavaScript library](https://www.datatables.net/).
 Thanks to all language file translators!
 Thanks to every donor, supporter, and bug reporter!
 
 == License ==
 
-This plugin is Free Software, released and licensed under the GPL, version 2 (http://www.gnu.org/licenses/gpl-2.0.html).
+This plugin is Free Software, released and licensed under the GPL, version 2 (https://www.gnu.org/licenses/gpl-2.0.html).
 You may use it free of charge for any purpose.
 
 == Changelog ==
+
+= Version 1.8.1 =
+* Enhancement: Make HTML import more robust and faster.
+* Enhancement: The HTML import can now import merged cells in a row.
+* Enhancement: Harden the XLSX import against potential security issues (thanks to Yuji Tounai).
+* Enhancement: Allow easier changes to import data for developers, by adding a filter hook.
+* Enhancement: The layout of the TablePress admin screens will look better on small screens.
+* Enhancement: Update list of allowed CSS properties in "Custom CSS".
+* Enhancement: Reduce size of default CSS, by removing old hacks for Internet Explorer.
+* Updated external libraries (CodeMirror, DataTables, SimpleXLSX, CSSTidy, Build tools).
 
 = Version 1.8 =
 * Full compatibility with WordPress 4.7
@@ -234,6 +244,9 @@ Release candidate in which all intended features are included and very stable.
 Initial version where most features are ready and pretty stable.
 
 == Upgrade Notice ==
+
+= 1.8.1 =
+This update is a stability, security, and maintenance release. Updating is highly recommended.
 
 = 1.8 =
 This update is a stability, maintenance, and compatibility release. Updating is recommended.
