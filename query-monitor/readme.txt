@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.8
-Stable tag: 2.14.0
+Stable tag: 2.15.0
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
@@ -116,12 +116,6 @@ Currently this includes PHP errors and some overview information such as memory 
 By default, Query Monitor's output is only shown to Administrators on single-site installs, and Super Admins on Multisite installs.
 
 In addition to this, you can set an authentication cookie which allows you to view Query Monitor output when you're not logged in (or if you're logged in as a non-administrator). See the bottom of Query Monitor's output for details.
-
-== Installation ==
-
-Install Query Monitor just like any other plugin.
-
-If you don't know how to do that, then Query Monitor is not for you.
 
 == Screenshots ==
 

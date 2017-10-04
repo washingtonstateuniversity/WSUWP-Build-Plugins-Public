@@ -1,6 +1,6 @@
 <?php
 /*
-Copyright 2009-2016 John Blackbourn
+Copyright 2009-2017 John Blackbourn
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,9 +50,19 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 		echo '</th>';
 		echo '</tr>';
 		echo '</thead>';
-		echo '<tbody>';
 
-		foreach ( $data['hooks'] as $hook ) {
+		self::output_hook_table( $data['hooks'], $screen );
+
+		echo '</table>';
+		echo '</div>';
+
+	}
+
+	public static function output_hook_table( array $hooks, $screen = '' ) {
+
+		foreach ( $hooks as $hook ) {
+
+			echo '<tbody class="qm-group">';
 
 			if ( !empty( $screen ) ) {
 
@@ -153,11 +163,9 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 				echo '</tr>';
 			}
 
-		}
+			echo '</tbody>';
 
-		echo '</tbody>';
-		echo '</table>';
-		echo '</div>';
+		}
 
 	}
 
