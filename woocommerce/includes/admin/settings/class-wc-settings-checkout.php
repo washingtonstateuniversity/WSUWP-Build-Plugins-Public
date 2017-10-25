@@ -23,15 +23,11 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 	 * Constructor.
 	 */
 	public function __construct() {
-
 		$this->id    = 'checkout';
 		$this->label = _x( 'Checkout', 'Settings tab label', 'woocommerce' );
 
-		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-		add_action( 'woocommerce_sections_' . $this->id, array( $this, 'output_sections' ) );
-		add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
 		add_action( 'woocommerce_admin_field_payment_gateways', array( $this, 'payment_gateways_setting' ) );
-		add_action( 'woocommerce_settings_save_' . $this->id, array( $this, 'save' ) );
+		parent::__construct();
 	}
 
 	/**
@@ -362,8 +358,8 @@ class WC_Settings_Payment_Gateways extends WC_Settings_Page {
 
 		if ( ! $current_section ) {
 			// Prevent the T&Cs and checkout page from being set to the same page.
-			if ( isset( $_POST[ 'woocommerce_terms_page_id' ], $_POST[ 'woocommerce_checkout_page_id' ] ) && $_POST[ 'woocommerce_terms_page_id' ] === $_POST[ 'woocommerce_checkout_page_id' ] ) {
-				$_POST[ 'woocommerce_terms_page_id' ] = '';
+			if ( isset( $_POST['woocommerce_terms_page_id'], $_POST['woocommerce_checkout_page_id'] ) && $_POST['woocommerce_terms_page_id'] === $_POST['woocommerce_checkout_page_id'] ) {
+				$_POST['woocommerce_terms_page_id'] = '';
 			}
 
 			WC_Admin_Settings::save_fields( $this->get_settings() );

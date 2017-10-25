@@ -821,7 +821,7 @@ if ( ! function_exists( 'woocommerce_catalog_ordering' ) ) {
 	function woocommerce_catalog_ordering() {
 		global $wp_query;
 
-		if ( 1 === (int) $wp_query->found_posts || ! woocommerce_products_will_display() || $wp_query->is_search() ) {
+		if ( 1 === (int) $wp_query->found_posts || ! woocommerce_products_will_display() ) {
 			return;
 		}
 
@@ -835,6 +835,11 @@ if ( ! function_exists( 'woocommerce_catalog_ordering' ) ) {
 			'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
 			'price-desc' => __( 'Sort by price: high to low', 'woocommerce' ),
 		) );
+
+		if ( $wp_query->is_search() ) {
+			$catalog_orderby_options = array_merge( array( 'relevance' => __( 'Relevance', 'woocommerce' ) ), $catalog_orderby_options );
+			unset( $catalog_orderby_options['menu_order'] );
+		}
 
 		if ( ! $show_default_orderby ) {
 			unset( $catalog_orderby_options['menu_order'] );
@@ -1011,8 +1016,6 @@ if ( ! function_exists( 'woocommerce_grouped_add_to_cart' ) ) {
 		$products = array_filter( array_map( 'wc_get_product', $product->get_children() ), 'wc_products_array_filter_visible_grouped' );
 
 		if ( $products ) {
-			usort( $products, 'wc_products_array_orderby_menu_order' );
-
 			wc_get_template( 'single-product/add-to-cart/grouped.php', array(
 				'grouped_product'    => $product,
 				'grouped_products'   => $products,
@@ -1083,6 +1086,7 @@ if ( ! function_exists( 'woocommerce_quantity_input' ) ) {
 		}
 
 		$defaults = array(
+			'input_id'    => uniqid( 'quantity_' ),
 			'input_name'  => 'quantity',
 			'input_value' => '1',
 			'max_value'   => apply_filters( 'woocommerce_quantity_input_max', -1, $product ),
@@ -1329,7 +1333,7 @@ if ( ! function_exists( 'woocommerce_related_products' ) ) {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		// Get visble related products then sort them at random.
+		// Get visible related products then sort them at random.
 		$args['related_products'] = array_filter( array_map( 'wc_get_product', wc_get_related_products( $product->get_id(), $args['posts_per_page'], $product->get_upsell_ids() ) ), 'wc_products_array_filter_visible' );
 
 		// Handle orderby.
@@ -1371,7 +1375,7 @@ if ( ! function_exists( 'woocommerce_upsell_display' ) ) {
 		$orderby                     = apply_filters( 'woocommerce_upsells_orderby', isset( $args['orderby'] ) ? $args['orderby'] : $orderby );
 		$limit                       = apply_filters( 'woocommerce_upsells_total', isset( $args['posts_per_page'] ) ? $args['posts_per_page'] : $limit );
 
-		// Get visble upsells then sort them at random, then limit result set.
+		// Get visible upsells then sort them at random, then limit result set.
 		$upsells = wc_products_array_orderby( array_filter( array_map( 'wc_get_product', $product->get_upsell_ids() ), 'wc_products_array_filter_visible' ), $orderby, $order );
 		$upsells = $limit > 0 ? array_slice( $upsells, 0, $limit ) : $upsells;
 
@@ -1431,7 +1435,7 @@ if ( ! function_exists( 'woocommerce_cross_sell_display' ) ) {
 		if ( is_checkout() ) {
 			return;
 		}
-		// Get visble cross sells then sort them at random.
+		// Get visible cross sells then sort them at random.
 		$cross_sells                 = array_filter( array_map( 'wc_get_product', WC()->cart->get_cross_sells() ), 'wc_products_array_filter_visible' );
 		$woocommerce_loop['name']    = 'cross-sells';
 		$woocommerce_loop['columns'] = apply_filters( 'woocommerce_cross_sells_columns', $columns );
@@ -1443,12 +1447,12 @@ if ( ! function_exists( 'woocommerce_cross_sell_display' ) ) {
 		$cross_sells = $limit > 0 ? array_slice( $cross_sells, 0, $limit ) : $cross_sells;
 
 		wc_get_template( 'cart/cross-sells.php', array(
-			'cross_sells'        => $cross_sells,
+			'cross_sells'    => $cross_sells,
 
 			// Not used now, but used in previous version of up-sells.php.
-			'posts_per_page'	 => $limit,
-			'orderby'			 => $orderby,
-			'columns'			 => $columns,
+			'posts_per_page' => $limit,
+			'orderby'        => $orderby,
+			'columns'        => $columns,
 		) );
 	}
 }
@@ -1468,7 +1472,7 @@ if ( ! function_exists( 'woocommerce_button_proceed_to_checkout' ) ) {
 if ( ! function_exists( 'woocommerce_widget_shopping_cart_button_view_cart' ) ) {
 
 	/**
-	 * Output the proceed to checkout button.
+	 * Output the view cart button.
 	 *
 	 * @subpackage	Cart
 	 */
@@ -1873,6 +1877,23 @@ if ( ! function_exists( 'woocommerce_order_details_table' ) ) {
 	}
 }
 
+if ( ! function_exists( 'woocommerce_order_downloads_table' ) ) {
+
+	/**
+	 * Displays order downloads in a table.
+	 *
+	 * @since 3.2.0
+	 * @param array $downloads
+	 */
+	function woocommerce_order_downloads_table( $downloads ) {
+		if ( ! $downloads ) {
+			return;
+		}
+		wc_get_template( 'order/order-downloads.php', array(
+			'downloads' => $downloads,
+		) );
+	}
+}
 
 if ( ! function_exists( 'woocommerce_order_again_button' ) ) {
 
@@ -1883,7 +1904,7 @@ if ( ! function_exists( 'woocommerce_order_again_button' ) ) {
 	 * @subpackage	Orders
 	 */
 	function woocommerce_order_again_button( $order ) {
-		if ( ! $order || ! $order->has_status( 'completed' ) || ! is_user_logged_in() ) {
+		if ( ! $order || ! $order->has_status( apply_filters( 'woocommerce_valid_order_statuses_for_order_again', array( 'completed' ) ) ) || ! is_user_logged_in() ) {
 			return;
 		}
 
@@ -1990,7 +2011,7 @@ if ( ! function_exists( 'woocommerce_form_field' ) ) {
 
 					$field .= '<strong>' . current( array_values( $countries ) ) . '</strong>';
 
-					$field .= '<input type="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . current( array_keys( $countries ) ) . '" ' . implode( ' ', $custom_attributes ) . ' class="country_to_state" />';
+					$field .= '<input type="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . current( array_keys( $countries ) ) . '" ' . implode( ' ', $custom_attributes ) . ' class="country_to_state" readonly="readonly" />';
 
 				} else {
 
@@ -2016,7 +2037,7 @@ if ( ! function_exists( 'woocommerce_form_field' ) ) {
 
 					$field_container = '<p class="form-row %1$s" id="%2$s" style="display: none">%3$s</p>';
 
-					$field .= '<input type="hidden" class="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="" ' . implode( ' ', $custom_attributes ) . ' placeholder="' . esc_attr( $args['placeholder'] ) . '" />';
+					$field .= '<input type="hidden" class="hidden" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" value="" ' . implode( ' ', $custom_attributes ) . ' placeholder="' . esc_attr( $args['placeholder'] ) . '" readonly="readonly" />';
 
 				} elseif ( ! is_null( $for_country ) && is_array( $states ) ) {
 
@@ -2085,7 +2106,7 @@ if ( ! function_exists( 'woocommerce_form_field' ) ) {
 
 				if ( ! empty( $args['options'] ) ) {
 					foreach ( $args['options'] as $option_key => $option_text ) {
-						$field .= '<input type="radio" class="input-radio ' . esc_attr( implode( ' ', $args['input_class'] ) ) . '" value="' . esc_attr( $option_key ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ) . '"' . checked( $value, $option_key, false ) . ' />';
+						$field .= '<input type="radio" class="input-radio ' . esc_attr( implode( ' ', $args['input_class'] ) ) . '" value="' . esc_attr( $option_key ) . '" name="' . esc_attr( $key ) . '" ' . implode( ' ', $custom_attributes ) . ' id="' . esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ) . '"' . checked( $value, $option_key, false ) . ' />';
 						$field .= '<label for="' . esc_attr( $args['id'] ) . '_' . esc_attr( $option_key ) . '" class="radio ' . implode( ' ', $args['label_class'] ) . '">' . $option_text . '</label>';
 					}
 				}
@@ -2271,15 +2292,17 @@ if ( ! function_exists( 'woocommerce_account_content' ) ) {
 	function woocommerce_account_content() {
 		global $wp;
 
-		foreach ( $wp->query_vars as $key => $value ) {
-			// Ignore pagename param.
-			if ( 'pagename' === $key ) {
-				continue;
-			}
+		if ( ! empty( $wp->query_vars ) ) {
+			foreach ( $wp->query_vars as $key => $value ) {
+				// Ignore pagename param.
+				if ( 'pagename' === $key ) {
+					continue;
+				}
 
-			if ( has_action( 'woocommerce_account_' . $key . '_endpoint' ) ) {
-				do_action( 'woocommerce_account_' . $key . '_endpoint', $value );
-				return;
+				if ( has_action( 'woocommerce_account_' . $key . '_endpoint' ) ) {
+					do_action( 'woocommerce_account_' . $key . '_endpoint', $value );
+					return;
+				}
 			}
 		}
 
@@ -2443,7 +2466,7 @@ if ( ! function_exists( 'wc_display_item_meta' ) ) {
 	/**
 	 * Display item meta data.
 	 * @since  3.0.0
-	 * @param  WC_Item $item
+	 * @param  WC_Order_Item $item
 	 * @param  array   $args
 	 * @return string|void
 	 */
@@ -2481,7 +2504,7 @@ if ( ! function_exists( 'wc_display_item_downloads' ) ) {
 	/**
 	 * Display item download links.
 	 * @since  3.0.0
-	 * @param  WC_Item $item
+	 * @param  WC_Order_Item $item
 	 * @param  array   $args
 	 * @return string|void
 	 */
@@ -2622,7 +2645,7 @@ function wc_get_star_rating_html( $rating, $count = 0 ) {
 
 	$html .= '</span>';
 
-	return apply_filters( 'woocommerce_get_star_rating_html', $html, $rating, $count  );
+	return apply_filters( 'woocommerce_get_star_rating_html', $html, $rating, $count );
 }
 
 /**
@@ -2663,3 +2686,15 @@ function wc_logout_url( $redirect = '' ) {
 function wc_empty_cart_message() {
 	echo '<p class="cart-empty">' . apply_filters( 'wc_empty_cart_message', __( 'Your cart is currently empty.', 'woocommerce' ) ) . '</p>';
 }
+
+/**
+ * Disable search engines indexing core, dynamic, cart/checkout pages.
+ *
+ * @since 3.2.0
+ */
+function wc_page_noindex() {
+	if ( is_page( wc_get_page_id( 'cart' ) ) || is_page( wc_get_page_id( 'checkout' ) ) || is_page( wc_get_page_id( 'myaccount' ) ) ) {
+		wp_no_robots();
+	}
+}
+add_action( 'wp_head', 'wc_page_noindex' );
