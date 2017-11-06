@@ -2,8 +2,8 @@
 Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, coderkevin, claudiulodro, woothemes, iCaleb
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
 Requires at least: 4.4
-Tested up to: 4.8
-Stable tag: 3.2.1
+Tested up to: 4.9
+Stable tag: 3.2.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -160,6 +160,42 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 
 == Changelog ==
 
+= 3.2.3 - 2017-11-02 =
+* Fix - Fixed a conflict with some slider plugins due to sanitization of archive/term descriptions. 
+* Fix - Fixed a flexslider bug when there is only 1 image on the product page (no gallery).
+* Fix - Prevent potential notices when someone extends product tabs wrongly.
+* Fix - Fixed display of shipping calculator under some conditions.
+* Fix - Fix discount calculation when customer is not within the base location and prices include tax.
+
+= 3.2.2 - 2017-10-31 =
+* Fix - Properly escape commas when exporting products to CSV.
+* Fix - Fixed email template padding in Outlook.
+* Fix - Flexslider support for RTL languages and fixes for zoom target in Chrome.
+* Fix - Correctly sync prices for grouped products.
+* Fix - Filter and remove invalid tax classes names.
+* Fix - Stop showing "major" update notification for minor or patch releases.
+* Fix - Allow scroll bar in untested plugins list on the bulk plugin updates screen.
+* Fix - Fixed meta data cloning when duplicating products.
+* Fix - Clean "Filter Products by Attribute" widget cache when updating attributes.
+* Fix - Fixed warning messages when reseting passwords with an invalid key.
+* Fix - Cart totals: Don't add shipping costs unless show_shipping is true.
+* Fix - Cart totals: Calculate shipping after discounts so discount amounts are available.
+* Fix - Cart totals: Fixed issue where VAT exempt users where still being charged VAT on the totals.
+* Fix - Cart totals: Fixed the coupons user limit and calculations.
+* Fix - Fixed "relevance" default sorting in search results.
+* Fix - Use item tax class rather than product tax class when recalculating order totals.
+* Tweak - Allow shortcodes and relative URLs for downloads in product CSV importer.
+* Tweak - Save unsaved items first while deleting order items.
+* Tweak - Only change `nocacheheaders` when on a cart/checkout page.
+* Tweak - Setup locale before generating settings placeholders in email templates.
+* Tweak - On checkout, improved the field locale logic to work without clearing default values.
+* Tweak - Change title of customer invoice email for clarity.
+* Tweak - Use custom event instead of blur to trigger validation.
+* Tweak - Various selectWoo usibility improvements and better support for keyboard controls on AJAX multiselect elements.
+* Tweak - Various setup Wizard improvements.
+* Dev - Fixed orders date query when querying by meta data.
+* Dev - In the CSV exporter, added a filter to process meta values before export.
+
 = 3.2.1 - 2017-10-13 =
 * Fix - Made grouped products display in the saved order, vs the menu order.
 * Fix - Made variations with 'same as parent' tax class calculate taxes correctly.
@@ -246,6 +282,7 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 * Dev - Refactored cart to use new WC_Cart_Session/WC_Cart_Totals/WC_Cart_Fees/WC_Discounts classes.
 * Dev - New `WC_Shortcode_Products` class to handle all product based shortcodes.
 * Theming - Display downloads in their own table, universally, using a new template file.
+* Theming - Streamlined email templates content: using the new downloads table, moved billing email with the billing address, order notes into the order totals table, and removed the need for 'downloadable' subjects/headings.
 * Theming - Checkout: Order pay template
 * Localization - Added cantons of Switzerland.
 * Localization - Updated XAF and XOF currency codes.

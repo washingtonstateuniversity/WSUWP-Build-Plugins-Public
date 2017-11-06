@@ -302,6 +302,9 @@ class WC_Admin_Setup_Wizard {
 			$state = '*';
 		}
 
+		$locale_info = include( WC()->plugin_path() . '/i18n/locale-info.php' );
+		$currency_by_country = wp_list_pluck( $locale_info, 'currency_code' );
+
 		?>
 		<form method="post" class="address-step">
 			<?php wp_nonce_field( 'wc-setup' ); ?>
@@ -389,6 +392,9 @@ class WC_Admin_Setup_Wizard {
 					</option>
 				<?php endforeach; ?>
 			</select>
+			<script type="text/javascript">
+				var wc_setup_currencies = <?php echo json_encode( $currency_by_country ); ?>;
+			</script>
 
 			<label class="location-prompt" for="product_type">
 				<?php esc_html_e( 'What type of product do you plan to sell?', 'woocommerce' ); ?>
@@ -586,14 +592,15 @@ class WC_Admin_Setup_Wizard {
 	 *
 	 * Can also be used to determine if WCS supports a given country.
 	 *
-	 * @param $country_code
+	 * @param string $country_code
+	 * @param string $currency_code
 	 * @return bool|string Carrier name if supported, boolean False otherwise.
 	 */
-	protected function get_wcs_shipping_carrier( $country_code ) {
-		switch ( $country_code ) {
-			case 'US':
+	protected function get_wcs_shipping_carrier( $country_code, $currency_code ) {
+		switch ( array( $country_code, $currency_code ) ) {
+			case array( 'US', 'USD' ):
 				return 'USPS';
-			case 'CA':
+			case array( 'CA', 'CAD' ):
 				return 'Canada Post';
 			default:
 				return false;
@@ -603,10 +610,11 @@ class WC_Admin_Setup_Wizard {
 	/**
 	 * Get shipping methods based on country code.
 	 *
-	 * @param $country_code
+	 * @param string $country_code
+	 * @param string $currency_code
 	 * @return array
 	 */
-	protected function get_wizard_shipping_methods( $country_code ) {
+	protected function get_wizard_shipping_methods( $country_code, $currency_code ) {
 		$shipping_methods = array(
 			'live_rates' => array(
 				'name'        => __( 'Live Rates', 'woocommerce' ),
@@ -630,7 +638,7 @@ class WC_Admin_Setup_Wizard {
 			),
 		);
 
-		$live_rate_carrier = $this->get_wcs_shipping_carrier( $country_code );
+		$live_rate_carrier = $this->get_wcs_shipping_carrier( $country_code, $currency_code );
 
 		if ( false === $live_rate_carrier || ! current_user_can('install_plugins') ) {
 			unset( $shipping_methods['live_rates'] );
@@ -643,12 +651,13 @@ class WC_Admin_Setup_Wizard {
 	 * Render the available shipping methods for a given country code.
 	 *
 	 * @param string $country_code
+	 * @param string $currency_code
 	 * @param string $input_prefix
 	 */
-	protected function shipping_method_selection_form( $country_code, $input_prefix ) {
-		$live_rate_carrier = $this->get_wcs_shipping_carrier( $country_code );
+	protected function shipping_method_selection_form( $country_code, $currency_code, $input_prefix ) {
+		$live_rate_carrier = $this->get_wcs_shipping_carrier( $country_code, $currency_code );
 		$selected          = $live_rate_carrier ? 'live_rates' : 'flat_rate';
-		$shipping_methods  = $this->get_wizard_shipping_methods( $country_code );
+		$shipping_methods  = $this->get_wizard_shipping_methods( $country_code, $currency_code );
 		?>
 		<div class="wc-wizard-shipping-method-select">
 			<div class="wc-wizard-shipping-method-dropdown">
@@ -697,22 +706,20 @@ class WC_Admin_Setup_Wizard {
 	 * Shipping.
 	 */
 	public function wc_setup_shipping() {
-		$dimension_unit        = get_option( 'woocommerce_dimension_unit', false );
-		$weight_unit           = get_option( 'woocommerce_weight_unit', false );
 		$country_code          = WC()->countries->get_base_country();
 		$country_name          = WC()->countries->countries[ $country_code ];
 		$prefixed_country_name = WC()->countries->estimated_for_prefix( $country_code ) . $country_name;
-		$wcs_carrier           = $this->get_wcs_shipping_carrier( $country_code );
+		$currency_code         = get_woocommerce_currency();
+		$wcs_carrier           = $this->get_wcs_shipping_carrier( $country_code, $currency_code );
 		$existing_zones        = WC_Shipping_Zones::get_zones();
 
-		if ( false === $dimension_unit || false === $weight_unit ) {
-			if ( 'US' === $country_code ) {
-				$dimension_unit = 'in';
-				$weight_unit    = 'oz';
-			} else {
-				$dimension_unit = 'cm';
-				$weight_unit    = 'kg';
-			}
+		$locale_info = include( WC()->plugin_path() . '/i18n/locale-info.php' );
+		if ( isset( $locale_info[ $country_code ] ) ) {
+			$dimension_unit = $locale_info[ $country_code ]['dimension_unit'];
+			$weight_unit    = $locale_info[ $country_code ]['weight_unit'];
+		} else {
+			$dimension_unit = 'cm';
+			$weight_unit    = 'kg';
 		}
 
 		if ( ! empty( $existing_zones ) ) {
@@ -751,7 +758,7 @@ class WC_Admin_Setup_Wizard {
 							<p><?php echo esc_html( $country_name ); ?></p>
 						</div>
 						<div class="wc-wizard-service-description">
-							<?php $this->shipping_method_selection_form( $country_code, 'shipping_zones[domestic]' ); ?>
+							<?php $this->shipping_method_selection_form( $country_code, $currency_code, 'shipping_zones[domestic]' ); ?>
 						</div>
 						<div class="wc-wizard-service-enable">
 							<span class="wc-wizard-service-toggle">
@@ -765,7 +772,7 @@ class WC_Admin_Setup_Wizard {
 							<p><?php echo esc_html_e( 'Locations not covered by your other zones', 'woocommerce' ); ?></p>
 						</div>
 						<div class="wc-wizard-service-description">
-							<?php $this->shipping_method_selection_form( $country_code, 'shipping_zones[intl]' ); ?>
+							<?php $this->shipping_method_selection_form( $country_code, $currency_code, 'shipping_zones[intl]' ); ?>
 						</div>
 						<div class="wc-wizard-service-enable">
 							<span class="wc-wizard-service-toggle">
@@ -1570,10 +1577,12 @@ class WC_Admin_Setup_Wizard {
 			exit;
 		}
 
-		$redirect_url   = site_url( add_query_arg( array(
+		$redirect_url = esc_url_raw( add_query_arg( array(
+			'page'           => 'wc-setup',
+			'step'           => 'activate',
 			'from'           => 'wpcom',
 			'activate_error' => false,
-		) ) );
+		), admin_url() ) );
 		$connection_url = Jetpack::init()->build_connect_url( true, $redirect_url, 'woocommerce-setup-wizard' );
 
 		wp_redirect( esc_url_raw( $connection_url ) );

@@ -100,6 +100,11 @@ jQuery( function( $ ) {
 			this.photoswipe_enabled = false === args.photoswipe_enabled ? false : this.photoswipe_enabled;
 		}
 
+		// ...and what is in the gallery.
+		if ( 1 === this.$images.length ) {
+			this.flexslider_enabled = false;
+		}
+
 		// Bind functions to this.
 		this.initFlexslider       = this.initFlexslider.bind( this );
 		this.initZoom             = this.initZoom.bind( this );
@@ -269,10 +274,10 @@ jQuery( function( $ ) {
 			eventTarget = $( e.target ),
 			clicked;
 
-		if ( ! eventTarget.is( '.woocommerce-product-gallery__trigger' ) ) {
-			clicked = eventTarget.closest( '.woocommerce-product-gallery__image' );
-		} else {
+		if ( eventTarget.is( '.woocommerce-product-gallery__trigger' ) || eventTarget.is( '.woocommerce-product-gallery__trigger img' ) ) {
 			clicked = this.$target.find( '.flex-active-slide' );
+		} else {
+			clicked = eventTarget.closest( '.woocommerce-product-gallery__image' );
 		}
 
 		var options = $.extend( {
