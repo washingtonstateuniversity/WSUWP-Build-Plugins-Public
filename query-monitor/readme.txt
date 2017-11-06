@@ -2,8 +2,8 @@
 Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
-Tested up to: 4.8
-Stable tag: 2.15.0
+Tested up to: 4.9
+Stable tag: 2.16.2
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
@@ -74,6 +74,10 @@ Filtering queries by component or calling function makes it easy to see which pl
  * Shows all HTTP requests performed on the current request (as long as they use WordPress' HTTP API)
  * Shows the response code, call stack, component, timeout, and time taken
  * Highlights erroneous responses, such as failed requests and anything without a `200` response code
+
+= User Capability Checks =
+
+ * Shows every user capability check that is performed on the page, along with the result and any parameters passed along with the capability check.
 
 = Redirects =
 

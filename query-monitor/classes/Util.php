@@ -157,7 +157,12 @@ class QM_Util {
 				$name = __( 'Parent Theme', 'query-monitor' );
 				break;
 			case 'other':
-				$name    = self::standard_dir( $file, '' );
+				// Anything else that's within the content directory should appear as
+				// `wp-content/{dir}` or `wp-content/{file}`
+				$name    = self::standard_dir( $file );
+				$name    = str_replace( dirname( self::$file_dirs['other'] ), '', $name );
+				$parts   = explode( '/', trim( $name, '/' ) );
+				$name    = $parts[0] . '/' . $parts[1];
 				$context = $file;
 				break;
 			case 'core':
@@ -328,6 +333,40 @@ class QM_Util {
 		$type = strtoupper( $type[0] );
 
 		return $type;
+	}
+
+	public static function display_variable( $value ) {
+		if ( is_string( $value ) ) {
+			return $value;
+		} elseif ( is_bool( $value ) ) {
+			return ( $value ) ? 'true' : 'false';
+		} elseif ( is_scalar( $value ) ) {
+			return $value;
+		} elseif ( is_object( $value ) ) {
+			$class = get_class( $value );
+			$id = false;
+
+			switch ( $class ) {
+
+				case 'WP_Post':
+				case 'WP_User':
+					$id = $value->ID;
+					break;
+
+				case 'WP_Term':
+					$id = $value->term_id;
+					break;
+
+			}
+
+			if ( $id ) {
+				return sprintf( '%s (ID:%d)', $class, $id );
+			}
+
+			return $class;
+		} else {
+			return gettype( $value );
+		}
 	}
 
 	public static function sort( array &$array, $field ) {

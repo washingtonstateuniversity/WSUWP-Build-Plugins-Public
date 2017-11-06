@@ -154,10 +154,20 @@ jQuery( function($) {
 		var filter = $(this).attr('data-filter'),
 			table  = $(this).closest('table'),
 			tr     = table.find('tbody tr[data-qm-' + filter + ']'),
+			// Escape the following chars with a backslash before passing into jQ selectors: [ ] ( ) ' " \
 			val    = $(this).val().replace(/[[\]()'"\\]/g, "\\$&"),
 			total  = tr.removeClass('qm-hide-' + filter).length,
 			hilite = $(this).attr('data-highlight'),
 			time   = 0;
+
+		if ( window.localStorage ) {
+			key = $(this).attr('id');
+			if ( val ) {
+				localStorage.setItem( key, $(this).val() );
+			} else {
+				localStorage.removeItem( key );
+			}
+		}
 
 		if ( hilite ) {
 			table.find('tr').removeClass('qm-highlight');
@@ -186,6 +196,21 @@ jQuery( function($) {
 		results.find('.qm-items-number').text( QM_i18n.number_format( matches.length, 0 ) );
 		results.find('.qm-items-time').text(time);
 	});
+
+	if ( window.localStorage ) {
+		$('#qm').find('.qm-filter').each(function () {
+			var key = $(this).attr('id');
+			var value = localStorage.getItem( key );
+			if ( value !== null ) {
+				// Escape the following chars with a backslash before passing into jQ selectors: [ ] ( ) ' " \
+				var val = value.replace(/[[\]()'"\\]/g, "\\$&");
+				if ( ! $(this).find('option[value="' + val + '"]').length ) {
+					$('<option>').attr('value',value).text(value).appendTo(this);
+				}
+				$(this).val(value).change();
+			}
+		});
+	}
 
 	$('#qm').find('.qm-filter-trigger').on('click',function(e){
 		var filter = $(this).data('qm-filter'),

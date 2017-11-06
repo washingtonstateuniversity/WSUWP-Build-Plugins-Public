@@ -79,13 +79,14 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		echo '<th scope="col">' . esc_html__( 'Query', 'query-monitor' ) . '</th>';
 		echo '<th scope="col">' . esc_html__( 'Call Stack', 'query-monitor' ) . '</th>';
 		echo '<th scope="col">' . esc_html__( 'Component', 'query-monitor' ) . '</th>';
-		echo '<th scope="col">' . esc_html__( 'Error', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Error Code', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Error Message', 'query-monitor' ) . '</th>';
 		echo '</tr>';
 		echo '</thead>';
 		echo '<tbody>';
 
 		foreach ( $errors as $row ) {
-			$this->output_query_row( $row, array( 'sql', 'stack', 'component', 'result' ) );
+			$this->output_query_row( $row, array( 'sql', 'stack', 'component', 'errno', 'result' ) );
 		}
 
 		echo '</tbody>';
@@ -185,12 +186,23 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 				echo '</tr>';
 			}
 
+			$types   = array_keys( $db->types );
+			$prepend = array();
+
+			if ( count( $types ) > 1 ) {
+				$prepend['non-select'] = __( 'Non-SELECT', 'query-monitor' );
+			}
+
+			$args = array(
+				'prepend' => $prepend,
+			);
+
 			echo '<tr>';
 			echo '<th scope="col" class="qm-sorted-asc">&nbsp;';
 			echo $this->build_sorter(); // WPCS: XSS ok;
 			echo '</th>';
 			echo '<th scope="col">';
-			echo $this->build_filter( 'type', array_keys( $db->types ), __( 'Query', 'query-monitor' ) ); // WPCS: XSS ok;
+			echo $this->build_filter( 'type', $types, __( 'Query', 'query-monitor' ), $args ); // WPCS: XSS ok;
 			echo '</th>';
 			echo '<th scope="col">';
 
@@ -293,7 +305,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			unset( $cols['component'] );
 		}
 		if ( !isset( $row['result'] ) ) {
-			unset( $cols['result'] );
+			unset( $cols['result'], $cols['errno'] );
 		}
 		if ( !isset( $row['stack'] ) ) {
 			unset( $cols['stack'] );
@@ -337,9 +349,16 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		}
 		if ( isset( $cols['sql'] ) ) {
 			$row_attr['data-qm-type'] = $row['type'];
+			if ( 'SELECT' !== $row['type'] ) {
+				$row_attr['data-qm-type'] .=  ' non-select';
+			}
 		}
 		if ( isset( $cols['component'] ) && $row['component'] ) {
 			$row_attr['data-qm-component'] = $row['component']->name;
+
+			if ( 'core' !== $row['component']->context ) {
+				$row_attr['data-qm-component'] .= ' non-core';
+			}
 		}
 		if ( isset( $cols['caller'] ) ) {
 			$row_attr['data-qm-caller'] = $row['caller_name'];
@@ -393,9 +412,11 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		}
 
 		if ( isset( $cols['stack'] ) ) {
-			echo '<td class="qm-row-caller qm-row-stack qm-nowrap qm-ltr"><ol>';
+			echo '<td class="qm-row-caller qm-row-stack qm-nowrap qm-ltr"><ol class="qm-numbered">';
+			if ( ! empty( $stack ) ) {
+				echo '<li>' . implode( '</li><li>', $stack ) . '</li>'; // WPCS: XSS ok.
+			}
 			echo "<li>{$caller_name}</li>"; // WPCS: XSS ok.
-			echo '<li>' . implode( '</li><li>', $stack ) . '</li>'; // WPCS: XSS ok.
 			echo '</ol></td>';
 		}
 
@@ -405,6 +426,10 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			} else {
 				echo "<td class='qm-row-component qm-nowrap'>" . esc_html__( 'Unknown', 'query-monitor' ) . "</td>\n";
 			}
+		}
+
+		if ( isset( $cols['errno'] ) && is_wp_error( $row['result'] ) ) {
+			echo "<td class='qm-row-result qm-row-error'>" . esc_html( $row['result']->get_error_code() ) . "</td>\n";
 		}
 
 		if ( isset( $cols['result'] ) ) {
