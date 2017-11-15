@@ -28,7 +28,7 @@ class QM_Collector_Admin extends QM_Collector {
 
 		$current_screen = get_current_screen();
 
-		if ( isset( $_GET['page'] ) && null !== $current_screen ) {
+		if ( isset( $_GET['page'] ) && null !== $current_screen ) { // @codingStandardsIgnoreLine
 			$this->data['base'] = $current_screen->base;
 		} else {
 			$this->data['base'] = $pagenow;
@@ -57,15 +57,15 @@ class QM_Collector_Admin extends QM_Collector {
 
 			# And now, WordPress' legendary inconsistency comes into play:
 
-			if ( !empty( $this->data['current_screen']['taxonomy'] ) ) {
+			if ( ! empty( $this->data['current_screen']['taxonomy'] ) ) {
 				$list_table['column'] = $this->data['current_screen']['taxonomy'];
-			} else if ( !empty( $this->data['current_screen']['post_type'] ) ) {
+			} elseif ( ! empty( $this->data['current_screen']['post_type'] ) ) {
 				$list_table['column'] = $this->data['current_screen']['post_type'] . '_posts';
 			} else {
 				$list_table['column'] = $this->data['current_screen']['base'];
 			}
 
-			if ( !empty( $this->data['current_screen']['post_type'] ) and empty( $this->data['current_screen']['taxonomy'] ) ) {
+			if ( ! empty( $this->data['current_screen']['post_type'] ) and empty( $this->data['current_screen']['taxonomy'] ) ) {
 				$list_table['columns'] = $this->data['current_screen']['post_type'] . '_posts';
 			} else {
 				$list_table['columns'] = $this->data['current_screen']['id'];
@@ -73,9 +73,9 @@ class QM_Collector_Admin extends QM_Collector {
 
 			if ( 'edit-comments' === $list_table['column'] ) {
 				$list_table['column'] = 'comments';
-			} else if ( 'upload' === $list_table['column'] ) {
+			} elseif ( 'upload' === $list_table['column'] ) {
 				$list_table['column'] = 'media';
-			} else if ( 'link-manager' === $list_table['column'] ) {
+			} elseif ( 'link-manager' === $list_table['column'] ) {
 				$list_table['column'] = 'link';
 			}
 

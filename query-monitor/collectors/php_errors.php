@@ -40,6 +40,9 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 	}
 
 	public function __construct() {
+		if ( defined( 'QM_DISABLE_ERROR_HANDLER' ) and QM_DISABLE_ERROR_HANDLER ) {
+			return;
+		}
 
 		parent::__construct();
 		set_error_handler( array( $this, 'error_handler' ) );
@@ -117,10 +120,10 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 
 		$filename = QM_Util::standard_dir( $file, '' );
 
-		if ( isset( $this->data['errors'][$type][$key] ) ) {
-			$this->data['errors'][$type][$key]->calls++;
+		if ( isset( $this->data['errors'][ $type ][ $key ] ) ) {
+			$this->data['errors'][ $type ][ $key ]->calls++;
 		} else {
-			$this->data['errors'][$type][$key] = (object) array(
+			$this->data['errors'][ $type ][ $key ] = (object) array(
 				'errno'    => $errno,
 				'type'     => $type,
 				'message'  => $message,
@@ -128,7 +131,7 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 				'filename' => $filename,
 				'line'     => $line,
 				'trace'    => $trace,
-				'calls'    => 1
+				'calls'    => 1,
 			);
 		}
 
@@ -150,7 +153,7 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 
 		if ( $e['type'] & E_RECOVERABLE_ERROR ) {
 			$error = 'Catchable fatal error';
-		} else if ( $e['type'] & E_COMPILE_WARNING ) {
+		} elseif ( $e['type'] & E_COMPILE_WARNING ) {
 			$error = 'Warning';
 		} else {
 			$error = 'Fatal error';

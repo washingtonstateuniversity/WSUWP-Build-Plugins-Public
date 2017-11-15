@@ -45,15 +45,15 @@ class QM_Output_Html_Request extends QM_Output_Html {
 			'query_string'  => __( 'Query String', 'query-monitor' ),
 		) as $item => $name ) {
 
-			if ( !isset( $data['request'][$item] ) ) {
+			if ( ! isset( $data['request'][ $item ] ) ) {
 				continue;
 			}
 
-			if ( ! empty( $data['request'][$item] ) ) {
+			if ( ! empty( $data['request'][ $item ] ) ) {
 				if ( in_array( $item, array( 'request', 'matched_query', 'query_string' ), true ) ) {
-					$value = self::format_url( $data['request'][$item] );
+					$value = self::format_url( $data['request'][ $item ] );
 				} else {
-					$value = esc_html( $data['request'][$item] );
+					$value = esc_html( $data['request'][ $item ] );
 				}
 			} else {
 				$value = '<em>' . esc_html__( 'none', 'query-monitor' ) . '</em>';
@@ -87,17 +87,17 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		echo '</th>';
 
-		if ( !empty( $data['qvars'] ) ) {
+		if ( ! empty( $data['qvars'] ) ) {
 
 			$first = true;
 
-			foreach( $data['qvars'] as $var => $value ) {
+			foreach ( $data['qvars'] as $var => $value ) {
 
-				if ( !$first ) {
+				if ( ! $first ) {
 					echo '<tr>';
 				}
 
-				if ( isset( $data['plugin_qvars'][$var] ) ) {
+				if ( isset( $data['plugin_qvars'][ $var ] ) ) {
 					echo '<td class="qm-ltr"><span class="qm-current">' . esc_html( $var ) . '</span></td>';
 				} else {
 					echo '<td class="qm-ltr">' . esc_html( $var ) . '</td>';
@@ -116,7 +116,6 @@ class QM_Output_Html_Request extends QM_Output_Html {
 				$first = false;
 
 			}
-
 		} else {
 
 			echo '<td colspan="2"><em>' . esc_html__( 'none', 'query-monitor' ) . '</em></td>';
@@ -133,10 +132,11 @@ class QM_Output_Html_Request extends QM_Output_Html {
 			echo '<th>' . esc_html__( 'Queried Object', 'query-monitor' ) . '</th>';
 			echo '<td colspan="2" class="qm-has-inner qm-has-toggle qm-ltr"><div class="qm-toggler">';
 
-			printf(
-				'<div class="qm-inner-toggle">%1$s (%2$s) <button class="qm-toggle" data-on="+" data-off="-">+</button></div>',
+			printf( // WPCS: XSS ok.
+				'<div class="qm-inner-toggle">%1$s (%2$s) %3$s</div>',
 				esc_html( $data['queried_object']['title'] ),
-				esc_html( get_class( $data['queried_object']['data'] ) )
+				esc_html( get_class( $data['queried_object']['data'] ) ),
+				$this->build_toggler()
 			);
 
 			echo '<div class="qm-toggled">';
@@ -149,7 +149,35 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		}
 
-		if ( !empty( $data['multisite'] ) ) {
+		echo '<tbody class="qm-group">';
+		echo '<tr>';
+		echo '<th>' . esc_html__( 'User', 'query-monitor' ) . '</th>';
+
+		if ( $data['user']['data'] ) {
+			echo '<td colspan="2" class="qm-has-inner qm-has-toggle qm-ltr"><div class="qm-toggler">';
+
+			printf( // WPCS: XSS ok.
+				'<div class="qm-inner-toggle">%1$s %2$s</div>',
+				esc_html( $data['user']['title'] ),
+				$this->build_toggler()
+			);
+
+			echo '<div class="qm-toggled">';
+			self::output_inner( $data['user']['data'] );
+			echo '</div>';
+
+			echo '</div></td>';
+		} else {
+			echo '<td colspan="2">';
+			esc_html_e( 'No current user', 'query-monitor' );
+			echo '</td>';
+		}
+
+		echo '</tr>';
+
+		echo '</tbody>';
+
+		if ( ! empty( $data['multisite'] ) ) {
 
 			$rowspan = count( $data['multisite'] );
 
@@ -159,17 +187,18 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 			$first = true;
 
-			foreach( $data['multisite'] as $var => $value ) {
+			foreach ( $data['multisite'] as $var => $value ) {
 
-				if ( !$first ) {
+				if ( ! $first ) {
 					echo '<tr>';
 				}
 
 				echo '<td colspan="2" class="qm-has-inner qm-has-toggle qm-ltr"><div class="qm-toggler">';
 
-				printf(
-					'<div class="qm-inner-toggle">%1$s <button class="qm-toggle" data-on="+" data-off="-">+</button></div>',
-					esc_html( $value['title'] )
+				printf( // WPCS: XSS ok.
+					'<div class="qm-inner-toggle">%1$s %2$s</div>',
+					esc_html( $value['title'] ),
+					$this->build_toggler()
 				);
 
 				echo '<div class="qm-toggled">';

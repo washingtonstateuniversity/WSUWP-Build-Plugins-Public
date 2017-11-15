@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.9
-Stable tag: 2.16.2
+Stable tag: 2.17.0
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.
@@ -125,7 +125,7 @@ In addition to this, you can set an authentication cookie which allows you to vi
 
 1. The admin toolbar menu showing an overview
 2. Aggregate database queries by component
-3. Slow database queries highlighted in a separate panel
+3. User capability checks with an active filter
 4. Database queries complete with filter controls
 5. Hooks and actions
 6. HTTP requests (showing an HTTP error)

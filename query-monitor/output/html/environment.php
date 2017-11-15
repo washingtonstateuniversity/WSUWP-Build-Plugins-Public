@@ -57,7 +57,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 		echo '<tr>';
 		echo '<th scope="row">user</th>';
-		if ( !empty( $data['php']['user'] ) ) {
+		if ( ! empty( $data['php']['user'] ) ) {
 			echo '<td>' . esc_html( $data['php']['user'] ) . '</td>';
 		} else {
 			echo '<td><em>' . esc_html__( 'Unknown', 'query-monitor' ) . '</em></td>';
@@ -103,10 +103,8 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 		echo '<th scope="row">' . esc_html__( 'Error Reporting', 'query-monitor' ) . '</th>';
 		echo '<td class="qm-has-toggle qm-ltr"><div class="qm-toggler">';
 
-		printf(
-			'%1$s <button class="qm-toggle" data-on="+" data-off="-">+</button>',
-			esc_html( $data['php']['error_reporting'] )
-		);
+		echo esc_html( $data['php']['error_reporting'] );
+		echo $this->build_toggler(); // WPCS: XSS ok;
 
 		echo '<div class="qm-toggled">';
 		echo "<ul class='qm-supplemental'><li>{$error_levels}</li></ul>"; // WPCS: XSS ok.
@@ -120,10 +118,8 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 			echo '<th scope="row">' . esc_html__( 'Extensions', 'query-monitor' ) . '</th>';
 			echo '<td class="qm-has-toggle qm-ltr"><div class="qm-toggler">';
 
-			printf(
-				'%1$s <button class="qm-toggle" data-on="+" data-off="-">+</button>',
-				esc_html( number_format_i18n( count( $data['php']['extensions'] ) ) )
-			);
+			echo esc_html( number_format_i18n( count( $data['php']['extensions'] ) ) );
+			echo $this->build_toggler(); // WPCS: XSS ok;
 
 			echo '<div class="qm-toggled"><ul class="qm-supplemental"><li>';
 			echo implode( '</li><li>', array_map( 'esc_html', $data['php']['extensions'] ) );
@@ -186,9 +182,9 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 					$append = '';
 					$show_warning = false;
 
-					if ( ( true === $db['vars'][$key] ) and empty( $val ) ) {
+					if ( ( true === $db['vars'][ $key ] ) and empty( $val ) ) {
 						$show_warning = true;
-					} elseif ( is_string( $db['vars'][$key] ) and ( $val !== $db['vars'][$key] ) ) {
+					} elseif ( is_string( $db['vars'][ $key ] ) and ( $val !== $db['vars'][ $key ] ) ) {
 						$show_warning = true;
 					}
 
@@ -200,7 +196,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 						);
 					}
 
-					if ( is_numeric( $val ) and ( $val >= ( 1024*1024 ) ) ) {
+					if ( is_numeric( $val ) and ( $val >= ( 1024 * 1024 ) ) ) {
 						$append .= sprintf(
 							'<br><span class="qm-info qm-supplemental">~%s</span>',
 							esc_html( size_format( $val ) )
@@ -209,7 +205,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 					$class = ( $show_warning ) ? 'qm-warn' : '';
 
-					if ( !$first ) {
+					if ( ! $first ) {
 						echo '<tr class="' . esc_attr( $class ) . '">';
 					}
 
@@ -230,7 +226,6 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 				echo '</div>';
 
 			}
-
 		}
 
 		echo '<div class="qm qm-third" style="float:right !important">';
@@ -275,7 +270,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 		echo '<tr>';
 		echo '<th scope="row">' . esc_html__( 'version', 'query-monitor' ) . '</th>';
-		if ( !empty( $data['server']['version'] ) ) {
+		if ( ! empty( $data['server']['version'] ) ) {
 			echo '<td class="qm-wrap">' . esc_html( $data['server']['version'] ) . '</td>';
 		} else {
 			echo '<td><em>' . esc_html__( 'Unknown', 'query-monitor' ) . '</em></td>';
@@ -284,7 +279,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 		echo '<tr>';
 		echo '<th scope="row">' . esc_html__( 'address', 'query-monitor' ) . '</th>';
-		if ( !empty( $data['server']['address'] ) ) {
+		if ( ! empty( $data['server']['address'] ) ) {
 			echo '<td class="qm-wrap">' . esc_html( $data['server']['address'] ) . '</td>';
 		} else {
 			echo '<td><em>' . esc_html__( 'Unknown', 'query-monitor' ) . '</em></td>';

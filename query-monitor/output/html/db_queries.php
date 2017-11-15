@@ -34,11 +34,11 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			return;
 		}
 
-		if ( !empty( $data['errors'] ) ) {
+		if ( ! empty( $data['errors'] ) ) {
 			$this->output_error_queries( $data['errors'] );
 		}
 
-		if ( !empty( $data['expensive'] ) ) {
+		if ( ! empty( $data['expensive'] ) ) {
 			$this->output_expensive_queries( $data['expensive'] );
 		}
 
@@ -56,8 +56,9 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		echo '<tbody>';
 		echo '<tr>';
 		echo '<td class="qm-warn">';
-		/* translators: 1: Name of PHP constant, 2: Value of PHP constant */
-		printf( esc_html__( 'No database queries were logged because the %1$s constant is set to %2$s', 'query-monitor' ),
+		printf(
+			/* translators: 1: Name of PHP constant, 2: Value of PHP constant */
+			esc_html__( 'No database queries were logged because the %1$s constant is set to %2$s', 'query-monitor' ),
 			'<code>SAVEQUERIES</code>',
 			'<code>false</code>'
 		);
@@ -102,8 +103,9 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		echo '<div class="qm qm-queries" id="qm-query-expensive">';
 		echo '<table cellspacing="0">';
 		echo '<caption>';
-		/* translators: %s: Database query time in seconds */
-		printf( esc_html__( 'Slow Database Queries (above %ss)', 'query-monitor' ),
+		printf(
+			/* translators: %s: Database query time in seconds */
+			esc_html__( 'Slow Database Queries (above %ss)', 'query-monitor' ),
 			'<span class="qm-expensive">' . esc_html( number_format_i18n( QM_DB_EXPENSIVE, $dp ) ) . '</span>'
 		);
 		echo '</caption>';
@@ -152,7 +154,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		echo '<caption>' . esc_html( sprintf( __( '%s Queries', 'query-monitor' ), $name ) ) . '</caption>';
 		echo '<thead>';
 
-		if ( !empty( $db->rows ) ) {
+		if ( ! empty( $db->rows ) ) {
 
 			/**
 			 * Filter whether to show the QM extended query information prompt.
@@ -170,7 +172,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 					$message = __( 'Extended query information such as the component and affected rows is not available. A conflicting %1$s file is present. <a href="%2$s" target="_blank">See this wiki page for more information.</a>', 'query-monitor' );
 				} else {
 					/* translators: 1: Symlink file name, 2: URL to wiki page */
-					$message = __( 'Extended query information such as the component and affected rows is not available. Query Monitor was unable to symlink its %1$s file into place. <a href="%2$s" target="_blank">See this wiki page for more information.</a>', 'query-monitor' );	
+					$message = __( 'Extended query information such as the component and affected rows is not available. Query Monitor was unable to symlink its %1$s file into place. <a href="%2$s" target="_blank">See this wiki page for more information.</a>', 'query-monitor' );
 				}
 				echo wp_kses( sprintf(
 					$message,
@@ -246,7 +248,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 
 		echo '</thead>';
 
-		if ( !empty( $db->rows ) ) {
+		if ( ! empty( $db->rows ) ) {
 
 			echo '<tbody>';
 
@@ -301,13 +303,13 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 
 		$cols = array_flip( $cols );
 
-		if ( !isset( $row['component'] ) ) {
+		if ( ! isset( $row['component'] ) ) {
 			unset( $cols['component'] );
 		}
-		if ( !isset( $row['result'] ) ) {
+		if ( ! isset( $row['result'] ) ) {
 			unset( $cols['result'], $cols['errno'] );
 		}
-		if ( !isset( $row['stack'] ) ) {
+		if ( ! isset( $row['stack'] ) ) {
 			unset( $cols['stack'] );
 		}
 
@@ -331,7 +333,6 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			foreach ( $filtered_trace as $item ) {
 				$stack[] = self::output_filename( $item['display'], $item['calling_file'], $item['calling_line'] );
 			}
-
 		} else {
 
 			$caller_name = esc_html( $row['caller'] );
@@ -350,7 +351,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		if ( isset( $cols['sql'] ) ) {
 			$row_attr['data-qm-type'] = $row['type'];
 			if ( 'SELECT' !== $row['type'] ) {
-				$row_attr['data-qm-type'] .=  ' non-select';
+				$row_attr['data-qm-type'] .= ' non-select';
 			}
 		}
 		if ( isset( $cols['component'] ) && $row['component'] ) {
@@ -366,7 +367,6 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			if ( $row['is_main_query'] ) {
 				$row_attr['data-qm-caller'] .= ' qm-main-query';
 			}
-
 		}
 		if ( isset( $cols['time'] ) ) {
 			$row_attr['data-qm-time'] = $row['ltime'];
@@ -395,7 +395,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			echo "<td class='qm-row-caller qm-ltr qm-has-toggle qm-nowrap'><ol class='qm-toggler qm-numbered'>";
 
 			if ( ! empty( $stack ) ) {
-				echo '<button class="qm-toggle" data-on="+" data-off="-">+</button>';
+				echo $this->build_toggler(); // WPCS: XSS ok;
 				echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 			}
 
@@ -438,7 +438,6 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			} else {
 				echo "<td class='qm-row-result qm-num'>" . esc_html( $row['result'] ) . "</td>\n";
 			}
-
 		}
 
 		if ( isset( $cols['time'] ) ) {

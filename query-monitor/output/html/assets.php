@@ -71,11 +71,9 @@ class QM_Output_Html_Assets extends QM_Output_Html {
 				'header',
 				'footer',
 			) as $position ) {
-
 				if ( isset( $data[ $position ][ $type ] ) ) {
 					$this->dependency_rows( $data[ $position ][ $type ], $data['raw'][ $type ], $position_labels[ $position ], $type );
 				}
-
 			}
 
 			echo '</table>';
@@ -176,7 +174,8 @@ class QM_Output_Html_Assets extends QM_Output_Html {
 
 		echo '<td class="qm-wrap qm-ltr">' . esc_html( $dependency->handle ) . '<br><span class="qm-info qm-supplemental">';
 		if ( is_wp_error( $source ) ) {
-			printf( '<span class="qm-warn">%s</span>',
+			printf(
+				 '<span class="qm-warn">%s</span>',
 				esc_html( $src )
 			);
 		} else {
@@ -217,7 +216,7 @@ class QM_Output_Html_Assets extends QM_Output_Html {
 
 		$data = $this->collector->get_data();
 
-		if ( !empty( $data['broken'] ) or !empty( $data['missing'] ) ) {
+		if ( ! empty( $data['broken'] ) or ! empty( $data['missing'] ) ) {
 			$class[] = 'qm-error';
 		}
 
@@ -237,7 +236,7 @@ class QM_Output_Html_Assets extends QM_Output_Html {
 			$args = array(
 				'title' => esc_html( $label ),
 				'id'    => esc_attr( "query-monitor-{$this->collector->id}-{$type}" ),
-				'href'  => esc_attr( '#' . $this->collector->id() . '-' . $type )
+				'href'  => esc_attr( '#' . $this->collector->id() . '-' . $type ),
 			);
 
 			if ( ! empty( $data['broken'][ $type ] ) or ! empty( $data['missing'][ $type ] ) ) {

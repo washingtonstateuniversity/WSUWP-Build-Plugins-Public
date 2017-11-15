@@ -98,8 +98,8 @@ class QM_Util {
 
 		$file = self::standard_dir( $file );
 
-		if ( isset( self::$file_components[$file] ) ) {
-			return self::$file_components[$file];
+		if ( isset( self::$file_components[ $file ] ) ) {
+			return self::$file_components[ $file ];
 		}
 
 		foreach ( self::get_file_dirs() as $type => $dir ) {
@@ -174,7 +174,7 @@ class QM_Util {
 				break;
 		}
 
-		return self::$file_components[$file] = (object) compact( 'type', 'name', 'context' );
+		return self::$file_components[ $file ] = (object) compact( 'type', 'name', 'context' );
 
 	}
 
@@ -187,7 +187,6 @@ class QM_Util {
 		try {
 
 			if ( is_array( $callback['function'] ) ) {
-
 				if ( is_object( $callback['function'][0] ) ) {
 					$class  = get_class( $callback['function'][0] );
 					$access = '->';
@@ -198,9 +197,7 @@ class QM_Util {
 
 				$callback['name'] = $class . $access . $callback['function'][1] . '()';
 				$ref = new ReflectionMethod( $class, $callback['function'][1] );
-
-			} else if ( is_object( $callback['function'] ) ) {
-
+			} elseif ( is_object( $callback['function'] ) ) {
 				if ( is_a( $callback['function'], 'Closure' ) ) {
 					$ref  = new ReflectionFunction( $callback['function'] );
 					$file = QM_Util::standard_dir( $ref->getFileName(), '' );
@@ -212,12 +209,9 @@ class QM_Util {
 					$callback['name'] = $class . '->__invoke()';
 					$ref = new ReflectionMethod( $class, '__invoke' );
 				}
-
 			} else {
-
 				$callback['name'] = $callback['function'] . '()';
 				$ref = new ReflectionFunction( $callback['function'] );
-
 			}
 
 			$callback['file'] = $ref->getFileName();
@@ -250,7 +244,6 @@ class QM_Util {
 					'context' => '',
 				);
 			}
-
 		} catch ( ReflectionException $e ) {
 
 			$callback['error'] = new WP_Error( 'reflection_exception', $e->getMessage() );
@@ -272,7 +265,7 @@ class QM_Util {
 		if ( self::is_ajax() ) {
 			return true;
 		}
-		if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ) {
+		if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) ) { // @codingStandardsIgnoreLine
 			return true;
 		}
 		return false;
@@ -382,7 +375,7 @@ class QM_Util {
 	private static function _rsort( $a, $b ) {
 		$field = self::$sort_field;
 
-		if ( $a[ $field ] == $b[ $field ] ) {
+		if ( $a[ $field ] === $b[ $field ] ) {
 			return 0;
 		} else {
 			return ( $a[ $field ] > $b[ $field ] ) ? -1 : 1;
@@ -392,7 +385,7 @@ class QM_Util {
 	private static function _sort( $a, $b ) {
 		$field = self::$sort_field;
 
-		if ( $a[ $field ] == $b[ $field ] ) {
+		if ( $a[ $field ] === $b[ $field ] ) {
 			return 0;
 		} else {
 			return ( $a[ $field ] > $b[ $field ] ) ? 1 : -1;

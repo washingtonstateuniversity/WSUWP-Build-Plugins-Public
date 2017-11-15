@@ -19,11 +19,13 @@ var QM_i18n = {
 
 	number_format : function( number, decimals ) {
 
-		if ( isNaN( number ) )
+		if ( isNaN( number ) ) {
 			return;
+		}
 
-		if ( !decimals )
+		if ( ! decimals ) {
 			decimals = 0;
+		}
 
 		number = parseFloat( number );
 
@@ -34,15 +36,17 @@ var QM_i18n = {
 			o = '';
 
 		if ( num_str.length > 3 ) {
-			for ( i = num_str.length; i > 3; i -= 3 )
+			for ( i = num_str.length; i > 3; i -= 3 ) {
 				o = qm_locale.number_format.thousands_sep + num_str.slice( i - 3, i ) + o;
+			}
 			o = num_str.slice( 0, i ) + o;
 		} else {
 			o = num_str;
 		}
 
-		if ( decimals )
+		if ( decimals ) {
 			o = o + qm_locale.number_format.decimal_point + fraction;
+		}
 
 		return o;
 
@@ -52,8 +56,9 @@ var QM_i18n = {
 
 jQuery( function($) {
 
-	if ( !window.qm )
+	if ( ! window.qm ) {
 		return;
+	}
 
 	var is_admin = $('body').hasClass('wp-admin');
 
@@ -73,7 +78,7 @@ jQuery( function($) {
 
 			var new_menu = $('#wp-admin-bar-query-monitor-placeholder')
 				.clone()
-				.attr('id','wp-admin-bar-'+el.id)
+				.attr('id','wp-admin-bar-' + el.id)
 			;
 			new_menu
 				.find('a').eq(0)
@@ -81,8 +86,9 @@ jQuery( function($) {
 				.attr('href',el.href)
 			;
 
-			if ( ( typeof el.meta != 'undefined' ) && ( typeof el.meta.classname != 'undefined' ) )
+			if ( ( typeof el.meta != 'undefined' ) && ( typeof el.meta.classname != 'undefined' ) ) {
 				new_menu.addClass(el.meta.classname);
+			}
 
 			container.appendChild( new_menu.get(0) );
 
@@ -175,7 +181,7 @@ jQuery( function($) {
 
 		if ( $(this).val() !== '' ) {
 			if ( hilite ) {
-				tr.filter('[data-qm-'+hilite+'*="' + val + '"]').addClass('qm-highlight');
+				tr.filter('[data-qm-' + hilite + '*="' + val + '"]').addClass('qm-highlight');
 			}
 			tr.not('[data-qm-' + filter + '*="' + val + '"]').addClass('qm-hide-' + filter);
 			$(this).addClass('qm-highlight');
@@ -186,11 +192,13 @@ jQuery( function($) {
 		var matches = tr.filter(':visible');
 		matches.each(function(i){
 			var row_time = $(this).attr('data-qm-time');
-			if ( row_time )
+			if ( row_time ) {
 				time += parseFloat( row_time );
+			}
 		});
-		if ( time )
+		if ( time ) {
 			time = QM_i18n.number_format( time, 4 );
+		}
 
 		var results = table.find('.qm-items-shown').removeClass('qm-hide');
 		results.find('.qm-items-number').text( QM_i18n.number_format( matches.length, 0 ) );
@@ -214,8 +222,8 @@ jQuery( function($) {
 
 	$('#qm').find('.qm-filter-trigger').on('click',function(e){
 		var filter = $(this).data('qm-filter'),
-		    value  = $(this).data('qm-value'),
-		    target = $(this).data('qm-target');
+			value  = $(this).data('qm-value'),
+			target = $(this).data('qm-target');
 		$('#qm-' + target).find('.qm-filter').not('[data-filter="' + filter + '"]').val('').removeClass('qm-highlight').change();
 		$('#qm-' + target).find('[data-filter="' + filter + '"]').val(value).addClass('qm-highlight').change();
 		$('html, body').scrollTop( $(this).closest('.qm').offset().top );
@@ -244,14 +252,14 @@ jQuery( function($) {
 		var subject = $(this).data('qm-highlight');
 		var table   = $(this).closest('table');
 
-		if ( !subject ) {
+		if ( ! subject ) {
 			return;
 		}
 
 		$(this).addClass('qm-highlight');
 
 		$.each( subject.split(' '), function( i, el ){
-			table.find('tr[data-qm-subject="'+el+'"]').addClass('qm-highlight');
+			table.find('tr[data-qm-subject="' + el + '"]').addClass('qm-highlight');
 		});
 
 	}).on('mouseleave',function(e){
@@ -265,8 +273,9 @@ jQuery( function($) {
 
 		var errors = response.getResponseHeader( 'X-QM-error-count' );
 
-		if ( !errors )
+		if ( ! errors ) {
 			return event;
+		}
 
 		errors = parseInt( errors, 10 );
 
@@ -282,8 +291,8 @@ jQuery( function($) {
 			if ( $('#wp-admin-bar-query-monitor').length ) {
 				if ( ! qm.ajax_errors[error.type] ) {
 					$('#wp-admin-bar-query-monitor')
-						.addClass('qm-'+error.type)
-						.find('a').first().append('<span class="ab-label qm-ajax-'+ error.type +'"> &nbsp; AJAX: '+ error.type +'</span>')
+						.addClass('qm-' + error.type)
+						.find('a').first().append('<span class="ab-label qm-ajax-' + error.type + '"> &nbsp; AJAX: ' + error.type + '</span>')
 					;
 				}
 			}
@@ -326,9 +335,9 @@ jQuery( function($) {
 } );
 
 /**
- * This is a modified version of:
- * 
- * jQuery table-sort v0.1.1
+ * Table sorting library.
+ *
+ * This is a modified version of jQuery table-sort v0.1.1
  * https://github.com/gajus/table-sort
  *
  * Licensed under the BSD.
@@ -342,126 +351,126 @@ jQuery( function($) {
 		var settings = $.extend({
 			'debug': false
 		}, options);
-		
+
 		// @param	object	columns	NodeList table colums.
 		// @param	integer	row_width	defines the number of columns per row.
 		var table_to_array	= function (columns, row_width) {
 			if (settings.debug) {
 				console.time('table to array');
 			}
-		
+
 			columns = Array.prototype.slice.call(columns, 0);
-			
+
 			var rows      = [];
 			var row_index = 0;
-			
+
 			for (var i = 0, j = columns.length; i < j; i += row_width) {
 				var row	= [];
-				
+
 				for (var k = 0, l = row_width; k < l; k++) {
-					var e = columns[i+k];
-					
+					var e = columns[i + k];
+
 					var data = e.dataset.qmSortWeight;
-					
+
 					if (data === undefined) {
 						data = e.textContent || e.innerText;
 					}
-					
+
 					var number = parseFloat(data);
-					
+
 					data = isNaN(number) ? data : number;
-					
+
 					row.push(data);
 				}
-				
+
 				rows.push({index: row_index++, data: row});
 			}
-			
+
 			if (settings.debug) {
 				console.timeEnd('table to array');
 			}
-			
+
 			return rows;
 		};
-		
-		if (!settings.target || !settings.target instanceof $) {
+
+		if ( ! settings.target || ! settings.target instanceof $) {
 			throw 'Target is not defined or it is not instance of jQuery.';
 		}
-		
+
 		settings.target.each(function () {
 			var table = $(this);
-			
+
 			table.find('.qm-sort').on('click', function (e) {
 				var desc = $(this).hasClass('qm-sort-desc');
-				
+
 				var index = $(this).closest('th').index();
- 
+
 				table.find('th').removeClass('qm-sorted-asc qm-sorted-desc');
 
-				if ( desc )
+				if ( desc ) {
 					$(this).closest('th').addClass('qm-sorted-desc');
-				else
+				} else {
 					$(this).closest('th').addClass('qm-sorted-asc');
+				}
 
 				table.find('tbody:not(.qm-sort-no)').each(function () {
 					var tbody = $(this);
-					
+
 					var rows = this.rows;
-					
+
 					var anomalies = $(rows).has('[colspan]').detach();
-					
+
 					var columns = this.getElementsByTagName('td');
-					
+
 					if (this.data_matrix === undefined) {
 						this.data_matrix = table_to_array(columns, $(rows[0]).find('td').length);
 					}
-					
+
 					var data = this.data_matrix;
-					
+
 					if (settings.debug) {
 						console.time('sort data');
 					}
-					
+
 					data.sort(function (a, b) {
 						if (a.data[index] == b.data[index]) {
 							return 0;
 						}
-						
+
 						return (desc ? a.data[index] > b.data[index] : a.data[index] < b.data[index]) ? -1 : 1;
 					});
-										
+
 					if (settings.debug) {
 						console.timeEnd('sort data');
 						console.time('build table');
 					}
-					
+
 					// Will use this to re-attach the tbody object.
 					var table = tbody.parent();
-					
+
 					// Detach the tbody to prevent unnecassy overhead related
 					// to the browser environment.
 					tbody = tbody.detach();
-					
+
 					// Convert NodeList into an array.
 					rows = Array.prototype.slice.call(rows, 0);
-					
-					var last_row = rows[data[data.length-1].index];
-					
-					for (var i = 0, j = data.length-1; i < j; i++) {
+
+					var last_row = rows[data[data.length - 1].index];
+
+					for (var i = 0, j = data.length - 1; i < j; i++) {
 						tbody[0].insertBefore(rows[data[i].index], last_row);
-						
+
 						// Restore the index.
 						data[i].index = i;
 					}
-					
+
 					// // Restore the index.
-					data[data.length-1].index = data.length-1;
-					
+					data[data.length - 1].index = data.length - 1;
+
 					tbody.prepend(anomalies);
-					
+
 					table.append(tbody);
-					
-					
+
 					if (settings.debug) {
 						console.timeEnd('build table');
 					}

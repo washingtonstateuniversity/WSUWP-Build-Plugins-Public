@@ -14,10 +14,10 @@ GNU General Public License for more details.
 
 */
 
-if ( !defined( 'SAVEQUERIES' ) ) {
+if ( ! defined( 'SAVEQUERIES' ) ) {
 	define( 'SAVEQUERIES', true );
 }
-if ( !defined( 'QM_DB_EXPENSIVE' ) ) {
+if ( ! defined( 'QM_DB_EXPENSIVE' ) ) {
 	define( 'QM_DB_EXPENSIVE', 0.05 );
 }
 
@@ -35,14 +35,14 @@ class QM_Collector_DB_Queries extends QM_Collector {
 	}
 
 	public function get_errors() {
-		if ( !empty( $this->data['errors'] ) ) {
+		if ( ! empty( $this->data['errors'] ) ) {
 			return $this->data['errors'];
 		}
 		return false;
 	}
 
 	public function get_expensive() {
-		if ( !empty( $this->data['expensive'] ) ) {
+		if ( ! empty( $this->data['expensive'] ) ) {
 			return $this->data['expensive'];
 		}
 		return false;
@@ -54,7 +54,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 
 	public function process() {
 
-		if ( !SAVEQUERIES ) {
+		if ( ! SAVEQUERIES ) {
 			return;
 		}
 
@@ -63,7 +63,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 		$this->data['errors']     = array();
 
 		$this->db_objects = apply_filters( 'qm/collect/db_objects', array(
-			'$wpdb' => $GLOBALS['wpdb']
+			'$wpdb' => $GLOBALS['wpdb'],
 		) );
 
 		foreach ( $this->db_objects as $name => $db ) {
@@ -78,22 +78,22 @@ class QM_Collector_DB_Queries extends QM_Collector {
 
 	protected function log_caller( $caller, $ltime, $type ) {
 
-		if ( !isset( $this->data['times'][$caller] ) ) {
-			$this->data['times'][$caller] = array(
+		if ( ! isset( $this->data['times'][ $caller ] ) ) {
+			$this->data['times'][ $caller ] = array(
 				'caller' => $caller,
 				'calls' => 0,
 				'ltime' => 0,
-				'types' => array()
+				'types' => array(),
 			);
 		}
 
-		$this->data['times'][$caller]['calls']++;
-		$this->data['times'][$caller]['ltime'] += $ltime;
+		$this->data['times'][ $caller ]['calls']++;
+		$this->data['times'][ $caller ]['ltime'] += $ltime;
 
-		if ( isset( $this->data['times'][$caller]['types'][$type] ) ) {
-			$this->data['times'][$caller]['types'][$type]++;
+		if ( isset( $this->data['times'][ $caller ]['types'][ $type ] ) ) {
+			$this->data['times'][ $caller ]['types'][ $type ]++;
 		} else {
-			$this->data['times'][$caller]['types'][$type] = 1;
+			$this->data['times'][ $caller ]['types'][ $type ] = 1;
 		}
 
 	}
@@ -111,7 +111,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 		foreach ( (array) $db->queries as $query ) {
 
 			# @TODO: decide what I want to do with this:
-			if ( false !== strpos( $query[2], 'wp_admin_bar' ) and !isset( $_REQUEST['qm_display_admin_bar'] ) ) {
+			if ( false !== strpos( $query[2], 'wp_admin_bar' ) and !isset( $_REQUEST['qm_display_admin_bar'] ) ) { // @codingStandardsIgnoreLine
 				continue;
 			}
 
@@ -149,7 +149,6 @@ class QM_Collector_DB_Queries extends QM_Collector {
 				} else {
 					$caller_name = $caller;
 				}
-
 			}
 
 			$sql  = trim( $sql );
@@ -164,19 +163,19 @@ class QM_Collector_DB_Queries extends QM_Collector {
 				$this->log_component( $component, $ltime, $type );
 			}
 
-			if ( !isset( $types[$type]['total'] ) ) {
-				$types[$type]['total'] = 1;
+			if ( ! isset( $types[ $type ]['total'] ) ) {
+				$types[ $type ]['total'] = 1;
 			} else {
-				$types[$type]['total']++;
+				$types[ $type ]['total']++;
 			}
 
-			if ( !isset( $types[$type]['callers'][$caller] ) ) {
-				$types[$type]['callers'][$caller] = 1;
+			if ( ! isset( $types[ $type ]['callers'][ $caller ] ) ) {
+				$types[ $type ]['callers'][ $caller ] = 1;
 			} else {
-				$types[$type]['callers'][$caller]++;
+				$types[ $type ]['callers'][ $caller ]++;
 			}
 
-			$is_main_query = ( $sql === trim( $wp_the_query->request ) && ( false !== strpos( $stack, ' WP->main,' ) ) );
+			$is_main_query = ( trim( $wp_the_query->request ) === $sql && ( false !== strpos( $stack, ' WP->main,' ) ) );
 
 			$row = compact( 'caller', 'caller_name', 'stack', 'sql', 'ltime', 'result', 'type', 'component', 'trace', 'is_main_query' );
 
@@ -221,7 +220,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 
 		# @TODO put errors in here too:
 		# @TODO proper class instead of (object)
-		$this->data['dbs'][$id] = (object) compact( 'rows', 'types', 'has_result', 'has_trace', 'total_time', 'total_qs', 'has_main_query' );
+		$this->data['dbs'][ $id ] = (object) compact( 'rows', 'types', 'has_result', 'has_trace', 'total_time', 'total_qs', 'has_main_query' );
 
 	}
 

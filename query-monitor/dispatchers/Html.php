@@ -218,16 +218,11 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		);
 
 		if ( did_action( 'wp_head' ) ) {
-			$absolute = function_exists( 'twentyfifteen_setup' ) || function_exists( 'twentyseventeen_setup' );
-			if ( apply_filters( 'qm/output/absolute_position', $absolute ) ) {
-				$class[] = 'qm-absolute';
-			}
-
 			$class[] = sprintf( 'qm-theme-%s', get_template() );
 			$class[] = sprintf( 'qm-theme-%s', get_stylesheet() );
 		}
 
-		if ( !is_admin_bar_showing() ) {
+		if ( ! is_admin_bar_showing() ) {
 			$class[] = 'qm-peek';
 		}
 
@@ -279,7 +274,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 
 		$json = array(
 			'menu'        => $this->js_admin_bar_menu(),
-			'ajax_errors' => array() # @TODO move this into the php_errors collector
+			'ajax_errors' => array(), # @TODO move this into the php_errors collector
 		);
 
 		echo '<script type="text/javascript">' . "\n\n";
@@ -312,9 +307,9 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		$admin_bar_menu = array(
 			'top' => array(
 				'title'     => sprintf( '<span class="ab-icon">QM</span><span class="ab-label">%s</span>', $title ),
-				'classname' => $class
+				'classname' => $class,
 			),
-			'sub' => array()
+			'sub' => array(),
 		);
 
 		foreach ( apply_filters( 'qm/output/menus', array() ) as $menu ) {

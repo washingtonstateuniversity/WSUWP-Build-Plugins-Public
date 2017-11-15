@@ -33,13 +33,13 @@ class QM_Output_Html_HTTP extends QM_Output_Html {
 
 		$vars = array();
 
-		if ( !empty( $data['vars'] ) ) {
+		if ( ! empty( $data['vars'] ) ) {
 			foreach ( $data['vars'] as $key => $value ) {
 				$vars[] = $key . ': ' . $value;
 			}
 		}
 
-		if ( !empty( $data['http'] ) ) {
+		if ( ! empty( $data['http'] ) ) {
 
 			echo '<caption class="screen-reader-text">' . esc_html__( 'HTTP API Calls', 'query-monitor' ) . '</caption>';
 
@@ -84,7 +84,7 @@ class QM_Output_Html_HTTP extends QM_Output_Html {
 					$css      = '';
 
 					if ( intval( $code ) >= 400 ) {
-						$is_error = true;;
+						$is_error = true;
 					}
 
 					$response = $code . ' ' . $msg;
@@ -167,7 +167,7 @@ class QM_Output_Html_HTTP extends QM_Output_Html {
 				$caller = array_pop( $stack );
 
 				if ( ! empty( $stack ) ) {
-					echo '<button class="qm-toggle" data-on="+" data-off="-">+</button>';
+					echo $this->build_toggler(); // WPCS: XSS ok;
 					echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 				}
 
@@ -223,7 +223,7 @@ class QM_Output_Html_HTTP extends QM_Output_Html {
 			echo '<tr>';
 			echo '<td style="text-align:center !important"><em>' . esc_html__( 'none', 'query-monitor' ) . '</em></td>';
 			echo '</tr>';
-			if ( !empty( $vars ) ) {
+			if ( ! empty( $vars ) ) {
 				echo '<tr>';
 				printf(
 					'<td>%s</td>',
@@ -275,7 +275,7 @@ class QM_Output_Html_HTTP extends QM_Output_Html {
 
 		if ( isset( $data['errors']['alert'] ) ) {
 			$args['meta']['classname'] = 'qm-alert';
-		} else if ( isset( $data['errors']['warning'] ) ) {
+		} elseif ( isset( $data['errors']['warning'] ) ) {
 			$args['meta']['classname'] = 'qm-warning';
 		}
 

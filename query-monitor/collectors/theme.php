@@ -63,13 +63,14 @@ class QM_Collector_Theme extends QM_Collector {
 				break;
 			}
 
-			if ( function_exists( $conditional ) && call_user_func( $conditional ) ) {
+			$get_template = "get_{$template}_template";
+
+			if ( function_exists( $conditional ) && function_exists( $get_template ) && call_user_func( $conditional ) ) {
 				$filter = str_replace( '_', '', $template );
 				add_filter( "{$filter}_template_hierarchy", array( $this, 'filter_template_hierarchy' ), 999 );
-				call_user_func( "get_{$template}_template" );
+				call_user_func( $get_template );
 				remove_filter( "{$filter}_template_hierarchy", array( $this, 'filter_template_hierarchy' ), 999 );
 			}
-
 		}
 
 	}
@@ -148,7 +149,6 @@ class QM_Collector_Theme extends QM_Collector {
 					}
 				}
 			}
-
 		}
 
 		$this->data['stylesheet']     = get_stylesheet();
@@ -168,6 +168,6 @@ function register_qm_collector_theme( array $collectors, QueryMonitor $qm ) {
 	return $collectors;
 }
 
-if ( !is_admin() ) {
+if ( ! is_admin() ) {
 	add_filter( 'qm/collectors', 'register_qm_collector_theme', 10, 2 );
 }

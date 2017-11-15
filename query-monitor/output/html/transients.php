@@ -28,7 +28,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0">';
 
-		if ( !empty( $data['trans'] ) ) {
+		if ( ! empty( $data['trans'] ) ) {
 
 			echo '<caption class="screen-reader-text">' . esc_html__( 'Transient Updates', 'query-monitor' ) . '</caption>';
 
@@ -50,7 +50,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 			foreach ( $data['trans'] as $row ) {
 				$transient = str_replace( array(
 					'_site_transient_',
-					'_transient_'
+					'_transient_',
 				), '', $row['transient'] );
 
 				$component = $row['trace']->get_component();
@@ -98,7 +98,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 				$caller = array_pop( $stack );
 
 				if ( ! empty( $stack ) ) {
-					echo '<button class="qm-toggle" data-on="+" data-off="-">+</button>';
+					echo $this->build_toggler(); // WPCS: XSS ok;
 					echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 				}
 
