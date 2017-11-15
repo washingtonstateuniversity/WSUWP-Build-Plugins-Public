@@ -2,6 +2,15 @@
 
 == Changelog ==
 
+= [4.7] 2017-11-09 =
+
+* Feature - Included a new Validation.js for Forms and Fields
+* Feature - Included a Camelcase Utils for JavaScript
+* Tweak - Added Groups functionality for Tribe Assets class
+* Tweak - Improve Dependency.js with better Documentation
+* Tweak - Timepicker.js is now part of Common instead of The Events Calendar
+* Language - 0 new strings added, 23 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.6.3] 2017-11-02 =
 
 * Fix - Added some more specification to our jquery-ui-datepicker CSS to limit conflicts with other plugins and themes [90577]
@@ -14,7 +23,7 @@
 
 = [4.6.2] 2017-10-18 =
 
-* Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918] 
+* Fix - Restored functionality to the "currency position" options in Events Settings, and in the per-event cost settings (props @schola and many others!) [89918]
 * Fix - Added safety checks to reduce the potential for errors stemming from our logging facilities (shout out to Brandon Stiner and Russell Todd for highlighting some remaining issues here) [90436, 90544]
 * Fix - Added checks to avoid the generation of warnings when rendering the customizer CSS template (props: @aristath) [91070]
 * Fix - Added safety checks to the Tribe__Post_Transient class to avoid errors when an array is expected but not available [91258]
