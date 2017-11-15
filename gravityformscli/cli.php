@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms CLI
 Plugin URI: http://www.gravityforms.com
 Description: Manage Gravity Forms with the WP CLI.
-Version: 1.0-rc-1
+Version: 1.0
 Author: Rocketgenius
 Author URI: http://www.gravityforms.com
 License: GPL-3.0+
@@ -11,7 +11,7 @@ Text Domain: gravityformscli
 Domain Path: /languages
 
 ------------------------------------------------------------------------
-Copyright 2016 Rocketgenius
+Copyright 2016-2017 Rocketgenius, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
 // Defines the current version of the CLI add-on
-define( 'GF_CLI_VERSION', '1.0-rc-1' );
+define( 'GF_CLI_VERSION', '1.0' );
 
 define( 'GF_CLI_MIN_GF_VERSION', '1.9.17.8' );
 
@@ -82,6 +82,7 @@ class GF_CLI_Bootstrap {
 			WP_CLI::add_command( 'gf form field', 'GF_CLI_Form_Field', $command_args );
 			WP_CLI::add_command( 'gf field', 'GF_CLI_Form_Field', $command_args );
 			WP_CLI::add_command( 'gf entry', 'GF_CLI_Entry', $command_args );
+			WP_CLI::add_command( 'gf license', 'GF_CLI_License', $command_args );
 			WP_CLI::add_command( 'gf entry notification', 'GF_CLI_Entry_Notification', $command_args );
 			WP_CLI::add_command( 'gf tool', 'GF_CLI_Tool', $command_args );
 		}

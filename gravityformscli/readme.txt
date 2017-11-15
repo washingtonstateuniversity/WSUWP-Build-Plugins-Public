@@ -11,7 +11,7 @@ Manage Gravity Forms on the command line.
 
 == Description ==
 
-The Gravity Forms CLI Add-On allows WP-CLI users to manage forms and entries on the command line.
+The Gravity Forms CLI Add-On allows WP-CLI users to manage forms and entries and more on the command line.
 
 Form Management
 [youtube https://www.youtube.com/watch?v=LO3fLW6SWk0]
@@ -27,6 +27,9 @@ Entry Management
 *   wp help gf form notification
 *   wp help gf entry
 *   wp help gf entry notification
+*   wp help gf install
+*   wp help gf setup
+*   wp help gf license
 *   wp help gf tool
 
 = Form Management =
@@ -100,6 +103,15 @@ Commands:
 *  get - Returns the notifications for the given entry.
 *  send - Sends the notifications for the given entry.
 
+= License Management =
+
+wp gf license [command]
+
+Commands:
+
+*  update - Updates the license key for the installation.
+*  delete - Deletes the license key for the installation.
+
 = Misc Tools =
 
 wp gf tool [command]
@@ -114,7 +126,7 @@ Commands:
 
 The above commands all require Gravity Forms to be installed. However, if Gravity Forms is not installed then you can use this add-on to install it along with all the other official Gravity Forms add-ons.
 
-The install command will download and install the latest version Gravity Forms available for auto-update and then run the database setup.
+The install command will download and install the latest version Gravity Forms available for auto-update and then run the database setup. The license key will be saved in the plugin settings.
 
 A valid license key is required either in the GF_LICENSE_KEY constant or the --key option.
 
@@ -167,6 +179,10 @@ https://www.gravityhelp.com/request-support/
 1.  Go to the Plugin management page of WordPress admin section and enable the 'Gravity Forms CLI' plugin
 
 == ChangeLog ==
+
+= 1.0 =
+- Added the wp gf license command.
+- Fixed an issue with updating forms from an export file.
 
 = 1.0-rc-1 =
 - Added the --file arg to the wp gf form update command to allow forms to be updated from an export file.
