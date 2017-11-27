@@ -2,6 +2,23 @@
 
 == Changelog ==
 
+= [4.7.2] 2017-11-21 =
+
+* Feature - Added Template class which adds a few layers of filtering to any template file included
+* Tweak - Included `tribe_callback_return` for static returns for Hooks
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [4.7.1] 2017-11-16 =
+
+* Fix - Added support for translatable placeholder text when dropdown selectors are waiting on results being returned via ajax [84926]
+* Fix - Implemented an additional file permissions check within default error logger (our thanks to Oscar for highlighting this) [73551]
+* Tweak - Added new `tribe_is_site_using_24_hour_time()` function to easily check if the site is using a 24-hour time format [78621]
+* Tweak - Ensure the "Debug Mode" helper text in the Events Settings screen displays all of the time (it previously would vanish with certain permalinks settings) [92315]
+* Tweak - Allow for non-Latin characters to be used as the Events URL slug and the Single Event URL slug (thanks @daviddweb for originally reporting this) [61880]
+* Tweak - Removed restrictions imposed on taxonomy queries by Tribe__Ajax__Dropdown (our thanks to Ian in the forums for flagging this issue) [91762]
+* Tweak - Fixed the definition of Tribe__Rewrite::get_bases() to address some PHP strict notices its previous definition triggered [91828]
+* Language - 0 new strings added, 16 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.7] 2017-11-09 =
 
 * Feature - Included a new Validation.js for Forms and Fields
@@ -109,3 +126,4 @@
 
 * Fix - Resolved issue where the Meta Chunker attempted to inappropriately chunk meta for post post_types [80857]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
+

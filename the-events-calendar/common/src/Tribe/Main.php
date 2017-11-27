@@ -17,7 +17,7 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION             = '4.7';
+	const VERSION             = '4.7.2';
 
 	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
@@ -223,7 +223,7 @@ class Tribe__Main {
 				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css', 'tribe-buttonset-style', 'tribe-select2-css' ) ),
 				array( 'tribe-validation', 'validation.js', array( 'jquery', 'underscore', 'tribe-common', 'tribe-utils-camelcase' ) ),
 				array( 'tribe-validation-style', 'validation.css', array() ),
-				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore', 'tribe-select2' ) ),
+				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore', 'tribe-common' ) ),
 				array( 'tribe-dependency-style', 'dependency.css', array( 'tribe-select2-css' ) ),
 				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
 				array( 'tribe-datepicker', 'datepicker.css' ),
@@ -560,5 +560,7 @@ class Tribe__Main {
 		tribe_singleton( 'cost-utils', array( 'Tribe__Cost_Utils', 'instance' ) );
 		tribe_singleton( 'post-duplicate.strategy-factory', 'Tribe__Duplicate__Strategy_Factory' );
 		tribe_singleton( 'post-duplicate', 'Tribe__Duplicate__Post' );
+
+		tribe_singleton( 'callback', 'Tribe__Utils__Callback' );
 	}
 }
