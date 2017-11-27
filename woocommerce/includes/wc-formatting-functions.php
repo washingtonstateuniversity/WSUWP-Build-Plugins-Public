@@ -224,10 +224,10 @@ function wc_round_tax_total( $value, $precision = null ) {
 	$precision = is_null( $precision ) ? wc_get_price_decimals() : absint( $precision );
 
 	if ( version_compare( PHP_VERSION, '5.3.0', '>=' ) ) {
-		$rounded_tax = round( $value, $precision, WC_TAX_ROUNDING_MODE );
+		$rounded_tax = round( $value, $precision, wc_get_tax_rounding_mode() );
 	} else {
 		// Fake it in PHP 5.2.
-		if ( 2 === WC_TAX_ROUNDING_MODE && strstr( $value, '.' ) ) {
+		if ( 2 === wc_get_tax_rounding_mode() && strstr( $value, '.' ) ) {
 			$value    = (string) $value;
 			$value    = explode( '.', $value );
 			$value[1] = substr( $value[1], 0, $precision + 1 );
@@ -283,7 +283,10 @@ function wc_format_decimal( $number, $dp = false, $trim_zeros = false ) {
 
 	// DP is false - don't use number format, just return a string in our format
 	} elseif ( is_float( $number ) ) {
-		$number = wc_clean( str_replace( $decimals, '.', strval( $number ) ) );
+		// DP is false - don't use number format, just return a string using whatever is given. Remove scientific notation using sprintf.
+		$number     = str_replace( $decimals, '.', sprintf( '%.' . wc_get_rounding_precision() . 'f', $number ) );
+		// We already had a float, so trailing zeros are not needed.
+		$trim_zeros = true;
 	}
 
 	if ( $trim_zeros && strstr( $number, '.' ) ) {

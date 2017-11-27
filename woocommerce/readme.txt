@@ -3,7 +3,7 @@ Contributors: automattic, mikejolley, jameskoster, claudiosanches, jshreve, code
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 3.2.3
+Stable tag: 3.2.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -159,6 +159,44 @@ Yes you can! Join in on our [GitHub repository](http://github.com/woocommerce/wo
 6. A product archive (grid).
 
 == Changelog ==
+
+= 3.2.5 - 2017-11-22 =
+* Fix - WordPress 4.9 - REST API - Updated schema, sanitization, and validation callbacks to support correct data types.
+* Fix - WordPress 4.9 - Fix an issue saving variation attributes on new products and with attributes containing slashes.
+* Fix - Save fee tax lines to new orders on checkout.
+* Fix - Restore the post global after rendering product shortcodes.
+* Fix - Fix product filtering when searching for a string including quote characters.
+* Fix - Fix layered nav drop-downs containing unicode characters.
+* Fix - Fix an edge case rounding bug with shipping taxes, and another with non-integer quantities.
+* Fix - Set correct defaults when adding a new shipping class in admin.
+
+= 3.2.4 - 2017-11-16 =
+* Fix - Cache IDs in shortcodes rather than query objects.
+* Fix - Fix float rounding issues in cart with currencies like Bitcoin.
+* Fix - Prevent slashes appearing in shipping fields and inside meta keys when using quotes.
+* Fix - Check valid data when filtering `wp_nav_menu_objects` to prevent conflicts.
+* Fix - `get_total_ex_tax` should exclude fee taxes.
+* Fix - Fix orders count in tax reports.
+* Fix - Allow removing coupons from the cart, even if coupons are disabled.
+* Fix - Prevent calculate_totals totals running too often.
+* Fix - Set attributes during variation creation so all options are correctly displayed in cart forms.
+* Fix - Grab description directly to pass through wc_format_content to prevent double sanitization.
+* Fix - Fix db warnings when using the "Add Order Indexes" tool.
+* Fix - Remove unnecessary html formatting in variation dimensions field.
+* Fix - Fix WC_Customer_Download isset method.
+* Fix - Removed class within class in admin meta boxes HTML.
+* Fix - Fixed wrong `flex-control-nav` selector scope in `add-to-cart-variation.js`
+* Fix - Allow variations to be added to cart from query string.
+* Fix - Use `add_filter` for `comment_feed_where` hook. 
+* Fix - Change nocache_headers hook firing in the cache helper.
+* Fix - Coupon min/max spend based on displayed subtotal.
+* Fix - Fix event propagation on click in setup wizard and improve validation.
+* Fix - API - Change how line items are saved in API so calculations are correct.
+* Tweak - Hide downloads from admin emails. 
+* Tweak - Set placeholder for variation lxwxh field to that of the parent.
+* Tweak - Improve the Add Payment Methods display so buttons are not shown when no payment methods support the feature.
+* Localization - Update NJ tax rate.
+* Localization - Add Belarusian ruble BYN.
 
 = 3.2.3 - 2017-11-02 =
 * Fix - Fixed a conflict with some slider plugins due to sanitization of archive/term descriptions. 

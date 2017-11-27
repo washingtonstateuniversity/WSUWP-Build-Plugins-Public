@@ -1688,10 +1688,6 @@ class WC_Cart extends WC_Legacy_Cart {
 	 * @return bool
 	 */
 	public function remove_coupon( $coupon_code ) {
-		if ( ! wc_coupons_enabled() ) {
-			return false;
-		}
-
 		$coupon_code  = wc_format_coupon_code( $coupon_code );
 		$position     = array_search( $coupon_code, $this->get_applied_coupons(), true );
 
@@ -1768,7 +1764,7 @@ class WC_Cart extends WC_Legacy_Cart {
 	 * @return string formatted price
 	 */
 	public function get_total_ex_tax() {
-		return apply_filters( 'woocommerce_cart_total_ex_tax', wc_price( max( 0, $this->get_total( 'edit' ) - $this->get_cart_contents_tax() - $this->get_shipping_tax() ) ) );
+		return apply_filters( 'woocommerce_cart_total_ex_tax', wc_price( max( 0, $this->get_total( 'edit' ) - $this->get_total_tax() ) ) );
 	}
 
 	/**

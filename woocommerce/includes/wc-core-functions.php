@@ -315,7 +315,8 @@ function get_woocommerce_currencies() {
 					'BTC' => __( 'Bitcoin', 'woocommerce' ),
 					'BTN' => __( 'Bhutanese ngultrum', 'woocommerce' ),
 					'BWP' => __( 'Botswana pula', 'woocommerce' ),
-					'BYR' => __( 'Belarusian ruble', 'woocommerce' ),
+					'BYR' => __( 'Belarusian ruble (old)', 'woocommerce' ),
+					'BYN' => __( 'Belarusian ruble', 'woocommerce' ),
 					'BZD' => __( 'Belize dollar', 'woocommerce' ),
 					'CAD' => __( 'Canadian dollar', 'woocommerce' ),
 					'CDF' => __( 'Congolese franc', 'woocommerce' ),
@@ -498,6 +499,7 @@ function get_woocommerce_currency_symbol( $currency = '' ) {
 		'BTN' => 'Nu.',
 		'BWP' => 'P',
 		'BYR' => 'Br',
+		'BYN' => 'Br',
 		'BZD' => '&#36;',
 		'CAD' => '&#36;',
 		'CDF' => 'Fr',
@@ -1393,14 +1395,24 @@ function wc_get_shipping_method_count( $include_legacy = false ) {
 
 /**
  * Wrapper for set_time_limit to see if it is enabled.
- * @since 2.6.0
  *
+ * @since 2.6.0
  * @param int $limit
  */
 function wc_set_time_limit( $limit = 0 ) {
 	if ( function_exists( 'set_time_limit' ) && false === strpos( ini_get( 'disable_functions' ), 'set_time_limit' ) && ! ini_get( 'safe_mode' ) ) {
 		@set_time_limit( $limit );
 	}
+}
+
+/**
+ * Wrapper for nocache_headers which also disables page caching.
+ *
+ * @since 3.2.4
+ */
+function wc_nocache_headers() {
+	WC_Cache_Helper::set_nocache_constants();
+	nocache_headers();
 }
 
 /**
@@ -1435,6 +1447,21 @@ function wc_shipping_zone_method_order_uasort_comparison( $a, $b ) {
 	return ( $a->method_order < $b->method_order ) ? -1 : 1;
 }
 
+/**
+ * Get rounding mode for internal tax calculations.
+ *
+ * @since 3.2.4
+ * @return int
+ */
+function wc_get_tax_rounding_mode() {
+	$constant = WC_TAX_ROUNDING_MODE;
+
+	if ( 'auto' === $constant ) {
+		return 'yes' === get_option( 'woocommerce_prices_include_tax', 'no' ) ? 2 : 1;
+	}
+
+	return intval( $constant );
+}
 
 /**
  * Get rounding precision for internal WC calculations.
@@ -1456,11 +1483,13 @@ function wc_get_rounding_precision() {
  *
  * @since  3.2.0
  * @param  float $value Number to add precision to.
- * @return int
+ * @param  bool $round Should we round after adding precision?
+ * @return int|float
  */
-function wc_add_number_precision( $value ) {
+function wc_add_number_precision( $value, $round = true ) {
 	$precision = pow( 10, wc_get_price_decimals() );
-	return $value * $precision;
+	$value     = $value * $precision;
+	return $round ? intval( round( $value ) ) : $value;
 }
 
 /**
@@ -1480,15 +1509,16 @@ function wc_remove_number_precision( $value ) {
  *
  * @since  3.2.0
  * @param  array $value Number to add precision to.
+ * @param  bool $round Should we round after adding precision?
  * @return int
  */
-function wc_add_number_precision_deep( $value ) {
+function wc_add_number_precision_deep( $value, $round = true ) {
 	if ( is_array( $value ) ) {
 		foreach ( $value as $key => $subvalue ) {
-			$value[ $key ] = wc_add_number_precision_deep( $subvalue );
+			$value[ $key ] = wc_add_number_precision_deep( $subvalue, $round );
 		}
 	} else {
-		$value = wc_add_number_precision( $value );
+		$value = wc_add_number_precision( $value, $round );
 	}
 	return $value;
 }
