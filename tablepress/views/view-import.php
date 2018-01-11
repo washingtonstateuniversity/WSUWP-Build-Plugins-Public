@@ -46,17 +46,17 @@ class TablePress_Import_View extends TablePress_View {
 		) );
 
 		$this->process_action_messages( array(
-			'error_import' => __( 'Error: The import failed.', 'tablepress' ),
-			'error_no_zip_import' => __( 'Error: Import of ZIP files is not available on this server.', 'tablepress' ),
-			'error_import_zip_open' => __( 'Error: The ZIP file could not be opened.', 'tablepress' ),
-			'error_import_zip_content' => __( 'Error: The data in the ZIP file is invalid.', 'tablepress' ),
-			'error_import_no_existing_id' => __( 'Error: You selected to replace or append to an existing table, but did not select a table.', 'tablepress' ),
-			'error_import_source_invalid' => __( 'Error: The source for the import is invalid or could not be accessed.', 'tablepress' ),
-			'error_import_data' => __( 'Error: The data for the import is invalid.', 'tablepress' ),
+			'error_import'                             => __( 'Error: The import failed.', 'tablepress' ),
+			'error_no_zip_import'                      => __( 'Error: Import of ZIP files is not available on this server.', 'tablepress' ),
+			'error_import_zip_open'                    => __( 'Error: The ZIP file could not be opened.', 'tablepress' ),
+			'error_import_zip_content'                 => __( 'Error: The data in the ZIP file is invalid.', 'tablepress' ),
+			'error_import_no_existing_id'              => __( 'Error: You selected to replace or append to an existing table, but did not select a table.', 'tablepress' ),
+			'error_import_source_invalid'              => __( 'Error: The source for the import is invalid or could not be accessed.', 'tablepress' ),
+			'error_import_data'                        => __( 'Error: The data for the import is invalid.', 'tablepress' ),
 			'error_wp_table_reloaded_nothing_selected' => __( 'Error: You did not select what to import from WP-Table Reloaded!', 'tablepress' ),
-			'error_wp_table_reloaded_not_installed' => __( 'Error: Existing WP-Table Reloaded tables were not found in the database.', 'tablepress' ),
-			'error_import_wp_table_reloaded' => __( 'Error: The tables from WP-Table Reloaded could not be imported.', 'tablepress' ),
-			'error_wp_table_reloaded_dump_file' => __( 'Error: The WP-Table Reloaded Dump File could not be imported!', 'tablepress' ),
+			'error_wp_table_reloaded_not_installed'    => __( 'Error: Existing WP-Table Reloaded tables were not found in the database.', 'tablepress' ),
+			'error_import_wp_table_reloaded'           => __( 'Error: The tables from WP-Table Reloaded could not be imported.', 'tablepress' ),
+			'error_wp_table_reloaded_dump_file'        => __( 'Error: The WP-Table Reloaded Dump File could not be imported!', 'tablepress' ),
 		) );
 
 		$this->add_text_box( 'head', array( $this, 'textbox_head' ), 'normal' );
@@ -78,7 +78,7 @@ class TablePress_Import_View extends TablePress_View {
 			return $hidden;
 		}
 		if ( ! $this->data['wp_table_reloaded_installed'] ) {
-			$hidden[] = 'tablepress_import-import-wp-table-reloaded' ;
+			$hidden[] = 'tablepress_import-import-wp-table-reloaded';
 		}
 		return $hidden;
 	}
@@ -100,10 +100,10 @@ class TablePress_Import_View extends TablePress_View {
 		<p>
 			<?php
 				_e( 'To import a table, select and enter the import source in the following form.', 'tablepress' );
-				if ( 0 < $data['tables_count'] ) {
-					echo ' ';
-					_e( 'You can also choose to import it as a new table, to replace an existing table, or to append the rows to an existing table.', 'tablepress' );
-				}
+			if ( 0 < $data['tables_count'] ) {
+				echo ' ';
+				_e( 'You can also choose to import it as a new table, to replace an existing table, or to append the rows to an existing table.', 'tablepress' );
+			}
 
 			?>
 		</p>
@@ -127,7 +127,9 @@ class TablePress_Import_View extends TablePress_View {
 		<td class="column-2">
 			<label for="tables-import-source-file-upload"><input name="import[source]" id="tables-import-source-file-upload" type="radio" value="file-upload"<?php checked( $data['import_source'], 'file-upload', true ); ?> /> <?php _e( 'File Upload', 'tablepress' ); ?></label>
 			<label for="tables-import-source-url"><input name="import[source]" id="tables-import-source-url" type="radio" value="url"<?php checked( $data['import_source'], 'url', true ); ?> /> <?php _e( 'URL', 'tablepress' ); ?></label>
+			<?php if ( ( ! is_multisite() && current_user_can( 'manage_options' ) ) || is_super_admin() ) { ?>
 			<label for="tables-import-source-server"><input name="import[source]" id="tables-import-source-server" type="radio" value="server"<?php checked( $data['import_source'], 'server', true ); ?> /> <?php _e( 'File on server', 'tablepress' ); ?></label>
+			<?php } ?>
 			<label for="tables-import-source-form-field"><input name="import[source]" id="tables-import-source-form-field" type="radio" value="form-field"<?php checked( $data['import_source'], 'form-field', true ); ?> /> <?php _e( 'Manual Input', 'tablepress' ); ?></label>
 		</td>
 	</tr>
@@ -136,9 +138,9 @@ class TablePress_Import_View extends TablePress_View {
 		<td class="column-2">
 			<input name="import_file_upload" id="tables-import-file-upload" type="file" class="large-text" style="box-sizing: border-box;" />
 			<?php
-				if ( $data['zip_support_available'] ) {
-					echo '<br /><span class="description">' . __( 'You can import multiple tables by placing them in a ZIP file.', 'tablepress' ) . '</span>';
-				}
+			if ( $data['zip_support_available'] ) {
+				echo '<br /><span class="description">' . __( 'You can import multiple tables by placing them in a ZIP file.', 'tablepress' ) . '</span>';
+			}
 			?>
 		</td>
 	</tr>
@@ -147,23 +149,25 @@ class TablePress_Import_View extends TablePress_View {
 		<td class="column-2">
 			<input type="text" name="import[url]" id="tables-import-url" class="large-text" value="<?php echo esc_attr( $data['import_url'] ); ?>" />
 			<?php
-				if ( $data['zip_support_available'] ) {
-					echo '<br /><span class="description">' . __( 'You can import multiple tables by placing them in a ZIP file.', 'tablepress' ) . '</span>';
-				}
+			if ( $data['zip_support_available'] ) {
+				echo '<br /><span class="description">' . __( 'You can import multiple tables by placing them in a ZIP file.', 'tablepress' ) . '</span>';
+			}
 			?>
 		</td>
 	</tr>
+	<?php if ( ( ! is_multisite() && current_user_can( 'manage_options' ) ) || is_super_admin() ) { ?>
 	<tr id="row-import-source-server" class="bottom-border">
 		<th class="column-1 top-align" scope="row"><label for="tables-import-server"><?php _e( 'Server Path to file', 'tablepress' ); ?>:</label></th>
 		<td class="column-2">
 			<input type="text" name="import[server]" id="tables-import-server" class="large-text" value="<?php echo esc_attr( $data['import_server'] ); ?>" />
 			<?php
-				if ( $data['zip_support_available'] ) {
-					echo '<br /><span class="description">' . __( 'You can import multiple tables by placing them in a ZIP file.', 'tablepress' ) . '</span>';
-				}
+			if ( $data['zip_support_available'] ) {
+				echo '<br /><span class="description">' . __( 'You can import multiple tables by placing them in a ZIP file.', 'tablepress' ) . '</span>';
+			}
 			?>
 		</td>
 	</tr>
+	<?php } ?>
 	<tr id="row-import-source-form-field" class="bottom-border">
 		<th class="column-1 top-align" scope="row"><label for="tables-import-form-field"><?php _e( 'Import data', 'tablepress' ); ?>:</label></th>
 		<td class="column-2">
@@ -175,16 +179,16 @@ class TablePress_Import_View extends TablePress_View {
 		<td class="column-2">
 			<select id="tables-import-format" name="import[format]">
 			<?php
-				foreach ( $data['import_formats'] as $format => $name ) {
-					$selected = selected( $format, $data['import_format'], false );
-					echo "<option{$selected} value=\"{$format}\">{$name}</option>";
-				}
+			foreach ( $data['import_formats'] as $format => $name ) {
+				$selected = selected( $format, $data['import_format'], false );
+				echo "<option{$selected} value=\"{$format}\">{$name}</option>";
+			}
 			?>
 			</select>
 			<?php
-				if ( ! $data['html_import_support_available'] ) {
-					echo '<br /><span class="description">' . __( 'Import of HTML files is not available on your server.', 'tablepress' ) . '</span>';
-				}
+			if ( ! $data['html_import_support_available'] ) {
+				echo '<br /><span class="description">' . __( 'Import of HTML files is not available on your server.', 'tablepress' ) . '</span>';
+			}
 			?>
 		</td>
 	</tr>
@@ -202,18 +206,18 @@ class TablePress_Import_View extends TablePress_View {
 			<select id="tables-import-existing-table" name="import[existing_table]"<?php disabled( $data['tables_count'] > 0, false, true ); ?>>
 				<option value=""><?php _e( '&mdash; Select &mdash;', 'tablepress' ); ?></option>
 			<?php
-				foreach ( $data['table_ids'] as $table_id ) {
-					$table = TablePress::$model_table->load( $table_id, false, false ); // Load table, without table data, options, and visibility settings
-					if ( ! current_user_can( 'tablepress_edit_table', $table['id'] ) ) {
-						continue;
-					}
-					if ( '' === trim( $table['name'] ) ) {
-						$table['name'] = __( '(no name)', 'tablepress' );
-					}
-					$text = esc_html( sprintf( __( 'ID %1$s: %2$s', 'tablepress' ), $table['id'], $table['name'] ) );
-					$selected = selected( $table['id'], $data['import_existing_table'], false );
-					echo "<option{$selected} value=\"{$table['id']}\">{$text}</option>";
+			foreach ( $data['table_ids'] as $table_id ) {
+				$table = TablePress::$model_table->load( $table_id, false, false ); // Load table, without table data, options, and visibility settings
+				if ( ! current_user_can( 'tablepress_edit_table', $table['id'] ) ) {
+					continue;
 				}
+				if ( '' === trim( $table['name'] ) ) {
+					$table['name'] = __( '(no name)', 'tablepress' );
+				}
+				$text = esc_html( sprintf( __( 'ID %1$s: %2$s', 'tablepress' ), $table['id'], $table['name'] ) );
+				$selected = selected( $table['id'], $data['import_existing_table'], false );
+				echo "<option{$selected} value=\"{$table['id']}\">{$text}</option>";
+			}
 			?>
 			</select>
 		</td>
@@ -250,7 +254,10 @@ class TablePress_Import_View extends TablePress_View {
 	<tr id="row-import-wp-table-reloaded-source">
 		<th class="column-1" scope="row"><?php _e( 'Import Source', 'tablepress' ); ?>:</th>
 		<td class="column-2">
-			<label for="import-wp-table-reloaded-source-db"><input name="import[wp_table_reloaded][source]" id="import-wp-table-reloaded-source-db" type="radio" value="db"<?php checked( $data['import_wp_table_reloaded_source'], 'db', true ); disabled( $data['wp_table_reloaded_installed'], false, true ); ?> /> <?php _e( 'WordPress database', 'tablepress' ); ?></label>
+			<label for="import-wp-table-reloaded-source-db"><input name="import[wp_table_reloaded][source]" id="import-wp-table-reloaded-source-db" type="radio" value="db" <?php
+				checked( $data['import_wp_table_reloaded_source'], 'db', true );
+				disabled( $data['wp_table_reloaded_installed'], false, true );
+			?> /> <?php _e( 'WordPress database', 'tablepress' ); ?></label>
 			<label for="import-wp-table-reloaded-source-dump-file"><input name="import[wp_table_reloaded][source]" id="import-wp-table-reloaded-source-dump-file" type="radio" value="dump-file"<?php checked( $data['import_wp_table_reloaded_source'], 'dump-file', true ); ?> /> <?php _e( 'WP-Table Reloaded Dump File', 'tablepress' ); ?></label>
 		</td>
 	</tr>

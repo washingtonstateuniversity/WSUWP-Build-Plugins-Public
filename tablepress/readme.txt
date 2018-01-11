@@ -2,9 +2,9 @@
 Contributors: TobiasBg
 Donate link: https://tablepress.org/donate/
 Tags: table,data,html,csv,excel
-Requires at least: 4.7
-Tested up to: 4.8.2
-Stable tag: 1.8.1
+Requires at least: 4.9.1
+Tested up to: 4.9.1
+Stable tag: 1.9
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ TablePress allows you to easily create and manage beautiful tables. You can embe
 Please visit the plugin website at https://tablepress.org/ for more information or a [demo](https://tablepress.org/demo/)).
 
 = Supporting future development =
-If you like TablePress, please rate and review it here in the WordPress Plugin Directory, support it with your [donation](https://tablepress.org/donate/), or [flattr it](https://flattr.com/thing/783658/TablePress). Thank you!
+If you like TablePress, please rate and review it here in the WordPress Plugin Directory or support it with your [donation](https://tablepress.org/donate/). Thank you!
 
 = TablePress Extensions =
 Additional features and useful enhancements are available as separate plugins, called [TablePress Extensions](https://tablepress.org/extensions/), on the plugin website.
@@ -53,10 +53,10 @@ Manual installation works just as for other WordPress plugins:
 Many questions, regarding different features or styling, have been answered on the [FAQ page](https://tablepress.org/faq/) on the plugin website.
 
 = Support? =
-For support questions, bug reports, or feature requests, please use the [WordPress Support Forums](https://wordpress.org/support/plugin/tablepress). Please [search](https://wordpress.org/support/) through the forums first, and only [open a new thread](https://wordpress.org/support/plugin/tablepress) if you don't find an existing answer. Thank you!
+For support questions, bug reports, or feature requests, please use the [WordPress Support Forums](https://wordpress.org/support/plugin/tablepress). Please search through the forums first, and only [create a new topic](https://wordpress.org/support/plugin/tablepress#new-post) if you don't find an existing answer. Thank you!
 
 = Requirements? =
-In short: WordPress 4.7 or higher, while the latest version of WordPress is always recommended.
+In short: WordPress 4.9.1 or higher, while the latest version of WordPress is always recommended.
 
 = Languages and Localization? =
 TablePress supports the ["Translate WordPress" platform](https://translate.wordpress.org/). With that, translating is possible on a website from which so-called Language Packs are automatically generated and shipped to plugin users. For a list of existing Language Packs, please see the sidebar on the TablePress page in the [WordPress Plugin Directory](https://wordpress.org/plugins/tablepress/).
@@ -98,6 +98,17 @@ This plugin is Free Software, released and licensed under the GPL, version 2 (ht
 You may use it free of charge for any purpose.
 
 == Changelog ==
+
+= Version 1.9 =
+* Full compatibility with WordPress 4.9
+* Feature: The "Custom CSS" text field highlights and notifies about CSS code syntax errors.
+* Enhancement: Update list of allowed CSS properties in "Custom CSS".
+* Enhancement: Make the CSV import more robust against malformed input.
+* Bugfix: The integration into the WordPress search was broken since a WordPress core change.
+* Bugfix: The HTML import was broken on certain server configurations.
+* Updated external libraries (Build tools).
+* Some internal changes and fixes for better stability, cleaner code, translations, and documentation.
+* TablePress 1.9 requires WordPress 4.9.1!
 
 = Version 1.8.1 =
 * Enhancement: Make HTML import more robust and faster.
@@ -244,6 +255,9 @@ Release candidate in which all intended features are included and very stable.
 Initial version where most features are ready and pretty stable.
 
 == Upgrade Notice ==
+
+= 1.9 =
+This update includes several new features, enhancements, and bugfixes. Updating is recommended.
 
 = 1.8.1 =
 This update is a stability, security, and maintenance release. Updating is highly recommended.

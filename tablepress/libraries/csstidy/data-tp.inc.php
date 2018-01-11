@@ -19,14 +19,14 @@ $data['csstidy']['all_properties']['zoom'] = 'CSS3.0';
 
 // Support browser prefixes for properties only in the latest CSS draft.
 foreach ( $data['csstidy']['all_properties'] as $property => $levels ) {
-	$data['csstidy']['all_properties']['*' . $property] = $levels; // IE7 hacks
+	$data['csstidy']['all_properties'][ '*' . $property ] = $levels; // IE7 hacks
 
 	if ( false === strpos( $levels, ',' ) ) {
-		$data['csstidy']['all_properties']['-moz-' . $property] = $levels;
-		$data['csstidy']['all_properties']['-webkit-' . $property] = $levels;
-		$data['csstidy']['all_properties']['-ms-' . $property] = $levels;
-		$data['csstidy']['all_properties']['-o-' . $property] = $levels;
-		$data['csstidy']['all_properties']['-khtml-' . $property] = $levels;
+		$data['csstidy']['all_properties'][ '-moz-' . $property ] = $levels;
+		$data['csstidy']['all_properties'][ '-webkit-' . $property ] = $levels;
+		$data['csstidy']['all_properties'][ '-ms-' . $property ] = $levels;
+		$data['csstidy']['all_properties'][ '-o-' . $property ] = $levels;
+		$data['csstidy']['all_properties'][ '-khtml-' . $property ] = $levels;
 
 		if ( in_array( $property, $data['csstidy']['unit_values'] ) ) {
 			$data['csstidy']['unit_values'][] = '-moz-' . $property;
@@ -88,3 +88,14 @@ $data['csstidy']['all_properties']['-ms-touch-action'] = 'CSS3.0';
 $data['csstidy']['all_properties']['-webkit-overflow-scrolling'] = 'CSS3.0';
 $data['csstidy']['all_properties']['pointer-events'] = 'CSS3.0';
 $data['csstidy']['all_properties']['font-feature-settings'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-kerning'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-language-override'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-synthesis'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variant-alternates'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variant-caps'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variant-east-asian'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variant-ligatures'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variant-numeric'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variant-position'] = 'CSS3.0';
+$data['csstidy']['all_properties']['font-variation-settings'] = 'CSS3.0';
+$data['csstidy']['all_properties']['line-height-step'] = 'CSS3.0';

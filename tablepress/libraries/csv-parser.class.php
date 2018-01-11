@@ -160,6 +160,14 @@ class CSV_Parser {
 			}
 		}
 		ksort( $potential_delimiters );
+
+		// If no valid delimiter was found, use the character that was found in most rows.
+		if ( empty( $potential_delimiters ) ) {
+			$delimiter_counts = array_map( 'count', $delimiter_count );
+			arsort( $delimiter_counts, SORT_NUMERIC );
+			$potential_delimiters = array_keys( $delimiter_counts );
+		}
+
 		// Return first array element, as that has the highest count.
 		return array_shift( $potential_delimiters );
 	}
@@ -202,7 +210,7 @@ class CSV_Parser {
 		}
 
 		// At this point, count is equal in all lines, so determine a string to sort priority.
-		$match = ( $almost ) ? 2 : 1 ;
+		$match = ( $almost ) ? 2 : 1;
 		$pref = strpos( $this->preferred_delimiter_chars, $char );
 		$pref = ( false !== $pref ) ? str_pad( $pref, 3, '0', STR_PAD_LEFT ) : '999';
 		return $pref . $match . '.' . ( 99999 - str_pad( $first, 5, '0', STR_PAD_LEFT ) );
@@ -247,9 +255,9 @@ class CSV_Parser {
 						$error_column = $column + 1;
 						if ( ! isset( $this->error_info[ "{$error_line}-{$error_column}" ] ) ) {
 							$this->error_info[ "{$error_line}-{$error_column}" ] = array(
-								'type' => 2,
-								'info' => "Syntax error found in line {$error_line}. Non-enclosed fields can not contain double-quotes.",
-								'line' => $error_line,
+								'type'   => 2,
+								'info'   => "Syntax error found in line {$error_line}. Non-enclosed fields can not contain double-quotes.",
+								'line'   => $error_line,
 								'column' => $error_column,
 							);
 						}
@@ -261,7 +269,9 @@ class CSV_Parser {
 					$i++; // Skip next character
 				} elseif ( $next_char !== $delimiter && "\r" !== $next_char && "\n" !== $next_char ) {
 					// for-loop (instead of while-loop) that skips whitespace.
-					for ( $x = ( $i + 1 ); isset( $data[ $x ] ) && '' === ltrim( $data[ $x ], $white_spaces ); $x++ ) {}
+					for ( $x = ( $i + 1 ); isset( $data[ $x ] ) && '' === ltrim( $data[ $x ], $white_spaces ); $x++ ) {
+						// Action is in iterator check.
+					}
 					if ( $data[ $x ] === $delimiter ) {
 						$enclosed = false;
 						$i = $x;
@@ -273,9 +283,9 @@ class CSV_Parser {
 						$error_column = $column + 1;
 						if ( ! isset( $this->error_info[ "{$error_line}-{$error_column}" ] ) ) {
 							$this->error_info[ "{$error_line}-{$error_column}" ] = array(
-								'type' => 1,
-								'info' => "Syntax error found in line {$error_line}. A single double-quote was found within an enclosed string. Enclosed double-quotes must be escaped with a second double-quote.",
-								'line' => $error_line,
+								'type'   => 1,
+								'info'   => "Syntax error found in line {$error_line}. A single double-quote was found within an enclosed string. Enclosed double-quotes must be escaped with a second double-quote.",
+								'line'   => $error_line,
 								'column' => $error_column,
 							);
 						}

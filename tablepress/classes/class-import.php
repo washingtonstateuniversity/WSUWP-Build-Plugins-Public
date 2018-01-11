@@ -175,7 +175,7 @@ class TablePress_Import {
 			return;
 		}
 		libxml_clear_errors(); // Clear errors so that we only catch those inside the table in the next line.
-		$table = simplexml_import_dom( $dom_tables[0] );
+		$table = simplexml_import_dom( $dom_tables->item( 0 ) );
 		if ( false === $table ) {
 			$this->imported_table = false;
 			return;
@@ -202,7 +202,7 @@ class TablePress_Import {
 		}
 
 		$html_table = array(
-			'data' => array(),
+			'data'    => array(),
 			'options' => array(),
 		);
 		if ( isset( $table->thead ) ) {
@@ -247,7 +247,7 @@ class TablePress_Import {
 					$new_row[] = $matches[1];
 
 					// Look for colspan and add correct number of cells.
-					if( 1 === preg_match( '#<t(?:d|h).*colspan="(\d+)".*?>#is', $cell->asXml(), $matches ) ) {
+					if ( 1 === preg_match( '#<t(?:d|h).*colspan="(\d+)".*?>#is', $cell->asXml(), $matches ) ) {
 						for ( $i = 1; $i < (int) $matches[1]; $i++ ) {
 							$new_row[] = '#colspan#';
 						}

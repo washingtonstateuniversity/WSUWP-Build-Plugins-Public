@@ -31,19 +31,27 @@ class TablePress_Options_View extends TablePress_View {
 	public function setup( $action, array $data ) {
 		parent::setup( $action, $data );
 
-		$this->admin_page->enqueue_style( 'codemirror' );
-		$this->admin_page->enqueue_script( 'codemirror', array(), array(), true );
-		$this->admin_page->enqueue_script( 'options', array( 'jquery-core', 'tablepress-codemirror', 'jquery-ui-resizable' ), array(
+		// Enqueue WordPress copy of CodeMirror, with CSS linting, etc.
+		$codemirror_settings = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
+		if ( ! empty( $codemirror_settings ) ) {
+			// Load CSS adjustments for CodeMirror and the added vertical resizing.
+			$this->admin_page->enqueue_style( 'codemirror', array( 'code-editor' ) );
+			$this->admin_page->enqueue_script( 'codemirror', array( 'jquery-core', 'jquery-ui-resizable' ), array(
+				'codemirror_settings' => $codemirror_settings,
+			) );
+		}
+
+		$this->admin_page->enqueue_script( 'options', array( 'jquery-core' ), array(
 			'strings' => array(
 				'uninstall_warning_1' => __( 'Do you really want to uninstall TablePress and delete ALL data?', 'tablepress' ),
 				'uninstall_warning_2' => __( 'Are you really sure?', 'tablepress' ),
-			),
+			)
 		) );
 
 		$this->process_action_messages( array(
-			'success_save' => __( 'Options saved successfully.', 'tablepress' ),
-			'success_save_error_custom_css' => __( 'Options saved successfully, but &#8220;Custom CSS&#8221; was not saved to file.', 'tablepress' ),
-			'error_save' => __( 'Error: Options could not be saved.', 'tablepress' ),
+			'success_save'                     => __( 'Options saved successfully.', 'tablepress' ),
+			'success_save_error_custom_css'    => __( 'Options saved successfully, but &#8220;Custom CSS&#8221; was not saved to file.', 'tablepress' ),
+			'error_save'                       => __( 'Error: Options could not be saved.', 'tablepress' ),
 			'success_import_wp_table_reloaded' => __( 'The WP-Table Reloaded &#8220;Custom CSS&#8221; was imported successfully.', 'tablepress' ),
 		) );
 
@@ -54,7 +62,7 @@ class TablePress_Options_View extends TablePress_View {
 		$this->add_meta_box( 'user-options', __( 'User Options', 'tablepress' ), array( $this, 'postbox_user_options' ), 'normal' );
 		$this->data['submit_button_caption'] = __( 'Save Changes', 'tablepress' );
 		$this->add_text_box( 'submit', array( $this, 'textbox_submit_button' ), 'submit' );
-		if ( current_user_can( 'activate_plugins' ) && current_user_can( 'tablepress_edit_options' ) && current_user_can( 'tablepress_delete_tables' ) && ! is_plugin_active_for_network( TABLEPRESS_BASENAME ) ) {
+		if ( current_user_can( 'deactivate_plugin', TABLEPRESS_BASENAME ) && current_user_can( 'tablepress_edit_options' ) && current_user_can( 'tablepress_delete_tables' ) && ! is_plugin_active_for_network( TABLEPRESS_BASENAME ) ) {
 			$this->add_text_box( 'uninstall-tablepress', array( $this, 'textbox_uninstall_tablepress' ), 'submit' );
 		}
 	}
@@ -105,7 +113,8 @@ class TablePress_Options_View extends TablePress_View {
 		<th class="column-1" scope="row"></th>
 		<td class="column-2">
 			<textarea name="options[custom_css]" id="option-custom-css" class="large-text" rows="8"><?php echo esc_textarea( $data['frontend_options']['custom_css'] ); ?></textarea>
-			<p class="description"><?php
+			<p class="description">
+			<?php
 				printf( __( '&#8220;Custom CSS&#8221; (<a href="%s">Cascading Style Sheets</a>) can be used to change the styling or layout of a table.', 'tablepress' ), 'https://www.htmldog.com/guides/css/beginner/' );
 				echo ' ';
 				printf( __( 'You can get styling examples from the <a href="%s">FAQ</a>.', 'tablepress' ), 'https://tablepress.org/faq/' );
@@ -113,7 +122,8 @@ class TablePress_Options_View extends TablePress_View {
 				printf( __( 'Information on available CSS selectors can be found in the <a href="%s">documentation</a>.', 'tablepress' ), 'https://tablepress.org/documentation/' );
 				echo ' ';
 				_e( 'Please note that invalid CSS code will be stripped, if it can not be corrected automatically.', 'tablepress' );
-			?></p>
+			?>
+			</p>
 		</td>
 	</tr>
 </tbody>
@@ -158,7 +168,7 @@ class TablePress_Options_View extends TablePress_View {
 
 		$select_box = '<select id="option-admin-menu-parent-page" name="options[admin_menu_parent_page]">' . "\n";
 		foreach ( $entries as $page => $entry ) {
-			$select_box .= '<option' . selected( $page, $data['user_options']['parent_page'], false ) . disabled( $page, '-', false ) .' value="' . $page . '">' . $entry . "</option>\n";
+			$select_box .= '<option' . selected( $page, $data['user_options']['parent_page'], false ) . disabled( $page, '-', false ) . ' value="' . $page . '">' . $entry . "</option>\n";
 		}
 		$select_box .= "</select>\n";
 		?>
@@ -182,12 +192,14 @@ class TablePress_Options_View extends TablePress_View {
 	public function textbox_uninstall_tablepress( array $data, array $box ) {
 		?>
 		<h1 style="margin-top:40px;"><?php _e( 'Uninstall TablePress', 'tablepress' ); ?></h1>
-		<p><?php
+		<p>
+		<?php
 			echo __( 'Uninstalling <strong>will permanently delete</strong> all TablePress tables and options from the database.', 'tablepress' ) . '<br />'
 				. __( 'It is recommended that you create a backup of the tables (by exporting the tables in the JSON format), in case you later change your mind.', 'tablepress' ) . '<br />'
 				. __( 'You will manually need to remove the plugin&#8217;s files from the plugin folder afterwards.', 'tablepress' ) . '<br />'
 				. __( 'Be very careful with this and only click the button if you know what you are doing!', 'tablepress' );
-		?></p>
+		?>
+		</p>
 		<p><a href="<?php echo TablePress::url( array( 'action' => 'uninstall_tablepress' ), true, 'admin-post.php' ); ?>" id="uninstall-tablepress" class="button"><?php _e( 'Uninstall TablePress', 'tablepress' ); ?></a></p>
 		<?php
 	}

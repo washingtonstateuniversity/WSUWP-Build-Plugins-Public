@@ -51,7 +51,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
  * @author Florian Schmitz (floele at gmail dot com) 2005-2006
  * @version 1.0
  */
-class CSSTidy_optimise {
+class TablePress_CSSTidy_optimise {
 
 	/**
 	 * CSSTidy instance.
@@ -208,11 +208,11 @@ class CSSTidy_optimise {
 		}
 
 		if ( 'font' === $this->property && $this->parser->get_cfg( 'optimise_shorthands' ) > 1 ) {
-			$this->css[ $this->at ][ $this->selector ]['font']='';
+			$this->css[ $this->at ][ $this->selector ]['font'] = '';
 			$this->parser->merge_css_blocks( $this->at, $this->selector, $this->dissolve_short_font( $this->value ) );
 		}
 		if ( 'background' === $this->property && $this->parser->get_cfg( 'optimise_shorthands' ) > 2 ) {
-			$this->css[ $this->at ][ $this->selector ]['background']='';
+			$this->css[ $this->at ][ $this->selector ]['background'] = '';
 			$this->parser->merge_css_blocks( $this->at, $this->selector, $this->dissolve_short_bg( $this->value ) );
 		}
 		if ( isset( $shorthands[ $this->property ] ) ) {
@@ -360,13 +360,13 @@ class CSSTidy_optimise {
 			if ( false !== stripos( $color, 'progid:' ) ) {
 				return $color;
 			}
-			preg_match_all( ",rgb\([^)]+\),i", $color, $matches, PREG_SET_ORDER );
+			preg_match_all( ',rgb\([^)]+\),i', $color, $matches, PREG_SET_ORDER );
 			if ( count( $matches ) ) {
 				foreach ( $matches as $m ) {
 					$color = str_replace( $m[0], $this->cut_color( $m[0] ), $color );
 				}
 			}
-			preg_match_all( ",#[0-9a-f]{6}(?=[^0-9a-f]),i", $color, $matches, PREG_SET_ORDER );
+			preg_match_all( ',#[0-9a-f]{6}(?=[^0-9a-f]),i', $color, $matches, PREG_SET_ORDER );
 			if ( count( $matches ) ) {
 				foreach ( $matches as $m ) {
 					$color = str_replace( $m[0], $this->cut_color( $m[0] ), $color );
@@ -478,8 +478,7 @@ class CSSTidy_optimise {
 			if ( in_array( $this->property, $color_values ) ) {
 				if ( 3 === strlen( $temp[ $l ] ) || 6 === strlen( $temp[ $l ] ) ) {
 					$temp[ $l ] = '#' . $temp[ $l ];
-				}
-				else {
+				} else {
 					$temp[ $l ] = '0';
 				}
 				continue;
@@ -489,7 +488,7 @@ class CSSTidy_optimise {
 				if ( '' === $number[1] && in_array( $this->property, $unit_values, true ) ) {
 					$number[1] = 'px';
 				}
-			} elseif ( $number[1] !== 's' && $number[1] !== 'ms' ) {
+			} elseif ( 's' !== $number[1] && 'ms' !== $number[1] ) {
 				$number[1] = '';
 			}
 
@@ -766,7 +765,16 @@ class CSSTidy_optimise {
 		$origin = array( 'border', 'padding', 'content' );
 		$pos = array( 'top', 'center', 'bottom', 'left', 'right' );
 		$important = '';
-		$return = array( 'background-image' => null, 'background-size' => null, 'background-repeat' => null, 'background-position' => null, 'background-attachment' => null, 'background-clip' => null, 'background-origin' => null, 'background-color' => null );
+		$return = array(
+			'background-image'      => null,
+			'background-size'       => null,
+			'background-repeat'     => null,
+			'background-position'   => null,
+			'background-attachment' => null,
+			'background-clip'       => null,
+			'background-origin'     => null,
+			'background-color'      => null,
+		);
 
 		if ( $this->parser->is_important( $str_value ) ) {
 			$important = ' !important';
@@ -905,7 +913,7 @@ class CSSTidy_optimise {
 		// Add new background property.
 		if ( '' !== $new_bg_value ) {
 			$input_css['background'] = $new_bg_value . $important;
-		} elseif ( isset ( $input_css['background'] ) ) {
+		} elseif ( isset( $input_css['background'] ) ) {
 			$input_css['background'] = 'none';
 		}
 
@@ -926,7 +934,14 @@ class CSSTidy_optimise {
 		$font_variant = array( 'normal', 'small-caps' );
 		$font_style = array( 'normal', 'italic', 'oblique' );
 		$important = '';
-		$return = array( 'font-style' => null, 'font-variant' => null, 'font-weight' => null, 'font-size' => null, 'line-height' => null, 'font-family' => null );
+		$return = array(
+			'font-style'   => null,
+			'font-variant' => null,
+			'font-weight'  => null,
+			'font-size'    => null,
+			'line-height'  => null,
+			'font-family'  => null,
+		);
 
 		if ( $this->parser->is_important( $str_value ) ) {
 			$important = ' !important';
@@ -1016,19 +1031,19 @@ class CSSTidy_optimise {
 		if ( isset( $input_css['font-family'] ) && isset( $input_css['font-size'] ) && 'inherit' !== $input_css['font-family'] ) {
 			// Fix several words in font-family - add quotes.
 			if ( isset( $input_css['font-family'] ) ) {
-				$families = explode( ",", $input_css['font-family'] );
+				$families = explode( ',', $input_css['font-family'] );
 				$result_families = array();
 				foreach ( $families as $family ) {
 					$family = trim( $family );
 					$len = strlen( $family );
-					if ( strpos( $family, " " ) &&
+					if ( strpos( $family, ' ' ) &&
 						! ( ( '"' === $family[0] && '"' === $family[ $len - 1 ] ) ||
 						( "'" === $family[0] && "'" === $family[ $len - 1 ] ) ) ) {
 						$family = '"' . $family . '"';
 					}
 					$result_families[] = $family;
 				}
-				$input_css['font-family'] = implode( ",", $result_families );
+				$input_css['font-family'] = implode( ',', $result_families );
 			}
 			foreach ( $font_prop_default as $font_property => $default_value ) {
 				// Skip if property does not exist.
@@ -1072,12 +1087,12 @@ class CSSTidy_optimise {
 		return $input_css;
 	}
 
-} // class CSSTidy_optimise
+} // class TablePress_CSSTidy_optimise
 
 /**
  * Sanitization class
  */
-class CSSTidy_custom_sanitize extends CSSTidy_optimise {
+class TablePress_CSSTidy_custom_sanitize extends TablePress_CSSTidy_optimise {
 
 	/**
 	 * [$props_w_urls description]
@@ -1173,4 +1188,4 @@ class CSSTidy_custom_sanitize extends CSSTidy_optimise {
 		return "url('$url')";
 	}
 
-} // class CSSTidy_custom_sanitize
+} // class TablePress_CSSTidy_custom_sanitize

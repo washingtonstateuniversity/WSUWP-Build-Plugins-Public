@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
  * @author Florian Schmitz (floele at gmail dot com) 2005-2006
  * @version 1.1.0
  */
-class CSSTidy_print {
+class TablePress_CSSTidy_print {
 
 	/**
 	 * CSSTidy instance.
@@ -336,7 +336,7 @@ class CSSTidy_print {
 					break;
 				case AT_END:
 					$out = &$output;
-					$in_at_out = str_replace( "\n\n", "\r\n", $in_at_out); // don't fill empty lines
+					$in_at_out = str_replace( "\n\n", "\r\n", $in_at_out ); // don't fill empty lines
 					$in_at_out = str_replace( "\n", "\n" . $template[10], $in_at_out );
 					$in_at_out = str_replace( "\r\n", "\n\n", $in_at_out );
 					$out .= $template[10] . $in_at_out . $template[9];
@@ -529,4 +529,4 @@ class CSSTidy_print {
 		}
 	}
 
-} // class CSSTidy_print
+} // class TablePress_CSSTidy_print

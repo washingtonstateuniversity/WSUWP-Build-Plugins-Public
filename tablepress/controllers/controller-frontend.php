@@ -53,9 +53,6 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 		// Remove WP-Table Reloaded Shortcodes and CSS, and add TablePress Shortcodes.
 		add_action( 'init', array( $this, 'init_shortcodes' ), 20 ); // run on priority 20 as WP-Table Reloaded Shortcodes are registered at priority 10
 
-		// Make TablePress Shortcodes work in text widgets.
-		add_filter( 'widget_text', array( $this, 'widget_text_filter' ) );
-
 		/**
 		 * Filter whether the WordPress search shall also search TablePress tables.
 		 *
@@ -310,7 +307,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 						$parameters['lengthChange'] = '"lengthChange":false';
 					}
 					if ( 10 !== $js_options['datatables_paginate_entries'] ) {
-						$parameters['pageLength'] = '"pageLength":'. $js_options['datatables_paginate_entries'];
+						$parameters['pageLength'] = '"pageLength":' . $js_options['datatables_paginate_entries'];
 					}
 				} else {
 					$parameters['paging'] = '"paging":false';
@@ -522,7 +519,7 @@ JS;
 		// Generate unique HTML ID, depending on how often this table has already been shown on this page.
 		if ( ! isset( $this->shown_tables[ $table_id ] ) ) {
 			$this->shown_tables[ $table_id ] = array(
-				'count' => 0,
+				'count'     => 0,
 				'instances' => array(),
 			);
 		}
@@ -575,10 +572,20 @@ JS;
 		if ( $render_options['use_datatables'] && $render_options['table_head'] && count( $table['data'] ) > 1 ) {
 			// Get options for the DataTables JavaScript library from the table's render options.
 			$js_options = array();
-			foreach ( array( 'alternating_row_colors', 'datatables_sort', 'datatables_paginate',
-								'datatables_paginate', 'datatables_paginate_entries', 'datatables_lengthchange',
-								'datatables_filter', 'datatables_info', 'datatables_scrollx', 'datatables_scrolly',
-								'datatables_locale', 'datatables_custom_commands' ) as $option ) {
+			foreach ( array(
+				'alternating_row_colors',
+				'datatables_sort',
+				'datatables_paginate',
+				'datatables_paginate',
+				'datatables_paginate_entries',
+				'datatables_lengthchange',
+				'datatables_filter',
+				'datatables_info',
+				'datatables_scrollx',
+				'datatables_scrolly',
+				'datatables_locale',
+				'datatables_custom_commands',
+			) as $option ) {
 				$js_options[ $option ] = $render_options[ $option ];
 			}
 			/**
@@ -660,9 +667,9 @@ JS;
 
 		// Parse Shortcode attributes, only allow those that are specified.
 		$default_shortcode_atts = array(
-				'id' => '',
-				'field' => '',
-				'format' => '',
+			'id'     => '',
+			'field'  => '',
+			'format' => '',
 		);
 		/**
 		 * Filter the available/default attributes for the [table-info] Shortcode.
@@ -801,32 +808,6 @@ JS;
 	}
 
 	/**
-	 * Handle Shortcodes in text widgets, by temporarily removing all Shortcodes, registering only the plugin's two,
-	 * running WP's Shortcode routines, and then restoring old behavior/Shortcodes.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @global array $shortcode_tags WordPress container for storing Shortcode definitions.
-	 *
-	 * @param string $content Text content of the text widget, will be searched for one of TablePress's Shortcodes.
-	 * @return string Text of the text widget, with eventually found Shortcodes having been replaced by corresponding output.
-	 */
-	public function widget_text_filter( $content ) {
-		global $shortcode_tags;
-		// Backup the currently registered Shortcodes and clear the global array.
-		$orig_shortcode_tags = $shortcode_tags;
-		$shortcode_tags = array();
-		// Register TablePress's Shortcodes (which are then the only ones registered).
-		add_shortcode( TablePress::$shortcode_info, array( $this, 'shortcode_table_info' ) );
-		add_shortcode( TablePress::$shortcode, array( $this, 'shortcode_table' ) );
-		// Run the WP Shortcode routines on the widget text (i.e. search for TablePress's Shortcodes).
-		$content = do_shortcode( $content );
-		// Restore the original Shortcodes (which includes TablePress's Shortcodes, for use in posts and pages).
-		$shortcode_tags = $orig_shortcode_tags;
-		return $content;
-	}
-
-	/**
 	 * Expand WP Search to also find posts and pages that have a search term in a table that is shown in them.
 	 *
 	 * This is done by looping through all search terms and TablePress tables and searching there for the search term,
@@ -904,6 +885,7 @@ JS;
 		// If $_GET['exact'] is set, WordPress doesn't use % in SQL LIKE clauses.
 		$exact = get_query_var( 'exact' );
 		$n = ( empty( $exact ) ) ? '%' : '';
+		$search_sql = $wpdb->remove_placeholder_escape( $search_sql );
 		foreach ( $query_result as $search_term => $table_ids ) {
 			$search_term = esc_sql( $wpdb->esc_like( $search_term ) );
 			$old_or = "OR ({$wpdb->posts}.post_content LIKE '{$n}{$search_term}{$n}')";
@@ -912,6 +894,7 @@ JS;
 			$new_or = $old_or . " OR ({$wpdb->posts}.post_content REGEXP '{$regexp}')";
 			$search_sql = str_replace( $old_or, $new_or, $search_sql );
 		}
+		$search_sql = $wpdb->add_placeholder_escape( $search_sql );
 
 		return $search_sql;
 	}
