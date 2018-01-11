@@ -3,15 +3,15 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core. <strong>Meant for development, do not run on real sites.</strong>
- * Version: 1.8.1
+ * Version: 1.9.1
  * Author: Gutenberg Team
  *
  * @package gutenberg
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '1.8.1' );
-define( 'GUTENBERG_GIT_COMMIT', '9eb67f8bd26f45fc6d0c47888f6a1bb6f9c4ce41' );
+define( 'GUTENBERG_VERSION', '1.9.1' );
+define( 'GUTENBERG_GIT_COMMIT', '369e94834769ec5ccf2ab7d5548c753fda1c2caf' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -32,6 +32,9 @@ function the_gutenberg_project() {
 	<div class="nvda-temp-fix screen-reader-text">&nbsp;</div>
 	<div class="gutenberg">
 		<div id="editor" class="gutenberg__editor"></div>
+		<div id="metaboxes" style="display: none;">
+			<?php the_gutenberg_metaboxes(); ?>
+		</div>
 	</div>
 	<?php
 }
@@ -458,7 +461,11 @@ function gutenberg_replace_default_add_new_button() {
 			font: 400 20px/.5 dashicons;
 			speak: none;
 			top: 1px;
+			<?php if ( is_rtl() ) : ?>
+			right: -1px;
+			<?php else : ?>
 			left: -1px;
+			<?php endif; ?>
 			position: relative;
 			vertical-align: top;
 			-webkit-font-smoothing: antialiased;
@@ -482,7 +489,11 @@ function gutenberg_replace_default_add_new_button() {
 			display: block;
 			top: 0;
 			margin: -1px 0;
+			<?php if ( is_rtl() ) : ?>
+			padding-left: 9px;
+			<?php else : ?>
 			padding-right: 9px;
+			<?php endif; ?>
 		}
 
 	</style>
@@ -496,13 +507,13 @@ function gutenberg_replace_default_add_new_button() {
 			}
 
 			var url = button.href;
-			var newUrl = url.replace( /&?classic-editor/, '' );
+			var newUrl = url.replace( /[&\?]?classic-editor/, '' );
 
 			var newbutton = '<span id="split-page-title-action" class="split-page-title-action">';
 			newbutton += '<a href="' + newUrl + '">' + button.innerText + '</a>';
 			newbutton += '<span class="expander" tabindex="0" role="button" aria-haspopup="true" aria-label="<?php echo esc_js( __( 'Toggle editor selection menu', 'gutenberg' ) ); ?>"></span>';
 			newbutton += '<span class="dropdown"><a href="' + newUrl + '">Gutenberg</a>';
-			newbutton += '<a href="' + url + '"><?php echo esc_js( __( 'Classic Editor', 'gutenberg' ) ); ?></a></span></span>';
+			newbutton += '<a href="' + url + '"><?php echo esc_js( __( 'Classic Editor', 'gutenberg' ) ); ?></a></span></span><span class="page-title-action" style="display:none;"></span>';
 
 			button.insertAdjacentHTML( 'afterend', newbutton );
 			button.remove();
