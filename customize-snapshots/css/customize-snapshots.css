@@ -1,0 +1,23 @@
+
+#customize-control-changeset_title {
+	margin-top: 15px;
+}
+
+.snapshot-countdown-container {
+	margin-top: 10px;
+}
+
+.customize-control-inspect-changeset-link {
+	width: auto;
+	float: right;
+	margin-top: -31px;
+}
+
+.customize-control-inspect-changeset-link .dashicons {
+	text-decoration: none;
+	padding-right: 4px;
+}
+
+.customize-control-another-changeset-link {
+	margin-top: 15px;
+}
