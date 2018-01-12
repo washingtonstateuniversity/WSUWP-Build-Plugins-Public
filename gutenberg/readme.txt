@@ -2,7 +2,7 @@
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.8
 Tested up to: 4.9.1
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,12 +79,177 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 == Changelog ==
 
+= 2.0.0 =
+
+* Replace publish dropdown menu with a sidebar panel.
+* Expand latest post blocks with more querying options — order by and category.
+* Allow dragging multiple images to create a gallery.
+* Improve markdown pasting﻿ (allows lists to be interpreted).
+* Allow pasting copied images directly.
+* Pasting within lists and headings.
+* Improve handling of inline spans.
+* Allow copying a single block.
+* Make sure inline pasting mechanism does not take place if pasting shortcodes.
+* Preserve alignment classes during raw transformations (like pasting an old WordPress post).
+* Support shortcode synonyms.
+* Allow continued writing when pressing down arrow at the end of a post.
+* Mobile design: move block controls to the bottom of a block﻿.
+* Allow﻿ deleting reusable blocks globally.
+* Display description and type on the sidebar. (Also replace BlockDescription component with a property.)
+* New table of contents and document counts design.
+* Add button to copy the full document quickly.
+* Expand inserter to three columns and a wider container.
+* Allow using down-arrow keys directly to navigate when searching a block in the inserter.
+* Deselect images in Gallery block when losing focus.
+* Include post title in document outline feature.
+* Rework display of notices and address various issues with overlaps.
+* Added keyboard shortcut to toggle editor mode. Also displays the relevant keyboard combination next to the menu item.
+* Improve deleting empty paragraphs when backspacing into a block that has no merge function (example, deleting a paragraph after an image).
+* Improve the way scroll-position is updated when moving a block.
+* Show block transformations in ellipsis menu.
+* Add drag and drop support for cover image.
+* Allow transforming operations between Heading and Cover Image blocks.
+* Add focus outline for blocks that don't have focusable fields.
+* Allow both navigation orientations in NavigableContainer.
+* Improve the behavior of focusing embed blocks.
+* Unify UI of audio and video blocks.
+* Show message on the inserter when no blocks are found.
+* Show message when no saved blocks are available.
+* Do not show the publish panel when updating / scheduling / submitting a post.
+* Update quote style in front-end.
+* Convert text columns to a div using grid layout.
+* Update button block CSS and add class to link.
+* Allow text in Button block to wrap.
+* Prevent useOnce blocks from being inserted using the convenient blocks shortcut menu.
+* Show correct symbol (⌘ or Ctrl) depending on system context.
+* Rename "insert" to "add" in the UI.
+* Clear block selection when opening sibling or bottom inserter.
+* Always show the insertion point when the inserter is opened.
+* Increase padding on "more options" block toggle.
+* Rename "Classic Text" to "Classic".
+* Improve display of dotted outline around reusable blocks.
+* Updated messages around reusable blocks interactions.
+* Align both the quote and the citation in the visual editor.
+* Exit edit mode when unfocusing a reusable block.
+* Set floated image width (when unresized) in % value﻿.
+* Add withState higher-order component.
+* Initial introduction of wp.data module.
+* Restrict the state access to the module registering the reducer only.
+* Refactor PostSchedule to make Calendar and Clock available as reusable components.
+* Allow overwriting colors (defaults and theme provided) when consuming ColorPalette component.
+* Switch orientation of popover component only if there is more space for the new position.
+* New ImagePlaceholder﻿ reusable component that handles upload buttons and draggable areas for the block author.
+* Add speak message when a category is added.
+* Announce notices to assertive technologies with speak.
+* Add aria-labels to Code and HTML blocks.
+* Warn if multiple h1 headings are being used.
+* Add speak message and make "block settings" button label dynamic.
+* Make excerpt functionality more accessible.
+* Add various headings around editor areas for screen-readers.
+* Improve accessibility of menu items in the main ellipsis menu.
+* Add missing tooltips to icon buttons.
+* Render toolbar always by the block on mobile.
+* Improve performance of responsive calculations using matchMedia.
+* Avoid shifts around toolbar and scrolling issues on mobile.
+* Improve how the fixed-to-block toolbar looks on mobile. Change how the fixed position toolbars behave, making them sticky.
+* Prevent Mobile Safari from zooming the entire page when you open the inserter.
+* Initial explorations to migrate to server-registered blocks as part of raising awareness of available blocks.
+* Move supportHTML property into the general "support" object.
+* Replace getLatestPosts usage with withAPIData HOC.
+* Convert all filters for components to behave like HOCs (withFilters).
+* Replace flowRight usage with compose for HOCs.
+* Apply filters without function wrappers.
+* Improve Tags/Categories response size by limiting the requested fields.
+* Limit requested fields in category feature of "latest posts".
+* Request only required post fields in latest posts.
+* Replace getCategories usage with withAPIData component.
+* Don't show fields that are not used in media modal when adding a featured image.
+* Polish inserter tabs so the focus style isn't clipped.
+* Make inspector controls available when categories are loading.
+* Improve overlay over meta-boxes during save operations.
+* Hide excerpts panel if not supported by the CPT.
+* Hide Taxonomies panel if no taxonomy is available for the current CPT.
+* Hide several other panels when the CPT doesn't support them.
+* Use _.includes﻿ to find available taxonomies. Mitigates non-schema-conforming taxonomy registrations.
+* Defer﻿ applying filters for component until it is about to be mounted.
+* Prevent "Add New" dropdown from overriding other plugin functionality.
+* Improve paragraph block description.
+* Refactor to simplify block toolbar rendering.
+* Add missing aligment classes to cover image.
+* Add parent page dropdown to page attributes panel.
+* Allow pressing ENTER to change Reusable Block name.
+* Disable HTML mode for reusable blocks.
+* Add support for the "advanced" meta-box location.
+* Make sure super admins can publish in any site of the network.
+* Rename theme support for wide images to align-wide.
+* Move selectors and actions files to the store folder.
+* Center arrows of popovers relative to their parent.
+* Use fainter disabled state.
+* Add breakpoint grid to latest posts block and update color of date.
+* Move logic for auto-generating the block class name to BlockEdit.
+* Respect the "enter_title_here" hook.
+* Prevent meta-box hooks from running multiple times.
+* Don't set font-family on pullquotes.
+* Remove superfluous parentheses from include statements.
+* Remove redundant CSS property updates.
+* Use "columns-x" class only for grid layout in latest posts.
+* Use flatMap for mapping toolbar controls for a small performance gain.
+* Introduce jest matchers for console object.
+* Updated various npm packages; update Jest. Update node-sass. Update WordPress packages.
+* Switch TinyMCE to unpkg.
+* Reorganize handbook docs navigation.
+* Added FAQ section for meta-boxes compatibility.
+* Added initial "templates" document.
+* Add documentation about dynamic blocks.
+* Updated "outreach" docs.
+* Improve block-controls document.
+* Display a hint that files need to be built.
+* Add WordPress JSDoc ESLint configuration.
+* Update licenses in package.json & composer.json to adhere to SPDX v3.0 specification.
+* Add tests to cover REQUEST_POST_UPDATE_SUCCESS effect.
+* Add tests for color palette component.
+* Add tests for Editable.getSettings and adaptFormatter.
+* Use newly published jest-console package in test setup.
+* Update info about test fixtures generation.
+* Also style footer in quote blocks to ensure backwards compatibility.
+* Add a PHPUnit Docker Container.
+* Fix wrong "return to editor" link when comparing revisions.
+* Fix error when pressing enter from a heading block.
+* Fix error with merging lists into paragraphs.
+* Fix revisions button target area.
+* Remove duplicated styles.
+* Fix z-index rebase issues.
+* Fix tag name warning ordering in validation.
+* Fix text encoding of titles in url-input.
+* Fix endless loop in reusable blocks code.
+* Fix edit button in Audio block using invalid buttonProps attribute.
+* Fix block creation with falsey default attribute.
+* Fix radio control checked property.
+* Fix styling issues of blocks when they are used as part of a reusable block.
+* Fix list wrapping issues.
+* Fix problem when converting shortcodes due to sorting.
+* Fix issue with time-picker not working.
+* Fix hide advanced settings interaction in block menu.
+* Fix issue with url input on images.
+* Fix style regression in textual placeholder on cover image.
+* Fix return type hint in gutenberg_get_rest_link().
+* Fix bug when changing number of Latests Posts rapidly was leading to some numbers being defunct.
+* Fix isInputField check and add tests.
+* Fix unsetting block alignment flagging block as invalid.
+* Fix CSS bleed from admin-specific gallery styles.
+* Fix image handlers at the top from being unclickable.
+* Fix unexpected keyboard navigations behaviour on some nodes.
+* Fix inserter position for floated blocks.
+* Fix bug on empty cover image placeholder used on a saved block.
+* Fix errors when adding duplicate categories﻿.
+* Fix broken custom color bubble in ColorPalette.
+
 = 1.9.1 =
 
-* Fix error in Safari when loading Gutenberg with meta boxes present
-* Fix error / incompatibility with Yoast SEO Premium terms display
-* Resolve incorrect modal and tooltip layering
-* Remove unintended commas from Page Options content
+* Fix error in Safari when loading Gutenberg with meta boxes present.
+* Fix error / incompatibility with Yoast SEO Premium terms display.
+* Resolve incorrect modal and tooltip layering.
+* Remove unintended commas from Page Options content.
 
 = 1.9.0 =
 
