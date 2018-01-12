@@ -235,19 +235,6 @@ class Restricted_Site_Access {
 				list( $ip, $mask ) = explode( '/', $line . '/128' ); // get the ip and mask from the list
 
 				$mask = str_repeat( 'f', $mask >> 2 ); // render the mask as bits, similar to info on the php.net man page discussion for inet_pton
-
-				switch ( $mask % 4 ) {
-					case 1:
-						$mask .= '8';
-						break;
-					case 2:
-						$mask .= 'c';
-						break;
-					case 3:
-						$mask .= 'e';
-						break;
-				}
-
 				$mask = pack( 'H*', $mask );
 
 				// check if the masked versions match
