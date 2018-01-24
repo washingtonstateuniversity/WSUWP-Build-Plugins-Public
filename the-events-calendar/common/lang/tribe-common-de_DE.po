@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Tribe Common package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-03 17:11:04+0000\n"
+"PO-Revision-Date: 2017-12-19 11:05:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/2.3.1\n"
 "Language: de\n"
 "Project-Id-Version: Tribe Common\n"
+
+#: src/Tribe/Validate.php:534
+msgid "%s must be an email address."
+msgstr "%s muss eine E-Mail Adresse sein."
 
 #: src/Tribe/Languages/Locations.php:252
 msgid "Sint Maarten"
@@ -812,7 +816,7 @@ msgstr "Zurück zur Pluginseite"
 msgid "Go to plugins page"
 msgstr "Gehe zur Pluginseite"
 
-#: src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:114
 msgid "Free"
 msgstr "Eintritt frei"
 
@@ -2286,19 +2290,19 @@ msgstr "Einstellungen gespeichert.."
 msgid "General"
 msgstr "Allgemein"
 
-#: src/Tribe/Field.php:616
+#: src/Tribe/Field.php:617
 msgid "No select options specified"
 msgstr "Keine Auswahloptionen definiert"
 
-#: src/Tribe/Field.php:558
+#: src/Tribe/Field.php:559
 msgid "No checkbox options specified"
 msgstr "Keine Checkboxoptionen definiert"
 
-#: src/Tribe/Field.php:522
+#: src/Tribe/Field.php:523
 msgid "No radio options specified"
 msgstr "Keine Bewertungsoptionen definiert"
 
-#: src/Tribe/Field.php:227
+#: src/Tribe/Field.php:228
 msgid "Invalid field type specified"
 msgstr "Falsche Feldart definiert"
 
