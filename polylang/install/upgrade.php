@@ -75,8 +75,8 @@ class PLL_Upgrade {
 			'<div class="error"><p>%s</p><p>%s</p></div>',
 			esc_html__( 'Polylang has been deactivated because you upgraded from a too old version.', 'polylang' ),
 			sprintf(
-				/* translators: %s are Polylang version numbers */
-				esc_html__( 'Please upgrade first to %s before ugrading to %s.', 'polylang' ),
+				/* translators: %1$s and %2$s are Polylang version numbers */
+				esc_html__( 'Please upgrade first to %1$s before ugrading to %2$s.', 'polylang' ),
 				'<strong>0.9.8</strong>',
 				POLYLANG_VERSION
 			)
@@ -89,7 +89,7 @@ class PLL_Upgrade {
 	 * @since 1.2
 	 */
 	public function _upgrade() {
-		foreach ( array( '0.9', '1.0', '1.1', '1.2', '1.2.1', '1.2.3', '1.3', '1.4', '1.4.1', '1.4.4', '1.5', '1.6', '1.7.4', '1.8', '2.0.8', '2.1', '2.2' ) as $version ) {
+		foreach ( array( '0.9', '1.0', '1.1', '1.2', '1.2.1', '1.2.3', '1.3', '1.4', '1.4.1', '1.4.4', '1.5', '1.6', '1.7.4', '1.8', '2.0.8', '2.1', '2.3' ) as $version ) {
 			if ( version_compare( $this->options['version'], $version, '<' ) ) {
 				call_user_func( array( $this, 'upgrade_' . str_replace( '.', '_', $version ) ) );
 			}
@@ -546,7 +546,7 @@ class PLL_Upgrade {
 		foreach ( $terms as $lang ) {
 			$description = maybe_unserialize( $lang->description );
 			if ( isset( $languages[ $description['locale'] ] ) ) {
-				$description['flag_code'] = $languages[ $description['locale'] ][4];
+				$description['flag_code'] = $languages[ $description['locale'] ]['flag'];
 				$description = serialize( $description );
 				wp_update_term( (int) $lang->term_id, 'language', array( 'description' => $description ) );
 			}
@@ -588,11 +588,14 @@ class PLL_Upgrade {
 	}
 
 	/**
-	 * Upgrades if the previous version is < 2.2
+	 * Upgrades if the previous version is < 2.3
 	 *
-	 * @since 2.2
+	 * Deletes language cache due to 'redirect_lang' option removed for subdomains and multiple domains in 2.2
+	 * and W3C and Facebook locales added to PLL_Language objects in 2.3
+	 *
+	 * @since 2.3
 	 */
-	protected function upgrade_2_2() {
-		delete_transient( 'pll_languages_list' ); // Deletes language cache (due to 'redirect_lang' option removed for subdomains and multiple domains)
+	protected function upgrade_2_3() {
+		delete_transient( 'pll_languages_list' );
 	}
 }
