@@ -49,8 +49,8 @@ class WP_Document_Revisions {
 		self::$instance = &$this;
 
 		// admin
-		add_action( 'init', array( &$this, 'admin_init' ) );
-		add_action( 'init', array( &$this, 'i18n' ), 5 );
+		add_action( 'plugins_loaded', array( &$this, 'admin_init' ) );
+		add_action( 'plugins_loaded', array( &$this, 'i18n' ) );
 
 		// CPT/CT
 		add_action( 'init', array( &$this, 'register_cpt' ) );
@@ -121,7 +121,7 @@ class WP_Document_Revisions {
 	 * Must be done early on init because they need to be in place when register_cpt is called
 	 */
 	public function i18n() {
-		load_plugin_textdomain( 'wp-document-revisions', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'wp-document-revisions', false, plugin_basename( dirname( dirname( __FILE__ ) ) ) . '/languages/' );
 	}
 
 
@@ -1045,6 +1045,10 @@ class WP_Document_Revisions {
 
 		// make site specific on multisite
 		if ( is_multisite() && ! is_network_admin() ) {
+			if ( is_main_site() ) {
+				$dir = str_replace( '/sites/%site_id%', '', $dir );
+			}
+
 			$dir = str_replace( '%site_id%', $wpdb->blogid, $dir );
 		}
 
@@ -1334,7 +1338,7 @@ class WP_Document_Revisions {
 
 		// verify current user can edit
 		// consider a specific permission check here
-		if ( ! $_POST['post_id'] || ! current_user_can( 'edit_post', $_POST['post_id'] ) || ! current_user_can( 'override_document_lock' ) ) {
+		if ( ! $_POST['post_id'] || ! current_user_can( 'edit_document', $_POST['post_id'] ) || ! current_user_can( 'override_document_lock' ) ) {
 			wp_die( esc_html__( 'Not authorized', 'wp-document-revisions' ) );
 		}
 
