@@ -2,7 +2,7 @@
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.8
 Tested up to: 4.9.1
-Stable tag: 1.9.1
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,68 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Iterate on the design of up/down arrows and how focus is managed. This seeks to further reduce the visual and cognitive weight of the up/down movers.
+* Show immediate visual feedback when dragging and dropping images into the editor. (Expands on the previous release work.)
+* Expose state through data module using selectors. This is an important piece of the extensibility puzzle.
+* New button outline and focus styles.
+* ﻿Show original block icon after converting to reusable block. Also hides the generic reusable block from inserters. This moves data logic out of the inserter.
+* Introduce a migration function for block versioning.
+* Add HTML handler to dropzone. Allows drag and dropping images from other web pages directly.
+* Trigger typing mode when ENTER or BACKSPACE are pressed. This improves the writing flow but engaging the UI-less mode more frequently.
+* Added ability to align the text content of a cover image to the right, left, or center of the image.
+* Refactor CopyContentButton as a core extension to illustrate how to add functionality to the editor outside of blocks.
+* Allow collapsing/sorting meta-boxes panels.
+* Remove dirty-checking from meta-boxes state, fixes issues with default values and updating certain text fields.
+* Defer registration of all core blocks until editor loads. Improves ability to hook into registerBlockType﻿.
+* Only trigger select block action when block is unselected.
+* Try new markup for Galleries using lists.
+* Try new subheading editorial block.
+* ﻿Reduce sibling inserter initial height.
+* Force an update when a new filter is added or removed while using withFilters higher-order component. This improves the rendering flow of filters.
+* Refactor the MediaUploadButton to be agnostic to its rendered UI.
+* Change "size" label to "level" in Heading block settings.
+* Remove breaking spaces logic on List block.
+* Update progress button color state based on theme used.
+* Update Video block description.
+* Refactor the multi-selection behavior to dispatch the multi-selection start action only after the cursor begins to move after a mousedown event.
+* Avoid persisting mobile and publish sidebars.
+* Move drag handling to instance-bound handler.
+* Remove "Open in new window" link option.
+* Use username slug instead of name and remove ephemeral link from it.
+* Ensure isLoading set to false after request error.
+* Allow copying individual text from a block that is not purely text without copying the whole block.
+* Match consistency of tooltip text with Classic Editor.
+* Fix issue with Lists having additional lines when used in a reusable block.
+* Fix errors when adding duplicate tags.
+* Fix inconsistency with applyOrUnset().
+* Fix incorrect display when loading a saved block with no content.
+* Fix issue where black rectangle would briefly blink on new paragraphs.
+* Fix cursor jumps in link-editing dialog.
+* Fix post content validation.
+* Fix scrolling issues around nav menus.
+* Remove Vine embed support as it's no longer supported.
+* Ensure editor still exists after timeout.
+* Add regression check for block edit interface using snapshots.
+* Add missing alt attributes to image (and gallery) blocks when alt returns an empty value.
+* Better build tools with Docker.
+* Register Gutenberg scripts & styles before enqueuing.
+* Force wp-api.js to use HTTP/1.0 for better compatibility.
+* Avoid the deprecated (from 5.0 to 5.2) is_a() function.
+* Remove unused dependency.
+* Update contributing instructions with steps.
+* Consistency cleanup in doc return statements.
+* Include how to assign a template to a default Post Type in the documentation. Also add more context to the code.
+* Improve incremental development build performance by only minimizing -rtl files for production builds.
+* More JSDoc fixes.
+* Remove warning from plugin header.
+* Add new page explaining how to create a block using WP-CLI.
+* Add security reporting instructions.
+* Improve useOnce documentation.
+* Bump copyright year to 2018 in license.md.
+* Disable Travis branch builds except for master.
 
 = 2.0.0 =
 

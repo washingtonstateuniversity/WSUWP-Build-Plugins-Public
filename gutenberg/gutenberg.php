@@ -2,16 +2,16 @@
 /**
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
- * Description: Printing since 1440. This is the development plugin for the new block editor in core. <strong>Meant for development, do not run on real sites.</strong>
- * Version: 2.0.0
+ * Description: Printing since 1440. This is the development plugin for the new block editor in core.
+ * Version: 2.1.0
  * Author: Gutenberg Team
  *
  * @package gutenberg
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '2.0.0' );
-define( 'GUTENBERG_GIT_COMMIT', '440d2788011668bf1e3be350b01db5b2a06c7ebb' );
+define( 'GUTENBERG_VERSION', '2.1.0' );
+define( 'GUTENBERG_GIT_COMMIT', 'cd2ce06256e9cb1f1e022ae0991b110eb5822d60' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -194,12 +194,12 @@ function gutenberg_intercept_edit_post() {
 	$post = get_post( $post_id );
 
 	// Errors and invalid requests are handled in post.php, do not intercept.
-	if ( $post ) {
-		$post_type        = $post->post_type;
-		$post_type_object = get_post_type_object( $post_type );
-	} else {
+	if ( ! $post ) {
 		return;
 	}
+
+	$post_type        = $post->post_type;
+	$post_type_object = get_post_type_object( $post_type );
 
 	if ( ! $post_type_object ) {
 		return;
