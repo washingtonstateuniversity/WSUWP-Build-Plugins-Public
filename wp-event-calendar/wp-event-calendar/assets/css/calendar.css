@@ -1,0 +1,294 @@
+/** Editor ********************************************************************/
+
+body.post-type-event #post-body-content {
+	margin-bottom: 0;
+}
+
+.wp-event-calendar-editor #wp-content-editor-tools {
+	background-color: #fff;
+	padding-top: 0;
+}
+
+#above_event_editor-sortables {
+	margin-top: 20px;
+}
+
+.event-time {
+	display: inline-block;
+}
+.wp_event_calendar_datepicker {
+	max-width: 125px;
+	height: 28px;
+	margin: 2px 0 3px;
+}
+.event-time input {
+	max-width: 50px;
+}
+
+/** Edit & Rows ***************************************************************/
+
+.widefat .column-start,
+.widefat .column-end,
+.widefat .column-duration {
+	width: 15%
+}
+
+.widefat .column-event-types,
+.widefat .column-event-categories {
+	width: 10%;
+}
+
+.widefat .column-repeat {
+	width: 10%;
+}
+
+/** Common ********************************************************************/
+
+.view-switch .view-month:before {
+	content: '\f509';
+}
+
+.view-switch .view-week:before {
+	content: '\f164';
+}
+
+.view-switch .view-day:before {
+	content: '\f163';
+}
+
+table.calendar {
+	table-layout: fixed;
+}
+
+table.calendar thead th,
+table.calendar tfoot th {
+	text-align: center;
+}
+
+table.calendar tbody td {
+	padding: 0;
+	position: relative;
+	text-align: left;
+	border-bottom: 1px solid #e1e1e1;
+	border-right: 1px solid #e1e1e1;
+}
+
+table.calendar a {
+	display: block;
+	-o-text-overflow: ellipsis;
+	text-overflow:    ellipsis;
+	overflow-x: hidden;
+	white-space: nowrap;
+	margin: 0;
+	padding: 0 5px;
+}
+
+table.calendar:not(.day) tbody td.saturday,
+table.calendar:not(.day) tbody td.sunday {
+	background-color: #f1f1f1;
+}
+
+table.calendar a:before {
+	font: normal 15px/20px 'dashicons';
+	vertical-align: top;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 20px;
+	height: 20px;
+	margin-right: 4px;
+}
+
+
+.wp-pointer-content h3.type-event:before,
+table.calendar a.type-event:before {
+	content: '\f145';
+}
+
+.wp-pointer-content h3.type-post:before,
+table.calendar a.type-post:before {
+	content: '\f109';
+}
+
+.wp-pointer-content h3.type-page:before,
+table.calendar a.type-page:before {
+	content: '\f105';
+}
+
+.wp-pointer-content h3.status-trash:before,
+table.calendar a.status-trash:before {
+	content: '\f182';
+}
+
+.wp-pointer-content h3.status-private:before,
+table.calendar a.status-private:before {
+	content: '\f530';
+}
+
+.wp-pointer-content h3.post-password-required:before,
+table.calendar a.post-password-required:before {
+	content: '\f315';
+}
+
+.wp-pointer-content h3.has-location:before,
+table.calendar a.has-location:before {
+	content: "\f230";
+}
+
+.wp-pointer-content h3.all-day:before,
+table.calendar a.all-day:before {
+	content: '\f469';
+}
+
+table.calendar a.status-draft {
+	opacity: 0.5;
+}
+
+/** Month *********************************************************************/
+
+table.month tbody td a.day-number {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 26px;
+	width: 26px;
+	text-align: center;
+	line-height: 1.9em;
+	padding: 0;
+	border-right: 1px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: rgba(255, 255, 255, 1);
+	color: #aaa;
+	font-weight: 600;
+}
+
+table.month tbody td.today a.day-number {
+	background: #ffe;
+}
+table.month tbody a.add-event-for-day:hover,
+table.month tbody td a.day-number:hover {
+	background: rgba(235, 235, 235, 1);
+}
+
+table.month tbody a.add-event-for-day {
+	visibility: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 26px;
+	width: 26px;
+	text-align: center;
+	border-left: 1px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: rgba(255, 255, 255, 1);
+	padding: 0;
+	margin: 0;
+}
+
+table.month tbody a i {
+	line-height: 1.9em;
+	font-size: 15px;
+	overflow: hidden;
+}
+
+table.month tbody td:hover a.add-event-for-day {
+	visibility: visible;
+}
+
+table.month tbody td:hover {
+	background-color: #ffe;
+}
+
+table.month tbody td {
+	min-height: 110px;
+}
+
+table.month tbody th {
+	height: 80px;
+	background-color: #fff;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+table.month tbody tr th:last-of-type {
+	border-right: 1px solid #e1e1e1;
+}
+
+table.month tbody td:last-of-type:not(.position-6) {
+	border-right: 1px solid #e1e1e1;
+}
+
+table.month tbody tr td:last-of-type {
+	border-right: none;
+}
+
+table.month div.events-for-cell {
+	margin: 30px 0 5px;
+	min-height: 80px
+}
+
+.wp-pointer-content h3 a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.wp-pointer-content h3 a:hover {
+	color: #eee;
+}
+
+input#year {
+	width: 90px;
+}
+
+/** Week **********************************************************************/
+
+table.week th,
+table.day th {
+	width: 30px;
+	background-color: #fff;
+	color: #333;
+	border-bottom: 1px solid #e1e1e1;
+	border-right: 1px solid #e1e1e1;
+	text-align: center;
+	cursor: default;
+}
+
+table.week tbody tr.this-hour td,
+table.day tbody tr.this-hour td {
+	background: #ffe;
+}
+
+table.day tr.multi-day,
+table.day tr.all-day,
+table.week tr.multi-day,
+table.week tr.all-day {
+	background-color: #efe;
+}
+
+table.week tr.multi-day th,
+table.week tr.multi-day td,
+table.day tr.multi-day th,
+table.day tr.multi-day td {
+	border-bottom: 2px solid #e1e1e1;
+}
+
+table.week th.column-hour,
+table.day th.column-hour {
+	width: 100px;
+}
+
+table.week th.column-monday,
+table.week th.column-tuesday,
+table.week th.column-wednesday,
+table.week th.column-thursday,
+table.week th.column-friday,
+table.week th.column-saturday,
+table.week th.column-sunday,
+table.day th.column-monday,
+table.day th.column-tuesday,
+table.day th.column-wednesday,
+table.day th.column-thursday,
+table.day th.column-friday,
+table.day th.column-saturday,
+table.day th.column-sunday {
+	width: 100%;
+}
