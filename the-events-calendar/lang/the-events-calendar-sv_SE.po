@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-10 19:35:40+0000\n"
+"PO-Revision-Date: 2018-01-28 09:21:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,64 +13,64 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:31
 msgid "The number of events per page on the List, Photo, and Map Views. Does not affect other views."
-msgstr ""
+msgstr "Antal evenemang per sida som visas i list-, foto- och kartvyn. Påverkar inte andra vyer."
 
 #: src/admin-views/tribe-options-general.php:28
 msgid "The number of events per page on the List View. Does not affect other views."
-msgstr ""
+msgstr "Antal evenemang per sida i listvyn. Påverkar inte andra vyer."
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr ""
+msgstr "sida"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
-msgstr ""
+msgstr "En arrangör för det angivna evenemanget finns inte."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:140
 msgid "The organizer with the specified ID is not accessible."
-msgstr ""
+msgstr "Arrangören med det angivna ID:t är inte tillgänglig."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:130
 msgid "An event with the specified ID does not exist."
-msgstr ""
+msgstr "Ett evenemang med det angivna ID:t finns inte."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:127
 msgid "The event with the specified ID is not accessible."
-msgstr ""
+msgstr "Evenemanget med det angivna ID:t är inte tillgängligt."
 
 #: src/Tribe/Main.php:1774
 msgid "%1$s published. %2$sView %3$s"
-msgstr ""
+msgstr "%1$s publicerat. %2$sVisa %3$s"
 
 #: src/Tribe/Google/Maps_API_Key.php:56
 msgid "our guide"
-msgstr ""
+msgstr "vår guide"
 
 #: src/Tribe/Google/Maps_API_Key.php:51
 msgid "We highly recommend that you specify a valid %1$s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %2$s for a detailed explanation in how to do it."
-msgstr ""
+msgstr "Vi rekommenderar starkt att du anger en giltig %1$s som The Events Calendar kan använda. Genom att göra detta förhindrar du problem med kartor, speciellt för webbplatser med hög trafik. Besök %2$s för en mer detaljerad förklaring."
 
 #: common/src/Tribe/Validate.php:184
 msgid "%s must not be empty"
-msgstr ""
+msgstr "%s får inte vara tom"
 
 #: src/functions/template-tags/general.php:1312
 msgid "Calendar powered by %s"
-msgstr ""
+msgstr "Kalendern drivs av %s"
 
 #: src/admin-views/tribe-options-general.php:78
 msgid "The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href=\"%2$s\">enable pretty permalinks</a>."
-msgstr ""
+msgstr "Den nuvarande URL:en för din evenemangssida är %1$s.<br><br>Du kan inte ändra permalänken för evenemangssidan då du inte har aktiverat vackra permalänkar. <a href=\"%2$s\">Aktivera vackra permalänkar</a> för att kunna ändra permalänken här."
 
 #: src/admin-views/tribe-options-display.php:52
 msgid "There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr ""
+msgstr "Det kommer finnas situationer där teman inte är 100&nbsp;&#37; perfekta. Kolla in <a href=\"%s\">vår temaguide</a> för instruktioner om anpassade ändringar."
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme."
-msgstr ""
+msgstr "Inställningarna nedan anger hur din kalender visas. Om något inte ser riktigt bra ut, prova då att ändra till någon av de tre stilmallarna eller välj en sidmall från ditt tema."
 
 #: src/admin-views/aggregator/settings.php:176
 msgid "When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results."
@@ -1075,7 +1075,7 @@ msgstr "Returnerar data för evenemang med angivet ID"
 
 #: src/Tribe/REST/V1/Messages.php:27
 msgid "The requested post ID does not exist or is not an organizer"
-msgstr "Begärt inläggs-ID finns ej eller är inte en organisatör"
+msgstr "Begärt post-ID finns inte eller är inte en arrangör"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:53
 msgid "The event last modification date in UTC time"
@@ -1103,7 +1103,7 @@ msgstr "The Events Calendar REST API ger tillgång till information om kommande 
 
 #: src/Tribe/REST/V1/Messages.php:16
 msgid "The event does not have an organizer assigned"
-msgstr "Evenemanget har ingen organisatör"
+msgstr "Evenemanget har ingen arrangör"
 
 #: src/Tribe/REST/V1/Messages.php:17
 msgid "The requested event is not accessible"
@@ -1269,7 +1269,7 @@ msgstr "Arrangörens WordPress post ID"
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:33
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:33
 msgid "An Array containing the lineage of where this organizer comes from, this should not change after the organizer is created."
-msgstr "En matris som innehåller organisatörens ursprung. Ändras inte efter att organisatören skapats."
+msgstr "En matris som innehåller arrangörens ursprung. Ändras inte efter att arrangörens skapats."
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:37
 msgid "The organizer author WordPress post ID"
@@ -1277,7 +1277,7 @@ msgstr "Arrangörens författares WordPress post ID"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:41
 msgid "The organizer creation date in the site timezone"
-msgstr "Organisatören skapades (webbplatsens tidszon)"
+msgstr "Datum då arrangören skapades (webbplatsens tidszon)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:45
 msgid "The organizer creation date in UTC time"
@@ -1285,11 +1285,11 @@ msgstr "Datum då arrangören skapades (UTC)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:49
 msgid "The organizer last modification date in the site timezone"
-msgstr "Senaste ändring av organisatören (webbplatsens tidszon)"
+msgstr "Datum för senaste ändring av arrangören (webbplatsens tidszon)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:61
 msgid "The URL to the organizer page"
-msgstr "URL till organisatörens sida"
+msgstr "URL till arrangörens sida"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:65
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:244
@@ -1302,7 +1302,7 @@ msgstr "Lång beskrivning av arrangör"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:73
 msgid "The organizer short description"
-msgstr "Kort beskrivning av organisatören"
+msgstr "Kort beskrivning av arrangör"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:86
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:263
@@ -1312,11 +1312,11 @@ msgstr "Arrangörens telefonnummer"
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:90
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:269
 msgid "The organizer website"
-msgstr "Organisatörens webbplats"
+msgstr "Arrangörens webbplats"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:94
 msgid "The organizer email address"
-msgstr "Arrangörens e-post-adress"
+msgstr "Arrangörens e-postadress"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
@@ -4396,7 +4396,7 @@ msgstr ""
 
 #: src/Tribe/Organizer.php:184
 msgid "organizer"
-msgstr "organisatör"
+msgstr "arrangör"
 
 #: src/Tribe/Venue.php:194
 msgid "venues"
@@ -4450,7 +4450,7 @@ msgstr "Tillåt kommentarer till evenemang"
 
 #: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Event Organizer Name(s) or ID(s)"
-msgstr "Organisatörens namn eller ID"
+msgstr "Arrangörens namn eller ID"
 
 #: src/Tribe/Importer/Column_Mapper.php:74
 msgid "Event Sticky in Month View"
@@ -5125,7 +5125,7 @@ msgstr "En kolumn i CSV ska ha händelsetiteln. En annan ska ha evenemang startd
 
 #: src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
-msgstr "När du har importerat dina Arrangörer och Platser, importera dina evenemang:"
+msgstr "När du har importerat dina arrangörer och platser, importera dina evenemang:"
 
 #: src/io/csv/admin-views/import.php:26 src/io/csv/admin-views/import.php:32
 msgid "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar."
@@ -7730,7 +7730,7 @@ msgstr "lista"
 msgid "month"
 msgstr "månad"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569

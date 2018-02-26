@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-10-01 08:25:42+0000\n"
+"PO-Revision-Date: 2018-02-13 10:52:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -107,7 +107,7 @@ msgstr ""
 #: src/Tribe/iCal.php:424
 msgctxt "iCal feed description"
 msgid "Events for %s"
-msgstr ""
+msgstr "Догађаји за %s"
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
@@ -7470,7 +7470,7 @@ msgstr "Дан"
 
 #: src/Tribe/Main.php:4333
 msgid "Month"
-msgstr "Mjesec"
+msgstr "Месец"
 
 #: src/Tribe/Main.php:4315
 msgid "List"
@@ -7760,7 +7760,7 @@ msgstr "Листа"
 msgid "month"
 msgstr "месец"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569

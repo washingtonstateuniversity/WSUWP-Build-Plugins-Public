@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-12-14 18:41:50+0000\n"
+"PO-Revision-Date: 2018-02-16 14:11:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -448,11 +448,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:238
 msgid "The event description"
-msgstr ""
+msgstr "Descrição do evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:232
 msgid "The event title"
-msgstr ""
+msgstr "Título do evento"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:226
 msgid "The event publication date (UTC timezone)"
@@ -812,7 +812,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:128
 msgid "click here to edit it"
-msgstr ""
+msgstr "clique aqui para editar"
 
 #: src/Tribe/Aggregator/Settings.php:300
 msgid "Do not limit (not recommended)"
@@ -7730,7 +7730,7 @@ msgstr "lista"
 msgid "month"
 msgstr "mês"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569

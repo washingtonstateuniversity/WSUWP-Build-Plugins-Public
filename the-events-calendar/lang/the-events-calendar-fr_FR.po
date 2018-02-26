@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-21 09:41:50+0000\n"
+"PO-Revision-Date: 2018-01-29 10:21:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -54,7 +54,7 @@ msgstr ""
 
 #: common/src/Tribe/Validate.php:184
 msgid "%s must not be empty"
-msgstr ""
+msgstr "%s ne doit pas être vide"
 
 #: src/functions/template-tags/general.php:1312
 msgid "Calendar powered by %s"
@@ -115,7 +115,7 @@ msgstr "La page d’archives correspondant à ce terme n’existe pas"
 
 #: src/Tribe/REST/V1/Messages.php:43
 msgid "The requested organizer archive page does not exist"
-msgstr ""
+msgstr "La page d’archives correspondant à cet organisateur n’existe pas"
 
 #: src/Tribe/REST/V1/Messages.php:42
 msgid "The requested venue archive page does not exist"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:215
 msgid "The venue publication date"
-msgstr ""
+msgstr "La date de publication du lieu"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:209
 msgid "The venue author ID"
@@ -239,7 +239,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:144
 msgid "The user is not authorized to create venues"
-msgstr ""
+msgstr "L’utilisateur n’est pas autorisé à créer des lieux"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:135
 msgid "Returns the data of the created venue"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:114
 msgid "The venue post ID is missing."
-msgstr ""
+msgstr "L’ID du lieu est manquant."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:108
 msgid "Returns the data of the venue with the specified post ID"
@@ -1462,7 +1462,7 @@ msgstr "L’identifiant de l’article demandé n’existe pas ou n’est pas un
 
 #: src/admin-views/aggregator/fields/schedule.php:3
 msgid "Schedule:"
-msgstr "Plannifier :"
+msgstr "Planifier :"
 
 #: src/admin-views/aggregator/fields/schedule.php:32
 msgid "Import runs daily at approximately"
@@ -3048,7 +3048,7 @@ msgstr "Infos développeur"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate us today!"
-msgstr "Évaluez nous aujourd’hui !"
+msgstr "Évaluez-nous aujourd’hui !"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:22
 msgid "Eventbrite URL"
@@ -3446,7 +3446,7 @@ msgstr "Imports favoris"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:143
 msgid "Your Scheduled Import has been updated!"
-msgstr "Votre import planifié a été mis à jour !"
+msgstr "Votre import planifié a été mis à jour !"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:137
 msgid "View All Scheduled Imports"
@@ -3868,7 +3868,7 @@ msgstr "Fichier joint supprimé(s) : %d"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:477
 msgid "Record: "
-msgstr "Enregistrement :"
+msgstr "Enregistrement :"
 
 #: src/Tribe/Aggregator/Page.php:406
 msgid "Manage Active Plugins"
@@ -5971,7 +5971,7 @@ msgstr "Pro"
 
 #: src/admin-views/admin-update-message.php:49
 msgid "Looking for Something Special?"
-msgstr "Vous cherchez quelque chose de spécial ?"
+msgstr "Vous cherchez quelque chose de spécial ?"
 
 #: src/admin-views/admin-update-message.php:43
 #: src/admin-views/admin-welcome-message.php:31
@@ -7384,7 +7384,7 @@ msgstr "Hum… Quelque chose ne fonctionne pas avec ce validateur. Veuillez cont
 
 #: common/src/Tribe/PUE/Checker.php:927
 msgid "Valid Key! Expires on %s"
-msgstr "﻿Clé valide ! Expire le %s"
+msgstr "﻿Clé valide ! Expire le %s"
 
 #: common/src/Tribe/PUE/Checker.php:907
 msgid "Sorry, key validation server is not available."
@@ -7733,7 +7733,7 @@ msgstr "liste"
 msgid "month"
 msgstr "mois"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569

@@ -2,6 +2,19 @@
 
 == Changelog ==
 
+= [4.7.7.1] TBD =
+
+* Fix - Rollback changes introduced in version 4.7.7 to allow month view to render correctly.
+
+= [4.7.7] 2018-02-14 =
+
+* Fix - Fixed the behavior of the `tribe_format_currency` function not to overwrite explicit parameters [96777]
+* Fix - Modified timezone handling in relation to events, in order to avoid DST changes upon conversion to UTC [69784]
+* Tweak - Improved the performance of dropdown and recurrent events by using caching on objects (our thanks to Gilles in the forums for flagging this problem) [81993]
+* Tweak - Reduced the risk of conflicts when lodash and underscore are used on the same site [92205]
+* Tweak - Added the `tribe_transient_notice` and `tribe_transient_notice_remove` functions to easily create and remove fire-and-forget admin notices
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.7.6] 2018-01-23 =
 
 * Fix - Make sure to apply `$settings` to each section with the initial values in the customizer [96821]

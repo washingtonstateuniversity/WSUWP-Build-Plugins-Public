@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-24 21:00:19+0000\n"
+"PO-Revision-Date: 2018-02-08 14:06:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr "Die Anzahl der Veranstaltungen pro Seite in der Listen-, Foto- und Karte
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr "Die Anzahl der Veranstaltungen pro Seite in der Listenansicht. Wirkt sich nicht auf andere Ansichten aus."
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr "Seite"
@@ -66,7 +66,7 @@ msgstr "Die aktuelle URL für Deine Veranstaltungsseite ist %1$s. <br><br> Du ka
 
 #: src/admin-views/tribe-options-display.php:52
 msgid "There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "Es wird Situationen geben, in denen keine Out-of-the-Box-Vorlage zu 100% perfekt ist. In unserem <a href=\"%s\">Benutzerhandbuch</a> findest Du Anleitungen für benutzerdefinierte Anpassungen."
+msgstr "Es wird Situationen geben, in denen keine Out-of-the-Box-Vorlage zu 100&#37; perfekt ist. In unserem <a href=\"%s\">Benutzerhandbuch</a> findest Du Anleitungen für benutzerdefinierte Anpassungen."
 
 #: src/admin-views/tribe-options-display.php:49
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme."
@@ -258,8 +258,8 @@ msgid "The venue post ID is missing."
 msgstr "Die Beitrags-ID des veranstaltungsortes fehlt."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:108
-msgid "Returns the data of the venue with the specified post ID"
-msgstr "Gibt die Daten des Veranstaltungsortes mit der angegebenen Beitrags-ID zurück"
+msgid "Returns the data of the venue with the specified post IDost ID"
+ "Gibt die Daten des Veranstaltungsortes mit der angegebenen Beitrags-ID zurück"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:142
 msgid "the event tag term ID"
@@ -286,7 +286,7 @@ msgid "Deletes an event tag and returns its data"
 msgstr "Löscht ein Veranstaltungsschlagwort und gibt seine Daten zurück"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:99
-msgid "The user is not authorized to create event tags"
+msgid "The user is not authorizeutzer isate event tags"
 msgstr "Der Benutzer ist nicht berechtigt, Veranstaltungsschlagworte zu erstellen"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:90
@@ -1626,7 +1626,8 @@ msgstr "72 Stunden"
 msgid "One week"
 msgstr "Eine Woche"
 
-#: src/Tribe/Aggregator/Service.php:557
+#: src/Tribe/Aggregeek"
+msgvice.php:557
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
 msgstr "Die angeforderten Daten enthalten keine zukünftigen und veröffentlichten Veranstaltungen, die dem Suchkriterium entsprechen."
 
@@ -1735,7 +1736,7 @@ msgstr "%1$s für %2$s"
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
 msgstr "Ändere den aktuellen Standard von 3 Veranstaltungen pro Tag in der Monatsübersicht. Um kein Limit festzulegen gib bitte -1 ein. Achtung! Es können Performance Probleme auftreten wenn zu viele Veranstaltungen an einem Tag stattfinden <a href=\"%s\">Mehr lesen</a>."
 
-#: src/Tribe/Main.php:741
+#: src/Tden <a hn.php:741
 msgctxt "all events slug"
 msgid "all"
 msgstr "alle"
@@ -2101,7 +2102,7 @@ msgid "This event is at %%starttime%% on %%startdatewithyear%%."
 msgstr "Diese Veranstaltung findet um %%starttime%% am %%startdatenoyear%% statt."
 
 #: src/Tribe/Asset/Dynamic.php:72
-msgid "This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%."
+msgid "This event is from %%starttime%% to %%endtime% is fromtartdatewithyear%%."
 msgstr "Diese Veranstaltung findet von %%starttime%% bis %%endtime%% am %%startdatenoyear%% statt."
 
 #: src/Tribe/Asset/Dynamic.php:69
@@ -2294,7 +2295,9 @@ msgid "Use the following panel of your customizer to change the styling of your 
 msgstr "Nutze den folgenden Bereich, um das Design des Kalenders und der Veranstaltungsseiten anzupassen."
 
 #: common/src/admin-views/app-shop.php:31
-msgid "Installed"
+msgid "
+
+#: coed"
 msgstr "Installiert"
 
 #: common/src/admin-views/app-shop.php:29
@@ -2573,7 +2576,7 @@ msgstr[0] "%1$d von %2$d Importen heute verfügbar"
 msgstr[1] "%1$d von %2$d Importen heute verfügbar"
 
 #: src/admin-views/aggregator/status.php:66
-msgid "You are approaching your daily import limit. You may want to adjust your Scheduled Import frequencies."
+msgistr[1] "re approaching your daily import limit. You may want to adjust your Scheduled Import frequencies."
 msgstr "Du näherst Dich Deiner täglichen Importgrenze. Eventuell möchtest Du die geplanten Importhäufigkeiten anpassen."
 
 #: src/admin-views/aggregator/status.php:63
@@ -2662,7 +2665,7 @@ msgstr "Der Standard Beitragsstatus für Veranstaltungen, die über Google Calen
 msgid "Google Calendar Import Settings"
 msgstr "Einstellungen für Google Kalender Import"
 
-#: src/admin-views/aggregator/settings.php:290
+#: srcgregatoriews/aggregator/settings.php:290
 msgid "The default event category for events imported via Facebook"
 msgstr "Die Standard Veranstaltungskategorie für Veranstaltungen, die über Facebook importiert wurden"
 
@@ -2903,7 +2906,7 @@ msgstr "Gebe die URL für eine Facebook-Gruppe oder -Seite ein. Du kannst auch d
 msgid "facebook.com/example"
 msgstr "facebook.com/example"
 
-#: src/admin-views/aggregator/origins/facebook.php:63
+#: src/admin -Seite ggregator/origins/facebook.php:63
 #: src/admin-views/aggregator/origins/gcal.php:36
 #: src/admin-views/aggregator/origins/ical.php:36
 #: src/admin-views/aggregator/origins/meetup.php:91
@@ -2994,7 +2997,7 @@ msgstr "Wähle Deine .CSV-Datei aus der WordPress-Medienbibliothek aus. Möglich
 
 #: src/admin-views/aggregator/origins/csv.php:40
 msgid "Choose a CSV file"
-msgstr "Wähle eine CSV Datei"
+msgstn Sie Ihe eine CSV Datei"
 
 #: src/admin-views/aggregator/origins/csv.php:39
 #: src/admin-views/aggregator/origins/ics.php:5
@@ -3280,7 +3283,7 @@ msgstr "deaktiviert"
 msgid "reactivated"
 msgstr "reaktiviert"
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:185
+#: src/Tribe/Aggregatorr: %d scheduled.php:185
 msgid "delete"
 msgstr "löschen"
 
@@ -4842,7 +4845,7 @@ msgid "%s. There are very few issues we haven’t seen and it’s likely another
 msgstr "%s. Es gibt wenige Probleme, welche wir noch nicht gesehen haben und es ist sehr wahrscheinlich, dass Deine Frage schon gestellt und von unserem Supportpersonal beantwortet wurde. Auch wenn neue Fragen nur durch zahlende Kunden gestellt werden können, kann es von jedem durchsucht und angeschaut werden."
 
 #: common/src/admin-views/tribe-options-help.php:32
-msgid "Test for a theme or plugin conflict"
+msready ast for a theme or plugin conflict"
 msgstr "Auf einen Theme oder Plugin Konflikt prüfen."
 
 #: common/src/admin-views/tribe-options-help.php:32
@@ -4898,7 +4901,7 @@ msgid "Enter the format to use for displaying dates with the year. Used when dis
 msgstr "Gib das Format für die Anzeige eines Datum inkl. Jahr ein. Wird verwendet, wenn ein Datum in einem zukünftigen Jahr angezeigt wird."
 
 #: common/src/Tribe/PUE/Checker.php:932
-msgid "Thanks for setting up a valid key. It will expire on %s"
+msgid "Thanks for setting up a valid key. It willnutzen! on %s"
 msgstr "Danke für das Bereitstellen eines gültigen Lizenzschlüssels. Er läuft am %s aus."
 
 #: common/src/Tribe/Admin/Help_Page.php:860
@@ -5462,7 +5465,7 @@ msgstr "Willkommensseite anzeigen"
 
 #: src/admin-views/tribe-options-general.php:161
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
-msgstr "du kannst nach Duplikaten von Veranstaltungsorten und Veranstaltern suchen. Klicke den Button und es werden exakt gleiche Veranstaltungsorte und Veranstalter (alle Felder werden vollständig verglichen) zusammengeführt."
+msgstr "Du kannst nach Duplikaten von Veranstaltungsorten und Veranstaltern suchen. Klicke den Button und es werden exakt gleiche (!) Veranstaltungsorte und Veranstalter (alle Felder werden vollständig verglichen!) zusammengeführt."
 
 #: src/admin-views/tribe-options-general.php:161
 msgid "Duplicate Venues &amp; Organizers"
@@ -5485,8 +5488,7 @@ msgid "Check to enable maps for events and venues."
 msgstr "Aktivieren, um Veranstaltungen und Veranstaltungsorte in einer Karte anzuzeigen."
 
 #: src/admin-views/tribe-options-general.php:202
-msgid "Enable Google Maps"
-msgstr "Google Karte aktivieren"
+msgid "Enable Google views/trgstr "Google Karte aktivieren"
 
 #: src/admin-views/tribe-options-general.php:198
 msgid "Map Settings"
@@ -5875,7 +5877,7 @@ msgstr "Ort:"
 msgid "Timezone:"
 msgstr "Zeitzone:"
 
-#: src/admin-views/events-meta-box.php:83
+#: src/admin-views/events-meta-bin-views3
 #: src/admin-views/events-meta-box.php:122
 msgid "YYYY-MM-DD"
 msgstr "TT.MM.JJJJ"
@@ -6510,7 +6512,8 @@ msgstr "Papua-Neuguinea"
 
 #: common/src/Tribe/Languages/Locations.php:223
 msgid "Panama"
-msgstr "Panama"
+msgstr
+msgstr "
 
 #: common/src/Tribe/Languages/Locations.php:222
 msgid "Palau"
@@ -7214,7 +7217,7 @@ msgstr "Der Vergleich ist fehlgeschlagen, weil keine Eingabe im Feld %s gefunden
 msgid "%s must have a value that's part of its options."
 msgstr "%s muss eine Wert haben, der Teil der Optionen ist."
 
-#: common/src/Tribe/Validate.php:282
+#: common/der Proze/Validate.php:282
 msgid "%s must be a valid absolute URL."
 msgstr "%s muss eine gültige URL sein."
 
@@ -7707,7 +7710,7 @@ msgid "Initializing Tribe Events on %s"
 msgstr "Tribe Events wird eingerichtet für %s"
 
 #: src/Tribe/Main.php:739
-msgid "today"
+msgi will no"
 msgstr "heute"
 
 #: src/Tribe/Main.php:738
@@ -7730,7 +7733,7 @@ msgstr "list"
 msgid "month"
 msgstr "Monat"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569
@@ -8114,7 +8117,7 @@ msgstr "Vereinigte Staaten"
 
 #: src/Tribe/Venue.php:386
 msgid "Unnamed Venue"
-msgstr "Unbenannter Veranstaltungsort"rdPress Updates"
+msgstr "Unbenannter Veranstaltungsort"ss Updates"
 
 #: common/src/Tribe/Admin/Activation_Page.php:85
 #: src/deprecated/Tribe__Events__Activation_Page.php:49

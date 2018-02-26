@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-26 13:42:00+0000\n"
+"PO-Revision-Date: 2018-02-06 13:11:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,10 +19,10 @@ msgstr ""
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr ""
+msgstr "pagina"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
@@ -54,11 +54,11 @@ msgstr ""
 
 #: common/src/Tribe/Validate.php:184
 msgid "%s must not be empty"
-msgstr ""
+msgstr "%s mag niet leeg zijn"
 
 #: src/functions/template-tags/general.php:1312
 msgid "Calendar powered by %s"
-msgstr ""
+msgstr "Kalender mogelijk gemaakt door %s"
 
 #: src/admin-views/tribe-options-general.php:78
 msgid "The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href=\"%2$s\">enable pretty permalinks</a>."
@@ -107,7 +107,7 @@ msgstr ""
 #: src/Tribe/iCal.php:424
 msgctxt "iCal feed description"
 msgid "Events for %s"
-msgstr ""
+msgstr "Evenementen voor %s"
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
@@ -440,19 +440,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:263
 msgid "The event timezone"
-msgstr ""
+msgstr "Tijdzone evenement"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:250
 msgid "The event excerpt"
-msgstr ""
+msgstr "Samenvatting evenement"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:238
 msgid "The event description"
-msgstr ""
+msgstr "Beschrijving evenement"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:232
 msgid "The event title"
-msgstr ""
+msgstr "Titel evenement"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:226
 msgid "The event publication date (UTC timezone)"
@@ -812,19 +812,19 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:128
 msgid "click here to edit it"
-msgstr ""
+msgstr "klik hier om te bewerken"
 
 #: src/Tribe/Aggregator/Settings.php:300
 msgid "Do not limit (not recommended)"
-msgstr ""
+msgstr "Geen limiet (niet aangeraden)"
 
 #: src/Tribe/Aggregator/Settings.php:299
 msgid "By number of events"
-msgstr ""
+msgstr "Op aantal evenementen"
 
 #: src/Tribe/Aggregator/Settings.php:298
 msgid "By date range"
-msgstr ""
+msgstr "Op datum reeks"
 
 #: src/Tribe/Aggregator/Service.php:567
 msgctxt "The placeholder is for the localized version of the iCal UID specification link"
@@ -902,7 +902,7 @@ msgstr "Bewerk evenement-instellingen."
 
 #: src/Tribe/Main.php:959
 msgid "Edit the %s slug"
-msgstr ""
+msgstr "Bewerk de %s slug"
 
 #: src/Tribe/Linked_Posts.php:984
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
@@ -921,7 +921,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:283
 msgid "Clear Selection."
-msgstr ""
+msgstr "Wis selectie."
 
 #: common/src/Tribe/Main.php:282
 msgid "Select all pages"
@@ -3890,7 +3890,7 @@ msgstr "Als alles volgens plan verloopt, heb je je voorbeeld over een ogenblikje
 
 #: src/Tribe/Aggregator/Page.php:97
 msgid "Please continue to wait while your preview is generated."
-msgstr "Blijf wachten terwijl je voorvertoning wordt gegenereerd."
+msgstr "Blijf wachten terwijl je voorbeeld wordt gegenereerd."
 
 #: src/Tribe/Aggregator/Page.php:96
 msgid "Please wait while your preview is fetched."
@@ -4681,7 +4681,7 @@ msgstr "%1$s gepland voor:%2$s. %3$sPreview%4$s"
 
 #: src/Tribe/Main.php:1781
 msgid "%1$s submitted. %2$sPreview %3$s"
-msgstr "%1$s ingediend. %2$sBekijk voorvertoning van %3$s"
+msgstr "%1$s ingediend. %2$sVoorbeeld %3$s"
 
 #: src/Tribe/Main.php:1763
 msgid "%1$s updated. %2$sView %1$s%3$s"
@@ -5722,7 +5722,7 @@ msgstr "Je moet minstens één weergave selecteren."
 
 #: src/admin-views/tribe-options-display.php:165
 msgid "Enable event views"
-msgstr "Schakel event vieuw in"
+msgstr "Schakel evenement weergave in"
 
 #: src/admin-views/tribe-options-display.php:157
 msgid "Choose a page template to control the appearance of your calendar and event content."
@@ -6338,7 +6338,7 @@ msgstr "Thailand"
 
 #: common/src/Tribe/Languages/Locations.php:270
 msgid "Tanzania, United Republic of"
-msgstr ""
+msgstr "Tanzania"
 
 #: common/src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
@@ -6714,11 +6714,11 @@ msgstr "Koeweit"
 
 #: common/src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr ""
+msgstr "Zuid-Korea"
 
 #: common/src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr ""
+msgstr "Noord-Korea"
 
 #: common/src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
@@ -6762,7 +6762,7 @@ msgstr "Irak"
 
 #: common/src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr ""
+msgstr "Iran"
 
 #: common/src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
@@ -7730,7 +7730,7 @@ msgstr "lijst"
 msgid "month"
 msgstr "maand"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-17 14:24:04+0000\n"
+"PO-Revision-Date: 2018-02-01 20:48:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/Tribe/Rewrite.php:257
+#: src/Tribe/Rewrite.php:264
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
 msgstr ""
@@ -2716,7 +2716,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:391
 #: src/admin-views/aggregator/settings.php:431
 msgid "Show Google Map"
-msgstr ""
+msgstr "Google Térkép megjelenítése"
 
 #: src/admin-views/aggregator/settings.php:126
 msgid "The default event category for events"
@@ -2743,7 +2743,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:380
 #: src/admin-views/aggregator/settings.php:420
 msgid "Default Event Category"
-msgstr ""
+msgstr "Alapértelmezett esemény kategória"
 
 #: src/admin-views/aggregator/settings.php:68
 msgid "The default post status for events imported via CSV"
@@ -2779,7 +2779,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:31
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: src/admin-views/aggregator/settings.php:18
 msgid "No default category"
@@ -2816,7 +2816,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Kulcsszó"
 
 #: src/admin-views/aggregator/origins/meetup.php:139
 msgid "Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event."
@@ -2848,7 +2848,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:10
 msgid "Upload an ICS File"
-msgstr ""
+msgstr "ICS fájl feltöltése"
 
 #: src/admin-views/aggregator/origins/ics.php:7
 msgid "Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library."
@@ -2856,7 +2856,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:6
 msgid "Choose File"
-msgstr ""
+msgstr "Fájl kiválasztása"
 
 #: src/admin-views/aggregator/origins/ical.php:84
 msgid "Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics"
@@ -2981,12 +2981,12 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/csv.php:43
 msgid "Upload a CSV File"
-msgstr ""
+msgstr "CSV fájl feltöltése"
 
 #: src/admin-views/aggregator/origins/csv.php:42
 #: src/admin-views/aggregator/origins/ics.php:9
 msgid "Upload"
-msgstr ""
+msgstr "Feltöltés"
 
 #: src/admin-views/aggregator/origins/csv.php:41
 msgid "Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library."
@@ -2994,12 +2994,12 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/csv.php:40
 msgid "Choose a CSV file"
-msgstr ""
+msgstr "CSV fájl kiválasztása"
 
 #: src/admin-views/aggregator/origins/csv.php:39
 #: src/admin-views/aggregator/origins/ics.php:5
 msgid "Choose File:"
-msgstr ""
+msgstr "Fájl kiválasztása:"
 
 #: src/admin-views/aggregator/origins/csv.php:8
 msgid "For the best results, import venue and organizer files before importing event files."
@@ -3036,19 +3036,19 @@ msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:9
 msgid "Last Import:"
-msgstr ""
+msgstr "Utolsó importálás:"
 
 #: src/admin-views/admin-welcome-message.php:29
 msgid "News and Announcements"
-msgstr ""
+msgstr "Hírek és közlemények"
 
 #: src/admin-views/admin-welcome-message.php:28
 msgid "Developer News"
-msgstr ""
+msgstr "Fejlesztői hírek"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate us today!"
-msgstr ""
+msgstr "Értékeljen minket ma!"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:22
 msgid "Eventbrite URL"
@@ -3056,7 +3056,7 @@ msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:19
 msgid "We Need Your Help"
-msgstr ""
+msgstr "Szükségünk van a segítségére"
 
 #: src/Tribe/Utils/Radius.php:55
 msgctxt "Abbreviation for the kilometers unit of measure"
@@ -3137,7 +3137,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:315
 msgid "Last Import"
-msgstr ""
+msgstr "Utolsó importálás"
 
 #: src/Tribe/Ignored_Events.php:314 src/admin-views/aggregator/meta-box.php:14
 msgid "The last time this event was imported and/or updated via import."
@@ -3186,7 +3186,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:148
 msgid "Undo"
-msgstr ""
+msgstr "Visszavonás"
 
 #: src/Tribe/Ignored_Events.php:137
 msgid "and %s post moved to Ignored."
@@ -3212,12 +3212,12 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:51 src/Tribe/Ignored_Events.php:398
 msgid "Hide & Ignore"
-msgstr ""
+msgstr "Elrejt & Mellőz"
 
 #: src/Tribe/Ignored_Events.php:47 src/Tribe/Ignored_Events.php:468
 #: src/Tribe/Ignored_Events.php:744
 msgid "Ignored"
-msgstr ""
+msgstr "Mellőzött"
 
 #: src/Tribe/Ignored_Events.php:44
 msgid "Ignored events that are deleted will be removed permanently. They can be recreated via import."
@@ -3282,7 +3282,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:185
 msgid "delete"
-msgstr ""
+msgstr "törlés"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:181
 msgid "queued"
@@ -3314,7 +3314,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:534
 msgid "Buy It Now"
-msgstr ""
+msgstr "Vásárlás most"
 
 #: src/Tribe/Aggregator/Tabs/New.php:531
 msgid "With Event Aggregator, you can import events from Facebook, iCalendar, Google, and Meetup.com in a jiffy."
@@ -3363,13 +3363,13 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:355
 msgid "View your event categories"
-msgstr ""
+msgstr "Esemény kategóriák megtekintése"
 
 #: src/Tribe/Aggregator/Tabs/New.php:351
 msgid "%1$d new event category was created."
 msgid_plural "%1$d new event categories were created."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d esemény kategória létrehozva."
+msgstr[1] "%1$d esemény kategória létrehozva."
 
 #: src/Tribe/Aggregator/Tabs/New.php:342
 msgid "View your event organizers"
@@ -3393,7 +3393,7 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:316
 msgid "View all %s"
-msgstr ""
+msgstr "Összes %s megtekintése"
 
 #: src/Tribe/Aggregator/Tabs/New.php:308
 msgid "No %1$s were imported or updated."
@@ -3490,7 +3490,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:554
 msgid "Import is complete"
-msgstr ""
+msgstr "Importálás befejezve"
 
 #: src/Tribe/Aggregator/Service.php:553
 msgid "Successfully loaded import origins"
@@ -3502,7 +3502,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:551
 msgid "Import created"
-msgstr ""
+msgstr "Importálás létrehozva"
 
 #: src/Tribe/Aggregator/Service.php:550
 msgid "Success"
@@ -3514,7 +3514,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:548
 msgid "The import is in progress."
-msgstr ""
+msgstr "Az importálás folyamatban van."
 
 #: src/Tribe/Aggregator/Service.php:546
 msgid "Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key."
@@ -3566,7 +3566,7 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Records.php:256
 msgctxt "event aggregator status"
 msgid "Draft"
-msgstr ""
+msgstr "Vázlat"
 
 #: src/Tribe/Aggregator/Records.php:247
 msgctxt "event aggregator status"
@@ -3578,7 +3578,7 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Records.php:246
 msgctxt "event aggregator status"
 msgid "Pending"
-msgstr ""
+msgstr "Függőben levő"
 
 #: src/Tribe/Aggregator/Records.php:237
 msgctxt "event aggregator status"
@@ -3691,11 +3691,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:94
 msgid "Updated:"
-msgstr ""
+msgstr "Frissítve:"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:93
 msgid "Created:"
-msgstr ""
+msgstr "Létrehozva:"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:89
 msgid "Your import is currently in progress. Don't worry, you can safely navigate away&ndash;the import will continue in the background."
@@ -3713,13 +3713,13 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:611
 #: src/Tribe/Aggregator/Record/List_Table.php:619
 msgid "updated"
-msgstr ""
+msgstr "frissítve"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:600
 #: src/Tribe/Aggregator/Record/List_Table.php:608
 #: src/Tribe/Aggregator/Record/List_Table.php:616
 msgid "new"
-msgstr ""
+msgstr "új"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:597
 msgid "Latest Import:"
@@ -3757,7 +3757,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:489
 msgid "Keywords:"
-msgstr ""
+msgstr "Kulcsszavak:"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:476
 #: src/Tribe/Ignored_Events.php:337
@@ -3779,15 +3779,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:413
 msgid "Import failed"
-msgstr ""
+msgstr "Importálás sikertelen"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:409
 msgid "Import completed"
-msgstr ""
+msgstr "Importálás sikeres"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:379
 msgid "Run Import"
-msgstr ""
+msgstr "Importálás futtatása"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:378
 msgid "Start an import from this source now, regardless of schedule."
@@ -3833,7 +3833,7 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
-msgstr ""
+msgstr "Alkalmaz"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:228
 #: src/Tribe/Aggregator/Record/List_Table.php:229
@@ -3842,7 +3842,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:181
 msgid "Filter"
-msgstr ""
+msgstr "Szűrő"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:163
 #: src/Tribe/Aggregator/Record/List_Table.php:164
@@ -3856,7 +3856,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/ICS.php:33
 msgid "ICS"
-msgstr ""
+msgstr "ICS"
 
 #: src/Tribe/Aggregator/Record/Eventbrite.php:14
 msgid "Eventbrite"
@@ -3927,11 +3927,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:86
 msgid "Import All"
-msgstr ""
+msgstr "Összes importálása"
 
 #: src/Tribe/Aggregator/Page.php:85
 msgid "Import All (%d)"
-msgstr ""
+msgstr "Összes importálása (%d)"
 
 #: src/Tribe/Aggregator/Page.php:83
 msgid "There was an error fetching the results from your import:"
@@ -3944,12 +3944,12 @@ msgstr ""
 #: src/Tribe/Aggregator/Page.php:81
 msgctxt "Meridian: pm"
 msgid "PM"
-msgstr ""
+msgstr "DU"
 
 #: src/Tribe/Aggregator/Page.php:80
 msgctxt "Meridian: am"
 msgid "AM"
-msgstr ""
+msgstr "DE"
 
 #: src/Tribe/Aggregator/Migrate.php:435
 msgid "Success! The settings from iCal Importer have been migrated to Event Aggregator. You can view your migrated imports on the Scheduled Imports tab."
@@ -3997,7 +3997,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Meta_Box.php:38
 msgid "Imported Event"
-msgstr ""
+msgstr "Importált esemény"
 
 #: src/Tribe/Aggregator/Errors.php:72
 msgid "The records you were attempting to import were still not available when this queue was processed. Please try again."
@@ -4145,23 +4145,23 @@ msgstr ""
 #: src/admin-views/aggregator/status.php:203
 #: src/admin-views/tribe-options-addons-api.php:90
 msgid "Meetup"
-msgstr ""
+msgstr "Meetup"
 
 #: src/Tribe/Aggregator/API/Origins.php:54
 #: src/admin-views/aggregator/settings.php:499
 msgid "ICS File"
-msgstr ""
+msgstr "ICS fájl"
 
 #: src/Tribe/Aggregator/API/Origins.php:48
 #: src/Tribe/Aggregator/Record/iCal.php:14
 #: src/admin-views/aggregator/settings.php:498
 msgid "iCalendar"
-msgstr ""
+msgstr "iCalendar"
 
 #: src/Tribe/Aggregator/API/Origins.php:31
 #: src/Tribe/Aggregator/Admin_Bar.php:88 src/Tribe/Aggregator/Service.php:626
 msgid "CSV File"
-msgstr ""
+msgstr "CSV fájl"
 
 #: src/Tribe/Admin_List.php:330
 msgctxt "%s Event count in admin list"
@@ -4199,7 +4199,7 @@ msgstr ""
 
 #: common/src/admin-views/app-shop.php:26
 msgid "Buy This Add-On"
-msgstr ""
+msgstr "Bővítmény megvásárlása"
 
 #: common/src/admin-views/app-shop.php:5
 msgid "Browse All Add-Ons"
@@ -4223,7 +4223,7 @@ msgstr ""
 
 #: common/src/Tribe/Support.php:325 common/src/Tribe/Support.php:330
 msgid "Invalid Key"
-msgstr ""
+msgstr "Érvénytelen kulcs"
 
 #: common/src/Tribe/Support.php:306
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
@@ -4277,7 +4277,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:287
 msgid "Previous"
-msgstr ""
+msgstr "Előző"
 
 #: common/src/Tribe/Main.php:285
 msgid "All"
@@ -4330,7 +4330,7 @@ msgstr ""
 #: common/src/Tribe/Main.php:250
 #: common/src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Másolás a vágólapra"
 
 #: common/src/Tribe/Error.php:38
 msgid "An Unknown error occurred"
@@ -4343,7 +4343,7 @@ msgstr "Event Aggregator"
 
 #: common/src/Tribe/Support.php:171
 msgid "English"
-msgstr ""
+msgstr "Angol"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:3
 msgid "Eventbrite Event"
@@ -4396,15 +4396,15 @@ msgstr ""
 
 #: src/Tribe/Organizer.php:184
 msgid "organizer"
-msgstr ""
+msgstr "szervező"
 
 #: src/Tribe/Venue.php:194
 msgid "venues"
-msgstr ""
+msgstr "helyszínek"
 
 #: src/Tribe/Venue.php:185
 msgid "venue"
-msgstr ""
+msgstr "helyszín"
 
 #: src/io/csv/admin-views/result.php:33
 msgid "Rows numbers with encoding changes: %s"
@@ -4417,12 +4417,12 @@ msgstr ""
 #: src/functions/template-tags/venue.php:775
 msgctxt "Address separator"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/admin-views/tribe-options-addons-api.php:122
 #: src/admin-views/tribe-options-addons-api.php:162
 msgid "APIs"
-msgstr ""
+msgstr "API-k"
 
 #: src/Tribe/Importer/Options.php:183
 msgid "Do Not Encode Contents"
@@ -4434,11 +4434,11 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:124
 msgid "Organizer Description"
-msgstr ""
+msgstr "Szervező leírása"
 
 #: src/Tribe/Importer/Column_Mapper.php:101
 msgid "Venue Description"
-msgstr ""
+msgstr "Helyszín leírása"
 
 #: src/Tribe/Importer/Column_Mapper.php:87
 msgid "Event Allow Trackbacks and Pingbacks"
@@ -4462,7 +4462,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Timezone"
-msgstr ""
+msgstr "Esemény időzónája"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
@@ -4475,7 +4475,7 @@ msgstr ""
 #: src/Tribe/Google/Maps_API_Key.php:64
 #: src/admin-views/tribe-options-addons-api.php:99
 msgid "Click here"
-msgstr ""
+msgstr "Kattintson ide"
 
 #: src/Tribe/Google/Maps_API_Key.php:63
 msgid "<p>%s to create your Google Maps API key."
@@ -4515,15 +4515,15 @@ msgstr ""
 
 #: common/src/Tribe/Log.php:375
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Figyelmeztetések és hibák"
 
 #: common/src/Tribe/Log.php:374
 msgid "Only errors"
-msgstr ""
+msgstr "Csak hibák"
 
 #: common/src/Tribe/Log.php:373
 msgid "Disabled"
-msgstr ""
+msgstr "Letiltva"
 
 #: common/src/Tribe/Log.php:274
 msgid "Cannot set %s as the current logging engine"
@@ -4585,11 +4585,11 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:128
 msgid "Organizer Featured Image"
-msgstr ""
+msgstr "Szervező kiemelt képe"
 
 #: src/Tribe/Importer/Column_Mapper.php:110
 msgid "Venue Featured Image"
-msgstr ""
+msgstr "Helyszín kiemelt képe"
 
 #: src/Tribe/Importer/Column_Mapper.php:85
 msgid "Event Featured Image"
@@ -4601,11 +4601,11 @@ msgstr "Helyszín szerkesztése"
 
 #: src/views/list/nav.php:34
 msgid "Next %s"
-msgstr ""
+msgstr "Következő %s"
 
 #: src/views/list/nav.php:26
 msgid "Previous %s"
-msgstr ""
+msgstr "Előző %s"
 
 #: src/io/csv/admin-views/result.php:26
 msgid "%1$s%2$s%3$sInserted:%4$s A new item was inserted successfully. %5$s%2$s%3$sUpdated:%4$s An item was found with the same name and/or start date. The existing item was updated with the new value from the file.%5$s%2$s%3$sSkipped:%4$s A row was found in the CSV file that could not be imported. Please see below for the invalid rows.%5$s%6$s"
@@ -4625,19 +4625,19 @@ msgstr ""
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Következő nap"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Előző nap"
 
 #: src/admin-views/venue-meta-box.php:273
 msgid "%s Name already exists"
-msgstr ""
+msgstr "%s név már használatban van"
 
 #: src/admin-views/venue-meta-box.php:268
 msgid "%s Name can not be empty"
-msgstr ""
+msgstr "%s név nem lehet üres"
 
 #: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin %sFREE%s!"
@@ -4761,7 +4761,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1042
 msgid "Features overview"
-msgstr ""
+msgstr "Újdonságok áttekintése"
 
 #: src/Tribe/Main.php:1042
 msgid "%s: A complete look at the features you can expect to see right out of the box as well as how to use them."
@@ -4811,15 +4811,15 @@ msgstr "Kiürítés"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:254
 msgid "Add another %s"
-msgstr ""
+msgstr "Másik %s létrehozása"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:167
 msgid "Create New %s"
-msgstr ""
+msgstr "Új %s létrehozása"
 
 #: src/Tribe/Organizer.php:371
 msgid "Unnamed %s"
-msgstr ""
+msgstr "Névtelen %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:47
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
@@ -4851,7 +4851,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-help.php:31
 msgid "Check our Knowledgebase"
-msgstr ""
+msgstr "Tekintse meg a tudásbázisunkat"
 
 #: common/src/admin-views/tribe-options-help.php:31
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
@@ -4871,7 +4871,7 @@ msgstr ""
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Knowledgebase"
-msgstr ""
+msgstr "Tudásbázis"
 
 #: common/src/admin-views/tribe-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
@@ -4903,7 +4903,7 @@ msgstr ""
 
 #: common/src/Tribe/Admin/Help_Page.php:860
 msgid "Visit the Add-on Page"
-msgstr ""
+msgstr "Látogasson el a bővítmények oldalra"
 
 #: common/src/Tribe/Admin/Help_Page.php:855
 msgid "Plugin Inactive"
@@ -4915,15 +4915,15 @@ msgstr ""
 
 #: common/src/Tribe/Admin/Help_Page.php:828
 msgid "Rating:"
-msgstr ""
+msgstr "Értékelés:"
 
 #: common/src/Tribe/Admin/Help_Page.php:825
 msgid "Active Users:"
-msgstr ""
+msgstr "Aktív felhasználók:"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install Plugin"
-msgstr ""
+msgstr "Bővítmény telepítése"
 
 #: common/src/Tribe/Admin/Help_Page.php:802
 msgid "Install %s"
@@ -4991,11 +4991,11 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
-msgstr ""
+msgstr "Befejezve!"
 
 #: src/Tribe/Organizer.php:198
 msgid "organizers"
-msgstr ""
+msgstr "szervezők"
 
 #: src/admin-views/aggregator/origins/gcal.php:117
 #: src/admin-views/aggregator/origins/ical.php:111
@@ -5019,7 +5019,7 @@ msgstr "http://m.tri.be/1x"
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
@@ -5035,7 +5035,7 @@ msgstr "Összes %s"
 
 #: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
-msgstr ""
+msgstr "%s navigáció"
 
 #: src/views/month/nav.php:19
 msgid "Calendar Month Navigation"
@@ -5043,7 +5043,7 @@ msgstr "Hónap navigáció a naptárban"
 
 #: src/views/modules/meta/details.php:142
 msgid "%s Tags:"
-msgstr ""
+msgstr "%s címkék:"
 
 #: src/views/modules/bar.php:42
 msgid "View As"
@@ -5165,11 +5165,11 @@ msgstr "Beállítások mentése"
 
 #: src/Tribe/Importer/Options.php:135
 msgid "Draft"
-msgstr ""
+msgstr "Vázlat"
 
 #: src/Tribe/Importer/Options.php:134
 msgid "Pending"
-msgstr ""
+msgstr "Függőben levő"
 
 #: src/Tribe/Importer/Options.php:133
 msgid "Published"
@@ -5273,7 +5273,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:168
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: src/admin-views/aggregator/meta-box.php:2
 msgid "Origin:"
@@ -5414,7 +5414,7 @@ msgstr "Tovább..."
 #: common/src/Tribe/Admin/Help_Page.php:194 common/src/Tribe/Plugins_API.php:43
 #: src/Tribe/Main.php:1077
 msgid "Events Calendar PRO"
-msgstr ""
+msgstr "Events Calendar PRO"
 
 #: common/src/Tribe/Admin/Help_Page.php:413
 #: common/src/Tribe/Admin/Help_Page.php:788
@@ -5873,7 +5873,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:129
 msgid "Timezone:"
-msgstr ""
+msgstr "Időzóna:"
 
 #: src/admin-views/events-meta-box.php:83
 #: src/admin-views/events-meta-box.php:122
@@ -7512,15 +7512,15 @@ msgstr ""
 
 #: src/Tribe/Main.php:2287 src/functions/template-tags/general.php:111
 msgid "events"
-msgstr ""
+msgstr "események"
 
 #: src/Tribe/Main.php:2286 src/functions/template-tags/general.php:79
 msgid "event"
-msgstr ""
+msgstr "esemény"
 
 #: src/Tribe/Main.php:2285
 msgid "page"
-msgstr ""
+msgstr "oldal"
 
 #: common/src/Tribe/Settings_Manager.php:219
 msgid "Network"
@@ -7605,7 +7605,7 @@ msgstr "Új %s kategória neve"
 
 #: src/Tribe/Main.php:1745
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Új %s kategória hozzáadása"
 
 #: src/Tribe/Main.php:1744
 msgid "Update %s Category"
@@ -7730,7 +7730,7 @@ msgstr "lista"
 msgid "month"
 msgstr "hónap"
 
-#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10) 
+#. #-#-#-#-#  the-events-calendar-code.pot (The Events Calendar 4.6.10.1) 
 #. #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: common/src/Tribe/Admin/Help_Page.php:59 common/src/Tribe/Customizer.php:569
@@ -7831,7 +7831,7 @@ msgstr "Szervező neve"
 
 #: src/Tribe/Importer/Column_Mapper.php:109
 msgid "Venue Website"
-msgstr ""
+msgstr "Helyszín weboldala"
 
 #: src/Tribe/Importer/Column_Mapper.php:108
 #: src/admin-views/create-venue-fields.php:168
@@ -7941,7 +7941,7 @@ msgstr "Ne importálja"
 #: src/Tribe/Aggregator/Record/CSV.php:192
 #: src/Tribe/Importer/Admin_Page.php:357
 msgid "The following fields are required for a successful import:"
-msgstr ""
+msgstr "A következő mezők szükségesek a sikeres importáláshoz:"
 
 #: src/Tribe/Importer/Admin_Page.php:316
 msgid "We were unable to process your request. Please try again."
@@ -8105,7 +8105,7 @@ msgstr ""
 #: common/src/Tribe/Admin/Activation_Page.php:77
 #: src/deprecated/Tribe__Events__Activation_Page.php:41
 msgid "Go to plugins page"
-msgstr ""
+msgstr "Tovább a bővítményekhez"
 
 #: common/src/Tribe/Languages/Locations.php:55 src/Tribe/Venue.php:320
 #: src/functions/template-tags/venue.php:379
