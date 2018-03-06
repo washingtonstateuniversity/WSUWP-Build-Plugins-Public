@@ -6,6 +6,7 @@
  * @since 1.2
  */
 class PLL_Frontend_Filters extends PLL_Filters {
+	private $tax_query_lang;
 
 	/**
 	 * Constructor: setups filters and actions
@@ -28,6 +29,8 @@ class PLL_Frontend_Filters extends PLL_Filters {
 
 		// Filters categories and post tags by language
 		add_filter( 'terms_clauses', array( $this, 'terms_clauses' ), 10, 3 );
+		add_action( 'parse_query', array( $this, 'set_tax_query_lang' ) );
+		add_action( 'posts_selection', array( $this, 'unset_tax_query_lang' ) );
 
 		// Rewrites archives links to filter them by language
 		add_filter( 'getarchives_join', array( $this, 'getarchives_join' ), 10, 2 );
@@ -129,6 +132,9 @@ class PLL_Frontend_Filters extends PLL_Filters {
 	 * @return array
 	 */
 	public function get_terms_args( $args ) {
+		if ( isset( $this->tax_query_lang ) ) {
+			$args['lang'] = $this->tax_query_lang;
+		}
 		$lang = isset( $args['lang'] ) ? $args['lang'] : $this->curlang->slug;
 		$key = '_' . ( is_array( $lang ) ? implode( ',', $lang ) : $lang );
 		$args['cache_domain'] = empty( $args['cache_domain'] ) ? 'pll' . $key : $args['cache_domain'] . $key;
@@ -152,19 +158,30 @@ class PLL_Frontend_Filters extends PLL_Filters {
 			return $clauses;
 		}
 
-		// Ugly hack to fix the issue introduced by WP 4.9. See also https://core.trac.wordpress.org/ticket/42104
-		if ( version_compare( $GLOBALS['wp_version'], '4.9', '>=' ) ) {
-			$traces = version_compare( PHP_VERSION, '5.2.5', '>=' ) ? debug_backtrace( false ) : debug_backtrace();
-
-			// PHP 7 does not include call_user_func
-			$n = version_compare( PHP_VERSION, '7', '>=' ) ? 5 : 6;
-			if ( isset( $traces[ $n ]['function'] ) && 'transform_query' === $traces[ $n ]['function'] ) {
-				return $clauses;
-			}
-		}
-
 		// Adds our clauses to filter by language
 		return $this->model->terms_clauses( $clauses, isset( $args['lang'] ) ? $args['lang'] : $this->curlang );
+	}
+
+	/**
+	 * Sets the WP_Term_Query language when doing a WP_Query
+	 * Needed since WP 4.9
+	 *
+	 * @since 2.3.2
+	 *
+	 * @param object $query WP_Query object
+	 */
+	public function set_tax_query_lang( $query ) {
+		$this->tax_query_lang = isset( $query->query_vars['lang'] ) ? $query->query_vars['lang'] : '';
+	}
+
+	/**
+	 * Removes the WP_Term_Query language filter for WP_Query
+	 * Needed since WP 4.9
+	 *
+	 * @since 2.3.2
+	 */
+	public function unset_tax_query_lang() {
+		unset( $this->tax_query_lang );
 	}
 
 	/**
