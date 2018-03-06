@@ -2,7 +2,7 @@
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.9
 Tested up to: 4.9.4
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,93 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 
 == Changelog ==
+
+= 2.3.0 =
+
+* Continue editing flow iterations by adding a line between blocks to insert new content — it also works within nested groups.
+* Add support for nested templates.
+* Allow duplicating a block through a menu button.
+* Automatically set a matching block as the default when a post format is set and the post is empty. This continues the path of matching blocks with post formats.
+* Add CodeMirror (core library) to the HTML block for syntax highlighting.
+* Simplify design presentation of editor header area for better consistency. (Add label for "Preview" action.)
+* Introduce new API for allowing plugins to register sidebars. ⭐  It allows plugins to further extend Gutenberg natively with non-content functionality. Note: the public facing functions are marked as experimental as they are being iterated in the context of the major extensibility work going on outside of blocks.
+* Improve the "invalid block" dialog by reducing the options and adding a new convert to blocks feature as we have solidified the transformations.
+* Allow adding images to a gallery without going through the media library.
+* Show the block appender even if the last block is non empty paragraph.
+* Show the side inserter on empty paragraphs within nested blocks.
+* Add a script that creates a PHP file based on a POT to make the plugin translatable.
+* Refactor float alignment to avoid margin calculations and simplify rendering.
+* Support registering and invoking actions in the data module.
+* Add hook to validate useOnce blocks.
+* Add viewport module. (Showing explorations with data module.)
+* Provide a fix for apiRequest in sites configured to use plain permalinks. (Reported several times!)
+* Remove specific grammar support for more tag as we consolidate the syntax and reduce weight.
+* Move filter for registering block types before validation happens.
+* Allow removing the selected image in a gallery block using backspace/delete keys.
+* Make saved blocks preview available to keyboard users.
+* Refactor reducer enhancers as higher-order reducer creators.
+* Refactor query HOC usage with withSelect.
+* Refactor API calls in Gutenberg to always use wp.apiRequest.
+* Register core blocks on init hook.
+* Removed DefaultBlockAppender when a template Lock exits.
+* Reduce and simplify float code.
+* Refactor and cleanup for the Ellipsis and More Menu components.
+* Add focus styles for Windows High Contrast mode.
+* Move meta boxes out of the generic editor module.
+* Make the "more" tag visible in the Classic block.
+* Expose ImagePlaceholder component in wp.blocks.
+* Rename TermTreeSelect to TreeSelect and move it to components.
+* Reuse isHorizontalEdge for RichText component and remove duplication.
+* Improve CSS for gallery caption and avoid UI shifts.
+* Use TreeSelect in HierarchicalTermSelector.
+* Flatten components modes directory organization.
+* Mutate editor store reference in middlewares application.
+* Consider term names as case insensitive.
+* Resolve an issue where removing a block which had contained inner blocks would not clear those inner blocks from state.
+* Make sure block usage is incremented (for calculating frequency and recency) when adding blocks with the side inserter.
+* Hide non editor specific notices, pending further improvements.
+* Update shortcode block icon.
+* Disable post format input if the theme does not support post formats.
+* Remove margin from initial insertion point and fix misalignment.
+* Polish header for mobile and accommodate other more languages.
+* Show taxonomies in the document inspector separately, uncoupling Categories & Tags.
+* Improve handling of block toolbar on mobile.
+* Fix issue with gallery images not cropping within link wrappers.
+* Fix bug in paragraph blocks affecting input behaviour when block is positioned on left or right.
+* Fix minor inconsistency with block margins and the default appender.
+* Fix description typo in freeform block.
+* Fix issue with focus transfering between citation and content.
+* Fix issue with floated block toolbar on adjacent floats.
+* Fix duplicate upload of media on drag.
+* Fix issue that prevented adding new rows or columns in Table block.
+* Fix issues with z-index and the sidebar.
+* Fix accessibility issues with mover icons.
+* Fix issue with default block replace resulting in incorrect order.
+* Fix sidebar tab padding.
+* Fix certain conflicts with markdown plugins.
+* Fix IconButton indent regression.
+* Fix issue with self embedding WP posts and the processing of the embed markup.
+* Fix extraction of _nx translation function.
+* Fix wp.data.query backwards compatibility with props.
+* Fix problem with delete key in empty contentEditables.
+* Resolve an issue with the data module's unsubscribe behavior which can result in a listener callback being invoked even after its been unsubscribed.
+* Remove the api-request JavaScript shim which had existed while WordPress 4.9 was in pre-release.
+* Remove explicit handling of "bottom reached" within writing flow as redundant.
+* Remove invalid reference to WeakMap polyfill.
+* Remove unused wpautop fixture files.
+* Remove non-functional custom taxonomies meta boxes.
+* Remove is- prefix from embed alignment class.
+* Switch get_locale() to get_user_locale().
+* Remove unnecessary $current_screen code.
+* Reduce duplication in 'No saved blocks' and 'No blocks found' component messages.
+* Include string extraction in production build.
+* Add deprecation helper functions for consistent messaging.
+* Improve string cast render test.
+* Add Gutenberg svg to docs.
+* Add documentation describing block transforms.
+* Add documentation for nested template definitions.
+* Add documentation for registering sidebar APIs. Move them to extensibility docs.
+* Update WordPress packages to the latest versions.
 
 = 2.2.0 =
 
