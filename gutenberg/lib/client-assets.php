@@ -236,7 +236,21 @@ function gutenberg_register_scripts_and_styles() {
 	wp_register_script(
 		'wp-editor',
 		gutenberg_url( 'editor/build/index.js' ),
-		array( 'postbox', 'jquery', 'wp-api', 'wp-data', 'wp-date', 'wp-i18n', 'wp-blocks', 'wp-element', 'wp-components', 'wp-utils', 'word-count', 'editor' ),
+		array(
+			'postbox',
+			'jquery',
+			'wp-api',
+			'wp-data',
+			'wp-date',
+			'wp-i18n',
+			'wp-blocks',
+			'wp-element',
+			'wp-components',
+			'wp-utils',
+			'wp-viewport',
+			'word-count',
+			'editor',
+		),
 		filemtime( gutenberg_dir_path() . 'editor/build/index.js' )
 	);
 
@@ -365,8 +379,8 @@ function gutenberg_register_vendor_scripts() {
 	$moment_script = SCRIPT_DEBUG ? 'moment.js' : 'min/moment.min.js';
 	gutenberg_register_vendor_script(
 		'moment',
-		'https://unpkg.com/moment@2.18.1/' . $moment_script,
-		array( 'react' )
+		'https://unpkg.com/moment@2.21.0/' . $moment_script,
+		array()
 	);
 	$tinymce_version = '4.7.2';
 	gutenberg_register_vendor_script(
@@ -900,6 +914,7 @@ function gutenberg_editor_scripts_and_styles( $hook ) {
 		'disableCustomColors' => get_theme_support( 'disable-custom-colors' ),
 		'disablePostFormats'  => ! current_theme_supports( 'post-formats' ),
 		'titlePlaceholder'    => apply_filters( 'enter_title_here', __( 'Add title', 'gutenberg' ), $post ),
+		'bodyPlaceholder'     => apply_filters( 'write_your_story', __( 'Write your story', 'gutenberg' ), $post ),
 	);
 
 	if ( ! empty( $color_palette ) ) {
