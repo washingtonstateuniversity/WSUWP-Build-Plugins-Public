@@ -862,8 +862,8 @@ class WP_Document_Revisions {
 		/**
 		 * Filters the HTTP headers sent when a file is served through WP Document Revisions.
 		 *
-		 * @param array  $headers  The HTTP headers to be sent.
-		 * @param string $file     The file being served.
+		 * @param array  $headers The HTTP headers to be sent.
+		 * @param string $file    The file being served.
 		 */
 		$headers = apply_filters( 'document_revisions_serve_file_headers', $headers, $file );
 
