@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-29 10:21:11+0000\n"
+"PO-Revision-Date: 2018-03-16 18:54:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:56
 msgid "our guide"
-msgstr ""
+msgstr "Notre guide"
 
 #: src/Tribe/Google/Maps_API_Key.php:51
 msgid "We highly recommend that you specify a valid %1$s for The Events Calendar to use. Doing this will help prevent problems with maps, especially for sites that receive a lot of traffic. Visit %2$s for a detailed explanation in how to do it."
