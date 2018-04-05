@@ -17,7 +17,15 @@ class SRM_Redirect {
 	 * @since 1.8
 	 */
 	public function setup() {
-		add_action( 'parse_request', array( $this, 'maybe_redirect' ), 0 );
+		/**
+		 * To only redirect on 404 pages, use:
+		 *   add_filter( 'srm_redirect_only_on_404', '__return_true' );
+		 */
+		if ( apply_filters( 'srm_redirect_only_on_404', false ) ) {
+			add_action( 'template_redirect', array( $this, 'maybe_redirect' ), 0 );
+		} else {
+			add_action( 'parse_request', array( $this, 'maybe_redirect' ), 0 );
+		}
 	}
 
 	/**
@@ -44,8 +52,8 @@ class SRM_Redirect {
 	 */
 	public function maybe_redirect() {
 
-		// Don't redirect from wp-admin
-		if ( is_admin() ) {
+		// Don't redirect unless not on admin. If 404 filter enabled, require query is a 404.
+		if ( is_admin() || ( apply_filters( 'srm_redirect_only_on_404', false ) && ! is_404() ) ) {
 			return;
 		}
 
@@ -57,7 +65,7 @@ class SRM_Redirect {
 		}
 
 		// get requested path and add a / before it
-		$requested_path = esc_url_raw( $_SERVER['REQUEST_URI'] );
+		$requested_path = esc_url_raw( apply_filters( 'srm_requested_path', $_SERVER['REQUEST_URI'] ) );
 		$requested_path = untrailingslashit( stripslashes( $requested_path ) );
 
 		/**
@@ -151,7 +159,7 @@ class SRM_Redirect {
 					$redirect_to = preg_replace( '@' . $redirect_from . '@' . $regex_flag, $redirect_to, $requested_path );
 				}
 
-				$sanitized_redirect_to = esc_url_raw( $redirect_to );
+				$sanitized_redirect_to = esc_url_raw( apply_filters( 'srm_redirect_to', $redirect_to ) );
 
 				do_action( 'srm_do_redirect', $requested_path, $sanitized_redirect_to, $status_code );
 
@@ -192,4 +200,3 @@ class SRM_Redirect {
 	}
 }
 
-SRM_Redirect::factory();

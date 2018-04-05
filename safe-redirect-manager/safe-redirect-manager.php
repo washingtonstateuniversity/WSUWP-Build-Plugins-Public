@@ -3,8 +3,8 @@
  * Plugin Name: Safe Redirect Manager
  * Plugin URI: https://10up.com
  * Description: Easily and safely manage HTTP redirects.
- * Author: Taylor Lovett (10up)
- * Version: 1.8
+ * Author: 10up
+ * Version: 1.9
  * Text Domain: safe-redirect-manager
  * Domain Path: /lang/
  * Author URI: https://10up.com
@@ -29,4 +29,8 @@ require_once( dirname( __FILE__ ) . '/inc/classes/class-srm-redirect.php' );
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once( dirname( __FILE__ ) . '/inc/classes/class-srm-wp-cli.php' );
+	WP_CLI::add_command( 'safe-redirect-manager', 'SRM_WP_CLI' );
 }
+
+SRM_Post_Type::factory();
+SRM_Redirect::factory();

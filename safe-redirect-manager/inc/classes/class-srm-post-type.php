@@ -27,6 +27,7 @@ class SRM_Post_Type {
 		add_action( 'init', array( $this, 'action_register_post_types' ) );
 		add_action( 'save_post', array( $this, 'action_save_post' ) );
 		add_filter( 'manage_redirect_rule_posts_columns', array( $this, 'filter_redirect_columns' ) );
+		add_filter( 'manage_edit-redirect_rule_sortable_columns', array( $this, 'filter_redirect_sortable_columns' ) );
 		add_action( 'manage_redirect_rule_posts_custom_column', array( $this, 'action_custom_redirect_columns' ), 10, 2 );
 		add_action( 'transition_post_status', array( $this, 'action_transition_post_status' ), 10, 3 );
 		add_filter( 'post_updated_messages', array( $this, 'filter_redirect_updated_messages' ) );
@@ -37,12 +38,31 @@ class SRM_Post_Type {
 		add_action( 'admin_print_styles-post.php', array( $this, 'action_print_logo_css' ), 10, 1 );
 		add_action( 'admin_print_styles-post-new.php', array( $this, 'action_print_logo_css' ), 10, 1 );
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 10, 2 );
+		add_filter( 'default_hidden_columns', array( $this, 'filter_hidden_columns' ), 10, 1 );
 
 		// Search filters
 		add_filter( 'posts_join', array( $this, 'filter_search_join' ) );
 		add_filter( 'posts_where', array( $this, 'filter_search_where' ) );
 		add_filter( 'posts_distinct', array( $this, 'filter_search_distinct' ) );
 		add_filter( 'post_row_actions', array( $this, 'filter_disable_quick_edit' ), 10, 2 );
+	}
+
+	/**
+	 * Hide order column by default
+	 *
+	 * @param  array $hidden
+	 * @since  1.9
+	 * @return array
+	 */
+	public function filter_hidden_columns( $hidden ) {
+
+		if ( empty( $_GET['post_type'] ) || 'redirect_rule' !== $_GET['post_type'] ) {
+			return $hidden;
+		}
+
+		$hidden[] = 'menu_order';
+
+		return $hidden;
 	}
 
 	/**
@@ -160,9 +180,13 @@ class SRM_Post_Type {
 
 		if ( ! empty( $s ) ) {
 			preg_match_all( '/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', stripslashes( $s ), $matches );
-			$search_terms = array_map( create_function( '$a', 'return trim( $a, "\\"\'\\n\\r " );' ), $matches[0] );
+			$search_terms = array_map( array( 'SRM_Post_Type', 'clean_search_term' ), $matches[0] );
 		}
 		return $search_terms;
+	}
+
+	public static function clean_search_term( $a ) {
+		return trim( $a, "\\\"'\\n\\r " );
 	}
 
 	/**
@@ -235,12 +259,15 @@ class SRM_Post_Type {
 					</div>
 				<?php
 				}
-			} if ( srm_max_redirects_reached() ) {
+			}
+			if ( srm_max_redirects_reached() ) {
+
+				if ( 'post-new.php' === $hook_suffix ) {
+					?>
+					<style type="text/css">#post { display: none; }</style>
+					<?php
+				}
 				?>
-				<?php
-				if ( 'post-new.php' === $hook_suffix ) :
-?>
-<style type="text/css">#post { display: none; }</style><?php endif; ?>
 				<div class="error">
 					<p><?php esc_html_e( 'Safe Redirect Manager Error: You have reached the maximum allowable number of redirects', 'safe-redirect-manager' ); ?></p>
 				</div>
@@ -347,6 +374,9 @@ class SRM_Post_Type {
 			echo esc_html( get_post_meta( $post_id, '_redirect_rule_to', true ) );
 		} elseif ( 'srm_redirect_rule_status_code' === $column ) {
 			echo absint( get_post_meta( $post_id, '_redirect_rule_status_code', true ) );
+		} elseif ( 'menu_order' == $column ) {
+			global $post;
+			echo $post->menu_order;
 		}
 	}
 
@@ -360,6 +390,7 @@ class SRM_Post_Type {
 	public function filter_redirect_columns( $columns ) {
 		$columns['srm_redirect_rule_to']          = esc_html__( 'Redirect To', 'safe-redirect-manager' );
 		$columns['srm_redirect_rule_status_code'] = esc_html__( 'HTTP Status Code', 'safe-redirect-manager' );
+		$columns['menu_order']                    = esc_html__( 'Order', 'safe-redirect-manager' );
 
 		// Change the title column
 		$columns['title'] = esc_html__( 'Redirect From', 'safe-redirect-manager' );
@@ -368,6 +399,18 @@ class SRM_Post_Type {
 		unset( $columns['date'] );
 		$columns['date'] = esc_html__( 'Date', 'safe-redirect-manager' );
 
+		return $columns;
+	}
+
+	/**
+	 * Allow menu_order column to be sortable.
+	 *
+	 * @param $columns
+	 * @since  1.9
+	 * @return mixed
+	 */
+	public function filter_redirect_sortable_columns( $columns ) {
+		$columns['menu_order'] = 'menu_order';
 		return $columns;
 	}
 
@@ -413,6 +456,12 @@ class SRM_Post_Type {
 				delete_post_meta( $post_id, '_redirect_rule_status_code' );
 			}
 
+			if ( ! empty( $_POST['srm_redirect_rule_status_code'] ) ) {
+				update_post_meta( $post_id, '_redirect_rule_notes', sanitize_text_field( $_POST['srm_redirect_rule_notes'] ) );
+			} else {
+				delete_post_meta( $post_id, '_redirect_rule_notes' );
+			}
+
 			/**
 			 * This fixes an important bug where the redirect cache was not up-to-date. Previously the cache was only being
 			 * updated on transition_post_status which gets called BEFORE save post. But since save_post is where all the important
@@ -430,7 +479,7 @@ class SRM_Post_Type {
 	 * @return void
 	 */
 	public function action_register_post_types() {
-		$redirect_labels     = array(
+		$redirect_labels = array(
 			'name'               => esc_html_x( 'Safe Redirect Manager', 'post type general name', 'safe-redirect-manager' ),
 			'singular_name'      => esc_html_x( 'Redirect', 'post type singular name', 'safe-redirect-manager' ),
 			'add_new'            => _x( 'Create Redirect Rule', 'redirect rule', 'safe-redirect-manager' ),
@@ -448,21 +497,21 @@ class SRM_Post_Type {
 
 		$redirect_capability = 'srm_manage_redirects';
 
-        $roles = array( 'administrator' );
+		$roles = array( 'administrator' );
 
-        foreach ( $roles as $role ) {
+		foreach ( $roles as $role ) {
 			$role = get_role( $role );
 
 			if ( empty( $role ) || $role->has_cap( $redirect_capability ) ) {
 				continue;
 			}
 
-            $role->add_cap( $redirect_capability );
-        }
+			$role->add_cap( $redirect_capability );
+		}
 
 		$redirect_capability = apply_filters( 'srm_restrict_to_capability', $redirect_capability );
 
-		$capabilities        = array(
+		$capabilities = array(
 			'edit_post'          => $redirect_capability,
 			'read_post'          => $redirect_capability,
 			'delete_post'        => $redirect_capability,
@@ -487,7 +536,7 @@ class SRM_Post_Type {
 			'hierarchical'         => false,
 			'register_meta_box_cb' => array( $this, 'action_redirect_rule_metabox' ),
 			'menu_position'        => 80,
-			'supports'             => array( '' ),
+			'supports'             => array( 'page-attributes' ),
 		);
 		register_post_type( 'redirect_rule', $redirect_args );
 	}
@@ -514,17 +563,18 @@ class SRM_Post_Type {
 	public function redirect_rule_metabox( $post ) {
 		wp_nonce_field( 'srm-save-redirect-meta', 'srm_redirect_nonce' );
 
-		$redirect_from = get_post_meta( $post->ID, '_redirect_rule_from', true );
-		$redirect_to   = get_post_meta( $post->ID, '_redirect_rule_to', true );
-		$status_code   = get_post_meta( $post->ID, '_redirect_rule_status_code', true );
-		$enable_regex  = get_post_meta( $post->ID, '_redirect_rule_from_regex', true );
+		$redirect_from  = get_post_meta( $post->ID, '_redirect_rule_from', true );
+		$redirect_to    = get_post_meta( $post->ID, '_redirect_rule_to', true );
+		$redirect_notes = get_post_meta( $post->ID, '_redirect_rule_notes', true );
+		$status_code    = get_post_meta( $post->ID, '_redirect_rule_status_code', true );
+		$enable_regex   = get_post_meta( $post->ID, '_redirect_rule_from_regex', true );
 
 		if ( empty( $status_code ) ) {
 			$status_code = apply_filters( 'srm_default_direct_status', 302 );
 		}
 		?>
 		<p>
-			<label for="srm_redirect_rule_from"><?php esc_html_e( 'Redirect From:', 'safe-redirect-manager' ); ?></label><br />
+			<label for="srm_redirect_rule_from"><strong><?php esc_html_e( '* Redirect From:', 'safe-redirect-manager' ); ?></strong></label><br />
 			<input type="text" name="srm_redirect_rule_from" id="srm_redirect_rule_from" value="<?php echo esc_attr( $redirect_from ); ?>" />
 			<input type="checkbox" name="srm_redirect_rule_from_regex" id="srm_redirect_rule_from_regex" <?php checked( true, (bool) $enable_regex ); ?> value="1" />
 			<label for="srm_redirect_rule_from_regex"><?php esc_html_e( 'Enable Regular Expressions (advanced)', 'safe-redirect-manager' ); ?></label>
@@ -532,19 +582,25 @@ class SRM_Post_Type {
 		<p class="description"><?php esc_html_e( 'This path should be relative to the root of this WordPress installation (or the sub-site, if you are running a multi-site). Appending a (*) wildcard character will match all requests with the base. Warning: Enabling regular expressions will disable wildcards and completely change the way the * symbol is interpretted.', 'safe-redirect-manager' ); ?></p>
 
 		<p>
-			<label for="srm_redirect_rule_to"><?php esc_html_e( 'Redirect To:', 'safe-redirect-manager' ); ?></label><br />
+			<label for="srm_redirect_rule_to"><strong><?php esc_html_e( '* Redirect To:', 'safe-redirect-manager' ); ?></strong></label><br />
 			<input class="widefat" type="text" name="srm_redirect_rule_to" id="srm_redirect_rule_to" value="<?php echo esc_attr( $redirect_to ); ?>" />
 		</p>
 		<p class="description"><?php esc_html_e( 'This can be a URL or a path relative to the root of your website (not your WordPress installation). Ending with a (*) wildcard character will append the request match to the redirect.', 'safe-redirect-manager' ); ?></p>
 
 		<p>
-			<label for="srm_redirect_rule_status_code"><?php esc_html_e( 'HTTP Status Code:', 'safe-redirect-manager' ); ?></label>
+			<label for="srm_redirect_rule_status_code"><strong><?php esc_html_e( '* HTTP Status Code:', 'safe-redirect-manager' ); ?></strong></label>
 			<select name="srm_redirect_rule_status_code" id="srm_redirect_rule_status_code">
 				<?php foreach ( srm_get_valid_status_codes() as $code ) : ?>
 					<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $status_code, $code ); ?>><?php echo esc_html( $code . ' ' . $this->status_code_labels[ $code ] ); ?></option>
 				<?php endforeach; ?>
 			</select>
 			<em><?php esc_html_e( "If you don't know what this is, leave it as is.", 'safe-redirect-manager' ); ?></em>
+		</p>
+
+		<p>
+			<label for="srm_redirect_rule_notes"><strong><?php esc_html_e( 'Notes:', 'safe-redirect-manager' ); ?></strong></label>
+			<textarea name="srm_redirect_rule_notes" id="srm_redirect_rule_notes" class="widefat"><?php echo esc_attr( $redirect_notes ); ?></textarea>
+			<em><?php esc_html_e( 'Optionally leave notes on this redirect e.g. why was it created.', 'safe-redirect-manager' ); ?></em>
 		</p>
 	<?php
 	}
@@ -602,4 +658,3 @@ class SRM_Post_Type {
 	}
 }
 
-SRM_Post_Type::factory();
