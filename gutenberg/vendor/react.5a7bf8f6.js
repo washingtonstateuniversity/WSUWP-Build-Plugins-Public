@@ -1,4 +1,4 @@
-/** @license React v16.2.0
+/** @license React v16.3.0
  * react.development.js
  *
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -108,7 +108,7 @@ var objectAssign = shouldUseNative() ? Object.assign : function (target, source)
 
 // TODO: this is special because it gets imported during build.
 
-var ReactVersion = '16.2.0';
+var ReactVersion = '16.3.0';
 
 // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
 // nor polyfill, then a plain number is used for performance.
@@ -119,6 +119,11 @@ var REACT_CALL_TYPE = hasSymbol ? Symbol['for']('react.call') : 0xeac8;
 var REACT_RETURN_TYPE = hasSymbol ? Symbol['for']('react.return') : 0xeac9;
 var REACT_PORTAL_TYPE = hasSymbol ? Symbol['for']('react.portal') : 0xeaca;
 var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol['for']('react.fragment') : 0xeacb;
+var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol['for']('react.strict_mode') : 0xeacc;
+var REACT_PROVIDER_TYPE = hasSymbol ? Symbol['for']('react.provider') : 0xeacd;
+var REACT_CONTEXT_TYPE = hasSymbol ? Symbol['for']('react.context') : 0xeace;
+var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol['for']('react.async_mode') : 0xeacf;
+var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol['for']('react.forward_ref') : 0xead0;
 
 var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
@@ -368,8 +373,8 @@ var didWarnStateUpdateForUnmountedComponent = {};
 
 function warnNoop(publicInstance, callerName) {
   {
-    var constructor = publicInstance.constructor;
-    var componentName = constructor && (constructor.displayName || constructor.name) || 'ReactClass';
+    var _constructor = publicInstance.constructor;
+    var componentName = _constructor && (_constructor.displayName || _constructor.name) || 'ReactClass';
     var warningKey = componentName + '.' + callerName;
     if (didWarnStateUpdateForUnmountedComponent[warningKey]) {
       return;
@@ -534,45 +539,35 @@ Component.prototype.forceUpdate = function (callback) {
   }
 }
 
+function ComponentDummy() {}
+ComponentDummy.prototype = Component.prototype;
+
 /**
- * Base class helpers for the updating state of a component.
+ * Convenience component with default shallow equality check for sCU.
  */
 function PureComponent(props, context, updater) {
-  // Duplicated from Component.
   this.props = props;
   this.context = context;
   this.refs = emptyObject_1;
-  // We initialize the default updater but the real one gets injected by the
-  // renderer.
   this.updater = updater || ReactNoopUpdateQueue;
 }
 
-function ComponentDummy() {}
-ComponentDummy.prototype = Component.prototype;
 var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
 pureComponentPrototype.constructor = PureComponent;
 // Avoid an extra prototype jump for these methods.
 objectAssign(pureComponentPrototype, Component.prototype);
 pureComponentPrototype.isPureReactComponent = true;
 
-function AsyncComponent(props, context, updater) {
-  // Duplicated from Component.
-  this.props = props;
-  this.context = context;
-  this.refs = emptyObject_1;
-  // We initialize the default updater but the real one gets injected by the
-  // renderer.
-  this.updater = updater || ReactNoopUpdateQueue;
+// an immutable object with a single mutable value
+function createRef() {
+  var refObject = {
+    current: null
+  };
+  {
+    Object.seal(refObject);
+  }
+  return refObject;
 }
-
-var asyncComponentPrototype = AsyncComponent.prototype = new ComponentDummy();
-asyncComponentPrototype.constructor = AsyncComponent;
-// Avoid an extra prototype jump for these methods.
-objectAssign(asyncComponentPrototype, Component.prototype);
-asyncComponentPrototype.unstable_isAsyncReactComponent = true;
-asyncComponentPrototype.render = function () {
-  return this.props.children;
-};
 
 /**
  * Keeps track of the current owner.
@@ -597,8 +592,8 @@ var RESERVED_PROPS = {
   __source: true
 };
 
-var specialPropKeyWarningShown;
-var specialPropRefWarningShown;
+var specialPropKeyWarningShown = void 0;
+var specialPropRefWarningShown = void 0;
 
 function hasValidRef(config) {
   {
@@ -674,7 +669,7 @@ function defineRefPropWarningGetter(props, displayName) {
  */
 var ReactElement = function (type, key, ref, self, source, owner, props) {
   var element = {
-    // This tag allow us to uniquely identify this as a React Element
+    // This tag allows us to uniquely identify this as a React Element
     $$typeof: REACT_ELEMENT_TYPE,
 
     // Built-in properties that belong on the element
@@ -733,7 +728,7 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
  * See https://reactjs.org/docs/react-api.html#createelement
  */
 function createElement(type, config, children) {
-  var propName;
+  var propName = void 0;
 
   // Reserved names are extracted
   var props = {};
@@ -821,7 +816,7 @@ function cloneAndReplaceKey(oldElement, newKey) {
  * See https://reactjs.org/docs/react-api.html#cloneelement
  */
 function cloneElement(element, config, children) {
-  var propName;
+  var propName = void 0;
 
   // Original props are copied
   var props = objectAssign({}, element.props);
@@ -850,7 +845,7 @@ function cloneElement(element, config, children) {
     }
 
     // Remaining properties override existing props
-    var defaultProps;
+    var defaultProps = void 0;
     if (element.type && element.type.defaultProps) {
       defaultProps = element.type.defaultProps;
     }
@@ -1004,8 +999,6 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
       case 'object':
         switch (children.$$typeof) {
           case REACT_ELEMENT_TYPE:
-          case REACT_CALL_TYPE:
-          case REACT_RETURN_TYPE:
           case REACT_PORTAL_TYPE:
             invokeCallback = true;
         }
@@ -1020,8 +1013,8 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
     return 1;
   }
 
-  var child;
-  var nextName;
+  var child = void 0;
+  var nextName = void 0;
   var subtreeCount = 0; // Count of children found in the current subtree.
   var nextNamePrefix = nameSoFar === '' ? SEPARATOR : nameSoFar + SUBSEPARATOR;
 
@@ -1043,7 +1036,7 @@ function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext)
       }
 
       var iterator = iteratorFn.call(children);
-      var step;
+      var step = void 0;
       var ii = 0;
       while (!(step = iterator.next()).done) {
         child = step.value;
@@ -1230,18 +1223,78 @@ function onlyChild(children) {
   return children;
 }
 
+function createContext(defaultValue, calculateChangedBits) {
+  if (calculateChangedBits === undefined) {
+    calculateChangedBits = null;
+  } else {
+    {
+      warning_1(calculateChangedBits === null || typeof calculateChangedBits === 'function', 'createContext: Expected the optional second argument to be a ' + 'function. Instead received: %s', calculateChangedBits);
+    }
+  }
+
+  var context = {
+    $$typeof: REACT_CONTEXT_TYPE,
+    _calculateChangedBits: calculateChangedBits,
+    _defaultValue: defaultValue,
+    _currentValue: defaultValue,
+    _changedBits: 0,
+    // These are circular
+    Provider: null,
+    Consumer: null
+  };
+
+  context.Provider = {
+    $$typeof: REACT_PROVIDER_TYPE,
+    context: context
+  };
+  context.Consumer = context;
+
+  {
+    context._currentRenderer = null;
+  }
+
+  return context;
+}
+
+function forwardRef(render) {
+  {
+    warning_1(typeof render === 'function', 'forwardRef requires a render function but was given %s.', render === null ? 'null' : typeof render);
+  }
+
+  return {
+    $$typeof: REACT_FORWARD_REF_TYPE,
+    render: render
+  };
+}
+
 var describeComponentFrame = function (name, source, ownerName) {
   return '\n    in ' + (name || 'Unknown') + (source ? ' (at ' + source.fileName.replace(/^.*[\\\/]/, '') + ':' + source.lineNumber + ')' : ownerName ? ' (created by ' + ownerName + ')' : '');
 };
 
+function isValidElementType(type) {
+  return typeof type === 'string' || typeof type === 'function' ||
+  // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+  type === REACT_FRAGMENT_TYPE || type === REACT_ASYNC_MODE_TYPE || type === REACT_STRICT_MODE_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
+}
+
 function getComponentName(fiber) {
   var type = fiber.type;
 
+  if (typeof type === 'function') {
+    return type.displayName || type.name;
+  }
   if (typeof type === 'string') {
     return type;
   }
-  if (typeof type === 'function') {
-    return type.displayName || type.name;
+  switch (type) {
+    case REACT_FRAGMENT_TYPE:
+      return 'ReactFragment';
+    case REACT_PORTAL_TYPE:
+      return 'ReactPortal';
+    case REACT_CALL_TYPE:
+      return 'ReactCall';
+    case REACT_RETURN_TYPE:
+      return 'ReactReturn';
   }
   return null;
 }
@@ -1326,12 +1379,20 @@ var checkPropTypes_1 = checkPropTypes;
  * that support it.
  */
 
+var currentlyValidatingElement = void 0;
+var propTypesMisspellWarningShown = void 0;
+
+var getDisplayName = function () {};
+var getStackAddendum = function () {};
+
+var VALID_FRAGMENT_PROPS = void 0;
+
 {
-  var currentlyValidatingElement = null;
+  currentlyValidatingElement = null;
 
-  var propTypesMisspellWarningShown = false;
+  propTypesMisspellWarningShown = false;
 
-  var getDisplayName = function (element) {
+  getDisplayName = function (element) {
     if (element == null) {
       return '#empty';
     } else if (typeof element === 'string' || typeof element === 'number') {
@@ -1345,7 +1406,7 @@ var checkPropTypes_1 = checkPropTypes;
     }
   };
 
-  var getStackAddendum = function () {
+  getStackAddendum = function () {
     var stack = '';
     if (currentlyValidatingElement) {
       var name = getDisplayName(currentlyValidatingElement);
@@ -1356,7 +1417,7 @@ var checkPropTypes_1 = checkPropTypes;
     return stack;
   };
 
-  var VALID_FRAGMENT_PROPS = new Map([['children', true], ['key', true]]);
+  VALID_FRAGMENT_PROPS = new Map([['children', true], ['key', true]]);
 }
 
 function getDeclarationErrorAddendum() {
@@ -1469,7 +1530,7 @@ function validateChildKeys(node, parentType) {
       // but now we print a separate warning for them later.
       if (iteratorFn !== node.entries) {
         var iterator = iteratorFn.call(node);
-        var step;
+        var step = void 0;
         while (!(step = iterator.next()).done) {
           if (isValidElement(step.value)) {
             validateExplicitKey(step.value, parentType);
@@ -1513,31 +1574,12 @@ function validatePropTypes(element) {
 function validateFragmentProps(fragment) {
   currentlyValidatingElement = fragment;
 
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = Object.keys(fragment.props)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var key = _step.value;
-
-      if (!VALID_FRAGMENT_PROPS.has(key)) {
-        warning_1(false, 'Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.%s', key, getStackAddendum());
-        break;
-      }
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator['return']) {
-        _iterator['return']();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
+  var keys = Object.keys(fragment.props);
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    if (!VALID_FRAGMENT_PROPS.has(key)) {
+      warning_1(false, 'Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.%s', key, getStackAddendum());
+      break;
     }
   }
 
@@ -1549,7 +1591,8 @@ function validateFragmentProps(fragment) {
 }
 
 function createElementWithValidation(type, props, children) {
-  var validType = typeof type === 'string' || typeof type === 'function' || typeof type === 'symbol' || typeof type === 'number';
+  var validType = isValidElementType(type);
+
   // We warn in this case but don't throw. We expect the element creation to
   // succeed and there will likely be errors in render.
   if (!validType) {
@@ -1567,7 +1610,16 @@ function createElementWithValidation(type, props, children) {
 
     info += getStackAddendum() || '';
 
-    warning_1(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', type == null ? type : typeof type, info);
+    var typeString = void 0;
+    if (type === null) {
+      typeString = 'null';
+    } else if (Array.isArray(type)) {
+      typeString = 'array';
+    } else {
+      typeString = typeof type;
+    }
+
+    warning_1(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
   }
 
   var element = createElement.apply(this, arguments);
@@ -1589,7 +1641,7 @@ function createElementWithValidation(type, props, children) {
     }
   }
 
-  if (typeof type === 'symbol' && type === REACT_FRAGMENT_TYPE) {
+  if (type === REACT_FRAGMENT_TYPE) {
     validateFragmentProps(element);
   } else {
     validatePropTypes(element);
@@ -1600,9 +1652,8 @@ function createElementWithValidation(type, props, children) {
 
 function createFactoryWithValidation(type) {
   var validatedFactory = createElementWithValidation.bind(null, type);
-  // Legacy hook TODO: Warn if this is accessed
   validatedFactory.type = type;
-
+  // Legacy hook: remove it
   {
     Object.defineProperty(validatedFactory, 'type', {
       enumerable: false,
@@ -1637,11 +1688,16 @@ var React = {
     only: onlyChild
   },
 
+  createRef: createRef,
   Component: Component,
   PureComponent: PureComponent,
-  unstable_AsyncComponent: AsyncComponent,
+
+  createContext: createContext,
+  forwardRef: forwardRef,
 
   Fragment: REACT_FRAGMENT_TYPE,
+  StrictMode: REACT_STRICT_MODE_TYPE,
+  unstable_AsyncMode: REACT_ASYNC_MODE_TYPE,
 
   createElement: createElementWithValidation,
   cloneElement: cloneElementWithValidation,
