@@ -1,5 +1,94 @@
 == Changelog ==
 
+= 2.5.0 =
+
+* Add support for sharing nested blocks.
+* Introduce a declarative approach to handling display of sidebar content to the Plugin API with PluginSidebar component and portals.
+* Introduce menu item and related components to handle entry point for editor plugin operations, further extending capabilities and available tools in the Plugin API.
+* Add block template validation and ability to reset a template.
+* Add new abstracted data querying interface that provides better handling of declarative data needs and side effects. Introduces registerResolvers enhanced by withSelect.
+* Add predefined sets of font sizes and corresponding UI controls.
+* Improve block margin implementation in order to simplify work needed for nesting blocks.
+* Don't show insertion point between blocks when a template is locked.
+* Update shared block UI to better indicate that a block is reusable.
+* Add support for transforms prioritization to the block API.
+* Improve initial focus allocation within content structure popover for accessibility.
+* Add visibile text to gallery "add item" button for accessibility.
+* Update post taxonomies wp.apiRequest to not depend on ajax specific implementation.
+* Some visual refinements to the main block library inserter.
+* Include custom classes in the block markup within the editor, matching the final render on the front-end.
+* Improve display of block transformation options.
+* Fine-tune the pre- and post-publish flows depending on post status and user role.
+* Improve the accessibility of the MenuItemsToggle buttons and add a speak message for screen reader users to confirm when they switch editor mode.
+* Improve the accessibility of RichText elements by providing textbox roles and aria-multiline attributes.
+* Improve the accessibility of inserter items by providing aria-label attributes.
+* Clear selected block on canvas focus only if it is selected.
+* Avoid styling meta-boxes inputs to look like Gutenberg UI.
+* Use "perfect fourth" rule of typographic scale for heading display.
+* Inherit color styling on meta-boxes area.
+* Increase width of meta-boxes area.
+* Default to content-box box-sizing for the meta-box area.
+* Improve handling of transformations (backticks for Code and dashes for Separator) when pressing enter.
+* Expose combineReducer helper in data module.
+* Make it possible to override the default class name generation logic.
+* Remove edit-post styles from editor components.
+* Ignore mid-word underscores when pasting markdown text.
+* Add label element to the post title.
+* Improve block mover labels for speech recognition software.
+* Correct onChange handler in SelectControl component to support multi-value changes.
+* Make MediaUpload component extensible.
+* Improve display of color palette items (like white) by adding a subtle transparent inset shadow.
+* Ignore "Disable visual editor" setting to address case where Classic block would not load for the user.
+* Improve display of sidebar heights on mobile.
+* Update blockSelection reducer to clear selection when removing the selected block.
+* Show "no title" placeholder on the mobile sidebar when post title is empty.
+* Address case where cancelling edits on a shared block not discarding unsaved changes that have been made to that block.
+* Introduce new MenuGroup and MenuItem components and refactor for clarity.
+* Improve the block inserter UI on mobile by displaying the post title in a header above the search bar. Extends as optional support for all popovers.
+* Refactor media fetching to use the core data module. Shields from REST API specific nomenclature.
+* Add a label and a role to the block appender to make it discoverable by text readers.
+* Use up and down arrow icons for the meta boxes panels.
+* Hide reusable block indicator from the inserter preview.
+* Fix issue with embed placeholder breaking on reload.
+* Fix error when collapsing categories panel.
+* Fix case where inserting a block after removal inserts it at the top of the post.
+* Fix issue with Button block text wrap.
+* Fix bug with meta-boxes data collection that occasionally prevented them from showing.
+* Fix meta-box configuration persistence to be per postType.
+* Fix issue with multiple previews in Firefox by unsetting popup window upon close.
+* Fix scroll bleed when displaying modal UI on mobile.
+* Fix z-index issue with admin bar quick links and content structure tooltip.
+* Fix image href attribute matcher to not interfere with anchors inside the caption.
+* Fix help text position on toggle control and range control.
+* Fix centering of small videos.
+* Fix timezone conflicts when setting global moment default timezone.
+* Fix issue with getDocumentTitle and undefined titles.
+* Fix missing rerender of plugin area upon registration or unregistration.
+* Remove title from Table of Contents and warn user if theme doesn't support titles.
+* Prevent potential fatal error when registering shared block post type if a specific core user role has been removed.
+* Avoid collecting meta-box information on non-Gutenberg screens.
+* Update contrast checker to respect recent changes on Notice component.
+* Rename isProvisionalBlock action property to selectPrevious in removeBlock and removeBlocks functions.
+* Address issue with heartbeat dependency (only use when available).
+* Allow calling functions passed as props in the Fill.
+* Improve style handling and specificity of dashicon SVGs.
+* Unify "citation" translatable strings for quotes and pullquotes.
+* Clean up nomenclature inconsistencies in blocks and components modules.
+* Correct documentation example for withDispatch.
+* Update documentation on extending the editor via PluginSidebar and PluginMoreMenuItem.
+* Dynamically pick JS/CSS build files for plugin ZIP generation.
+* Copy improvements to documentation.
+* Attempt to avoid cases where hosts block certain HTTP verbs on wp-api.js requests. This is part of similar issues being exposed by Gutenberg being the first Core WordPress feature that makes significant use of the REST API.
+* Add a shim to override wp.apiRequest, allowing HTTP/1.0 emulation.
+* Update react-autosize-textarea package.
+* Update @wordpress/hooks to v1.1.6.
+* Use CustomTemplatedPathPlugin which was extracted and updated for Webpack 4.
+* Use wordpress/es6 ESLint config.
+* Add Gutenberg Hub to the resources.
+* Properly detect NVM path on macOS using homebrew.
+* Remove Cypress for E2E testing in favor of Puppeteer. Refactor all existing tests and integrations.
+* Remove deprecations slated for 2.5.0 removal.
+
 = 2.4.0 =
 
 * Show the full block inserter (+ button) to the left of empty paragraphs and the default appender. Quick block options (based on compound frequency and recency) remain on the right.

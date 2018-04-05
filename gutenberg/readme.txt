@@ -2,7 +2,7 @@
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.9
 Tested up to: 4.9.4
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,94 +81,89 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 = Latest =
 
-* Show the full block inserter (+ button) to the left of empty paragraphs and the default appender. Quick block options (based on compound frequency and recency) remain on the right.
-* Insert default block as provisional — this reduces the proliferation of empty blocks as the editor removes these provisional blocks when unfocusing.
-* When pressing enter from post title, insert initial block as provisional.
-* Fade out the side inserter when typing on the newly created block.
-* Group common block definition on inserters. Use 'frecency' to sort items on top of it.
-* Improve the visual focus style for inbetween inserter.
-* Move isTyping behaviour to a separate component.
-* Inserting a block should only shift focus to a text field, otherwise focusing the block's "focus stop".
-* Example: Inserting an image should focus the top-level placeholder.
-* Pressing backspace or enter from the block's focus stop should respectively delete or insert a subsequent paragraph block.
-* Example: Pressing enter or delete on an image placeholder.
-* Pressing down arrow from a non-text-field should proceed with a tab transition as expected.
-* Multi-selection at the last text field in a block now accounts for non-contenteditable text fields.
-* Better internal identification of text fields for writing flow transitions. Previously, if a block contained a checkbox, radio, or other non-text input tags, they would be erroneously included in the writing flow sequence.
-* Inserting paragraph block (quote, etc; those with text fields) via autocomplete should move focus to the cursor.
-* Shift-arrow from a text field engages multi-selection, but not if there are other text fields in the intended direction in the same block.
-* Cancel isTyping state when focusing non text field.
-* Improve reliability of the block click-to-clear behavior.
-* When clicking below the editor move focus to last text field — this includes creating a new provisional block if last block is not text. This is equivalent to the default block appender spanning the entire viewport height of the editable canvas.
-* Introduce same undo buffering for general text to the post title (and other post properties).
-* Allow breaking out of List block upon Enter on last empty line.
-* Address conflicts between WritingFlow's selection transitioning and nested blocks by moving selection to the block's focus handler.
-* Improve reusable block creation flow by focusing the title field and allowing the user to name their block immediately.
-* Avoid calling callbacks on DropZone component if a file is dropped on another dropzone.
-* Improve settings UI on mobile devices.
-* Allow text to wrap within Button block.
-* Restrict Popover focusOnMount to keyboard interaction. This seeks to improve the experience of interacting with popovers and popover menus based on usability and accessibility concerns.
-* Optimize the behavior of subscribe to avoid calling a listener except in the case that state has in-fact changed.
-* Move the behaviors to transition focus to a newly selected block from the WritingFlow component to the BlockListBlock component.
-* Extract scroll preservation from ﻿BlockList as non-visual component
-* Add Upload button to audio and video blocks.
-* Refactor image uploads and added auto-filled captions using the image metadata.
-* Limit CSS rules for lists to the visual editor area.
-* Add aria-label to the post title.
-* Add new distinctive icon for Cover Image block.
-* Refactor PostTitle for easier select, deselect.
-* Use ifViewportMatches HoC to render BlockMobileToolbar as appropriate.
-* Introduce a new reusable Disabled component which intends to manage all field disabling automatically.
-* Expand editor canvas as flex region improving deselect behaviour.
-* Bump minimum font-size to 13px.
-* Allow emojis to be displayed in permalink visual component.
-* Respect HTML when readding paragraph-tags.
-* Allow undefined return from withSelect mapSelectToProps.
-* Update datepicker styling to inherit font-family/colour scheme.
-* Move QueryControls and expose them for general use under components module.
-* Address design issues with block dialog warnings on blocks that are too tall.
-* Preserve "More" order during block conversion.
-* Add capabilities handling for reusable blocks mapping to default roles.
-* Add a "Write your story" filter.
-* Return focus from Toolbar to selection when escape is pressed.
-* Improve keyboard interaction on inserter tab panels.
-* Simplify state management for the sidebar to make it easier to maintain.
-* Update cover image markup and CSS.
-* Fix sent parameter in onChange function of CheckboxControl.
-* Fix errors in some localized strings.
-* Fix problem with arrow navigation within Block Menu buttons.
-* Fix issue with demo page being marked immediately as unsaved (and the subsequent autosave).
-* Fix issue with a Reusable Blocks being keyboard navigable even when it is not supposed to be edited.
-* Fix focusable matching elements with "contenteditable=false".
-* Fix issue with empty paragraphs appearing after images when the images are inside an anchor.
-* Fix issue when a block cannot be removed after being transformed into another block type.
-* Fix issue with updating the author on published posts.
-* Fix edgecases in Windows high contrast mode.
-* Fix regression with inserter tabs colors.
-* Fix handling of HTML captions on gallery and image.
-* Fix heading subscript regression.
-* Resolve a performance regression caused by a bailout condition in our chosen shallow-equality library.
-* Handle calculateFrequency﻿ edge case on upgrading.
-* Use lodash includes in NavigableMenu to address IE11 issue.
-* Refer to reusable blocks as 'Shared Blocks'.
-* Add domain argument to localization functions. Allow setting locale data by domain.
-* Update localization functions to absorb errors from Jed.
-* Make UrlInput a controlled component.
-* Decode HTML entities in placeholders.
-* Only allow whitespace around URL when attempting to transform pasted Embeds.
-* Make preferences reducer deterministic.
-* Remove max-width for meta boxes area inputs.
-* Default to content-box box-sizing for the metabox area.
-* Adjust inside padding of meta boxes to better accommodate plugins.
-* Remove !important clauses from button styles.
-* Keep update button enabled when there are metaboxes present.
-* Clarify some inner workings of Block API functionality with comments.
-* Rewrite data document as a walkthrough of wordpress/data.
-* Revert the eslint --fix Git precommit hook.
-* Extract shared eslint config.
-* Add tests for the BlockSwitcher component.
-* Add test cases for REQUEST_POST_UPDATE_FAILURE effect.
-* Fail the build via ESLint error when deprecations marked for removal in a given version change are not removed.
-* Update redux-optmist to 1.0.0.
-* Update package-lock.json.
-* Remove Deprecated Features planned for this release and start documenting them in a deprecated document.
+* Add support for sharing nested blocks.
+* Introduce a declarative approach to handling display of sidebar content to the Plugin API with PluginSidebar component and portals.
+* Introduce menu item and related components to handle entry point for editor plugin operations, further extending capabilities and available tools in the Plugin API.
+* Add block template validation and ability to reset a template.
+* Add new abstracted data querying interface that provides better handling of declarative data needs and side effects. Introduces registerResolvers enhanced by withSelect.
+* Add predefined sets of font sizes and corresponding UI controls.
+* Improve block margin implementation in order to simplify work needed for nesting blocks.
+* Don't show insertion point between blocks when a template is locked.
+* Update shared block UI to better indicate that a block is reusable.
+* Add support for transforms prioritization to the block API.
+* Improve initial focus allocation within content structure popover for accessibility.
+* Add visibile text to gallery "add item" button for accessibility.
+* Update post taxonomies wp.apiRequest to not depend on ajax specific implementation.
+* Some visual refinements to the main block library inserter.
+* Include custom classes in the block markup within the editor, matching the final render on the front-end.
+* Improve display of block transformation options.
+* Fine-tune the pre- and post-publish flows depending on post status and user role.
+* Improve the accessibility of the MenuItemsToggle buttons and add a speak message for screen reader users to confirm when they switch editor mode.
+* Improve the accessibility of RichText elements by providing textbox roles and aria-multiline attributes.
+* Improve the accessibility of inserter items by providing aria-label attributes.
+* Clear selected block on canvas focus only if it is selected.
+* Avoid styling meta-boxes inputs to look like Gutenberg UI.
+* Use "perfect fourth" rule of typographic scale for heading display.
+* Inherit color styling on meta-boxes area.
+* Increase width of meta-boxes area.
+* Default to content-box box-sizing for the meta-box area.
+* Improve handling of transformations (backticks for Code and dashes for Separator) when pressing enter.
+* Expose combineReducer helper in data module.
+* Make it possible to override the default class name generation logic.
+* Remove edit-post styles from editor components.
+* Ignore mid-word underscores when pasting markdown text.
+* Add label element to the post title.
+* Improve block mover labels for speech recognition software.
+* Correct onChange handler in SelectControl component to support multi-value changes.
+* Make MediaUpload component extensible.
+* Improve display of color palette items (like white) by adding a subtle transparent inset shadow.
+* Ignore "Disable visual editor" setting to address case where Classic block would not load for the user.
+* Improve display of sidebar heights on mobile.
+* Update blockSelection reducer to clear selection when removing the selected block.
+* Show "no title" placeholder on the mobile sidebar when post title is empty.
+* Address case where cancelling edits on a shared block not discarding unsaved changes that have been made to that block.
+* Introduce new MenuGroup and MenuItem components and refactor for clarity.
+* Improve the block inserter UI on mobile by displaying the post title in a header above the search bar. Extends as optional support for all popovers.
+* Refactor media fetching to use the core data module. Shields from REST API specific nomenclature.
+* Add a label and a role to the block appender to make it discoverable by text readers.
+* Use up and down arrow icons for the meta boxes panels.
+* Hide reusable block indicator from the inserter preview.
+* Fix issue with embed placeholder breaking on reload.
+* Fix error when collapsing categories panel.
+* Fix case where inserting a block after removal inserts it at the top of the post.
+* Fix issue with Button block text wrap.
+* Fix bug with meta-boxes data collection that occasionally prevented them from showing.
+* Fix meta-box configuration persistence to be per postType.
+* Fix issue with multiple previews in Firefox by unsetting popup window upon close.
+* Fix scroll bleed when displaying modal UI on mobile.
+* Fix z-index issue with admin bar quick links and content structure tooltip.
+* Fix image href attribute matcher to not interfere with anchors inside the caption.
+* Fix help text position on toggle control and range control.
+* Fix centering of small videos.
+* Fix timezone conflicts when setting global moment default timezone.
+* Fix issue with getDocumentTitle and undefined titles.
+* Fix missing rerender of plugin area upon registration or unregistration.
+* Remove title from Table of Contents and warn user if theme doesn't support titles.
+* Prevent potential fatal error when registering shared block post type if a specific core user role has been removed.
+* Avoid collecting meta-box information on non-Gutenberg screens.
+* Update contrast checker to respect recent changes on Notice component.
+* Rename isProvisionalBlock action property to selectPrevious in removeBlock and removeBlocks functions.
+* Address issue with heartbeat dependency (only use when available).
+* Allow calling functions passed as props in the Fill.
+* Improve style handling and specificity of dashicon SVGs.
+* Unify "citation" translatable strings for quotes and pullquotes.
+* Clean up nomenclature inconsistencies in blocks and components modules.
+* Correct documentation example for withDispatch.
+* Update documentation on extending the editor via PluginSidebar and PluginMoreMenuItem.
+* Dynamically pick JS/CSS build files for plugin ZIP generation.
+* Copy improvements to documentation.
+* Attempt to avoid cases where hosts block certain HTTP verbs on wp-api.js requests. This is part of similar issues being exposed by Gutenberg being the first Core WordPress feature that makes significant use of the REST API.
+* Add a shim to override wp.apiRequest, allowing HTTP/1.0 emulation.
+* Update react-autosize-textarea package.
+* Update @wordpress/hooks to v1.1.6.
+* Use CustomTemplatedPathPlugin which was extracted and updated for Webpack 4.
+* Use wordpress/es6 ESLint config.
+* Add Gutenberg Hub to the resources.
+* Properly detect NVM path on macOS using homebrew.
+* Remove Cypress for E2E testing in favor of Puppeteer. Refactor all existing tests and integrations.
+* Remove deprecations slated for 2.5.0 removal.
