@@ -47,8 +47,7 @@ class WC_Query {
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 );
 			add_action( 'parse_request', array( $this, 'parse_request' ), 0 );
 			add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
-			add_action( 'wp', array( $this, 'remove_product_query' ) );
-			add_action( 'wp', array( $this, 'remove_ordering_args' ) );
+			add_filter( 'the_posts', array( $this, 'remove_product_query_filters' ) );
 			add_filter( 'get_pagenum_link', array( $this, 'remove_add_to_cart_pagination' ), 10, 1 );
 		}
 		$this->init_query_vars();
@@ -343,9 +342,20 @@ class WC_Query {
 		}
 
 		$this->product_query( $q );
+	}
 
-		// And remove the pre_get_posts hook.
-		$this->remove_product_query();
+	/**
+	 * Pre_get_posts above may adjust the main query to add WooCommerce logic. When this query is done, we need to ensure
+	 * all custom filters are removed.
+	 *
+	 * This is done here during the_posts filter. The input is not changed.
+	 *
+	 * @param array $posts Posts from WP Query.
+	 * @return array
+	 */
+	public function remove_product_query_filters( $posts ) {
+		$this->remove_ordering_args();
+		return $posts;
 	}
 
 	/**
@@ -430,13 +440,13 @@ class WC_Query {
 	public function get_catalog_ordering_args( $orderby = '', $order = '' ) {
 		// Get ordering from query string unless defined.
 		if ( ! $orderby ) {
-			$orderby_value = isset( $_GET['orderby'] ) ? wc_clean( (string) wp_unslash( $_GET['orderby'] ) ) : ''; // WPCS: sanitization ok, input var ok.
+			$orderby_value = isset( $_GET['orderby'] ) ? wc_clean( (string) wp_unslash( $_GET['orderby'] ) ) : wc_clean( get_query_var( 'orderby' ) ); // WPCS: sanitization ok, input var ok.
 
 			if ( ! $orderby_value ) {
 				if ( is_search() ) {
 					$orderby_value = 'relevance';
 				} else {
-					$orderby_value = apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
+					$orderby_value = apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby', 'menu_order' ) );
 				}
 			}
 
@@ -511,7 +521,7 @@ class WC_Query {
 			$search_within_terms   = get_term_children( $wp_query->queried_object->term_taxonomy_id, $wp_query->queried_object->taxonomy );
 			$search_within_terms[] = $wp_query->queried_object->term_taxonomy_id;
 			$args['join'] .= " INNER JOIN (
-				SELECT post_id, max( meta_value+0 ) price
+				SELECT post_id, min( meta_value+0 ) price
 				FROM $wpdb->postmeta
 				INNER JOIN (
 					SELECT $wpdb->term_relationships.object_id

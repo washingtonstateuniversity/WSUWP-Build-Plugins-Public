@@ -825,6 +825,11 @@ table.wc_status_table--tools {
 		margin-left: 10px;
 	}
 
+	label.stock_status_field {
+	  clear: both;
+	  float: left;
+	}
+
 	.dimensions div {
 		display: block;
 		margin: 0.2em 0;
@@ -2356,7 +2361,11 @@ ul.wc_coupon_list_block {
 	}
 
 	.post-type-shop_order .wp-list-table {
+		td.check-column {
+			width: 1em;
+		}
 		td.column-order_number {
+			padding-left: 0;
 			padding-bottom: .5em;
 		}
 		td.column-order_status,
@@ -2366,6 +2375,9 @@ ul.wc_coupon_list_block {
 			&:before {
 				display: none !important;
 			}
+		}
+		td.column-order_date {
+			padding-left: 0 !important;
 		}
 		td.column-order_status {
 			float: right;
