@@ -2,6 +2,18 @@
 
 == Changelog ==
 
+= [4.7.13] 2018-05-16 =
+
+* Fix - Prevent PHP 5.2 error on new Queuing Proccess `T_PAAMAYIM_NEKUDOTAYIM` [106696]
+* Fix - Modify some language and typos
+
+= [4.7.12] 2018-05-09 =
+
+* Fix - Updated datatables.js to its most recent version to prevent conflicts [102465]
+* Tweak - Added the `Tribe__Process__Queue` class to handle background processing operations
+* Tweak - Changed 'forums' to 'help desk' throughout the content in the "Help" tab [104561]
+* Language - 3 new strings added, 84 updated, 3 fuzzied, and 3 obsoleted
+
 = [4.7.11] 2018-04-18 =
 
 * Fix - Restore "type" attribute to some inline `<script>` tags to ensure proper character encoding in Customizer-generated CSS [103167]
