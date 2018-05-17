@@ -2,8 +2,8 @@
 Contributors: Ipstenu
 Tags: icons, genericons, font icon, UI
 Requires at least: 3.9
-Tested up to: 4.7
-Stable tag: 4.0.1
+Tested up to: 4.9
+Stable tag: 4.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,13 +15,17 @@ Genericon'd includes three icon sets:
 
 * [Genericons Neue](https://github.com/Automattic/genericons-neue) - Generic looking icons, suitable for a blog or simple website.
 * [Social Logos](https://github.com/Automattic/social-logos) - A repository of all the social logos used on WordPress.com
-* [Genericons](http://genericons.com/) - Generic looking icons as a Font, suitable for a blog or simple website.
+* [Genericons Classic](https://github.com/Automattic/genericons) - The original! Generic looking icons as a Font, suitable for a blog or simple website.
 
 By default, _Genericons Neue_ and _Social Logos_ are both active and use SVG sprites, not fonts. If you want to go back to displaying the icons as a font, you can do so via settings.
 
 To use any of the Genericons icons on your WordPress site you can use basic HTML (for inserting in themes and functions) or shortcodes (for use in posts or widgets). You can adjust the size of the icons via css or, when using the shortcode, the size attribute. Default size is 16px for Genericons and 24 for Social Logos.
 
 To display the Twitter icon: `[genericon icon=twitter]`
+
+= Privacy Policy =
+
+No remote calls are made with this plugin and no data is tracked.
 
 == Installation ==
 
@@ -113,6 +117,10 @@ Yes, but Genericon'd is a Zaboo-esque sort of way of saying 'These icons have be
 2. Zaboo, patron avatar of Genericon'd
 
 == Changelog ==
+
+= 4.0.5 =
+* 2018-01
+* Updating some icons
 
 = 4.0.1 =
 * 2016-11

@@ -1,6 +1,6 @@
 {
   "name": "genericons-neue",
-  "version": "4.0.3",
+  "version": "4.0.5",
   "description": "Genericons Neue are generic looking icons, suitable for a blog or simple website.",
   "repository": {
     "type": "git",
@@ -26,6 +26,9 @@
     "font",
     "blog"
   ],
+  "scripts": {
+	  "build": "grunt"
+  },
   "license": "GPL-2.0",
   "bugs": {
     "url": "https://github.com/Automattic/genericons-neue/issues"
