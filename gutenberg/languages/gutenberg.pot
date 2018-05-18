@@ -3,189 +3,48 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: blocks/alignment-toolbar/index.js:10
-#: blocks/block-alignment-toolbar/index.js:15
-msgid "Align left"
-msgstr ""
-
-#: blocks/alignment-toolbar/index.js:15
-#: blocks/block-alignment-toolbar/index.js:19
-msgid "Align center"
-msgstr ""
-
-#: blocks/alignment-toolbar/index.js:20
-#: blocks/block-alignment-toolbar/index.js:23
-msgid "Align right"
-msgstr ""
-
-#: blocks/api/categories.js:12
+#: blocks/store/reducer.js:16
 msgid "Common Blocks"
 msgstr ""
 
-#: blocks/api/categories.js:13
+#: blocks/store/reducer.js:17
 msgid "Formatting"
 msgstr ""
 
-#: blocks/api/categories.js:14
+#: blocks/store/reducer.js:18
 msgid "Layout Elements"
 msgstr ""
 
-#: blocks/api/categories.js:15
+#: blocks/store/reducer.js:19
 msgid "Widgets"
 msgstr ""
 
-#: blocks/api/categories.js:16
+#: blocks/store/reducer.js:20
 #: editor/components/inserter/menu.js:307
 msgid "Embeds"
 msgstr ""
 
-#: blocks/api/categories.js:17
+#: blocks/store/reducer.js:21
 msgid "Shared Blocks"
 msgstr ""
 
-#: blocks/block-alignment-toolbar/index.js:27
-msgid "Wide width"
-msgstr ""
-
-#: blocks/block-alignment-toolbar/index.js:31
-msgid "Full width"
-msgstr ""
-
-#: blocks/contrast-checker/index.js:33
-msgid ""
-"This color combination may be hard for people to read. Try using a darker "
-"background color and/or a brighter text color."
-msgstr ""
-
-#: blocks/contrast-checker/index.js:34
-msgid ""
-"This color combination may be hard for people to read. Try using a brighter "
-"background color and/or a darker text color."
-msgstr ""
-
-#: blocks/hooks/anchor.js:69
-msgid "HTML Anchor"
-msgstr ""
-
-#: blocks/hooks/anchor.js:70
-msgid "Anchors lets you link directly to a section on a page."
-msgstr ""
-
-#: blocks/hooks/custom-class-name.js:60
-msgid "Additional CSS Class"
-msgstr ""
-
-#: blocks/image-placeholder/index.js:39
-msgid "Drag images here or add from media library"
-msgstr ""
-
-#: blocks/image-placeholder/index.js:40
-msgid "Drag image here or add from media library"
-msgstr ""
-
-#: blocks/image-placeholder/index.js:54
-#: core-blocks/audio/index.js:122
-#: core-blocks/video/index.js:154
-msgid "Upload"
-msgstr ""
-
-#: blocks/image-placeholder/index.js:63
-#: core-blocks/audio/index.js:130
-#: core-blocks/video/index.js:162
-msgid "Media Library"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:147
-msgid "Link added."
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:168
-msgid "Unlink"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:168
-#: editor/components/post-format/index.js:23
-msgid "Link"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:184
-msgid "Open in new window"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:207
-#: core-blocks/button/index.js:155
-msgid "Apply"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:236
-#: core-blocks/block/edit-panel/index.js:73
-#: editor/components/post-permalink/index.js:104
-msgid "Edit"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:240
-msgid "Link Settings"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:28
-msgid "Bold"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:33
-msgid "Italic"
-msgstr ""
-
-#: blocks/rich-text/format-toolbar/index.js:38
-msgid "Strikethrough"
-msgstr ""
-
-#: blocks/url-input/button.js:41
-msgid "Edit Link"
-msgstr ""
-
-#: blocks/url-input/button.js:41
-msgid "Insert Link"
-msgstr ""
-
-#: blocks/url-input/button.js:61
-msgid "Close"
-msgstr ""
-
-#: blocks/url-input/button.js:67
-msgid "Submit"
-msgstr ""
-
-#: blocks/url-input/index.js:190
-msgid "URL"
-msgstr ""
-
-#: blocks/url-input/index.js:195
-msgid "Paste URL or type"
-msgstr ""
-
-#: blocks/url-input/index.js:227
-#: edit-post/components/sidebar/sidebar-header/index.js:24
-#: editor/components/post-publish-panel/postpublish.js:64
-msgid "(no title)"
-msgstr ""
-
-#: blocks/url-input/index.js:88
 #: components/autocomplete/index.js:317
-#: components/form-token-field/index.js:214
+#: components/form-token-field/index.js:211
+#: editor/components/url-input/index.js:88
 msgid "%d result found, use up and down arrow keys to navigate."
 msgid_plural "%d results found, use up and down arrow keys to navigate."
 msgstr[0] ""
 msgstr[1] ""
 
-#: blocks/url-input/index.js:94
 #: components/autocomplete/index.js:323
-#: components/form-token-field/index.js:220
+#: components/form-token-field/index.js:217
 #: editor/components/inserter/menu.js:87
+#: editor/components/url-input/index.js:94
 msgid "No results."
 msgstr ""
 
 #: components/code-editor/index.js:88
-#: editor/store/effects.js:526
+#: editor/store/effects.js:529
 msgid "An unknown error occurred."
 msgstr ""
 
@@ -222,23 +81,37 @@ msgstr ""
 msgid "(opens in a new window)"
 msgstr ""
 
-#: components/form-token-field/index.js:511
+#: components/font-size-picker/index.js:24
+msgid "Font Size"
+msgstr ""
+
+#: components/font-size-picker/index.js:41
+#: components/range-control/index.js:63
+#: core-blocks/image/edit.js:291
+msgid "Reset"
+msgstr ""
+
+#: components/font-size-picker/index.js:46
+msgid "Custom Size"
+msgstr ""
+
+#: components/form-token-field/index.js:508
 msgid "Add item."
 msgstr ""
 
-#: components/form-token-field/index.js:567
+#: components/form-token-field/index.js:565
 msgid "Separate with commas"
 msgstr ""
 
-#: components/form-token-field/index.js:588
+#: components/form-token-field/index.js:586
 msgid "Item added."
 msgstr ""
 
-#: components/form-token-field/index.js:589
+#: components/form-token-field/index.js:587
 msgid "Item removed."
 msgstr ""
 
-#: components/form-token-field/index.js:590
+#: components/form-token-field/index.js:588
 msgid "Remove item"
 msgstr ""
 
@@ -291,50 +164,63 @@ msgstr ""
 msgid "Number of items"
 msgstr ""
 
-#: components/range-control/index.js:63
-#: core-blocks/image/block.js:290
-#: core-blocks/paragraph/index.js:188
-msgid "Reset"
+#: components/server-side-render/index.js:56
+msgid "Unknown error"
 msgstr ""
 
-#: components/server-side-render/index.js:61
-msgid "Loading..."
+#: components/server-side-render/index.js:84
+msgid "Error loading block: %s"
 msgstr ""
 
-#: core-blocks/audio/index.js:100
-#: editor/components/post-format/index.js:29
-msgid "Audio"
+#: components/server-side-render/index.js:88
+msgid "No results found."
 msgstr ""
 
-#: core-blocks/audio/index.js:101
-msgid "Select an audio file from your library, or upload a new one"
-msgstr ""
-
-#: core-blocks/audio/index.js:107
-msgid "Enter URL of audio file here…"
-msgstr ""
-
-#: core-blocks/audio/index.js:113
-#: core-blocks/video/index.js:145
-msgid "Use URL"
-msgstr ""
-
-#: core-blocks/audio/index.js:145
+#: core-blocks/audio/edit.js:112
 msgid "Edit audio"
 msgstr ""
 
-#: core-blocks/audio/index.js:156
-#: core-blocks/embed/index.js:229
+#: core-blocks/audio/edit.js:123
+#: core-blocks/embed/index.js:268
 #: core-blocks/gallery/gallery-image.js:133
-#: core-blocks/image/block.js:375
+#: core-blocks/image/edit.js:376
 #: core-blocks/video/index.js:180
 msgid "Write caption…"
 msgstr ""
 
-#: core-blocks/audio/index.js:31
-msgid ""
-"The Audio block allows you to embed audio files and play them back using a "
-"simple player."
+#: core-blocks/audio/edit.js:67
+#: core-blocks/audio/index.js:16
+#: editor/components/post-format/index.js:29
+msgid "Audio"
+msgstr ""
+
+#: core-blocks/audio/edit.js:68
+msgid "Select an audio file from your library, or upload a new one"
+msgstr ""
+
+#: core-blocks/audio/edit.js:74
+msgid "Enter URL of audio file here…"
+msgstr ""
+
+#: core-blocks/audio/edit.js:80
+#: core-blocks/video/index.js:145
+msgid "Use URL"
+msgstr ""
+
+#: core-blocks/audio/edit.js:89
+#: core-blocks/video/index.js:154
+#: editor/components/image-placeholder/index.js:54
+msgid "Upload"
+msgstr ""
+
+#: core-blocks/audio/edit.js:97
+#: core-blocks/video/index.js:162
+#: editor/components/image-placeholder/index.js:63
+msgid "Media Library"
+msgstr ""
+
+#: core-blocks/audio/index.js:18
+msgid "Embed an audio file and a simple audio player."
 msgstr ""
 
 #: core-blocks/block/edit-panel/index.js:103
@@ -345,89 +231,103 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: core-blocks/block/edit-panel/index.js:73
+#: editor/components/post-permalink/index.js:104
+#: editor/components/rich-text/format-toolbar/index.js:250
+msgid "Edit"
+msgstr ""
+
 #: core-blocks/block/edit-panel/index.js:83
 msgid "Name:"
 msgstr ""
 
-#: core-blocks/block/index.js:174
-msgid "Shared Block"
+#: core-blocks/block/edit.js:97
+msgid "Block has been deleted or is unavailable."
 msgstr ""
 
-#: core-blocks/block/index.js:97
-msgid "Block has been deleted or is unavailable."
+#: core-blocks/block/index.js:14
+msgid "Shared Block"
 msgstr ""
 
 #: core-blocks/block/indicator/index.js:14
 msgid "Shared Block: %s"
 msgstr ""
 
-#: core-blocks/button/index.js:102
-msgid "Add text…"
-msgstr ""
-
-#: core-blocks/button/index.js:123
+#: core-blocks/button/edit.js:120
 msgid "Wrap text"
 msgstr ""
 
-#: core-blocks/button/index.js:129
-#: core-blocks/paragraph/index.js:212
+#: core-blocks/button/edit.js:126
+#: core-blocks/paragraph/index.js:194
 msgid "Background Color"
 msgstr ""
 
-#: core-blocks/button/index.js:134
-#: core-blocks/paragraph/index.js:218
+#: core-blocks/button/edit.js:131
+#: core-blocks/paragraph/index.js:200
 msgid "Text Color"
 msgstr ""
 
-#: core-blocks/button/index.js:210
+#: core-blocks/button/edit.js:152
+#: editor/components/rich-text/format-toolbar/index.js:221
+msgid "Apply"
+msgstr ""
+
+#: core-blocks/button/edit.js:99
+msgid "Add text…"
+msgstr ""
+
+#: core-blocks/button/index.js:69
 msgid "Button"
 msgstr ""
 
-#: core-blocks/button/index.js:212
-msgid "A nice little button. Call something out with it."
+#: core-blocks/button/index.js:71
+msgid ""
+"Want visitors to click to subscribe, buy, or read more? Get their attention "
+"with a button."
 msgstr ""
 
-#: core-blocks/categories/block.js:153
+#: core-blocks/categories/edit.js:152
 msgid "Categories Settings"
 msgstr ""
 
-#: core-blocks/categories/block.js:155
+#: core-blocks/categories/edit.js:154
 msgid "Display as dropdown"
 msgstr ""
 
-#: core-blocks/categories/block.js:160
+#: core-blocks/categories/edit.js:159
 msgid "Show post counts"
 msgstr ""
 
-#: core-blocks/categories/block.js:165
+#: core-blocks/categories/edit.js:164
 msgid "Show hierarchy"
 msgstr ""
 
-#: core-blocks/categories/block.js:179
-#: core-blocks/categories/index.js:16
+#: core-blocks/categories/edit.js:178
+#: core-blocks/categories/index.js:15
 msgid "Categories"
 msgstr ""
 
-#: core-blocks/categories/block.js:71
-#: core-blocks/latest-posts/block.js:148
+#: core-blocks/categories/edit.js:70
+#: core-blocks/latest-posts/edit.js:147
 #: editor/store/selectors.js:330
 msgid "(Untitled)"
 msgstr ""
 
-#: core-blocks/categories/index.js:18
-msgid "Shows a list of your site's categories."
+#: core-blocks/categories/index.js:17
+msgid "Display a list of all your site's categories."
 msgstr ""
 
-#: core-blocks/code/index.js:20
-msgid "The code block maintains spaces and tabs, great for showing code snippets."
-msgstr ""
-
-#: core-blocks/code/index.js:75
+#: core-blocks/code/edit.js:18
 msgid "Write code…"
 msgstr ""
 
-#: core-blocks/code/index.js:76
+#: core-blocks/code/edit.js:19
+#: core-blocks/code/index.js:15
 msgid "Code"
+msgstr ""
+
+#: core-blocks/code/index.js:17
+msgid "Add text that respects your spacing and tabs -- perfect for displaying code."
 msgstr ""
 
 #: core-blocks/columns/index.js:35
@@ -444,18 +344,20 @@ msgid "Experimental"
 msgstr ""
 
 #: core-blocks/columns/index.js:61
-msgid "A multi-column layout of content."
+msgid ""
+"Add a block that displays content in multiple columns, then add whatever "
+"content blocks you'd like."
 msgstr ""
 
 #: core-blocks/columns/index.js:76
-#: core-blocks/gallery/block.js:218
-#: core-blocks/latest-posts/block.js:78
-#: core-blocks/text-columns/index.js:84
+#: core-blocks/gallery/edit.js:219
+#: core-blocks/latest-posts/edit.js:77
+#: core-blocks/text-columns/index.js:79
 msgid "Columns"
 msgstr ""
 
 #: core-blocks/cover-image/index.js:141
-#: core-blocks/image/block.js:188
+#: core-blocks/image/edit.js:189
 msgid "Edit image"
 msgstr ""
 
@@ -480,138 +382,140 @@ msgid "Write title…"
 msgstr ""
 
 #: core-blocks/cover-image/index.js:66
-msgid "Cover Image is a bold image block with an optional title."
+msgid "Add a full-width image, and layer text over it -- great for headers."
 msgstr ""
 
-#: core-blocks/embed/index.js:165
+#: core-blocks/embed/index.js:204
 msgid "Embedding…"
 msgstr ""
 
-#: core-blocks/embed/index.js:172
+#: core-blocks/embed/index.js:211
 msgid "%s URL"
 msgstr ""
 
-#: core-blocks/embed/index.js:184
+#: core-blocks/embed/index.js:223
 msgid "Enter URL to embed here…"
 msgstr ""
 
-#: core-blocks/embed/index.js:191
+#: core-blocks/embed/index.js:230
 msgid "Sorry, we could not embed that content."
 msgstr ""
 
-#: core-blocks/embed/index.js:200
+#: core-blocks/embed/index.js:239
 msgid "Embedded content from %s"
 msgstr ""
 
-#: core-blocks/embed/index.js:221
+#: core-blocks/embed/index.js:260
 msgid "Embed URL"
 msgstr ""
 
-#: core-blocks/embed/index.js:223
+#: core-blocks/embed/index.js:262
 msgid "Previews for this are unavailable in the editor, sorry!"
 msgstr ""
 
-#: core-blocks/embed/index.js:267
+#: core-blocks/embed/index.js:306
 msgid "Embed"
 msgstr ""
 
-#: core-blocks/embed/index.js:268
+#: core-blocks/embed/index.js:307
 msgid ""
 "The Embed block allows you to easily add videos, images, tweets, audio, and "
 "other content to your post or page."
 msgstr ""
 
-#: core-blocks/embed/index.js:291
+#: core-blocks/embed/index.js:330
 msgid "tweet"
 msgstr ""
 
-#: core-blocks/embed/index.js:322
+#: core-blocks/embed/index.js:365
 msgid "post"
 msgstr ""
 
-#: core-blocks/embed/index.js:322
+#: core-blocks/embed/index.js:365
 msgid "blog"
 msgstr ""
 
-# %s: Name of service (e.g. VideoPress, YouTube)
-#: core-blocks/embed/index.js:33
-msgid "Paste URLs from %s to embed the content in this block"
-msgstr ""
-
-#: core-blocks/embed/index.js:346
+#: core-blocks/embed/index.js:391
 msgid "image"
 msgstr ""
 
-#: core-blocks/embed/index.js:435
+#: core-blocks/embed/index.js:492
 msgid "music"
 msgstr ""
 
-#: core-blocks/embed/index.js:435
+#: core-blocks/embed/index.js:492
 msgid "audio"
 msgstr ""
 
-#: core-blocks/embed/index.js:520
+# %s: Name of service (e.g. VideoPress, YouTube)
+#: core-blocks/embed/index.js:52
+msgid ""
+"Add a block that displays content pulled from other sites, like Twitter, "
+"Instagram or YouTube."
+msgstr ""
+
+#: core-blocks/embed/index.js:589
 msgid "video"
 msgstr ""
 
-#: core-blocks/freeform/index.js:16
-#: core-blocks/freeform/old-editor.js:165
-msgid "Classic"
-msgstr ""
-
-#: core-blocks/freeform/index.js:18
-msgid "The classic editor, in block form."
-msgstr ""
-
-#: core-blocks/freeform/old-editor.js:114
-#: core-blocks/more/index.js:25
+#: core-blocks/freeform/edit.js:119
+#: core-blocks/more/index.js:21
 #: edit-post/components/header/more-menu/index.js:22
 msgid "More"
 msgstr ""
 
-#: core-blocks/gallery/block.js:111
+#: core-blocks/freeform/edit.js:170
+#: core-blocks/freeform/index.js:15
+msgid "Classic"
+msgstr ""
+
+#: core-blocks/freeform/index.js:17
+msgid "It's the classic WordPress editor and it's block! Drop the editor right in."
+msgstr ""
+
+#: core-blocks/gallery/edit.js:112
 msgid "Thumbnails are cropped to align."
 msgstr ""
 
-#: core-blocks/gallery/block.js:111
+#: core-blocks/gallery/edit.js:112
 msgid "Thumbnails are not cropped."
 msgstr ""
 
-#: core-blocks/gallery/block.js:186
+#: core-blocks/gallery/edit.js:187
 msgid "Edit Gallery"
 msgstr ""
 
-#: core-blocks/gallery/block.js:204
-#: core-blocks/gallery/index.js:78
+#: core-blocks/gallery/edit.js:205
+#: core-blocks/gallery/index.js:74
 #: editor/components/post-format/index.js:22
 msgid "Gallery"
 msgstr ""
 
-#: core-blocks/gallery/block.js:216
+#: core-blocks/gallery/edit.js:217
 msgid "Gallery Settings"
 msgstr ""
 
-#: core-blocks/gallery/block.js:225
+#: core-blocks/gallery/edit.js:226
 msgid "Crop Images"
 msgstr ""
 
-#: core-blocks/gallery/block.js:231
+#: core-blocks/gallery/edit.js:232
 msgid "Link to"
 msgstr ""
 
-#: core-blocks/gallery/block.js:264
+#: core-blocks/gallery/edit.js:265
 msgid "Upload an image"
 msgstr ""
 
-#: core-blocks/gallery/block.js:37
+#: core-blocks/gallery/edit.js:38
 msgid "Attachment Page"
 msgstr ""
 
-#: core-blocks/gallery/block.js:38
+#: core-blocks/gallery/edit.js:39
 msgid "Media File"
 msgstr ""
 
-#: core-blocks/gallery/block.js:39
+#: core-blocks/gallery/edit.js:40
 msgid "None"
 msgstr ""
 
@@ -619,206 +523,204 @@ msgstr ""
 msgid "Remove Image"
 msgstr ""
 
-#: core-blocks/gallery/index.js:79
-msgid "Image galleries are a great way to share groups of pictures on your site."
+#: core-blocks/gallery/index.js:75
+msgid "Display multiple images in an elegantly organized tiled layout."
 msgstr ""
 
-#: core-blocks/gallery/index.js:82
+#: core-blocks/gallery/index.js:78
 msgid "images"
 msgstr ""
 
-#: core-blocks/gallery/index.js:82
+#: core-blocks/gallery/index.js:78
 msgid "photos"
 msgstr ""
 
-#: core-blocks/heading/index.js:132
+#: core-blocks/heading/edit.js:40
 msgid "Heading Settings"
 msgstr ""
 
-#: core-blocks/heading/index.js:133
+#: core-blocks/heading/edit.js:41
 msgid "Level"
 msgstr ""
 
-#: core-blocks/heading/index.js:138
+#: core-blocks/heading/edit.js:45
 msgid "Heading %s"
 msgstr ""
 
-#: core-blocks/heading/index.js:145
+#: core-blocks/heading/edit.js:51
 msgid "Text Alignment"
 msgstr ""
 
-#: core-blocks/heading/index.js:174
+#: core-blocks/heading/edit.js:80
 msgid "Write heading…"
 msgstr ""
 
-#: core-blocks/heading/index.js:24
+#: core-blocks/heading/index.js:17
 msgid "Heading"
 msgstr ""
 
-#: core-blocks/heading/index.js:26
-msgid ""
-"Search engines use the headings to index the structure and content of your "
-"web pages."
+#: core-blocks/heading/index.js:19
+msgid "Insert a headline above your post or page content."
 msgstr ""
 
-#: core-blocks/heading/index.js:32
+#: core-blocks/heading/index.js:25
 msgid "title"
 msgstr ""
 
-#: core-blocks/heading/index.js:32
+#: core-blocks/heading/index.js:25
 msgid "subtitle"
 msgstr ""
 
-#: core-blocks/html/index.js:17
+#: core-blocks/html/index.js:18
 msgid "Custom HTML"
 msgstr ""
 
-#: core-blocks/html/index.js:19
-msgid "Add custom HTML code and preview it right here in the editor."
+#: core-blocks/html/index.js:20
+msgid "Add your own HTML (and view it right here as you edit!)."
 msgstr ""
 
-#: core-blocks/html/index.js:25
+#: core-blocks/html/index.js:26
 msgid "embed"
 msgstr ""
 
-#: core-blocks/html/index.js:78
-#: editor/components/block-preview/index.js:43
+#: core-blocks/html/index.js:79
+#: editor/components/block-preview/index.js:44
 msgid "Preview"
 msgstr ""
 
-#: core-blocks/image/block.js:208
-#: core-blocks/image/index.js:85
+#: core-blocks/image/edit.js:209
+#: core-blocks/image/index.js:89
 #: editor/components/post-format/index.js:24
 msgid "Image"
 msgstr ""
 
-#: core-blocks/image/block.js:225
+#: core-blocks/image/edit.js:226
 msgid "Image Settings"
 msgstr ""
 
-#: core-blocks/image/block.js:227
+#: core-blocks/image/edit.js:228
 msgid "Textual Alternative"
 msgstr ""
 
-#: core-blocks/image/block.js:230
+#: core-blocks/image/edit.js:231
 msgid ""
 "Describe the purpose of the image. Leave empty if the image is not a key "
 "part of the content."
 msgstr ""
 
-#: core-blocks/image/block.js:234
+#: core-blocks/image/edit.js:235
 msgid "Source Type"
 msgstr ""
 
-#: core-blocks/image/block.js:245
+#: core-blocks/image/edit.js:246
 msgid "Image Dimensions"
 msgstr ""
 
-#: core-blocks/image/block.js:251
+#: core-blocks/image/edit.js:252
 msgid "Width"
 msgstr ""
 
-#: core-blocks/image/block.js:259
+#: core-blocks/image/edit.js:260
 msgid "Height"
 msgstr ""
 
-#: core-blocks/image/block.js:266
+#: core-blocks/image/edit.js:267
 msgid "Image Size"
 msgstr ""
 
-#: core-blocks/image/index.js:87
-msgid "Worth a thousand words."
+#: core-blocks/image/index.js:91
+msgid "They're worth 1,000 words! Insert a single image."
 msgstr ""
 
-#: core-blocks/image/index.js:93
+#: core-blocks/image/index.js:97
 msgid "photo"
 msgstr ""
 
-#: core-blocks/latest-posts/block.js:100
-msgid "No posts found."
-msgstr ""
-
-#: core-blocks/latest-posts/block.js:115
+#: core-blocks/latest-posts/edit.js:114
 msgid "List View"
 msgstr ""
 
-#: core-blocks/latest-posts/block.js:121
+#: core-blocks/latest-posts/edit.js:120
 msgid "Grid View"
 msgstr ""
 
-#: core-blocks/latest-posts/block.js:60
+#: core-blocks/latest-posts/edit.js:59
 msgid "Latest Posts Settings"
 msgstr ""
 
-#: core-blocks/latest-posts/block.js:72
+#: core-blocks/latest-posts/edit.js:71
 msgid "Display post date"
 msgstr ""
 
-#: core-blocks/latest-posts/block.js:96
-#: core-blocks/latest-posts/index.js:16
+#: core-blocks/latest-posts/edit.js:95
+#: core-blocks/latest-posts/index.js:15
 msgid "Latest Posts"
 msgstr ""
 
-#: core-blocks/latest-posts/index.js:18
-msgid "Shows a list of your site's most recent posts."
+#: core-blocks/latest-posts/edit.js:99
+msgid "No posts found."
 msgstr ""
 
-#: core-blocks/latest-posts/index.js:24
+#: core-blocks/latest-posts/index.js:17
+msgid "Display a list of your most recent posts."
+msgstr ""
+
+#: core-blocks/latest-posts/index.js:23
 msgid "recent posts"
 msgstr ""
 
-#: core-blocks/list/index.js:270
+#: core-blocks/list/index.js:269
 msgid "Convert to unordered list"
 msgstr ""
 
-#: core-blocks/list/index.js:276
+#: core-blocks/list/index.js:275
 msgid "Convert to ordered list"
 msgstr ""
 
-#: core-blocks/list/index.js:282
+#: core-blocks/list/index.js:281
 msgid "Outdent list item"
 msgstr ""
 
-#: core-blocks/list/index.js:287
+#: core-blocks/list/index.js:286
 msgid "Indent list item"
 msgstr ""
 
-#: core-blocks/list/index.js:301
+#: core-blocks/list/index.js:300
 msgid "Write list…"
 msgstr ""
 
-#: core-blocks/list/index.js:43
+#: core-blocks/list/index.js:42
 msgid "List"
 msgstr ""
 
-#: core-blocks/list/index.js:44
-msgid "List. Numbered or bulleted."
+#: core-blocks/list/index.js:43
+msgid "Numbers, bullets, up to you. Add a list of items."
 msgstr ""
 
-#: core-blocks/list/index.js:47
+#: core-blocks/list/index.js:46
 msgid "bullet list"
 msgstr ""
 
-#: core-blocks/list/index.js:47
+#: core-blocks/list/index.js:46
 msgid "ordered list"
 msgstr ""
 
-#: core-blocks/list/index.js:47
+#: core-blocks/list/index.js:46
 msgid "numbered list"
 msgstr ""
 
-#: core-blocks/more/index.js:110
+#: core-blocks/more/edit.js:20
+msgid "Read more"
+msgstr ""
+
+#: core-blocks/more/edit.js:48
 msgid "Hide the teaser before the \"More\" tag"
 msgstr ""
 
-#: core-blocks/more/index.js:27
+#: core-blocks/more/index.js:23
 msgid ""
-"\"More\" allows you to break your post into a part shown on index pages, "
-"and the subsequent after clicking a \"Read More\" link."
-msgstr ""
-
-#: core-blocks/more/index.js:82
-msgid "Read more"
+"Want to show only part of this post on your blog's home page? Insert a "
+"\"More\" block where you want the split."
 msgstr ""
 
 #: core-blocks/nextpage/index.js:18
@@ -839,95 +741,83 @@ msgstr ""
 msgid "Page break"
 msgstr ""
 
-#: core-blocks/paragraph/index.js:164
-msgid "Text Settings"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:166
-msgid "Font Size"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:193
-msgid "Custom Size"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:203
-msgid "Drop Cap"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:230
-msgid "Block Alignment"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:271
-msgid "Add text or type / to add content"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:326
-msgid "Paragraph"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:328
-msgid "This is a simple text only block for adding a single paragraph of content."
-msgstr ""
-
-#: core-blocks/paragraph/index.js:334
-msgid "text"
-msgstr ""
-
-#: core-blocks/paragraph/index.js:96
+#: core-blocks/paragraph/index.js:107
 msgid "Showing large initial letter."
 msgstr ""
 
-#: core-blocks/paragraph/index.js:96
+#: core-blocks/paragraph/index.js:107
 msgid "Toggle to show a large initial letter."
 msgstr ""
 
-#: core-blocks/preformatted/index.js:19
+#: core-blocks/paragraph/index.js:177
+msgid "Text Settings"
+msgstr ""
+
+#: core-blocks/paragraph/index.js:185
+msgid "Drop Cap"
+msgstr ""
+
+#: core-blocks/paragraph/index.js:253
+msgid "Add text or type / to add content"
+msgstr ""
+
+#: core-blocks/paragraph/index.js:305
+msgid "Paragraph"
+msgstr ""
+
+#: core-blocks/paragraph/index.js:307
+msgid "Add some basic text."
+msgstr ""
+
+#: core-blocks/paragraph/index.js:313
+msgid "text"
+msgstr ""
+
+#: core-blocks/preformatted/index.js:16
 msgid "Preformatted"
 msgstr ""
 
-#: core-blocks/preformatted/index.js:21
-msgid "Preformatted text keeps your spaces, tabs and linebreaks as they are."
+#: core-blocks/preformatted/index.js:18
+msgid "Add text that respects your spacing and tabs, and also allows styling."
 msgstr ""
 
-#: core-blocks/preformatted/index.js:81
+#: core-blocks/preformatted/index.js:78
 msgid "Write preformatted text…"
 msgstr ""
 
 # the individual or entity quoted
-#: core-blocks/pullquote/index.js:106
-#: core-blocks/quote/index.js:239
+#: core-blocks/pullquote/index.js:100
+#: core-blocks/quote/index.js:231
 msgid "Write citation…"
 msgstr ""
 
-#: core-blocks/pullquote/index.js:54
+#: core-blocks/pullquote/index.js:53
 msgid "Pullquote"
 msgstr ""
 
-#: core-blocks/pullquote/index.js:56
+#: core-blocks/pullquote/index.js:55
 msgid ""
-"A pullquote is a brief, attention-catching quotation taken from the main "
-"text of an article and used as a subheading or graphic feature."
+"Highlight a quote from your post or page by displaying it as a graphic "
+"element."
 msgstr ""
 
 # the text of the quotation
-#: core-blocks/pullquote/index.js:96
-#: core-blocks/quote/index.js:225
+#: core-blocks/pullquote/index.js:92
+#: core-blocks/quote/index.js:219
 msgid "Write quote…"
 msgstr ""
 
-#: core-blocks/quote/index.js:192
+#: core-blocks/quote/index.js:186
 msgid "Quote style %d"
 msgstr ""
 
-#: core-blocks/quote/index.js:61
+#: core-blocks/quote/index.js:60
 #: editor/components/post-format/index.js:25
 msgid "Quote"
 msgstr ""
 
-#: core-blocks/quote/index.js:62
-msgid "Quote. In quoting others, we cite ourselves. (Julio Cortázar)"
+#: core-blocks/quote/index.js:61
+msgid "Maybe someone else said it better -- add some quoted text."
 msgstr ""
 
 #: core-blocks/separator/index.js:15
@@ -935,7 +825,7 @@ msgid "Separator"
 msgstr ""
 
 #: core-blocks/separator/index.js:17
-msgid "Use the separator to indicate a thematic change in the content."
+msgid "Insert a horizontal line where you want to create a break between ideas."
 msgstr ""
 
 #: core-blocks/separator/index.js:23
@@ -948,8 +838,8 @@ msgstr ""
 
 #: core-blocks/shortcode/index.js:19
 msgid ""
-"A shortcode is a WordPress-specific code snippet that is written between "
-"square brackets as [shortcode]. "
+"Add a shortcode -- a WordPress-specific snippet of code written between "
+"square brackets."
 msgstr ""
 
 #: core-blocks/shortcode/index.js:71
@@ -968,36 +858,44 @@ msgstr ""
 msgid "Add an element with empty space and custom height."
 msgstr ""
 
-#: core-blocks/spacer/index.js:73
+#: core-blocks/spacer/index.js:72
 msgid "Spacer Settings"
 msgstr ""
 
-#: core-blocks/spacer/index.js:74
+#: core-blocks/spacer/index.js:73
 msgid "Height in pixels"
 msgstr ""
 
-#: core-blocks/spacer/index.js:82
+#: core-blocks/spacer/index.js:81
 msgid "Height for the spacer element in pixels."
 msgstr ""
 
-#: core-blocks/subhead/index.js:19
-msgid "Subhead"
+#: core-blocks/subhead/index.js:22
+msgid "Subheading"
 msgstr ""
 
-#: core-blocks/subhead/index.js:21
-msgid "Explanatory text under the main heading of an article."
+#: core-blocks/subhead/index.js:24
+msgid "What's a subhead? Smaller than a headline, bigger than basic text."
 msgstr ""
 
-#: core-blocks/subhead/index.js:75
-msgid "Write subhead…"
+#: core-blocks/subhead/index.js:91
+msgid "Write subheading…"
 msgstr ""
 
-#: core-blocks/table/index.js:56
+#: core-blocks/table/index.js:129
+msgid "Table Settings"
+msgstr ""
+
+#: core-blocks/table/index.js:131
+msgid "Fixed width table cells"
+msgstr ""
+
+#: core-blocks/table/index.js:63
 msgid "Table"
 msgstr ""
 
-#: core-blocks/table/index.js:57
-msgid "Tables. Best used for tabular data."
+#: core-blocks/table/index.js:64
+msgid "Insert a table -- perfect for sharing charts and data."
 msgstr ""
 
 #: core-blocks/table/table-block.js:113
@@ -1028,7 +926,7 @@ msgstr ""
 msgid "Delete Column"
 msgstr ""
 
-#: core-blocks/text-columns/index.js:109
+#: core-blocks/text-columns/index.js:103
 msgid "New Column"
 msgstr ""
 
@@ -1037,24 +935,26 @@ msgid "Text Columns"
 msgstr ""
 
 #: core-blocks/text-columns/index.js:30
-msgid "Add text across columns. This block is experimental"
+msgid ""
+"Add text, and display it in two or more columns. Like a newspaper! This "
+"block is experimental."
 msgstr ""
 
-#: core-blocks/verse/index.js:18
+#: core-blocks/verse/index.js:16
 msgid "Verse"
 msgstr ""
 
-#: core-blocks/verse/index.js:20
+#: core-blocks/verse/index.js:18
 msgid ""
-"Write poetry and other literary expressions honoring all spaces and "
-"line-breaks."
+"A block for haiku? Why not? Blocks for all the things! (See what we did "
+"here?)"
 msgstr ""
 
-#: core-blocks/verse/index.js:26
+#: core-blocks/verse/index.js:24
 msgid "poetry"
 msgstr ""
 
-#: core-blocks/verse/index.js:67
+#: core-blocks/verse/index.js:65
 msgid "Write…"
 msgstr ""
 
@@ -1076,13 +976,11 @@ msgid "Enter URL of video file here…"
 msgstr ""
 
 #: core-blocks/video/index.js:36
-msgid ""
-"The Video block allows you to embed video files and play them back using a "
-"simple player."
+msgid "Embed an video file and a simple video player."
 msgstr ""
 
 #: edit-post/components/header/fixed-toolbar-toggle/index.js:17
-#: edit-post/components/header/index.js:57
+#: edit-post/components/header/index.js:56
 msgid "Settings"
 msgstr ""
 
@@ -1094,7 +992,7 @@ msgstr ""
 msgid "Editor Toolbar"
 msgstr ""
 
-#: edit-post/components/header/index.js:35
+#: edit-post/components/header/index.js:36
 msgid "Editor toolbar"
 msgstr ""
 
@@ -1127,16 +1025,12 @@ msgid "Extended Settings"
 msgstr ""
 
 #: edit-post/components/sidebar/block-sidebar/index.js:20
-#: edit-post/components/sidebar/document-sidebar/index.js:27
+#: edit-post/components/sidebar/document-sidebar/index.js:26
 msgid "Editor settings"
 msgstr ""
 
 #: edit-post/components/sidebar/discussion-panel/index.js:18
 msgid "Discussion"
-msgstr ""
-
-#: edit-post/components/sidebar/document-outline-panel/index.js:18
-msgid "Table of Contents"
 msgstr ""
 
 #: edit-post/components/sidebar/featured-image/index.js:27
@@ -1147,12 +1041,20 @@ msgstr ""
 msgid "Page Attributes"
 msgstr ""
 
-#: edit-post/components/sidebar/plugin-sidebar/index.js:23
+#: edit-post/components/sidebar/plugin-sidebar/index.js:52
 msgid "Editor plugins"
 msgstr ""
 
-#: edit-post/components/sidebar/plugin-sidebar/index.js:26
+#: edit-post/components/sidebar/plugin-sidebar/index.js:55
 msgid "Close plugin"
+msgstr ""
+
+#: edit-post/components/sidebar/plugin-sidebar/index.js:61
+msgid "Unpin from toolbar"
+msgstr ""
+
+#: edit-post/components/sidebar/plugin-sidebar/index.js:61
+msgid "Pin to toolbar"
 msgstr ""
 
 #: edit-post/components/sidebar/post-excerpt/index.js:18
@@ -1160,11 +1062,11 @@ msgid "Excerpt"
 msgstr ""
 
 #: edit-post/components/sidebar/post-schedule/index.js:17
-#: editor/components/post-publish-button/label.js:45
+#: editor/components/post-publish-button/label.js:36
 msgid "Publish"
 msgstr ""
 
-#: edit-post/components/sidebar/post-status/index.js:28
+#: edit-post/components/sidebar/post-status/index.js:29
 msgid "Status & Visibility"
 msgstr ""
 
@@ -1193,6 +1095,12 @@ msgid "Block"
 msgid_plural "%d Blocks"
 msgstr[0] ""
 msgstr[1] ""
+
+#: edit-post/components/sidebar/sidebar-header/index.js:24
+#: editor/components/post-publish-panel/postpublish.js:64
+#: editor/components/url-input/index.js:227
+msgid "(no title)"
+msgstr ""
 
 #: edit-post/components/visual-editor/block-inspector-button.js:25
 msgid "Block settings closed"
@@ -1232,13 +1140,13 @@ msgid "Find original"
 msgstr ""
 
 #: edit-post/hooks/validate-use-once/index.js:76
-#: editor/components/block-settings-menu/block-remove-button.js:20
+#: editor/components/block-settings-menu/block-remove-button.js:19
 msgid "Remove"
 msgstr ""
 
 #: edit-post/hooks/validate-use-once/index.js:86
 #: editor/components/block-settings-menu/block-transformations.js:31
-#: editor/components/block-switcher/index.js:67
+#: editor/components/block-switcher/index.js:68
 msgid "Transform into:"
 msgstr ""
 
@@ -1254,15 +1162,38 @@ msgstr ""
 msgid "Code editor selected"
 msgstr ""
 
-#: editor/components/block-inspector/index.js:27
+#: editor/components/alignment-toolbar/index.js:10
+#: editor/components/block-alignment-toolbar/index.js:11
+msgid "Align left"
+msgstr ""
+
+#: editor/components/alignment-toolbar/index.js:15
+#: editor/components/block-alignment-toolbar/index.js:15
+msgid "Align center"
+msgstr ""
+
+#: editor/components/alignment-toolbar/index.js:20
+#: editor/components/block-alignment-toolbar/index.js:19
+msgid "Align right"
+msgstr ""
+
+#: editor/components/block-alignment-toolbar/index.js:23
+msgid "Wide width"
+msgstr ""
+
+#: editor/components/block-alignment-toolbar/index.js:27
+msgid "Full width"
+msgstr ""
+
+#: editor/components/block-inspector/index.js:25
 msgid "Coming Soon"
 msgstr ""
 
-#: editor/components/block-inspector/index.js:31
+#: editor/components/block-inspector/index.js:29
 msgid "No block selected."
 msgstr ""
 
-#: editor/components/block-inspector/index.js:51
+#: editor/components/block-inspector/index.js:49
 msgid "Advanced"
 msgstr ""
 
@@ -1275,7 +1206,7 @@ msgid "This block has encountered an error and cannot be previewed."
 msgstr ""
 
 # %s: Type of block (i.e. Text, Image etc)
-#: editor/components/block-list/block.js:421
+#: editor/components/block-list/block.js:420
 msgid "Block: %s"
 msgstr ""
 
@@ -1386,12 +1317,24 @@ msgstr ""
 msgid "Convert to blocks"
 msgstr ""
 
-#: editor/components/block-switcher/index.js:43
+#: editor/components/block-switcher/index.js:44
 msgid "Change block type"
 msgstr ""
 
-#: editor/components/block-switcher/index.js:71
+#: editor/components/block-switcher/index.js:72
 msgid "Block types"
+msgstr ""
+
+#: editor/components/contrast-checker/index.js:33
+msgid ""
+"This color combination may be hard for people to read. Try using a darker "
+"background color and/or a brighter text color."
+msgstr ""
+
+#: editor/components/contrast-checker/index.js:34
+msgid ""
+"This color combination may be hard for people to read. Try using a brighter "
+"background color and/or a darker text color."
 msgstr ""
 
 #: editor/components/default-block-appender/index.js:36
@@ -1424,11 +1367,11 @@ msgstr ""
 msgid "(Click to focus this heading)"
 msgstr ""
 
-#: editor/components/editor-history/redo.js:13
+#: editor/components/editor-history/redo.js:16
 msgid "Redo"
 msgstr ""
 
-#: editor/components/editor-history/undo.js:13
+#: editor/components/editor-history/undo.js:16
 msgid "Undo"
 msgstr ""
 
@@ -1448,7 +1391,15 @@ msgstr ""
 msgid "The editor has encountered an unexpected error."
 msgstr ""
 
-#: editor/components/inserter-with-shortcuts/index.js:36
+#: editor/components/image-placeholder/index.js:39
+msgid "Drag images here or add from media library"
+msgstr ""
+
+#: editor/components/image-placeholder/index.js:40
+msgid "Drag image here or add from media library"
+msgstr ""
+
+#: editor/components/inserter-with-shortcuts/index.js:37
 msgid "Add %s"
 msgstr ""
 
@@ -1495,11 +1446,11 @@ msgstr ""
 msgid "no parent"
 msgstr ""
 
-#: editor/components/page-attributes/template.js:28
+#: editor/components/page-attributes/template.js:27
 msgid "Template:"
 msgstr ""
 
-#: editor/components/page-attributes/template.js:35
+#: editor/components/page-attributes/template.js:34
 msgid "Default template"
 msgstr ""
 
@@ -1511,11 +1462,11 @@ msgstr ""
 msgid "Allow Comments"
 msgstr ""
 
-#: editor/components/post-excerpt/index.js:20
+#: editor/components/post-excerpt/index.js:18
 msgid "Write an excerpt (optional)"
 msgstr ""
 
-#: editor/components/post-excerpt/index.js:28
+#: editor/components/post-excerpt/index.js:24
 msgid "Learn more about manual excerpts"
 msgstr ""
 
@@ -1537,6 +1488,11 @@ msgstr ""
 
 #: editor/components/post-format/index.js:21
 msgid "Aside"
+msgstr ""
+
+#: editor/components/post-format/index.js:23
+#: editor/components/rich-text/format-toolbar/index.js:182
+msgid "Link"
 msgstr ""
 
 #: editor/components/post-format/index.js:26
@@ -1573,7 +1529,7 @@ msgstr ""
 msgid "Edit post permalink"
 msgstr ""
 
-#: editor/components/post-permalink/editor.js:79
+#: editor/components/post-permalink/editor.js:78
 msgid "OK"
 msgstr ""
 
@@ -1597,39 +1553,39 @@ msgstr ""
 msgid "Allow Pingbacks & Trackbacks"
 msgstr ""
 
-#: editor/components/post-publish-button/label.js:30
+#: editor/components/post-publish-button/label.js:21
 msgid "Publishing…"
 msgstr ""
 
-#: editor/components/post-publish-button/label.js:32
+#: editor/components/post-publish-button/label.js:23
 msgid "Updating…"
 msgstr ""
 
-#: editor/components/post-publish-button/label.js:34
+#: editor/components/post-publish-button/label.js:25
 msgid "Scheduling…"
 msgstr ""
 
-#: editor/components/post-publish-button/label.js:38
+#: editor/components/post-publish-button/label.js:29
 msgid "Submit for Review"
 msgstr ""
 
-#: editor/components/post-publish-button/label.js:40
+#: editor/components/post-publish-button/label.js:31
 msgid "Update"
 msgstr ""
 
-#: editor/components/post-publish-button/label.js:42
+#: editor/components/post-publish-button/label.js:33
 msgid "Schedule"
 msgstr ""
 
-#: editor/components/post-publish-panel/index.js:77
+#: editor/components/post-publish-panel/index.js:75
 msgid "Scheduled"
 msgstr ""
 
-#: editor/components/post-publish-panel/index.js:77
+#: editor/components/post-publish-panel/index.js:75
 msgid "Published"
 msgstr ""
 
-#: editor/components/post-publish-panel/index.js:83
+#: editor/components/post-publish-panel/index.js:81
 msgid "Close Publish Panel"
 msgstr ""
 
@@ -1671,27 +1627,27 @@ msgstr ""
 msgid "Publish: "
 msgstr ""
 
-#: editor/components/post-publish-panel/toggle.js:54
+#: editor/components/post-publish-panel/toggle.js:52
 msgid "Schedule…"
 msgstr ""
 
-#: editor/components/post-publish-panel/toggle.js:54
+#: editor/components/post-publish-panel/toggle.js:52
 msgid "Publish…"
 msgstr ""
 
-#: editor/components/post-saved-state/index.js:44
+#: editor/components/post-saved-state/index.js:47
 msgid "Saving"
 msgstr ""
 
-#: editor/components/post-saved-state/index.js:61
+#: editor/components/post-saved-state/index.js:64
 msgid "Saved"
 msgstr ""
 
-#: editor/components/post-saved-state/index.js:72
+#: editor/components/post-saved-state/index.js:76
 msgid "Save Draft"
 msgstr ""
 
-#: editor/components/post-schedule/label.js:11
+#: editor/components/post-schedule/label.js:12
 msgid "Immediately"
 msgstr ""
 
@@ -1707,40 +1663,40 @@ msgstr ""
 msgid "Switch to Draft"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:166
+#: editor/components/post-taxonomies/flat-term-selector.js:171
 msgid "Add New Tag"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:166
+#: editor/components/post-taxonomies/flat-term-selector.js:171
 msgid "Add New Term"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:171
+#: editor/components/post-taxonomies/flat-term-selector.js:176
 msgid "Tag"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:171
+#: editor/components/post-taxonomies/flat-term-selector.js:176
 #: editor/components/post-taxonomies/hierarchical-term-selector.js:138
 msgid "Term"
 msgstr ""
 
-#: editor/components/post-taxonomies/hierarchical-term-selector.js:233
+#: editor/components/post-taxonomies/hierarchical-term-selector.js:238
 msgid "Add new category"
 msgstr ""
 
-#: editor/components/post-taxonomies/hierarchical-term-selector.js:234
+#: editor/components/post-taxonomies/hierarchical-term-selector.js:239
 msgid "Add new term"
 msgstr ""
 
-#: editor/components/post-taxonomies/hierarchical-term-selector.js:238
+#: editor/components/post-taxonomies/hierarchical-term-selector.js:243
 msgid "Parent Category"
 msgstr ""
 
-#: editor/components/post-taxonomies/hierarchical-term-selector.js:239
+#: editor/components/post-taxonomies/hierarchical-term-selector.js:244
 msgid "Parent Term"
 msgstr ""
 
-#: editor/components/post-title/index.js:114
+#: editor/components/post-title/index.js:113
 msgid "Add title"
 msgstr ""
 
@@ -1788,6 +1744,34 @@ msgstr ""
 
 #: editor/components/post-visibility/utils.js:9
 msgid "Public"
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:160
+msgid "Link added."
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:182
+msgid "Unlink"
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:198
+msgid "Open in new window"
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:254
+msgid "Link Settings"
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:28
+msgid "Bold"
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:34
+msgid "Italic"
+msgstr ""
+
+#: editor/components/rich-text/format-toolbar/index.js:40
+msgid "Strikethrough"
 msgstr ""
 
 #: editor/components/skip-to-selected-block/index.js:22
@@ -1842,6 +1826,42 @@ msgstr ""
 msgid "You have unsaved changes. If you proceed, they will be lost."
 msgstr ""
 
+#: editor/components/url-input/button.js:41
+msgid "Edit Link"
+msgstr ""
+
+#: editor/components/url-input/button.js:41
+msgid "Insert Link"
+msgstr ""
+
+#: editor/components/url-input/button.js:61
+msgid "Close"
+msgstr ""
+
+#: editor/components/url-input/button.js:67
+msgid "Submit"
+msgstr ""
+
+#: editor/components/url-input/index.js:190
+msgid "URL"
+msgstr ""
+
+#: editor/components/url-input/index.js:195
+msgid "Paste URL or type"
+msgstr ""
+
+#: editor/hooks/anchor.js:69
+msgid "HTML Anchor"
+msgstr ""
+
+#: editor/hooks/anchor.js:70
+msgid "Anchors lets you link directly to a section on a page."
+msgstr ""
+
+#: editor/hooks/custom-class-name.js:60
+msgid "Additional CSS Class"
+msgstr ""
+
 #: editor/store/effects.js:153
 msgid "Post reverted to draft."
 msgstr ""
@@ -1882,19 +1902,19 @@ msgstr ""
 msgid "Trashing failed"
 msgstr ""
 
-#: editor/store/effects.js:461
+#: editor/store/effects.js:464
 msgid "Block created."
 msgstr ""
 
-#: editor/store/effects.js:461
+#: editor/store/effects.js:464
 msgid "Block updated."
 msgstr ""
 
-#: editor/store/effects.js:517
+#: editor/store/effects.js:520
 msgid "Block deleted."
 msgstr ""
 
-#: editor/store/effects.js:549
+#: editor/store/effects.js:552
 msgid "Untitled shared block"
 msgstr ""
 
@@ -1907,18 +1927,18 @@ msgctxt "imperative verb"
 msgid "Preview"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:173
+#: editor/components/post-taxonomies/flat-term-selector.js:178
 #: editor/components/post-taxonomies/hierarchical-term-selector.js:134
 msgctxt "term"
 msgid "%s added"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:174
+#: editor/components/post-taxonomies/flat-term-selector.js:179
 msgctxt "term"
 msgid "%s removed"
 msgstr ""
 
-#: editor/components/post-taxonomies/flat-term-selector.js:175
+#: editor/components/post-taxonomies/flat-term-selector.js:180
 msgctxt "term"
 msgid "Remove %s"
 msgstr ""
