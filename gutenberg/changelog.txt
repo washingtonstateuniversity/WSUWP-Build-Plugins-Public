@@ -1,5 +1,18 @@
 == Changelog ==
 
+= 2.9.2 =
+
+* Ensure the Title uses the same max-width as blocks
+* Center the background of the cover image block
+* Fix formatting controls regression
+* Fix classic editor visual mode regression
+
+= 2.9.1 =
+
+* Ensure the wp-editor script is also enqueued soon using the `enqueue_block_assets` hook
+* Allow clicking the block's input fields (regression fix)
+* Remove post type capabilities from the user object
+
 = 2.9.0 =
 
 * Add support for pinning plugin items in the main editor header. This is an important part of the editor Plugin API seeking to both grant plugins high visibility while offering users a consistent and flexible UI that can scale better.
