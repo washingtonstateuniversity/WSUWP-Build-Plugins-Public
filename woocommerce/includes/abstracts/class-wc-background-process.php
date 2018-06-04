@@ -43,7 +43,7 @@ abstract class WC_Background_Process extends WP_Background_Process {
 
 		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$column} LIKE %s", $key ) ); // @codingStandardsIgnoreLine.
 
-		return ( $count > 0 ) ? false : true;
+		return ! ( $count > 0 );
 	}
 
 	/**
@@ -162,7 +162,7 @@ abstract class WC_Background_Process extends WP_Background_Process {
 		$interval = apply_filters( $this->identifier . '_cron_interval', 5 );
 
 		if ( property_exists( $this, 'cron_interval' ) ) {
-			$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval_identifier );
+			$interval = apply_filters( $this->identifier . '_cron_interval', $this->cron_interval );
 		}
 
 		// Adds every 5 minutes to the existing schedules.

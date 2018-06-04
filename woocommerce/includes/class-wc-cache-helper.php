@@ -114,14 +114,14 @@ class WC_Cache_Helper {
 	/**
 	 * Get transient version.
 	 *
-	 * When using transients with unpredictable names, e.g. those containing an md5.
+	 * When using transients with unpredictable names, e.g. those containing an md5
 	 * hash in the name, we need a way to invalidate them all at once.
 	 *
-	 * When using default WP transients we're able to do this with a DB query to.
+	 * When using default WP transients we're able to do this with a DB query to
 	 * delete transients manually.
 	 *
-	 * With external cache however, this isn't possible. Instead, this function is used.
-	 * to append a unique string (based on time()) to each transient. When transients.
+	 * With external cache however, this isn't possible. Instead, this function is used
+	 * to append a unique string (based on time()) to each transient. When transients
 	 * are invalidated, the transient version will increment and data will be regenerated.
 	 *
 	 * Raised in issue https://github.com/woocommerce/woocommerce/issues/5777.
@@ -157,7 +157,12 @@ class WC_Cache_Helper {
 		if ( ! wp_using_ext_object_cache() && ! empty( $version ) ) {
 			global $wpdb;
 
-			$limit    = apply_filters( 'woocommerce_delete_version_transients_limit', 1000 );
+			$limit = apply_filters( 'woocommerce_delete_version_transients_limit', 1000 );
+
+			if ( ! $limit ) {
+				return;
+			}
+
 			$affected = $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id LIMIT %d;", '\_transient\_%' . $version, $limit ) ); // WPCS: cache ok, db call ok.
 
 			// If affected rows is equal to limit, there are more rows to delete. Delete in 10 secs.

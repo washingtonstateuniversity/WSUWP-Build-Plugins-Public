@@ -2,8 +2,8 @@
 /**
  * WooCommerce setup
  *
- * @package  WooCommerce
- * @since    3.2.0
+ * @package WooCommerce
+ * @since   3.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -20,7 +20,7 @@ final class WooCommerce {
 	 *
 	 * @var string
 	 */
-	public $version = '3.3.5';
+	public $version = '3.4.1';
 
 	/**
 	 * The single instance of the class.
@@ -123,7 +123,7 @@ final class WooCommerce {
 	 * @since 2.1
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), '2.1' );
 	}
 
 	/**
@@ -132,7 +132,7 @@ final class WooCommerce {
 	 * @since 2.1
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce' ), '2.1' );
+		wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), '2.1' );
 	}
 
 	/**
@@ -290,6 +290,7 @@ final class WooCommerce {
 		include_once WC_ABSPATH . 'includes/abstracts/abstract-wc-log-handler.php';
 		include_once WC_ABSPATH . 'includes/abstracts/abstract-wc-deprecated-hooks.php';
 		include_once WC_ABSPATH . 'includes/abstracts/abstract-wc-session.php';
+		include_once WC_ABSPATH . 'includes/abstracts/abstract-wc-privacy.php';
 
 		/**
 		 * Core classes.
@@ -326,6 +327,10 @@ final class WooCommerce {
 		include_once WC_ABSPATH . 'includes/class-wc-cart-totals.php';
 		include_once WC_ABSPATH . 'includes/customizer/class-wc-shop-customizer.php';
 		include_once WC_ABSPATH . 'includes/class-wc-regenerate-images.php';
+		include_once WC_ABSPATH . 'includes/class-wc-privacy.php';
+		include_once WC_ABSPATH . 'includes/class-wc-structured-data.php';
+		include_once WC_ABSPATH . 'includes/class-wc-shortcodes.php';
+		include_once WC_ABSPATH . 'includes/class-wc-logger.php';
 
 		/**
 		 * Data stores - used to store and retrieve CRUD object data from the database.
@@ -341,7 +346,7 @@ final class WooCommerce {
 		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-data-store.php';
 		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-coupon-data-store.php';
 		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-fee-data-store.php';
-		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-product-store.php';
+		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-product-data-store.php';
 		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-shipping-data-store.php';
 		include_once WC_ABSPATH . 'includes/data-stores/class-wc-order-item-tax-data-store.php';
 		include_once WC_ABSPATH . 'includes/data-stores/class-wc-payment-token-data-store.php';
@@ -434,9 +439,7 @@ final class WooCommerce {
 		include_once WC_ABSPATH . 'includes/class-wc-tax.php';
 		include_once WC_ABSPATH . 'includes/class-wc-shipping-zones.php';
 		include_once WC_ABSPATH . 'includes/class-wc-customer.php';
-		include_once WC_ABSPATH . 'includes/class-wc-shortcodes.php';
 		include_once WC_ABSPATH . 'includes/class-wc-embed.php';
-		include_once WC_ABSPATH . 'includes/class-wc-structured-data.php';
 		include_once WC_ABSPATH . 'includes/class-wc-session-handler.php';
 	}
 

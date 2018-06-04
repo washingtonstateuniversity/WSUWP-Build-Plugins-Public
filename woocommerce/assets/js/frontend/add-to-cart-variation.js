@@ -13,6 +13,7 @@
 		this.variationData        = $form.data( 'product_variations' );
 		this.useAjax              = false === this.variationData;
 		this.xhr                  = false;
+		this.loading              = true;
 
 		// Initial state.
 		this.$singleVariationWrap.show();
@@ -41,6 +42,7 @@
 		setTimeout( function() {
 			$form.trigger( 'check_variations' );
 			$form.trigger( 'wc_variation_form' );
+			$form.loading = false;
 		}, 100 );
 	};
 
@@ -145,8 +147,12 @@
 							form.$form.trigger( 'found_variation', [ variation ] );
 						} else {
 							form.$form.trigger( 'reset_data' );
-							form.$form.find( '.single_variation' ).after( '<p class="wc-no-matching-variations woocommerce-info">' + wc_add_to_cart_variation_params.i18n_no_matching_variations_text + '</p>' );
-							form.$form.find( '.wc-no-matching-variations' ).slideDown( 200 );
+							attributes.chosenCount = 0;
+
+							if ( ! form.loading ) {
+								form.$form.find( '.single_variation' ).after( '<p class="wc-no-matching-variations woocommerce-info">' + wc_add_to_cart_variation_params.i18n_no_matching_variations_text + '</p>' );
+								form.$form.find( '.wc-no-matching-variations' ).slideDown( 200 );
+							}
 						}
 					},
 					complete: function() {
@@ -163,8 +169,12 @@
 					form.$form.trigger( 'found_variation', [ variation ] );
 				} else {
 					form.$form.trigger( 'reset_data' );
-					form.$form.find( '.single_variation' ).after( '<p class="wc-no-matching-variations woocommerce-info">' + wc_add_to_cart_variation_params.i18n_no_matching_variations_text + '</p>' );
-					form.$form.find( '.wc-no-matching-variations' ).slideDown( 200 );
+					attributes.chosenCount = 0;
+
+					if ( ! form.loading ) {
+						form.$form.find( '.single_variation' ).after( '<p class="wc-no-matching-variations woocommerce-info">' + wc_add_to_cart_variation_params.i18n_no_matching_variations_text + '</p>' );
+						form.$form.find( '.wc-no-matching-variations' ).slideDown( 200 );
+					}
 				}
 			}
 		} else {
@@ -555,8 +565,9 @@
 			$product_link     = $product_img_wrap.find( 'a' ).eq( 0 );
 
 		if ( variation && variation.image && variation.image.src && variation.image.src.length > 1 ) {
+			$form.wc_variations_image_reset();
+
 			if ( $gallery_nav.find( 'li img[src="' + variation.image.gallery_thumbnail_src + '"]' ).length > 0 ) {
-				$form.wc_variations_image_reset();
 				$gallery_nav.find( 'li img[src="' + variation.image.gallery_thumbnail_src + '"]' ).trigger( 'click' );
 				$form.attr( 'current-image', variation.image_id );
 				return;
