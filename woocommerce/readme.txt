@@ -3,7 +3,7 @@ Contributors: automattic, mikejolley, jameskoster, claudiosanches, claudiulodro,
 Tags: ecommerce, e-commerce, store, sales, sell, shop, cart, checkout, downloadable, downloads, paypal, storefront, woo commerce
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,21 @@ Yes you can! Join in on our [GitHub repository](https://github.com/woocommerce/w
 6. A product archive (grid).
 
 == Changelog ==
+
+= 3.4.2 - 2018-06-05 =
+* Fix - Flexslider gallery fixes for RTL sites, and for variation image switching. #20328 ##20321
+* Fix - Allow forms to be submitted when the password strength library fails to load. #20362
+* Fix - Personal data exporter: Do not export a customer data group containing no data. #20347
+* Fix - Fix navigation notification in settings when clicking save. #20335
+* Fix - Show discount amount for free shipping coupons. #20334
+* Fix - Fixed cache clearing for category children for sites running object caching. #20308
+* Fix - Use correct escaping on select2 placeholders. #20364
+* Fix - Order by price clauses when searching within terms. #20391
+* Fix - Clear needs_processing transient when adding a product to an order. #20390
+* Enhancement - Permission_id constraint checks on install. #20366
+* Dev - Added order to "woocommerce_order_is_vat_exempt" filter arguments. #20365
+* Localization - Disable states for Bahrain. #20363
+* Localization - Disable states for Luxemberg. #20389
 
 = 3.4.1 - 2018-05-29 =
 * Fix - Fix webhook admin filtering URLs. #20236
