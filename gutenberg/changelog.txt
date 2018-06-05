@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 3.0.1 =
+
+* Fix regression in Columns block's front-end style
+* Fix regression in SVG support for block icons
+* Build tooling: Add linting for package.json files
+
 = 3.0.0 =
 
 * Redesign the inserter with collapsible panels.
