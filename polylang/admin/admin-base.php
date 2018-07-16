@@ -115,7 +115,7 @@ class PLL_Admin_Base extends PLL_Base {
 		// 3 => 1 if loaded in footer
 		// FIXME: check if I can load more scripts in footer
 		$scripts = array(
-			'post'  => array( array( 'post', 'media', 'async-upload', 'edit' ), array( 'jquery', 'wp-ajax-response', 'post', 'jquery-ui-autocomplete' ), 0, 0 ),
+			'post'  => array( array( 'post', 'media', 'async-upload', 'edit' ), array( 'jquery', 'wp-ajax-response', 'post', 'jquery-ui-autocomplete' ), 0, 1 ),
 			'media' => array( array( 'upload' ), array( 'jquery' ), 0, 1 ),
 			'term'  => array( array( 'edit-tags', 'term' ), array( 'jquery', 'wp-ajax-response', 'jquery-ui-autocomplete' ), 0, 1 ),
 			'user'  => array( array( 'profile', 'user-edit' ), array( 'jquery' ), 0, 0 ),
@@ -158,38 +158,38 @@ class PLL_Admin_Base extends PLL_Base {
 
 		$str = http_build_query( $params );
 		$arr = json_encode( $params );
-?>
-<script type="text/javascript">
-	if (typeof jQuery != 'undefined') {
-		(function($){
-			$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-				if ( -1 != options.url.indexOf( ajaxurl ) || -1 != ajaxurl.indexOf( options.url ) ) {
-					if ( 'undefined' === typeof options.data ) {
-						options.data = ( 'get' === options.type.toLowerCase() ) ? '<?php echo $str; ?>' : <?php echo $arr; ?>;
-					} else {
-						if ( 'string' === typeof options.data ) {
-							if ( '' === options.data && 'get' === options.type.toLowerCase() ) {
-								options.url = options.url+'&<?php echo $str; ?>';
+		?>
+		<script type="text/javascript">
+			if (typeof jQuery != 'undefined') {
+				(function($){
+					$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+						if ( -1 != options.url.indexOf( ajaxurl ) || -1 != ajaxurl.indexOf( options.url ) ) {
+							if ( 'undefined' === typeof options.data ) {
+								options.data = ( 'get' === options.type.toLowerCase() ) ? '<?php echo $str; ?>' : <?php echo $arr; ?>;
 							} else {
-								try {
-									o = $.parseJSON(options.data);
-									o = $.extend(o, <?php echo $arr; ?>);
-									options.data = JSON.stringify(o);
-								}
-								catch(e) {
-									options.data = '<?php echo $str; ?>&'+options.data;
+								if ( 'string' === typeof options.data ) {
+									if ( '' === options.data && 'get' === options.type.toLowerCase() ) {
+										options.url = options.url+'&<?php echo $str; ?>';
+									} else {
+										try {
+											var o = $.parseJSON(options.data);
+											o = $.extend(o, <?php echo $arr; ?>);
+											options.data = JSON.stringify(o);
+										}
+										catch(e) {
+											options.data = '<?php echo $str; ?>&'+options.data;
+										}
+									}
+								} else {
+									options.data = $.extend(options.data, <?php echo $arr; ?>);
 								}
 							}
-						} else {
-							options.data = $.extend(options.data, <?php echo $arr; ?>);
 						}
-					}
-				}
-			});
-		})(jQuery)
-	}
-</script>
-<?php
+					});
+				})(jQuery)
+			}
+		</script>
+		<?php
 	}
 
 	/**
@@ -199,15 +199,6 @@ class PLL_Admin_Base extends PLL_Base {
 	 */
 	public function set_current_language() {
 		$this->curlang = $this->filter_lang;
-
-		// POST
-		if ( isset( $_POST['post_lang_choice'] ) && $lang = $this->model->get_language( $_POST['post_lang_choice'] ) ) {
-			$this->curlang = $lang;
-		} elseif ( isset( $_POST['term_lang_choice'] ) && $lang = $this->model->get_language( $_POST['term_lang_choice'] ) ) {
-			$this->curlang = $lang;
-		} elseif ( isset( $_POST['inline_lang_choice'] ) && $lang = $this->model->get_language( $_POST['inline_lang_choice'] ) ) {
-			$this->curlang = $lang;
-		}
 
 		// Edit Post
 		if ( isset( $_REQUEST['pll_post_id'] ) && $lang = $this->model->post->get_language( (int) $_REQUEST['pll_post_id'] ) ) {

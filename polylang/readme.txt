@@ -4,7 +4,7 @@ Donate link: https://polylang.pro
 Tags: multilingual, bilingual, translate, translation, language, multilanguage, international, localization
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.3.6
+Stable tag: 2.3.8
 License: GPLv2 or later
 
 Making WordPress multilingual
@@ -75,6 +75,31 @@ Don't hesitate to [give your feedback](http://wordpress.org/support/view/plugin-
 4. The Edit Post screen with the Languages metabox
 
 == Changelog ==
+
+= 2.3.8 (2018-07-16) =
+
+* Pro: Duplicate term meta when duplicating a post creates new terms
+* Pro: Add compatibility with ACF Pro when it's bundled with the theme
+* Pro: Fix a fatal error when duplicating posts
+* Set cookie during the home redirect
+* Accept a port in the url to detect the site home
+* Add filter 'pll_is_cache_active' to allow to load the cache compatibility #270 #274
+* Fix potential fatal error when a 3rd party misuses the 'wpml_active_languages' filter #268
+* Fix Uncaught TypeError: s.split is not a function. Props Wouter Van Vliet #262
+* Fix text alignment for RTL scripts in Lingotek panel #247
+* Fix html language attribute filter on admin
+* Fix cookie expiration time when set in js. Props Jens Nachtigall #271
+* Fix fatal error when a 3rd party misuses the WP_Query tax_query param. Props JanneAalto #252
+* Fix an edge case which could mess home pages on a multisite
+
+
+= 2.3.7 (2018-06-07) =
+
+* Pro: The Events Calendar: Fix untranslated events shown in all languages
+* Avoid displaying edit links of translations of the privacy policy page to non-admin
+* Fix draft created when creating a new page on multisite
+* Do not prevent using the cache for home when using WP Rocket 3.0.5 or later #236
+* Fix language filter applied to wrong queries on admin side
 
 = 2.3.6 (2018-05-17) =
 
