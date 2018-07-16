@@ -16,6 +16,7 @@ There a couple plugins that we have slight forks of in GitHub rather than direct
 
 If a bug has been identified in a plugin, but has not yet been fixed upstream, we may include a hotfix in this repository to avoid PHP errors in production. In most cases, we should also submit a pull request to address the issue upstream.
 
+* Co-Authors Plus - [pull request](https://github.com/Automattic/Co-Authors-Plus/pull/565)
 * Gutenberg - [hotfix](https://github.com/washingtonstateuniversity/WSUWP-Build-Plugins-Public/commit/fc9a52e08ffdd452164f5ee934fa9776961354bc), [issue](https://github.com/WordPress/gutenberg/issues/7133)
 * Rewrite Rules Inspector - [hotfix](https://github.com/washingtonstateuniversity/WSUWP-Build-Plugins-Public/commit/4bf546545492e4bf3ce9ede38219571bc3c06290), [pull request](https://github.com/Automattic/Rewrite-Rules-Inspector/pull/24)
 * S3 Uploads - [hotfix](https://github.com/washingtonstateuniversity/WSUWP-Build-Plugins-Public/commit/206de38c45d7319ac197be527e43262f44a20f23), [pull request](https://github.com/humanmade/S3-Uploads/pull/215)
