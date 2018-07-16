@@ -64,6 +64,8 @@ class CoAuthors_Plus {
 
 	var $having_terms = '';
 
+	var $to_be_filtered_caps = array();
+
 	/**
 	 * __construct()
 	 */
@@ -725,10 +727,12 @@ class CoAuthors_Plus {
 					$current_coauthor      = $this->get_coauthor_by( 'user_nicename', wp_get_current_user()->user_nicename );
 					$current_coauthor_term = $this->get_author_term( $current_coauthor );
 
-					$current_user_query  = $wpdb->term_taxonomy . '.taxonomy = \''. $this->coauthor_taxonomy.'\' AND '. $wpdb->term_taxonomy .'.term_id = \''. $current_coauthor_term->term_id .'\'';
-					$this->having_terms .= ' ' . $wpdb->term_taxonomy .'.term_id = \''. $current_coauthor_term->term_id .'\' OR ';
+					if ( is_a( $current_coauthor_term, 'WP_Term' ) ) {
+						$current_user_query = $wpdb->term_taxonomy . '.taxonomy = \'' . $this->coauthor_taxonomy . '\' AND ' . $wpdb->term_taxonomy . '.term_id = \'' . $current_coauthor_term->term_id . '\'';
+						$this->having_terms .= ' ' . $wpdb->term_taxonomy . '.term_id = \'' . $current_coauthor_term->term_id . '\' OR ';
 
-					$where = preg_replace( '/(\b(?:' . $wpdb->posts . '\.)?post_author\s*=\s*(' . get_current_user_id() . '))/', $current_user_query, $where, -1 ); #' . $wpdb->postmeta . '.meta_id IS NOT NULL AND
+						$where = preg_replace( '/(\b(?:' . $wpdb->posts . '\.)?post_author\s*=\s*(' . get_current_user_id() . '))/', $current_user_query, $where, - 1 ); #' . $wpdb->postmeta . '.meta_id IS NOT NULL AND}
+					}
 				}
 
 				$this->having_terms = rtrim( $this->having_terms, ' OR' );
@@ -1166,7 +1170,7 @@ class CoAuthors_Plus {
 		$args = array(
 				'count_total' => false,
 				'search' => sprintf( '*%s*', $search ),
-				'search_fields' => array(
+				'search_columns' => array(
 					'ID',
 					'display_name',
 					'user_email',
@@ -1174,9 +1178,7 @@ class CoAuthors_Plus {
 				),
 				'fields' => 'all_with_meta',
 			);
-		add_action( 'pre_user_query', array( $this, 'action_pre_user_query' ) );
 		$found_users = get_users( $args );
-		remove_action( 'pre_user_query', array( $this, 'action_pre_user_query' ) );
 
 		foreach ( $found_users as $found_user ) {
 			$term = $this->get_author_term( $found_user );
@@ -1212,24 +1214,13 @@ class CoAuthors_Plus {
 		$ignored_authors = apply_filters( 'coauthors_edit_ignored_authors', $ignored_authors );
 		foreach ( $found_users as $key => $found_user ) {
 			// Make sure the user is contributor and above (or a custom cap)
-			if ( in_array( $found_user->user_login, $ignored_authors ) ) {
+			if ( in_array( $found_user->user_nicename, $ignored_authors ) ) { //AJAX sends a list of already present *users_nicenames*
 				unset( $found_users[ $key ] );
 			} else if ( 'wpuser' === $found_user->type && false === $found_user->has_cap( apply_filters( 'coauthors_edit_author_cap', 'edit_posts' ) ) ) {
 				unset( $found_users[ $key ] );
 			}
 		}
 		return (array) $found_users;
-	}
-
-	/**
-	 * Modify get_users() to search display_name instead of user_nicename
-	 */
-	function action_pre_user_query( $user_query ) {
-
-		if ( is_object( $user_query ) ) {
-			$user_query->query_where = str_replace( 'user_nicename LIKE', 'display_name LIKE', $user_query->query_where );
-		}
-
 	}
 
 	/**
@@ -1298,7 +1289,7 @@ class CoAuthors_Plus {
 				'author_name'           => wp_get_current_user()->user_nicename,
 			);
 		if ( 'post' != get_post_type() ) {
-			$mine_args['post_type'] = get_post_type();
+			$mine_args['post_type'] = get_current_screen()->post_type;
 		}
 		if ( ! empty( $_REQUEST['author_name'] ) && wp_get_current_user()->user_nicename == $_REQUEST['author_name'] ) {
 			$class = ' class="current"';
@@ -1350,6 +1341,32 @@ class CoAuthors_Plus {
 	}
 
 	/**
+	 * Builds list of capabilities that CAP should filter.
+	 *
+	 * Will only work after $this->supported_post_types has been populated.
+	 * Will only run once per request, and then cache the result.
+	 * The result is cached in $this->to_be_filtered_caps since CoAuthors_Plus is only instantiated once and stored as a global.
+	 *
+	 * @return array caps that CAP should filter
+	 */
+	public function get_to_be_filtered_caps() {
+		if( ! empty( $this->supported_post_types ) && empty( $this->to_be_filtered_caps ) ) {
+			$this->to_be_filtered_caps[] = 'edit_post'; // Need to filter this too, unfortunately: http://core.trac.wordpress.org/ticket/22415
+
+			foreach( $this->supported_post_types as $single ) {
+				$obj = get_post_type_object( $single );
+
+				$this->to_be_filtered_caps[] = $obj->cap->edit_post;
+				$this->to_be_filtered_caps[] = $obj->cap->edit_others_posts; // This as well: http://core.trac.wordpress.org/ticket/22417
+			}
+
+			$this->to_be_filtered_caps = array_unique( $this->to_be_filtered_caps );
+		}
+
+		return $this->to_be_filtered_caps;
+	}
+
+	/**
 	 * Allows guest authors to edit the post they're co-authors of
 	 */
 	function filter_user_has_cap( $allcaps, $caps, $args ) {
@@ -1358,11 +1375,16 @@ class CoAuthors_Plus {
 		$user_id = isset( $args[1] ) ? $args[1] : 0;
 		$post_id = isset( $args[2] ) ? $args[2] : 0;
 
+		if( ! in_array( $cap, $this->get_to_be_filtered_caps(), true ) ) {
+			return $allcaps;
+		}
+
 		$obj = get_post_type_object( get_post_type( $post_id ) );
 		if ( ! $obj || 'revision' == $obj->name ) {
 			return $allcaps;
 		}
 
+		//Even though we bail if cap is not among the to_be_filtered ones, there is a time in early request processing in which that list is not yet available, so the following block is needed
 		$caps_to_modify = array(
 				$obj->cap->edit_post,
 				'edit_post', // Need to filter this too, unfortunately: http://core.trac.wordpress.org/ticket/22415
@@ -1410,19 +1432,10 @@ class CoAuthors_Plus {
 			return $term;
 		}
 
-		// use linked user for accurate post count
-		if ( ! empty ( $coauthor->linked_account ) ) {
-			$term = get_term_by( 'slug', 'cap-' . $coauthor->linked_account, $this->coauthor_taxonomy );
-			if ( ! $term ) {
-				$term = get_term_by( 'slug', $coauthor->linked_account, $this->coauthor_taxonomy );
-			}
-		}
-		else {
-			// See if the prefixed term is available, otherwise default to just the nicename
-			$term = get_term_by( 'slug', 'cap-' . $coauthor->user_nicename, $this->coauthor_taxonomy );
-			if ( ! $term ) {
-				$term = get_term_by( 'slug', $coauthor->user_nicename, $this->coauthor_taxonomy );
-			}
+		// See if the prefixed term is available, otherwise default to just the nicename
+		$term = get_term_by( 'slug', 'cap-' . $coauthor->user_nicename, $this->coauthor_taxonomy );
+		if ( ! $term ) {
+			$term = get_term_by( 'slug', $coauthor->user_nicename, $this->coauthor_taxonomy );
 		}
 		wp_cache_set( $cache_key, $term, 'co-authors-plus' );
 		return $term;
@@ -1617,13 +1630,24 @@ class CoAuthors_Plus {
 
 	/**
 	 * Filter of the header of author archive pages to correctly display author.
+	 *
+	 * @param $title string Archive Page Title
+	 *
+	 * @return string Archive Page Title
 	 */
-	public function filter_author_archive_title() {
-		if ( is_author() ) {
-			$author = sanitize_user( get_query_var( 'author_name' ) );
-			return "Author: ". $author;
+	public function filter_author_archive_title( $title ) {
+		
+		// Bail if not an author archive template
+		if ( ! is_author() ) {
+			return $title;
 		}
+		
+		$author_slug = sanitize_user( get_query_var( 'author_name' ) );
+		$author = $this->get_coauthor_by( 'user_nicename', $author_slug );
+		
+		return sprintf( __( 'Author: %s' ), $author->display_name );
 	}
+
 }
 
 global $coauthors_plus;
