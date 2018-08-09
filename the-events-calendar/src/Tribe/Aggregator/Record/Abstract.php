@@ -245,6 +245,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * @param string $key Meta key
 	 */
 	public function delete_meta( $key ) {
+		unset( $this->meta[ $key ] );
 		return delete_post_meta( $this->post->ID, self::$meta_key_prefix . $key );
 	}
 
@@ -998,7 +999,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @return bool
 	 */
-	public function log_error( $error ) {
+	public function log_error( WP_Error $error ) {
 		$today = getdate();
 		$args = array(
 			'number' => 1,
@@ -2126,6 +2127,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 */
 	public function finalize() {
 		$this->update_meta( 'finalized', true );
+
+		/**
+		 * Fires after a record has been finalized and right before it starts importing.
+		 *
+		 * @since 4.6.21
+		 *
+		 * @param int   $id   The Record post ID
+		 * @param array $meta An array of meta for the record
+		 * @param self  $this The Record object itself
+		 */
+		do_action( 'tribe_aggregator_record_finalized', $this->id, $this->meta, $this );
 	}
 
 	/**
@@ -2138,6 +2150,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public static function preserve_event_option_fields( $event ) {
 		$event_post = get_post( $event['ID'] );
 		$post_meta = Tribe__Events__API::get_and_flatten_event_meta( $event['ID'] );
+
+		//preserve show map
+		if ( isset( $post_meta['_EventShowMap'] ) && tribe_is_truthy( $post_meta['_EventShowMap'] ) ) {
+			$event['EventShowMap'] = $post_meta['_EventShowMap'];
+		}
+		//preserve map link
+		if ( isset( $post_meta['_EventShowMapLink'] ) && tribe_is_truthy( $post_meta['_EventShowMapLink'] ) ) {
+			$event['EventShowMapLink'] = $post_meta['_EventShowMapLink'];
+		}
 
 		// we want to preserve this option if not explicitly being overridden
 		if ( ! isset( $event['EventHideFromUpcoming'] ) && isset( $post_meta['_EventHideFromUpcoming'] ) ) {
