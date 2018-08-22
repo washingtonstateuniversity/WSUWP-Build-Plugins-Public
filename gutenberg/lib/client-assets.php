@@ -76,7 +76,8 @@ function gutenberg_register_scripts_and_styles() {
 	gutenberg_register_vendor_scripts();
 
 	// WordPress packages.
-	wp_register_script( 'wp-tinymce', includes_url( 'js/tinymce/' ) . 'wp-tinymce.php', array() );
+	wp_register_script( 'wp-tinymce', includes_url( 'js/tinymce/' ) . 'tinymce.min.js', array() );
+	wp_register_script( 'compat3x', includes_url( 'js/tinymce/plugins/compat3x/' ) . 'plugin.min.js', array( 'wp-tinymce' ) );
 
 	wp_register_script(
 		'wp-url',
@@ -515,6 +516,7 @@ function gutenberg_register_scripts_and_styles() {
 			'wp-keycodes',
 			'wp-nux',
 			'wp-tinymce',
+			'compat3x',
 			'wp-url',
 			'wp-viewport',
 			'wp-wordcount',
