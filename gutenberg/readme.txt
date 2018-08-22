@@ -1,8 +1,8 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
-Requires at least: 4.9.6
+Requires at least: 4.9.8
 Tested up to: 4.9
-Stable tag: 3.3.0
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ Blocks are the unifying evolution of what is now covered, in different ways, by 
 
 Imagine a custom “employee” block that a client can drag to an About page to automatically display a picture, name, and bio. A whole universe of plugins that all extend WordPress in the same way. Simplified menus and widgets. Users who can instantly understand and use WordPress  -- and 90% of plugins. This will allow you to easily compose beautiful posts like <a href="http://moc.co/sandbox/example-post/">this example</a>.
 
-Check out the <a href="https://github.com/WordPress/gutenberg/blob/master/docs/faq.md">FAQ</a> for answers to the most common questions about the project.
+Check out the <a href="https://wordpress.org/gutenberg/handbook/reference/faq/">FAQ</a> for answers to the most common questions about the project.
 
 = Compatibility =
 
@@ -70,74 +70,105 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 - <a href="http://matiasventura.com/post/gutenberg-or-the-ship-of-theseus/">Gutenberg, or the Ship of Theseus</a>, with examples of what Gutenberg might do in the future
 - <a href="https://make.wordpress.org/core/2017/01/17/editor-technical-overview/">Editor Technical Overview</a>
-- <a href="http://gutenberg-devdoc.surge.sh/reference/design-principles/">Design Principles and block design best practices</a>
+- <a href="https://wordpress.org/gutenberg/handbook/reference/design-principles/">Design Principles and block design best practices</a>
 - <a href="https://github.com/Automattic/wp-post-grammar">WP Post Grammar Parser</a>
 - <a href="https://make.wordpress.org/core/tag/gutenberg/">Development updates on make.wordpress.org</a>
-- <a href="http://gutenberg-devdoc.surge.sh/">Documentation: Creating Blocks, Reference, and Guidelines</a>
-- <a href="https://github.com/WordPress/gutenberg/blob/master/docs/faq.md">Additional frequently asked questions</a>
+- <a href="https://wordpress.org/gutenberg/handbook/">Documentation: Creating Blocks, Reference, and Guidelines</a>
+- <a href="https://wordpress.org/gutenberg/handbook/reference/faq/">Additional frequently asked questions</a>
 
 
 == Changelog ==
 
 = Latest =
 
-* Add the Inline Blocks API.
-* Rename Shared Blocks to Reusable Blocks.
-* Add a Modal component.
-* Add a REST API Search controller.
-* Add a warning in the classic editor when attempting to edit a post that contains blocks.
-* Add ability for themes to configure font sizes.
-* Add RTL CSS to all packages.
-* Add an edit button to embed blocks.
-* Remove all wp.api usage from the editor package.
-* Add error handling for file block drag-and-drop.
-* Add registerBlockStyleVariation, for registering block style variations.
-* Add a border between panels in the block sidebar.
-* Add a editor.PostFeaturedImage.imageSize filter for the Featured Image.
-* Create a video block when dropping a video on an insertion point.
-* Expose a custom class name hook for mobile.
-* Add a React Native entrypoint for mobile.
-* Only disable wpautop on the main classic editor instance.
-* Retain the id attribute when converting heading tags to heading blocks.
-* Retain target="_blank" on links in converted paragraphs.
-* Improve the handling of imported shortcode blocks.
-* Replace the File block’s filename editor with a RichText.
-* Tweak the block warning style.
-* Add a max-height to the table of contents.
-* Remove the inset shadow from the table of contents.
-* Fix the tag placeholder text for long translations.
-* Fix the table of contents sometimes causing JavaScript errors.
-* Fix the link suggestion dropdown not allowing the first suggestion to be selected by keyboard.
-* Make tooltips persist when hovering them.
-* Add missing aria-labels to the audio and video block UIs.
-* Add an icon and accessibility text to links that open in a new tab.
-* Fixed shared blocks adding unnecessary rewrite rules.
-* Fix a regression in the colour picker width.
-* Fix the colour picker focus border being off-centre.
-* Combine ColorPalettes into a single panel for Button and Paragraph blocks.
-* Fix the ColorIndicator style import.
-* Fix auto-linking a URL pasted on top of another URL.
-* Add persistent store support to the data module.
-* Fix the Latest Comments block using admin imports.
-* Fix a warning when adding an image block.
-* Fix the classic block toolbar alignment.
-* Fix a warning in the block menu.
-* Change all blocks to use supports: align, instead of the align attribute.
-* Improve the ContrastChecker logic for large font sizes.
-* Update the is-shallow-equal package to use ES5 code.
-* Deprecate getMimeTypesArray, mediaUpload, and preloadImage.
-* Deprecate wideAlign in favour of alignWide.
-* Document Node version switching in the testing documentation.
-* Document examples of the registerBlockType hook.
-* Document an example of the block transforms property.
-* Document Gutenberg’s camelCase coding style.
-* Improved all of the package descriptions.
-* Update coding standards to allow double quoted strings to avoid escaping single quotes.
-* Standardise the package descriptions and titles.
-* Extract the editor package.
-* Isolate and reset e2e tests every run.
-* Improve test configuration and mocking strategy.
-* Fix test coverage configuration.
-* Fix the block icons e2e tests.
-* Bump the Puppeteer version.
-* Use simpler jest.fn() mocks for api-fetch calls in unit tests.
+* Restore min-width to popover.
+* Fix wide toolbar regression
+* Add e2e test for publishing a page
+* Fix typo for removing excerpt block stripping
+
+= 3.6.1 =
+
+* Fixed an issue that caused page publishing to fail.
+* Fixed an issue with the block options menu appearing too narrow.
+
+= 3.6.0 =
+
+* Updated block inserter and library with new icons for all core blocks.
+* Allow showing the sidebar and inspector controls when editing a block in HTML mode.
+* Add new block keyboard shortcuts and consolidate their display in menus:
+* * Insert Before / After block.
+* * Duplicating block.
+* * Toggling the inspector.
+* * Remove block keyboard shortcut.
+* Updated block inserter and library with new icons for all core blocks.
+* Allow showing the sidebar and inspector controls when editing a block in HTML mode.
+* Add new block keyboard shortcuts and consolidate their display in menus:
+* Insert Before / After block.
+* Duplicating block.
+* Toggling the inspector.
+* Remove block keyboard shortcut.
+* Add new keyboard shortcuts help modal documenting available shortcuts.
+* Hide keyboard shortcuts on mobile screens.
+* Open new window if prior preview window has been closed.
+* Bring the preview tab to the front when clicking the preview button.
+* Avoid changing the label of the “publish” button if an auto-save is being performed.
+* Update the Block Inserter to allow searching for terms that contain diacritics.
+* Take into account children blocks when handling disabled blocks.
+* Offer chance to add and revise Tags and Post Format during pre-publish flow.
+* Let menus grow based on the length of its elements.
+* Add visual padding to menus.
+* Avoid scrollbars on Audio block when shown full-width.
+* Improve permalink UI and make it responsive.
+* Change color of links in gallery block caption.
+* Simplify the styling of the “Toggle publish panel” aria-region to avoid content jumps.
+* Make active pill button look pressed.
+* Make sure Latest Posts alignment class behaviour is consistent.
+* Show drop-zone background when file is dragged.
+* Reset active sidebar tab on initial load.
+* Apply new checkbox CSS to radio buttons and fix border radius.
+* Add a couple new dashicons for insert before / after block.
+* Add styles for Spinner component (was relying on core before).
+* Add styles for Notice component.
+* Refactor template select field to use SelectControl.
+* Correctly handle per_page=-1 in the queried data state.
+* Create dummy context components for type switch.
+* Add RegistryConsumer export to data module.
+* Add has_blocks function to the repertoire.
+* Add has_block function and unit tests.
+* Add has_block function and unit tests for it.
+* Introduce strip_dynamic_blocks() for excerpts.
+* Fix issue with default appender placeholder on IE11.
+* Fix issue with shortcode block UI on IE11.
+* Fix tag input interface on IE11.
+* Fix issue with custom element serializer on IE11.
+* Fix issue with meta boxes overlapping the content on IE11.
+* Fix invalidation case of custom block classes.
+* Fix unhandled error dialog styling issue.
+* Fix paragraph splits on react native implementation.
+* Fix code block style regression.
+* Fix issue with code font-size on heading contexts.
+* Fix case where crashed block would overlap with surrounding blocks.
+* Fix issue with block styles on IE11.
+* Fix the heading level buttons on IE11.
+* Fix issues with drag and drop over text.
+* Fix small bug with recent blocks hover style.
+* Use argument swapping instead of named arguments for string placeholders.
+* Pass the the search result object to props.onChange on UrlInput.
+* Add localization context to occurrences of “More” string.
+* Add a Heading block implementation for mobile app.
+* Add the react-native entrypoint to all runtime packages.
+* Move MoreMenu specific styling away from Popover CSS.
+* Ensure meta box functions are available in editor context.
+* Ensure the full content integration test is run.
+* Remove client-side document title updates.
+* Remove TinyMCE shim that was removed in WP 4.9.7.
+* Remove the workaround for intermittent multiple-tab preview test failure.
+* Remove Promise.resolve call that’s already handled by the JS runtime.
+* Remove redundant event handlers from default block appender.
+* Deprecate withContext HOC and remove its usage.
+* Some localization & spelling fixes.
+* Update docs for templateLock’s insert option.
+* Extract Core Blocks to a block-library npm package.
+* Add a license checker script.
+* Allow access to the WordPress installation if DOCKER_ENV=localwpdev.
+* Bring the handbook design up to date.
