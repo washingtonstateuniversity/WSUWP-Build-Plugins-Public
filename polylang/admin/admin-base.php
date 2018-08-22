@@ -46,6 +46,7 @@ class PLL_Admin_Base extends PLL_Base {
 			return;
 		}
 
+		$this->notices = new PLL_Admin_Notices( $this );
 		$this->links = new PLL_Admin_Links( $this ); // FIXME needed here ?
 		$this->static_pages = new PLL_Admin_Static_Pages( $this ); // FIXME needed here ?
 		$this->filters_links = new PLL_Filters_Links( $this ); // FIXME needed here ?
@@ -284,6 +285,7 @@ class PLL_Admin_Base extends PLL_Base {
 	/**
 	 * Avoids parsing a tax query when all languages are requested
 	 * Fixes https://wordpress.org/support/topic/notice-undefined-offset-0-in-wp-includesqueryphp-on-line-3877 introduced in WP 4.1
+	 *
 	 * @see the suggestion of @boonebgorges, https://core.trac.wordpress.org/ticket/31246
 	 *
 	 * @since 1.6.5
