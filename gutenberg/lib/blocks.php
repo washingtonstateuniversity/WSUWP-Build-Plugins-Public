@@ -66,8 +66,20 @@ function gutenberg_parse_blocks( $content ) {
 		);
 	}
 
-	$parser = new Gutenberg_PEG_Parser;
-	return $parser->parse( _gutenberg_utf8_split( $content ) );
+	/**
+	 * Filter to allow plugins to replace the server-side block parser
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param string $parser_class Name of block parser class
+	 */
+	$parser_class = apply_filters( 'block_parser_class', 'WP_Block_Parser' );
+	// Load default block parser for server-side parsing if the default parser class is being used.
+	if ( 'WP_Block_Parser' === $parser_class ) {
+		require_once dirname( __FILE__ ) . '/../packages/block-serialization-default-parser/parser.php';
+	}
+	$parser = new $parser_class();
+	return $parser->parse( $content );
 }
 
 /**
@@ -99,10 +111,16 @@ function get_dynamic_blocks_regex() {
 	$dynamic_block_names   = get_dynamic_block_names();
 	$dynamic_block_pattern = (
 		'/<!--\s+wp:(' .
-		str_replace( '/', '\/',                 // Escape namespace, not handled by preg_quote.
-			str_replace( 'core/', '(?:core/)?', // Allow implicit core namespace, but don't capture.
-				implode( '|',                   // Join block names into capture group alternation.
-					array_map( 'preg_quote',    // Escape block name for regular expression.
+		str_replace(
+			'/',
+			'\/',                 // Escape namespace, not handled by preg_quote.
+			str_replace(
+				'core/',
+				'(?:core/)?', // Allow implicit core namespace, but don't capture.
+				implode(
+					'|',                   // Join block names into capture group alternation.
+					array_map(
+						'preg_quote',    // Escape block name for regular expression.
 						$dynamic_block_names
 					)
 				)
@@ -145,13 +163,22 @@ function gutenberg_render_block( $block ) {
  * Parses dynamic blocks out of `post_content` and re-renders them.
  *
  * @since 0.1.0
+ * @global WP_Post $post The post to edit.
  *
  * @param  string $content Post content.
  * @return string          Updated post content.
  */
 function do_blocks( $content ) {
+	global $post;
+
 	$rendered_content      = '';
 	$dynamic_block_pattern = get_dynamic_blocks_regex();
+
+	/*
+	 * Back up global post, to restore after render callback.
+	 * Allows callbacks to run new WP_Query instances without breaking the global post.
+	 */
+	$global_post = $post;
 
 	while ( preg_match( $dynamic_block_pattern, $content, $block_match, PREG_OFFSET_CAPTURE ) ) {
 		$opening_tag     = $block_match[0][0];
@@ -209,6 +236,9 @@ function do_blocks( $content ) {
 
 		// Replace dynamic block with server-rendered output.
 		$rendered_content .= $block_type->render( $attributes, $inner_content );
+
+		// Restore global $post.
+		$post = $global_post;
 	}
 
 	// Append remaining unmatched content.
