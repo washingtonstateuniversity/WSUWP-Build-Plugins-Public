@@ -139,11 +139,19 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			$deps = array();
 		}
 
+		$css = 'query-monitor';
+
+		if ( method_exists( 'Dark_Mode', 'is_using_dark_mode' ) && is_user_logged_in() ) {
+			if ( Dark_Mode::is_using_dark_mode() ) {
+				$css .= '-dark';
+			}
+		}
+
 		wp_enqueue_style(
 			'query-monitor',
-			$this->qm->plugin_url( 'assets/query-monitor.css' ),
+			$this->qm->plugin_url( "assets/{$css}.css" ),
 			array( 'dashicons' ),
-			$this->qm->plugin_ver( 'assets/query-monitor.css' )
+			$this->qm->plugin_ver( "assets/{$css}.css" )
 		);
 		wp_enqueue_script(
 			'query-monitor',
@@ -177,6 +185,8 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			return;
 		}
 
+		$switched_locale = function_exists( 'switch_to_locale' ) && switch_to_locale( get_user_locale() );
+
 		$this->before_output();
 
 		/* @var QM_Output_Html[] */
@@ -198,6 +208,10 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		}
 
 		$this->after_output();
+
+		if ( $switched_locale ) {
+			restore_previous_locale();
+		}
 
 	}
 
@@ -355,7 +369,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		echo '<p>';
 		printf(
 			/* translators: %s: Name of the config file */
-			esc_html__( 'The following PHP constants can be defined in your %s file in order to control the behaviour of Query Monitor:', 'query-monitor' ),
+			esc_html__( 'The following PHP constants can be defined in your %s file in order to control the behavior of Query Monitor:', 'query-monitor' ),
 			'<code>wp-config.php</code>'
 		);
 		echo '</p>';
