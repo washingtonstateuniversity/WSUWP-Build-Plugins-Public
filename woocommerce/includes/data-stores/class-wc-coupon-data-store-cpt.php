@@ -84,6 +84,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			$this->update_post_meta( $coupon );
 			$coupon->save_meta_data();
 			$coupon->apply_changes();
+			delete_transient( 'rest_api_coupons_type_count' );
 			do_action( 'woocommerce_new_coupon', $coupon_id );
 		}
 	}
@@ -176,6 +177,7 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 		}
 		$this->update_post_meta( $coupon );
 		$coupon->apply_changes();
+		delete_transient( 'rest_api_coupons_type_count' );
 		do_action( 'woocommerce_update_coupon', $coupon->get_id() );
 	}
 
@@ -291,6 +293,9 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 			add_post_meta( $coupon->get_id(), '_used_by', strtolower( $used_by ) );
 			$coupon->set_used_by( (array) get_post_meta( $coupon->get_id(), '_used_by' ) );
 		}
+
+		do_action( 'woocommerce_increase_coupon_usage_count', $coupon, $new_count, $used_by );
+
 		return $new_count;
 	}
 
@@ -316,6 +321,9 @@ class WC_Coupon_Data_Store_CPT extends WC_Data_Store_WP implements WC_Coupon_Dat
 				$coupon->set_used_by( (array) get_post_meta( $coupon->get_id(), '_used_by' ) );
 			}
 		}
+
+		do_action( 'woocommerce_decrease_coupon_usage_count', $coupon, $new_count, $used_by );
+
 		return $new_count;
 	}
 

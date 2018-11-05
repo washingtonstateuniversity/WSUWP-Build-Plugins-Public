@@ -120,6 +120,7 @@ class WC_Countries {
 			'LB' => array(),
 			'LU' => array(),
 			'MQ' => array(),
+			'MT' => array(),
 			'NL' => array(),
 			'NO' => array(),
 			'PL' => array(),
@@ -489,7 +490,7 @@ class WC_Countries {
 					'FR'      => "{company}\n{name}\n{address_1}\n{address_2}\n{postcode} {city_upper}\n{country}",
 					'HK'      => "{company}\n{first_name} {last_name_upper}\n{address_1}\n{address_2}\n{city_upper}\n{state_upper}\n{country}",
 					'HU'      => "{name}\n{company}\n{city}\n{address_1}\n{address_2}\n{postcode}\n{country}",
-					'IN'      => "{company}\n{name}\n{address_1}\n{address_2}\n{city} - {postcode}\n{state}, {country}",
+					'IN'      => "{company}\n{name}\n{address_1}\n{address_2}\n{city} {postcode}\n{state}, {country}",
 					'IS'      => "{company}\n{name}\n{address_1}\n{address_2}\n{postcode} {city}\n{country}",
 					'IT'      => "{company}\n{name}\n{address_1}\n{address_2}\n{postcode}\n{city}\n{state_upper}\n{country}",
 					'JP'      => "{postcode}\n{state} {city} {address_1}\n{address_2}\n{company}\n{last_name} {first_name}\n{country}",
@@ -516,10 +517,11 @@ class WC_Countries {
 	/**
 	 * Get country address format.
 	 *
-	 * @param  array $args Arguments.
+	 * @param  array  $args Arguments.
+	 * @param  string $separator How to separate address lines. @since 3.5.0.
 	 * @return string
 	 */
-	public function get_formatted_address( $args = array() ) {
+	public function get_formatted_address( $args = array(), $separator = '<br/>' ) {
 		$default_args = array(
 			'first_name' => '',
 			'last_name'  => '',
@@ -546,7 +548,7 @@ class WC_Countries {
 		$full_country = ( isset( $this->countries[ $country ] ) ) ? $this->countries[ $country ] : $country;
 
 		// Country is not needed if the same as base.
-		if ( $country === $this->get_base_country() && ! apply_filters( 'woocommerce_formatted_address_force_country_display', false ) ) {
+		if ( $country === $this->get_base_country() && ! apply_filters( 'woocommerce_formatted_address_force_country_display', true ) ) {
 			$format = str_replace( '{country}', '', $format );
 		}
 
@@ -592,7 +594,7 @@ class WC_Countries {
 		$formatted_address = array_filter( array_map( array( $this, 'trim_formatted_address_line' ), explode( "\n", $formatted_address ) ) );
 
 		// Add html breaks.
-		$formatted_address = implode( '<br/>', $formatted_address );
+		$formatted_address = implode( $separator, $formatted_address );
 
 		// We're done!
 		return $formatted_address;
@@ -660,6 +662,8 @@ class WC_Countries {
 				'priority'     => 50,
 			),
 			'address_2'  => array(
+				'label'        => __( 'Apartment, suite, unit etc.', 'woocommerce' ),
+				'label_class'  => array( 'screen-reader-text' ),
 				'placeholder'  => esc_attr( $address_2_placeholder ),
 				'class'        => array( 'form-row-wide', 'address-field' ),
 				'autocomplete' => 'address-line2',
@@ -694,12 +698,6 @@ class WC_Countries {
 
 		if ( 'hidden' === get_option( 'woocommerce_checkout_company_field', 'optional' ) ) {
 			unset( $fields['company'] );
-		}
-
-		$address_2_visibility = get_option( 'woocommerce_checkout_address_2_field', 'optional' );
-
-		if ( 'hidden' === $address_2_visibility ) {
-			unset( $fields['address_2'] );
 		}
 
 		if ( 'hidden' === get_option( 'woocommerce_checkout_address_2_field', 'optional' ) ) {
@@ -795,7 +793,10 @@ class WC_Countries {
 						),
 					),
 					'BH' => array(
-						'state' => array(
+						'postcode' => array(
+							'required' => false,
+						),
+						'state'    => array(
 							'required' => false,
 						),
 					),
@@ -995,6 +996,11 @@ class WC_Countries {
 							'required' => false,
 						),
 					),
+					'MT' => array(
+						'state' => array(
+							'required' => false,
+						),
+					),
 					'NL' => array(
 						'postcode' => array(
 							'priority' => 65,
@@ -1002,6 +1008,16 @@ class WC_Countries {
 						'state'    => array(
 							'required' => false,
 							'label'    => __( 'Province', 'woocommerce' ),
+						),
+					),
+					'NG' => array(
+						'postcode' => array(
+							'label'    => __( 'Postcode', 'woocommerce' ),
+							'required' => false,
+							'hidden'   => true,
+						),
+						'state'    => array(
+							'label' => __( 'State', 'woocommerce' ),
 						),
 					),
 					'NZ' => array(
@@ -1050,12 +1066,16 @@ class WC_Countries {
 					'RO' => array(
 						'state' => array(
 							'label'    => __( 'County', 'woocommerce' ),
-							'required' => false,
+							'required' => true,
 						),
 					),
 					'SG' => array(
 						'state' => array(
 							'required' => false,
+						),
+						'city'  => array(
+							'required' => false,
+							'hidden'   => true,
 						),
 					),
 					'SK' => array(

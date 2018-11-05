@@ -229,9 +229,9 @@ function wc_get_order_type( $type ) {
 
 	if ( isset( $wc_order_types[ $type ] ) ) {
 		return $wc_order_types[ $type ];
-	} else {
-		return false;
 	}
+
+	return false;
 }
 
 /**
@@ -365,6 +365,8 @@ function wc_downloadable_file_permission( $download_id, $product, $order, $qty =
 		$from_date = $order->get_date_completed() ? $order->get_date_completed()->format( 'Y-m-d' ) : current_time( 'mysql', true );
 		$download->set_access_expires( strtotime( $from_date . ' + ' . $expiry . ' DAY' ) );
 	}
+
+	$download = apply_filters( 'woocommerce_downloadable_file_permission', $download, $product, $order, $qty );
 
 	return $download->save();
 }

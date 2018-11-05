@@ -109,6 +109,14 @@ class WC_Install {
 			'wc_update_343_cleanup_foreign_keys',
 			'wc_update_343_db_version',
 		),
+		'3.4.4' => array(
+			'wc_update_344_recreate_roles',
+			'wc_update_344_db_version',
+		),
+		'3.5.0' => array(
+			'wc_update_350_reviews_comment_type',
+			'wc_update_350_db_version',
+		),
 	);
 
 	/**
@@ -159,13 +167,19 @@ class WC_Install {
 	 * This function is hooked into admin_init to affect admin only.
 	 */
 	public static function install_actions() {
-		if ( ! empty( $_GET['do_update_woocommerce'] ) ) { // WPCS: input var ok, CSRF ok.
+		if ( ! empty( $_GET['do_update_woocommerce'] ) ) { // WPCS: input var ok.
+			check_admin_referer( 'wc_db_update', 'wc_db_update_nonce' );
 			self::update();
 			WC_Admin_Notices::add_notice( 'update' );
 		}
-		if ( ! empty( $_GET['force_update_woocommerce'] ) ) { // WPCS: input var ok, CSRF ok.
+		if ( ! empty( $_GET['force_update_woocommerce'] ) ) { // WPCS: input var ok.
+			check_admin_referer( 'wc_force_db_update', 'wc_force_db_update_nonce' );
 			$blog_id = get_current_blog_id();
+
+			// Used to fire an action added in WP_Background_Process::_construct() that calls WP_Background_Process::handle_cron_healthcheck().
+			// This method will make sure the database updates are executed even if cron is disabled. Nothing will happen if the updates are already running.
 			do_action( 'wp_' . $blog_id . '_wc_updater_cron' );
+
 			wp_safe_redirect( admin_url( 'admin.php?page=wc-settings' ) );
 			exit;
 		}
@@ -538,6 +552,22 @@ class WC_Install {
 			}
 		}
 
+		/**
+		 * Change wp_woocommerce_sessions schema to use a bigint auto increment field instead of char(32) field as
+		 * the primary key as it is not a good practice to use a char(32) field as the primary key of a table and as
+		 * there were reports of issues with this table (see https://github.com/woocommerce/woocommerce/issues/20912).
+		 *
+		 * This query needs to run before dbDelta() as this WP function is not able to handle primary key changes
+		 * (see https://github.com/woocommerce/woocommerce/issues/21534 and https://core.trac.wordpress.org/ticket/40357).
+		 */
+		if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}woocommerce_sessions'" ) ) {
+			if ( ! $wpdb->get_var( "SHOW KEYS FROM {$wpdb->prefix}woocommerce_sessions WHERE Key_name = 'PRIMARY' AND Column_name = 'session_id'" ) ) {
+				$wpdb->query(
+					"ALTER TABLE `{$wpdb->prefix}woocommerce_sessions` DROP PRIMARY KEY, DROP KEY `session_id`, ADD PRIMARY KEY(`session_id`), ADD UNIQUE KEY(`session_key`)"
+				);
+			}
+		}
+
 		dbDelta( self::get_schema() );
 
 		$index_exists = $wpdb->get_row( "SHOW INDEX FROM {$wpdb->comments} WHERE column_name = 'comment_type' and key_name = 'woo_idx_comment_type'" );
@@ -613,8 +643,8 @@ CREATE TABLE {$wpdb->prefix}woocommerce_sessions (
   session_key char(32) NOT NULL,
   session_value longtext NOT NULL,
   session_expiry BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY  (session_key),
-  UNIQUE KEY session_id (session_id)
+  PRIMARY KEY  (session_id),
+  UNIQUE KEY session_key (session_key)
 ) $collate;
 CREATE TABLE {$wpdb->prefix}woocommerce_api_keys (
   key_id BIGINT UNSIGNED NOT NULL auto_increment,
@@ -945,6 +975,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_termmeta (
 				'export'                 => true,
 				'import'                 => true,
 				'list_users'             => true,
+				'edit_theme_options'     => true,
 			)
 		);
 
@@ -1077,6 +1108,58 @@ CREATE TABLE {$wpdb->prefix}woocommerce_termmeta (
 				}
 			}
 		}
+
+		// Create attachment for placeholders.
+		self::create_placeholder_image();
+	}
+
+	/**
+	 * Create a placeholder image in the media library.
+	 *
+	 * @since 3.5.0
+	 */
+	private static function create_placeholder_image() {
+		$placeholder_image = get_option( 'woocommerce_placeholder_image', 0 );
+
+		if ( ! is_numeric( $placeholder_image ) ) {
+			return;
+		}
+
+		if ( ! empty( $placeholder_image ) && is_numeric( $placeholder_image ) && wp_attachment_is_image( $placeholder_image ) ) {
+			return;
+		}
+
+		$upload_dir = wp_upload_dir();
+		$source     = WC()->plugin_path() . '/assets/images/placeholder.png';
+		$filename   = $upload_dir['basedir'] . '/woocommerce-placeholder.png';
+
+		if ( ! file_exists( $filename ) ) {
+			copy( $source, $filename ); // @codingStandardsIgnoreLine.
+		}
+
+		if ( ! file_exists( $filename ) ) {
+			update_option( 'woocommerce_placeholder_image', 0 );
+			return;
+		}
+
+		$filetype   = wp_check_filetype( basename( $filename ), null );
+		$attachment = array(
+			'guid'           => $upload_dir['url'] . '/' . basename( $filename ),
+			'post_mime_type' => $filetype['type'],
+			'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
+			'post_content'   => '',
+			'post_status'    => 'inherit',
+		);
+		$attach_id  = wp_insert_attachment( $attachment, $filename );
+
+		update_option( 'woocommerce_placeholder_image', $attach_id );
+
+		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		// Generate the metadata for the attachment, and update the database record.
+		$attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
+		wp_update_attachment_metadata( $attach_id, $attach_data );
 	}
 
 	/**

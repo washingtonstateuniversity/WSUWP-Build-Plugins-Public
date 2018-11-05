@@ -87,6 +87,9 @@ class WC_Emails {
 				'woocommerce_order_status_failed_to_processing',
 				'woocommerce_order_status_failed_to_completed',
 				'woocommerce_order_status_failed_to_on-hold',
+				'woocommerce_order_status_cancelled_to_processing',
+				'woocommerce_order_status_cancelled_to_completed',
+				'woocommerce_order_status_cancelled_to_on-hold',
 				'woocommerce_order_status_on-hold_to_processing',
 				'woocommerce_order_status_on-hold_to_cancelled',
 				'woocommerce_order_status_on-hold_to_failed',
@@ -161,8 +164,16 @@ class WC_Emails {
 			self::instance(); // Init self so emails exist.
 			do_action_ref_array( current_filter() . '_notification', $args );
 		} catch ( Exception $e ) {
+			$error  = 'Transactional email triggered fatal error for callback ' . current_filter();
+			$logger = wc_get_logger();
+			$logger->critical(
+				$error . PHP_EOL,
+				array(
+					'source' => 'transactional-emails',
+				)
+			);
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				trigger_error( 'Transactional email triggered fatal error for callback ' . current_filter(), E_USER_WARNING ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped, WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+				trigger_error( $error, E_USER_WARNING ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped, WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 			}
 		}
 	}
@@ -215,11 +226,6 @@ class WC_Emails {
 		$this->emails['WC_Email_Customer_New_Account']      = include 'emails/class-wc-email-customer-new-account.php';
 
 		$this->emails = apply_filters( 'woocommerce_email_classes', $this->emails );
-
-		// include css inliner.
-		if ( ! class_exists( 'Emogrifier' ) && class_exists( 'DOMDocument' ) ) {
-			include_once dirname( __FILE__ ) . '/libraries/class-emogrifier.php';
-		}
 	}
 
 	/**

@@ -107,7 +107,7 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 
 	foreach ( $products as $product_id => $qty ) {
 		/* translators: %s: product name */
-		$titles[] = ( $qty > 1 ? absint( $qty ) . ' &times; ' : '' ) . sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ), strip_tags( get_the_title( $product_id ) ) );
+		$titles[] = ( $qty > 1 ? absint( $qty ) . ' &times; ' : '' ) . apply_filters( 'woocommerce_add_to_cart_item_name_in_quotes', sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ), strip_tags( get_the_title( $product_id ) ) ), $product_id );
 		$count   += $qty;
 	}
 
@@ -118,9 +118,9 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 	// Output success messages.
 	if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
 		$return_to = apply_filters( 'woocommerce_continue_shopping_redirect', wc_get_raw_referer() ? wp_validate_redirect( wc_get_raw_referer(), false ) : wc_get_page_permalink( 'shop' ) );
-		$message   = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', esc_url( $return_to ), esc_html__( 'Continue shopping', 'woocommerce' ), esc_html( $added_text ) );
+		$message   = sprintf( '<a href="%s" tabindex="1" class="button wc-forward">%s</a> %s', esc_url( $return_to ), esc_html__( 'Continue shopping', 'woocommerce' ), esc_html( $added_text ) );
 	} else {
-		$message = sprintf( '<a href="%s" class="button wc-forward">%s</a> %s', esc_url( wc_get_page_permalink( 'cart' ) ), esc_html__( 'View cart', 'woocommerce' ), esc_html( $added_text ) );
+		$message = sprintf( '<a href="%s" tabindex="1" class="button wc-forward">%s</a> %s', esc_url( wc_get_page_permalink( 'cart' ) ), esc_html__( 'View cart', 'woocommerce' ), esc_html( $added_text ) );
 	}
 
 	if ( has_filter( 'wc_add_to_cart_message' ) ) {
@@ -128,7 +128,7 @@ function wc_add_to_cart_message( $products, $show_qty = false, $return = false )
 		$message = apply_filters( 'wc_add_to_cart_message', $message, $product_id );
 	}
 
-	$message = apply_filters( 'wc_add_to_cart_message_html', $message, $products );
+	$message = apply_filters( 'wc_add_to_cart_message_html', $message, $products, $show_qty );
 
 	if ( $return ) {
 		return $message;
@@ -203,8 +203,8 @@ function wc_cart_totals_subtotal_html() {
  * Get shipping methods.
  */
 function wc_cart_totals_shipping_html() {
-	$packages = WC()->shipping->get_packages();
-	$first    = true;
+	$packages           = WC()->shipping->get_packages();
+	$first              = true;
 
 	foreach ( $packages as $i => $package ) {
 		$chosen_method = isset( WC()->session->chosen_shipping_methods[ $i ] ) ? WC()->session->chosen_shipping_methods[ $i ] : '';
@@ -228,6 +228,8 @@ function wc_cart_totals_shipping_html() {
 				'package_name'             => apply_filters( 'woocommerce_shipping_package_name', ( ( $i + 1 ) > 1 ) ? sprintf( _x( 'Shipping %d', 'shipping packages', 'woocommerce' ), ( $i + 1 ) ) : _x( 'Shipping', 'shipping packages', 'woocommerce' ), $i, $package ),
 				'index'                    => $i,
 				'chosen_method'            => $chosen_method,
+				'formatted_destination'    => WC()->countries->get_formatted_address( $package['destination'], ', ' ),
+				'has_calculated_shipping'  => WC()->customer->has_calculated_shipping(),
 			)
 		);
 

@@ -59,7 +59,7 @@ add_filter( 'woocommerce_short_description', array( $GLOBALS['wp_embed'], 'run_s
  *
  * @since 3.0.0
  * @param string $name  Constant name.
- * @param string $value Value.
+ * @param mixed  $value Value.
  */
 function wc_maybe_define_constant( $name, $value ) {
 	if ( ! defined( $name ) ) {
@@ -150,7 +150,6 @@ function wc_update_order( $args ) {
  *
  * WC_TEMPLATE_DEBUG_MODE will prevent overrides in themes from taking priority.
  *
- * @access public
  * @param mixed  $slug Template slug.
  * @param string $name Template name (default: '').
  */
@@ -183,7 +182,6 @@ function wc_get_template_part( $slug, $name = '' ) {
 /**
  * Get other templates (e.g. product attributes) passing attributes and including the file.
  *
- * @access public
  * @param string $template_name Template name.
  * @param array  $args          Arguments. (default: array).
  * @param string $template_path Template path. (default: '').
@@ -239,7 +237,6 @@ function wc_get_template_html( $template_name, $args = array(), $template_path =
  * yourtheme/$template_name
  * $default_path/$template_name
  *
- * @access public
  * @param string $template_name Template name.
  * @param string $template_path Template path. (default: '').
  * @param string $default_path  Default path. (default: '').
@@ -1067,7 +1064,7 @@ function wc_get_customer_default_location() {
 		case 'geolocation_ajax':
 		case 'geolocation':
 			// Exclude common bots from geolocation by user agent.
-			$ua = wc_get_user_agent();
+			$ua = strtolower( wc_get_user_agent() );
 
 			if ( ! strstr( $ua, 'bot' ) && ! strstr( $ua, 'spider' ) && ! strstr( $ua, 'crawl' ) ) {
 				$location = WC_Geolocation::geolocate_ip( '', true, false );
@@ -1096,7 +1093,7 @@ function wc_get_customer_default_location() {
  * @return string
  */
 function wc_get_user_agent() {
-	return isset( $_SERVER['HTTP_USER_AGENT'] ) ? strtolower( wc_clean( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) : ''; // @codingStandardsIgnoreLine
+	return isset( $_SERVER['HTTP_USER_AGENT'] ) ? wc_clean( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : ''; // @codingStandardsIgnoreLine
 }
 
 // This function can be removed when WP 3.9.2 or greater is required.
@@ -1136,11 +1133,11 @@ endif;
  * @return string
  */
 function wc_rand_hash() {
-	if ( function_exists( 'openssl_random_pseudo_bytes' ) ) {
-		return bin2hex( openssl_random_pseudo_bytes( 20 ) ); // @codingStandardsIgnoreLine
-	} else {
+	if ( ! function_exists( 'openssl_random_pseudo_bytes' ) ) {
 		return sha1( wp_rand() );
 	}
+
+	return bin2hex( openssl_random_pseudo_bytes( 20 ) ); // @codingStandardsIgnoreLine
 }
 
 /**
@@ -1502,10 +1499,7 @@ function wc_nocache_headers() {
  * @return int
  */
 function wc_product_attribute_uasort_comparison( $a, $b ) {
-	if ( $a['position'] === $b['position'] ) {
-		return 0;
-	}
-	return ( $a['position'] < $b['position'] ) ? -1 : 1;
+	return wc_uasort_comparison( $a['position'], $b['position'] );
 }
 
 /**
@@ -1517,10 +1511,34 @@ function wc_product_attribute_uasort_comparison( $a, $b ) {
  * @return int
  */
 function wc_shipping_zone_method_order_uasort_comparison( $a, $b ) {
-	if ( $a->method_order === $b->method_order ) {
+	return wc_uasort_comparison( $a->method_order, $b->method_order );
+}
+
+/**
+ * User to sort checkout fields based on priority with uasort.
+ *
+ * @since 3.5.1
+ * @param array $a First field to compare.
+ * @param array $b Second field to compare.
+ * @return int
+ */
+function wc_checkout_fields_uasort_comparison( $a, $b ) {
+	return wc_uasort_comparison( $a['priority'], $b['priority'] );
+}
+
+/**
+ * User to sort two values with ausort.
+ *
+ * @since 3.5.1
+ * @param int $a First value to compare.
+ * @param int $b Second value to compare.
+ * @return int
+ */
+function wc_uasort_comparison( $a, $b ) {
+	if ( $a === $b ) {
 		return 0;
 	}
-	return ( $a->method_order < $b->method_order ) ? -1 : 1;
+	return ( $a < $b ) ? -1 : 1;
 }
 
 /**
@@ -1586,16 +1604,17 @@ function wc_remove_number_precision( $value ) {
  * @since  3.2.0
  * @param  array $value Number to add precision to.
  * @param  bool  $round Should we round after adding precision?.
- * @return int
+ * @return int|array
  */
 function wc_add_number_precision_deep( $value, $round = true ) {
-	if ( is_array( $value ) ) {
-		foreach ( $value as $key => $subvalue ) {
-			$value[ $key ] = wc_add_number_precision_deep( $subvalue, $round );
-		}
-	} else {
-		$value = wc_add_number_precision( $value, $round );
+	if ( ! is_array( $value ) ) {
+		return wc_add_number_precision( $value, $round );
 	}
+
+	foreach ( $value as $key => $sub_value ) {
+		$value[ $key ] = wc_add_number_precision_deep( $sub_value, $round );
+	}
+
 	return $value;
 }
 
@@ -1604,16 +1623,17 @@ function wc_add_number_precision_deep( $value, $round = true ) {
  *
  * @since  3.2.0
  * @param  array $value Number to add precision to.
- * @return int
+ * @return int|array
  */
 function wc_remove_number_precision_deep( $value ) {
-	if ( is_array( $value ) ) {
-		foreach ( $value as $key => $subvalue ) {
-			$value[ $key ] = wc_remove_number_precision_deep( $subvalue );
-		}
-	} else {
-		$value = wc_remove_number_precision( $value );
+	if ( ! is_array( $value ) ) {
+		return wc_remove_number_precision( $value );
 	}
+
+	foreach ( $value as $key => $sub_value ) {
+		$value[ $key ] = wc_remove_number_precision_deep( $sub_value );
+	}
+
 	return $value;
 }
 
@@ -1634,30 +1654,30 @@ function wc_get_logger() {
 
 	$class = apply_filters( 'woocommerce_logging_class', 'WC_Logger' );
 
-	if ( null === $logger || ! is_a( $logger, $class ) ) {
-		$implements = class_implements( $class );
-
-		if ( is_array( $implements ) && in_array( 'WC_Logger_Interface', $implements, true ) ) {
-			if ( is_object( $class ) ) {
-				$logger = $class;
-			} else {
-				$logger = new $class();
-			}
-		} else {
-			wc_doing_it_wrong(
-				__FUNCTION__,
-				sprintf(
-					/* translators: 1: class name 2: woocommerce_logging_class 3: WC_Logger_Interface */
-					__( 'The class %1$s provided by %2$s filter must implement %3$s.', 'woocommerce' ),
-					'<code>' . esc_html( is_object( $class ) ? get_class( $class ) : $class ) . '</code>',
-					'<code>woocommerce_logging_class</code>',
-					'<code>WC_Logger_Interface</code>'
-				),
-				'3.0'
-			);
-			$logger = is_a( $logger, 'WC_Logger' ) ? $logger : new WC_Logger();
-		}
+	if ( null !== $logger && is_string( $class ) && is_a( $logger, $class ) ) {
+		return $logger;
 	}
+
+	$implements = class_implements( $class );
+
+	if ( is_array( $implements ) && in_array( 'WC_Logger_Interface', $implements, true ) ) {
+		$logger = is_object( $class ) ? $class : new $class();
+	} else {
+		wc_doing_it_wrong(
+			__FUNCTION__,
+			sprintf(
+				/* translators: 1: class name 2: woocommerce_logging_class 3: WC_Logger_Interface */
+				__( 'The class %1$s provided by %2$s filter must implement %3$s.', 'woocommerce' ),
+				'<code>' . esc_html( is_object( $class ) ? get_class( $class ) : $class ) . '</code>',
+				'<code>woocommerce_logging_class</code>',
+				'<code>WC_Logger_Interface</code>'
+			),
+			'3.0'
+		);
+
+		$logger = is_a( $logger, 'WC_Logger' ) ? $logger : new WC_Logger();
+	}
+
 	return $logger;
 }
 
@@ -1715,10 +1735,10 @@ function wc_print_r( $expression, $return = false ) {
 			$res = call_user_func_array( $alternative['func'], $alternative['args'] );
 			if ( $return ) {
 				return $res;
-			} else {
-				echo $res; // WPCS: XSS ok.
-				return true;
 			}
+
+			echo $res; // WPCS: XSS ok.
+			return true;
 		}
 	}
 
@@ -2084,11 +2104,13 @@ function wc_decimal_to_fraction( $decimal ) {
 function wc_round_discount( $value, $precision ) {
 	if ( version_compare( PHP_VERSION, '5.3.0', '>=' ) ) {
 		return round( $value, $precision, WC_DISCOUNT_ROUNDING_MODE ); // phpcs:ignore PHPCompatibility.PHP.NewFunctionParameters.round_modeFound
-	} elseif ( 2 === WC_DISCOUNT_ROUNDING_MODE ) {
-		return wc_legacy_round_half_down( $value, $precision );
-	} else {
-		return round( $value, $precision );
 	}
+
+	if ( 2 === WC_DISCOUNT_ROUNDING_MODE ) {
+		return wc_legacy_round_half_down( $value, $precision );
+	}
+
+	return round( $value, $precision );
 }
 
 /**

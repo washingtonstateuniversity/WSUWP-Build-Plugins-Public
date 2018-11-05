@@ -215,10 +215,11 @@ class WC_Admin_Menus {
 	/**
 	 * Custom menu order.
 	 *
+	 * @param bool $enabled Whether custom menu ordering is already enabled.
 	 * @return bool
 	 */
-	public function custom_menu_order() {
-		return current_user_can( 'manage_woocommerce' );
+	public function custom_menu_order( $enabled ) {
+		return $enabled || current_user_can( 'manage_woocommerce' );
 	}
 
 	/**
@@ -340,7 +341,7 @@ class WC_Admin_Menus {
 	 * @param WP_Admin_Bar $wp_admin_bar Admin bar instance.
 	 */
 	public function admin_bar_menus( $wp_admin_bar ) {
-		if ( ! is_admin() || ! is_user_logged_in() ) {
+		if ( ! is_admin() || ! is_admin_bar_showing() ) {
 			return;
 		}
 

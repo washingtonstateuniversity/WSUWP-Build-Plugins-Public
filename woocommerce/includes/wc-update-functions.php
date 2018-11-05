@@ -1835,3 +1835,40 @@ function wc_update_343_cleanup_foreign_keys() {
 function wc_update_343_db_version() {
 	WC_Install::update_db_version( '3.4.3' );
 }
+
+/**
+ * Recreate user roles so existing users will get the new capabilities.
+ *
+ * @return void
+ */
+function wc_update_344_recreate_roles() {
+	WC_Install::remove_roles();
+	WC_Install::create_roles();
+}
+
+/**
+ * Update DB version.
+ *
+ * @return void
+ */
+function wc_update_344_db_version() {
+	WC_Install::update_db_version( '3.4.4' );
+}
+
+/**
+ * Set the comment type to 'review' for product reviews that don't have a comment type.
+ */
+function wc_update_350_reviews_comment_type() {
+	global $wpdb;
+
+	$wpdb->query(
+		"UPDATE {$wpdb->prefix}comments JOIN {$wpdb->prefix}posts ON {$wpdb->prefix}posts.ID = {$wpdb->prefix}comments.comment_post_ID AND ( {$wpdb->prefix}posts.post_type = 'product' OR {$wpdb->prefix}posts.post_type = 'product_variation' ) SET {$wpdb->prefix}comments.comment_type = 'review' WHERE {$wpdb->prefix}comments.comment_type = ''"
+	);
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_update_350_db_version() {
+	WC_Install::update_db_version( '3.5.0' );
+}

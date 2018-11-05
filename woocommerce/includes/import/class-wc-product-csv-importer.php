@@ -63,10 +63,14 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 	 * Read file.
 	 */
 	protected function read_file() {
+		if ( ! WC_Product_CSV_Importer_Controller::is_file_valid_csv( $this->file ) ) {
+			wp_die( __( 'Invalid file type. The importer supports CSV and TXT file formats.', 'woocommerce' ) );
+		}
+
 		$handle = fopen( $this->file, 'r' ); // @codingStandardsIgnoreLine.
 
 		if ( false !== $handle ) {
-			$this->raw_keys = version_compare( PHP_VERSION, '5.3', '>=' ) ? fgetcsv( $handle, 0, $this->params['delimiter'], $this->params['enclosure'], $this->params['escape'] ) : fgetcsv( $handle, 0, $this->params['delimiter'], $this->params['enclosure'] ); // @codingStandardsIgnoreLine
+			$this->raw_keys = version_compare( PHP_VERSION, '5.3', '>=' ) ? array_map( 'trim', fgetcsv( $handle, 0, $this->params['delimiter'], $this->params['enclosure'], $this->params['escape'] ) ) : array_map( 'trim', fgetcsv( $handle, 0, $this->params['delimiter'], $this->params['enclosure'] ) ); // @codingStandardsIgnoreLine
 
 			// Remove BOM signature from the first item.
 			if ( isset( $this->raw_keys[0] ) ) {
@@ -358,9 +362,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 
 			foreach ( $_terms as $index => $_term ) {
 				// Check if category exists. Parent must be empty string or null if doesn't exists.
-				// @codingStandardsIgnoreStart
 				$term = term_exists( $_term, 'product_cat', $parent );
-				// @codingStandardsIgnoreEnd
 
 				if ( is_array( $term ) ) {
 					$term_id = $term['term_id'];
@@ -574,6 +576,7 @@ class WC_Product_CSV_Importer extends WC_Product_Importer {
 			'short_description' => array( $this, 'parse_skip_field' ),
 			'description'       => array( $this, 'parse_skip_field' ),
 			'manage_stock'      => array( $this, 'parse_bool_field' ),
+			'low_stock_amount'  => array( $this, 'parse_stock_quantity_field' ),
 			'backorders'        => array( $this, 'parse_backorders_field' ),
 			'stock_status'      => array( $this, 'parse_bool_field' ),
 			'sold_individually' => array( $this, 'parse_bool_field' ),

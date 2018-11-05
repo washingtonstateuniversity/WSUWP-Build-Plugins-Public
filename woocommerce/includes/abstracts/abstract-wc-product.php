@@ -74,6 +74,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		'stock_quantity'     => null,
 		'stock_status'       => 'instock',
 		'backorders'         => 'no',
+		'low_stock_amount'   => '',
 		'sold_individually'  => false,
 		'weight'             => '',
 		'length'             => '',
@@ -387,6 +388,17 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 */
 	public function get_backorders( $context = 'view' ) {
 		return $this->get_prop( 'backorders', $context );
+	}
+
+	/**
+	 * Get low stock amount.
+	 *
+	 * @param  string $context What the value is for. Valid values are view and edit.
+	 * @since  3.5.0
+	 * @return int|string Returns empty string if value not set
+	 */
+	public function get_low_stock_amount( $context = 'view' ) {
+		return $this->get_prop( 'low_stock_amount', $context );
 	}
 
 	/**
@@ -902,7 +914,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		$class         = 'standard' === $class ? '' : $class;
 		$valid_classes = $this->get_valid_tax_classes();
 
-		if ( ! in_array( $class, $valid_classes ) ) {
+		if ( ! in_array( $class, $valid_classes, true ) ) {
 			$class = '';
 		}
 
@@ -961,6 +973,16 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 */
 	public function set_backorders( $backorders ) {
 		$this->set_prop( 'backorders', $backorders );
+	}
+
+	/**
+	 * Set low stock amount.
+	 *
+	 * @param int|string $amount Empty string if value not set.
+	 * @since 3.5.0
+	 */
+	public function set_low_stock_amount( $amount ) {
+		$this->set_prop( 'low_stock_amount', '' === $amount ? '' : absint( $amount ) );
 	}
 
 	/**
@@ -1091,14 +1113,13 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	}
 
 	/**
-	 * Set default attributes.
+	 * Set default attributes. These will be saved as strings and should map to attribute values.
 	 *
 	 * @since 3.0.0
 	 * @param array $default_attributes List of default attributes.
 	 */
 	public function set_default_attributes( $default_attributes ) {
-		$this->set_prop( 'default_attributes',
-		array_filter( (array) $default_attributes, 'wc_array_filter_default_attributes' ) );
+		$this->set_prop( 'default_attributes', array_map( 'strval', array_filter( (array) $default_attributes, 'wc_array_filter_default_attributes' ) ) );
 	}
 
 	/**
@@ -1300,10 +1321,11 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @since 3.0.0
 	 */
 	public function validate_props() {
-		// Before updating, ensure stock props are all aligned. Qty and backorders are not needed if not stock managed.
+		// Before updating, ensure stock props are all aligned. Qty, backorders and low stock amount are not needed if not stock managed.
 		if ( ! $this->get_manage_stock() ) {
 			$this->set_stock_quantity( '' );
 			$this->set_backorders( 'no' );
+			$this->set_low_stock_amount( '' );
 
 			// If we are stock managing and we don't have stock, force out of stock status.
 		} elseif ( $this->get_stock_quantity() <= get_option( 'woocommerce_notify_no_stock_amount', 0 ) && 'no' === $this->get_backorders() ) {
@@ -1799,10 +1821,11 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return string
 	 */
 	public function get_image( $size = 'woocommerce_thumbnail', $attr = array(), $placeholder = true ) {
-		if ( has_post_thumbnail( $this->get_id() ) ) {
-			$image = get_the_post_thumbnail( $this->get_id(), $size, $attr );
-		} elseif ( ( $parent_id = wp_get_post_parent_id( $this->get_id() ) ) && has_post_thumbnail( $parent_id ) ) { // @phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.Found
-			$image = get_the_post_thumbnail( $parent_id, $size, $attr );
+		if ( $this->get_image_id() ) {
+			$image = wp_get_attachment_image( $this->get_image_id(), $size, false, $attr );
+		} elseif ( $this->get_parent_id() ) {
+			$parent_product = wc_get_product( $this->get_parent_id() );
+			$image          = $parent_product->get_image( $size, $attr, $placeholder );
 		} elseif ( $placeholder ) {
 			$image = wc_placeholder_img( $size );
 		} else {

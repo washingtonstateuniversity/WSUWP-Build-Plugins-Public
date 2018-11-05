@@ -238,8 +238,12 @@ class WC_Checkout {
 				'placeholder' => esc_attr__( 'Password', 'woocommerce' ),
 			);
 		}
-
 		$this->fields = apply_filters( 'woocommerce_checkout_fields', $this->fields );
+
+		foreach ( $this->fields as $field_type => $fields ) {
+			// Sort each of the checkout field sections based on priority.
+			uasort( $this->fields[ $field_type ], 'wc_checkout_fields_uasort_comparison' );
+		}
 
 		return $fieldset ? $this->fields[ $fieldset ] : $this->fields;
 	}
@@ -309,15 +313,23 @@ class WC_Checkout {
 				$order = new WC_Order();
 			}
 
+			$fields_prefix = array(
+				'shipping'  => true,
+				'billing'   => true,
+			);
+			$shipping_fields = array(
+				'shipping_method'   => true,
+				'shipping_total'    => true,
+				'shipping_tax'      => true,
+			);
 			foreach ( $data as $key => $value ) {
 				if ( is_callable( array( $order, "set_{$key}" ) ) ) {
 					$order->{"set_{$key}"}( $value );
-
 					// Store custom fields prefixed with wither shipping_ or billing_. This is for backwards compatibility with 2.6.x.
-					// TODO: Fix conditional to only include shipping/billing address fields in a smarter way without str(i)pos.
-				} elseif ( ( 0 === stripos( $key, 'billing_' ) || 0 === stripos( $key, 'shipping_' ) )
-					&& ! in_array( $key, array( 'shipping_method', 'shipping_total', 'shipping_tax' ), true ) ) {
-					$order->update_meta_data( '_' . $key, $value );
+				} elseif ( isset( $fields_prefix[ current( explode( '_', $key ) ) ] ) ) {
+					if ( ! isset( $shipping_fields[ $key ] ) ) {
+						$order->update_meta_data( '_' . $key, $value );
+					}
 				}
 			}
 
@@ -615,6 +627,9 @@ class WC_Checkout {
 					case 'textarea':
 						$value = isset( $_POST[ $key ] ) ? wc_sanitize_textarea( wp_unslash( $_POST[ $key ] ) ) : ''; // WPCS: input var ok, CSRF ok.
 						break;
+					case 'password':
+						$value = isset( $_POST[ $key ] ) ? wp_unslash( $_POST[ $key ] ) : ''; // WPCS: input var ok, CSRF ok, sanitization ok.
+						break;
 					default:
 						$value = isset( $_POST[ $key ] ) ? wc_clean( wp_unslash( $_POST[ $key ] ) ) : ''; // WPCS: input var ok, CSRF ok.
 						break;
@@ -645,8 +660,9 @@ class WC_Checkout {
 	 */
 	protected function validate_posted_data( &$data, &$errors ) {
 		foreach ( $this->get_checkout_fields() as $fieldset_key => $fieldset ) {
+			$validate_fieldset = true;
 			if ( $this->maybe_skip_fieldset( $fieldset_key, $data ) ) {
-				continue;
+				$validate_fieldset = false;
 			}
 
 			foreach ( $fieldset as $key => $field ) {
@@ -672,25 +688,32 @@ class WC_Checkout {
 					$country      = isset( $data[ $fieldset_key . '_country' ] ) ? $data[ $fieldset_key . '_country' ] : WC()->customer->{"get_{$fieldset_key}_country"}();
 					$data[ $key ] = wc_format_postcode( $data[ $key ], $country );
 
-					if ( '' !== $data[ $key ] && ! WC_Validation::is_postcode( $data[ $key ], $country ) ) {
-						/* translators: %s: field name */
-						$errors->add( 'validation', sprintf( __( '%s is not a valid postcode / ZIP.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ) );
+					if ( $validate_fieldset && '' !== $data[ $key ] && ! WC_Validation::is_postcode( $data[ $key ], $country ) ) {
+						switch ( $country ) {
+							case 'IE':
+								/* translators: %1$s: field name, %2$s finder.eircode.ie URL */
+								$postcode_validation_notice = sprintf( __( '%1$s is not valid. You can look up the correct Eircode <a target="_blank" href="%2$s">here</a>.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', 'https://finder.eircode.ie' );
+								break;
+							default:
+								/* translators: %s: field name */
+								$postcode_validation_notice = sprintf( __( '%s is not a valid postcode / ZIP.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' );
+						}
+						$errors->add( 'validation', apply_filters( 'woocommerce_checkout_postcode_validation_notice', $postcode_validation_notice, $country, $data[ $key ] ) );
 					}
 				}
 
 				if ( in_array( 'phone', $format, true ) ) {
-					$data[ $key ] = wc_format_phone_number( $data[ $key ] );
-
-					if ( '' !== $data[ $key ] && ! WC_Validation::is_phone( $data[ $key ] ) ) {
+					if ( $validate_fieldset && '' !== $data[ $key ] && ! WC_Validation::is_phone( $data[ $key ] ) ) {
 						/* translators: %s: phone number */
 						$errors->add( 'validation', sprintf( __( '%s is not a valid phone number.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ) );
 					}
 				}
 
 				if ( in_array( 'email', $format, true ) && '' !== $data[ $key ] ) {
+					$email_is_valid = is_email( $data[ $key ] );
 					$data[ $key ] = sanitize_email( $data[ $key ] );
 
-					if ( ! is_email( $data[ $key ] ) ) {
+					if ( $validate_fieldset && ! $email_is_valid ) {
 						/* translators: %s: email address */
 						$errors->add( 'validation', sprintf( __( '%s is not a valid email address.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ) );
 						continue;
@@ -710,14 +733,14 @@ class WC_Checkout {
 							$data[ $key ] = $valid_state_values[ $data[ $key ] ];
 						}
 
-						if ( ! in_array( $data[ $key ], $valid_state_values, true ) ) {
+						if ( $validate_fieldset && ! in_array( $data[ $key ], $valid_state_values, true ) ) {
 							/* translators: 1: state field 2: valid states */
 							$errors->add( 'validation', sprintf( __( '%1$s is not valid. Please enter one of the following: %2$s', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', implode( ', ', $valid_states ) ) );
 						}
 					}
 				}
 
-				if ( $required && '' === $data[ $key ] ) {
+				if ( $validate_fieldset && $required && '' === $data[ $key ] ) {
 					/* translators: %s: field name */
 					$errors->add( 'required-field', apply_filters( 'woocommerce_checkout_required_field_notice', sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), $field_label ) );
 				}
@@ -781,13 +804,24 @@ class WC_Checkout {
 	 * @param array  $data  Array of data to get the value from.
 	 */
 	protected function set_customer_address_fields( $field, $key, $data ) {
-		if ( isset( $data[ "billing_{$field}" ] ) ) {
-			WC()->customer->{"set_billing_{$field}"}( $data[ "billing_{$field}" ] );
-			WC()->customer->{"set_shipping_{$field}"}( $data[ "billing_{$field}" ] );
+		$billing_value  = null;
+		$shipping_value = null;
+
+		if ( isset( $data[ "billing_{$field}" ] ) && is_callable( array( WC()->customer, "set_billing_{$field}" ) ) ) {
+			$billing_value  = $data[ "billing_{$field}" ];
+			$shipping_value = $data[ "billing_{$field}" ];
 		}
 
-		if ( isset( $data[ "shipping_{$field}" ] ) ) {
-			WC()->customer->{"set_shipping_{$field}"}( $data[ "shipping_{$field}" ] );
+		if ( isset( $data[ "shipping_{$field}" ] ) && is_callable( array( WC()->customer, "set_shipping_{$field}" ) ) ) {
+			$shipping_value = $data[ "shipping_{$field}" ];
+		}
+
+		if ( ! is_null( $billing_value ) && is_callable( array( WC()->customer, "set_billing_{$field}" ) ) ) {
+			WC()->customer->{"set_billing_{$field}"}( $billing_value );
+		}
+
+		if ( ! is_null( $shipping_value ) && is_callable( array( WC()->customer, "set_shipping_{$field}" ) ) ) {
+			WC()->customer->{"set_shipping_{$field}"}( $shipping_value );
 		}
 	}
 
@@ -800,6 +834,11 @@ class WC_Checkout {
 	protected function update_session( $data ) {
 		// Update both shipping and billing to the passed billing address first if set.
 		$address_fields = array(
+			'first_name',
+			'last_name',
+			'company',
+			'email',
+			'phone',
 			'address_1',
 			'address_2',
 			'city',
@@ -968,9 +1007,7 @@ class WC_Checkout {
 		if ( is_ajax() ) {
 			// Only print notices if not reloading the checkout, otherwise they're lost in the page reload.
 			if ( ! isset( WC()->session->reload_checkout ) ) {
-				ob_start();
-				wc_print_notices();
-				$messages = ob_get_clean();
+				$messages = wc_print_notices( true );
 			}
 
 			$response = array(
@@ -1086,10 +1123,12 @@ class WC_Checkout {
 		}
 
 		if ( is_callable( array( WC()->customer, "get_$input" ) ) ) {
-			$value = WC()->customer->{"get_$input"}() ? WC()->customer->{"get_$input"}() : null;
+			$value = WC()->customer->{"get_$input"}();
 		} elseif ( WC()->customer->meta_exists( $input ) ) {
 			$value = WC()->customer->get_meta( $input, true );
 		}
+
+		$value = $value ? $value : null; // Empty value should return null.
 
 		return apply_filters( 'default_checkout_' . $input, $value, $input );
 	}

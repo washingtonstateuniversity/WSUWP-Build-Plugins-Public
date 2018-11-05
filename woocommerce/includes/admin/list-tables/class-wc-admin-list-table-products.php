@@ -39,6 +39,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 		add_filter( 'query_vars', array( $this, 'add_custom_query_var' ) );
 		add_filter( 'views_edit-product', array( $this, 'product_views' ) );
 		add_filter( 'get_search_query', array( $this, 'search_label' ) );
+		add_filter( 'posts_clauses', array( $this, 'add_variation_parents_for_shipping_class' ), 10, 2 );
 	}
 
 	/**
@@ -145,7 +146,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	}
 
 	/**
-	 * Render columm: name.
+	 * Render column: name.
 	 */
 	protected function render_name_column() {
 		global $post;
@@ -187,6 +188,7 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 				<div class="tax_status">' . esc_html( $this->object->get_tax_status() ) . '</div>
 				<div class="tax_class">' . esc_html( $this->object->get_tax_class() ) . '</div>
 				<div class="backorders">' . esc_html( $this->object->get_backorders() ) . '</div>
+				<div class="low_stock_amount">' . esc_html( $this->object->get_low_stock_amount() ) . '</div>
 			</div>
 		';
 	}
@@ -287,12 +289,34 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 	 * Render any custom filters and search inputs for the list table.
 	 */
 	protected function render_filters() {
+		$filters = apply_filters( 'woocommerce_products_admin_list_table_filters', array(
+			'product_category' => array( $this, 'render_products_category_filter' ),
+			'product_type'     => array( $this, 'render_products_type_filter' ),
+			'stock_status'     => array( $this, 'render_products_stock_status_filter' ),
+		) );
+
+		ob_start();
+		foreach ( $filters as $filter_callback ) {
+			call_user_func( $filter_callback );
+		}
+		$output = ob_get_clean();
+
+		echo apply_filters( 'woocommerce_product_filters', $output ); // WPCS: XSS ok.
+	}
+
+	/**
+	 * Render the product category filter for the list table.
+	 *
+	 * @since 3.5.0
+	 */
+	protected function render_products_category_filter() {
 		$categories_count = (int) wp_count_terms( 'product_cat' );
 
 		if ( $categories_count <= apply_filters( 'woocommerce_product_category_filter_threshold', 100 ) ) {
 			wc_product_dropdown_categories(
 				array(
 					'option_select_text' => __( 'Filter by category', 'woocommerce' ),
+					'hide_empty'         => 0,
 				)
 			);
 		} else {
@@ -306,38 +330,23 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 			</select>
 			<?php
 		}
+	}
 
+	/**
+	 * Render the product type filter for the list table.
+	 *
+	 * @since 3.5.0
+	 */
+	protected function render_products_type_filter() {
 		$current_product_type = isset( $_REQUEST['product_type'] ) ? wc_clean( wp_unslash( $_REQUEST['product_type'] ) ) : false; // WPCS: input var ok, sanitization ok.
-		$terms                = get_terms( 'product_type' );
 		$output               = '<select name="product_type" id="dropdown_product_type"><option value="">' . __( 'Filter by product type', 'woocommerce' ) . '</option>';
 
-		foreach ( $terms as $term ) {
-			$output .= '<option value="' . sanitize_title( $term->name ) . '" ';
-			$output .= selected( $term->slug, $current_product_type, false );
-			$output .= '>';
+		foreach ( wc_get_product_types() as $value => $label ) {
+			$output .= '<option value="' . esc_attr( $value ) . '" ';
+			$output .= selected( $value, $current_product_type, false );
+			$output .= '>' . esc_html( $label ) . '</option>';
 
-			switch ( $term->name ) {
-				case 'grouped':
-					$output .= __( 'Grouped product', 'woocommerce' );
-					break;
-				case 'external':
-					$output .= __( 'External/Affiliate product', 'woocommerce' );
-					break;
-				case 'variable':
-					$output .= __( 'Variable product', 'woocommerce' );
-					break;
-				case 'simple':
-					$output .= __( 'Simple product', 'woocommerce' );
-					break;
-				default:
-					// Assuming that we have other types in future.
-					$output .= ucfirst( $term->name );
-					break;
-			}
-
-			$output .= '</option>';
-
-			if ( 'simple' === $term->name ) {
+			if ( 'simple' === $value ) {
 
 				$output .= '<option value="downloadable" ';
 				$output .= selected( 'downloadable', $current_product_type, false );
@@ -350,18 +359,25 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 		}
 
 		$output .= '</select>';
+		echo $output; // WPCS: XSS ok.
+	}
 
+	/**
+	 * Render the stock status filter for the list table.
+	 *
+	 * @since 3.5.0
+	 */
+	public function render_products_stock_status_filter() {
 		$current_stock_status = isset( $_REQUEST['stock_status'] ) ? wc_clean( wp_unslash( $_REQUEST['stock_status'] ) ) : false; // WPCS: input var ok, sanitization ok.
 		$stock_statuses       = wc_get_product_stock_status_options();
-		$output              .= '<select name="stock_status"><option value="">' . esc_html__( 'Filter by stock status', 'woocommerce' ) . '</option>';
+		$output               = '<select name="stock_status"><option value="">' . esc_html__( 'Filter by stock status', 'woocommerce' ) . '</option>';
 
 		foreach ( $stock_statuses as $status => $label ) {
 			$output .= '<option ' . selected( $status, $current_stock_status, false ) . ' value="' . esc_attr( $status ) . '">' . esc_html( $label ) . '</option>';
 		}
 
 		$output .= '</select>';
-
-		echo apply_filters( 'woocommerce_product_filters', $output ); // WPCS: XSS ok.
+		echo $output; // WPCS: XSS ok.
 	}
 
 	/**
@@ -482,4 +498,26 @@ class WC_Admin_List_Table_Products extends WC_Admin_List_Table {
 
 		return wc_clean( wp_unslash( $_GET['s'] ) ); // WPCS: input var ok, sanitization ok.
 	}
+
+	/**
+	 * Modifies post query so that it includes parent products whose variations have particular shipping class assigned.
+	 *
+	 * @param array    $pieces   Array of SELECT statement pieces (from, where, etc).
+	 * @param WP_Query $wp_query WP_Query instance.
+	 * @return array             Array of products, including parents of variations.
+	 */
+	public function add_variation_parents_for_shipping_class( $pieces, $wp_query ) {
+		global $wpdb;
+		if ( isset( $_GET['product_shipping_class'] ) && '0' !== $_GET['product_shipping_class'] ) { // WPCS: input var ok.
+			$replaced_where   = str_replace( ".post_type = 'product'", ".post_type = 'product_variation'", $pieces['where'] );
+			$pieces['where'] .= " OR {$wpdb->posts}.ID in (
+				SELECT {$wpdb->posts}.post_parent FROM 
+				wp_posts  LEFT JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)
+				WHERE 1=1 $replaced_where
+			)";
+			return $pieces;
+		}
+		return $pieces;
+	}
+
 }
