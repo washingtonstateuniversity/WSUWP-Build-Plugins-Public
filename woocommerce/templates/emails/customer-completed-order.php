@@ -1,8 +1,8 @@
 <?php
 /**
- * Customer processing order email
+ * Customer completed order email
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/customer-processing-order.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-completed-order.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @package WooCommerce/Templates/Emails/Plain
+ * @package WooCommerce/Templates/Emails
  * @version 3.5.0
  */
 
@@ -19,14 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-echo '= ' . esc_html( $email_heading ) . " =\n\n";
+/*
+ * @hooked WC_Emails::email_header() Output the email header
+ */
+do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-/* translators: %s: Customer first name */
-echo sprintf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ) . "\n\n";
-/* translators: %s: Order number */
-echo sprintf( esc_html__( 'Just to let you know &mdash; your payment has been confirmed, and order #%s is now being processed:', 'woocommerce' ), esc_html( $order->get_order_number() ) ) . "\n\n";
-
-echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
+<?php /* translators: %s: Customer first name */ ?>
+<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ); ?></p>
+<?php /* translators: %s: Site title */ ?>
+<p><?php printf( esc_html__( 'Your %s order has been marked complete on our side.', 'woocommerce' ), esc_html( wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ) ) ); ?></p>
+<?php
 
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.
@@ -35,8 +37,6 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"
  * @since 2.5.0
  */
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
-
-echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
 /*
  * @hooked WC_Emails::order_meta() Shows order meta data.
@@ -49,8 +49,13 @@ do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, 
  */
 do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
 
-echo esc_html_e( 'Thanks!', 'woocommerce' ) . "\n\n";
+?>
+<p>
+<?php esc_html_e( 'Thanks for shopping with us.', 'woocommerce' ); ?>
+</p>
+<?php
 
-echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
-
-echo esc_html( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );
+/*
+ * @hooked WC_Emails::email_footer() Output the email footer
+ */
+do_action( 'woocommerce_email_footer', $email );

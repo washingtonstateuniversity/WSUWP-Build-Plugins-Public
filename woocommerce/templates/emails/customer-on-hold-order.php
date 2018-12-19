@@ -1,8 +1,8 @@
 <?php
 /**
- * Customer note email
+ * Customer on-hold order email
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/plain/customer-note.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/emails/customer-on-hold-order.php.
  *
  * HOWEVER, on occasion WooCommerce will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
@@ -11,8 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
-
- * @package WooCommerce/Templates/Emails/Plain
+ * @package WooCommerce/Templates/Emails
  * @version 3.5.0
  */
 
@@ -20,21 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-echo '= ' . esc_html( $email_heading ) . " =\n\n";
+/*
+ * @hooked WC_Emails::email_header() Output the email header
+ */
+do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-/* translators: %s Customer first name */
-echo sprintf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $order->get_billing_first_name() ) ) . "\n\n";
-echo esc_html__( 'The following note has been added to your order:', 'woocommerce' ) . "\n\n";
+<?php /* translators: %s: Customer first name */ ?>
+<p><?php printf( __( 'Hi %s,', 'woocommerce' ), $order->get_billing_first_name() ); ?></p><?php // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?>
+<p><?php _e( 'Thanks for your order. It’s on-hold until we confirm that payment has been received. In the meantime, here’s a reminder of what you ordered:', 'woocommerce' ); ?></p><?php // phpcs:ignore WordPress.XSS.EscapeOutput ?>
 
-echo "----------\n\n";
-
-echo wptexturize( $customer_note ) . "\n\n"; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
-
-echo "----------\n\n";
-
-echo esc_html__( 'As a reminder, here are your order details:', 'woocommerce' ) . "\n\n";
-
-echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
+<?php
 
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.
@@ -43,8 +37,6 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"
  * @since 2.5.0
  */
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
-
-echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
 /*
  * @hooked WC_Emails::order_meta() Shows order meta data.
@@ -57,8 +49,13 @@ do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, 
  */
 do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
 
-echo esc_html__( 'Thanks for reading.', 'woocommerce' ) . "\n\n";
+?>
+<p>
+<?php _e( 'We look forward to fulfilling your order soon.', 'woocommerce' ); // phpcs:ignore WordPress.XSS.EscapeOutput ?>
+</p>
+<?php
 
-echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
-
-echo esc_html( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );
+/*
+ * @hooked WC_Emails::email_footer() Output the email footer
+ */
+do_action( 'woocommerce_email_footer', $email );

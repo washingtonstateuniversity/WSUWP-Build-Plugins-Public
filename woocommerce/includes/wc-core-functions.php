@@ -533,7 +533,7 @@ function get_woocommerce_currency_symbol( $currency = '' ) {
 			'GYD' => '&#36;',
 			'HKD' => '&#36;',
 			'HNL' => 'L',
-			'HRK' => 'Kn',
+			'HRK' => 'kn',
 			'HTG' => 'G',
 			'HUF' => '&#70;&#116;',
 			'IDR' => 'Rp',
@@ -1079,7 +1079,8 @@ function wc_get_customer_default_location() {
 			$location = wc_format_country_state_string( apply_filters( 'woocommerce_customer_default_location', get_option( 'woocommerce_default_country' ) ) );
 			break;
 		default:
-			$location = wc_format_country_state_string( apply_filters( 'woocommerce_customer_default_location', '' ) );
+			$countries = WC()->countries->get_allowed_countries();
+			$location  = wc_format_country_state_string( apply_filters( 'woocommerce_customer_default_location', 1 === count( $countries ) ? key( $countries ) : '' ) );
 			break;
 	}
 
@@ -1523,6 +1524,15 @@ function wc_shipping_zone_method_order_uasort_comparison( $a, $b ) {
  * @return int
  */
 function wc_checkout_fields_uasort_comparison( $a, $b ) {
+	/*
+	 * We are not guaranteed to get a priority
+	 * setting. So don't compare if they don't
+	 * exist.
+	 */
+	if ( ! isset( $a['priority'], $b['priority'] ) ) {
+		return 0;
+	}
+
 	return wc_uasort_comparison( $a['priority'], $b['priority'] );
 }
 
