@@ -3,15 +3,15 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
- * Version: 4.1.1
+ * Version: 4.7.1
  * Author: Gutenberg Team
  *
  * @package gutenberg
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '4.1.1' );
-define( 'GUTENBERG_GIT_COMMIT', '059b4fefc07e5cd741c6ab6ad06befc3f3756662' );
+define( 'GUTENBERG_VERSION', '4.7.1' );
+define( 'GUTENBERG_GIT_COMMIT', '2ff13a8e0862d7b6abddf2e8f298fc81bba0ec2c' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -29,6 +29,27 @@ gutenberg_pre_init();
 function the_gutenberg_project() {
 	global $post_type_object;
 	?>
+	<noscript>
+		<div class="error" style="position:absolute;top:32px;z-index:40"><p>
+		<?php
+		// Using Gutenberg as Plugin.
+		if ( is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
+			$current_url = esc_url( add_query_arg( 'classic-editor', true, $_SERVER['REQUEST_URI'] ) );
+			printf(
+				// Translators: link is to current page specify classic editor.
+				__( 'The Block Editor requires JavaScript. You can use the <a href="%s">Classic Editor</a>.', 'gutenberg' ),
+				$current_url
+			);
+		} else { // Using Gutenberg in Core.
+			printf(
+				/* translators: %s: https://wordpress.org/plugins/classic-editor/ */
+				__( 'The Block Editor requires JavaScript. Please try the <a href="%s">Classic Editor plugin</a>.', 'gutenberg' ),
+				__( 'https://wordpress.org/plugins/classic-editor/', 'gutenberg' )
+			);
+		}
+		?>
+		</p></div>
+	</noscript>
 	<div class="block-editor gutenberg">
 		<h1 class="screen-reader-text"><?php echo esc_html( $post_type_object->labels->edit_item ); ?></h1>
 		<div id="editor" class="block-editor__container gutenberg__editor"></div>
@@ -102,6 +123,14 @@ function is_gutenberg_page() {
 		return false;
 	}
 
+	/*
+	 * There have been reports of specialized loading scenarios where `get_current_screen`
+	 * does not exist. In these cases, it is safe to say we are not loading Gutenberg.
+	 */
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		return false;
+	}
+
 	if ( get_current_screen()->base !== 'post' ) {
 		return false;
 	}
@@ -124,7 +153,7 @@ function is_gutenberg_page() {
  */
 function gutenberg_wordpress_version_notice() {
 	echo '<div class="error"><p>';
-	echo __( 'Gutenberg requires WordPress 4.9.8 or later to function properly. Please upgrade WordPress before activating Gutenberg.', 'gutenberg' );
+	_e( 'Gutenberg requires WordPress 4.9.8 or later to function properly. Please upgrade WordPress before activating Gutenberg.', 'gutenberg' );
 	echo '</p></div>';
 
 	deactivate_plugins( array( 'gutenberg/gutenberg.php' ) );
@@ -137,7 +166,7 @@ function gutenberg_wordpress_version_notice() {
  */
 function gutenberg_build_files_notice() {
 	echo '<div class="error"><p>';
-	echo __( 'Gutenberg development mode requires files to be built. Run <code>npm install</code> to install dependencies, <code>npm run build</code> to build the files or <code>npm run dev</code> to build the files and watch for changes. Read the <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTING.md">contributing</a> file for more information.', 'gutenberg' );
+	_e( 'Gutenberg development mode requires files to be built. Run <code>npm install</code> to install dependencies, <code>npm run build</code> to build the files or <code>npm run dev</code> to build the files and watch for changes. Read the <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTING.md">contributing</a> file for more information.', 'gutenberg' );
 	echo '</p></div>';
 }
 
@@ -165,7 +194,9 @@ function gutenberg_pre_init() {
 
 	require_once dirname( __FILE__ ) . '/lib/load.php';
 
-	gutenberg_silence_rest_errors();
+	if ( function_exists( 'gutenberg_silence_rest_errors' ) ) {
+		gutenberg_silence_rest_errors();
+	}
 
 	add_filter( 'replace_editor', 'gutenberg_init', 10, 2 );
 }

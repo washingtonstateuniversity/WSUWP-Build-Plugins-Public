@@ -1,5 +1,531 @@
 == Changelog ==
 
+= 4.7.1 =
+
+### Bug fix
+
+* Editor: Restore the block prop in the BlockListBlock filter
+
+= 4.7.0 =
+
+### Performance improvements
+
+* Optimize isViewportMatch
+* Performance: BlockListAppender: 1.7x increase on key press
+* Date: Optimize the usage of moment-timezone to save some kilobytes
+* RichText: selectionChange: bind on focus, unbind on blur
+* RichText: only replace range and nodes if different
+* Cache createBlock call in isUnmodifiedDefaultBlock
+* Edit Post: Select blocks only once multiple verified
+* RichText: Do not run valueToEditableHTML on every render
+* RichText: Reuse DOM document across calls to createEmpty
+* Only initialise TinyMCE once per instance
+* Optimize the insertion point component
+* Avoid rerending the current block if the previous block change
+* Avoid getBlock in block-list/block
+* Pass the registry argument to withDispatch to allow selectors to be used
+
+### Bug fixes
+
+* Annotations: Apply annotation className as string
+* RichText: Ensure instance is selected before setting back selection
+* Meta Boxes: Don’t hide disabled meta boxes by modifying DOM
+* Fix: Problems on Media & Text block resizing; Load wp-block-library styles before wp-edit-blocks
+* When a post is saved, check for tinymce and save any editors.
+* Fix: Undoing Image Selection from Media Library in Image Block breaks it
+* Add an end-to-end test for the HTML block
+* Fix regression when copying or cutting content in the editor
+* Fix issue where default appender has icons overlaying the text
+* Set document title for preview loading interstitial
+* Fix: Upload permissions error on end-to-end inline tokens test
+* Ensure classic block caret is in correct position after blur
+* Fix tab navigation sometimes skipping block UI
+* Improve font size picker accessibility: Use a menuitemradio role and better labels
+* Don’t show trashed reusable blocks in the editor or frontend
+* Rename functions, removing gutenberg_ prefix
+* Add block switcher end-to-end tests
+* Allow links in plugin group in the editor more menu
+* Introduce searching of block categories from slash inserter
+* Convert HTML formatting whitespace to spaces
+* Label link format with selected text, not full text
+* Ensure permalink panel is only displayed when a permalink is allowed
+* Allow the user to convert unembeddable URLs to links and try embedding again
+* Improve the top bar tools interaction and consistency
+* Fix overflowing content in the facebook embed preview screen
+* Add an action to set a category icon and correct block categories documentation
+* Fix: pasting a tag that is part of a transform and not matched ignores the content.
+* Packages: Extract Eslint config package
+* Add end-to-end test to catch revert of title during a preview after saving a draft
+* Avoid react warnings when merging two adjacent paragraphs
+* Avoid PHP notice in the recent comments block
+
+= 4.6.1 =
+
+* Parser: Make attribute parsing possessive (Fix High CPU usage).
+
+= 4.6.0 =
+
+* Fix issue with drag-and-drop in columns.
+* Fix TinyMCE list plugin registration.
+* Fix IE11 flexbox alignment when min-width is set.
+* Fix IE11 focus loss after TinyMCE init. Add IE check.
+* Fix getSelectedBlockClientId selector.
+* Fix issue where unregistering a block type would cause blocks that convert to it to break.
+* Fix Classic block not showing galleries on a grid.
+* Fix visual issues with Button block text wrap.
+* Fix modals in Edge.
+* Fix Categories block filter effect on the front-end.
+* Fix an issue where the block toolbar would cause an image to jump downwards when the wide or full - alignments were activated.
+* Apply IE11 input fix only when mounting TinyMCE.
+* Improve block preview styling.
+* Make the Image Link URL field readonly.
+* Disable HTML edit from Media & Text block.
+* Avoid loading theme editor styles if not existing (RTL languages).
+* Improve scoping of nested paragraph right-padding CSS rule.
+* Add e2e tests for the format API.
+* Merge similar text strings for i18n.
+* Move editor specific styles from style.scss to editor.scss in Cover block.
+* Simplify sidebar tabs aria-labels.
+* Remove onSplit from RichText docs.
+* Remove textdomain from the block library.
+* Avoid rendering AdminNotices compatibility component.
+* Avoid changing default wpautop priority.
+* Change @package names to WordPress.
+* Update published packages changelogs.
+
+= 4.5.1 =
+
+* Raw Handling: fix consecutive lists with one item
+* Avoid showing draft revert message on autosaves
+* Honor the Disable Visual Editor setting in the Gutenberg editor page
+* Docs: Fix dead links in CONTRIBUTING.md
+* Fix undefined index warnings in Latest Comments & Latest Posts
+* Add `react-native` module property to html-entities package.json
+* RichText: List: Sync DOM after editor command
+* Fix RichText infinte rerendering
+* Fix keycodes package missing i18n dependencies
+
+= 4.5.0 =
+
+* Add relevant attribute data from images to be used server side to handle things like theme specific responsive media.
+* In order to be able to use srcset and sizes on the front end, wp-image-### CSS class has been added to the media and text block.
+* Add minimal multi-selection block panel to replace “Coming Soon” message. It shows word and block count for the selection.
+* Exclude reusable blocks from the global block count in Document Outline.
+* Upgrade admin notices to use Notices module at runtime. It attempts to seamlessly upgrade notices output via an admin_notices or all_admin_notices action server-side.
+* Adjust the prefix transforms so that they only execute when they match text right at the caret so that they are undoable. Also makes it faster by checking if the previous character is a space.
+* Add ability to specify a different default editor font per locale.
+* Add link rel and link class settings to Image block inspector.
+* Transform an Image and Audio block to an Embed block if the URL matches an embed.
+* Respect the “Disable Visual Editor” setting per user.
+* Make it easy to access image IDs server-side on the Gallery block.
+* Recursively step through edits to track individually changed post meta in Block API. This prevents saving the default value for each registered meta when only one of them is changed.
+* Perform a complete draft save on preview.
+* Save all meta-boxes when clicking the preview button. Set preview URL only after saving is complete.
+* Disable hover interaction on mobile to improve scrolling.
+* Update the displayed permalink when the slug is cleared.
+* When converting to blocks, place unhandled HTML within an HTML block.
+* Ensure content that cannot be handled in quotes is preserved within an HTML block.
+* Localize the DateTimePicker Component.
+* Fixes the behavior of link validation including properly handling URL fragments, validating forward slashes in HTTP URLs, more strictness to match getProtocol, addressing false positives in E2E tests.
+* Fix issue where existing reusable blocks on a post would not render if the user was an author or a contributor. This happens because requests to fetch a single block or post are blocked when ?context=edit is passed and the current user is not an editor.
+* Make sure the media library collection is refreshed when a user uploads media outside of the Media Library workflow (i.e. file drops, file uploads, etc).
+* Update the editor reducer so that RESET_BLOCKS will only remove blocks that are actually in the post.
+* It used to be possible to add a reusable block inside the same reusable block in the UI, e.g. someone could create a column block inside another column block. Now it is not.
+* Deleting after certain types of selection was causing the caret to appear in the wrong place, now that it fixed, along with unexpected behavior of Ctrl+A after other kinds of selection, and the associated E2E tests updated.
+* Remove permalink-based features from non-public CPTs.
+* Address various issues with post locking modal.
+* Fix issue with duplicating blocks and undo on Top Toolbar mode.
+* Visual fix of margin on icons that are not dashicons in placeholders.
+* Visual fix for centre-aligned text on coverblocks.
+* Visual fix for embeds that are wider than the mobile breakpoint, cropping them to fit within the screen.
+* Adds MediaUploadCheck before some MediaUpload components where it was not being checked in time, creating a confusing experience for users in the “contributor” role.
+* Fix undefined variable warning in gutenberg.php.
+* Add missing stringifier and iterator in TokenList component.
+* Address i18n issue in MultiSelectionInspector.
+* Fix small visual regression with button variation preview.
+* Fix interaction regression with Sibling Inserter.
+* Fix issue with the Privacy Policy help notice.
+* Fix post visibility popover not appearing on mobile.
+* Fix issue with toolbar in IE11.
+* Fix small gap in style variation button.
+* Fix popovers position in RTL languages.
+* Fix double border issue with disabled toggle control.
+* Fix the TinyMCE init array.
+* RichText content that comes from headings content attribute should use the RichText.Content instead of rendering it directly.
+* Makes the escape key consistently exit the inline link popover – previously this could behave unexpectedly depending on focus.
+* Improve accessibility of permalink sidebar panel using external link component.
+* Display selected block outlines on Top Toolbar mode.
+* Avoid responding to componentDidUpdate in withDispatch.
+* Allow previewing changes to the post featured image.
+* Preserve unknown attributes and respect null in server attributes preparation
+* Adds missing periods to notification that another user has control of the post.
+* Restore the help modal in the Classic block.
+* Reduce specificity in core button styles to reduce conflicts with theme styles.
+* Update name of “Unified Toolbar” to “Top Toolbar” for extra clarity.
+* Make it possible to have an editor-only annotation format that stays in
+* position when typing inside RichText.
+* Adds missing periods to notification that the user does not have permission to read the blocks of the post.
+* Only add data-align for wide/full aligns if editor/theme supports them.
+* Updates jest to latest version to address vulnerabilities.
+* Removes redundant code now that TinyMCE is not being used to handle paste events.
+* Remove the gutenberg text-domain from dynamic blocks.
+* Remove redundant word from media and text block description.
+* Makes the URL for the classic editor translatable, so that the appropriate translated version can be linked to.
+* Update More block description.
+* Avoid .default on browser global assignments.
+* Mirror packages dependencies registration with core.
+* Remove absolute positions in the link popover E2E test.
+* Improve keyboard mappings in E2E tests, replacing custom utils with modifiers from the keycodes package.
+* Add missing imports on some E2E test utilities.
+* Update API Fetch documentation – removes unnecessary wp-json.
+* Remove iOS scroll adjusting now that enter behavior is more smooth.
+* Register the paragraph block as the default block.
+* Handle isSelected in plain text blocks (currently Code and More blocks).
+
+= 4.4.0 =
+
+* Improves discoverability of permalinks by adding permalink panel to the document sidebar.
+* Improves margins, column child block, and mobile display of columns.
+* Allow for programmatically removing editor document panels.
+* Replaces the uploading indicator of images and galleries with a spinner and faded out image.
+* Toolbar for floats was a little offset beyond the mobile breakpoint, now fixed.
+* Text and code editing blocks did not have width set, now set to fill the space.
+* Correctly align URL input autocomplete.
+* Improve animations: new, consistent naming convention, adds editor prefix, and moves keyframe animations (which don’t work well with mixins) into the edit post style.
+* Hover styles were showing on mobile, where hover is not available – now disabled.
+* Click and drag was incorrectly triggering a selection event in the block list under the popover, resulting in the popover dismissing. This was causing blocks to be selected when trying to set links to open in a new tab, for example. Fixed by preventing the mouse down event from propagating.
+* Adds some padding to the block inserter so that it never overlaps text in nested contexts or mobile views.
+* Better handle images larger than the editor by allowing a 2.5x buffer. Allows images inserted in TwentyNineteen and other themes that have a wider than 580px editor width, to look as expected, but prevents infinite resizing of images.
+* Stop mousedown event propagating through the toolbar, fixing problem of unexpectedly selecting blocks.
+* Improve the way that long words are broken on multiple lines, using word-break: keep-all;
+* Preserve the ratio of video backgrounds in cover blocks, videos may be cropped to fit but will keep their original ratio.
+* It was not possible to scroll a long menu on first load of Gutenberg, fixed by removing sticky-menu.
+* Properly check for allowed types of Media in Media Placeholder components.
+* “Resolve” and “Convert to HTML” buttons were not clickable (regression), now resolved.
+* Exclude HTML editing from Columns and Column blocks.
+* Better handle links without href, which were showing as `undefined`.
+* Renders block appender after the template is processed, to prevent incorrectly inserting new paragraphs.
+* Parent pages were being lost when draft pages were autosaved, fixed by removing parent pages from autosave requests and refactoring to stop using “parent” as the path argument name.
+* Adding line breaks in formatted content in quote blocks were not working correctly, fixed by persisting formats when new lines are added.
+* Prevent users in the contributor role from using blocks that require upload privileges.
+* Fix block selection in removing blocks, correct typo in comparison.
+* Japanese text (double byte characters) was not usable in the list block, fixed by changing handling of composition events.
+* Better handles different text encodings (e.g. emoji) within a block in block validation.
+* Use a query argument instead of data to prevent error being thrown on post refresh.
+* Keyboard navigation was not working as expected in Firefox, added extra key binding.
+* Adds missing alt values to images when editing.
+* Better communicate block nesting level by using unordered lists.
+* Fix sidebar icons being incorrectly announced in NVDA by adding a span with `aria-hidden=”true”`.
+* Fixes block toolbar aria label to announce “block tools toolbar” rather than “block toolbar (a11y).
+* Adjusts focus on media and text blocks to select the overall block, not the child paragraph block.
+* Refactors i18n module to replaces Jed with Tannin for significant performance improvements.
+* Replace `getSelectedBlock` and `getMultiSelectedBlocks` with more performant `getSelectedBlockClientId` and a `getBlocks` selectors in copy handler.
+* Replace `getBlock` selector in favor of the more performant `getBlockName`.
+* Replace `getSelectedBlock` with more performant `getSelectedBlockClientId` and new `isBlockValid` selectors in the BlockToolbar.
+* Replace `getSelectedBlock` with more performant `getSelectedBlockClientId` and new `isBlockValid` selectors in the Block Inspector.
+* Replaces `getInserterItems` with a new `hasInserterItems` selector which is more performant, and makes some adjustments to memorization.
+* Avoid using the `getSelectedBlock` selector in autocompleters.
+* Remove use of `getBlock` selector in the DefaultBlockAppender and EditorKeyboardShortcuts components.
+* Move undo handling out of TinyMCE and into the RichText component.
+* `is_gutenberg_page` incorrectly assumes `get_current_screen` exists, add check.
+* Brings code inline with CSS standards by switching font weight to numeric values.
+* Wrapped component would not the most up-to-date store values if it incurred a store state change during its own mount (e.g. dispatching during its own constructor), resolved by rerunning selection.
+* Display an error message if Javascript is disabled.
+* Update to React 16.6.3.
+* Adds missing components dependency for RichText.
+* Refactors list block to remove previously exposed RichText/TinyMCE logic.
+* Removes `focusOnMount` prop from NavigableToolbar components, which was generating a warning.
+* Refactor checks for upload permissions, removing unnecessary checks for store permissions.
+* Use the large image size when inserting images in both galleries and image blocks.
+* Fixes dependency of `wp-polyfill` which needs to be registered before React and React-Dom when plugins (like Yoast) rely on Gutenberg’s React.
+* Mark `onSplit` as unstable as it is pending refactor.
+* Remove 4.4 deprecated features.
+* Fix SCSS syntax error.
+* Remove export of previously removed function.
+* Add an E2E test for unsupported blocks.
+* Refactor E2E utility functions.
+* Formatting updates to copy guidelines.
+* Makes headings consistent in the dropdown documentation.
+* Removes outdated documentation referring to function support in `registerBlockType`.
+* Fixes some typos and line breaks in block design documentation.
+* Fixes some typos and improves readability of README.
+* Adds toolbar to the editing block, and edit button.
+* Passes the `isSelected` prop down to the implementation of RichText components to make them respond properly to focus changes.
+
+= 4.3.0 =
+
+* Allow toggling the core custom fields meta box.
+* Introduce Annotations API across Block and Formatting.
+* Allow using a YouTube URL (or other sources) in the Video block and transparently convert it to Embed.
+* Allow Alt+F10 keyboard shortcut to navigate to block toolbar regardless of the toolbar visibility (isTyping, etc).
+* Return focus to element that opened the post publish panel after it is closed.
+* Avoid unnecessary re-renders when navigating between blocks.
+* Improve interactions around Columns block.
+* Improve keyboard navigation through the Gallery block.
+* Use full parser in do_blocks with nested block support. This switch will allow dynamic blocks which contain nested blocks inside of them and it will pave the way for a filtering API to structurally process blocks.
+* Refactor contextual toolbar to work better with floats.
+* Auto-refresh Popovers position but only refresh if the anchor position changes.
+* Add min-width to audio block.
+* Avoid auto-saving with empty post content.
+* Display correct Taxonomy labels.
+* Fix incorrect import name.
+* Fix styling issue with checkboxes.
+* Add full set of reusable block post type labels (addresses “no blocks found” state).
+* Fix right to left block alignment.
+* Fix “updating failed” notices showing on long-open tabs.
+* Fix default PHP parser to cast inner blocks as arrays.
+* Fix JS/PHP inconsistencies with empty attributes on parsing.
+* Link to the source image in the media block.
+* Fix select all keyboard shortcut for Safari and Firefox.
+* Create multiple blocks when multiple files are drag and dropped.
+* Fixes potential theme syle.css clash.
+* Makes preview button a link (a11y).
+* Stop re-rendering all blocks on arrow navigation.
+* Add constraint tabbing to post publish panel (a11y).
+* Fix image uploading bug (incorrect JSON in apiFetch).
+* Fix taxonomy visibility for contributors.
+* Adds aria labels to images in gallery blocks during editing (a11y).
+* Formatting fix for blockquotes.
+* Hide custom fields when meta box is disabled.
+* Limits blockquote color auto-selection to solid color blocks for readability.
+* Fixes announcement on multi-selection of blocks (a11y).
+* Display upload errors in the image block.
+* Fixes selection of embed type blocks.
+* Fixes JSON attribute parsing.
+* Fixes post publish focus (a11y).
+* Resolve macOS Firefox / Safari sibling inserter behavior.
+* Fix visibility of sibling inserter on tab focus.
+* Fix issue with pasting from Word where an image would be created instead of text.
+* Fix multi-selection for float elements.
+* Fetch all tag terms, not just first 100.
+* Correctly displays media on the right.
+* Only show named image sizes.
+* Improves handling of paste action.
+* Updates displayed permalink after permalink is edited.
+* Adjust font size for contrast warning (a11y).
+* Better handles formatting – nested and Google Docs.
+* Fixes suggestion list scrolling when using keyboard (a11y).
+* Fixes block and menu navigation a11y.
+* Click to close dropdown popover.
+* Fix save lock control.
+* Timezone handling fix.
+* Improve a11y of empty text blocks.
+* Fix states for publish buttons.
+* Fix backspace behavior.
+* Change aria labels for paragraph blocks (a11y).
+* Add support for prepare RichText tree.
+* With this change we force the browser to treat the textarea for the
+* code editor as auto when handling direction for its display to preserve the ability to interact with the block delimiters.
+* Rename parentClientId to rootClientId.
+* Remove deprecated findDOMNode call from Tooltip component.
+* Remove unused ref assignment to RichText.
+* Remove redundant onClickOutside handler from Dropdown.
+* Refactor block state.
+* Remove Cloudflare warning for blocked API calls.
+* Remove _wpGutenbergCodeEditorSettings (dead code).
+* Adds periods to block a11y descriptions.
+* Refactor embed block.
+* Handle metabox warning exceptions.
+* Refactor RichText to update formatting bar on format availability changes.
+* Rename wp-polyfill-ecmascript.
+* Update translator comments for quote and pullquote.
+* Remove findDOMNode useage from NavigableToolbar.
+* Changes handling of dates to properly handling scheduling.
+* Remove findDomNode from withHoverAreas.
+* Fixes missing translator comments.
+* Refactor to import Format API components.
+* Refactor of change detection: initial edits.
+* Adds better translation comments to “resolve” and “resolve block”.
+* Adds option for blocks with child blocks to change selection behavior.
+* Allows blocks to disable being converted to reusable blocks.
+* Improve undo/redo states.
+* Updates parsing to better handle nested content.
+* Remove undefined className argument from save().
+* Use different tooltips for different alignment buttons.
+* Improve performance and handling of autosave.
+* Improve gallery upload for multiple images: load one by one.
+* Adds context variable to RichText component.
+* Avoid calling missing get_current_screen function.
+* Make cssnano remove all style comments.
+* Refactor normalizeBlockType.
+* Shows icon in block toolbar.
+* Makes kitchensink button removable from plugins.
+* Fix popover sizing on screen change (autorefresh)
+* Improvement to Columns block.
+* Update block description for consistency.
+* Refactor block styles registration.
+* Use apostrophe instead of single-quote character in strings.
+* Add transformations between video and media and text block.
+* Version update for NPM packages.
+* Update Lerna to latest version.
+* Validates link format in RichText.
+* Refactor contextual toolbar to work better with floats.
+* Move wp-polyfill-ecmascript override to scripts registration.
+* Improves consistency of parser tests.
+* Remove code coverage.
+* Adds mocking helpers for E2E tests.
+* Runs E2E tests with the user in author role.
+* Adds tests for Format API.
+* Adds E2E test for rapid enter presses.
+* Fix typo in documentation.
+* Fix typos in block API documentation.
+* Improved documentation and examples for withFilters.
+* Fix some broken links in documentation.
+* Fix typo and quote consistency.
+* Remove duplicated word.
+* Adds custom block icon instructions.
+* Update documentation on keyboard shortcuts.
+* Updates isSelectionEnabledDocumentation.
+* Update FontSizePicker component documentation.
+* Export `switchToBlockType` function.
+* Remove mobile RN test suite (temporary measure).
+* Improve styling of next page block.
+* Removes fixed cover on iOS (unsupported in mobile Safari).
+* Adds support for native media picker.
+* Remove onChange delay.
+* Exposes slot/fill pattern to mobile.
+* Expose @wordpress/editor to mobile.
+* Refreshes native post block merge.
+* Properly handle cancel on the media picker.
+
+= 4.2.0 =
+
+* Introduce the Formatting API for extending RichText.
+* Use default Inserter for sibling block insertion.
+* Support adding and updating entities in data module.
+* Update block descriptions for added clarity and consistency.
+* Add support for displaying icons in new block categories.
+* Append registered toolbar buttons in RichText.
+* Optimize SlotFill rendering to avoid props destructuring.
+* Optimize Inserter props generation and reconciliation.
+* Improve writing flow by unsetting typing flag if Escape pressed.
+* Add support for non-Latin inputs in slash autocomplete block inserter.
+* Use an animated WP logo for preview screen.
+* Add “img” as a keyword for the Image block.
+* Delay TinyMCE initialisation to focus.
+* Announce number of filtered results from block inserter to screen readers.
+* Add audible feedback for link editing.
+* Avoid focus loss on active tab change within the Sidebar.
+* Add Alt + F10 (navigate to the nearest toolbar) to the shortcut docs and modal.
+* Add some more URL helpers to the url package.
+* Add has-dates class to Latest Posts block if applicable.
+* Improve mobile display of “options” modal.
+* Add “link target” option in Image block.
+* Use currentcolor as border-color for outline button style.
+* Introduce a new middleware to the api-fetch package which adds ?_locale=user to every REST API request.
+* Refactor and optimize withSelect, withDispatch handling of registry change.
+* Refactor and update DropZone context API.
+* Rephrase description of responsive toggle.
+* Ensure buttons on end of row in media-placeholder have no margin on the right.
+* Include implicit core styles in SelectControl.
+* Use better help text for ALT text input.
+* Flatten Inserter mapSelectToProps to optimize rendering.
+* Cleanup Embed code and add better test coverage.
+* Add space above exit code editor button.
+* Return 0 in WordCount if text is empty.
+* Avoid setting a value on the File block download attribute.
+* Set download attribute on File block as empty.
+* Remove Cover block ‘strong’ style.
+* Reduce frequency of actions updating isCaretWithinFormattedText.
+* Add a function to unregister a block style variation.
+* Add lodash deburr to autocomplete so that is works with diacritics.
+* Avoid making WordPress post embeds responsive.
+* Improve handling of centered 1-column galleries with small images.
+* Make pre-publish prompts more generic.
+* Improve the style variation control aria-label.
+* Improve preloading request code.
+* Add missing context to various i18n strings.
+* Add post saving lock APIs so plugins can add and remove locks.
+* Take the viewport size into account when it comes to decide whether to show the button or toggle logic for “submit for review”.
+* Improve accessibility of settings sidebar tabs.
+* Improve the header toolbar aria-label.
+* Add styles to stop Classic block buttons from inheriting italics from themes.
+* Add aria-label to links that open in new windows.
+* Add more descriptive aria-labels for the open and closed states of sidebar settings.
+* Add key event handler to activate block styles with keyboard.
+* Add field that allows changing image alt text from the sidebar in Media & Text.
+* Add aria-label to describe action of featured image update button.
+* Restore displaying formatting shortcuts in toolbar.
+* Add i18n context to “Resolve” button for invalid blocks.
+* Update the editor styles wrapper to avoid specificity issues.
+* Fix converting a reusable block with nested blocks into a static block.
+* Fix regression with mobile toolbar spacing.
+* Fix size regression in block icon.
+* Fix multi-selected warning block highlight.
+* Fix: Show resizer on “Media & Text” block on unified toolbar mode
+* Fix some RichText shortcuts and add e2e tests.
+* Fix issue with tertiary button hit areas.
+* Fix issue with unified toolbar not always fitting in smaller viewports.
+* Fix issue with “remove tag” button in long tag names.
+* Fix rich text value for nested lists.
+* Use color function for defining the background in DateTimePicker.
+* Fix usage of preg_quote() in block parsing.
+* Fix flow of scheduling and then publishing.
+* Fix focus issue on Gallery remove button.
+* Fix keyboard interaction (up/down arrow keys) causing focus to transfer out of the default block’s insertion menu.
+* Fix regression causing dynamic blocks not rendering in the frontend.
+* Fix vertical alignment issue on Media & Text block.
+* Fix some linter errors in master branch.
+* Fix dash line in More/Next-Page blocks.
+* Fix missing Categories block label.
+* Fix embedding and demo tests.
+* Fix issue with vanilla stylesheet.
+* Fix documentation for openModal() and closeModal().
+* Fix blocks navigation menu SVG icon size.
+* Fix link popover keyboard accessibility.
+* Fix issue with multiselect using shift + arrow.
+* Fix issue with format placeholder.
+* Fix Safari issue where hover outlines sometimes linger.
+* Resolve an issue where the “Copy Post Text” button in the error boundary would not actually copy post text, since it used a legacy retrieval method for post content.
+* Make preview placeholder text translatable.
+* Load translations in the reusable block listing page.
+* Avoid adding isDirty prop to DOM.
+* Improve translation string and replace placeholder handling for MediaPlaceholder instructions.
+* Refactor rich text package to avoid using blocks packages as a dependency.
+* Handle 204 response code in API Fetch.
+* Remove HTML source string normalization.
+* Normalize function arguments in Block API.
+* Remove unused code path.
+* Deprecate layout attribute.
+* Add class for -dropdown/-list in Archives block.
+* Update registration method signature of RichText.
+* Add filter for preloading API paths.
+* Add missing @return tag to gutenberg_meta_box_save_redirect() function.
+* Rename id attribute to tipId in DotTip.
+* Only silence REST errors if the REST server is present
+* Use consistent help text in DatePicker.
+* Export both the DropZone and MediaPlaceholder editor components with the withFilters HOC.
+* Remove “half” keyword from Media & Text block.
+* Remove redundant hooks initialization.
+* Mark getSettings in Date package as experimental.
+* Remove unused variable fallbacks in RichText.
+* Improve the Toggle Control elements DOM order for better accessibility.
+* Mark Reusable blocks API as experimental pending future refactor.
+* Set correct media type for video poster image and manage focus properly.
+* Avoid PHP notices due to non-available meta boxes.
+* Implement fetchAllMiddleware to handle per_page=-1 through pagination in wp.apiFetch.
+* Add do’s and don’ts to block design documentation.
+* Update creating-dynamic-blocks.md.
+* Update editor package changelog.
+* Add notices package.
+* Add styles property to block-api.md.
+* Add documentation for responsive-embeds theme option.
+* Add missing e2e tests for Plugins API.
+* Add an eslint rule to use cross-environment SVG primitives.
+* Use turbo-combine-reducers in place of Redux
+* Update react-click-outside to 3.0.
+* Update @wordpress/hooks README to include namespace mention.
+* Fix Heading blocks validation errors after block splitting
+* Expose setUnregisteredTypeHandlerName / getUnregisteredTypeHandlerName for mobile.
+* Fix a refresh issue with iOS when splitting blocks.
+* Simplify onEnter handling.
+* Hook onBackSpace in RichText component.
+* Introduce the ability to merge two blocks together on Backspace.
+* Properly refresh blocks when merging them under iOS.
+* Port nextpage block to the ReactNative mobile app.
+* RichText: fix buggy enter/delete behaviour (Extra br elements).
+* Fix showing categories for contributors.
+
 = 4.1.1 =
 
 * Fix dynamic blocks not rendering in the frontend when meta-boxes present.

@@ -1,8 +1,8 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.9.8
-Tested up to: 4.9
-Stable tag: 4.1.0
+Tested up to: 5.0
+Stable tag: 4.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,4 +81,54 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 = Latest =
 
-* Fix dynamic blocks not rendering in the frontend when meta-boxes present.
+### Performance improvements
+
+* Optimize isViewportMatch
+* Performance: BlockListAppender: 1.7x increase on key press
+* Date: Optimize the usage of moment-timezone to save some kilobytes
+* RichText: selectionChange: bind on focus, unbind on blur
+* RichText: only replace range and nodes if different
+* Cache createBlock call in isUnmodifiedDefaultBlock
+* Edit Post: Select blocks only once multiple verified
+* RichText: Do not run valueToEditableHTML on every render
+* RichText: Reuse DOM document across calls to createEmpty
+* Only initialise TinyMCE once per instance
+* Optimize the insertion point component
+* Avoid rerending the current block if the previous block change
+* Avoid getBlock in block-list/block
+* Pass the registry argument to withDispatch to allow selectors to be used
+
+### Bug fixes
+
+* Annotations: Apply annotation className as string
+* RichText: Ensure instance is selected before setting back selection
+* Meta Boxes: Don’t hide disabled meta boxes by modifying DOM
+* Fix: Problems on Media & Text block resizing; Load wp-block-library styles before wp-edit-blocks
+* When a post is saved, check for tinymce and save any editors.
+* Fix: Undoing Image Selection from Media Library in Image Block breaks it
+* Add an end-to-end test for the HTML block
+* Fix regression when copying or cutting content in the editor
+* Fix issue where default appender has icons overlaying the text
+* Set document title for preview loading interstitial
+* Fix: Upload permissions error on end-to-end inline tokens test
+* Ensure classic block caret is in correct position after blur
+* Fix tab navigation sometimes skipping block UI
+* Improve font size picker accessibility: Use a menuitemradio role and better labels
+* Don’t show trashed reusable blocks in the editor or frontend
+* Rename functions, removing gutenberg_ prefix
+* Add block switcher end-to-end tests
+* Allow links in plugin group in the editor more menu
+* Introduce searching of block categories from slash inserter
+* Convert HTML formatting whitespace to spaces
+* Label link format with selected text, not full text
+* Ensure permalink panel is only displayed when a permalink is allowed
+* Allow the user to convert unembeddable URLs to links and try embedding again
+* Improve the top bar tools interaction and consistency
+* Fix overflowing content in the facebook embed preview screen
+* Add an action to set a category icon and correct block categories documentation
+* Fix: pasting a tag that is part of a transform and not matched ignores the content.
+* Packages: Extract Eslint config package
+* Add end-to-end test to catch revert of title during a preview after saving a draft
+* Avoid react warnings when merging two adjacent paragraphs
+* Avoid PHP notice in the recent comments block
+* Editor: Restore the block prop in the BlockListBlock filter
