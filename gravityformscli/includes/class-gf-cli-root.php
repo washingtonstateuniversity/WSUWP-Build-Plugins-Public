@@ -8,7 +8,7 @@
  * @package  GravityForms/CLI
  * @category CLI
  * @author   Rocketgenius
- * @copyright Copyright (c) 2016, Rocketgenius
+ * @copyright Copyright (c) 2016-2018, Rocketgenius
  */
 class GF_CLI_Root extends WP_CLI_Command {
 
@@ -149,13 +149,6 @@ class GF_CLI_Root extends WP_CLI_Command {
 
 			WP_CLI::runcommand( $command, $options );
 
-			if ( $activate ) {
-				$setup_command = 'gf setup ' . $slug;
-				if ( $force ) {
-					$setup_command .= ' --force';
-				}
-				WP_CLI::runcommand( $setup_command, $options );
-			}
 		} else {
 			WP_CLI::error( 'There was a problem retrieving the download URL, please check the key.' );
 		}

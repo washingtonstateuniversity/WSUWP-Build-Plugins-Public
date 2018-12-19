@@ -2,7 +2,7 @@
 Contributors: rocketgenius, stevehenty
 Tags: gravity forms
 Requires at least: 4.2
-Tested up to: 4.8.1
+Tested up to: 4.9.8
 Stable tag: trunk
 License: GPL-3.0+
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -121,6 +121,7 @@ Commands:
 *  clear-transients
 *  empty-trash           Delete the trashed entries.
 *  verify-checksums      Verify Gravity Forms files against the checksums.
+*  system-report         Outputs the system report from the Forms > System Status page. Supports "status" as an alias.
 
 = Installing Gravity Forms and Add-Ons =
 
@@ -169,7 +170,7 @@ Examples:
 = Support =
 
 If you find any that needs fixing, or if you have any ideas for improvements, please submit a support ticket:
-https://www.gravityhelp.com/request-support/
+https://www.gravityforms.com/open-support-ticket/
 
 
 == Installation ==
@@ -179,6 +180,15 @@ https://www.gravityhelp.com/request-support/
 1.  Go to the Plugin management page of WordPress admin section and enable the 'Gravity Forms CLI' plugin
 
 == ChangeLog ==
+
+= 1.1 =
+- Added support for start_date and end_date filters for the entry export command. e.g. wp gf entry export 11 --start_date="2018-11-01" --end_date="2018-11-11"
+- Added the "wp gf tool system-report" command and the "wp gf tool status" alias for outputting the system report from the Gravity Forms 2.2+ System Status page.
+- Fixed an issue with the "wp gf install" command ending with an error message when no error occurred.
+- Fixed an issue where old messages could continue to be displayed in the admin following a license key change.
+- Fixed an "invalid synopsis part" warning and an "unknown parameter" error with the wp gf form field update command.
+- Fixed the wp gf form update command using the wrong argument to get the existing form which could result in a form not found error.
+- Fixed an issue with the form create command where missing field IDs are added automatically.
 
 = 1.0 =
 - Added the wp gf license command.
