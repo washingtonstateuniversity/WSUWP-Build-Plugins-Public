@@ -193,7 +193,7 @@ class PLL_Upgrade {
 		}
 
 		// Get all terms with a language defined
-		$terms = $wpdb->get_results( "SELECT term_id, meta_value FROM $wpdb->termmeta WHERE meta_key = '_language'" );
+		$terms = $wpdb->get_results( "SELECT term_id, meta_value FROM {$wpdb->termmeta} WHERE meta_key = '_language'" );
 		foreach ( $terms as $key => $term ) {
 			$terms[ $key ] = $wpdb->prepare( '( %d, %d )', $term->term_id, $lang_tt_ids[ $term->meta_value ] );
 		}
@@ -202,7 +202,8 @@ class PLL_Upgrade {
 
 		// Assign language to each term
 		if ( ! empty( $terms ) ) {
-			$wpdb->query( "INSERT INTO $wpdb->term_relationships ( object_id, term_taxonomy_id ) VALUES " . implode( ',', $terms ) );
+			// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$wpdb->query( "INSERT INTO {$wpdb->term_relationships} ( object_id, term_taxonomy_id ) VALUES " . implode( ',', $terms ) );
 		}
 
 		// Translations
@@ -211,6 +212,7 @@ class PLL_Upgrade {
 			$terms = $slugs = $tts = $trs = array();
 
 			// Get all translated objects
+			// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
 			$objects = $wpdb->get_col( "SELECT DISTINCT meta_value FROM {$wpdb->$table} WHERE meta_key = '_translations'" );
 
 			if ( empty( $objects ) ) {
@@ -229,10 +231,12 @@ class PLL_Upgrade {
 
 			// Insert terms
 			if ( ! empty( $terms ) ) {
-				$wpdb->query( "INSERT INTO $wpdb->terms ( slug, name ) VALUES " . implode( ',', $terms ) );
+				// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$wpdb->query( "INSERT INTO {$wpdb->terms} ( slug, name ) VALUES " . implode( ',', $terms ) );
 			}
 
 			// Get all terms with their term_id
+			// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
 			$terms = $wpdb->get_results( "SELECT term_id, slug FROM $wpdb->terms WHERE slug IN ( " . implode( ',', $slugs ) . ' )' );
 
 			// Prepare terms taxonomy relationship
@@ -244,7 +248,8 @@ class PLL_Upgrade {
 
 			// Insert term_taxonomy
 			if ( ! empty( $tts ) ) {
-				$wpdb->query( "INSERT INTO $wpdb->term_taxonomy ( term_id, taxonomy, description ) VALUES " . implode( ',', $tts ) );
+				// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$wpdb->query( "INSERT INTO {$wpdb->term_taxonomy} ( term_id, taxonomy, description ) VALUES " . implode( ',', $tts ) );
 			}
 
 			// Get all terms with term_taxonomy_id
@@ -264,7 +269,8 @@ class PLL_Upgrade {
 
 			// Insert term_relationships
 			if ( ! empty( $trs ) ) {
-				$wpdb->query( "INSERT INTO $wpdb->term_relationships ( object_id, term_taxonomy_id ) VALUES " . implode( ',', $trs ) );
+				// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$wpdb->query( "INSERT INTO {$wpdb->term_relationships} ( object_id, term_taxonomy_id ) VALUES " . implode( ',', $trs ) );
 			}
 		}
 
@@ -318,11 +324,15 @@ class PLL_Upgrade {
 
 						// Create the menu items for the language switcher
 						if ( ! empty( $has_switcher ) ) {
-							$menu_item_db_id = wp_update_nav_menu_item( $translations[ $lang->slug ], 0, array(
-								'menu-item-title' => __( 'Language switcher', 'polylang' ),
-								'menu-item-url' => '#pll_switcher',
-								'menu-item-status' => 'publish',
-							) );
+							$menu_item_db_id = wp_update_nav_menu_item(
+								$translations[ $lang->slug ],
+								0,
+								array(
+									'menu-item-title'  => __( 'Language switcher', 'polylang' ),
+									'menu-item-url'    => '#pll_switcher',
+									'menu-item-status' => 'publish',
+								)
+							);
 
 							update_post_meta( $menu_item_db_id, '_pll_menu_item', $switch_options );
 						}
@@ -488,7 +498,7 @@ class PLL_Upgrade {
 	 *
 	 * @since 1.6
 	 */
-	static function download_language_packs() {
+	public static function download_language_packs() {
 		$languages = pll_languages_list( array( 'fields' => 'locale' ) );
 
 		// Prevents upgrade if the .po file is already here. Let WP manage the upgrades :)
@@ -517,7 +527,7 @@ class PLL_Upgrade {
 
 		if ( ! empty( $translations_to_load ) ) {
 			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-			$upgrader = new Language_Pack_Upgrader( new Automatic_Upgrader_Skin );
+			$upgrader = new Language_Pack_Upgrader( new Automatic_Upgrader_Skin() );
 			$upgrader->bulk_upgrade( $translations_to_load, array( 'clear_update_cache' => false ) );
 		}
 	}

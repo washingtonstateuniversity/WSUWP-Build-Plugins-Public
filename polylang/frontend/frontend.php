@@ -5,18 +5,21 @@
  * accessible as $polylang global object
  *
  * Properties:
- * options          => inherited, reference to Polylang options array
- * model            => inherited, reference to PLL_Model object
- * links_model      => inherited, reference to PLL_Links_Model object
- * links            => reference to PLL_Links object
- * static_pages     => reference to PLL_Frontend_Static_Pages object
- * filters_links    => inherited, reference to PLL_Frontend_Filters_Links object
- * choose_lang      => reference to PLL_Choose_lang object
- * curlang          => current language
- * filters          => reference to PLL_Filters object
- * filters_search   => reference to PLL_Frontend_Filters_Search object
- * nav_menu         => reference to PLL_Frontend_Nav_Menu object
- * auto_translate   => optional, reference to PLL_Auto_Translate object
+ * options        => inherited, reference to Polylang options array
+ * model          => inherited, reference to PLL_Model object
+ * links_model    => inherited, reference to PLL_Links_Model object
+ * links          => reference to PLL_Links object
+ * static_pages   => reference to PLL_Frontend_Static_Pages object
+ * choose_lang    => reference to PLL_Choose_lang object
+ * curlang        => current language
+ * filters        => reference to PLL_Frontend_Filters object
+ * filters_links  => reference to PLL_Frontend_Filters_Links object
+ * filters_search => reference to PLL_Frontend_Filters_Search object
+ * posts          => reference to PLL_CRUD_Posts object
+ * terms          => reference to PLL_CRUD_Terms object
+ * nav_menu       => reference to PLL_Frontend_Nav_Menu object
+ * sync           => reference to PLL_Sync object
+ * auto_translate => optional, reference to PLL_Auto_Translate object
  *
  * @since 1.2
  */
@@ -49,6 +52,28 @@ class PLL_Frontend extends PLL_Base {
 	}
 
 	/**
+	 * Is the current request a REST API request?
+	 * Inspired by WP::parse_request()
+	 * Needed because at this point, the constant REST_REQUEST is not defined yet
+	 *
+	 * @since 2.4.1
+	 *
+	 * @return bool
+	 */
+	public function is_rest_request() {
+		$home_path       = trim( parse_url( home_url(), PHP_URL_PATH ), '/' );
+		$home_path_regex = sprintf( '|^%s|i', preg_quote( $home_path, '|' ) );
+
+		$req_uri = trim( $_SERVER['REQUEST_URI'], '/' );
+		$req_uri = preg_replace( $home_path_regex, '', $req_uri );
+		$req_uri = trim( $req_uri, '/' );
+		$req_uri = str_replace( 'index.php', '', $req_uri );
+		$req_uri = trim( $req_uri, '/' );
+
+		return 0 === strpos( $req_uri, rest_get_url_prefix() . '/' );
+	}
+
+	/**
 	 * Setups the language chooser based on options
 	 *
 	 * @since 1.2
@@ -57,7 +82,7 @@ class PLL_Frontend extends PLL_Base {
 		$this->links = new PLL_Frontend_Links( $this );
 
 		// Don't set any language for REST requests when Polylang Pro is not active
-		if ( ! class_exists( 'PLL_REST_Translated_Object' ) && 0 === strpos( str_replace( 'index.php', '', $_SERVER['REQUEST_URI'] ), '/' . rest_get_url_prefix() . '/' ) ) {
+		if ( ! class_exists( 'PLL_REST_Translated_Object' ) && $this->is_rest_request() ) {
 			/** This action is documented in include/class-polylang.php */
 			do_action( 'pll_no_language_defined' );
 		} else {
@@ -87,6 +112,10 @@ class PLL_Frontend extends PLL_Base {
 		$this->filters_links = new PLL_Frontend_Filters_Links( $this );
 		$this->filters = new PLL_Frontend_Filters( $this );
 		$this->filters_search = new PLL_Frontend_Filters_Search( $this );
+		$this->posts = new PLL_CRUD_Posts( $this );
+		$this->terms = new PLL_CRUD_Terms( $this );
+
+		$this->sync = new PLL_Sync( $this );
 
 		// Auto translate for Ajax
 		if ( ( ! defined( 'PLL_AUTO_TRANSLATE' ) || PLL_AUTO_TRANSLATE ) && wp_doing_ajax() ) {

@@ -22,13 +22,17 @@ class PLL_Install extends PLL_Install_Base {
 		load_plugin_textdomain( 'polylang', false, basename( POLYLANG_DIR ) . '/languages' ); // plugin i18n
 
 		if ( version_compare( $wp_version, PLL_MIN_WP_VERSION, '<' ) ) {
-			die( sprintf( '<p style = "font-family: sans-serif; font-size: 12px; color: #333; margin: -5px">%s</p>',
-				/* translators: %1$s and %2$s are WordPress version numbers */
-				sprintf( esc_html__( 'You are using WordPress %1$s. Polylang requires at least WordPress %2$s.', 'polylang' ),
-					esc_html( $wp_version ),
-					PLL_MIN_WP_VERSION
+			die(
+				sprintf(
+					'<p style = "font-family: sans-serif; font-size: 12px; color: #333; margin: -5px">%s</p>',
+					sprintf(
+						/* translators: %1$s and %2$s are WordPress version numbers */
+						esc_html__( 'You are using WordPress %1$s. Polylang requires at least WordPress %2$s.', 'polylang' ),
+						esc_html( $wp_version ),
+						PLL_MIN_WP_VERSION
+					)
 				)
-			) );
+			);
 		}
 		$this->do_for_all_blogs( 'activate', $networkwide );
 	}
@@ -40,7 +44,7 @@ class PLL_Install extends PLL_Install_Base {
 	 *
 	 * return array
 	 */
-	static public function get_default_options() {
+	public static function get_default_options() {
 		return array(
 			'browser'          => 1, // Default language for the front page is set by browser preference
 			'rewrite'          => 1, // Remove /language/ in permalinks ( was the opposite before 0.7.2 )

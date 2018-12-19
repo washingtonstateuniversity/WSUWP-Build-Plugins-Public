@@ -99,21 +99,70 @@ class PLL_Language {
 
 		// Polylang builtin flags
 		if ( ! empty( $this->flag_code ) && file_exists( POLYLANG_DIR . ( $file = '/flags/' . $this->flag_code . '.png' ) ) ) {
-			$flags['flag']['url'] = esc_url_raw( plugins_url( $file, POLYLANG_FILE ) );
+			$flags['flag']['url'] = $_url = plugins_url( $file, POLYLANG_FILE );
+		}
 
-			// If base64 encoded flags are preferred
-			if ( ! defined( 'PLL_ENCODED_FLAGS' ) || PLL_ENCODED_FLAGS ) {
+		/**
+		 * Filter flag informations
+		 * 'url'    => Flag url
+		 * 'src'    => Optional, src attribute value if different of the url, for example if base64 encoded
+		 * 'width'  => Optional, flag width in pixels
+		 * 'height' => Optional, flag height in pixels
+		 *
+		 * @since 2.4
+		 *
+		 * @param array  $flag Information about the flag
+		 * @param string $code Flag code
+		 */
+		$flags['flag'] = apply_filters( 'pll_flag', $flags['flag'], $this->flag_code );
+
+		if ( empty( $flags['flag']['src'] ) ) {
+			// If using predefined flags and base64 encoded flags are preferred
+			if ( isset( $_url ) && $flags['flag']['url'] === $_url && ( ! defined( 'PLL_ENCODED_FLAGS' ) || PLL_ENCODED_FLAGS ) ) {
 				$flags['flag']['src'] = 'data:image/png;base64,' . base64_encode( file_get_contents( POLYLANG_DIR . $file ) );
 			} else {
-				$flags['flag']['src'] = esc_url( plugins_url( $file, POLYLANG_FILE ) );
+				$flags['flag']['src'] = esc_url( set_url_scheme( $flags['flag']['url'], 'relative' ) );
 			}
 		}
 
+		$flags['flag']['url'] = esc_url_raw( $flags['flag']['url'] );
+
 		// Custom flags ?
-		if ( file_exists( PLL_LOCAL_DIR . ( $file = '/' . $this->locale . '.png' ) ) || file_exists( PLL_LOCAL_DIR . ( $file = '/' . $this->locale . '.jpg' ) ) ) {
-			$url = content_url( '/polylang' . $file );
-			$flags['custom_flag']['url'] = esc_url_raw( $url );
-			$flags['custom_flag']['src'] = esc_url( $url );
+		$directories = array(
+			PLL_LOCAL_DIR,
+			get_stylesheet_directory() . '/polylang',
+			get_template_directory() . '/polylang',
+		);
+
+		foreach ( $directories as $dir ) {
+			if ( file_exists( $file = "{$dir}/{$this->locale}.png" ) || file_exists( $file = "{$dir}/{$this->locale}.jpg" ) || file_exists( $file = "{$dir}/{$this->locale}.svg" ) ) {
+				$flags['custom_flag']['url'] = content_url( '/' . str_replace( WP_CONTENT_DIR, '', $file ) );
+				break;
+			}
+		}
+
+		/**
+		 * Filter the custom flag informations
+		 * 'url'    => Flag url
+		 * 'src'    => Optional, src attribute value if different of the url, for example if base64 encoded
+		 * 'width'  => Optional, flag width in pixels
+		 * 'height' => Optional, flag height in pixels
+		 *
+		 * @since 2.4
+		 *
+		 * @param array  $flag Information about the custom flag
+		 * @param string $code Flag code
+		 */
+		$flags['custom_flag'] = apply_filters( 'pll_custom_flag', empty( $flags['custom_flag'] ) ? null : $flags['custom_flag'], $this->flag_code );
+
+		if ( ! empty( $flags['custom_flag']['url'] ) ) {
+			if ( empty( $flags['custom_flag']['src'] ) ) {
+				$flags['custom_flag']['src'] = esc_url( set_url_scheme( $flags['custom_flag']['url'], 'relative' ) );
+			}
+
+			$flags['custom_flag']['url'] = esc_url_raw( $flags['custom_flag']['url'] );
+		} else {
+			unset( $flags['custom_flag'] );
 		}
 
 		/**
@@ -139,12 +188,15 @@ class PLL_Language {
 			 * @param string $flag html markup of the flag or empty string
 			 * @param string $slug language code
 			 */
-			$this->{$key} = apply_filters( 'pll_get_flag', empty( $flag['src'] ) ? '' :
-				sprintf(
-					'<img src="%s" title="%s" alt="%s" />',
+			$this->{$key} = apply_filters(
+				'pll_get_flag',
+				empty( $flag['src'] ) ? '' : sprintf(
+					'<img src="%s" title="%s" alt="%s"%s%s />',
 					$flag['src'],
 					esc_attr( $title ),
-					esc_attr( $this->name )
+					esc_attr( $this->name ),
+					empty( $flag['width'] ) ? '' : sprintf( ' width="%s"', (int) $flag['width'] ),
+					empty( $flag['height'] ) ? '' : sprintf( ' height="%s"', (int) $flag['height'] )
 				),
 				$this->slug
 			);
@@ -166,13 +218,7 @@ class PLL_Language {
 		}
 
 		// Set url scheme, also for default flags
-		if ( is_ssl() ) {
-			$this->flag = str_replace( 'http://', 'https://', $this->flag );
-			$this->flag_url = str_replace( 'http://', 'https://', $this->flag_url );
-		} else {
-			$this->flag = str_replace( 'https://', 'http://', $this->flag );
-			$this->flag_url = str_replace( 'https://', 'http://', $this->flag_url );
-		}
+		$this->flag_url = set_url_scheme( $this->flag_url );
 	}
 
 	/**
@@ -205,15 +251,8 @@ class PLL_Language {
 	 * @since 1.6.4
 	 */
 	public function set_home_url_scheme() {
-		if ( is_ssl() ) {
-			$this->home_url = str_replace( 'http://', 'https://', $this->home_url );
-			$this->search_url = str_replace( 'http://', 'https://', $this->search_url );
-		}
-
-		else {
-			$this->home_url = str_replace( 'https://', 'http://', $this->home_url );
-			$this->search_url = str_replace( 'https://', 'http://', $this->search_url );
-		}
+		$this->home_url = set_url_scheme( $this->home_url );
+		$this->search_url = set_url_scheme( $this->search_url );
 	}
 
 	/**

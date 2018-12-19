@@ -31,15 +31,12 @@ class PLL_Plugins_Compat {
 		// Aqua Resizer
 		add_filter( 'pll_home_url_black_list', array( $this, 'aq_home_url_black_list' ) );
 
-		// Twenty Fourteen
-		add_filter( 'transient_featured_content_ids', array( $this, 'twenty_fourteen_featured_content_ids' ) );
-		add_filter( 'option_featured-content', array( $this, 'twenty_fourteen_option_featured_content' ) );
-
 		// Duplicate post
 		add_filter( 'option_duplicate_post_taxonomies_blacklist', array( $this, 'duplicate_post_taxonomies_blacklist' ) );
 
 		// Jetpack
-		$this->jetpack = new PLL_Jetpack(); // Must be loaded before the plugin is active
+		$this->jetpack          = new PLL_Jetpack(); // Must be loaded before the plugin is active
+		$this->featured_content = new PLL_Featured_Content();
 
 		// WP Sweep
 		add_filter( 'wp_sweep_excluded_taxonomies', array( $this, 'wp_sweep_excluded_taxonomies' ) );
@@ -51,9 +48,15 @@ class PLL_Plugins_Compat {
 		add_filter( 'get_terms_args', array( $this, 'no_category_base_get_terms_args' ), 5 ); // Before adding cache domain
 
 		// WordPress MU Domain Mapping
-		if ( function_exists( 'redirect_to_mapped_domain' ) && ! get_site_option( 'dm_no_primary_domain' ) ) {
-			remove_action( 'template_redirect', 'redirect_to_mapped_domain' );
-			add_action( 'template_redirect', array( $this, 'dm_redirect_to_mapped_domain' ) );
+		if ( function_exists( 'redirect_to_mapped_domain' ) ) {
+			if ( ! defined( 'PLL_CACHE_HOME_URL' ) && ( $options = get_option( 'polylang' ) ) && $options['force_lang'] < 2 ) {
+				define( 'PLL_CACHE_HOME_URL', false );
+			}
+
+			if ( ! get_site_option( 'dm_no_primary_domain' ) ) {
+				remove_action( 'template_redirect', 'redirect_to_mapped_domain' );
+				add_action( 'template_redirect', array( $this, 'dm_redirect_to_mapped_domain' ) );
+			}
 		}
 	}
 
@@ -64,7 +67,7 @@ class PLL_Plugins_Compat {
 	 *
 	 * @return object
 	 */
-	static public function instance() {
+	public static function instance() {
 		if ( empty( self::$instance ) ) {
 			self::$instance = new self();
 		}
@@ -106,6 +109,11 @@ class PLL_Plugins_Compat {
 		if ( ( 'Divi' === get_template() || defined( 'ET_BUILDER_PLUGIN_VERSION' ) ) && class_exists( 'PLL_Divi_Builder' ) ) {
 			$this->divi_builder = new PLL_Divi_Builder();
 		}
+
+		// Admin Columns & Admin Columns Pro
+		if ( ( defined( 'AC_FILE' ) || defined( 'ACP_FILE' ) ) && class_exists( 'PLL_CPAC' ) ) {
+			add_action( 'admin_init', array( $this->cpac = new PLL_CPAC(), 'init' ) );
+		}
 	}
 
 	/**
@@ -127,7 +135,7 @@ class PLL_Plugins_Compat {
 	 *
 	 * @since 1.2
 	 */
-	function maybe_wordpress_importer() {
+	public function maybe_wordpress_importer() {
 		if ( defined( 'WP_LOAD_IMPORTERS' ) && class_exists( 'WP_Import' ) ) {
 			remove_action( 'admin_init', 'wordpress_importer_init' );
 			add_action( 'admin_init', array( $this, 'wordpress_importer_init' ) );
@@ -140,7 +148,7 @@ class PLL_Plugins_Compat {
 	 *
 	 * @since 1.2
 	 */
-	function wordpress_importer_init() {
+	public function wordpress_importer_init() {
 		$class = new ReflectionClass( 'WP_Import' );
 		load_plugin_textdomain( 'wordpress-importer', false, basename( dirname( $class->getFileName() ) ) . '/languages' );
 
@@ -158,7 +166,7 @@ class PLL_Plugins_Compat {
 	 * @param array $terms an array of arrays containing terms information form the WXR file
 	 * @return array
 	 */
-	function wp_import_terms( $terms ) {
+	public function wp_import_terms( $terms ) {
 		include PLL_SETTINGS_INC . '/languages.php';
 
 		foreach ( $terms as $key => $term ) {
@@ -212,73 +220,6 @@ class PLL_Plugins_Compat {
 	}
 
 	/**
-	 * Twenty Fourteen
-	 * Rewrites the function Featured_Content::get_featured_post_ids()
-	 *
-	 * @since 1.4
-	 *
-	 * @param array $featured_ids featured posts ids
-	 * @return array modified featured posts ids ( include all languages )
-	 */
-	public function twenty_fourteen_featured_content_ids( $featured_ids ) {
-		if ( 'twentyfourteen' != get_template() || ! did_action( 'pll_init' ) || false !== $featured_ids ) {
-			return $featured_ids;
-		}
-
-		$settings = Featured_Content::get_setting();
-
-		if ( ! $term = wpcom_vip_get_term_by( 'name', $settings['tag-name'], 'post_tag' ) ) {
-			return $featured_ids;
-		}
-
-		// Get featured tag translations
-		$tags = PLL()->model->term->get_translations( $term->term_id );
-		$ids = array();
-
-		// Query for featured posts in all languages
-		// One query per language to get the correct number of posts per language
-		foreach ( $tags as $tag ) {
-			$_ids = get_posts( array(
-				'lang'        => 0, // avoid language filters
-				'fields'      => 'ids',
-				'numberposts' => Featured_Content::$max_posts,
-				'tax_query'   => array(
-					array(
-						'taxonomy' => 'post_tag',
-						'terms'    => (int) $tag,
-					),
-				),
-			) );
-
-			$ids = array_merge( $ids, $_ids );
-		}
-
-		$ids = array_map( 'absint', $ids );
-		set_transient( 'featured_content_ids', $ids );
-
-		return $ids;
-	}
-
-	/**
-	 * Twenty Fourteen
-	 * Translates the featured tag id in featured content settings
-	 * Mainly to allow hiding it when requested in featured content options
-	 * Acts only on frontend
-	 *
-	 * @since 1.4
-	 *
-	 * @param array $settings featured content settings
-	 * @return array modified $settings
-	 */
-	public function twenty_fourteen_option_featured_content( $settings ) {
-		if ( 'twentyfourteen' == get_template() && PLL() instanceof PLL_Frontend && $settings['tag-id'] && $tr = pll_get_term( $settings['tag-id'] ) ) {
-			$settings['tag-id'] = $tr;
-		}
-
-		return $settings;
-	}
-
-	/**
 	 * Duplicate Post
 	 * Avoid duplicating the 'post_translations' taxonomy
 	 *
@@ -287,7 +228,7 @@ class PLL_Plugins_Compat {
 	 * @param array|string $taxonomies
 	 * @return array
 	 */
-	function duplicate_post_taxonomies_blacklist( $taxonomies ) {
+	public function duplicate_post_taxonomies_blacklist( $taxonomies ) {
 		if ( empty( $taxonomies ) ) {
 			$taxonomies = array(); // As we get an empty string when there is no taxonomy
 		}

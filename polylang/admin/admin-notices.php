@@ -33,7 +33,7 @@ class PLL_Admin_Notices {
 	 * @param string $name Notice name
 	 * @param string $html Content of the notice
 	 */
-	static public function add_notice( $name, $html ) {
+	public static function add_notice( $name, $html ) {
 		self::$notices[ $name ] = $html;
 	}
 
@@ -44,7 +44,7 @@ class PLL_Admin_Notices {
 	 *
 	 * @return array
 	 */
-	static public function get_notices() {
+	public static function get_notices() {
 		return self::$notices;
 	}
 
@@ -56,7 +56,7 @@ class PLL_Admin_Notices {
 	 * @param string $notice Notice name
 	 * @return bool
 	 */
-	static public function is_dismissed( $notice ) {
+	public static function is_dismissed( $notice ) {
 		$dismissed = get_user_meta( get_current_user_id(), 'pll_dismissed_notices', true );
 		return is_array( $dismissed ) && in_array( $notice, $dismissed );
 	}
@@ -72,13 +72,16 @@ class PLL_Admin_Notices {
 		$screen = get_current_screen();
 		$screen_id = sanitize_title( __( 'Languages', 'polylang' ) );
 
-		return in_array( $screen->id, array(
-			'dashboard',
-			'plugins',
-			'toplevel_page_mlang',
-			$screen_id . '_page_mlang_strings',
-			$screen_id . '_page_mlang_settings',
-		) );
+		return in_array(
+			$screen->id,
+			array(
+				'dashboard',
+				'plugins',
+				'toplevel_page_mlang',
+				$screen_id . '_page_mlang_strings',
+				$screen_id . '_page_mlang_settings',
+			)
+		);
 	}
 
 	/**
@@ -88,7 +91,7 @@ class PLL_Admin_Notices {
 	 *
 	 * @param string $notice
 	 */
-	static public function dismiss( $notice ) {
+	public static function dismiss( $notice ) {
 		if ( ! $dismissed = get_user_meta( get_current_user_id(), 'pll_dismissed_notices', true ) ) {
 			$dismissed = array();
 		}
@@ -152,7 +155,7 @@ class PLL_Admin_Notices {
 		printf(
 			'<a class="notice-dismiss" href="%s"><span class="screen-reader-text">%s</span></a>',
 			esc_url( wp_nonce_url( add_query_arg( 'pll-hide-notice', $name ), $name, '_pll_notice_nonce' ) ),
-			__( 'Dismiss this notice.' )
+			esc_html__( 'Dismiss this notice.' )
 		);
 	}
 
@@ -170,7 +173,7 @@ class PLL_Admin_Notices {
 					<?php
 					printf(
 						/* translators: %1$s is link start tag, %2$s is link end tag. */
-						__( 'We have noticed that you are using Polylang with WooCommerce. We recommend you to use %1$sPolylang for WooCommerce%2$s to ensure the compatibility.', 'polylang' ),
+						esc_html__( 'We have noticed that you are using Polylang with WooCommerce. We recommend you to use %1$sPolylang for WooCommerce%2$s to ensure the compatibility.', 'polylang' ),
 						'<a href="https://polylang.pro/downloads/polylang-for-woocommerce/">',
 						'</a>'
 					);
@@ -195,7 +198,7 @@ class PLL_Admin_Notices {
 					<?php
 					printf(
 						/* translators: %1$s is link start tag, %2$s is link end tag. */
-						__( 'We have noticed that you are using Polylang for some time. We hope that you love it! We would be thrilled if you could %1$sgive us a 5 stars rating%2$s.', 'polylang' ),
+						esc_html__( 'We have noticed that you are using Polylang for some time. We hope that you love it! We would be thrilled if you could %1$sgive us a 5 stars rating%2$s.', 'polylang' ),
 						'<a href="https://wordpress.org/support/plugin/polylang/reviews/?rate=5#new-post">',
 						'</a>'
 					);

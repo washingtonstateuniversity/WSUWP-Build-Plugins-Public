@@ -67,7 +67,7 @@ class PLL_WPSEO {
 	 *
 	 * @since 2.0
 	 */
-	function wpseo_register_strings() {
+	public function wpseo_register_strings() {
 		$options = get_option( 'wpseo_titles' );
 		foreach ( get_post_types( array( 'public' => true, '_builtin' => false ) ) as $t ) {
 			if ( pll_is_translated_post_type( $t ) ) {
@@ -112,7 +112,7 @@ class PLL_WPSEO {
 	 * @param array $options
 	 * @return array
 	 */
-	function wpseo_translate_titles( $options ) {
+	public function wpseo_translate_titles( $options ) {
 		if ( PLL() instanceof PLL_Frontend ) {
 			foreach ( get_post_types( array( 'public' => true, '_builtin' => false ) ) as $t ) {
 				if ( pll_is_translated_post_type( $t ) ) {
@@ -237,11 +237,13 @@ class PLL_WPSEO {
 
 		foreach ( $languages as $lang ) {
 			if ( empty( PLL()->options['hide_default'] ) || pll_default_language() !== $lang ) {
-				$str .= $renderer->sitemap_url( array(
-					'loc' => pll_home_url( $lang ),
-					'pri' => 1,
-					'chf' => apply_filters( 'wpseo_sitemap_homepage_change_freq', 'daily', pll_home_url( $lang ) ),
-				) );
+				$str .= $renderer->sitemap_url(
+					array(
+						'loc' => pll_home_url( $lang ),
+						'pri' => 1,
+						'chf' => apply_filters( 'wpseo_sitemap_homepage_change_freq', 'daily', pll_home_url( $lang ) ),
+					)
+				);
 			}
 		}
 		return $str;
@@ -269,10 +271,19 @@ class PLL_WPSEO {
 
 		// WPSEO already deals with the locale
 		if ( did_action( 'pll_init' ) && method_exists( $wpseo_og, 'og_tag' ) ) {
+			$alternates = array();
+
 			foreach ( PLL()->model->get_languages_list() as $language ) {
 				if ( PLL()->curlang->slug !== $language->slug && PLL()->links->get_translation_url( $language ) && isset( $language->facebook ) ) {
-					$wpseo_og->og_tag( 'og:locale:alternate', $language->facebook );
+					$alternates[] = $language->facebook;
 				}
+			}
+
+			// There is a risk that 2 languages have the same Facebook locale. So let's make sure to output each locale only once.
+			$alternates = array_unique( $alternates );
+
+			foreach ( $alternates as $lang ) {
+				$wpseo_og->og_tag( 'og:locale:alternate', $lang );
 			}
 		}
 	}
