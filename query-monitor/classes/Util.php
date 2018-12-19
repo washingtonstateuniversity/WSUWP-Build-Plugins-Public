@@ -179,13 +179,14 @@ class QM_Util {
 				break;
 		}
 
-		return self::$file_components[ $file ] = (object) compact( 'type', 'name', 'context' );
+		self::$file_components[ $file ] = (object) compact( 'type', 'name', 'context' );
 
+		return self::$file_components[ $file ];
 	}
 
 	public static function populate_callback( array $callback ) {
 
-		if ( is_string( $callback['function'] ) and ( false !== strpos( $callback['function'], '::' ) ) ) {
+		if ( is_string( $callback['function'] ) && ( false !== strpos( $callback['function'], '::' ) ) ) {
 			$callback['function'] = explode( '::', $callback['function'] );
 		}
 
@@ -200,12 +201,12 @@ class QM_Util {
 					$access = '::';
 				}
 
-				$callback['name'] = QM_Util::shorten_fqn( $class . $access . $callback['function'][1] ) . '()';
+				$callback['name'] = self::shorten_fqn( $class . $access . $callback['function'][1] ) . '()';
 				$ref = new ReflectionMethod( $class, $callback['function'][1] );
 			} elseif ( is_object( $callback['function'] ) ) {
 				if ( is_a( $callback['function'], 'Closure' ) ) {
 					$ref  = new ReflectionFunction( $callback['function'] );
-					$file = QM_Util::standard_dir( $ref->getFileName(), '' );
+					$file = self::standard_dir( $ref->getFileName(), '' );
 					if ( 0 === strpos( $file, '/' ) ) {
 						$file = basename( $ref->getFileName() );
 					}
@@ -214,11 +215,11 @@ class QM_Util {
 				} else {
 					// the object should have a __invoke() method
 					$class = get_class( $callback['function'] );
-					$callback['name'] = QM_Util::shorten_fqn( $class ) . '->__invoke()';
+					$callback['name'] = self::shorten_fqn( $class ) . '->__invoke()';
 					$ref = new ReflectionMethod( $class, '__invoke' );
 				}
 			} else {
-				$callback['name'] = QM_Util::shorten_fqn( $callback['function'] ) . '()';
+				$callback['name'] = self::shorten_fqn( $callback['function'] ) . '()';
 				$ref = new ReflectionFunction( $callback['function'] );
 			}
 
@@ -232,7 +233,7 @@ class QM_Util {
 				if ( preg_match( '|(?P<file>.*)\((?P<line>[0-9]+)\)|', $callback['file'], $matches ) ) {
 					$callback['file'] = $matches['file'];
 					$callback['line'] = $matches['line'];
-					$file = trim( QM_Util::standard_dir( $callback['file'], '' ), '/' );
+					$file = trim( self::standard_dir( $callback['file'], '' ), '/' );
 					/* translators: 1: Line number, 2: File name */
 					$callback['name'] = sprintf( __( 'Anonymous function on line %1$d of %2$s', 'query-monitor' ), $callback['line'], $file );
 				} else {
@@ -263,7 +264,7 @@ class QM_Util {
 	}
 
 	public static function is_ajax() {
-		if ( defined( 'DOING_AJAX' ) and DOING_AJAX ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return true;
 		}
 		return false;
@@ -323,7 +324,8 @@ class QM_Util {
 	}
 
 	public static function get_query_type( $sql ) {
-		$sql = $type = trim( $sql );
+		$sql  = trim( $sql );
+		$type = $sql;
 
 		if ( 0 === strpos( $sql, '/*' ) ) {
 			// Strip out leading comments such as `/*NO_SELECT_FOUND_ROWS*/` before calculating the query type

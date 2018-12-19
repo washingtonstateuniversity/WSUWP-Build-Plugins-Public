@@ -149,6 +149,7 @@ class QM_Backtrace {
 					// so short-circuit and return early.
 					return $comp;
 				}
+			// phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 			} catch ( ReflectionException $e ) {
 				# nothing
 			}
@@ -209,7 +210,7 @@ class QM_Backtrace {
 
 	public function ignore_current_filter() {
 
-		if ( isset( $this->trace[2] ) and isset( $this->trace[2]['function'] ) ) {
+		if ( isset( $this->trace[2] ) && isset( $this->trace[2]['function'] ) ) {
 			if ( in_array( $this->trace[2]['function'], array( 'apply_filters', 'do_action' ), true ) ) {
 				$this->ignore( 3 ); # Ignore filter and action callbacks
 			}
@@ -219,13 +220,50 @@ class QM_Backtrace {
 
 	public function filter_trace( array $trace ) {
 
-		if ( ! self::$filtered and function_exists( 'did_action' ) and did_action( 'plugins_loaded' ) ) {
+		if ( ! self::$filtered && function_exists( 'did_action' ) && did_action( 'plugins_loaded' ) ) {
 
-			# Only run apply_filters on these once
+			/**
+			 * Filters which classes to ignore when constructing user-facing call stacks.
+			 *
+			 * @since 2.7.0
+			 *
+			 * @param bool[] $ignore_class Array of class names to ignore. The array keys are class names to ignore,
+			 *                             the array values are whether to ignore the class or not (usually true).
+			 */
 			self::$ignore_class  = apply_filters( 'qm/trace/ignore_class',  self::$ignore_class );
+
+			/**
+			 * Filters which class methods to ignore when constructing user-facing call stacks.
+			 *
+			 * @since 2.7.0
+			 *
+			 * @param bool[] $ignore_method Array of method names to ignore. The array keys are method names to ignore,
+			 *                              the array values are whether to ignore the method or not (usually true).
+			 */
 			self::$ignore_method = apply_filters( 'qm/trace/ignore_method', self::$ignore_method );
+
+			/**
+			 * Filters which functions to ignore when constructing user-facing call stacks.
+			 *
+			 * @since 2.7.0
+			 *
+			 * @param bool[] $ignore_func Array of function names to ignore. The array keys are function names to ignore,
+			 *                            the array values are whether to ignore the function or not (usually true).
+			 */
 			self::$ignore_func   = apply_filters( 'qm/trace/ignore_func',   self::$ignore_func );
+
+			/**
+			 * Filters the number of argument values to show for the given function name when constructing user-facing
+			 * call stacks.
+			 *
+			 * @since 2.7.0
+			 *
+			 * @param (int|string)[] $show_args The number of argument values to show for the given function name. The
+			 *                                  array keys are function names, the array values are either integers or
+			 *                                  "dir" to specifically treat the function argument as a directory path.
+			 */
 			self::$show_args     = apply_filters( 'qm/trace/show_args',     self::$show_args );
+
 			self::$filtered = true;
 
 		}

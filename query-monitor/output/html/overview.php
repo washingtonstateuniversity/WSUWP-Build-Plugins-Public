@@ -36,23 +36,23 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			}
 		}
 
-		$qm_broken = __( 'A JavaScript problem on the page is preventing Query Monitor from working correctly. jQuery may have been blocked from loading.', 'query-monitor' );
+		$qm_broken   = __( 'A JavaScript problem on the page is preventing Query Monitor from working correctly. jQuery may have been blocked from loading.', 'query-monitor' );
 		$ajax_errors = __( 'PHP errors were triggered during an Ajax request. See your browser developer console for details.', 'query-monitor' );
 
 		$this->before_non_tabular_output();
 
-		echo '<div class="qm-section" id="qm-broken">';
+		echo '<section id="qm-broken">';
 		echo '<p class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>' . esc_html( $qm_broken ) . '</p>';
-		echo '</div>';
+		echo '</section>';
 
-		echo '<div class="qm-section" id="qm-ajax-errors">';
+		echo '<section id="qm-ajax-errors">';
 		echo '<p class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>' . esc_html( $ajax_errors ) . '</p>';
-		echo '</div>';
+		echo '</section>';
 
 		echo '</div>';
 		echo '<div class="qm-boxed">';
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Page Generation Time', 'query-monitor' ) . '</h3>';
 		echo '<p class="qm-item">';
 		echo esc_html( number_format_i18n( $data['time_taken'], 4 ) );
@@ -72,13 +72,18 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			echo '</span>';
 		} else {
 			echo '<br><span class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>';
-			esc_html_e( 'No execution time limit', 'query-monitor' );
+			printf(
+				/* translators: 1: Name of the PHP directive, 2: Value of the PHP directive */
+				esc_html__( 'No execution time limit. The %1$s PHP configuration directive is set to %2$s.', 'query-monitor' ),
+				'<code>max_execution_time</code>',
+				'0'
+			);
 			echo '</span>';
 		}
 		echo '</p>';
-		echo '</div>';
+		echo '</section>';
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Peak Memory Usage', 'query-monitor' ) . '</h3>';
 		echo '<p class="qm-item">';
 
@@ -106,23 +111,28 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 				echo '</span>';
 			} else {
 				echo '<br><span class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>';
-				esc_html_e( 'No memory limit', 'query-monitor' );
+				printf(
+					/* translators: 1: Name of the PHP directive, 2: Value of the PHP directive */
+					esc_html__( 'No memory limit. The %1$s PHP configuration directive is set to %2$s.', 'query-monitor' ),
+					'<code>memory_limit</code>',
+					'0'
+				);
 				echo '</span>';
 			}
 		}
 
 		echo '</p>';
-		echo '</div>';
+		echo '</section>';
 
 		if ( isset( $db_query_num ) ) {
-			echo '<div class="qm-section">';
+			echo '<section>';
 			echo '<h3>' . esc_html__( 'Database Query Time', 'query-monitor' ) . '</h3>';
 			echo '<p class="qm-item">';
 			echo esc_html( number_format_i18n( $db_queries_data['total_time'], 4 ) );
 			echo '</p>';
-			echo '</div>';
+			echo '</section>';
 
-			echo '<div class="qm-section">';
+			echo '<section>';
 			echo '<h3>' . esc_html__( 'Database Queries', 'query-monitor' ) . '</h3>';
 			echo '<p class="qm-item">';
 
@@ -140,10 +150,10 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			echo esc_html__( 'Total', 'query-monitor' ) . ': ' . esc_html( number_format_i18n( $db_queries_data['total_qs'] ) );
 
 			echo '</p>';
-			echo '</div>';
+			echo '</section>';
 		}
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Object Cache', 'query-monitor' ) . '</h3>';
 		echo '<p class="qm-item">';
 
@@ -198,7 +208,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		}
 
 		echo '</p>';
-		echo '</div>';
+		echo '</section>';
 
 		$this->after_non_tabular_output();
 	}
@@ -234,7 +244,8 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 }
 
 function register_qm_output_html_overview( array $output, QM_Collectors $collectors ) {
-	if ( $collector = QM_Collectors::get( 'overview' ) ) {
+	$collector = $collectors::get( 'overview' );
+	if ( $collector ) {
 		$output['overview'] = new QM_Output_Html_Overview( $collector );
 	}
 	return $output;

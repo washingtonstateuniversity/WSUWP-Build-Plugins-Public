@@ -26,11 +26,19 @@ abstract class QM_Dispatcher {
 		$e = error_get_last();
 
 		# Don't dispatch if a fatal has occurred:
-		if ( ! empty( $e ) and ( $e['type'] & ( E_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR ) ) ) {
+		if ( ! empty( $e ) && ( $e['type'] & ( E_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR ) ) ) {
 			return false;
 		}
 
-		# Allow users to disable this dispatcher
+		/**
+		 * Allows users to disable this dispatcher.
+		 *
+		 * The dynamic portion of the hook name, `$this->id`, refers to the dispatcher ID.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param bool $true Whether or not the dispatcher is enabled.
+		 */
 		if ( ! apply_filters( "qm/dispatch/{$this->id}", true ) ) {
 			return false;
 		}
@@ -43,14 +51,31 @@ abstract class QM_Dispatcher {
 		$collectors = QM_Collectors::init();
 		$collectors->process();
 
+		/**
+		 * Allows users to filter what outputs.
+		 *
+		 * The dynamic portion of the hook name, `$outputter_id`, refers to the outputter ID.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param QM_Output[]   $outputters Array of outputters.
+		 * @param QM_Collectors $collectors List of collectors.
+		 */
 		$this->outputters = apply_filters( "qm/outputter/{$outputter_id}", array(), $collectors );
 
 		return $this->outputters;
 	}
 
 	public function init() {
-		// @TODO should be abstract?
-		// nothing
+		if ( ! $this->user_can_view() ) {
+			return;
+		}
+
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', 1 );
+		}
+
+		add_action( 'send_headers', 'nocache_headers' );
 	}
 
 	protected function before_output() {
@@ -83,7 +108,8 @@ abstract class QM_Dispatcher {
 	}
 
 	public static function verify_cookie( $value ) {
-		if ( $old_user_id = wp_validate_auth_cookie( $value, 'logged_in' ) ) {
+		$old_user_id = wp_validate_auth_cookie( $value, 'logged_in' );
+		if ( $old_user_id ) {
 			return user_can( $old_user_id, 'view_query_monitor' );
 		}
 		return false;

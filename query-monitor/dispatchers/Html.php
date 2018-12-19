@@ -7,7 +7,7 @@
 
 class QM_Dispatcher_Html extends QM_Dispatcher {
 
-	public $id = 'html';
+	public $id         = 'html';
 	public $did_footer = false;
 
 	protected $outputters     = array();
@@ -43,12 +43,12 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 	 * @return bool Should the authentication cookie be secure?
 	 */
 	public static function secure_cookie() {
-		return ( is_ssl() and ( 'https' === parse_url( home_url(), PHP_URL_SCHEME ) ) );
+		return ( is_ssl() && ( 'https' === parse_url( home_url(), PHP_URL_SCHEME ) ) );
 	}
 
 	public function ajax_on() {
 
-		if ( ! current_user_can( 'view_query_monitor' ) or ! check_ajax_referer( 'qm-auth-on', 'nonce', false ) ) {
+		if ( ! current_user_can( 'view_query_monitor' ) || ! check_ajax_referer( 'qm-auth-on', 'nonce', false ) ) {
 			wp_send_json_error();
 		}
 
@@ -64,7 +64,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 
 	public function ajax_off() {
 
-		if ( ! self::user_verified() or ! check_ajax_referer( 'qm-auth-off', 'nonce', false ) ) {
+		if ( ! self::user_verified() || ! check_ajax_referer( 'qm-auth-off', 'nonce', false ) ) {
 			wp_send_json_error();
 		}
 
@@ -105,18 +105,14 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			return;
 		}
 
-		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
-			define( 'DONOTCACHEPAGE', 1 );
-		}
-
 		add_action( 'wp_enqueue_scripts',    array( $this, 'enqueue_assets' ), -999 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ), -999 );
 		add_action( 'login_enqueue_scripts', array( $this, 'enqueue_assets' ), -999 );
 		add_action( 'enqueue_embed_scripts', array( $this, 'enqueue_assets' ), -999 );
-		add_action( 'send_headers',          'nocache_headers' );
 
 		add_action( 'gp_head',                array( $this, 'manually_print_assets' ), 11 );
 
+		parent::init();
 	}
 
 	public function manually_print_assets() {
@@ -191,7 +187,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 
 		/* @var QM_Output_Html[] */
 		foreach ( $this->outputters as $id => $output ) {
-			$timer = new QM_Timer;
+			$timer = new QM_Timer();
 			$timer->start();
 
 			printf(
@@ -223,9 +219,25 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			require_once $file;
 		}
 
-		$this->outputters     = $this->get_outputters( 'html' );
+		$this->outputters = $this->get_outputters( 'html' );
+
+		/**
+		 * Filters the menu items shown in Query Monitor's admin toolbar menu.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $menus Array of menus.
+		 */
 		$this->admin_bar_menu = apply_filters( 'qm/output/menus', array() );
-		$this->panel_menu     = apply_filters( 'qm/output/panel_menus', $this->admin_bar_menu );
+
+		/**
+		 * Filters the menu items shown in the panel navigation menu in Query Monitor's output.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $admin_bar_men Array of menus.
+		 */
+		$this->panel_menu = apply_filters( 'qm/output/panel_menus', $this->admin_bar_menu );
 
 		$class = array(
 			'qm-no-js',
@@ -276,12 +288,11 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 
 		echo '</div>';
 		echo '<div class="qm-title-button"><button class="qm-button-container-settings"><span class="screen-reader-text">' . esc_html__( 'Settings', 'query-monitor' ) . '</span><span class="dashicons dashicons-admin-generic" aria-hidden="true"></span></button></div>';
-		echo '<div class="qm-title-button"><button class="qm-button-container-pin"><span class="screen-reader-text">' . esc_html__( 'Pin Panel Open', 'query-monitor' ) . '</span><span class="dashicons dashicons-admin-post" aria-hidden="true"></span></button></div>';
 		echo '<div class="qm-title-button"><button class="qm-button-container-close"><span class="screen-reader-text">' . esc_html__( 'Close Panel', 'query-monitor' ) . '</span><span class="dashicons dashicons-no-alt" aria-hidden="true"></span></button></div>';
 		echo '</div>'; // #qm-title
 
 		echo '<div id="qm-wrapper">';
-		echo '<div id="qm-panel-menu" role="navigation" aria-labelledby="qm-panel-menu-caption">';
+		echo '<nav id="qm-panel-menu" aria-labelledby="qm-panel-menu-caption">';
 		echo '<h2 class="qm-screen-reader-text" id="qm-panel-menu-caption">' . esc_html__( 'Query Monitor Menu', 'query-monitor' ) . '</h2>';
 		echo '<ul>';
 
@@ -300,7 +311,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		}
 
 		echo '</ul>';
-		echo '</div>'; // #qm-panel-menu
+		echo '</nav>'; // #qm-panel-menu
 
 		echo '<div id="qm-panels">';
 
@@ -318,7 +329,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		echo '<h2 class="qm-screen-reader-text">' . esc_html__( 'Settings', 'query-monitor' ) . '</h2>';
 
 		echo '<div class="qm-boxed">';
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Authentication', 'query-monitor' ) . '</h3>';
 
 		echo '<p>' . esc_html__( 'You can set an authentication cookie which allows you to view Query Monitor output when you&rsquo;re not logged in, or when you&rsquo;re logged in as a different user.', 'query-monitor' ) . '</p>';
@@ -326,15 +337,15 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		echo '<p data-qm-state-visibility="on"><span class="dashicons dashicons-yes qm-dashicons-yes"></span> ' . esc_html__( 'Authentication cookie is set', 'query-monitor' ) . '</p>';
 
 		echo '<p><button class="qm-auth qm-button" data-qm-text-on="' . esc_attr( $text['on'] ) . '" data-qm-text-off="' . esc_attr( $text['off'] ) . '">' . esc_html( $text[ $state ] ) . '</button></p>';
-		echo '</div>';
+		echo '</section>';
 
 		$constants = array(
-			'QM_DB_EXPENSIVE' => array(
+			'QM_DB_EXPENSIVE'          => array(
 				/* translators: %s: The default value for a PHP constant */
 				'label'   => __( 'If an individual database query takes longer than this time to execute, it\'s considered "slow" and triggers a warning. Default value: %s.', 'query-monitor' ),
 				'default' => 0.05,
 			),
-			'QM_DISABLED' => array(
+			'QM_DISABLED'              => array(
 				'label'   => __( 'Disable Query Monitor entirely.', 'query-monitor' ),
 				'default' => false,
 			),
@@ -342,29 +353,29 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 				'label'   => __( 'Disable the handling of PHP errors.', 'query-monitor' ),
 				'default' => false,
 			),
-			'QM_ENABLE_CAPS_PANEL' => array(
+			'QM_ENABLE_CAPS_PANEL'     => array(
 				'label'   => __( 'Enable the Capability Checks panel.', 'query-monitor' ),
 				'default' => false,
 			),
-			'QM_HIDE_CORE_ACTIONS' => array(
+			'QM_HIDE_CORE_ACTIONS'     => array(
 				'label'   => __( 'Hide WordPress core on the Hooks & Actions panel.', 'query-monitor' ),
 				'default' => false,
 			),
-			'QM_HIDE_SELF' => array(
+			'QM_HIDE_SELF'             => array(
 				'label'   => __( 'Hide Query Monitor itself from various panels.', 'query-monitor' ),
 				'default' => false,
 			),
-			'QM_NO_JQUERY' => array(
+			'QM_NO_JQUERY'             => array(
 				'label'   => __( 'Don\'t specify jQuery as a dependency of Query Monitor. If jQuery isn\'t enqueued then Query Monitor will still operate, but with some reduced functionality.', 'query-monitor' ),
 				'default' => false,
 			),
-			'QM_SHOW_ALL_HOOKS' => array(
+			'QM_SHOW_ALL_HOOKS'        => array(
 				'label'   => __( 'In the Hooks & Actions panel, show every hook that has an action or filter attached (instead of every action hook that fired during the request).', 'query-monitor' ),
 				'default' => false,
 			),
 		);
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Configuration', 'query-monitor' ) . '</h3>';
 		echo '<p>';
 		printf(
@@ -404,12 +415,20 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		}
 
 		echo '</dl>';
-		echo '</div>';
+		echo '</section>';
 
 		echo '</div>';
 
 		echo '</div>'; // #qm-settings
 
+		/**
+		 * Fires after settings but before the panel closing tag.
+		 *
+		 * @since  3.1.0
+		 *
+		 * @param QM_Dispatcher_Html $this             The HTML dispatcher instance.
+		 * @param QM_Output[]        $this->outputters Array of outputters.
+		 */
 		do_action( 'qm/output/after', $this, $this->outputters );
 
 		echo '</div>'; // #qm-panels
@@ -466,12 +485,26 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 
 	public function js_admin_bar_menu() {
 
+		/**
+		 * Filters the CSS class names used on Query Monitor's admin toolbar menu.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param array $menu_classes Array of menu classes.
+		 */
 		$class = implode( ' ', apply_filters( 'qm/output/menu_class', array() ) );
 
 		if ( false === strpos( $class, 'qm-' ) ) {
 			$class .= ' qm-all-clear';
 		}
 
+		/**
+		 * Filters the title used in Query Monitor's admin toolbar menu.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param array $output_title List of titles.
+		 */
 		$title = implode( '&nbsp;&nbsp;&nbsp;', apply_filters( 'qm/output/title', array() ) );
 
 		if ( empty( $title ) ) {
@@ -520,7 +553,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			}
 		}
 
-		# Back-compat filter. Please use `qm/dispatch/html` instead
+		/** Back-compat filter. Please use `qm/dispatch/html` instead */
 		if ( ! apply_filters( 'qm/process', true, is_admin_bar_showing() ) ) {
 			return false;
 		}

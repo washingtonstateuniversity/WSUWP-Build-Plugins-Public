@@ -22,7 +22,7 @@ class QM_Output_Html_Admin extends QM_Output_Html {
 
 		$this->before_non_tabular_output();
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>get_current_screen()</h3>';
 
 		echo '<table>';
@@ -43,16 +43,16 @@ class QM_Output_Html_Admin extends QM_Output_Html {
 
 		echo '</tbody>';
 		echo '</table>';
-		echo '</div>';
+		echo '</section>';
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>$pagenow</h3>';
 		echo '<p>' . esc_html( $data['pagenow'] ) . '</p>';
-		echo '</div>';
+		echo '</section>';
 
 		if ( ! empty( $data['list_table'] ) ) {
 
-			echo '<div class="qm-section">';
+			echo '<section>';
 			echo '<h3>' . esc_html__( 'List Table', 'query-monitor' ) . '</h3>';
 
 			if ( ! empty( $data['list_table']['class_name'] ) ) {
@@ -65,7 +65,7 @@ class QM_Output_Html_Admin extends QM_Output_Html {
 			echo '<p><code>' . esc_html( $data['list_table']['sortables_filter'] ) . '</code></p>';
 			echo '<h4>' . esc_html__( 'Column Action:', 'query-monitor' ) . '</h4>';
 			echo '<p><code>' . esc_html( $data['list_table']['column_action'] ) . '</code></p>';
-			echo '</div>';
+			echo '</section>';
 
 		}
 
@@ -75,7 +75,11 @@ class QM_Output_Html_Admin extends QM_Output_Html {
 }
 
 function register_qm_output_html_admin( array $output, QM_Collectors $collectors ) {
-	if ( is_admin() && $collector = QM_Collectors::get( 'response' ) ) {
+	if ( ! is_admin() ) {
+		return $output;
+	}
+	$collector = $collectors::get( 'response' );
+	if ( $collector ) {
 		$output['response'] = new QM_Output_Html_Admin( $collector );
 	}
 	return $output;

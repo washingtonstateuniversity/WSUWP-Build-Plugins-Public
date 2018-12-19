@@ -154,6 +154,8 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			 * By default QM shows a prompt to install the QM db.php drop-in,
 			 * this filter allows a dev to choose not to show the prompt.
 			 *
+			 * @since 2.9.0
+			 *
 			 * @param bool $show_prompt Whether to show the prompt.
 			 */
 			if ( apply_filters( 'qm/show_extended_query_prompt', true ) && ! $db->has_trace && ( '$wpdb' === $name ) ) {
@@ -467,9 +469,11 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 
 	public function admin_menu( array $menu ) {
 
-		$data = $this->collector->get_data();
+		$data      = $this->collector->get_data();
+		$errors    = $this->collector->get_errors();
+		$expensive = $this->collector->get_expensive();
 
-		if ( $errors = $this->collector->get_errors() ) {
+		if ( $errors ) {
 			$menu[] = $this->menu( array(
 				'id'    => 'query-monitor-errors',
 				'href'  => '#qm-query-errors',
@@ -480,7 +484,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 				) ),
 			) );
 		}
-		if ( $expensive = $this->collector->get_expensive() ) {
+		if ( $expensive ) {
 			$menu[] = $this->menu( array(
 				'id'    => 'query-monitor-expensive',
 				'href'  => '#qm-query-expensive',
@@ -492,7 +496,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			) );
 		}
 
-		if ( isset( $data['dbs'] ) and count( $data['dbs'] ) > 1 ) {
+		if ( isset( $data['dbs'] ) && count( $data['dbs'] ) > 1 ) {
 			foreach ( $data['dbs'] as $name => $db ) {
 				$menu[] = $this->menu( array(
 					'id'    => esc_attr( sprintf( 'query-monitor-%s-db-%s', $this->collector->id(), sanitize_title_with_dashes( $name ) ) ),
@@ -518,7 +522,8 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 }
 
 function register_qm_output_html_db_queries( array $output, QM_Collectors $collectors ) {
-	if ( $collector = QM_Collectors::get( 'db_queries' ) ) {
+	$collector = $collectors::get( 'db_queries' );
+	if ( $collector ) {
 		$output['db_queries'] = new QM_Output_Html_DB_Queries( $collector );
 	}
 	return $output;

@@ -8,7 +8,7 @@ class QM_Output_Headers_PHP_Errors extends QM_Output_Headers {
 
 	public function get_output() {
 
-		$data = $this->collector->get_data();
+		$data    = $this->collector->get_data();
 		$headers = array();
 
 		if ( empty( $data['errors'] ) ) {
@@ -25,7 +25,7 @@ class QM_Output_Headers_PHP_Errors extends QM_Output_Headers {
 
 				# @TODO we should calculate the component during process() so we don't need to do it
 				# separately in each output.
-				$component = $error['trace']->get_component();
+				$component    = $error['trace']->get_component();
 				$output_error = array(
 					'type'      => $error['type'],
 					'message'   => $error['message'],
@@ -35,22 +35,26 @@ class QM_Output_Headers_PHP_Errors extends QM_Output_Headers {
 					'component' => $component->name,
 				);
 
-				$key = sprintf( 'error-%d', $count );
+				$key             = sprintf( 'error-%d', $count );
 				$headers[ $key ] = json_encode( $output_error );
 
 			}
 		}
 
-		return array_merge( array(
-			'error-count' => $count,
-		), $headers );
+		return array_merge(
+			 array(
+				 'error-count' => $count,
+			 ),
+			$headers
+			);
 
 	}
 
 }
 
 function register_qm_output_headers_php_errors( array $output, QM_Collectors $collectors ) {
-	if ( $collector = QM_Collectors::get( 'php_errors' ) ) {
+	$collector = $collectors::get( 'php_errors' );
+	if ( $collector ) {
 		$output['php_errors'] = new QM_Output_Headers_PHP_Errors( $collector );
 	}
 	return $output;

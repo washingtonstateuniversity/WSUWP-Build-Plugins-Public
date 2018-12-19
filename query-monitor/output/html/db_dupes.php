@@ -105,8 +105,9 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 	}
 
 	public function admin_menu( array $menu ) {
+		$dbq = QM_Collectors::get( 'db_dupes' );
 
-		if ( $dbq = QM_Collectors::get( 'db_dupes' ) ) {
+		if ( $dbq ) {
 			$dbq_data = $dbq->get_data();
 			if ( isset( $dbq_data['dupes'] ) && count( $dbq_data['dupes'] ) ) {
 				$menu[] = $this->menu( array(
@@ -125,7 +126,8 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 }
 
 function register_qm_output_html_db_dupes( array $output, QM_Collectors $collectors ) {
-	if ( $collector = QM_Collectors::get( 'db_dupes' ) ) {
+	$collector = $collectors::get( 'db_dupes' );
+	if ( $collector ) {
 		$output['db_dupes'] = new QM_Output_Html_DB_Dupes( $collector );
 	}
 	return $output;

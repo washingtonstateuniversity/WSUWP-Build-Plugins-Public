@@ -21,7 +21,9 @@ class QM_Collector_Hooks extends QM_Collector {
 		self::$hide_qm   = self::hide_qm();
 		self::$hide_core = ( defined( 'QM_HIDE_CORE_ACTIONS' ) && QM_HIDE_CORE_ACTIONS );
 
-		$hooks = $all_parts = $components = array();
+		$hooks      = array();
+		$all_parts  = array();
+		$components = array();
 
 		if ( has_filter( 'all' ) ) {
 			$hooks['all'] = self::process_action( 'all', $wp_filter, self::$hide_qm, self::$hide_core );
@@ -39,13 +41,13 @@ class QM_Collector_Hooks extends QM_Collector {
 
 			$hooks[ $name ] = self::process_action( $name, $wp_filter, self::$hide_qm, self::$hide_core );
 
-			$all_parts    = array_merge( $all_parts, $hooks[ $name ]['parts'] );
-			$components   = array_merge( $components, $hooks[ $name ]['components'] );
+			$all_parts  = array_merge( $all_parts, $hooks[ $name ]['parts'] );
+			$components = array_merge( $components, $hooks[ $name ]['components'] );
 
 		}
 
-		$this->data['hooks'] = $hooks;
-		$this->data['parts'] = array_unique( array_filter( $all_parts ) );
+		$this->data['hooks']      = $hooks;
+		$this->data['parts']      = array_unique( array_filter( $all_parts ) );
 		$this->data['components'] = array_unique( array_filter( $components ) );
 
 	}
@@ -62,7 +64,8 @@ class QM_Collector_Hooks extends QM_Collector {
 
 	public static function process_action( $name, array $wp_filter, $hide_qm = false, $hide_core = false ) {
 
-		$actions = $components = array();
+		$actions    = array();
+		$components = array();
 
 		if ( isset( $wp_filter[ $name ] ) ) {
 
@@ -90,8 +93,8 @@ class QM_Collector_Hooks extends QM_Collector {
 					unset( $callback['function'] );
 
 					$actions[] = array(
-						'priority'  => $priority,
-						'callback'  => $callback,
+						'priority' => $priority,
+						'callback' => $callback,
 					);
 
 				}
@@ -112,4 +115,4 @@ class QM_Collector_Hooks extends QM_Collector {
 }
 
 # Load early to catch all hooks
-QM_Collectors::add( new QM_Collector_Hooks );
+QM_Collectors::add( new QM_Collector_Hooks() );

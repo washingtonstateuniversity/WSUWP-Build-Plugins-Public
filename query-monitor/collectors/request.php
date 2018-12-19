@@ -17,7 +17,7 @@ class QM_Collector_Request extends QM_Collector {
 
 		global $wp, $wp_query, $current_blog, $current_site, $wp_rewrite;
 
-		$qo = get_queried_object();
+		$qo   = get_queried_object();
 		$user = wp_get_current_user();
 
 		if ( $user->exists() ) {
@@ -76,6 +76,7 @@ class QM_Collector_Request extends QM_Collector {
 			}
 		}
 
+		/** This filter is documented in wp-includes/class-wp.php */
 		$plugin_qvars = array_flip( apply_filters( 'query_vars', array() ) );
 		$qvars        = $wp_query->query_vars;
 		$query_vars   = array();
@@ -97,7 +98,7 @@ class QM_Collector_Request extends QM_Collector {
 		# First add plugin vars to $this->data['qvars']:
 		foreach ( $query_vars as $k => $v ) {
 			if ( isset( $plugin_qvars[ $k ] ) ) {
-				$this->data['qvars'][ $k ] = $v;
+				$this->data['qvars'][ $k ]        = $v;
 				$this->data['plugin_qvars'][ $k ] = $v;
 			}
 		}
@@ -189,7 +190,7 @@ class QM_Collector_Request extends QM_Collector {
 }
 
 function register_qm_collector_request( array $collectors, QueryMonitor $qm ) {
-	$collectors['request'] = new QM_Collector_Request;
+	$collectors['request'] = new QM_Collector_Request();
 	return $collectors;
 }
 

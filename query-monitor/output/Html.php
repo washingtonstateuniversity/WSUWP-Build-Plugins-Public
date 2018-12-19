@@ -105,13 +105,13 @@ abstract class QM_Output_Html extends QM_Output {
 	}
 
 	protected function build_notice( $notice ) {
-		$return = '<div class="qm-section">';
+		$return = '<section>';
 		$return .= '<div class="qm-notice">';
 		$return .= '<p>';
 		$return .= $notice;
 		$return .= '</p>';
 		$return .= '</div>';
-		$return .= '</div>';
+		$return .= '</section>';
 
 		return $return;
 	}
@@ -156,7 +156,7 @@ abstract class QM_Output_Html extends QM_Output {
 	 * @param  string[] $values Option values for this control.
 	 * @param  string   $label  Label text for the filter control.
 	 * @param  array    $args {
-	 *     @type string $highlihgt The name for the `data-` attributes that get highlighted by this control.
+	 *     @type string $highlight The name for the `data-` attributes that get highlighted by this control.
 	 *     @type array  $prepend   Associative array of options to prepend to the list of values.
 	 * }
 	 * @return string Markup for the table filter controls.
@@ -265,10 +265,10 @@ abstract class QM_Output_Html extends QM_Output {
 		$sql = trim( $sql );
 
 		$regex = 'ADD|AFTER|ALTER|AND|BEGIN|COMMIT|CREATE|DELETE|DESCRIBE|DO|DROP|ELSE|END|EXCEPT|EXPLAIN|FROM|GROUP|HAVING|INNER|INSERT|INTERSECT|LEFT|LIMIT|ON|OR|ORDER|OUTER|RENAME|REPLACE|RIGHT|ROLLBACK|SELECT|SET|SHOW|START|THEN|TRUNCATE|UNION|UPDATE|USE|USING|VALUES|WHEN|WHERE|XOR';
-		$sql = preg_replace( '# (' . $regex . ') #', '<br> $1 ', $sql );
+		$sql   = preg_replace( '# (' . $regex . ') #', '<br> $1 ', $sql );
 
 		$keywords = '\b(?:ACTION|ADD|AFTER|ALTER|AND|ASC|AS|AUTO_INCREMENT|BEGIN|BETWEEN|BIGINT|BINARY|BIT|BLOB|BOOLEAN|BOOL|BREAK|BY|CASE|COLLATE|COLUMNS?|COMMIT|CONTINUE|CREATE|DATA(?:BASES?)?|DATE(?:TIME)?|DECIMAL|DECLARE|DEC|DEFAULT|DELAYED|DELETE|DESCRIBE|DESC|DISTINCT|DOUBLE|DO|DROP|DUPLICATE|ELSE|END|ENUM|EXCEPT|EXISTS|EXPLAIN|FIELDS|FLOAT|FOREIGN|FOR|FROM|FULL|FUNCTION|GROUP|HAVING|IF|IGNORE|INDEX|INNER|INSERT|INTEGER|INTERSECT|INTERVAL|INTO|INT|IN|IS|JOIN|KEYS?|LEFT|LIKE|LIMIT|LONG(?:BLOB|TEXT)|MEDIUM(?:BLOB|INT|TEXT)|MERGE|MIDDLEINT|NOT|NO|NULLIF|ON|ORDER|OR|OUTER|PRIMARY|PROC(?:EDURE)?|REGEXP|RENAME|REPLACE|RIGHT|RLIKE|ROLLBACK|SCHEMA|SELECT|SET|SHOW|SMALLINT|START|TABLES?|TEXT(?:SIZE)?|THEN|TIME(?:STAMP)?|TINY(?:BLOB|INT|TEXT)|TRUNCATE|UNION|UNIQUE|UNSIGNED|UPDATE|USE|USING|VALUES?|VAR(?:BINARY|CHAR)|WHEN|WHERE|WHILE|XOR)\b';
-		$sql = preg_replace( '#' . $keywords . '#', '<b>$0</b>', $sql );
+		$sql      = preg_replace( '#' . $keywords . '#', '<b>$0</b>', $sql );
 
 		return '<code>' . $sql . '</code>';
 
@@ -373,6 +373,14 @@ abstract class QM_Output_Html extends QM_Output {
 	public static function get_file_link_format() {
 		if ( ! isset( self::$file_link_format ) ) {
 			$format = ini_get( 'xdebug.file_link_format' );
+
+			/**
+			 * Filters the file link format.
+			 *
+			 * @since 3.0.0
+			 *
+			 * @param string $format The format of the file link.
+			 */
 			$format = apply_filters( 'qm/output/file_link_format', $format );
 			if ( empty( $format ) ) {
 				self::$file_link_format = false;
@@ -385,7 +393,13 @@ abstract class QM_Output_Html extends QM_Output {
 	}
 
 	public static function get_file_path_map() {
-		// @TODO document this!
+		/**
+		 * The file path map.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param array $file_map Array of file paths.
+		 */
 		return apply_filters( 'qm/output/file_path_map', array() );
 	}
 

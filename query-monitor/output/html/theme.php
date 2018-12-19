@@ -22,29 +22,46 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 
 		$this->before_non_tabular_output();
 
-		echo '<div class="qm-section">';
+		echo '<section>';
+		echo '<h3>' . esc_html__( 'Theme', 'query-monitor' ) . '</h3>';
+		echo '<p>' . esc_html( $data['stylesheet'] ) . '</p>';
+
+		if ( $data['is_child_theme'] ) {
+			echo '<h3>' . esc_html__( 'Parent Theme:', 'query-monitor' ) . '</h3>';
+			echo '<p>' . esc_html( $data['template'] ) . '</p>';
+		}
+
+		echo '</section>';
+
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Template File', 'query-monitor' ) . '</h3>';
 
 		if ( ! empty( $data['template_path'] ) ) {
 			if ( $data['is_child_theme'] ) {
-				echo '<p class="qm-ltr">' . self::output_filename( $data['theme_template_file'], $data['template_path'], 0, true ) . '</p>'; // WPCS: XSS ok.
+				$display = $data['theme_template_file'];
 			} else {
-				echo '<p class="qm-ltr">' . self::output_filename( $data['template_file'], $data['template_path'], 0, true ) . '</p>'; // WPCS: XSS ok.
+				$display = $data['template_file'];
 			}
+			if ( self::has_clickable_links() ) {
+				$file = $data['template_path'];
+			} else {
+				$file = false;
+			}
+			echo '<p class="qm-ltr">' . self::output_filename( $display, $file, 0, true ) . '</p>'; // WPCS: XSS ok.
 		} else {
 			echo '<p><em>' . esc_html__( 'Unknown', 'query-monitor' ) . '</em></p>';
 		}
 
-		echo '</div>';
+		echo '</section>';
 
 		if ( ! empty( $data['template_hierarchy'] ) ) {
-			echo '<div class="qm-section">';
+			echo '<section>';
 			echo '<h3>' . esc_html__( 'Template Hierarchy', 'query-monitor' ) . '</h3>';
 			echo '<ol class="qm-ltr qm-numbered"><li>' . implode( '</li><li>', array_map( 'esc_html', $data['template_hierarchy'] ) ) . '</li></ol>';
-			echo '</div>';
+			echo '</section>';
 		}
 
-		echo '<div class="qm-section">';
+		echo '<section>';
 		echo '<h3>' . esc_html__( 'Template Parts', 'query-monitor' ) . '</h3>';
 
 		if ( ! empty( $data['template_parts'] ) ) {
@@ -58,7 +75,23 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 			echo '<ul class="qm-ltr">';
 
 			foreach ( $parts as $filename => $display ) {
-				echo '<li>' . self::output_filename( $display, $filename, 0, true ) . '</li>'; // WPCS: XSS ok.
+				echo '<li>';
+
+				if ( self::has_clickable_links() ) {
+					echo self::output_filename( $display, $filename, 0, true ); // WPCS: XSS ok.
+				} else {
+					echo esc_html( $display );
+				}
+
+				if ( $data['count_template_parts'][ $filename ] > 1 ) {
+					$count = sprintf(
+						/* translators: %s: The number of times that a template part file was included in the page */
+						_nx( 'Included %s time', 'Included %s times', $data['count_template_parts'][ $filename ], 'template parts', 'query-monitor' ),
+						esc_html( number_format_i18n( $data['count_template_parts'][ $filename ] ) )
+					);
+					echo '<br><span class="qm-info qm-supplemental">' . esc_html( $count ) . '</span>';
+				}
+				echo '</li>';
 			}
 
 			echo '</ul>';
@@ -67,10 +100,10 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 			echo '<p><em>' . esc_html__( 'None', 'query-monitor' ) . '</em></p>';
 		}
 
-		echo '</div>';
+		echo '</section>';
 
 		if ( ! empty( $data['timber_files'] ) ) {
-			echo '<div class="qm-section">';
+			echo '<section>';
 			echo '<h3>' . esc_html__( 'Timber Files', 'query-monitor' ) . '</h3>';
 			echo '<ul class="qm-ltr">';
 
@@ -79,22 +112,11 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 			}
 
 			echo '</ul>';
-			echo '</div>';
+			echo '</section>';
 		}
-
-		echo '<div class="qm-section">';
-		echo '<h3>' . esc_html__( 'Theme', 'query-monitor' ) . '</h3>';
-		echo '<p>' . esc_html( $data['stylesheet'] ) . '</p>';
-
-		if ( $data['is_child_theme'] ) {
-			echo '<h3>' . esc_html__( 'Parent Theme:', 'query-monitor' ) . '</h3>';
-			echo '<p>' . esc_html( $data['template'] ) . '</p>';
-		}
-
-		echo '</div>';
 
 		if ( ! empty( $data['body_class'] ) ) {
-			echo '<div class="qm-section">';
+			echo '<section>';
 
 			echo '<h3>' . esc_html__( 'Body Classes', 'query-monitor' ) . '</h3>';
 			echo '<ul class="qm-ltr">';
@@ -104,7 +126,7 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 			}
 
 			echo '</ul>';
-			echo '</div>';
+			echo '</section>';
 		}
 
 		$this->after_non_tabular_output();
@@ -115,14 +137,19 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 		$data = $this->collector->get_data();
 
 		if ( isset( $data['template_file'] ) ) {
-			$menu['theme'] = $this->menu( array(
-				'title' => esc_html( sprintf(
-					/* translators: %s: Template file name */
-					__( 'Template: %s', 'query-monitor' ),
-					( $data['is_child_theme'] ? $data['theme_template_file'] : $data['template_file'] )
-				) ),
-			) );
+			$name = ( $data['is_child_theme'] ) ? $data['theme_template_file'] : $data['template_file'];
+		} else {
+			$name = __( 'Unknown', 'query-monitor' );
 		}
+
+		$menu['theme'] = $this->menu( array(
+			'title' => esc_html( sprintf(
+				/* translators: %s: Template file name */
+				__( 'Template: %s', 'query-monitor' ),
+				$name
+			) ),
+		) );
+
 		return $menu;
 
 	}
@@ -138,7 +165,11 @@ class QM_Output_Html_Theme extends QM_Output_Html {
 }
 
 function register_qm_output_html_theme( array $output, QM_Collectors $collectors ) {
-	if ( ! is_admin() && $collector = QM_Collectors::get( 'response' ) ) {
+	if ( is_admin() ) {
+		return $output;
+	}
+	$collector = $collectors::get( 'response' );
+	if ( $collector ) {
 		$output['response'] = new QM_Output_Html_Theme( $collector );
 	}
 	return $output;

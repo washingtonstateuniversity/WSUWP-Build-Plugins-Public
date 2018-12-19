@@ -18,7 +18,7 @@ if ( SAVEQUERIES && property_exists( $GLOBALS['wpdb'], 'save_queries' ) ) {
 
 class QM_Collector_DB_Queries extends QM_Collector {
 
-	public $id = 'db_queries';
+	public $id         = 'db_queries';
 	public $db_objects = array();
 
 	public function name() {
@@ -53,6 +53,15 @@ class QM_Collector_DB_Queries extends QM_Collector {
 		$this->data['total_time'] = 0;
 		$this->data['errors']     = array();
 
+		/**
+		 * Filters the `wpdb` instances that are exposed to QM.
+		 *
+		 * This allows Query Monitor to display multiple instances of `wpdb` on one page load.
+		 *
+		 * @since 2.7.0
+		 *
+		 * @param wpdb[] $db_objects Array of `wpdb` instances, keyed by their name.
+		 */
 		$this->db_objects = apply_filters( 'qm/collect/db_objects', array(
 			'$wpdb' => $GLOBALS['wpdb'],
 		) );
@@ -72,8 +81,8 @@ class QM_Collector_DB_Queries extends QM_Collector {
 		if ( ! isset( $this->data['times'][ $caller ] ) ) {
 			$this->data['times'][ $caller ] = array(
 				'caller' => $caller,
-				'ltime' => 0,
-				'types' => array(),
+				'ltime'  => 0,
+				'types'  => array(),
 			);
 		}
 
@@ -109,12 +118,12 @@ class QM_Collector_DB_Queries extends QM_Collector {
 				continue;
 			}
 
-			$sql           = $query[0];
-			$ltime         = $query[1];
-			$stack         = $query[2];
-			$has_start     = isset( $query[3] );
-			$has_trace     = isset( $query['trace'] );
-			$has_result    = isset( $query['result'] );
+			$sql        = $query[0];
+			$ltime      = $query[1];
+			$stack      = $query[2];
+			$has_start  = isset( $query[3] );
+			$has_trace  = isset( $query['trace'] );
+			$has_result = isset( $query['result'] );
 
 			if ( $has_result ) {
 				$result = $query['result'];
@@ -212,7 +221,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 
 		$total_qs = count( $rows );
 
-		$this->data['total_qs'] += $total_qs;
+		$this->data['total_qs']   += $total_qs;
 		$this->data['total_time'] += $total_time;
 
 		$has_main_query = wp_list_filter( $rows, array(
@@ -228,7 +237,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 }
 
 function register_qm_collector_db_queries( array $collectors, QueryMonitor $qm ) {
-	$collectors['db_queries'] = new QM_Collector_DB_Queries;
+	$collectors['db_queries'] = new QM_Collector_DB_Queries();
 	return $collectors;
 }
 
