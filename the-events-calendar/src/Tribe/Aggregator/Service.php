@@ -25,6 +25,11 @@ class Tribe__Events__Aggregator__Service {
 	private $service_messages = array();
 
 	/**
+	 * @var string
+	 */
+	public static $auth_transient = 'tribe_aggregator_has_eventbrite_authorized_response';
+
+	/**
 	 * API varibles stored in a single Object
 	 *
 	 * @var array $api {
@@ -341,11 +346,22 @@ class Tribe__Events__Aggregator__Service {
 
 		$args = $this->get_eventbrite_args();
 
+		$cached_response = get_transient( self::$auth_transient );
+
+		if ( false !== $cached_response ) {
+			return $cached_response;
+		}
+
 		$response = $this->get( 'eventbrite/validate', $args );
 
 		// If we have an WP_Error we return only CSV
-		if ( is_wp_error( $response ) ) {
-			return tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		if ( $response instanceof WP_Error ) {
+			$response = tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		}
+
+		if ( false === $cached_response && 'error' !== $response->status ) {
+			// Check this each 15 minutes.
+			set_transient( self::$auth_transient, $response, 900 );
 		}
 
 		return $response;
@@ -367,6 +383,8 @@ class Tribe__Events__Aggregator__Service {
 		// If we have an WP_Error we return only CSV
 		if ( is_wp_error( $response ) ) {
 			return tribe_error( 'core:aggregator:invalid-eventbrite-token', array(), array( 'response' => $response ) );
+		} else {
+			delete_transient( self::$auth_transient );
 		}
 
 		return $response;
@@ -424,6 +442,16 @@ class Tribe__Events__Aggregator__Service {
 		if ( ! empty( $licenses ) ) {
 			$args['licenses'] = $licenses;
 		}
+
+		/**
+		 * Allows filtering to add other arguments to be passed to the EA service.
+		 *
+		 * @since 4.6.24
+		 *
+		 * @param array $args   Arguments to queue the import.
+		 * @param self  $record Which record we are dealing with.
+		 */
+		$args = apply_filters( 'tribe_aggregator_service_post_import_args', $args, $this );
 
 		$request_args = array(
 			'body' => $args,

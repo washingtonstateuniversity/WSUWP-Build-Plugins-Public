@@ -156,8 +156,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_show_map' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -265,8 +265,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_ical_show_map' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -309,8 +309,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_ics_show_map' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -353,8 +353,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_gcal_show_map' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -409,8 +409,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_meetup_show_map' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -453,8 +453,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_url_show_map' => array(
 			'type' => 'dropdown',
-			'label' => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip' => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip' => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => '',
@@ -478,7 +478,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		'tribe_aggregator_default_url_import_event_settings' => array(
 			'type' => 'dropdown',
 			'label' => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
-			'tooltip' => esc_html__( "Fetch source event's settings (e.g. Show Google Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
+			'tooltip' => esc_html__( "Fetch source event's settings (e.g. Show Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
 			'size' => 'medium',
 			'validation_type' => 'options',
 			'default' => 'no',
@@ -521,8 +521,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		),
 		'tribe_aggregator_default_eventbrite_show_map' => array(
 			'type'            => 'dropdown',
-			'label'           => esc_html__( 'Show Google Map', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Show Google Map by default on imported event and venues', 'the-events-calendar' ),
+			'label'           => esc_html__( 'Show Map', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => 'no',
@@ -561,15 +561,16 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) && ! tribe( 'eve
 }
 
 /**
- * Filter the Aggregator Setting Fields
+ * Filter the Aggregator Setting Fields.
  *
  * @since TDB
  *
- * @param $internal array an array of aggregator fields
- * @param $origin_post_statuses array an array of post statuses
- * @param $origin_categories array an array of event categories
+ * @param array $internal                List of aggregator fields.
+ * @param array $origin_post_statuses    List of post statuses.
+ * @param array $origin_categories       List of event categories.
+ * @param array $origin_show_map_options List of show map options.
  */
-$internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_post_statuses, $origin_categories );
+$internal = apply_filters( 'tribe_aggregator_fields', $internal, $origin_post_statuses, $origin_categories, $origin_show_map_options );
 
 /**
  * Sort Fields by Priority

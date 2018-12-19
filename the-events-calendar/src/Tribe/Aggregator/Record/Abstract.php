@@ -104,7 +104,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 *
 	 * @var string
 	 */
-	protected $origin;
+	public $origin;
 
 	/**
 	 * Setup all the hooks and filters
@@ -669,10 +669,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		$error = null;
 
 		$defaults = array(
-			'type'     => $this->meta['type'],
-			'origin'   => $this->meta['origin'],
-			'source'   => isset( $this->meta['source'] ) ? $this->meta['source'] : '',
-			'callback' => $is_previewing ? null : home_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
+			'type'                => $this->meta['type'],
+			'origin'              => $this->meta['origin'],
+			'source'              => isset( $this->meta['source'] ) ? $this->meta['source'] : '',
+			'callback'            => $is_previewing ? null : home_url( '/event-aggregator/insert/?key=' . urlencode( $this->meta['hash'] ) ),
+			'resolve_geolocation' => 1,
 		);
 
 		if ( ! empty( $this->meta['frequency'] ) ) {
@@ -732,8 +733,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		}
 
 		// Set site for origin(s) that need it for new token handling.
-		if ( 'eventbrite' === $args['origin'] ) {
+		if ( in_array( $args['origin'], array( 'eventbrite', 'facebook-dev' ), true ) ) {
 			$args['site'] = site_url();
+		}
+
+		/**
+		 * Allows customizing whether to resolve geolocation for events by the EA service.
+		 *
+		 * @since 4.6.25
+		 *
+		 * @param boolean $resolve_geolocation Whether the EA Geocode Address API is enabled for geocoding addresses.
+		 * @param array   $args                Queued record import arguments to be sent to EA service.
+		 */
+		$resolve_geolocation = apply_filters( 'tribe_aggregator_resolve_geolocation', true, $args );
+
+		if ( false === $resolve_geolocation ) {
+			$args['resolve_geolocation'] = 0;
 		}
 
 		// create the import on the Event Aggregator service
@@ -1147,7 +1162,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 			}
 
 			$via = $this->get_label();
-			if ( in_array( $this->origin, array( 'facebook', 'meetup' ) ) ) {
+			if ( in_array( $this->origin, array( 'meetup' ) ) ) {
 				$via = '<a href="' . esc_url( $this->meta['source'] ) . '" target="_blank">' . esc_html( $via ) . '<span class="screen-reader-text">' . __( ' (opens in a new window)', 'the-events-calendar' ) . '</span></a>';
 			}
 		}

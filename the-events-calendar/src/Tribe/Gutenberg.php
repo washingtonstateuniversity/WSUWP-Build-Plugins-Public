@@ -35,7 +35,7 @@ class Tribe__Events__Gutenberg {
 	 * @return boolean
 	 */
 	public function is_extension_active() {
-		return class_exists( 'Tribe__Events_Gutenberg__Plugin' );
+		return class_exists( 'Tribe__Gutenberg__Plugin' );
 	}
 
 	/**
@@ -61,6 +61,47 @@ class Tribe__Events__Gutenberg {
 	 */
 	public function is_blocks_editor_active() {
 		return function_exists( 'register_block_type' ) && function_exists( 'unregister_block_type' );
+	}
+
+	/**
+	 * Checks if we should display Event Metabox fields
+	 *
+	 * Currently only used for fields that we want to hide because they
+	 * already have a block to replace.
+	 *
+	 * @since  4.6.25
+	 *
+	 * @return boolean
+	 */
+	public function should_display() {
+		// Hide when all of these three are active
+		if (
+			tribe( 'tec.gutenberg' )->is_gutenberg_active()
+			&& tribe( 'tec.gutenberg' )->is_extension_active()
+			&& tribe( 'tec.gutenberg' )->is_blocks_editor_active()
+		) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks if we are on the classic editor page
+	 *
+	 * @since  4.6.26
+	 *
+	 * @return boolean
+	 */
+	public function is_classic_editor_page() {
+		$on_classic_editor_page = tribe_get_request_var( 'classic-editor', false );
+
+		// Bail if in classic editor
+		if ( '' === $on_classic_editor_page || $on_classic_editor_page ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

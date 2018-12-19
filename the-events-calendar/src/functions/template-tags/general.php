@@ -1171,20 +1171,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$has_image      = false;
 				$image_src      = '';
 				$image_tool_src = '';
-				$date_display   = '';
 
-				//Disable recurring event info in tooltip
-				if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-					$ecp = Tribe__Events__Pro__Main::instance();
-					$ecp->disable_recurring_info_tooltip();
-
-					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-
-					// Re-enable recurring event info
-					$ecp->enable_recurring_info_tooltip();
-				} else {
-					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-				}
+				/**
+				 * Fires before the $date_display is called
+				 *
+				 * @since 4.7.2
+				 *
+				 * @param $event
+				 */
+				do_action( 'tribe_events_before_event_template_data_date_display', $event );
+				$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+				/**
+				 * Fires after the $date_display is called
+				 *
+				 * @since 4.7.2
+				 *
+				 * @param $event
+				 */
+				do_action( 'tribe_events_after_event_template_data_date_display', $event );
 
 				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 					$has_image      = true;
@@ -1202,7 +1206,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$json['imageSrc']        = $image_src;
 				$json['dateDisplay']     = $date_display;
 				$json['imageTooltipSrc'] = $image_tool_src;
-				$json['excerpt']         = tribe_events_get_the_excerpt( $event );
+				$json['excerpt']         = ! post_password_required( $event ) ? tribe_events_get_the_excerpt( $event, null, true ) : '';
 				$json['categoryClasses'] = $category_classes;
 
 				/**
@@ -1428,12 +1432,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param  WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
-	 * @param  array $allowed_html The wp_kses compatible array
+	 * @param WP_Post|int|null $post The Post Object|ID, if null defaults to `get_the_ID()`
+	 * @param array $allowed_html The wp_kses compatible array
+	 * @param boolean $skip_postdata_manipulation Optional. Defaults to false. When true, the resetting of global $post variable is disabled. (Useful for some contexts like month view.)
 	 *
 	 * @return string|null Will return null on Bad Post Instances
 	 */
-	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null ) {
+	function tribe_events_get_the_excerpt( $post = null, $allowed_html = null, $skip_postdata_manipulation = false ) {
 		// If post is not numeric or instance of WP_Post it defaults to the current Post ID
 		if ( ! is_numeric( $post ) && ! $post instanceof WP_Post ) {
 			$post = get_the_ID();
@@ -1543,8 +1548,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$GLOBALS['post'] = $global_post;
 		}
 
-		// Setup post data to be able to use WP template tags
-		setup_postdata( $post );
+		if ( ! $skip_postdata_manipulation ) {
+			// Setup post data to be able to use WP template tags
+			setup_postdata( $post );
+		}
 
 		/**
 		 * Filter the event excerpt used in various views.
@@ -1554,7 +1561,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		$excerpt = apply_filters( 'tribe_events_get_the_excerpt', wpautop( $excerpt ), $post );
 
-		wp_reset_postdata();
+		if ( ! $skip_postdata_manipulation ) {
+			wp_reset_postdata();
+		}
 
 		return $excerpt;
 	}
