@@ -391,7 +391,7 @@ function gutenberg_register_scripts_and_styles() {
 	wp_add_inline_script( 'wp-block-library', $script, 'before' );
 
 	// Editor Styles.
-	// This empty stylesheet is defined to ensure backwards compatibility.
+	// This empty stylesheet is defined to ensure backward compatibility.
 	gutenberg_override_style( 'wp-blocks', false );
 	$fonts_url = '';
 
@@ -501,24 +501,6 @@ function gutenberg_register_scripts_and_styles() {
 			$live_reload_url
 		);
 	}
-
-	// Temporary backward compatibility for `wp-polyfill-ecmascript`, which has
-	// since been absorbed into `wp-polyfill`.
-	//
-	// [TODO][REMOVEME] To be removed in Gutenberg v4.5.
-	gutenberg_override_script(
-		'wp-polyfill-ecmascript',
-		null,
-		array(
-			'wp-polyfill',
-			'wp-deprecated',
-		)
-	);
-	wp_script_add_data(
-		'wp-polyfill-ecmascript',
-		'data',
-		'wp.deprecated( "wp-polyfill-ecmascript script handle", { plugin: "Gutenberg", version: "4.5" } );'
-	);
 }
 add_action( 'wp_enqueue_scripts', 'gutenberg_register_scripts_and_styles', 5 );
 add_action( 'admin_enqueue_scripts', 'gutenberg_register_scripts_and_styles', 5 );

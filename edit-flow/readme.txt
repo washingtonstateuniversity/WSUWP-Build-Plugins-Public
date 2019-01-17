@@ -3,8 +3,9 @@ Contributors: batmoo, danielbachhuber, sbressler, automattic
 Donate link: http://editflow.org/contribute/
 Tags: edit flow, workflow, editorial, newsroom, management, journalism, post status, custom status, notifications, email, comments, editorial comments, usergroups, calendars, editorial calendar, story budget
 Requires at least: 4.5
-Tested up to: 4.6.1
-Stable tag: 0.8.2
+Requires PHP: 5.4
+Tested up to: 5.0.3
+Stable tag: 0.9
 
 Redefining your editorial workflow.
 
@@ -44,7 +45,9 @@ Yep, in the sense that you can activate Edit Flow on each subsite. Edit Flow doe
 
 = Edit Flow doesn't do X, Y, and Z. That makes me sad. =
 
-For support questions, feedback and ideas, please use the [WordPress.org forums](http://wordpress.org/tags/edit-flow?forum_id=10), which we look at often. For everything else, say [hello@editflow.org](mailto:hello@editflow.org).
+All development happens on [GitHub](https://github.com/Automattic/Edit-Flow).
+
+For support questions, feedback and ideas, please use the [WordPress.org forums](http://wordpress.org/tags/edit-flow?forum_id=10), which we look at often. For everything else, say [hello@editflow.org](mailto:hello@editflow.org). 
 
 == Screenshots ==
 
@@ -55,6 +58,12 @@ For support questions, feedback and ideas, please use the [WordPress.org forums]
 5. View all of your upcoming posts with the more traditional story budget view, and hit the print button to take it to your planning meeting.
 
 == Upgrade Notice ==
+
+= 0.9 = 
+Bump minimum version of PHP to 5.4. Start implementation of Block Editor compatible modules, various improvements and bugfixes.
+
+= 0.8.3 =
+Improvements and bugfixes.
 
 = 0.8.2 =
 Minor enhancements and bug fixes, translation updates.
@@ -80,10 +89,10 @@ Contributors and other users without the 'publish_posts' capability can access c
 = 0.7.1 =
 Enhancements and bug fixes, including defaulting to the proper date in the calendar and an Italian localization.
 
-= 0.7 = 
+= 0.7 =
 Complete rewrite into a modular architecture. Lots of polish added. Important note: If upgrading from pre-v0.6, please upgrade to v0.6.5 first
 
-= 0.6.5 = 
+= 0.6.5 =
 Fixes an issue where the post timestamp would be set as soon as a custom status was used.
 
 = 0.6.4 =
@@ -103,6 +112,36 @@ New features, including story budget and editorial metadata, a completely rewrit
 
 == Changelog ==
 
+= 0.9 (January 10, 2018) =
+* Feature: Block Editor compatibility for Custom Status module. Props [rinatkhaziev](https://github.com/rinatkhaziev). See [BLOCKS.md](BLOCKS.md) for details.
+* Feature: new filter `ef_calendar_item_html` for Calendar module that allows to print custom markup for each day.
+* UI Improvement: start removing arbitrary colors and conform to WP Color guide. A collective effort.
+* UI Improvement: Add [NO ACCESS] and [NO EMAIL] to the list of notified users to indicate that a user doesn't have the access to the post and that a user doesn't have an email set, respectively. Props [WPprodigy](https://github.com/WPprodigy) [jerclarke](https://github.com/jerclarke).
+
+
+= 0.8.3 (June 14, 2018) =
+* UI Improvement: Made primary buttons on Settings screen consistent with WordPress UI. Props [cojennin](https://github.com/cojennin).
+* UI Improvement: Display who particularly was notified about an editorial comment. Props [goodguyry](https://github.com/goodguyry), [WPprodigy](https://github.com/WPprodigy)
+* Improvement: Updated Russian translation and documentation. Props [achumakov](https://github.com/achumakov).
+* Improvement: Eliminate a few cases of raw SQL queries in favor of `date_query`. Props [justnorris](https://github.com/justnorris).
+* Improvement: Cache calendar items for each user individually to prevent potential cache pollution. Props [justnorris](https://github.com/justnorris).
+* Improvement: various i18n updates.
+* Improvement: Move ef_story_budget_posts_query_args filter down to allow overriding the date query in Story Budget module.
+* Improvement: Limit results in Calendar to 200 per page, potentially saving from trouble on websites with large amount of content.
+* Improvement: Don’t generate rewrite rules for notepad as they're unused.
+* Improvement: Support modifying HTML output of a Calendar day via ef_pre_calendar_single_date_item_html filter. Props [cklosowski](https://github.com/cklosowski).
+
+* Improvement: show custom post statuses in Calendar and Story Budget. Props [mikeyarce](https://github.com/mikeyarce)
+* WordPress Coding Standards improvements and code cleanup by many unsung heroes (primarily [justnorris](https://github.com/justnorris)).
+* Bug fix: Prevent user from removing "Draft" post status, breaking the auto-draft functionality.
+* Bug fix: Fix ef_pre_insert_editorial_comment filter so that it actually has meaning. Props [sudar](https://github.com/sudar).
+* Bug fix: Fix PHP Warning: array_map(): Argument #2 should be an array. Props Michael Auteri.
+* Bug fix: Always offset post times to UTC+0 for Calendars to prevent incorrect times when adding to iCalendar/Google Calendar. Props [justnorris](https://github.com/justnorris).
+* Bug fix: Use taxonomy when checking for term existence when trying to prevent term collision. Props [shadyvb](https://github.com/shadyvb).
+* Bug fix: Correctly handle screen options update for Story Budget columns. Props [raduconst](https://github.com/raduconst)
+* Bug fix: EF_Calendar::get_beginning_of_week and EF_Calendar::get_ending_of_week should respect DST now. Props [FewKinG](https://github.com/FewKinG)
+* Bug fix: Build home_url() previews with trailing slash. Props [jeremyfelt](https://github.com/jeremyfelt)
+
 = 0.8.2 (Sept 16, 2016) =
 * Improvement: Updated Spanish localization thanks to [moucho](https://github.com/moucho)
 * Improvement: New Swedish localization thanks to [Warpsmith](https://github.com/Warpsmith)
@@ -111,7 +150,7 @@ New features, including story budget and editorial metadata, a completely rewrit
 * Improvement: Internationalization improvements in settings and calendar. Props [robertsky](https://github.com/robertsky)
 * Improvement: Corrections made to Brazilian Portuguese translation. Props [angelosds](https://github.com/angelosds)
 * Improvement: Updates Travis CI to support containerization, PHP 7 and HHVM
-* Bug fix: Fix PHP warning in class-module.php. Props [jeremyclarke](https://github.com/jeremyclarke)
+* Bug fix: Fix PHP warning in class-module.php. Props [jerclarke](https://github.com/jerclarke)
 * Bug fix: Add label to Dashboard Notes so it displays as "Dashboard Notes" when exporting
 * Bug fix: Clean up PHP code to comply with PHP Strict Standards
 * Bug fix: Removed deprecated get_currentuserinfo. Props [kraftbj](https://github.com/kraftbj)
@@ -299,13 +338,13 @@ The following folks did some tremendous work helping with the release of Edit Fl
 * Added option to globally disable QuickPitch widget
 * Bug fix: Custom Status names cannot be longer than 20 chars
 * Bug fix: Deleted users are removed as subscribers from posts
-* Bug fix: Blank menu items should now be sorta hidden 
+* Bug fix: Blank menu items should now be sorta hidden
 
 = 0.2 =
 * Custom Statuses are now supported for pages
 * Editorial Comments (with threading)
 * Email Notifications (on post status change and editorial comment)
-* Additional Post metadata 
+* Additional Post metadata
 * Quick Pitch Dashboard widget
 * Bug fix: sorting issue on Manage Posts page (Mad props to David Smith from Columbia U.)
 * Other bug fixes

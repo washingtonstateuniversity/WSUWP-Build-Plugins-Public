@@ -1,5 +1,90 @@
 == Changelog ==
 
+= 4.8.0 =
+
+### Performance
+
+ - Improve page initialization time by optimizing the addHook function and the viewport state initialization.
+ - Improve typing performance by splitting the state tree.
+ - Optimize partial application of runSelector.
+ - Move selector calls to the event handles to avoid useless component rerenders.
+ - Render DropZone children only when dragging elements over it.
+ - Initialize variables only when needed.
+
+### Enhancements
+
+ - Add error messages to the image block on upload failures.
+ - Merge similar i18n strings.
+ - Disable clipboard button in file block during upload.
+ - Persist alignment when transforming a gallery to an image and vice-versa.
+ - Copy enhancement to the embed block help text.
+ - Improve the scrolling of the WordPress navigation menu.
+
+### Bug Fixes
+
+ - Fix RTL support for the DatePicker component.
+ - Change the header level in the BlockCompare component.
+ - Show all the taxonomies in the sidebar.
+ - Fix the latest posts date className.
+ - Fix the “align center” button in Latest Posts block in the backend.
+ - Fix block height when DropCap is used.
+ - Fix converting caption shortcode with link.
+ - Fix edge case in addQueryArgs function.
+ - Don’t return the permalink if the CPT is not publicly viewable.
+ - Fix error when saving non public CPTs.
+ - Properly disable the Publish button when saving is disabled.
+
+### Various
+
+ - Show a message in the browser’s console when in Quirks Mode.
+ - Improvements to the @wordpress/scripts package: A new a check-engines command, a lint-style command and an update to lint-js.
+
+### Documentation
+
+ - Add a getting started with JavaScript tutorial.
+ - Document the blocks’ setup states in the design guidelines.
+ - Add content to Contributors index page.
+ - Improve the components documentation:
+    - The MenuItem component.
+    - The RadioControl component.
+    - The ServerSideRender component.
+ - Organise the documentation assets in a dedicated folder.
+ - Clarify immutability of the block attributes.
+ - Fix the metabox back compat code example.
+ - Fix incorrect data module example.
+ - Improve the plugin release docs.
+ - Remove useless property from the colors code example.
+ - Improve the contributing documentation.
+ - Fix npm README links.
+ - Update the design resources link.
+ - Typo fixes.
+
+### Chore
+
+ - Run e2e tests with popular plugins enabled.
+ - Add new e2e tests:
+    - The permalink panel.
+    - The categories panel.
+    - Blocks with meta attributes.
+ - Update node-sass to fix Node 11 support.
+ - Move the dev dependencies to the root package.json.
+ - Improve the Pull Request Template.
+ - More logs to the CI jobs.
+ - Code style fixes and expand the phpcs coverage.
+ - Disable fragile e2e tests.
+ - Avoid PHP notices when running the e2e tests in debug mode.
+
+### Mobile
+
+ - Make a simple version of DefaultBlockAppender.
+ - Stop using classname-to-style autotransform in react native.
+ - Fix SVG styles.
+ - Implement Enter press to add a default block.
+ - Hide keyboard when non textual block is selected.
+ - Fix undo/redo on new blocks.
+ - Pass the blockType prop to RNAztecView.
+ - Expose unregisterBlockType.
+
 = 4.7.1 =
 
 ### Bug fix

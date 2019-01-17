@@ -69,6 +69,9 @@ class EF_Notifications extends EF_Module {
 		
 		// Set up metabox and related actions
 		add_action( 'add_meta_boxes', array( $this, 'add_post_meta_box' ) );
+
+		// Add "access badge" to the subscribers list.
+		add_action( 'ef_user_subscribe_actions', array( $this, 'display_subscriber_warning_badges' ), 10, 2 );
 	
 		// Saving post actions
 		// self::save_post_subscriptions() is hooked into transition_post_status so we can ensure usergroup data
@@ -191,6 +194,14 @@ class EF_Notifications extends EF_Module {
 			wp_enqueue_script( 'jquery-listfilterizer' );
 			wp_enqueue_script( 'jquery-quicksearch' );
 			wp_enqueue_script( 'edit-flow-notifications-js', $this->module_url . 'lib/notifications.js', array( 'jquery', 'jquery-listfilterizer', 'jquery-quicksearch' ), EDIT_FLOW_VERSION, true );
+			wp_localize_script(
+				'edit-flow-notifications-js',
+				'ef_notifications_localization',
+				array(
+					'no_access' => esc_html__( 'No Access', 'edit-flow' ),
+					'no_email' => esc_html__( 'No Email', 'edit-flow' )
+				)
+			);
 		}
 	}
 	
@@ -323,7 +334,6 @@ jQuery(document).ready(function($) {
 	 */	
 	function notifications_meta_box() {
 		global $post, $post_ID, $edit_flow;
-
 		?>
 		<div id="ef-post_following_box">
 			<a name="subscriptions"></a>
@@ -354,30 +364,95 @@ jQuery(document).ready(function($) {
 		
 		<?php
 	}
+
+	/**
+	 * Show warning badges next to a subscriber's name if they won't receive notifications
+	 *
+	 * Applies on initial loading of list via. PHP. JS will set these spans based on AJAX response when box is ticked/unticked.
+	 * 
+	 * @param int $user_id 
+	 * @param bool $checked True if the user is subscribed already, false otherwise.
+	 * @return void
+	 */	
+	function display_subscriber_warning_badges( $user_id, $checked ) {
+		global $post;
+
+		if (!isset( $post ) OR !$checked ) {
+			return;
+		}
+		
+		// Add No Access span if they won't be notified
+		if (! $this->user_can_be_notified( get_user_by( 'id', $user_id ), $post->ID )) {
+			// span.post_following_list-no_access is also added in notifications.js after AJAX that ticks/unticks a user
+			echo '<span class="post_following_list-no_access">' . esc_html__( 'No Access', 'edit-flow' ) . '</span>';
+		}
+		
+		// Add No Email span if they have no email
+		$user_object = get_user_by( 'id', $user_id );
+		if ( !is_a( $user_object, 'WP_User') OR empty( $user_object->user_email )  ) {
+			// span.post_following_list-no_email is also added in notifications.js after AJAX that ticks/unticks a user
+			echo '<span class="post_following_list-no_email">' . esc_html__( 'No Email', 'edit-flow' ) . '</span>';
+		}
+	}
 	
 	/**
 	 * Called when a notification editorial metadata checkbox is checked. Handles saving of a user/usergroup to a post.
 	 */
 	function ajax_save_post_subscriptions() {
 		global $edit_flow;
-		
-		// Verify nonce
-		if ( !wp_verify_nonce( $_POST['_nonce'], 'save_user_usergroups') )
-			die( __( "Nonce check failed. Please ensure you can add users or user groups to a post.", 'edit-flow' ) );
 
-		$post_id = (int)$_POST['post_id'];
-		$post = get_post( $post_id );
-		$user_usergroup_ids = array_map( 'intval', $_POST['user_group_ids'] );
-		if( ( !wp_is_post_revision( $post_id ) && !wp_is_post_autosave( $post_id ) )  && current_user_can( $this->edit_post_subscriptions_cap ) ) {
-			if( $_POST['ef_notifications_name'] === 'ef-selected-users[]' ) {
-				$this->save_post_following_users( $post, $user_usergroup_ids );
-			}
-			else if ( $_POST['ef_notifications_name'] == 'following_usergroups[]' ) {
-				if ( $this->module_enabled( 'user_groups' ) && in_array( get_post_type( $post_id ), $this->get_post_types_for_module( $edit_flow->user_groups->module ) ) ) {
-					$this->save_post_following_usergroups( $post, $user_usergroup_ids );
+		// Verify nonce.
+		if ( ! isset( $_POST['_nonce'] ) || ! wp_verify_nonce( $_POST['_nonce'], 'save_user_usergroups' ) ) {
+			die( __( 'Nonce check failed. Please ensure you can add users or user groups to a post.', 'edit-flow' ) );
+		}
+
+		$post_id = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$post    = get_post( $post_id );
+
+		$valid_post = ! is_null( $post ) && ! wp_is_post_revision( $post_id ) && ! wp_is_post_autosave( $post_id );
+		if ( ! isset( $_POST['ef_notifications_name'] ) || ! $valid_post || ! current_user_can( $this->edit_post_subscriptions_cap ) ) {
+			die();
+		}
+
+		$user_group_ids = array();
+		if ( isset( $_POST['user_group_ids'] ) && is_array( $_POST['user_group_ids'] ) ) {
+			$user_group_ids = array_map( 'intval', $_POST['user_group_ids'] );
+		}
+
+		if ( 'ef-selected-users[]' === $_POST['ef_notifications_name'] ) {
+			$this->save_post_following_users( $post, $user_group_ids );
+			
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['post_id'] ) ) {
+				
+				// Determine if any of the selected users won't have notification access
+				$subscribers_with_no_access = array_filter( $user_group_ids, function( $user_id ) {
+					return ! $this->user_can_be_notified( get_user_by( 'id', $user_id ), $_POST['post_id'] );
+				} );
+
+				// Determine if any of the selected users are missing their emails				
+				$subscribers_with_no_email = array();
+				foreach ( $user_group_ids AS $user_id ) {
+					$user_object = get_user_by( 'id', $user_id );
+					if ( !is_a( $user_object, 'WP_User') OR empty( $user_object->user_email )  ) {
+						$subscribers_with_no_email[] = $user_id;
+					}
 				}
+				
+				// Assemble the json reply with various lists of problematic users
+				$json_success = array( 
+					'subscribers_with_no_access' => array_values( $subscribers_with_no_access ),
+					'subscribers_with_no_email' => array_values( $subscribers_with_no_email ),
+				);
+				
+				wp_send_json_success( $json_success );
 			}
 		}
+		
+		$groups_enabled = $this->module_enabled( 'user_groups' ) && in_array( get_post_type( $post_id ), $this->get_post_types_for_module( $edit_flow->user_groups->module ) );
+		if ( 'following_usergroups[]' === $_POST['ef_notifications_name'] && $groups_enabled ) {
+			$this->save_post_following_usergroups( $post, $user_group_ids );
+		}
+
 		die();
 	}
 
@@ -511,6 +586,7 @@ jQuery(document).ready(function($) {
 			// Email subject and first line of body 
 			// Set message subjects according to what action is being taken on the Post	
 			if ( $old_status == 'new' || $old_status == 'auto-draft' ) {
+				$old_status_friendly_name = "New";
 				/* translators: 1: site name, 2: post type, 3. post title */
 				$subject = sprintf( __( '[%1$s] New %2$s Created: "%3$s"', 'edit-flow' ), $blogname, $post_type, $post_title );
 				/* translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email */
@@ -545,14 +621,16 @@ jQuery(document).ready(function($) {
 				$subject = sprintf( __( '[%1$s] %2$s Status Changed for "%3$s"', 'edit-flow' ), $blogname, $post_type, $post_title );
 				/* translators: 1: post type, 2: post id, 3. post title, 4. user name, 5. user email */
 				$body .= sprintf( __( 'Status was changed for %1$s #%2$s "%3$s" by %4$s %5$s', 'edit-flow'), $post_type, $post_id, $post_title, $current_user_display_name, $current_user_email ) . "\r\n";
+				$old_status_post_obj = get_post_status_object( $old_status );
+				$old_status_friendly_name = $old_status_post_obj->label;
 			}
 			
 			/* translators: 1: date, 2: time, 3: timezone */
 			$body .= sprintf( __( 'This action was taken on %1$s at %2$s %3$s', 'edit-flow' ), date_i18n( get_option( 'date_format' ) ), date_i18n( get_option( 'time_format' ) ), get_option( 'timezone_string' ) ) . "\r\n";
-			
-			$old_status_friendly_name = $this->get_post_status_friendly_name( $old_status );
-			$new_status_friendly_name = $this->get_post_status_friendly_name( $new_status );
-			
+
+			$new_status_post_obj = get_post_status_object( $new_status );
+			$new_status_friendly_name = $new_status_post_obj->label;
+						
 			// Email body
 			$body .= "\r\n";
 			/* translators: 1: old status, 2: new status */
@@ -589,6 +667,9 @@ jQuery(document).ready(function($) {
 	
 	/**
 	 * Set up and set editorial comment notification email
+	 * 
+	 * @param WP_Comment $comment
+	 * @return boolean|null|void
 	 */
 	function notification_comment( $comment ) {
 		
@@ -608,7 +689,10 @@ jQuery(document).ready(function($) {
 		$post_id = $post->ID;
 		$post_type = get_post_type_object( $post->post_type )->labels->singular_name;
 		$post_title = ef_draft_or_post_title( $post_id );
-	
+
+		// Fetch the text list of people who were notified from comment meta @see EF_Editorial_Comments->maybe_output_comment_meta()
+		$notification_list = get_comment_meta( $comment->comment_ID, 'notification_list', true );
+
 		// Check if this a reply
 		//$parent_ID = isset( $comment->comment_parent_ID ) ? $comment->comment_parent_ID : 0;
 		//if($parent_ID) $parent = get_comment($parent_ID);
@@ -639,7 +723,12 @@ jQuery(document).ready(function($) {
 		}
 		*/
 		
+		
 		$body .= "\r\n--------------------\r\n";
+		// Insert the notification list from comment meta @see EF_Editorial_Comments->maybe_output_comment_meta()
+		if ($notification_list) {
+			$body .= esc_html__( 'Notified', 'edit-flow' ) . ": " . esc_html( $notification_list ) . "\n";
+		}
 		
 		$edit_link = htmlspecialchars_decode( get_edit_post_link( $post_id ) );
 		$view_link = htmlspecialchars_decode( get_permalink( $post_id ) );
@@ -726,69 +815,105 @@ jQuery(document).ready(function($) {
 	function send_single_email( $to, $subject, $message, $message_headers = '' ) {
 		wp_mail( $to, $subject, $message, $message_headers );
 	}
-	
+
 	/**
-	 * Returns a list of recipients for a given post
+	 * Returns a list of recipients for a given post.
 	 *
-	 * @param $post object
-	 * @param $string bool Whether to return recipients as comma-delimited string or array 
-	 * @return string or array of recipients to receive notification 
+	 * @param WP_Post $post
+	 * @param bool $string Whether to return recipients as comma-delimited string or array.
+	 * @return string|array Recipients to receive notification.
 	 */
 	private function _get_notification_recipients( $post, $string = false ) {
 		global $edit_flow;
-		
-		$post_id = $post->ID;
-		if( !$post_id ) return;
-		
-		$authors = array();
-		$admins = array();
-		$recipients = array();
 
-		// Email all admins, if enabled
-		if( 'on' == $this->module->options->always_notify_admin )
+		$post_id = $post->ID;
+		if ( ! $post_id ) {
+			return $string ? '' : array();
+		}
+
+		// Email all admins if enabled.
+		$admins = array();
+		if ( 'on' === $this->module->options->always_notify_admin ) {
 			$admins[] = get_option('admin_email');
-		
-		$usergroup_users = array();
+		}
+
+		$usergroup_recipients = array();
 		if ( $this->module_enabled( 'user_groups' ) ) {
-			// Get following users and usergroups
 			$usergroups = $this->get_following_usergroups( $post_id, 'ids' );
-			foreach( (array)$usergroups as $usergroup_id ) {
+			foreach ( (array) $usergroups as $usergroup_id ) {
 				$usergroup = $edit_flow->user_groups->get_usergroup_by( 'id', $usergroup_id );
-				foreach( (array)$usergroup->user_ids as $user_id ) {
+				foreach ( (array) $usergroup->user_ids as $user_id ) {
 					$usergroup_user = get_user_by( 'id', $user_id );
-					if ( $usergroup_user && is_user_member_of_blog( $user_id ) )
-						$usergroup_users[] = $usergroup_user->user_email;
+					if ( $this->user_can_be_notified( $usergroup_user, $post_id ) ) {
+						$usergroup_recipients[] = $usergroup_user->user_email;
+					}
 				}
 			}
 		}
-		
-		$users = $this->get_following_users( $post_id, 'user_email' );
-		
-		// Merge arrays and filter any duplicates
-		$recipients = array_merge( $authors, $admins, $users, $usergroup_users );
-		$recipients = array_unique( $recipients );
 
-		// Process the recipients for this email to be sent
-		foreach( $recipients as $key => $user_email ) {
-			// Get rid of empty email entries
-			if ( empty( $recipients[$key] ) )
-				unset( $recipients[$key] );
-			// Don't send the email to the current user unless we've explicitly indicated they should receive it
-			if ( false === apply_filters( 'ef_notification_email_current_user', false ) && wp_get_current_user()->user_email == $user_email )
-				unset( $recipients[$key] );
+		$user_recipients = $this->get_following_users( $post_id, 'user_email' );
+		foreach( $user_recipients as $key => $user ) {
+			$user_object = get_user_by( 'email', $user );
+			if ( ! $this->user_can_be_notified( $user_object, $post_id ) ) {
+				unset( $user_recipients[ $key ] );
+			}
 		}
-		
-		// Filter to allow further modification of recipients
+
+		// Merge arrays, filter any duplicates, and remove empty entries.
+		$recipients = array_filter( array_unique( array_merge( $admins, $user_recipients, $usergroup_recipients ) ) );
+
+		// Process the recipients for this email to be sent.
+		foreach(  $recipients as $key => $user_email ) {
+			// Don't send the email to the current user unless we've explicitly indicated they should receive it.
+			if ( false === apply_filters( 'ef_notification_email_current_user', false ) && wp_get_current_user()->user_email == $user_email ) {
+				unset( $recipients[ $key ] );
+			}
+		}
+
+		/**
+		 * Filters the list of notification recipients.
+		 *
+		 * @param array $recipients List of recipient email addresses.
+		 * @param WP_Post $post
+		 * @param bool $string True if the recipients list will later be returned as a string.
+		 */
 		$recipients = apply_filters( 'ef_notification_recipients', $recipients, $post, $string );
-		
-		// If string set to true, return comma-delimited
+
+		// If string set to true, return comma-delimited.
 		if ( $string && is_array( $recipients ) ) {
 			return implode( ',', $recipients );
 		} else {
 			return $recipients;
 		}
 	}
-	
+
+	/**
+	 * Check if a user can be notified.
+	 * This is based off of the ability to edit the post/page by default.
+	 * 
+	 * @since 0.8.3
+	 * @param WP_User $user
+	 * @param int $post_id
+	 * @return bool True if the user can be notified, false otherwise.
+	 */
+	function user_can_be_notified( $user, $post_id ) {
+		$can_be_notified = false;
+
+		if ( $user instanceof WP_User && is_user_member_of_blog( $user->ID ) && is_numeric( $post_id ) ) {
+			// The 'edit_post' cap check also covers the undocumented 'edit_page' cap.
+			$can_be_notified = $user->has_cap( 'edit_post', $post_id );
+		}
+
+		/**
+		 * Filters if a user can be notified. Defaults to true if they can edit the post/page.
+		 *
+		 * @param bool $can_be_notified True if the user can be notified.
+		 * @param WP_User|bool $user The user object, otherwise false.
+		 * @param int $post_id The post the user will be notified about.
+		 */
+		return (bool) apply_filters( 'ef_notification_user_can_be_notified', $can_be_notified, $user, $post_id );
+	}
+
 	/**
 	 * Set a user or users to follow a post
 	 *

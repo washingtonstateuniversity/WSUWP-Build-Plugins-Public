@@ -1,10 +1,4 @@
 # Edit Flow
-Contributors: batmoo, danielbachhuber, sbressler, automattic
-Donate link: http://editflow.org/contribute/
-Tags: edit flow, workflow, editorial, newsroom, management, journalism, post status, custom status, notifications, email, comments, editorial comments, usergroups, calendars, editorial calendar, story budget
-Requires at least: 4.5
-Tested up to: 4.6.1
-Stable tag: 0.8.2
 
 Redefining your editorial workflow.
 
@@ -23,6 +17,9 @@ Edit Flow empowers you to collaborate with your editorial team inside WordPress.
 * [User Groups](http://editflow.org/features/user-groups/) - Keep your users organized by department or function.
 
 More details for each feature, screenshots and documentation can be found on [our website](http://www.editflow.org/).
+
+All development happens on [GitHub](https://github.com/Automattic/Edit-Flow).
+
 
 We'd love to hear from you! For support questions, feedback and ideas, please use the [WordPress.org forums](http://wordpress.org/tags/edit-flow?forum_id=10), which we look at often. If you'd like to contribute code, [we'd love to have you involved](http://editflow.org/contribute/).
 
@@ -56,6 +53,12 @@ For support questions, feedback and ideas, please use the [WordPress.org forums]
 
 ## Upgrade Notice
 
+**0.9**
+Bump minimum version of PHP to 5.4. Start implementation of Block Editor compatible modules, various improvements and bugfixes.
+
+**0.8.3**
+Improvements and bugfixes.
+
 **0.8.2**
 Minor enhancements and bug fixes, translation updates.
 
@@ -80,10 +83,10 @@ Contributors and other users without the 'publish_posts' capability can access c
 **0.7.1**
 Enhancements and bug fixes, including defaulting to the proper date in the calendar and an Italian localization.
 
-**0.7** 
+**0.7**
 Complete rewrite into a modular architecture. Lots of polish added. Important note: If upgrading from pre-v0.6, please upgrade to v0.6.5 first
 
-**0.6.5** 
+**0.6.5**
 Fixes an issue where the post timestamp would be set as soon as a custom status was used.
 
 **0.6.4**
@@ -103,7 +106,25 @@ New features, including story budget and editorial metadata, a completely rewrit
 
 ## Changelog
 
-**0.8.2 (??? ??, ????)**
+**0.9 (January 10, 2018)**
+* Feature: Block Editor compatibility for Custom Status module. Props [rinatkhaziev](https://github.com/rinatkhaziev). See [BLOCKS.md](BLOCKS.md) for details.
+* Feature: new filter `ef_calendar_item_html` for Calendar module that allows to print custom markup for each day.
+* UI Improvement: start removing arbitrary colors and conform to WP Color guide. A collective effort.
+* UI Improvement: Add [NO ACCESS] and [NO EMAIL] to the list of notified users to indicate that a user doesn't have the access to the post and that a user doesn't have an email set, respectively. Props [WPprodigy](https://github.com/WPprodigy), [jerclarke](https://github.com/jerclarke).
+
+**0.8.3 (June 14, 2018)**
+* UI Improvement: Made primary buttons on Settings screen consistent with WordPress UI. Props [cojennin](https://github.com/cojennin).
+* UI Improvement: Display who particularly was notified about an editorial comment. Props [goodguyry](https://github.com/goodguyry), [WPprodigy](https://github.com/WPprodigy)
+* Improvement: Updated Russian translation and documentation. Props [achumakov](https://github.com/achumakov).
+* Improvement: Eliminate a few cases of raw SQL queries in favor of `date_query`. Props [justnorris](https://github.com/justnorris).
+* Improvement: Cache calendar items for each user individually to prevent potential cache pollution. Props [justnorris](https://github.com/justnorris).
+* Improvement: various i18n updates.
+* Improvement: Move ef_story_budget_posts_query_args filter down to allow overriding the date query in Story Budget module.
+* Improvement: Limit results in Calendar to 200 per page, potentially saving from trouble on websites with large amount of content.
+* Improvement: Don’t generate rewrite rules for notepad as they're unused.
+* Improvement: Support modifying HTML output of a Calendar day via ef_pre_calendar_single_date_item_html filter. Props [cklosowski](https://github.com/cklosowski).
+
+**0.8.2 (Sept. 16, 2016)**
 * Improvement: Updated Spanish localization thanks to [moucho](https://github.com/moucho)
 * Improvement: New Swedish localization thanks to [Warpsmith](https://github.com/Warpsmith)
 * Improvement: Japanese localization 100% on [translate.wordpress.org](https://translate.wordpress.org/locale/ja/default/wp-plugins/edit-flow)
@@ -306,13 +327,13 @@ The following folks did some tremendous work helping with the release of Edit Fl
 * Added option to globally disable QuickPitch widget
 * Bug fix: Custom Status names cannot be longer than 20 chars
 * Bug fix: Deleted users are removed as subscribers from posts
-* Bug fix: Blank menu items should now be sorta hidden 
+* Bug fix: Blank menu items should now be sorta hidden
 
 **0.2**
 * Custom Statuses are now supported for pages
 * Editorial Comments (with threading)
 * Email Notifications (on post status change and editorial comment)
-* Additional Post metadata 
+* Additional Post metadata
 * Quick Pitch Dashboard widget
 * Bug fix: sorting issue on Manage Posts page (Mad props to David Smith from Columbia U.)
 * Other bug fixes

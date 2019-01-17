@@ -72,7 +72,7 @@ msgstr ""
 
 #: packages/block-library/build-module/audio/edit.js:233
 #: packages/block-library/build-module/gallery/edit.js:37
-#: packages/block-library/build-module/image/edit.js:373
+#: packages/block-library/build-module/image/edit.js:383
 #: packages/block-library/build-module/video/edit.js:265
 msgid "None"
 msgstr ""
@@ -80,7 +80,7 @@ msgstr ""
 #: packages/block-library/build-module/audio/edit.js:242
 #: packages/block-library/build-module/embed/embed-preview.js:73
 #: packages/block-library/build-module/gallery/gallery-image.js:173
-#: packages/block-library/build-module/image/edit.js:703
+#: packages/block-library/build-module/image/edit.js:713
 #: packages/block-library/build-module/video/edit.js:295
 msgid "Write caption…"
 msgstr ""
@@ -105,7 +105,7 @@ msgid "Save"
 msgstr ""
 
 #: packages/block-library/build-module/block/edit-panel/index.js:95
-#: packages/editor/build-module/components/post-permalink/index.js:146
+#: packages/editor/build-module/components/post-permalink/index.js:148
 #: packages/format-library/build-module/link/inline.js:131
 msgid "Edit"
 msgstr ""
@@ -172,7 +172,7 @@ msgid "Outline"
 msgstr ""
 
 #: packages/block-library/build-module/categories/edit.js:102
-#: packages/block-library/build-module/latest-posts/edit.js:208
+#: packages/block-library/build-module/latest-posts/edit.js:206
 msgid "(Untitled)"
 msgstr ""
 
@@ -236,41 +236,41 @@ msgstr ""
 
 #: packages/block-library/build-module/columns/index.js:176
 #: packages/block-library/build-module/gallery/edit.js:269
-#: packages/block-library/build-module/latest-posts/edit.js:144
+#: packages/block-library/build-module/latest-posts/edit.js:142
 #: packages/block-library/build-module/text-columns/index.js:100
 msgid "Columns"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:283
+#: packages/block-library/build-module/cover/index.js:279
 #: packages/block-library/build-module/media-text/media-container.js:46
 msgid "Edit media"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:289
+#: packages/block-library/build-module/cover/index.js:285
 msgid "Cover Settings"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:291
+#: packages/block-library/build-module/cover/index.js:287
 msgid "Fixed Background"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:295
+#: packages/block-library/build-module/cover/index.js:291
 msgid "Overlay"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:300
+#: packages/block-library/build-module/cover/index.js:296
 msgid "Overlay Color"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:303
+#: packages/block-library/build-module/cover/index.js:299
 msgid "Background Opacity"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:319
+#: packages/block-library/build-module/cover/index.js:315
 msgid "Cover"
 msgstr ""
 
-#: packages/block-library/build-module/cover/index.js:325
+#: packages/block-library/build-module/cover/index.js:321
 msgid ""
 "Drag an image or a video, upload a new one or select a file from your "
 "library."
@@ -483,7 +483,7 @@ msgid "Embedded content from %s"
 msgstr ""
 
 #: packages/block-library/build-module/embed/embed-preview.js:71
-msgid "Previews for this are unavailable in the editor, sorry!"
+msgid "Sorry, we cannot preview this embedded content in the editor."
 msgstr ""
 
 #: packages/block-library/build-module/embed/index.js:18
@@ -517,13 +517,13 @@ msgstr ""
 msgid "Write file name…"
 msgstr ""
 
-#: packages/block-library/build-module/file/edit.js:252
+#: packages/block-library/build-module/file/edit.js:253
 #: packages/edit-post/build-module/plugins/copy-content-menu-item/index.js:28
 #: packages/editor/build-module/components/post-publish-panel/postpublish.js:116
 msgid "Copied!"
 msgstr ""
 
-#: packages/block-library/build-module/file/edit.js:252
+#: packages/block-library/build-module/file/edit.js:253
 msgid "Copy URL"
 msgstr ""
 
@@ -556,13 +556,13 @@ msgstr ""
 
 #: packages/block-library/build-module/file/inspector.js:33
 #: packages/block-library/build-module/gallery/edit.js:34
-#: packages/block-library/build-module/image/edit.js:376
+#: packages/block-library/build-module/image/edit.js:386
 msgid "Media File"
 msgstr ""
 
 #: packages/block-library/build-module/file/inspector.js:36
 #: packages/block-library/build-module/gallery/edit.js:31
-#: packages/block-library/build-module/image/edit.js:379
+#: packages/block-library/build-module/image/edit.js:389
 msgid "Attachment Page"
 msgstr ""
 
@@ -572,12 +572,12 @@ msgstr ""
 
 #: packages/block-library/build-module/file/inspector.js:43
 #: packages/block-library/build-module/gallery/edit.js:280
-#: packages/block-library/build-module/image/edit.js:558
+#: packages/block-library/build-module/image/edit.js:568
 msgid "Link To"
 msgstr ""
 
 #: packages/block-library/build-module/file/inspector.js:48
-#: packages/block-library/build-module/image/edit.js:569
+#: packages/block-library/build-module/image/edit.js:579
 #: packages/format-library/build-module/link/inline.js:300
 msgid "Open in New Tab"
 msgstr ""
@@ -705,89 +705,89 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:382
+#: packages/block-library/build-module/image/edit.js:392
 msgid "Custom URL"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:462
+#: packages/block-library/build-module/image/edit.js:471
 msgid "Edit image"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:504
+#: packages/block-library/build-module/image/edit.js:514
 msgid "Image Settings"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:506
+#: packages/block-library/build-module/image/edit.js:516
 #: packages/block-library/build-module/media-text/edit.js:202
 msgid "Alt Text (Alternative Text)"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:509
+#: packages/block-library/build-module/image/edit.js:519
 #: packages/block-library/build-module/media-text/edit.js:205
 msgid ""
 "Alternative text describes your image to people who can’t see it. Add a "
 "short description with its key details."
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:519
+#: packages/block-library/build-module/image/edit.js:529
 msgid "Image Dimensions"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:524
+#: packages/block-library/build-module/image/edit.js:534
 msgid "Width"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:532
+#: packages/block-library/build-module/image/edit.js:542
 msgid "Height"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:540
+#: packages/block-library/build-module/image/edit.js:550
 msgid "Image Size"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:555
+#: packages/block-library/build-module/image/edit.js:565
 #: packages/components/build-module/font-size-picker/index.js:111
 #: packages/components/build-module/range-control/index.js:78
 msgid "Reset"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:556
+#: packages/block-library/build-module/image/edit.js:566
 #: packages/editor/build-module/components/url-popover/index.js:66
 msgid "Link Settings"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:563
+#: packages/block-library/build-module/image/edit.js:573
 msgid "Link URL"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:573
+#: packages/block-library/build-module/image/edit.js:583
 msgid "Link CSS Class"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:577
+#: packages/block-library/build-module/image/edit.js:587
 msgid "Link Rel"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:604
+#: packages/block-library/build-module/image/edit.js:614
 msgid "This image has an empty alt attribute; its file name is %s"
 msgstr ""
 
-#: packages/block-library/build-module/image/edit.js:606
+#: packages/block-library/build-module/image/edit.js:616
 msgid "This image has an empty alt attribute"
 msgstr ""
 
-#: packages/block-library/build-module/image/index.js:107
+#: packages/block-library/build-module/image/index.js:120
 #: packages/editor/build-module/components/media-placeholder/index.js:235
 #: packages/editor/build-module/components/post-format/index.js:31
 #: packages/format-library/build-module/image/index.js:21
 msgid "Image"
 msgstr ""
 
-#: packages/block-library/build-module/image/index.js:108
+#: packages/block-library/build-module/image/index.js:121
 msgid "Insert an image to make a visual statement."
 msgstr ""
 
-#: packages/block-library/build-module/image/index.js:122
+#: packages/block-library/build-module/image/index.js:135
 #: packages/format-library/build-module/image/index.js:22
 msgid "photo"
 msgstr ""
@@ -824,28 +824,28 @@ msgstr ""
 msgid "recent comments"
 msgstr ""
 
-#: packages/block-library/build-module/latest-posts/edit.js:111
+#: packages/block-library/build-module/latest-posts/edit.js:109
 msgid "Latest Posts Settings"
 msgstr ""
 
-#: packages/block-library/build-module/latest-posts/edit.js:140
+#: packages/block-library/build-module/latest-posts/edit.js:138
 msgid "Display post date"
 msgstr ""
 
-#: packages/block-library/build-module/latest-posts/edit.js:159
+#: packages/block-library/build-module/latest-posts/edit.js:157
 #: packages/block-library/build-module/latest-posts/index.js:15
 msgid "Latest Posts"
 msgstr ""
 
-#: packages/block-library/build-module/latest-posts/edit.js:160
+#: packages/block-library/build-module/latest-posts/edit.js:158
 msgid "No posts found."
 msgstr ""
 
-#: packages/block-library/build-module/latest-posts/edit.js:167
+#: packages/block-library/build-module/latest-posts/edit.js:165
 msgid "List View"
 msgstr ""
 
-#: packages/block-library/build-module/latest-posts/edit.js:176
+#: packages/block-library/build-module/latest-posts/edit.js:174
 msgid "Grid View"
 msgstr ""
 
@@ -1539,7 +1539,7 @@ msgstr ""
 msgid "PM"
 msgstr ""
 
-#: packages/components/build-module/drop-zone/index.js:112
+#: packages/components/build-module/drop-zone/index.js:110
 msgid "Drop files to upload"
 msgstr ""
 
@@ -2161,7 +2161,7 @@ msgstr ""
 msgid "Convert to Blocks"
 msgstr ""
 
-#: packages/editor/build-module/components/block-list/block.js:453
+#: packages/editor/build-module/components/block-list/block.js:430
 msgid "Block: %s"
 msgstr ""
 
@@ -2607,19 +2607,19 @@ msgstr ""
 msgid "Edit post permalink"
 msgstr ""
 
-#: packages/editor/build-module/components/post-permalink/index.js:102
+#: packages/editor/build-module/components/post-permalink/index.js:104
 msgid "Permalink copied"
 msgstr ""
 
-#: packages/editor/build-module/components/post-permalink/index.js:102
+#: packages/editor/build-module/components/post-permalink/index.js:104
 msgid "Copy the permalink"
 msgstr ""
 
-#: packages/editor/build-module/components/post-permalink/index.js:124
+#: packages/editor/build-module/components/post-permalink/index.js:126
 msgid "Permalink:"
 msgstr ""
 
-#: packages/editor/build-module/components/post-permalink/index.js:152
+#: packages/editor/build-module/components/post-permalink/index.js:154
 msgid "Change Permalinks"
 msgstr ""
 
@@ -2637,15 +2637,15 @@ msgstr ""
 msgid "Generating preview…"
 msgstr ""
 
-#: packages/editor/build-module/components/post-publish-button/index.js:107
+#: packages/editor/build-module/components/post-publish-button/index.js:111
 msgid "Schedule…"
 msgstr ""
 
-#: packages/editor/build-module/components/post-publish-button/index.js:107
+#: packages/editor/build-module/components/post-publish-button/index.js:111
 msgid "Publish…"
 msgstr ""
 
-#: packages/editor/build-module/components/post-publish-button/index.js:117
+#: packages/editor/build-module/components/post-publish-button/index.js:121
 msgid ""
 "Finished writing? That’s great, let’s get this published right now. Just "
 "click “Publish” and you’re good to go."
@@ -2770,23 +2770,23 @@ msgstr ""
 msgid "Publish:"
 msgstr ""
 
-#: packages/editor/build-module/components/post-saved-state/index.js:113
+#: packages/editor/build-module/components/post-saved-state/index.js:112
 msgid "Saved"
 msgstr ""
 
-#: packages/editor/build-module/components/post-saved-state/index.js:122
+#: packages/editor/build-module/components/post-saved-state/index.js:123
 msgid "Save as Pending"
 msgstr ""
 
-#: packages/editor/build-module/components/post-saved-state/index.js:122
+#: packages/editor/build-module/components/post-saved-state/index.js:123
 msgid "Save Draft"
 msgstr ""
 
-#: packages/editor/build-module/components/post-saved-state/index.js:97
+#: packages/editor/build-module/components/post-saved-state/index.js:96
 msgid "Autosaving"
 msgstr ""
 
-#: packages/editor/build-module/components/post-saved-state/index.js:97
+#: packages/editor/build-module/components/post-saved-state/index.js:96
 msgid "Saving"
 msgstr ""
 
@@ -3000,7 +3000,7 @@ msgid "Submit"
 msgstr ""
 
 #: packages/editor/build-module/components/url-input/index.js:236
-msgid "Link selected"
+msgid "Link selected."
 msgstr ""
 
 #: packages/editor/build-module/components/url-input/index.js:297
@@ -3171,7 +3171,7 @@ msgid "Link edited."
 msgstr ""
 
 #: packages/format-library/build-module/link/inline.js:245
-msgid "Link inserted"
+msgid "Link inserted."
 msgstr ""
 
 # accessibility label for external links, where the argument is the link text

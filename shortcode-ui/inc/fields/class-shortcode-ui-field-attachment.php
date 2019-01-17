@@ -19,7 +19,7 @@ class Shortcode_UI_Field_Attachment {
 	 * @access private
 	 * @var array
 	 */
-	private $post_fields  = array();
+	private $post_fields = array();
 
 	/**
 	 * Settings for the Attachment Field.
@@ -73,20 +73,28 @@ class Shortcode_UI_Field_Attachment {
 	 */
 	public function action_enqueue_shortcode_ui() {
 
-		wp_localize_script( 'shortcode-ui', 'ShortcakeImageFieldData', array(
-			'defaultArgs' => array(
-				'libraryType' => null, // array of mime types. eg image, image/jpg, application, application/pdf.
-				'addButton'   => __( 'Select Attachment', 'shortcode-ui' ),
-				'frameTitle'  => __( 'Select Attachment', 'shortcode-ui' ),
-			),
-		) );
+		wp_localize_script(
+			'shortcode-ui', 'ShortcakeImageFieldData', array(
+				'defaultArgs' => array(
+					'libraryType' => null, // array of mime types. eg image, image/jpg, application, application/pdf.
+					'addButton'   => __( 'Select Attachment', 'shortcode-ui' ),
+					'frameTitle'  => __( 'Select Attachment', 'shortcode-ui' ),
+				),
+			)
+		);
 	}
 
 	/**
-	 * Output templates used by post select field.
+	 * Prepare to output the templates required for this field in the footer.
 	 */
 	public function action_shortcode_ui_loaded_editor() {
+		add_action( 'admin_print_footer_scripts', array( $this, 'output_templates' ) );
+	}
 
+	/**
+	 * Output templates used by attachment field.
+	 */
+	public function output_templates() {
 		?>
 
 		<script type="text/html" id="tmpl-fusion-shortcake-field-attachment">
@@ -149,5 +157,4 @@ class Shortcode_UI_Field_Attachment {
 
 		<?php
 	}
-
 }

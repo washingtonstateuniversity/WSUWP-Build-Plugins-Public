@@ -3,25 +3,20 @@
 **************************************************************************
 
 Plugin Name:  SyntaxHighlighter Evolved
-Plugin URI:   http://www.viper007bond.com/wordpress-plugins/syntaxhighlighter/
-Version:      3.4.1
-Description:  Easily post syntax-highlighted code to your site without having to modify the code at all. Uses Alex Gorbatchev's <a href="http://alexgorbatchev.com/wiki/SyntaxHighlighter">SyntaxHighlighter</a>. <strong>TIP:</strong> Don't use the Visual editor if you don't want your code mangled. TinyMCE will "clean up" your HTML.
+Plugin URI:   https://alex.blog/wordpress-plugins/syntaxhighlighter/
+Version:      3.5.0
+Description:  Easily post syntax-highlighted code to your site without having to modify the code at all. Uses Alex Gorbatchev's <a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter</a>. Includes a new editor block.
 Author:       Alex Mills (Viper007Bond)
-Author URI:   http://www.viper007bond.com/
-
-**************************************************************************
-
-Thanks to:
-
-* Alex Gorbatchev for writing the Javascript-powered syntax highlighter script
-
-* Andrew Ozz for writing the TinyMCE plugin
+Author URI:   https://alex.blog/
+Text Domain:  syntaxhighlighter
+License:      GPL2
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 
 **************************************************************************/
 
 class SyntaxHighlighter {
 	// All of these variables are private. Filters are provided for things that can be modified.
-	var $pluginver            = '3.4.1';  // Plugin version
+	var $pluginver            = '3.5.0';  // Plugin version
 	var $agshver              = false;    // Alex Gorbatchev's SyntaxHighlighter version (dynamically set below due to v2 vs v3)
 	var $shfolder             = false;    // Controls what subfolder to load SyntaxHighlighter from (v2 or v3)
 	var $settings             = array();  // Contains the user's settings
@@ -79,6 +74,12 @@ class SyntaxHighlighter {
 		) {
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 			add_action( 'the_content', array( $this, 'enable_brushes_used_in_blocks' ), 0 );
+			register_block_type(
+				'syntaxhighlighter/code',
+				array(
+					'render_callback' => array( $this, 'render_block' ),
+				)
+			);
 		}
 
 		// Register widget hooks
@@ -259,6 +260,13 @@ class SyntaxHighlighter {
 			'xml'        => __( 'HTML / XHTML / XML / XSLT', 'syntaxhighlighter' ),
 		) );
 
+		// Add any custom brushes that aren't making use of the newer "syntaxhighlighter_brush_names" filter.
+		foreach ( $this->brushes as $slug => $language ) {
+			if ( ! isset( $this->brush_names[ $language ] ) ) {
+				$this->brush_names[ $language ] = $slug;
+			}
+		}
+
 		// Create a list of shortcodes to use. You can use the filter to add/remove ones.
 		// If the language/lang parameter is left out, it's assumed the shortcode name is the language.
 		// If that's invalid, then "plain" is used.
@@ -325,15 +333,44 @@ class SyntaxHighlighter {
 			wp_set_script_translations( 'syntaxhighlighter-blocks', 'syntaxhighlighter' );
 		}
 
-		natsort( $this->brush_names );
+		natcasesort( $this->brush_names );
+
+		$settings = (object) array(
+			'language' => (object) array(
+				'supported' => true,
+				'default' => 'plain'
+			),
+			'lineNumbers' => (object) array(
+				'supported' => true,
+				'default' => (bool) $this->settings['gutter'],
+			),
+			'firstLineNumber' => (object) array(
+				'supported' => true,
+				'default' => $this->settings['firstline'],
+			),
+			'highlightLines' => (object) array(
+				'supported' => true,
+				'default' => '',
+			),
+			'wrapLines' => (object) array(
+				'supported' => ( '2' == $this->settings['shversion'] ),
+				'default' => (bool) $this->settings['wraplines'],
+			),
+			'makeURLsClickable' => (object) array(
+				'supported' => true,
+				'default' => (bool) $this->settings['autolinks'],
+			),
+		);
 
 		wp_add_inline_script(
 			'syntaxhighlighter-blocks',
 			sprintf( '
 				var syntaxHighlighterData = {
 					brushes: %s,
+					settings: %s,
 				};',
-				json_encode( $this->brush_names )
+				json_encode( $this->brush_names ),
+				json_encode( $settings )
 			),
 			'before'
 		);
@@ -344,6 +381,12 @@ class SyntaxHighlighter {
 	 *
 	 * For the shortcode, brushes are activated by `shortcode_callback()`, but that won't detect brushes that were
 	 * used in blocks. For that, we need to extract the data from the block's attributes.
+	 *
+	 * @since 3.3.0
+	 *
+	* @param string $content The post content.
+	  *
+	 * @return string Unmodified $content.
 	 */
 	function enable_brushes_used_in_blocks( $content ) {
 		/*
@@ -355,7 +398,10 @@ class SyntaxHighlighter {
 		}
 
 		// Lower overhead than a full parse.
-		if ( ! has_block( 'syntaxhighlighter/code', $content ) ) {
+		if (
+			! has_block( 'syntaxhighlighter/code', $content )
+			&& ! has_block( 'core/block', $content ) // Reusable
+		) {
 			return $content;
 		}
 
@@ -368,18 +414,110 @@ class SyntaxHighlighter {
 		}
 
 		foreach ( $blocks as $block ) {
-			if ( empty( $block['blockName'] ) || 'syntaxhighlighter/code' !== $block['blockName'] ) {
+			if ( empty( $block['blockName'] ) ) {
 				continue;
 			}
 
-			$language = ( ! empty( $block['attrs']['language'] ) ) ? $block['attrs']['language'] : 'plain';
+			switch ( $block['blockName'] ) {
+				// Normal block usage
+				case 'syntaxhighlighter/code':
+					$language = ( ! empty( $block['attrs']['language'] ) ) ? $block['attrs']['language'] : 'plain';
 
-			if ( in_array( $language, $this->brushes, true ) ) {
-				$this->usedbrushes[ $this->brushes[ $language ] ] = true;
+					if ( in_array( $language, $this->brushes, true ) ) {
+						$this->usedbrushes[ $this->brushes[ $language ] ] = true;
+					}
+
+					break;
+
+				// But the block could also be used inside of a reusable block
+				case 'core/block':
+					/**
+					 * Rather than going down the block parsing rabbit hole of dynamic blocks,
+					 * let's just hook in post-render and look for our HTML.
+ 					 */
+					add_filter( 'the_content', array( $this, 'enable_brushes_via_raw_html_parsing' ), 10 );
+
+					break;
 			}
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Parses raw HTML looking for SyntaxHighlighter's <pre> tags and queues brushes
+	 * for the languages used.
+	 *
+	 * This filter only runs when a reusable block is used in a post.
+	 * It was easier to implement than loading the block, which then could
+	 * have child blocks and so forth. Technically this means that we're
+	 * parsing any regular SyntaxHighlighter blocks again, but oh well. :)
+	 *
+	 * @since 3.4.2
+	 *
+	* @param string $content The post content.
+	 *
+	 * @return string Unmodified $content.
+	 */
+	public function enable_brushes_via_raw_html_parsing( $content ) {
+		if ( false === strpos( $content,'<pre class="wp-block-syntaxhighlighter-code' ) ) {
+			return $content;
+		}
+
+		preg_match_all(
+			'/<pre class="wp-block-syntaxhighlighter-code brush: ([^;]+);/',
+			$content,
+			$languages,
+			PREG_PATTERN_ORDER
+		);
+
+		if ( is_array( $languages ) ) {
+			foreach ( $languages[1] as $language ) {
+				if ( in_array( $language, $this->brushes, true ) ) {
+					$this->usedbrushes[ $this->brushes[ $language ] ] = true;
+				}
+			}
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Renders the content of the Gutenberg block on the front end
+	 * using the shortcode callback. This ensures one source of truth
+	 * and allows for forward compatibility.
+	 *
+	* @param string $content The block's content.
+	 *
+	 * @return string The rendered content.
+	 */
+	public function render_block( $attributes, $content ) {
+		$remaps = array(
+			'lineNumbers'       => 'gutter',
+			'firstLineNumber'   => 'firstline',
+			'highlightLines'    => 'highlight',
+			'wrapLines'         => 'wraplines',
+			'makeURLsClickable' => 'autolinks',
+		);
+
+		foreach ( $remaps as $from => $to ) {
+			if ( isset( $attributes[ $from ] ) ) {
+				if ( is_bool( $attributes[ $from ] ) ) {
+					$attributes[ $to ] = ( $attributes[ $from ] ) ? '1' : '0';
+				} else {
+					$attributes[ $to ] = $attributes[ $from ];
+				}
+
+				unset( $attributes[ $from ] );
+			}
+		}
+
+		$code = preg_replace( '#<pre [^>]+>([^<]+)?</pre>#', '$1', $content );
+
+		// Undo escaping done by WordPress
+		$code = str_replace( '&lt;', '<', $code );
+
+		return $this->shortcode_callback( $attributes, $code, 'code' );
 	}
 
 	// Add the custom TinyMCE plugin which wraps plugin shortcodes in <pre> in TinyMCE

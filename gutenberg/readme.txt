@@ -2,7 +2,7 @@
 Contributors: matveb, joen, karmatosed
 Requires at least: 4.9.8
 Tested up to: 5.0
-Stable tag: 4.7.0
+Stable tag: 4.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,54 +81,85 @@ See also <a href="https://github.com/WordPress/gutenberg/blob/master/CONTRIBUTIN
 
 = Latest =
 
-### Performance improvements
+### Performance
 
-* Optimize isViewportMatch
-* Performance: BlockListAppender: 1.7x increase on key press
-* Date: Optimize the usage of moment-timezone to save some kilobytes
-* RichText: selectionChange: bind on focus, unbind on blur
-* RichText: only replace range and nodes if different
-* Cache createBlock call in isUnmodifiedDefaultBlock
-* Edit Post: Select blocks only once multiple verified
-* RichText: Do not run valueToEditableHTML on every render
-* RichText: Reuse DOM document across calls to createEmpty
-* Only initialise TinyMCE once per instance
-* Optimize the insertion point component
-* Avoid rerending the current block if the previous block change
-* Avoid getBlock in block-list/block
-* Pass the registry argument to withDispatch to allow selectors to be used
+ - Improve page initialization time by optimizing the addHook function and the viewport state initialization.
+ - Improve typing performance by splitting the state tree.
+ - Optimize partial application of runSelector.
+ - Move selector calls to the event handles to avoid useless component rerenders.
+ - Render DropZone children only when dragging elements over it.
+ - Initialize variables only when needed.
 
-### Bug fixes
+### Enhancements
 
-* Annotations: Apply annotation className as string
-* RichText: Ensure instance is selected before setting back selection
-* Meta Boxes: Don’t hide disabled meta boxes by modifying DOM
-* Fix: Problems on Media & Text block resizing; Load wp-block-library styles before wp-edit-blocks
-* When a post is saved, check for tinymce and save any editors.
-* Fix: Undoing Image Selection from Media Library in Image Block breaks it
-* Add an end-to-end test for the HTML block
-* Fix regression when copying or cutting content in the editor
-* Fix issue where default appender has icons overlaying the text
-* Set document title for preview loading interstitial
-* Fix: Upload permissions error on end-to-end inline tokens test
-* Ensure classic block caret is in correct position after blur
-* Fix tab navigation sometimes skipping block UI
-* Improve font size picker accessibility: Use a menuitemradio role and better labels
-* Don’t show trashed reusable blocks in the editor or frontend
-* Rename functions, removing gutenberg_ prefix
-* Add block switcher end-to-end tests
-* Allow links in plugin group in the editor more menu
-* Introduce searching of block categories from slash inserter
-* Convert HTML formatting whitespace to spaces
-* Label link format with selected text, not full text
-* Ensure permalink panel is only displayed when a permalink is allowed
-* Allow the user to convert unembeddable URLs to links and try embedding again
-* Improve the top bar tools interaction and consistency
-* Fix overflowing content in the facebook embed preview screen
-* Add an action to set a category icon and correct block categories documentation
-* Fix: pasting a tag that is part of a transform and not matched ignores the content.
-* Packages: Extract Eslint config package
-* Add end-to-end test to catch revert of title during a preview after saving a draft
-* Avoid react warnings when merging two adjacent paragraphs
-* Avoid PHP notice in the recent comments block
-* Editor: Restore the block prop in the BlockListBlock filter
+ - Add error messages to the image block on upload failures.
+ - Merge similar i18n strings.
+ - Disable clipboard button in file block during upload.
+ - Persist alignment when transforming a gallery to an image and vice-versa.
+ - Copy enhancement to the embed block help text.
+ - Improve the scrolling of the WordPress navigation menu.
+
+### Bug Fixes
+
+ - Fix RTL support for the DatePicker component.
+ - Change the header level in the BlockCompare component.
+ - Show all the taxonomies in the sidebar.
+ - Fix the latest posts date className.
+ - Fix the “align center” button in Latest Posts block in the backend.
+ - Fix block height when DropCap is used.
+ - Fix converting caption shortcode with link.
+ - Fix edge case in addQueryArgs function.
+ - Don’t return the permalink if the CPT is not publicly viewable.
+ - Fix error when saving non public CPTs.
+ - Properly disable the Publish button when saving is disabled.
+
+### Various
+
+ - Show a message in the browser’s console when in Quirks Mode.
+ - Improvements to the @wordpress/scripts package: A new a check-engines command, a lint-style command and an update to lint-js.
+
+### Documentation
+
+ - Add a getting started with JavaScript tutorial.
+ - Document the blocks’ setup states in the design guidelines.
+ - Add content to Contributors index page.
+ - Improve the components documentation:
+    - The MenuItem component.
+    - The RadioControl component.
+    - The ServerSideRender component.
+ - Organise the documentation assets in a dedicated folder.
+ - Clarify immutability of the block attributes.
+ - Fix the metabox back compat code example.
+ - Fix incorrect data module example.
+ - Improve the plugin release docs.
+ - Remove useless property from the colors code example.
+ - Improve the contributing documentation.
+ - Fix npm README links.
+ - Update the design resources link.
+ - Typo fixes.
+
+### Chore
+
+ - Run e2e tests with popular plugins enabled.
+ - Add new e2e tests:
+    - The permalink panel.
+    - The categories panel.
+    - Blocks with meta attributes.
+ - Update node-sass to fix Node 11 support.
+ - Move the dev dependencies to the root package.json.
+ - Improve the Pull Request Template.
+ - More logs to the CI jobs.
+ - Code style fixes and expand the phpcs coverage.
+ - Disable fragile e2e tests.
+ - Avoid PHP notices when running the e2e tests in debug mode.
+
+### Mobile
+
+ - Make a simple version of DefaultBlockAppender.
+ - Stop using classname-to-style autotransform in react native.
+ - Fix SVG styles.
+ - Implement Enter press to add a default block.
+ - Hide keyboard when non textual block is selected.
+ - Fix undo/redo on new blocks.
+ - Pass the blockType prop to RNAztecView.
+ - Expose unregisterBlockType.

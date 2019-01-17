@@ -8,13 +8,24 @@
  * - Thoroughly test what happens when the default post statuses 'Draft' and 'Pending Review' no longer exist
  * - Ensure all of the form processing uses our messages functionality
  */
-if ( !class_exists( 'EF_Custom_Status' ) ) {
+
+
+ if ( !class_exists( 'EF_Custom_Status' ) ) {
 
 class EF_Custom_Status extends EF_Module {
 
 	var $module;
 
 	private $custom_statuses_cache = array();
+
+	/**
+	 * Define the hooks that need to be unhooked/rehooked to make the module Gutenberg-ready.
+	 *
+	 * @var array
+	 */
+	protected $compat_hooks = [
+		'admin_enqueue_scripts' => 'action_admin_enqueue_scripts',
+	];
 
 	// This is taxonomy name used to store all our custom statuses
 	const taxonomy_key = 'post_status';
@@ -59,10 +70,9 @@ class EF_Custom_Status extends EF_Module {
 				'title' => __('Overview', 'edit-flow'),
 				'content' => __('<p>Edit Flow’s custom statuses allow you to define the most important stages of your editorial workflow. Out of the box, WordPress only offers “Draft” and “Pending Review” as post states. With custom statuses, you can create your own post states like “In Progress”, “Pitch”, or “Waiting for Edit” and keep or delete the originals. You can also drag and drop statuses to set the best order for your workflow.</p><p>Custom statuses are fully integrated into the rest of Edit Flow and the WordPress admin. On the calendar and story budget, you can filter your view to see only posts of a specific post state. Furthermore, email notifications can be sent to a specific group of users when a post changes state.</p>', 'edit-flow'),
 				),
-			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/custom-statuses/">Custom Status Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
+			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/custom-statuses/">Custom Status Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/Automattic/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		$this->module = EditFlow()->register_module( 'custom_status', $args );
-
 	}
 
 	/**
@@ -112,6 +122,11 @@ class EF_Custom_Status extends EF_Module {
 		add_filter( 'post_row_actions', array( $this, 'fix_post_row_actions' ), 10, 2 );
 		add_filter( 'page_row_actions', array( $this, 'fix_post_row_actions' ), 10, 2 );
 
+		// Pagination for custom post statuses when previewing posts
+		add_filter( 'wp_link_pages_link', array( $this, 'modify_preview_link_pagination_url' ), 10, 2 );
+
+		// Filter through Post States and run a function to check if they are also a Status
+		add_filter( 'display_post_states', array( $this, 'check_if_post_state_is_status' ), 10, 2 );
 	}
 
 	/**
@@ -166,7 +181,7 @@ class EF_Custom_Status extends EF_Module {
 
 		// Okay, now add the default statuses to the db if they don't already exist
 		foreach( $default_terms as $term ) {
-			if( !term_exists( $term['term'] ) )
+			if( !term_exists( $term['term'], self::taxonomy_key ) )
 				$this->add_custom_status( $term['term'], $term['args'] );
 		}
 
@@ -297,7 +312,18 @@ class EF_Custom_Status extends EF_Module {
 		if ( $this->is_whitelisted_page() ) {
 			wp_enqueue_script( 'edit_flow-custom_status', $this->module_url . 'lib/custom-status.js', array( 'jquery','post' ), EDIT_FLOW_VERSION, true );
 			wp_enqueue_style( 'edit_flow-custom_status', $this->module_url . 'lib/custom-status.css', false, EDIT_FLOW_VERSION, 'all' );
+			wp_localize_script('edit_flow-custom_status', '__ef_localize_custom_status', array(
+				'no_change' => esc_html__( "&mdash; No Change &mdash;", 'edit-flow' ),
+				'published' => esc_html__( 'Published', 'edit-flow' ),
+				'save_as'   => esc_html__( 'Save as', 'edit-flow' ),
+				'save'      => esc_html__( 'Save', 'edit-flow' ),
+				'edit'      => esc_html__( 'Edit', 'edit-flow' ),
+				'ok'        => esc_html__( 'OK', 'edit-flow' ),
+				'cancel'    => esc_html__( 'Cancel', 'edit-flow' ),
+			));
 		}
+
+
 	}
 
 	/**
@@ -358,25 +384,29 @@ class EF_Custom_Status extends EF_Module {
 		wp_get_current_user() ;
 
 		// Only add the script to Edit Post and Edit Page pages -- don't want to bog down the rest of the admin with unnecessary javascript
-		if ( !empty( $post ) && $this->is_whitelisted_page() ) {
+		if ( $this->is_whitelisted_page() ) {
 
 			$custom_statuses = $this->get_custom_statuses();
 
-			// Get the status of the current post
-			if ( $post->ID == 0 || $post->post_status == 'auto-draft' || $pagenow == 'edit.php' ) {
-				// TODO: check to make sure that the default exists
-				$selected = $this->get_default_custom_status()->slug;
-
-			} else {
-				$selected = $post->post_status;
-			}
-
-			// Get the current post status name
+			// $selected can be empty, but must be set because it's used as a JS variable
+			$selected = '';
 			$selected_name = '';
 
-			foreach ($custom_statuses as $status) {
-				if ($status->slug == $selected) {
-					$selected_name = $status->name;
+			if( ! empty( $post ) ) {
+				// Get the status of the current post
+				if ( $post->ID == 0 || $post->post_status == 'auto-draft' || $pagenow == 'edit.php' ) {
+					// TODO: check to make sure that the default exists
+					$selected = $this->get_default_custom_status()->slug;
+
+				} else {
+					$selected = $post->post_status;
+				}
+
+				// Get the label of current status
+				foreach ( $custom_statuses as $status ) {
+					if ( $status->slug == $selected ) {
+						$selected_name = $status->name;
+					}
 				}
 			}
 
@@ -419,7 +449,6 @@ class EF_Custom_Status extends EF_Module {
 			?>
 			<script type="text/javascript">
 				var custom_statuses = <?php echo json_encode( $all_statuses ); ?>;
-				var ef_text_no_change = '<?php echo esc_js( __( "&mdash; No Change &mdash;" ) ); ?>';
 				var ef_default_custom_status = '<?php echo esc_js( $this->get_default_custom_status()->slug ); ?>';
 				var current_status = '<?php echo esc_js( $selected ); ?>';
 				var current_status_name = '<?php echo esc_js( $selected_name ); ?>';
@@ -480,6 +509,16 @@ class EF_Custom_Status extends EF_Module {
 		// Reset our internal object cache
 		$this->custom_statuses_cache = array();
 
+		// Prevent user from changing draft name or slug
+		if ( 'draft' === $old_status->slug
+		     && (
+			     ( isset( $args['name'] ) && $args['name'] !== $old_status->name )
+			     ||
+			     ( isset( $args['slug'] ) && $args['slug'] !== $old_status->slug )
+		     ) ) {
+			return new WP_Error( 'invalid', __( 'Changing the name and slug of "Draft" is not allowed', 'edit-flow' ) );
+		}
+
 		// If the name was changed, we need to change the slug
 		if ( isset( $args['name'] ) && $args['name'] != $old_status->name )
 			$args['slug'] = sanitize_title( $args['name'] );
@@ -526,7 +565,7 @@ class EF_Custom_Status extends EF_Module {
 		// Reset our internal object cache
 		$this->custom_statuses_cache = array();
 
-		if( !$this->is_restricted_status( $old_status ) ) {
+		if( !$this->is_restricted_status( $old_status ) && 'draft' !== $old_status ) {
 			$default_status = $this->get_default_custom_status()->slug;
 			// If new status in $reassign, use that for all posts of the old_status
 			if( !empty( $reassign ) )
@@ -697,11 +736,26 @@ class EF_Custom_Status extends EF_Module {
 
 		if ( $column_name == 'status' ) {
 			global $post;
-			echo $this->get_post_status_friendly_name( $post->post_status );
+			$post_status_obj = get_post_status_object( get_post_status( $post->ID ) );
+			echo esc_html( $post_status_obj->label );
 		}
-
 	}
+	/**
+	 * Check if Post State is a Status and display if it is not.
+	 *
+	 * @param array $post_states An array of post display states.
+	 */
+	function check_if_post_state_is_status($post_states) {
 
+		global $post;
+		$statuses = get_post_status_object(get_post_status($post->ID));
+		foreach ( $post_states as $state ) {
+			if ( $state !== $statuses->label ) {
+				echo '<span class="show"></span>';
+			}
+		}
+			return $post_states;
+	}
 
 	/**
 	 * Determines whether the slug indicated belongs to a restricted status or not
@@ -766,7 +820,7 @@ class EF_Custom_Status extends EF_Module {
 		if ( strlen( $status_name ) > 20 )
 			$_REQUEST['form-errors']['name'] = __( 'Status name cannot exceed 20 characters. Please try a shorter name.', 'edit-flow' );
 		// Check to make sure the status doesn't already exist as another term because otherwise we'd get a weird slug
-		if ( term_exists( $status_slug ) )
+		if ( term_exists( $status_slug, self::taxonomy_key ) )
 			$_REQUEST['form-errors']['name'] = __( 'Status name conflicts with existing term. Please choose another.', 'edit-flow' );
 		// Check to make sure the name is not restricted
 		if ( $this->is_restricted_status( strtolower( $status_slug ) ) )
@@ -833,8 +887,8 @@ class EF_Custom_Status extends EF_Module {
 		if ( strlen( $name ) > 20 )
 			$_REQUEST['form-errors']['name'] = __( 'Status name cannot exceed 20 characters. Please try a shorter name.', 'edit-flow' );
 		// Check to make sure the status doesn't already exist as another term because otherwise we'd get a weird slug
-		$term_exists = term_exists( sanitize_title( $name ) );
-		if ( $term_exists && $term_exists != $existing_status->term_id )
+		$term_exists = term_exists( sanitize_title( $name ), self::taxonomy_key );
+		if ( $term_exists && isset( $term_exists['term_id'] ) && $term_exists['term_id'] != $existing_status->term_id )
 			$_REQUEST['form-errors']['name'] = __( 'Status name conflicts with existing term. Please choose another.', 'edit-flow' );
 		// Check to make sure the status doesn't already exist
 		$search_status = $this->get_custom_status_by( 'slug', sanitize_title( $name ) );
@@ -1044,8 +1098,8 @@ class EF_Custom_Status extends EF_Module {
 		}
 
 		// Check to make sure the status doesn't already exist as another term because otherwise we'd get a fatal error
-		$term_exists = term_exists( sanitize_title( $status_name ) );
-		if ( $term_exists && $term_exists != $term_id ) {
+		$term_exists = term_exists( sanitize_title( $status_name ), self::taxonomy_key );
+		if ( $term_exists && isset( $term_exists['term_id'] ) && $term_exists['term_id'] != $term_id ) {
 			$change_error = new WP_Error( 'invalid', __( 'Status name conflicts with existing term. Please choose another.', 'edit-flow' ) );
 			die( $change_error->get_error_message() );
 		}
@@ -1166,7 +1220,7 @@ class EF_Custom_Status extends EF_Module {
 		<table class="form-table">
 			<tr class="form-field form-required">
 				<th scope="row" valign="top"><label for="name"><?php _e( 'Custom Status', 'edit-flow' ); ?></label></th>
-				<td><input name="name" id="name" type="text" value="<?php echo esc_attr( $name ); ?>" size="40" aria-required="true" />
+				<td><input name="name" id="name" type="text" value="<?php echo esc_attr( $name ); ?>" size="40" aria-required="true" <?php if( 'draft' === $status->slug ) echo 'readonly="readonly"' ?> />
 				<?php $edit_flow->settings->helper_print_error_or_description( 'name', __( 'The name is used to identify the status. (Max: 20 characters)', 'edit-flow' ) ); ?>
 				</td>
 			</tr>
@@ -1330,7 +1384,7 @@ class EF_Custom_Status extends EF_Module {
 		}
 
 		//If empty, keep empty.
-		if ( empty( $postarr['post_date_gmt'] ) 
+		if ( empty( $postarr['post_date_gmt'] )
 		|| '0000-00-00 00:00:00' == $postarr['post_date_gmt'] ) {
 			$data['post_date_gmt'] = '0000-00-00 00:00:00';
 		}
@@ -1339,18 +1393,25 @@ class EF_Custom_Status extends EF_Module {
 	}
 
 	/**
-	 * Another hack! hack! hack! until core better supports custom statuses
+	 * Another hack! hack! hack! until core better supports custom statuses`
 	 *
 	 * @since 0.7.4
 	 *
 	 * Keep the post_name value empty for posts with custom statuses
 	 * Unless they've set it customly
-	 * @see https://github.com/danielbachhuber/Edit-Flow/issues/123
+	 * @see https://github.com/Automattic/Edit-Flow/issues/123
 	 * @see http://core.trac.wordpress.org/browser/tags/3.4.2/wp-includes/post.php#L2530
 	 * @see http://core.trac.wordpress.org/browser/tags/3.4.2/wp-includes/post.php#L2646
 	 */
 	public function fix_post_name( $post_id, $post ) {
 		global $pagenow;
+
+		/*
+		 * Filters the $post object that will be modified
+		 *
+		 * @param $post WP_Post Post object being processed.
+		 */
+		$post = apply_filters( 'ef_fix_post_name_post', $post );
 
 		// Only modify if we're using a pre-publish status on a supported custom post type
 		$status_slugs = wp_list_pluck( $this->get_custom_statuses(), 'slug' );
@@ -1368,7 +1429,7 @@ class EF_Custom_Status extends EF_Module {
 		$wpdb->update( $wpdb->posts, array( 'post_name' => '' ), array( 'ID' => $post_id ) );
 		clean_post_cache( $post_id );
 	}
-	
+
 
 	/**
 	 * Another hack! hack! hack! until core better supports custom statuses
@@ -1389,7 +1450,7 @@ class EF_Custom_Status extends EF_Module {
 			|| 'post.php' != $pagenow
 			|| !in_array( $post->post_status, $status_slugs )
 			|| !in_array( $post->post_type, $this->get_post_types_for_module( $this->module ) )
-			|| strpos( $preview_link, 'preview_id' ) !== false 
+			|| strpos( $preview_link, 'preview_id' ) !== false
 			|| $post->filter == 'sample' )
 			return $preview_link;
 
@@ -1437,10 +1498,10 @@ class EF_Custom_Status extends EF_Module {
 		return $this->get_preview_link( $post );
 	}
 
-	/** 
+	/**
 	 * Fix get_sample_permalink. Previosuly the 'editable_slug' filter was leveraged
 	 * to correct the sample permalink a user could edit on post.php. Since 4.4.40
-	 * the `get_sample_permalink` filter was added which allows greater flexibility in 
+	 * the `get_sample_permalink` filter was added which allows greater flexibility in
 	 * manipulating the slug. Critical for cases like editing the sample permalink on
 	 * hierarchical post types.
 	 * @since 0.8.2
@@ -1500,8 +1561,8 @@ class EF_Custom_Status extends EF_Module {
 
 	/**
 	 * Hack to work around post status check in get_sample_permalink_html
-	 * 
-	 * 
+	 *
+	 *
 	 * The get_sample_permalink_html checks the status of the post and if it's
 	 * a draft generates a certain permalink structure.
 	 * We need to do the same work it's doing for custom statuses in order
@@ -1509,7 +1570,7 @@ class EF_Custom_Status extends EF_Module {
 	 * @see https://core.trac.wordpress.org/browser/tags/4.5.2/src/wp-admin/includes/post.php#L1296
 	 *
 	 * @since 0.8.2
-	 * 
+	 *
 	 * @param string  $return    Sample permalink HTML markup
 	 * @param int 	  $post_id   Post ID
 	 * @param string  $new_title New sample permalink title
@@ -1579,6 +1640,47 @@ class EF_Custom_Status extends EF_Module {
 		}
 
 		return $return;
+	}
+
+
+	/**
+	 * Fixes a bug where post-pagination doesn't work when previewing a post with a custom status
+	 * @link https://github.com/Automattic/Edit-Flow/issues/192
+	 *
+	 * This filter only modifies output if `is_preview()` is true
+	 *
+	 * Used by `wp_link_pages_link` filter
+	 *
+	 * @param $link
+	 * @param $i
+	 *
+	 * @return string
+	 */
+	function modify_preview_link_pagination_url( $link, $i ) {
+
+		// Use the original $link when not in preview mode
+		if( ! is_preview() ) {
+			return $link;
+		}
+
+		// Get an array of valid custom status slugs
+		$custom_statuses = wp_list_pluck( $this->get_custom_statuses(), 'slug');
+
+		// Apply original link filters from core `wp_link_pages()`
+		$r = apply_filters( 'wp_link_pages_args', array(
+				'link_before' => '',
+				'link_after'  => '',
+				'pagelink'    => '%',
+			)
+		);
+
+		// _wp_link_page() && _ef_wp_link_page() produce an opening link tag ( <a href=".."> )
+		// This is necessary to replicate core behavior:
+		$link = $r['link_before'] . str_replace( '%', $i, $r['pagelink'] ) . $r['link_after'];
+		$link = _ef_wp_link_page( $i, $custom_statuses ) . $link . '</a>';
+
+
+		return $link;
 	}
 
 	/**
@@ -1811,11 +1913,12 @@ class EF_Custom_Status_List_Table extends WP_List_Table
 		$actions = array();
 		$actions['edit'] = "<a href='$item_edit_link'>" . __( 'Edit', 'edit-flow' ) . "</a>";
 		$actions['inline hide-if-no-js'] = '<a href="#" class="editinline">' . __( 'Quick&nbsp;Edit' ) . '</a>';
-		if ( $item->slug != $this->default_status )
-			$actions['make_default'] = sprintf( '<a href="%1$s">' . __( 'Make&nbsp;Default', 'edit-flow' ) . '</a>', $edit_flow->custom_status->get_link( array( 'action' => 'make-default', 'term-id' => $item->term_id ) ) );
+		$actions['make_default'] = sprintf( '<a href="%1$s">' . __( 'Make&nbsp;Default', 'edit-flow' ) . '</a>', $edit_flow->custom_status->get_link( array( 'action' => 'make-default', 'term-id' => $item->term_id ) ) );
 
-		if ( $item->slug != $this->default_status )
+		// Prevent deleting draft status
+		if( 'draft' !== $item->slug && $item->slug !== $this->default_status  ) {
 			$actions['delete delete-status'] = sprintf( '<a href="%1$s">' . __( 'Delete', 'edit-flow' ) . '</a>', $edit_flow->custom_status->get_link( array( 'action' => 'delete-status', 'term-id' => $item->term_id ) ) );
+		}
 
 		$output .= $this->row_actions( $actions, false );
 		$output .= '<div class="hidden" id="inline_' . esc_attr( $item->term_id ) . '">';
