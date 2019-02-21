@@ -24,6 +24,7 @@ jQuery( function( $ ) {
 
 			if ( $( document.body ).hasClass( 'woocommerce-order-pay' ) ) {
 				this.$order_review.on( 'click', 'input[name="payment_method"]', this.payment_method_selected );
+				this.$order_review.attr( 'novalidate', 'novalidate' );
 			}
 
 			// Prevent HTML5 validation which can conflict.
@@ -77,10 +78,12 @@ jQuery( function( $ ) {
 				$payment_methods.eq(0).prop( 'checked', true );
 			}
 
-			if ( $payment_methods.length > 1 ) {
+			// Get name of new selected method.
+			var checkedPaymentMethod = $payment_methods.filter( ':checked' ).eq(0).prop( 'id' );
 
+			if ( $payment_methods.length > 1 ) {
 				// Hide open descriptions.
-				$( 'div.payment_box' ).filter( ':visible' ).slideUp( 0 );
+				$( 'div.payment_box:not(".' + checkedPaymentMethod + '")' ).filter( ':visible' ).slideUp( 0 );
 			}
 
 			// Trigger click event for selected method

@@ -5,12 +5,12 @@
  * @package   user-switching
  * @link      https://github.com/johnbillion/user-switching
  * @author    John Blackbourn <john@johnblackbourn.com>
- * @copyright 2009-2018 John Blackbourn
+ * @copyright 2009-2019 John Blackbourn
  * @license   GPL v2 or later
  *
  * Plugin Name:  User Switching
  * Description:  Instant switching between user accounts in WordPress
- * Version:      1.4.0
+ * Version:      1.4.2
  * Plugin URI:   https://johnblackbourn.com/wordpress-plugin-user-switching/
  * Author:       John Blackbourn & contributors
  * Author URI:   https://github.com/johnbillion/user-switching/graphs/contributors
@@ -263,8 +263,8 @@ class user_switching {
 	 */
 	protected static function get_redirect( WP_User $new_user = null, WP_User $old_user = null ) {
 		if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-			$redirect_to           = self::remove_query_args( wp_unslash( $_REQUEST['redirect_to'] ) ); // WPCS: sanitization ok
-			$requested_redirect_to = wp_unslash( $_REQUEST['redirect_to'] ); // WPCS: sanitization ok
+			$redirect_to           = self::remove_query_args( wp_unslash( $_REQUEST['redirect_to'] ) );
+			$requested_redirect_to = wp_unslash( $_REQUEST['redirect_to'] );
 		} else {
 			$redirect_to           = '';
 			$requested_redirect_to = '';
@@ -330,7 +330,8 @@ class user_switching {
 					 * @param bool    $just_switched   Whether the user made the switch on this page request.
 					 */
 					$message = apply_filters( 'user_switching_switched_message', $message, $user, $old_user, $switch_back_url, $just_switched );
-					echo $message; // WPCS: XSS ok.
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo $message;
 				?>
 				</p>
 			</div>
@@ -404,14 +405,11 @@ class user_switching {
 	}
 
 	/**
-	 * Adds a 'Switch back to {user}' link to the account menu in WordPress' admin bar.
+	 * Adds a 'Switch back to {user}' link to the account menu, and a `Switch To` link to the user edit menu.
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar The admin bar object.
 	 */
 	public function action_admin_bar_menu( WP_Admin_Bar $wp_admin_bar ) {
-		if ( ! function_exists( 'is_admin_bar_showing' ) ) {
-			return;
-		}
 		if ( ! is_admin_bar_showing() ) {
 			return;
 		}
@@ -461,6 +459,33 @@ class user_switching {
 				'title'  => esc_html__( 'Switch Off', 'user-switching' ),
 				'href'   => $url,
 			) );
+		}
+
+		if ( ! is_admin() && is_author() ) {
+			if ( $old_user ) {
+				$wp_admin_bar->add_menu( array(
+					'parent' => 'edit',
+					'id'     => 'author-switch-back',
+					'title'  => esc_html( sprintf(
+						/* Translators: 1: user display name; 2: username; */
+						__( 'Switch back to %1$s (%2$s)', 'user-switching' ),
+						$old_user->display_name,
+						$old_user->user_login
+					) ),
+					'href'   => add_query_arg( array(
+						'redirect_to' => urlencode( self::current_url() ),
+					), self::switch_back_url( $old_user ) ),
+				) );
+			} elseif ( current_user_can( 'switch_to_user', get_queried_object_id() ) ) {
+				$wp_admin_bar->add_menu( array(
+					'parent' => 'edit',
+					'id'     => 'author-switch-to',
+					'title'  => esc_html__( 'Switch&nbsp;To', 'user-switching' ),
+					'href'   => add_query_arg( array(
+						'redirect_to' => urlencode( self::current_url() ),
+					), self::switch_to_url( get_queried_object() ) ),
+				) );
+			}
 		}
 	}
 
@@ -532,7 +557,7 @@ class user_switching {
 				), $url );
 			} elseif ( ! empty( $_REQUEST['redirect_to'] ) ) {
 				$url = add_query_arg( array(
-					'redirect_to' => urlencode( wp_unslash( $_REQUEST['redirect_to'] ) ), // WPCS: sanitization ok
+					'redirect_to' => urlencode( wp_unslash( $_REQUEST['redirect_to'] ) ),
 				), $url );
 			}
 
@@ -965,7 +990,7 @@ if ( ! function_exists( 'user_switching_get_olduser_cookie' ) ) {
 	 */
 	function user_switching_get_olduser_cookie() {
 		if ( isset( $_COOKIE[ USER_SWITCHING_OLDUSER_COOKIE ] ) ) {
-			return wp_unslash( $_COOKIE[ USER_SWITCHING_OLDUSER_COOKIE ] ); // WPCS: sanitization ok
+			return wp_unslash( $_COOKIE[ USER_SWITCHING_OLDUSER_COOKIE ] );
 		} else {
 			return false;
 		}
@@ -986,7 +1011,7 @@ if ( ! function_exists( 'user_switching_get_auth_cookie' ) ) {
 		}
 
 		if ( isset( $_COOKIE[ $auth_cookie_name ] ) && is_string( $_COOKIE[ $auth_cookie_name ] ) ) {
-			$cookie = json_decode( wp_unslash( $_COOKIE[ $auth_cookie_name ] ) ); // WPCS: sanitization ok
+			$cookie = json_decode( wp_unslash( $_COOKIE[ $auth_cookie_name ] ) );
 		}
 		if ( ! isset( $cookie ) || ! is_array( $cookie ) ) {
 			$cookie = array();

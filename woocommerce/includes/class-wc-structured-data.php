@@ -153,7 +153,7 @@ class WC_Structured_Data {
 		$data  = $this->get_structured_data( $types );
 
 		if ( $data ) {
-			echo '<script type="application/ld+json">' . wp_json_encode( $data ) . '</script>';
+			echo '<script type="application/ld+json">' . wc_esc_json( wp_json_encode( $data ), true ) . '</script>';
 		}
 	}
 
@@ -195,15 +195,16 @@ class WC_Structured_Data {
 		$shop_name = get_bloginfo( 'name' );
 		$shop_url  = home_url();
 		$currency  = get_woocommerce_currency();
+		$permalink = get_permalink( $product->get_id() );
 
 		$markup = array(
 			'@type' => 'Product',
-			'@id'   => get_permalink( $product->get_id() ),
+			'@id'   => $permalink . '#product', // Append '#product' to differentiate between this @id and the @id generated for the Breadcrumblist.
 			'name'  => $product->get_name(),
 		);
 
 		if ( apply_filters( 'woocommerce_structured_data_product_limit', is_product_taxonomy() || is_shop() ) ) {
-			$markup['url'] = $markup['@id'];
+			$markup['url'] = $permalink;
 
 			$this->set_data( apply_filters( 'woocommerce_structured_data_product_limited', $markup, $product ) );
 			return;
@@ -250,7 +251,7 @@ class WC_Structured_Data {
 			$markup_offer += array(
 				'priceCurrency' => $currency,
 				'availability'  => 'https://schema.org/' . ( $product->is_in_stock() ? 'InStock' : 'OutOfStock' ),
-				'url'           => $markup['@id'],
+				'url'           => $permalink,
 				'seller'        => array(
 					'@type' => 'Organization',
 					'name'  => $shop_name,

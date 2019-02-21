@@ -136,13 +136,13 @@ module.exports = get;
 
 
 /***/ }),
-/* 12 */,
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = tribe.common.utils.globals;
 
 /***/ }),
+/* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
@@ -317,13 +317,13 @@ module.exports = baseGetTag;
 /* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash_trim__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
 /* harmony import */ var lodash_trim__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_trim__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash_identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(52);
+/* harmony import */ var lodash_identity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(51);
 /* harmony import */ var lodash_identity__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_identity__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var querystringify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(90);
 /* harmony import */ var querystringify__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(querystringify__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _moderntribe_common_utils_globals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _moderntribe_common_utils_globals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(12);
 /* harmony import */ var _moderntribe_common_utils_globals__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_moderntribe_common_utils_globals__WEBPACK_IMPORTED_MODULE_5__);
 
 
@@ -492,8 +492,7 @@ module.exports = Symbol;
 /* 48 */,
 /* 49 */,
 /* 50 */,
-/* 51 */,
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 /**
@@ -520,10 +519,10 @@ module.exports = identity;
 
 
 /***/ }),
+/* 52 */,
 /* 53 */,
 /* 54 */,
-/* 55 */,
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(36),
@@ -566,6 +565,7 @@ module.exports = isFunction;
 
 
 /***/ }),
+/* 56 */,
 /* 57 */,
 /* 58 */,
 /* 59 */,
@@ -745,7 +745,7 @@ module.exports = toKey;
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isFunction = __webpack_require__(56),
+var isFunction = __webpack_require__(55),
     isLength = __webpack_require__(84);
 
 /**
@@ -1442,7 +1442,7 @@ g = (function() {
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
+	g = g || new Function("return this")();
 } catch (e) {
 	// This works if the window reference is available
 	if (typeof window === "object") g = window;
@@ -2249,7 +2249,7 @@ module.exports = overArg;
 
 var baseMatches = __webpack_require__(413),
     baseMatchesProperty = __webpack_require__(416),
-    identity = __webpack_require__(52),
+    identity = __webpack_require__(51),
     isArray = __webpack_require__(21),
     property = __webpack_require__(417);
 
@@ -2600,7 +2600,7 @@ module.exports = hashClear;
 /* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isFunction = __webpack_require__(56),
+var isFunction = __webpack_require__(55),
     isMasked = __webpack_require__(183),
     isObject = __webpack_require__(43),
     toSource = __webpack_require__(120);

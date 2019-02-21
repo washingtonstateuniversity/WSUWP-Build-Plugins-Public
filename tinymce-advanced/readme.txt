@@ -3,7 +3,7 @@ Contributors: azaozz
 Tags: block editor, classic editor, editor, Gutenberg, formatting, tinymce, write
 Requires at least: 4.9.8
 Tested up to: 5.0
-Stable tag: 4.8.2
+Stable tag: 5.0.0
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -47,6 +47,10 @@ In that terms TinyMCE Advanced does not affect your website's user privacy in an
 Best is to install directly from WordPress. If manual installation is required, please make sure that the plugin files are in a folder named "tinymce-advanced" (not two nested folders) in the WordPress plugins folder, usually "wp-content/plugins".
 
 == Changelog ==
+
+= 5.0.1 =
+* Fixed importing of backed-up settings.
+* Updated the FAQ section in the readme.
 
 = 5.0.0 = 
 * Added several new buttons to the rich-text toolbar in the Block Editor.
@@ -222,19 +226,39 @@ Includes an admin page for arranging the TinyMCE toolbar buttons, easy installat
 
 == Frequently Asked Questions ==
 
-= No styles are imported in the Formats sub-menu. =
+= I see an error like: "Failed to load plugin from url..." =
+
+These errors are usually caused by the file in question being blocked by some security setting on the server, or (rarely) by caching issues or wrong permissions.
+
+The first step to debug this is to try to access the file directly in the browser (i.e. copy the URL and paste in the browser and press Enter).
+
+If you see the file (that’s usually minified JS, so it is all on one line) chances are it was some sort of caching issue that is now resolved. Try using the editor again.
+
+If you see an HTTP error (like 403 or 500) best would be to contact your web hosting company for help. In some cases deleting and re-installing the plugin may help.
+
+= Tables look different (inline styles are missing) when I insert a table =
+
+How tables are formatted depends on two things:
+1. Settings for the "table" plugin in TinyMCE.
+2. Whether you resize the table by dragging.
+
+By default TinyMCE Advanced sets the editor so no additional styles are added to tables. That way tables are displayed exactly how the theme intended to. This can be changed by changing some editor settings. That can be done by using the [Advanced TinyMCE Configuration](https://wordpress.org/plugins/advanced-tinymce-configuration/) plugin. All table related editor settings are described here: https://www.tiny.cloud/docs/plugins/table/#table_default_attributes.
+
+Regardless of the above settings if you resize a table by dragging the height and/or width of the table tag and cell tags will be set as inline styles.
+
+= No styles are imported in the Formats sub-menu =
 
 These styles are imported from your current theme editor-style.css file. However some themes do not have this functionality. For these themes TinyMCE Advanced has the option to let you add a customized editor-style.css and import it into the editor.
 
-= I have just installed this plugin, but it does not do anything. =
+= I have just installed this plugin, but it does not do anything =
 
 Change some buttons on one of the toolbars, save your changes, clear your browser cache, and try again. If that does not work try reloading the Edit page several times while holding down Shift. There may also be a network cache somewhere between you and your host. You may need to wait for a few hours until this cache expires.
 
-= When I add "Smilies", they do not show in the editor. =
+= When I add "Smilies", they do not show in the editor =
 
 The "Emoticons" button in TinyMCE adds the codes for the smilies. The actual images are added by WordPress when viewing the Post. Make sure the checkbox "Convert emoticons to graphics on display" in "Options - Writing" is checked.
 
-= The plugin does not add any buttons. =
+= The plugin does not add any buttons =
 
 Make sure the "Disable the visual editor when writing" checkbox under "Users - Your Profile" is **not** checked.
 

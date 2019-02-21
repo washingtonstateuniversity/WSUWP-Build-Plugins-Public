@@ -3,7 +3,7 @@
 Plugin Name: TinyMCE Advanced
 Plugin URI: http://www.laptoptips.ca/projects/tinymce-advanced/
 Description: Enables advanced features and plugins in TinyMCE, the visual editor in WordPress.
-Version: 5.0.0
+Version: 5.0.1
 Author: Andrew Ozz
 Author URI: http://www.laptoptips.ca/
 License: GPL2
@@ -1032,9 +1032,11 @@ class Tinymce_Advanced {
 			if ( ! empty( $_POST[ 'selected_text_background_color' ] ) && $_POST[ 'selected_text_background_color' ] === 'yes' ) {
 				$panels_block[] = 'tadv/background-color-panel';
 			}
+
+			$panels_block = implode( ',', $panels_block );
 		}
 
-		$settings[ 'panels_block' ] = implode( ',', $panels_block );
+		$settings[ 'panels_block' ] = $panels_block;
 
 		if ( ! empty( $user_settings['options'] ) ) {
 			$options = explode( ',', $user_settings['options'] );

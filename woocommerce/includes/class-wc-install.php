@@ -119,7 +119,11 @@ class WC_Install {
 		),
 		'3.5.2' => array(
 			'wc_update_352_drop_download_log_fk',
-		)
+		),
+		'3.5.4' => array(
+			'wc_update_354_modify_shop_manager_caps',
+			'wc_update_354_db_version',
+		),
 	);
 
 	/**
@@ -954,7 +958,6 @@ CREATE TABLE {$wpdb->prefix}woocommerce_termmeta (
 				'read'                   => true,
 				'read_private_pages'     => true,
 				'read_private_posts'     => true,
-				'edit_users'             => true,
 				'edit_posts'             => true,
 				'edit_pages'             => true,
 				'edit_published_posts'   => true,
@@ -1362,7 +1365,7 @@ CREATE TABLE {$wpdb->prefix}woocommerce_termmeta (
 	}
 
 	/**
-	 * Removes redirect added during MailChimp plugin's activation.
+	 * Removes redirect added during Mailchimp plugin's activation.
 	 *
 	 * @param string $option Option name.
 	 * @param string $value  Option value.
