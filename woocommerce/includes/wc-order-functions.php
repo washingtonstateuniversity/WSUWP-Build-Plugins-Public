@@ -145,7 +145,7 @@ function wc_get_order_status_name( $status ) {
  * @return string The order key.
  */
 function wc_generate_order_key() {
-	return 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' . wp_generate_password( 13, false ) );
+	return 'wc_' . apply_filters( 'woocommerce_generate_order_key', 'order_' . wp_generate_password( 8, false ) );
 }
 
 /**
