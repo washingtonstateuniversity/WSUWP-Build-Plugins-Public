@@ -50,6 +50,7 @@ class S3_Uploads {
 		add_action( 'delete_attachment', array( $this, 'set_original_file' ) );
 		add_filter( 'wp_delete_file', array( $this, 'wp_filter_delete_file' ) );
 		add_filter( 'wp_read_image_metadata', array( $this, 'wp_filter_read_image_metadata' ), 10, 2 );
+		add_filter( 'wp_resource_hints', array( $this, 'wp_filter_resource_hints' ), 10, 2 );
 		remove_filter( 'admin_notices', 'wpthumb_errors' );
 
 		add_action( 'wp_handle_sideload_prefilter', array( $this, 'filter_sideload_move_temp_file_to_s3' ) );
@@ -253,6 +254,21 @@ class S3_Uploads {
 		add_filter( 'wp_read_image_metadata', array( $this, 'wp_filter_read_image_metadata' ), 10, 2 );
 		unlink( $temp_file );
 		return $meta;
+	}
+
+	/**
+	 * Add the DNS address for the S3 Bucket to list for DNS prefetch.
+	 *
+	 * @param $hints
+	 * @param $relation_type
+	 * @return array
+	 */
+	function wp_filter_resource_hints( $hints, $relation_type ) {
+		if ( 'dns-prefetch' === $relation_type ) {
+			$hints[] = $this->get_s3_url();
+		}
+
+		return $hints;
 	}
 
 	/**
