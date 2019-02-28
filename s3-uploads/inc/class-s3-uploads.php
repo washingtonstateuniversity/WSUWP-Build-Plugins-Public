@@ -48,7 +48,7 @@ class S3_Uploads {
 		add_filter( 'upload_dir', array( $this, 'filter_upload_dir' ) );
 		add_filter( 'wp_image_editors', array( $this, 'filter_editors' ), 9 );
 		add_action( 'delete_attachment', array( $this, 'set_original_file' ) );
-		add_filter( 'wp_delete_file', array( $this, 'wp_filter_delete_file' ) );
+		//add_filter( 'wp_delete_file', array( $this, 'wp_filter_delete_file' ) );
 		add_filter( 'wp_read_image_metadata', array( $this, 'wp_filter_read_image_metadata' ), 10, 2 );
 		add_filter( 'wp_resource_hints', array( $this, 'wp_filter_resource_hints' ), 10, 2 );
 		remove_filter( 'admin_notices', 'wpthumb_errors' );
@@ -65,7 +65,7 @@ class S3_Uploads {
 		remove_filter( 'upload_dir', array( $this, 'filter_upload_dir' ) );
 		remove_filter( 'wp_image_editors', array( $this, 'filter_editors' ), 9 );
 		remove_filter( 'wp_handle_sideload_prefilter', array( $this, 'filter_sideload_move_temp_file_to_s3' ) );
-		remove_filter( 'wp_delete_file', array( $this, 'wp_filter_delete_file' ) );
+		//remove_filter( 'wp_delete_file', array( $this, 'wp_filter_delete_file' ) );
 	}
 
 	/**
