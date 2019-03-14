@@ -533,13 +533,13 @@ class WP_Document_Revisions {
 		$my_rules = array();
 
 		// revisions in the form of yyyy/mm/[slug]-revision-##.[extension], yyyy/mm/[slug]-revision-##.[extension]/, yyyy/mm/[slug]-revision-##/ and yyyy/mm/[slug]-revision-##
-		$my_rules[ $slug . '/([0-9]{4})/([0-9]{1,2})/([^.]+)-' . __( 'revision', 'wp-document-revisions' ) . '-([0-9]+)\.[A-Za-z0-9]{3,4}/?$' ] = 'index.php?year=$matches[1]&monthnum=$matches[2]&document=$matches[3]&revision=$matches[4]';
+		$my_rules[ $slug . '/([0-9]{4})/([0-9]{1,2})/([^.]+)-' . __( 'revision', 'wp-document-revisions' ) . '-([0-9]+)\.[A-Za-z0-9]{3,5}/?$' ] = 'index.php?year=$matches[1]&monthnum=$matches[2]&document=$matches[3]&revision=$matches[4]';
 
 		// revision feeds in the form of yyyy/mm/[slug]-revision-##.[extension]/feed/, yyyy/mm/[slug]-revision-##/feed/, etc.
-		$my_rules[ $slug . '/([0-9]{4})/([0-9]{1,2})/([^.]+)(\.[A-Za-z0-9]{3,4})?/feed/?$' ] = 'index.php?year=$matches[1]&monthnum=$matches[2]&document=$matches[3]&feed=feed';
+		$my_rules[ $slug . '/([0-9]{4})/([0-9]{1,2})/([^.]+)(\.[A-Za-z0-9]{3,5})?/feed/?$' ] = 'index.php?year=$matches[1]&monthnum=$matches[2]&document=$matches[3]&feed=feed';
 
 		// documents in the form of yyyy/mm/[slug]-revision-##.[extension], yyyy/mm/[slug]-revision-##.[extension]/
-		$my_rules[ $slug . '/([0-9]{4})/([0-9]{1,2})/([^.]+)\.[A-Za-z0-9]{3,4}/?$' ] = 'index.php?year=$matches[1]&monthnum=$matches[2]&document=$matches[3]';
+		$my_rules[ $slug . '/([0-9]{4})/([0-9]{1,2})/([^.]+)\.[A-Za-z0-9]{3,5}/?$' ] = 'index.php?year=$matches[1]&monthnum=$matches[2]&document=$matches[3]';
 
 		// site.com/documents/ should list all documents that user has access to (private, public)
 		$my_rules[ $slug . '/?$' ] = 'index.php?post_type=document';
