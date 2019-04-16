@@ -45694,6 +45694,7 @@ var event_datetime_style = __webpack_require__(641);
  */
 
 
+
 /**
  * WordPress dependencies
  */
@@ -45724,18 +45725,22 @@ var template_EventDateTime = function (_PureComponent) {
 		}
 
 		return _ret = (_temp = (_this = possibleConstructorReturn_default()(this, (_ref = EventDateTime.__proto__ || Object.getPrototypeOf(EventDateTime)).call.apply(_ref, [this].concat(args))), _this), _this.render = function () {
-			return [wp.element.createElement(controls_container, null), wp.element.createElement(
-				'section',
-				{
-					key: 'event-datetime',
-					className: 'tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook'
-				},
-				wp.element.createElement(external_var_wp_editor_root_wp_editor_["InnerBlocks"], {
-					template: _this.template,
-					templateLock: 'all',
-					templateInsertUpdatesSelection: false
-				})
-			)];
+			return wp.element.createElement(
+				external_React_["Fragment"],
+				null,
+				wp.element.createElement(controls_container, null),
+				wp.element.createElement(
+					'section',
+					{
+						className: 'tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook'
+					},
+					wp.element.createElement(external_var_wp_editor_root_wp_editor_["InnerBlocks"], {
+						template: _this.template,
+						templateLock: 'all',
+						templateInsertUpdatesSelection: false
+					})
+				)
+			);
 		}, _temp), possibleConstructorReturn_default()(_this, _ret);
 	}
 
@@ -46135,34 +46140,39 @@ var template_EventDateTimeContent = function (_Component) {
 			    isEditable = _this$props8.isEditable;
 
 
-			return [wp.element.createElement(controls_container, null), showDateInput && isEditable ? wp.element.createElement(human_readable_input_container, { after: _this.renderExtras() }) : wp.element.createElement(
+			return wp.element.createElement(
 				external_React_["Fragment"],
 				null,
-				wp.element.createElement(
-					'h2',
-					{ className: 'tribe-editor__subtitle__headline' },
+				wp.element.createElement(controls_container, null),
+				showDateInput && isEditable ? wp.element.createElement(human_readable_input_container, { after: _this.renderExtras() }) : wp.element.createElement(
+					external_React_["Fragment"],
+					null,
 					wp.element.createElement(
-						'div',
-						{ className: 'tribe-editor__subtitle__headline-content' },
+						'h2',
+						{ className: 'tribe-editor__subtitle__headline' },
 						wp.element.createElement(
-							'button',
-							{
-								className: 'tribe-editor__btn--label',
-								onClick: onDateTimeLabelClick,
-								disabled: !isEditable
-							},
-							_this.renderStartDate(),
-							_this.renderStartTime(),
-							(multiDay || !allDay) && _this.renderSeparator('time-range'),
-							_this.renderEndDate(),
-							_this.renderEndTime(),
-							allDay && _this.renderSeparator('all-day')
-						),
-						_this.renderExtras()
-					)
-				),
-				wp.element.createElement(hook, null)
-			)];
+							'div',
+							{ className: 'tribe-editor__subtitle__headline-content' },
+							wp.element.createElement(
+								'button',
+								{
+									className: 'tribe-editor__btn--label',
+									onClick: onDateTimeLabelClick,
+									disabled: !isEditable
+								},
+								_this.renderStartDate(),
+								_this.renderStartTime(),
+								(multiDay || !allDay) && _this.renderSeparator('time-range'),
+								_this.renderEndDate(),
+								_this.renderEndTime(),
+								allDay && _this.renderSeparator('all-day')
+							),
+							_this.renderExtras()
+						)
+					),
+					wp.element.createElement(hook, null)
+				)
+			);
 		}, _temp), possibleConstructorReturn_default()(_this, _ret);
 	}
 
@@ -46573,45 +46583,50 @@ var template_EventDateTimeDashboard = function (_PureComponent) {
 			    isDashboardOpen = _props.isDashboardOpen;
 
 
-			return [wp.element.createElement(controls_container, null), wp.element.createElement(
-				modules_elements["Dashboard"],
-				{ isOpen: isDashboardOpen },
+			return wp.element.createElement(
+				external_React_["Fragment"],
+				null,
+				wp.element.createElement(controls_container, null),
 				wp.element.createElement(
-					external_React_["Fragment"],
-					null,
+					modules_elements["Dashboard"],
+					{ isOpen: isDashboardOpen },
 					wp.element.createElement(
-						'section',
-						{ className: 'tribe-editor__calendars' },
-						this.renderCalendars()
-					),
-					wp.element.createElement(
-						'footer',
-						{ className: 'tribe-editor__subtitle__footer' },
+						external_React_["Fragment"],
+						null,
 						wp.element.createElement(
-							'div',
-							{ className: 'tribe-editor__subtitle__footer-date' },
-							wp.element.createElement(
-								'div',
-								{ className: 'tribe-editor__subtitle__time-pickers' },
-								this.renderStartTimePicker(),
-								(multiDay || !allDay) && wp.element.createElement(
-									'span',
-									{ className: classnames_default()('tribe-editor__separator', 'tribe-editor__time-picker__separator') },
-									' '.concat(separatorTime, ' ')
-								),
-								this.renderEndTimePicker()
-							),
-							wp.element.createElement(
-								'div',
-								{ className: 'tribe-editor__subtitle__footer-multiday' },
-								this.renderMultiDayToggle()
-							)
+							'section',
+							{ className: 'tribe-editor__calendars' },
+							this.renderCalendars()
 						),
-						wp.element.createElement(dashboard_hook, null),
-						!this.shouldHideUpsell && wp.element.createElement(modules_elements["Upsell"], null)
+						wp.element.createElement(
+							'footer',
+							{ className: 'tribe-editor__subtitle__footer' },
+							wp.element.createElement(
+								'div',
+								{ className: 'tribe-editor__subtitle__footer-date' },
+								wp.element.createElement(
+									'div',
+									{ className: 'tribe-editor__subtitle__time-pickers' },
+									this.renderStartTimePicker(),
+									(multiDay || !allDay) && wp.element.createElement(
+										'span',
+										{ className: classnames_default()('tribe-editor__separator', 'tribe-editor__time-picker__separator') },
+										' '.concat(separatorTime, ' ')
+									),
+									this.renderEndTimePicker()
+								),
+								wp.element.createElement(
+									'div',
+									{ className: 'tribe-editor__subtitle__footer-multiday' },
+									this.renderMultiDayToggle()
+								)
+							),
+							wp.element.createElement(dashboard_hook, null),
+							!this.shouldHideUpsell && wp.element.createElement(modules_elements["Upsell"], null)
+						)
 					)
 				)
-			)];
+			);
 		}
 	}, {
 		key: 'shouldHideUpsell',
