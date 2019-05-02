@@ -1,9 +1,9 @@
 === TinyMCE Advanced ===
 Contributors: azaozz
 Tags: block editor, classic editor, editor, Gutenberg, formatting, tinymce, write
-Requires at least: 4.9.8
-Tested up to: 5.0
-Stable tag: 5.0.0
+Requires at least: 5.1
+Tested up to: 5.1
+Stable tag: 5.1.0
 Requires PHP: 5.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -47,6 +47,9 @@ In that terms TinyMCE Advanced does not affect your website's user privacy in an
 Best is to install directly from WordPress. If manual installation is required, please make sure that the plugin files are in a folder named "tinymce-advanced" (not two nested folders) in the WordPress plugins folder, usually "wp-content/plugins".
 
 == Changelog ==
+
+= 5.1.0 =
+* Updated for WordPress 5.1 and TinyMCE 4.9.2.
 
 = 5.0.1 =
 * Fixed importing of backed-up settings.

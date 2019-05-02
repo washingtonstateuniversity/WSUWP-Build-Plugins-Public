@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-19 05:58:15+0000\n"
+"PO-Revision-Date: 2019-04-12 14:45:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,15 +25,15 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "メールの追加"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "サイトの追加"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "電話番号の追加"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr ""
+msgstr "タイムゾーン"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
@@ -85,11 +85,11 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "国"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "名前: "
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
@@ -112,7 +112,7 @@ msgstr ""
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "イベント日時"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
@@ -137,7 +137,7 @@ msgstr ""
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
@@ -151,7 +151,7 @@ msgstr ""
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "イベントカテゴリー"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
@@ -166,7 +166,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
 msgid "Loading the Image"
-msgstr ""
+msgstr "画像を読み込み中"
 
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
@@ -491,7 +491,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
-msgstr ""
+msgstr "（ここをクリックして詳細を表示）"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
@@ -499,7 +499,7 @@ msgstr ""
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
-msgstr ""
+msgstr "詳細を追加..."
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
@@ -521,7 +521,7 @@ msgstr ""
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "%s 前"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
@@ -566,7 +566,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:123
 msgid "click here"
-msgstr ""
+msgstr "ここをクリック"
 
 #: src/admin-views/aggregator/settings.php:121
 msgid "If you want to stop and clear current asynchronous import processes %1$s."
@@ -590,7 +590,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:77
 msgid "Read More"
-msgstr ""
+msgstr "続きを読む"
 
 #: src/Tribe/Google/Maps_API_Key.php:72
 msgid "The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s."

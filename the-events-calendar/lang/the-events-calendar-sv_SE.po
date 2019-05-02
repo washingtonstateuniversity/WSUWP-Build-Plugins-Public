@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-02-23 15:27:05+0000\n"
+"PO-Revision-Date: 2019-04-02 20:18:27+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -203,12 +203,12 @@ msgstr ""
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Evenemangsplats"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
 msgid "Let visitors know the cost of this event or if it’s free to attend."
-msgstr ""
+msgstr "Låt besökarna veta kostnaden för detta evenemang eller om det är gratis att delta."
 
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018

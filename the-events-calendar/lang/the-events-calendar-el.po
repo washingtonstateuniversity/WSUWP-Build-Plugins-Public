@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-02-08 07:03:36+0000\n"
+"PO-Revision-Date: 2019-04-23 09:24:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,47 +13,47 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:48214
 msgid "Edit Organizer"
-msgstr ""
+msgstr "Επεξεργασία Διοργανωτή"
 
 #: src/resources/js/app/blocks.js:48211
 msgid "Organizer Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Διοργανωτή"
 
 #: src/resources/js/app/blocks.js:48137
 msgid "Add or find an organizer"
-msgstr ""
+msgstr "Πρόσθεσε ή αναζήτησε ένα Διοργανωτή"
 
 #: src/resources/js/app/blocks.js:47979
 msgid "Add email"
-msgstr ""
+msgstr "Πρόσθεσε email"
 
 #: src/resources/js/app/blocks.js:47972
 msgid "Add website"
-msgstr ""
+msgstr "Πρόσθεσε ιστότοπο"
 
 #: src/resources/js/app/blocks.js:47965
 msgid "Add Phone"
-msgstr ""
+msgstr "Πρόσθεσε Τηλέφωνο"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Ρυθμίσεις τόπου συνάντησης"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Πρόσθεσε ή αναζήτησε τόπο συνάντησης"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(Τόπος Συνάντησης χωρίς τίτλο)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Πολλές Ημέρες"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "Εμφάνισε Ζώνη 'Ωρας"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
@@ -69,7 +69,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Προσθήκη ή Αναζήτηση"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
@@ -89,17 +89,17 @@ msgstr "Χώρα"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Όνομα:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Περιεχόμενο Ημέρας Ώρας Γεγονότος"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "Πίνακας Ρυθμίσεων Ημέρας Ώρας Γεγονότος"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -112,12 +112,12 @@ msgstr "Όρισε την ημερομηνία, την ώρα και τη διά
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Ημέρα Ώρα Γεγονότος"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
 msgid "Is there another website for this event? Link to it with a button!"
-msgstr ""
+msgstr "Υπάρχει κάποιο άλλος Ιστότοπος για αυτό το γεγονός; Σύνδεσέ το με ένα κουμπί."
 
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
@@ -141,7 +141,7 @@ msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Εμφάνισε τον Χάρτη της Google ενσωματωμένο"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
@@ -151,7 +151,7 @@ msgstr ""
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "Κατηγορίες Εκδηλώσεων"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
@@ -177,7 +177,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "Επιλεγμένη Εικόνα"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
@@ -193,7 +193,7 @@ msgstr ""
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "Ετικέτες"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
@@ -293,7 +293,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:147
 #: src/resources/js/app/blocks.js:45161 src/resources/js/app/blocks.js:48821
 msgid "Price Settings"
-msgstr ""
+msgstr "Ρυθμίσεις κόστους"
 
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
@@ -303,7 +303,7 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "Ρυθμίσεις Ημέρας Ώρας"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
@@ -328,12 +328,12 @@ msgstr "Ιστότοπος:"
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Λήξη:"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Έναρξη: "
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
@@ -348,29 +348,29 @@ msgstr ""
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
-msgstr ""
+msgstr "(Χωρίς Τίτλο)"
 
 #: src/modules/elements/upsell/element.js:33
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
@@ -409,37 +409,37 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Εμφάνιση Χάρτη"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Ενεργοποίηση Χάρτη"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "Εμφάνιση σύνδεσμου Χάρτη;"
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
 #: src/admin-views/venue-meta-box.php:202
 #: src/admin-views/venue-meta-box.php:238
 msgid "Show Map Link:"
-msgstr ""
+msgstr "Εμφάνιση Συνδέσμου Χάρτη:"
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "Εμφάνιση Χάρτη;"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
 #: src/admin-views/venue-meta-box.php:185
 #: src/admin-views/venue-meta-box.php:221
 msgid "Show Map:"
-msgstr ""
+msgstr "Εμφάνιση Χάρτη:"
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
-msgstr ""
+msgstr "Ρυθμίσεις Επεξεργαστή Κρυμμένων Στοιχείων "
 
 #: src/Tribe/Editor/Compatibility.php:111
 msgid "Enable early access to the new Gutenberg block editor interface for creating events."
@@ -451,7 +451,7 @@ msgstr ""
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "Προσθήκη κειμένου στο κουμπί"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
@@ -6353,7 +6353,7 @@ msgstr "Πρόσθετα Ανώτερης Ποιότητας"
 
 #: common/src/Tribe/Admin/Help_Page.php:823
 msgid "WordPress "
-msgstr "WordPress "
+msgstr ""
 
 #: common/src/Tribe/Admin/Help_Page.php:822
 #: common/src/admin-views/app-shop.php:77

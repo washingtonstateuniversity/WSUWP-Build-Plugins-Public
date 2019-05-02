@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-28 00:23:36+0000\n"
+"PO-Revision-Date: 2019-03-28 22:46:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:11712 src/resources/js/app/elements.js:8338
 msgid "Country"
-msgstr ""
+msgstr "מדינה"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
@@ -137,7 +137,7 @@ msgstr ""
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
@@ -151,7 +151,7 @@ msgstr ""
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
 msgid "Event Categories"
-msgstr ""
+msgstr "סיווגי אירוע"
 
 #: src/modules/blocks/event-category/block.js:46
 #: src/resources/js/app/blocks.js:49112
@@ -228,7 +228,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
@@ -1055,7 +1055,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:684
 msgid "No upcoming Eventbrite events found."
-msgstr ""
+msgstr "לא נמצאו אירועים עתידיים של Eventbrite."
 
 #: src/Tribe/Aggregator/Service.php:683
 msgid "Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href=\"https://theeventscalendar.com/knowledgebase/import-errors/\" target=\"_blank\">read more about Eventbrite restrictions in our knowledgebase</a>."
@@ -1115,7 +1115,7 @@ msgstr ""
 #: src/Tribe/Admin/Notice/Timezones.php:74
 #: src/Tribe/Editor/Compatibility.php:104
 msgid "Read more"
-msgstr ""
+msgstr "קרא עוד"
 
 #: src/Tribe/Admin/Notice/Marketing.php:78
 msgctxt "2018 user survey"
@@ -1140,11 +1140,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:407
 msgid "one month"
-msgstr ""
+msgstr "חודש אחד"
 
 #: src/Tribe/Aggregator/Settings.php:395
 msgid "one week"
-msgstr ""
+msgstr "שבוע אחד"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:577
 msgctxt "when the retry will happen, a date"
@@ -1317,7 +1317,7 @@ msgstr ""
 #: src/Tribe/iCal.php:438
 msgctxt "iCal feed description"
 msgid "Events for %s"
-msgstr ""
+msgstr "אירועים ל %s"
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
@@ -2101,7 +2101,7 @@ msgstr ""
 #: src/admin-views/organizer-meta-box.php:45
 #: src/admin-views/create-organizer-fields.php:19
 msgid "The e-mail address will be obfuscated on this site to avoid it getting harvested by spammers."
-msgstr ""
+msgstr "כתובת הדוא\"ל תטושטש באתר כדי למנוע מספאמרים לגשת אליה."
 
 #: src/Tribe/Main.php:1103
 msgid "edit Events settings."
@@ -2109,7 +2109,7 @@ msgstr "ערוך את הגדרות האירועים."
 
 #: src/Tribe/Main.php:1094
 msgid "Edit the %s slug"
-msgstr ""
+msgstr "ערוך את הסלאג %s"
 
 #: src/Tribe/Linked_Posts.php:1178
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
@@ -2124,11 +2124,11 @@ msgstr ""
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:396
 msgid "Hide and Ignore &#8220;%s&#8221;"
-msgstr ""
+msgstr "הסתר והתעלם &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:251
 msgid "Clear Selection."
-msgstr ""
+msgstr "נקה בחירה."
 
 #: common/src/Tribe/Main.php:250
 msgid "Select all pages"
@@ -2136,7 +2136,7 @@ msgstr "בחר את כל העמודים"
 
 #: common/src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "כל הפריטים בעמוד זה נבחרו."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -2144,63 +2144,63 @@ msgstr "הוסף מקורות נוספים"
 
 #: src/Tribe/Aggregator/Service.php:207
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
-msgstr ""
+msgstr "שרת צובר האירועים חסם את הבקשה שלך. אנא נסה לייבא שוב מאוחר יותר או צור קשר עם התמיכה כדי לדעת למה."
 
 #: src/Tribe/Customizer/General_Theme.php:311
 msgid "Featured Highlight Color"
-msgstr ""
+msgstr "צבע דגש נבחר"
 
 #: src/Tribe/Aggregator/Service.php:235
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
-msgstr ""
+msgstr "התגובה משרת צובר האירועים לא נוצרה היטב ולא ניתן היה להבין אותה. אנא נסה שוב."
 
 #: src/Tribe/Integrations/WPML/Defaults.php:117
 msgid "The Events Calendar could not write WPML default config file: please create the file manually."
-msgstr ""
+msgstr "לוח האירועים לא יכל לכתוב קובץ עריכה ברירת מחדל של WPML: נא ליצור את הקובץ באופן ידני."
 
 #: common/src/Tribe/Plugins_API.php:94
 msgid "Accept user-submitted events on your site! With Community Events, you can accept public submissions or require account sign-on. Settings give you the options to save as a draft or publish automatically, enable categories and tags, and choose whether users can edit/manage their own events or simply submit. Best of all - setup is easy! Just activate, configure the options, and off you go."
-msgstr ""
+msgstr "קבלו אירועים שנשלחו בידי משתמשים לאתר שלכם! עם אירועי קהילה, ניתן לקבל שליחות ובקשות ציבוריות או לבקש הרשמת משתמש. ההגדרות מאפשרות לכם לשמור את האירוע כטיוטה או לפרסמו באופן אוטומטי, לאפשר קטגוריות ותגיות, ולבחור האם משתמשים יכולים לערוך\\לנהל את האירועים שלהם או רק לשלוח. והכי טוב- התפעול פשוט! רק הפעילו, הגדירו את האפשרויות, וצאו לדרך."
 
 #: common/src/Tribe/Plugins_API.php:60
 msgid "Event Tickets provides a simple way for visitors to RSVP to your events. As a standalone plugin, it enables you to add RSVP functionality to posts or pages. When paired with The Events Calendar, you can add that same RSVP functionality directly to your event listings."
-msgstr ""
+msgstr "כרטיסי אירוע מאפשר לכם דרך פשוטה למשתמשים לאשר הגעה לאירועים שלכם. כתוסף בפני עצמו, הוא מאפשר לכם להוסיף פונקציונליות אישור הגעה לפוסטים או עמודים. כאשר מצוות ללוח האירועים, ניתן להוסיף את אותה פונקציונליות אישור הגעה ישירות לדף האירוע."
 
 #: common/src/Tribe/Plugins_API.php:28
 msgid "Create an events calendar and manage it with ease. The Events Calendar plugin provides professional-level quality and features backed by a team you can trust."
-msgstr ""
+msgstr "צור לוח אירועים ונהל אותו בקלות. לוח האירועים הוא תוסף לוח שנה המספק איכות ברמה מקצועית ופיצ'רים המגובים בצוות עליו ניתן לסמוך."
 
 #: common/src/Tribe/PUE/Checker.php:1103
 msgid "There is a new version of %1$s available. %2$s"
-msgstr ""
+msgstr "קיימת גרסה חדשה של %1$s. %2$s"
 
 #: common/src/Tribe/PUE/Checker.php:1092
 msgid "Update now to version %s."
-msgstr ""
+msgstr "שדרג עכשיו לגרסה %s."
 
 #: common/src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
-msgstr ""
+msgstr "המקור \"%s\" אינו תקין ולא ניתן להגיע אליו במקרה \"%s\"."
 
 #: common/src/Tribe/Ajax/Dropdown.php:193
 msgid "Empty data set for this dropdown"
-msgstr ""
+msgstr "רוקן את מערכת המידע לתפריט נגלל זה."
 
 #: common/src/Tribe/Ajax/Dropdown.php:180
 msgid "Missing data source for this dropdown"
-msgstr ""
+msgstr "חסר מקור מידע לרשימה הנפתחת הזו."
 
 #: common/src/Tribe/Ajax/Dropdown.php:38
 msgid "Cannot look for Terms without a taxonomy"
-msgstr ""
+msgstr "לא ניתן לחפש תנאים ללא טקסונומיה."
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:24
 msgid "The event WordPress post ID"
-msgstr ""
+msgstr "מזהה פוסט האירוע בוורדפרס"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:350
 msgid "Something went wrong while inserting the record in the database."
-msgstr ""
+msgstr "משהו השתבש בזמן הכנסת המידע למאגר המידע."
 
 #: common/src/Tribe/PUE/Notices.php:397
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
@@ -2633,7 +2633,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:374
 msgid "Returns all the upcoming events matching the search criteria"
-msgstr ""
+msgstr "אחזר את כל האירועים העתידיים המתאימים לחיפוש"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:382
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:53
@@ -2905,12 +2905,12 @@ msgstr ""
 #: src/functions/template-tags/loop.php:218
 msgctxt "day_view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s ליום %2$s"
 
 #: src/functions/template-tags/loop.php:209
 msgctxt "month view"
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s לחודש %2$s"
 
 #: src/admin-views/tribe-options-display.php:208
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\">Read more</a>."
@@ -4087,7 +4087,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/ical.php:108
 #: src/admin-views/aggregator/origins/meetup.php:162
 msgid "Preview"
-msgstr "תצוגה מקדימה"
+msgstr "מבט מקדים"
 
 #: src/admin-views/aggregator/origins/ics.php:35
 #: src/admin-views/aggregator/origins/csv.php:68
@@ -4932,7 +4932,7 @@ msgstr[1] "סה''כ <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
-msgstr "הגשה"
+msgstr "החל"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:228
 #: src/Tribe/Aggregator/Record/List_Table.php:229
@@ -5372,11 +5372,11 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:255
 msgid "Previous"
-msgstr "הקודם"
+msgstr "קודם"
 
 #: common/src/Tribe/Main.php:253
 msgid "All"
-msgstr "כולם"
+msgstr "הכל"
 
 #: common/src/Tribe/Main.php:248
 msgid "Search:"
@@ -5678,7 +5678,7 @@ msgstr "הבא %s"
 
 #: src/views/list/nav.php:28
 msgid "Previous %s"
-msgstr "הקודם %s"
+msgstr "%s קודמים"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
@@ -5866,7 +5866,7 @@ msgstr ""
 #: common/src/Tribe/Main.php:276
 #: src/deprecated/Tribe__Events__Asset__Bootstrap_Datepicker.php:27
 msgid "Clear"
-msgstr "בהיר"
+msgstr "נקה"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:257
 msgid "Add another %s"
@@ -6082,7 +6082,7 @@ msgstr "לוח האירועים הוא תוסף מעוצב בקפידה, הני�
 
 #: src/views/widgets/list-widget.php:118
 msgid "There are no upcoming %s at this time."
-msgstr "אין %s בתקופה הקרובה בשלב זה."
+msgstr "אין %s עתידיים כרגע."
 
 #: src/views/widgets/list-widget.php:112
 msgid "View All %s"
@@ -6147,7 +6147,7 @@ msgstr ""
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:136
 msgid "Draft"
-msgstr "טיוטה"
+msgstr "טיוטא"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:135
 msgid "Pending"
@@ -6179,7 +6179,7 @@ msgstr "%1$s של %2$s - %3$s"
 
 #: src/functions/template-tags/loop.php:187
 msgid "Upcoming %s"
-msgstr "עתידי %s"
+msgstr "%s עתידיים"
 
 #: src/functions/template-tags/google-map.php:80
 #: src/resources/js/app/blocks.js:47023
@@ -6252,7 +6252,7 @@ msgstr "פרטים"
 
 #: src/admin-views/widget-admin-list.php:31
 msgid "Show widget only if there are upcoming events"
-msgstr ""
+msgstr "הצג את הוידג'ט רק אם יש אירועים עתידיים"
 
 #: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
@@ -6728,7 +6728,7 @@ msgstr ""
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"
-msgstr "צפיה"
+msgstr "הצג"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:366
 #: src/modules/elements/edit-link/element.js:49
@@ -6886,7 +6886,7 @@ msgstr "בדקו את פריימר המשתמש החדש והדרכות"
 
 #: src/admin-views/admin-welcome-message.php:40
 msgid "Getting Started"
-msgstr "מתחילים"
+msgstr "הבה נתחיל"
 
 #: src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
@@ -6974,7 +6974,7 @@ msgstr "הורד קובץ .ics"
 #: src/resources/js/app/blocks.js:48444 src/resources/js/app/blocks.js:48527
 #: src/resources/js/app/blocks.js:48626
 msgid "Google Calendar"
-msgstr "לוח השנה של Google"
+msgstr "יומן גוגל"
 
 #: src/Tribe/iCal.php:88 src/views/blocks/event-links.php:34
 msgid "Add to Google Calendar"
@@ -8328,7 +8328,7 @@ msgstr "אין לך הרשאות לבצע פעולה זו."
 
 #: common/src/Tribe/Settings.php:371 src/Tribe/Aggregator/Page.php:92
 msgid "Save Changes"
-msgstr "שמירת שינויים"
+msgstr "שמור שינויים"
 
 #: common/src/Tribe/Settings.php:363
 msgid "You've requested a non-existent tab."
@@ -8434,7 +8434,7 @@ msgstr "הוספת %s"
 
 #: src/Tribe/Main.php:4128 src/Tribe/Admin/Bar/Default_Configurator.php:45
 msgid "View Calendar"
-msgstr "צפיה בלוח שנה"
+msgstr "הצג לוח שנה"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:18
 msgid "%s"
@@ -8506,11 +8506,11 @@ msgstr "היום"
 
 #: common/src/Tribe/Main.php:272
 msgid "Prev"
-msgstr "&lt; הקודם"
+msgstr "קודם"
 
 #: common/src/Tribe/Main.php:254 common/src/Tribe/Main.php:271
 msgid "Next"
-msgstr "הבא &gt;"
+msgstr "בא"
 
 #: src/Tribe/Linked_Posts.php:1139
 msgid "No saved %s exists."
@@ -8544,7 +8544,7 @@ msgstr "%s משוחזר לגרסה מתוך %s"
 #. translators: Publish box date format, see http://php.net/date
 #: src/Tribe/Main.php:2036 src/Tribe/Main.php:2064 src/Tribe/Main.php:2084
 msgid "M j, Y @ G:i"
-msgstr "‏M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
 
 #: src/Tribe/Main.php:2025 src/Tribe/Main.php:2058 src/Tribe/Main.php:2078
 msgid "%s saved."
@@ -8562,11 +8562,11 @@ msgstr "%s עודכן."
 
 #: src/Tribe/Main.php:2015 src/Tribe/Main.php:2053 src/Tribe/Main.php:2073
 msgid "Custom field deleted."
-msgstr "שדה מיוחד נמחק. "
+msgstr "שדה מוצאם אישית נמחק."
 
 #: src/Tribe/Main.php:2014 src/Tribe/Main.php:2052 src/Tribe/Main.php:2072
 msgid "Custom field updated."
-msgstr "שדה מיוחד עודכן. "
+msgstr "שדה מותאם אישית עודכן."
 
 #: src/Tribe/Main.php:1992
 msgid "New %s Category Name"
@@ -8632,7 +8632,7 @@ msgstr "הוספת %s חדשים"
 
 #: src/Tribe/Main.php:1967 src/Tribe/Venue.php:110 src/Tribe/Organizer.php:91
 msgid "Add New"
-msgstr "הוספה"
+msgstr "הוסף חדש"
 
 #: src/Tribe/Main.php:1934 src/Tribe/Main.php:2373
 msgid "tag"
@@ -8690,7 +8690,7 @@ msgstr "עבר"
 
 #: src/Tribe/Main.php:864
 msgid "upcoming"
-msgstr "אירועים קרובים"
+msgstr "עתידי"
 
 #: src/Tribe/Main.php:863
 msgid "list"
@@ -8745,7 +8745,7 @@ msgstr "מקומות"
 
 #: src/Tribe/List_Widget.php:239
 msgid "Upcoming Events"
-msgstr "אירועים קרובים"
+msgstr "אירועים עתידיים"
 
 #: src/Tribe/List_Widget.php:38
 msgid "Events List"
@@ -8753,7 +8753,7 @@ msgstr "לרשימת האירועים"
 
 #: src/Tribe/List_Widget.php:30
 msgid "A widget that displays upcoming events."
-msgstr "רכיב להצגת אירועים קרובים."
+msgstr "ווידג'ט המציג אירועים עתידיים."
 
 #: common/src/Tribe/Settings.php:643
 #: src/deprecated/Tribe__Events__Importer__Options.php:55
@@ -8907,7 +8907,7 @@ msgstr "תאריך התחלה"
 
 #: src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Description"
-msgstr "תיאור האירוע"
+msgstr "תיאור אירוע"
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Name"
@@ -8965,7 +8965,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:61
 #: src/resources/js/app/blocks.js:48717
 msgid "Free"
-msgstr "חינמוש"
+msgstr "חופשי"
 
 #: src/Tribe/Cost_Utils.php:120
 msgctxt "Cost range separator"
@@ -9050,7 +9050,7 @@ msgstr ""
 #: src/Tribe/Admin/Bar/Default_Configurator.php:62 src/Tribe/Venue.php:112
 #: src/Tribe/Organizer.php:93
 msgid "Edit %s"
-msgstr "עריכת %s"
+msgstr "ערוך %s"
 
 #: src/Tribe/Main.php:5048 src/Tribe/Main.php:5105
 msgid "Use Saved %s:"

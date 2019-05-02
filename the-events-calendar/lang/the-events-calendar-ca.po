@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-16 08:58:19+0000\n"
+"PO-Revision-Date: 2019-03-19 03:26:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgstr "Mostra la zona horària"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
-msgstr "Zona horària"
+msgstr "Fus horari"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
@@ -73,11 +73,11 @@ msgstr "Afeix o troba"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
-msgstr ""
+msgstr "Es requereix una clau d'API de Google Maps per veure el mapa"
 
 #: src/resources/js/app/blocks.js:12479 src/resources/js/app/elements.js:9105
 msgid "The map does not have valid coordinates nor a valid address"
-msgstr ""
+msgstr "El mapa no té coordenades vàlides ni una adreça vàlida"
 
 #: src/resources/js/app/blocks.js:12389 src/resources/js/app/elements.js:9015
 msgid "Make sure Google Maps Library is included on this page."
@@ -89,17 +89,17 @@ msgstr "País"
 
 #: src/resources/js/app/blocks.js:11444 src/resources/js/app/elements.js:8070
 msgid "Name:"
-msgstr ""
+msgstr "Nom:"
 
 #: src/modules/blocks/event-datetime/subblocks/content/index.js:23
 #: src/resources/js/app/blocks.js:46184
 msgid "Event Date Time Content"
-msgstr ""
+msgstr "Contingut de la data i hora de l'esdeveniment"
 
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "Consola de la data i hora de l'esdeveniment"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -107,12 +107,12 @@ msgstr ""
 #: src/resources/js/app/blocks.js:46185 src/resources/js/app/blocks.js:46660
 #: src/resources/js/app/blocks.js:46745
 msgid "Define the date, time, and duration for your event."
-msgstr ""
+msgstr "Defineix la data, hora i durada del vostre esdeveniment."
 
 #: src/modules/blocks/event-datetime/index.js:27
 #: src/resources/js/app/blocks.js:46744
 msgid "Event Date Time"
-msgstr ""
+msgstr "Data i hora de l'esdeveniment"
 
 #: src/modules/blocks/event-website/index.js:22
 #: src/resources/js/app/blocks.js:49446
@@ -132,21 +132,21 @@ msgstr ""
 #: src/modules/blocks/event-links/index.js:21
 #: src/resources/js/app/blocks.js:48613
 msgid "Event Sharing"
-msgstr ""
+msgstr "Compartir esdeveniment"
 
 #: src/modules/blocks/event-links/template.js:108
 #: src/resources/js/app/blocks.js:48532
 msgid "iCal"
-msgstr ""
+msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Mostra el Google Maps incrustat"
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
 msgid "Show assigned event categories as links to their respective archives."
-msgstr ""
+msgstr "Mostra les categories d'esdeveniments assignades com a enllaços als seus respectius arxius."
 
 #: src/modules/blocks/event-category/index.js:21
 #: src/resources/js/app/blocks.js:49142
@@ -166,7 +166,7 @@ msgstr "Mostra la imatge destacada en el contingut de la publicació."
 #: src/modules/blocks/featured-image/block.js:80
 #: src/resources/js/app/blocks.js:49562
 msgid "Loading the Image"
-msgstr ""
+msgstr "S'està carregant imatge"
 
 #: src/modules/blocks/featured-image/block.js:65
 #: src/resources/js/app/blocks.js:49551
@@ -228,39 +228,39 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
 msgid "Fixed Price or Range"
-msgstr ""
+msgstr "Preu fixe o rang"
 
 #: src/modules/blocks/event-price/template.js:43
 #: src/resources/js/app/blocks.js:48696
 msgid "Add Price"
-msgstr ""
+msgstr "Afegeix preu"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:40
 #: src/resources/js/app/blocks.js:44712
 msgid "Remove Organizer"
-msgstr ""
+msgstr "Elimina organitzador"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:62
 #: src/resources/js/app/blocks.js:44842
 msgid "Add existing Organizer"
-msgstr ""
+msgstr "Afegeix organitzador existent"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:61
 #: src/resources/js/app/blocks.js:44841
 msgid "Search for an organizer"
-msgstr ""
+msgstr "Cerca un organitzador"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/template.js:25
 #: src/resources/js/app/blocks.js:11429 src/resources/js/app/blocks.js:11538
 #: src/resources/js/app/blocks.js:44791 src/resources/js/app/elements.js:8055
 #: src/resources/js/app/elements.js:8164
 msgid "Create Organizer"
-msgstr ""
+msgstr "Crea un organitzador"
 
 #: src/modules/blocks/classic-event-details/index.js:22
 #: src/resources/js/app/blocks.js:45285
@@ -282,7 +282,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:150
 #: src/resources/js/app/blocks.js:45168 src/resources/js/app/blocks.js:48824
 msgid " Currency Symbol"
-msgstr ""
+msgstr "Símbol de moneda"
 
 #: src/modules/blocks/classic-event-details/template.js:186
 #: src/resources/js/app/blocks.js:45163
@@ -298,17 +298,17 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
 msgid "Is All Day Event"
-msgstr ""
+msgstr "L'esdeveniment dura tot el dia"
 
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "Configuració de Data i Hora"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
 msgid "Event Category:"
-msgstr ""
+msgstr "Categoria de l'esdeveniment:"
 
 #: src/modules/blocks/classic-event-details/template.js:122
 #: src/resources/js/app/blocks.js:45091 src/resources/js/app/blocks.js:45895
@@ -323,54 +323,54 @@ msgstr ""
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Pàgina web"
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "Finalització"
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "Inici"
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
 msgid "List a host or coordinator for this event."
-msgstr ""
+msgstr "Llista lloc o coordinadors per l'esdeveniment."
 
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
 msgid "Event Organizer"
-msgstr ""
+msgstr "Organitzador de l'esdeveniment"
 
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
 #: src/resources/js/app/blocks.js:11083 src/resources/js/app/blocks.js:44700
 #: src/resources/js/app/elements.js:7709
 msgid "(Untitled)"
-msgstr ""
+msgstr "(sense títol)"
 
 #: src/modules/elements/upsell/element.js:33
 #: src/resources/js/app/blocks.js:13490 src/resources/js/app/elements.js:10116
@@ -387,11 +387,11 @@ msgstr ""
 #: common/src/resources/js/app/elements.js:9791
 #: common/src/resources/js/app/utils.js:7339
 msgid "at"
-msgstr ""
+msgstr " a "
 
 #: src/views/blocks/event-datetime.php:80
 msgid "All day"
-msgstr ""
+msgstr "Tot el dia"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
@@ -409,33 +409,33 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:456
 #: src/admin-views/aggregator/settings.php:524
 msgid "Show Map"
-msgstr ""
+msgstr "Mostra el mapa"
 
 #: src/admin-views/tribe-options-general.php:243
 msgid "Enable Maps"
-msgstr ""
+msgstr "Activa els mapes"
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "Mostra l'enllaç del mapa?"
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
 #: src/admin-views/venue-meta-box.php:202
 #: src/admin-views/venue-meta-box.php:238
 msgid "Show Map Link:"
-msgstr ""
+msgstr "Mostra l'enllaç del mapa:"
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "Mostrar el mapa?"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
 #: src/admin-views/venue-meta-box.php:185
 #: src/admin-views/venue-meta-box.php:221
 msgid "Show Map:"
-msgstr ""
+msgstr "Mostra el mapa:"
 
 #: src/Tribe/Editor/Compatibility.php:118
 msgid "Hidden Blocks Editor Config"
@@ -451,11 +451,11 @@ msgstr ""
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "Afegeix botó de text"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
-msgstr ""
+msgstr "Organitzadors de l'esdeveniment"
 
 #: src/Tribe/Aggregator/Record/CSV.php:104
 msgid "Unknown Column "
@@ -471,7 +471,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:106
 msgid "Download the eBook"
-msgstr ""
+msgstr "Descarrega l'eBook"
 
 #: src/Tribe/Admin/Notice/Marketing.php:100
 msgid "Get up to speed with our comprehensive Guide to Gutenberg ebook, then see how events and tickets will behave in the block editor by installing our free Events Gutenberg extension."
@@ -499,34 +499,34 @@ msgstr ""
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
-msgstr ""
+msgstr "Afegeix un descripció..."
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
-msgstr ""
+msgstr "j \\d\\e F \\d\\e Y G:i"
 
 #: common/src/Tribe/Editor/Configuration.php:96
 #: src/resources/js/app/blocks.js:45852 src/resources/js/app/blocks.js:46326
 msgid "F j"
-msgstr ""
+msgstr "F j"
 
 #: common/src/Tribe/Editor/Configuration.php:95
 msgid "F j, Y"
-msgstr ""
+msgstr "j \\d\\e F \\d\\e Y"
 
 #: common/src/Tribe/Editor/Configuration.php:94
 msgid "g:i a"
-msgstr ""
+msgstr "G:i"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "fa %s"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s a partir d'ara"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
@@ -610,7 +610,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:699
 msgid "Asynchronous"
-msgstr ""
+msgstr "Asíncron"
 
 #: src/Tribe/Aggregator/Record/Unsupported.php:58
 msgid "Unsupported"
@@ -665,7 +665,7 @@ msgstr ""
 
 #: src/views/modules/bar.php:61
 msgid "%s Search"
-msgstr ""
+msgstr "Cerca %s"
 
 #: src/views/modules/bar.php:87 src/views/modules/bar.php:93
 msgid "View %s As"
@@ -717,7 +717,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:43
 msgid "API Keys"
-msgstr ""
+msgstr "Claus API"
 
 #: src/admin-views/privacy.php:41
 msgid "When purchasing Eventbrite Tickets, attendee, purchaser, and order information are stored and managed by Eventbrite."
@@ -745,11 +745,11 @@ msgstr ""
 
 #: src/admin-views/privacy.php:28
 msgid "Event information: website, cost, description, date, time, image"
-msgstr ""
+msgstr "Informació de l'esdeveniment: pàgina web, preu, descripció, data, hora, imatge"
 
 #: src/admin-views/privacy.php:27
 msgid "Organizer information: name, phone, website, email"
-msgstr ""
+msgstr "Informació de l'organització: nom, telèfon, pàgina web, correu electrònic"
 
 #: src/admin-views/privacy.php:26
 msgid "Venue information: name, address, city, country, state, postal code, phone, website, geographical coordinates (latitude and longitude)"
@@ -761,7 +761,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:22 src/admin-views/privacy.php:47
 msgid "Suggested text:"
-msgstr ""
+msgstr "Text suggerit:"
 
 #: src/admin-views/privacy.php:21
 msgid "Through the usage of The Events Calendar, Events Calendar PRO, The Events Calendar Filter Bar, Eventbrite Tickets, and Community Events plugins, as well as our Event Aggregator Import service (contained within The Events Calendar plugin), information may be collected and stored within your website’s database."
@@ -773,7 +773,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:18
 msgid "What personal data we collect and why we collect it"
-msgstr ""
+msgstr "Quines dades personals recollim i per què"
 
 #: src/admin-views/privacy.php:16
 msgid "This information is only for guidance and not to be considered as legal advice."
@@ -781,7 +781,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:16
 msgid "Disclaimer:"
-msgstr ""
+msgstr "Avís legal:"
 
 #: src/admin-views/privacy.php:15
 msgid "You should include the information below in the correct sections of you privacy policy."
@@ -793,7 +793,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:13
 msgid "Hello,"
-msgstr ""
+msgstr "Hola,"
 
 #: src/admin-views/aggregator/settings.php:513
 msgid "The default event category for events imported via Eventbrite"
@@ -809,7 +809,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:26
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:13
 msgid "Import from Eventbrite"
@@ -817,7 +817,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 msgid "Learn more"
-msgstr ""
+msgstr "Més informació"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:14
 msgid "Do more with Eventbrite Tickets"
@@ -909,7 +909,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4252
 msgid "Search for %s by Keyword."
-msgstr ""
+msgstr "Cerca %s a paraules clau."
 
 #: src/Tribe/API.php:826 src/Tribe/API.php:837
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
@@ -961,7 +961,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:306
 msgid "Settings > General"
-msgstr ""
+msgstr "Configuració > General"
 
 #: src/admin-views/aggregator/tabs/import-form.php:295
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
@@ -1022,7 +1022,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:115
 msgid "Select Source"
-msgstr ""
+msgstr "Selecciona l'origen"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:114
 msgid "Import Source"
@@ -1115,7 +1115,7 @@ msgstr ""
 #: src/Tribe/Admin/Notice/Timezones.php:74
 #: src/Tribe/Editor/Compatibility.php:104
 msgid "Read more"
-msgstr ""
+msgstr "Saber més"
 
 #: src/Tribe/Admin/Notice/Marketing.php:78
 msgctxt "2018 user survey"
@@ -1125,7 +1125,7 @@ msgstr ""
 #: src/Tribe/Admin/Notice/Marketing.php:74
 msgctxt "2018 user survey"
 msgid "take the survey now"
-msgstr ""
+msgstr "completa l'enquesta"
 
 #: common/src/admin-views/tribe-options-help.php:33
 msgid "Search our support help desk"
@@ -1162,7 +1162,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:189
 msgid "Permanently delete events older than"
-msgstr ""
+msgstr "Esborra permanentment els esdeveniments més antic que"
 
 #: src/admin-views/tribe-options-general.php:184
 #: src/admin-views/tribe-options-general.php:201
@@ -1196,11 +1196,11 @@ msgstr "3 mesos"
 
 #: src/admin-views/tribe-options-general.php:173
 msgid "This option allows you to automatically move past events to trash."
-msgstr ""
+msgstr "Aquesta opció permet moure automàtivament els esdeveniments passats cap a la paperera."
 
 #: src/admin-views/tribe-options-general.php:172
 msgid "Move to trash events older than"
-msgstr ""
+msgstr "Moure a la paperera els esdeveniments més antics que"
 
 #: src/admin-views/tribe-options-general.php:53
 msgid "Instantly updates the calendar view when searching for or filtering events."
@@ -1212,7 +1212,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:135
 msgid "Time Zone:"
-msgstr ""
+msgstr "Zona horària:"
 
 #: src/Tribe/Gutenberg.php:125
 msgid "Looks like you are using Gutenberg on this WordPress installation. %1$s"
@@ -1775,11 +1775,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:25
 msgid "The event category name"
-msgstr ""
+msgstr "Nom de categoria de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Endpoints/Base.php:38
 msgid "No description provided"
-msgstr ""
+msgstr "No s'ha proveït cap descripció"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:221
 msgid "Venues should have upcoming events associated to them"
@@ -1974,7 +1974,7 @@ msgstr ""
 #: src/Tribe/Linked_Posts.php:1246
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
-msgstr ""
+msgstr "Cerca %1$s %2$s"
 
 #: src/Tribe/Linked_Posts.php:1237
 msgid "Find a Venue"
@@ -1992,11 +1992,11 @@ msgstr ""
 #: src/Tribe/Linked_Posts.php:1220
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
-msgstr ""
+msgstr "Cerca %1$s %2$s"
 
 #: src/Tribe/Linked_Posts.php:1209
 msgid "Find an Organizer"
-msgstr ""
+msgstr "Troba una organització"
 
 #: src/Tribe/Linked_Posts.php:1208
 msgid "Create or Find an Organizer"
@@ -2005,12 +2005,12 @@ msgstr ""
 #: src/Tribe/Linked_Posts.php:1201
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
-msgstr ""
+msgstr "Crea o troba %s"
 
 #: src/Tribe/Linked_Posts.php:1192
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
-msgstr ""
+msgstr "Cerca %1$s %2$s"
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:136
 msgid "A record already exists with these settings, %1$s."
@@ -2022,15 +2022,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:359
 msgid "Do not limit (not recommended)"
-msgstr ""
+msgstr "Cap límit (no recomanable)"
 
 #: src/Tribe/Aggregator/Settings.php:358
 msgid "By number of events"
-msgstr ""
+msgstr "Per número d'esdeveniments"
 
 #: src/Tribe/Aggregator/Settings.php:357
 msgid "By date range"
-msgstr ""
+msgstr "Per rang de dates"
 
 #: src/Tribe/Aggregator/Service.php:714
 msgctxt "The placeholder is for the localized version of the iCal UID specification link"
@@ -2068,23 +2068,23 @@ msgstr ""
 
 #: common/src/Tribe/Languages/Locations.php:252
 msgid "Sint Maarten"
-msgstr ""
+msgstr "Sint Maarten"
 
 #: common/src/Tribe/Languages/Locations.php:245
 msgid "S&atilde;o Tom&eacute; and Pr&iacute;ncipe"
-msgstr ""
+msgstr "S&atilde;o Tom&eacute; and Pr&iacute;ncipe"
 
 #: common/src/Tribe/Languages/Locations.php:238
 msgid "Saint Helena"
-msgstr ""
+msgstr "Saint Helena"
 
 #: common/src/Tribe/Languages/Locations.php:237
 msgid "Saint Barth&eacute;lemy"
-msgstr ""
+msgstr "Saint Barth&eacute;lemy"
 
 #: common/src/Tribe/Languages/Locations.php:113
 msgid "Cura&ccedil;ao"
-msgstr ""
+msgstr "Cura&ccedil;ao"
 
 #: common/src/Tribe/Languages/Locations.php:103
 msgid "Collectivity of Saint Martin"
@@ -2124,23 +2124,23 @@ msgstr "un"
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:396
 msgid "Hide and Ignore &#8220;%s&#8221;"
-msgstr ""
+msgstr "Amaga i ignora &#8220;%s&#8221;"
 
 #: common/src/Tribe/Main.php:251
 msgid "Clear Selection."
-msgstr ""
+msgstr "Esborra la selecció."
 
 #: common/src/Tribe/Main.php:250
 msgid "Select all pages"
-msgstr ""
+msgstr "Selecciona totes les pàgines"
 
 #: common/src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
-msgstr ""
+msgstr "Tots els elments d'aquesta pàgina s'han seleccionat."
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
-msgstr ""
+msgstr "Afegeix més fonts."
 
 #: src/Tribe/Aggregator/Service.php:207
 msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
@@ -2172,11 +2172,11 @@ msgstr ""
 
 #: common/src/Tribe/PUE/Checker.php:1103
 msgid "There is a new version of %1$s available. %2$s"
-msgstr ""
+msgstr "Hi ha una nova versió de %1$s disponible. %2$s"
 
 #: common/src/Tribe/PUE/Checker.php:1092
 msgid "Update now to version %s."
-msgstr ""
+msgstr "Actualitza ara a la versió %s."
 
 #: common/src/Tribe/Ajax/Dropdown.php:243
 msgid "The \"%s\" source is invalid and cannot be reached on \"%s\" instance."
@@ -2352,21 +2352,21 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:69
 msgid "The event name"
-msgstr ""
+msgstr "Nom de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:73
 msgid "The event long description"
-msgstr ""
+msgstr "Descripció extensa de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:77
 msgid "The event short description"
-msgstr ""
+msgstr "Descripció breu de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:81
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:85
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:81
 msgid "The event featured image details if set"
-msgstr ""
+msgstr "La imatge destacada als detalls de l'esdeveniment si s'indicada"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:90
 msgid "Whether or not this event is an all day Event"
@@ -2414,12 +2414,12 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:142
 msgid "The event cost details"
-msgstr ""
+msgstr "Detalls del preu de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:299
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:147
 msgid "The event website URL"
-msgstr ""
+msgstr "URL de la pàgina web de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:151
 msgid "Whether the map should be shown for the event or not"
@@ -2443,19 +2443,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:171
 msgid "The event categories"
-msgstr ""
+msgstr "Categories de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:176
 msgid "The event tags"
-msgstr ""
+msgstr "Etiquetes de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:181
 msgid "The event venue"
-msgstr ""
+msgstr "Adreça de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:186
 msgid "The event organizers"
-msgstr ""
+msgstr "Organització de l'esdeveniment"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:24
 msgid "The organizer WordPress post ID"
@@ -2484,34 +2484,34 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:61
 msgid "The URL to the organizer page"
-msgstr ""
+msgstr "URL de la pàgina web de la organització"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:248
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:65
 msgid "The organizer name"
-msgstr ""
+msgstr "Nom de l'organització"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:69
 msgid "The organizer long description"
-msgstr ""
+msgstr "Descripció extens a de l'organització"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:73
 msgid "The organizer short description"
-msgstr ""
+msgstr "Descripció breu de l'organització"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:270
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:86
 msgid "The organizer phone number"
-msgstr ""
+msgstr "Telèfon mòbil de l'organització"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:277
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:90
 msgid "The organizer website"
-msgstr ""
+msgstr "Pàgina web de l'organització"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:94
 msgid "The organizer email address"
-msgstr ""
+msgstr "Correu electrònic de l'organització"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
@@ -2531,16 +2531,16 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:61
 msgid "The URL to the venue page"
-msgstr ""
+msgstr "La URL de la pàgina web de l'adreça física"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:227
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:65
 msgid "The venue name"
-msgstr ""
+msgstr "Nom de l'adreça física"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:73
 msgid "The venue short description"
-msgstr ""
+msgstr "Descripció breu de l'adreça física"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:86
 msgid "Whether the map should be shown for the venue or not"
@@ -2553,27 +2553,27 @@ msgstr ""
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:260
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:94
 msgid "The venue address"
-msgstr ""
+msgstr "Adreça física"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:267
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:98
 msgid "The venue city"
-msgstr ""
+msgstr "Ciutat de l'adreça física"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:274
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:102
 msgid "The venue country"
-msgstr ""
+msgstr "País de l'adreça física"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:302
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:118
 msgid "The venue phone number"
-msgstr ""
+msgstr "Número de telèfon de l'adreça física"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:316
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:122
 msgid "The venue website URL"
-msgstr ""
+msgstr "URL de la pàgina web de l'adreça física"
 
 #: src/Tribe/REST/V1/EA_Messages.php:9
 msgid "Event Aggregator cannot import events from this site."
@@ -2657,19 +2657,19 @@ msgstr ""
 
 #: src/admin-views/aggregator/fields/schedule.php:3
 msgid "Schedule:"
-msgstr ""
+msgstr "Horari:"
 
 #: src/admin-views/aggregator/fields/schedule.php:32
 msgid "Import runs daily at approximately"
-msgstr ""
+msgstr "La importació s'executa aproximadament cada dia"
 
 #: src/admin-views/aggregator/fields/schedule.php:38
 msgid "Import runs weekly on"
-msgstr ""
+msgstr "La importació s'executa setmanalment només"
 
 #: src/admin-views/aggregator/fields/schedule.php:56
 msgid "Import runs monthly on day"
-msgstr ""
+msgstr "La importació s'executa mensualment un dia"
 
 #: src/admin-views/aggregator/origins/refine.php:23
 msgid "Use the filters to narrow down which events are fetched from this site."
@@ -2685,7 +2685,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/EA_Messages.php:39
 msgid "Learn more."
-msgstr ""
+msgstr "Més informació."
 
 #: src/Tribe/REST/V1/Messages.php:19
 msgid "The 'per_page' parameter must be a positive integer greater than 1"
@@ -2805,15 +2805,15 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:386 src/Tribe/Aggregator/Settings.php:387
 msgid "24 hours"
-msgstr ""
+msgstr "24 hores"
 
 #: src/Tribe/Aggregator/Settings.php:390 src/Tribe/Aggregator/Settings.php:391
 msgid "72 hours"
-msgstr ""
+msgstr "72 hores"
 
 #: src/Tribe/Aggregator/Settings.php:394
 msgid "One week"
-msgstr ""
+msgstr "Una setmana"
 
 #: src/Tribe/Aggregator/Service.php:704
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
@@ -2821,35 +2821,35 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:398
 msgid "Two weeks"
-msgstr ""
+msgstr "Dos setmanes"
 
 #: src/Tribe/Aggregator/Settings.php:399
 msgid "two weeks"
-msgstr ""
+msgstr "dos setmanes"
 
 #: src/Tribe/Aggregator/Settings.php:402
 msgid "Three weeks"
-msgstr ""
+msgstr "Tres setmanes"
 
 #: src/Tribe/Aggregator/Settings.php:406
 msgid "One month"
-msgstr ""
+msgstr "Un mes"
 
 #: src/Tribe/Aggregator/Settings.php:410
 msgid "Two months"
-msgstr ""
+msgstr "Dos mesos"
 
 #: src/Tribe/Aggregator/Settings.php:411
 msgid "two months"
-msgstr ""
+msgstr "dos mesos"
 
 #: src/Tribe/Aggregator/Settings.php:414
 msgid "Three months"
-msgstr ""
+msgstr "Tres mesos"
 
 #: src/Tribe/Aggregator/Settings.php:415
 msgid "three months"
-msgstr ""
+msgstr "tres mesos"
 
 #: src/Tribe/Aggregator/Tabs/New.php:334
 msgid "%1$d new event tag was created."
@@ -2892,7 +2892,7 @@ msgstr ""
 #: src/Tribe/Venue.php:234
 msgctxt "Metabox title"
 msgid "Location"
-msgstr ""
+msgstr "Ubicació"
 
 #: src/admin-views/aggregator/settings.php:61
 msgid "Import events but preserve local changes to event fields."
@@ -2939,7 +2939,7 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:40
 msgid "The term description"
-msgstr ""
+msgstr "Terme de descripció"
 
 #: common/src/Tribe/Documentation/Swagger/Term_Definition_Provider.php:36
 msgid "The taxonomy the term belongs to"
@@ -2999,19 +2999,19 @@ msgstr ""
 
 #: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:44
 msgid "The date seconds"
-msgstr ""
+msgstr "La data en segons"
 
 #: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:40
 msgid "The date minutes"
-msgstr ""
+msgstr "La data en minuts"
 
 #: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:36
 msgid "The date hour"
-msgstr ""
+msgstr "L'hora de la data"
 
 #: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:32
 msgid "The date day"
-msgstr ""
+msgstr "El dia de la data"
 
 #: common/src/Tribe/Documentation/Swagger/Date_Details_Definition_Provider.php:28
 msgid "The date month"
@@ -3035,7 +3035,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4256
 msgid "Keyword"
-msgstr ""
+msgstr "Paraula clau"
 
 #: src/functions/template-tags/loop.php:177
 msgctxt "featured events title"
@@ -3050,7 +3050,7 @@ msgstr ""
 #: src/admin-views/events-meta-box.php:105
 msgctxt "Start Date Time \"to\" End Date Time"
 msgid "to"
-msgstr ""
+msgstr "fins a"
 
 #: src/admin-views/events-meta-box.php:103
 #: src/admin-views/events-meta-box.php:118
@@ -3060,7 +3060,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:78
 msgid "Start/End:"
-msgstr ""
+msgstr "Inici/Final:"
 
 #: src/admin-views/event-sidebar-options.php:33
 msgid "Featured events are highlighted on the front end in views, archives, and widgets."
@@ -3111,15 +3111,15 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:280
 msgid "Delete this"
-msgstr ""
+msgstr "Elimina això"
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:38
 msgid "Event Date:"
-msgstr ""
+msgstr "Data de l'esdeveniment:"
 
 #: src/Tribe/Customizer/Widget.php:132
 msgid "Show Featured Event Images"
-msgstr ""
+msgstr "Mostra imatge destacada de l'esdeveniment"
 
 #: src/Tribe/Customizer/Widget.php:113
 msgid "Calendar Date Bar Color"
@@ -3131,7 +3131,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Widget.php:59
 msgid "Widgets"
-msgstr ""
+msgstr "Ginys"
 
 #: src/Tribe/Customizer/Single_Event.php:132
 msgid "Details Background Color"
@@ -3176,7 +3176,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/Global_Elements.php:145
 msgid "Link Color"
-msgstr ""
+msgstr "Color dels enllaços"
 
 #: src/Tribe/Customizer/Global_Elements.php:114
 msgid "Options selected here will override what was selected in the \"General Theme\" section"
@@ -3188,7 +3188,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:402
 msgid "Custom"
-msgstr ""
+msgstr "Personalitzat"
 
 #: src/Tribe/Customizer/General_Theme.php:396
 msgid "Sunshine"
@@ -3212,7 +3212,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:366
 msgid "Default"
-msgstr ""
+msgstr "Predeterminada"
 
 #: src/Tribe/Customizer/General_Theme.php:360
 msgid "Deep Sea"
@@ -3280,153 +3280,153 @@ msgstr ""
 
 #: src/Tribe/Assets.php:733 src/deprecated/Tribe__Events__Asset__Dynamic.php:69
 msgid "Dec"
-msgstr ""
+msgstr "Des"
 
 #: src/Tribe/Assets.php:732 src/deprecated/Tribe__Events__Asset__Dynamic.php:68
 msgid "Nov"
-msgstr ""
+msgstr "Nov"
 
 #: src/Tribe/Assets.php:731 src/deprecated/Tribe__Events__Asset__Dynamic.php:67
 msgid "Oct"
-msgstr ""
+msgstr "Oct"
 
 #: src/Tribe/Assets.php:730 src/deprecated/Tribe__Events__Asset__Dynamic.php:66
 msgid "Sep"
-msgstr ""
+msgstr "Set"
 
 #: src/Tribe/Assets.php:729 src/deprecated/Tribe__Events__Asset__Dynamic.php:65
 msgid "Aug"
-msgstr ""
+msgstr "Ago"
 
 #: src/Tribe/Assets.php:728 src/deprecated/Tribe__Events__Asset__Dynamic.php:64
 msgid "Jul"
-msgstr ""
+msgstr "Jul"
 
 #: src/Tribe/Assets.php:727 src/deprecated/Tribe__Events__Asset__Dynamic.php:63
 msgid "Jun"
-msgstr ""
+msgstr "Jun"
 
 #: src/Tribe/Assets.php:725 src/deprecated/Tribe__Events__Asset__Dynamic.php:61
 msgid "Apr"
-msgstr ""
+msgstr "Abr"
 
 #: src/Tribe/Assets.php:724 src/deprecated/Tribe__Events__Asset__Dynamic.php:60
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 #: src/Tribe/Assets.php:723 src/deprecated/Tribe__Events__Asset__Dynamic.php:59
 msgid "Feb"
-msgstr ""
+msgstr "Feb"
 
 #: src/Tribe/Assets.php:722 src/deprecated/Tribe__Events__Asset__Dynamic.php:58
 msgid "Jan"
-msgstr ""
+msgstr "Gen"
 
 #: src/Tribe/Assets.php:719 src/deprecated/Tribe__Events__Asset__Dynamic.php:55
 msgid "December"
-msgstr "desembre"
+msgstr "Desembre"
 
 #: src/Tribe/Assets.php:718 src/deprecated/Tribe__Events__Asset__Dynamic.php:54
 msgid "November"
-msgstr "novembre"
+msgstr "Novembre"
 
 #: src/Tribe/Assets.php:717 src/deprecated/Tribe__Events__Asset__Dynamic.php:53
 msgid "October"
-msgstr "octubre"
+msgstr "Octubre"
 
 #: src/Tribe/Assets.php:716 src/deprecated/Tribe__Events__Asset__Dynamic.php:52
 msgid "September"
-msgstr "setembre"
+msgstr "Setembre"
 
 #: src/Tribe/Assets.php:715 src/deprecated/Tribe__Events__Asset__Dynamic.php:51
 msgid "August"
-msgstr "agost"
+msgstr "Agost"
 
 #: src/Tribe/Assets.php:714 src/deprecated/Tribe__Events__Asset__Dynamic.php:50
 msgid "July"
-msgstr "july"
+msgstr "Juliol"
 
 #: src/Tribe/Assets.php:713 src/deprecated/Tribe__Events__Asset__Dynamic.php:49
 msgid "June"
-msgstr "juny"
+msgstr "Juny"
 
 #: src/Tribe/Assets.php:712 src/Tribe/Assets.php:726
 #: src/deprecated/Tribe__Events__Asset__Dynamic.php:48
 #: src/deprecated/Tribe__Events__Asset__Dynamic.php:62
 msgid "May"
-msgstr "maig"
+msgstr "Maig"
 
 #: src/Tribe/Assets.php:711 src/deprecated/Tribe__Events__Asset__Dynamic.php:47
 msgid "April"
-msgstr "abril"
+msgstr "Abril"
 
 #: src/Tribe/Assets.php:710 src/deprecated/Tribe__Events__Asset__Dynamic.php:46
 msgid "March"
-msgstr "març"
+msgstr "Març"
 
 #: src/Tribe/Assets.php:709 src/deprecated/Tribe__Events__Asset__Dynamic.php:45
 msgid "February"
-msgstr "febrer"
+msgstr "Febrer"
 
 #: src/Tribe/Assets.php:708 src/deprecated/Tribe__Events__Asset__Dynamic.php:44
 msgid "January"
-msgstr "gener"
+msgstr "Gener"
 
 #: src/Tribe/Assets.php:705 src/deprecated/Tribe__Events__Asset__Dynamic.php:41
 msgid "Sat"
-msgstr ""
+msgstr "Ds"
 
 #: src/Tribe/Assets.php:704 src/deprecated/Tribe__Events__Asset__Dynamic.php:40
 msgid "Fri"
-msgstr ""
+msgstr "Dv"
 
 #: src/Tribe/Assets.php:703 src/deprecated/Tribe__Events__Asset__Dynamic.php:39
 msgid "Thu"
-msgstr ""
+msgstr "Dj"
 
 #: src/Tribe/Assets.php:702 src/deprecated/Tribe__Events__Asset__Dynamic.php:38
 msgid "Wed"
-msgstr ""
+msgstr "Dc"
 
 #: src/Tribe/Assets.php:701 src/deprecated/Tribe__Events__Asset__Dynamic.php:37
 msgid "Tue"
-msgstr ""
+msgstr "Dt"
 
 #: src/Tribe/Assets.php:700 src/deprecated/Tribe__Events__Asset__Dynamic.php:36
 msgid "Mon"
-msgstr ""
+msgstr "Dl"
 
 #: src/Tribe/Assets.php:699 src/deprecated/Tribe__Events__Asset__Dynamic.php:35
 msgid "Sun"
-msgstr ""
+msgstr "Dg"
 
 #: src/Tribe/Assets.php:696 src/deprecated/Tribe__Events__Asset__Dynamic.php:32
 msgid "Saturday"
-msgstr "dissabte"
+msgstr "Dissabte"
 
 #: src/Tribe/Assets.php:695 src/deprecated/Tribe__Events__Asset__Dynamic.php:31
 msgid "Friday"
-msgstr "divendres"
+msgstr "Divendres"
 
 #: src/Tribe/Assets.php:694 src/deprecated/Tribe__Events__Asset__Dynamic.php:30
 msgid "Thursday"
-msgstr "dijous"
+msgstr "Dijous"
 
 #: src/Tribe/Assets.php:693 src/deprecated/Tribe__Events__Asset__Dynamic.php:29
 msgid "Wednesday"
-msgstr "dimecres"
+msgstr "Dimecres"
 
 #: src/Tribe/Assets.php:692 src/deprecated/Tribe__Events__Asset__Dynamic.php:28
 msgid "Tuesday"
-msgstr "dimarts"
+msgstr "Dimarts"
 
 #: src/Tribe/Assets.php:691 src/deprecated/Tribe__Events__Asset__Dynamic.php:27
 msgid "Monday"
-msgstr "dilluns"
+msgstr "Dilluns"
 
 #: src/Tribe/Assets.php:690 src/deprecated/Tribe__Events__Asset__Dynamic.php:26
 msgid "Sunday"
-msgstr "diumenge"
+msgstr "Diumenge"
 
 #: src/deprecated/Tribe__Events__Admin__Front_Page_View.php:20
 msgctxt "Static front page setting"
@@ -3483,7 +3483,7 @@ msgstr ""
 
 #: common/src/Tribe/Extension.php:144
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: common/src/Tribe/Admin/Notice/Php_Version.php:60
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:92
@@ -3495,7 +3495,7 @@ msgstr "i"
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:91
 msgctxt "separator used in a list of items"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:75
 msgid "To begin using %1$s, please install and activate the latest version of %2$s."
@@ -3507,7 +3507,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:540
 msgid "Unknown"
-msgstr ""
+msgstr "Desconegut"
 
 #: src/Tribe/Aggregator/Record/Abstract.php:1208
 msgid "When this import was last scheduled to run, the daily limit for your Event Aggregator license had already been reached."
@@ -3515,7 +3515,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:5
 msgid "Location"
-msgstr ""
+msgstr "Ubicació"
 
 #: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar team. We send out periodic updates, key developer notices, and even the occasional discount."
@@ -3528,7 +3528,7 @@ msgstr ""
 #: src/views/single-event.php:28 src/views/single-event/back-link.php:18
 msgctxt "%s Events plural label"
 msgid "All %s"
-msgstr ""
+msgstr "Tots els %s"
 
 #: src/admin-views/widget-admin-list.php:40
 msgid "Generate JSON-LD data"
@@ -3552,7 +3552,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:53
 msgid "Disconnect"
-msgstr ""
+msgstr "Desconnecta"
 
 #: src/resources/js/app/blocks.js:11436 src/resources/js/app/elements.js:8062
 msgid "The e-mail address will be obfuscated on your site to avoid it getting harvested by spammers."
@@ -3568,17 +3568,17 @@ msgstr "Categoria"
 
 #: src/admin-views/aggregator/tabs/import-form.php:219
 msgid "Status:"
-msgstr ""
+msgstr "Estat:"
 
 #: src/admin-views/aggregator/tabs/import-form.php:199
 #: src/admin-views/aggregator/tabs/import-form.php:211
 msgid "Start Time"
-msgstr ""
+msgstr "Hora d'inici"
 
 #: src/admin-views/aggregator/tabs/import-form.php:195
 #: src/admin-views/aggregator/tabs/import-form.php:207
 msgid "Select All"
-msgstr ""
+msgstr "Selecciona-ho tot"
 
 #: src/admin-views/aggregator/tabs/import-form.php:185
 msgid "The following preview does not necessarily contain all of the data from your CSV file. The data displayed below is meant as a guide to help you map your CSV file's columns to the appropriate Event fields."
@@ -3675,7 +3675,7 @@ msgstr ""
 #. translators: %s: Event Aggregator Server URL
 #: src/admin-views/aggregator/status.php:118
 msgid "Connected to %s"
-msgstr ""
+msgstr "Connectat a %s"
 
 #: src/admin-views/aggregator/status.php:112
 msgid "The server is responding with an error:"
@@ -3741,7 +3741,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:699
 #: src/admin-views/aggregator/settings.php:739
 msgid "Imports"
-msgstr ""
+msgstr "Importacions"
 
 #: src/admin-views/aggregator/settings.php:686
 msgid "Check out Event Aggregator."
@@ -3753,7 +3753,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:590
 msgid "Global"
-msgstr ""
+msgstr "Global"
 
 #: src/admin-views/aggregator/settings.php:586
 msgid "Update Authority"
@@ -3761,7 +3761,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:665
 msgid "Help page"
-msgstr ""
+msgstr "Pàgina d'ajuda"
 
 #: src/admin-views/aggregator/settings.php:661
 msgid "Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options. Check your Event Aggregator Service Status on the %1$s."
@@ -3869,7 +3869,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:432
 #: src/admin-views/aggregator/settings.php:500
 msgid "Default Status"
-msgstr ""
+msgstr "Estat per defecte"
 
 #: src/admin-views/aggregator/settings.php:60
 msgid "Do not re-import events. Changes made locally will be preserved."
@@ -3890,7 +3890,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:35
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/admin-views/aggregator/settings.php:17
 msgid "No default category"
@@ -3927,7 +3927,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Paraula clau"
 
 #: src/admin-views/aggregator/origins/meetup.php:139
 msgid "Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event."
@@ -3939,7 +3939,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:61
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #: src/admin-views/aggregator/origins/meetup.php:59
 msgid "Meetup API Key:"
@@ -3959,7 +3959,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:10
 msgid "Upload an ICS File"
-msgstr ""
+msgstr "Puja un fitxer ICS"
 
 #: src/admin-views/aggregator/origins/ics.php:7
 msgid "Select your ICS file from the WordPress media library. You may need to first upload the file from your computer to the library."
@@ -3967,7 +3967,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ics.php:6
 msgid "Choose File"
-msgstr ""
+msgstr "Tria un fitxer"
 
 #: src/admin-views/aggregator/origins/ical.php:84
 msgid "Enter the url for the iCalendar feed you wish to import, e.g. https://central.wordcamp.org/calendar.ics"
@@ -3975,7 +3975,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/ical.php:83
 msgid "example.com/url.ics"
-msgstr ""
+msgstr "example.com/url.ics"
 
 #: src/admin-views/aggregator/origins/gcal.php:89
 msgid "Copy the provided url into this field to import the events into your WordPress site."
@@ -4087,7 +4087,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/ical.php:108
 #: src/admin-views/aggregator/origins/meetup.php:162
 msgid "Preview"
-msgstr ""
+msgstr "Previsualitza"
 
 #: src/admin-views/aggregator/origins/ics.php:35
 #: src/admin-views/aggregator/origins/csv.php:68
@@ -4101,7 +4101,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/ics.php:9
 #: src/admin-views/aggregator/origins/csv.php:42
 msgid "Upload"
-msgstr ""
+msgstr "Penja"
 
 #: src/admin-views/aggregator/origins/csv.php:41
 msgid "Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library."
@@ -4114,7 +4114,7 @@ msgstr ""
 #: src/admin-views/aggregator/origins/ics.php:5
 #: src/admin-views/aggregator/origins/csv.php:39
 msgid "Choose File:"
-msgstr ""
+msgstr "Tria un fitxer:"
 
 #: src/admin-views/aggregator/origins/csv.php:8
 msgid "For the best results, import venue and organizer files before importing event files."
@@ -4130,7 +4130,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/csv.php:4
 msgid "Content Type:"
-msgstr ""
+msgstr "Tipus de fitxer:"
 
 #: src/admin-views/aggregator/meta-box.php:56
 msgid "Change Event Update Authority"
@@ -4155,29 +4155,29 @@ msgstr ""
 
 #: src/admin-views/admin-welcome-message.php:29
 msgid "News and Announcements"
-msgstr ""
+msgstr "Novetats i Anuncis importants"
 
 #: src/admin-views/admin-welcome-message.php:28
 msgid "Developer News"
-msgstr ""
+msgstr "Notícies dels desenvolupadors"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate us today!"
-msgstr ""
+msgstr "Puntua'ns avui!"
 
 #: src/admin-views/admin-welcome-message.php:19
 msgid "We Need Your Help"
-msgstr ""
+msgstr "Necessitem la teva ajuda"
 
 #: src/Tribe/Utils/Radius.php:55
 msgctxt "Abbreviation for the kilometers unit of measure"
 msgid "km"
-msgstr ""
+msgstr "km"
 
 #: src/Tribe/Utils/Radius.php:53
 msgctxt "Abbreviation for the miles unit of measure"
 msgid "mi"
-msgstr ""
+msgstr "mi"
 
 #: src/Tribe/Main.php:1089
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
@@ -4196,7 +4196,7 @@ msgstr[1] ""
 
 #: src/Tribe/Ignored_Events.php:919
 msgid "Event %d: %s"
-msgstr ""
+msgstr "Esdeveniment %d: %s"
 
 #: src/Tribe/Ignored_Events.php:907
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
@@ -4231,11 +4231,11 @@ msgstr[1] ""
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:434
 msgid "Delete &#8220;%s&#8221; permanently"
-msgstr ""
+msgstr "Esborra &#8220;%s&#8221; permanentment"
 
 #: src/Tribe/Ignored_Events.php:427
 msgid "Restore"
-msgstr ""
+msgstr "Restaura"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:426
@@ -4245,7 +4245,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:341 src/Tribe/Ignored_Events.php:343
 #: src/admin-views/aggregator/meta-box.php:5
 msgid "Source:"
-msgstr ""
+msgstr "Font:"
 
 #: src/Tribe/Ignored_Events.php:315
 msgid "Last Import"
@@ -4257,7 +4257,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:312
 msgid "Source"
-msgstr ""
+msgstr "Codi font"
 
 #: src/Tribe/Ignored_Events.php:283
 msgid "%s post restored."
@@ -4289,7 +4289,7 @@ msgstr ""
 #: src/Tribe/Utils/Radius.php:28
 msgctxt "X (kilometers abbreviation)"
 msgid "%1$s (km)"
-msgstr ""
+msgstr "%1$s (km)"
 
 #: src/Tribe/Utils/Radius.php:18
 msgctxt "X (miles abbreviation)"
@@ -4298,7 +4298,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:148
 msgid "Undo"
-msgstr ""
+msgstr "Desfés"
 
 #: src/Tribe/Ignored_Events.php:137
 msgid "and %s post moved to Ignored."
@@ -4329,7 +4329,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:47 src/Tribe/Ignored_Events.php:468
 #: src/Tribe/Ignored_Events.php:744
 msgid "Ignored"
-msgstr ""
+msgstr "Ignorat"
 
 #: src/Tribe/Ignored_Events.php:44
 msgid "Ignored events that are deleted will be removed permanently. They can be recreated via import."
@@ -4338,7 +4338,7 @@ msgstr ""
 #: src/Tribe/Ignored_Events.php:43 src/Tribe/Ignored_Events.php:59
 #: src/Tribe/Ignored_Events.php:435
 msgid "Delete Permanently"
-msgstr ""
+msgstr "Esborra permanentment"
 
 #: src/Tribe/Aggregator.php:618
 msgid "Renew your Event Aggregator Facebook token"
@@ -4386,7 +4386,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:193
 msgid "deactivated"
-msgstr ""
+msgstr "desactivat"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:189
 msgid "reactivated"
@@ -4394,7 +4394,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:185
 msgid "delete"
-msgstr ""
+msgstr "suprimeix"
 
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:181
 msgid "queued"
@@ -4418,7 +4418,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:512
 msgid "Learn More"
-msgstr ""
+msgstr "Més informació"
 
 #: src/Tribe/Aggregator/Tabs/New.php:507 src/Tribe/Aggregator/Tabs/New.php:514
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:19
@@ -4468,7 +4468,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Tabs/New.php:355
 msgctxt "separator between date and time"
 msgid " at "
-msgstr ""
+msgstr " a "
 
 #: src/Tribe/Aggregator/Tabs/New.php:351
 msgid "Your scheduled import was saved and the first import is complete!"
@@ -4542,11 +4542,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/New.php:80
 msgid "New Import"
-msgstr ""
+msgstr "Nova importació"
 
 #: src/Tribe/Aggregator/Tabs/History.php:93
 msgid "History"
-msgstr ""
+msgstr "Historial"
 
 #: src/Tribe/Aggregator/Tabs/History.php:55
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:57
@@ -4599,27 +4599,27 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Service.php:701
 msgid "Import is complete"
-msgstr ""
+msgstr "Importació completada"
 
 #: src/Tribe/Aggregator/Service.php:700
 msgid "Successfully loaded import origins"
-msgstr ""
+msgstr "S'ha carregat amb èxit els orígens d'importació"
 
 #: src/Tribe/Aggregator/Service.php:698
 msgid "Import created"
-msgstr ""
+msgstr "Importació creada"
 
 #: src/Tribe/Aggregator/Service.php:697
 msgid "Success"
-msgstr ""
+msgstr "Satisfactòriament"
 
 #: src/Tribe/Aggregator/Service.php:696
 msgid "The import will be starting soon."
-msgstr ""
+msgstr "La importació s'iniciarà en breu."
 
 #: src/Tribe/Aggregator/Service.php:695
 msgid "The import is in progress."
-msgstr ""
+msgstr "La importació és en progrés."
 
 #: src/Tribe/Aggregator/Service.php:693
 msgid "Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key."
@@ -4667,7 +4667,7 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Records.php:217
 msgctxt "event aggregator status"
 msgid "Draft"
-msgstr ""
+msgstr "Esborrany"
 
 #: src/Tribe/Aggregator/Records.php:208
 msgctxt "event aggregator status"
@@ -4691,7 +4691,7 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Records.php:197
 msgctxt "event aggregator status"
 msgid "Schedule"
-msgstr ""
+msgstr "Horari"
 
 #: src/Tribe/Aggregator/Records.php:188
 msgctxt "event aggregator status"
@@ -4703,7 +4703,7 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Records.php:187
 msgctxt "event aggregator status"
 msgid "Failed"
-msgstr ""
+msgstr "Ha fallat"
 
 #: src/Tribe/Aggregator/Records.php:178
 msgctxt "event aggregator status"
@@ -4715,7 +4715,7 @@ msgstr[1] ""
 #: src/Tribe/Aggregator/Records.php:177
 msgctxt "event aggregator status"
 msgid "Imported"
-msgstr ""
+msgstr "S'ha importat"
 
 #: src/Tribe/Aggregator/Records.php:140
 msgid "No Aggregator Records found in Trash."
@@ -4756,7 +4756,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Records.php:131
 msgctxt "record"
 msgid "Add New"
-msgstr ""
+msgstr "Nou esdeveniment"
 
 #: src/Tribe/Aggregator/Records.php:130
 msgctxt "add new on admin bar"
@@ -4788,7 +4788,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:97
 msgid "Skipped:"
-msgstr ""
+msgstr "Descartat:"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:96
 msgid "Updated:"
@@ -4796,7 +4796,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:95
 msgid "Created:"
-msgstr ""
+msgstr "Creat:"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:91
 msgid "Your import is currently in progress. Don't worry, you can safely navigate away&ndash;the import will continue in the background."
@@ -4808,7 +4808,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:664
 msgid "Select %s"
-msgstr ""
+msgstr "Selecciona %s"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:629
 #: src/Tribe/Aggregator/Record/List_Table.php:638
@@ -4820,7 +4820,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:635
 #: src/Tribe/Aggregator/Record/List_Table.php:643
 msgid "new"
-msgstr ""
+msgstr "nou"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:624
 msgid "Latest Import:"
@@ -4852,11 +4852,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:513
 msgid "Radius:"
-msgstr ""
+msgstr "Radi:"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:496
 msgid "Keywords:"
-msgstr ""
+msgstr "Paraules clau:"
 
 #: src/Tribe/Ignored_Events.php:337
 #: src/Tribe/Aggregator/Record/List_Table.php:483
@@ -4878,7 +4878,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:420
 msgid "Import failed"
-msgstr ""
+msgstr "Ha fallat la importació"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:416
 msgid "Import completed"
@@ -4895,17 +4895,17 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:333
 msgctxt "column name"
 msgid "# Imported"
-msgstr ""
+msgstr "# importat"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:330
 msgctxt "column name"
 msgid "When"
-msgstr ""
+msgstr "Quan"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:329
 msgctxt "column name"
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:324
 msgctxt "column name"
@@ -4915,13 +4915,13 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/List_Table.php:323
 msgctxt "column name"
 msgid "Frequency"
-msgstr ""
+msgstr "Freqüència"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:322
 #: src/Tribe/Aggregator/Record/List_Table.php:328
 msgctxt "column name"
 msgid "Source"
-msgstr ""
+msgstr "Origen"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:277
 msgctxt "records"
@@ -4932,16 +4932,16 @@ msgstr[1] ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
-msgstr ""
+msgstr "Aplica"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:228
 #: src/Tribe/Aggregator/Record/List_Table.php:229
 msgid "Bulk Actions"
-msgstr ""
+msgstr "Accions massives"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:181
 msgid "Filter"
-msgstr ""
+msgstr "Filtra"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:163
 #: src/Tribe/Aggregator/Record/List_Table.php:164
@@ -4971,7 +4971,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Abstract.php:484
 msgid "Record: "
-msgstr ""
+msgstr "Registre:"
 
 #: src/Tribe/Aggregator/Page.php:422
 msgid "Manage Active Plugins"
@@ -5001,12 +5001,12 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:97
 msgid "Hide Filters"
-msgstr ""
+msgstr "Amaga els filtres"
 
 #: src/Tribe/Aggregator/Page.php:96
 #: src/Tribe/Aggregator/Record/List_Table.php:492
 msgid "View Filters"
-msgstr ""
+msgstr "Mostra els filtres"
 
 #: src/Tribe/Aggregator/Page.php:95
 msgid "Removing this scheduled import will stop automatic imports from the source. No events will be deleted."
@@ -5047,12 +5047,12 @@ msgstr ""
 #: src/Tribe/Aggregator/Page.php:84
 msgctxt "Meridian: pm"
 msgid "PM"
-msgstr ""
+msgstr "P. M."
 
 #: src/Tribe/Aggregator/Page.php:83
 msgctxt "Meridian: am"
 msgid "AM"
-msgstr ""
+msgstr "A. M."
 
 #: src/Tribe/Aggregator/Migrate.php:239
 msgid "Success! The settings from iCal Importer have been migrated to Event Aggregator. You can view your migrated imports on the Scheduled Imports tab."
@@ -5197,42 +5197,42 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Errors.php:45
 msgid "The image associated with your event could not be attached to the event."
-msgstr ""
+msgstr "No s'ha pogut adjuntar a l'esdeveniment la imatge associada al vostre esdeveniment."
 
 #: src/Tribe/Aggregator/Cron.php:203
 msgctxt "aggregator schedule frequency"
 msgid "Every 15 minutes"
-msgstr ""
+msgstr "Cada 15 minuts"
 
 #: src/Tribe/Aggregator/Cron.php:118
 msgctxt "aggregator schedule frequency"
 msgid "Monthly"
-msgstr ""
+msgstr "Mensualment"
 
 #: src/Tribe/Aggregator/Cron.php:113
 msgctxt "aggregator schedule frequency"
 msgid "Weekly"
-msgstr ""
+msgstr "Setmanalment"
 
 #: src/Tribe/Aggregator/Cron.php:108
 msgctxt "aggregator schedule frequency"
 msgid "Daily"
-msgstr ""
+msgstr "Diàriament"
 
 #: src/Tribe/Aggregator/Cron.php:103
 msgctxt "aggregator schedule frequency"
 msgid "Hourly"
-msgstr ""
+msgstr "Cada hora"
 
 #: src/Tribe/Aggregator/Cron.php:98
 msgctxt "aggregator schedule frequency"
 msgid "Every 30 Minutes"
-msgstr ""
+msgstr "Cada 30 minuts"
 
 #: src/Tribe/Aggregator/Cron.php:93
 msgctxt "aggregator schedule frequency"
 msgid "On Demand"
-msgstr ""
+msgstr "Sota demanda"
 
 #: src/Tribe/Aggregator/Record/Meetup.php:40
 #: src/Tribe/Aggregator/API/Origins.php:60
@@ -5240,28 +5240,28 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:610
 #: src/admin-views/aggregator/status.php:203
 msgid "Meetup"
-msgstr ""
+msgstr "Trobada"
 
 #: src/Tribe/Aggregator/API/Origins.php:54
 #: src/admin-views/aggregator/settings.php:602
 msgid "ICS File"
-msgstr ""
+msgstr "Fitxer ICS"
 
 #: src/Tribe/Aggregator/Record/iCal.php:14
 #: src/Tribe/Aggregator/API/Origins.php:48
 #: src/admin-views/aggregator/settings.php:598
 msgid "iCalendar"
-msgstr ""
+msgstr "iCalendar"
 
 #: src/Tribe/Aggregator/Admin_Bar.php:97 src/Tribe/Aggregator/Service.php:779
 #: src/Tribe/Aggregator/API/Origins.php:31
 msgid "CSV File"
-msgstr ""
+msgstr "Fitxer CSV"
 
 #: src/Tribe/Admin_List.php:336
 msgctxt "%s Event count in admin list"
 msgid "All %s"
-msgstr ""
+msgstr "Tot %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
@@ -5318,7 +5318,7 @@ msgstr ""
 
 #: common/src/Tribe/Support.php:325 common/src/Tribe/Support.php:330
 msgid "Invalid Key"
-msgstr ""
+msgstr "Clau no vàlida"
 
 #: common/src/Tribe/Support.php:306
 msgid "Your system information will only be used by the Modern Tribe support team. All information is stored securely. We do not share this information with any third parties."
@@ -5331,7 +5331,7 @@ msgstr ""
 #: common/src/Tribe/PUE/Notices.php:440
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
-msgstr ""
+msgstr "%1$s i %2$s"
 
 #: common/src/Tribe/PUE/Notices.php:359
 msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
@@ -5368,7 +5368,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:260
 msgid ": Selected %d rows"
-msgstr ""
+msgstr ": %d files seleccionades"
 
 #: common/src/Tribe/Main.php:255
 msgid "Previous"
@@ -5376,11 +5376,11 @@ msgstr "Anterior"
 
 #: common/src/Tribe/Main.php:253
 msgid "All"
-msgstr ""
+msgstr "Tots"
 
 #: common/src/Tribe/Main.php:248
 msgid "Search:"
-msgstr ""
+msgstr "Cerca:"
 
 #: common/src/Tribe/Main.php:247
 msgid "No matching records found"
@@ -5425,11 +5425,11 @@ msgstr ""
 #: common/src/Tribe/Main.php:282
 #: common/src/admin-views/tribe-options-help.php:50
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Copia al porta-retalls"
 
 #: common/src/Tribe/Error.php:38
 msgid "An Unknown error occurred"
-msgstr ""
+msgstr "S'ha produït un error desconegut"
 
 #: common/src/Tribe/Plugins_API.php:34 common/src/Tribe/Admin/Help_Page.php:219
 #: src/Tribe/Aggregator.php:227 src/Tribe/Aggregator/API/Origins.php:235
@@ -5438,7 +5438,7 @@ msgstr ""
 
 #: common/src/Tribe/Support.php:171
 msgid "English"
-msgstr ""
+msgstr "Anglès"
 
 #: src/Tribe/Aggregator/Page.php:400
 msgid "iCal Importer"
@@ -5479,7 +5479,7 @@ msgstr ""
 
 #: src/Tribe/Organizer.php:184
 msgid "organizer"
-msgstr ""
+msgstr "organitzador"
 
 #: src/Tribe/Venue.php:194
 msgid "venues"
@@ -5492,12 +5492,12 @@ msgstr ""
 #: src/functions/template-tags/venue.php:775
 msgctxt "Address separator"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/admin-views/tribe-options-addons-api.php:95
 #: src/admin-views/tribe-options-addons-api.php:135
 msgid "APIs"
-msgstr ""
+msgstr "APIs"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:184
 msgid "Do Not Encode Contents"
@@ -5509,11 +5509,11 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:125
 msgid "Organizer Description"
-msgstr ""
+msgstr "Descripció de l'organització"
 
 #: src/Tribe/Importer/Column_Mapper.php:102
 msgid "Venue Description"
-msgstr ""
+msgstr "Descripció de l'adreça"
 
 #: src/Tribe/Importer/Column_Mapper.php:88
 msgid "Event Allow Trackbacks and Pingbacks"
@@ -5521,7 +5521,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:87
 msgid "Event Allow Comments"
-msgstr ""
+msgstr "Permet comentaris a l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Event Organizer Name(s) or ID(s)"
@@ -5537,7 +5537,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Time Zone"
-msgstr ""
+msgstr "Zona horària de l'esdeveniment"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
@@ -5550,15 +5550,15 @@ msgstr ""
 #: src/Tribe/Google/Maps_API_Key.php:55 src/Tribe/Google/Maps_API_Key.php:108
 #: src/admin-views/tribe-options-addons-api.php:25
 msgid "Click here"
-msgstr ""
+msgstr "Feu clic aquí"
 
 #: src/Tribe/Google/Maps_API_Key.php:76 src/Tribe/Google/Maps_API_Key.php:83
 msgid "Google Maps API key"
-msgstr ""
+msgstr "Google Maps API key"
 
 #: src/Tribe/Google/Maps_API_Key.php:66
 msgid "Google Maps API"
-msgstr ""
+msgstr "Google Maps API"
 
 #: common/src/admin-views/event-log.php:117
 msgid "Download log"
@@ -5570,11 +5570,11 @@ msgstr ""
 
 #: common/src/admin-views/event-log.php:43
 msgid "Method"
-msgstr ""
+msgstr "Mètode"
 
 #: common/src/admin-views/event-log.php:21
 msgid "Logging level"
-msgstr ""
+msgstr "Nivell d'informe"
 
 #: common/src/Tribe/Validate.php:168
 msgid "%s must contain numbers, letters, dashes and undescores only"
@@ -5586,16 +5586,16 @@ msgstr ""
 
 #: common/src/Tribe/Log.php:375
 msgid "Warnings and errors"
-msgstr ""
+msgstr "Errors i avisos"
 
 #: common/src/Tribe/Log.php:374
 msgid "Only errors"
-msgstr ""
+msgstr "Només errors"
 
 #: common/src/Tribe/Log.php:373 src/admin-views/tribe-options-general.php:178
 #: src/admin-views/tribe-options-general.php:195
 msgid "Disabled"
-msgstr ""
+msgstr "Inhabilitat"
 
 #: common/src/Tribe/Log.php:274
 msgid "Cannot set %s as the current logging engine"
@@ -5690,7 +5690,7 @@ msgstr "Dia anterior"
 
 #: src/admin-views/venue-meta-box.php:272
 msgid "%s Name already exists"
-msgstr ""
+msgstr "El nom %s ja existeix"
 
 #: src/admin-views/venue-meta-box.php:267
 msgid "%s Name can not be empty"
@@ -5754,7 +5754,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1217
 msgid "post a thread"
-msgstr ""
+msgstr "publica un fil"
 
 #: src/Tribe/Main.php:1213
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
@@ -5782,7 +5782,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1200
 msgid "Events Tickets"
-msgstr ""
+msgstr "Entrades de l'esdeveniment"
 
 #: src/Tribe/Main.php:1185
 msgid "Customizing the Events plugins"
@@ -5861,16 +5861,16 @@ msgstr ""
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:89
 #: src/admin-views/aggregator/settings.php:70
 msgid "CSV Import Settings"
-msgstr ""
+msgstr "Configuració de la importació de CSV"
 
 #: common/src/Tribe/Main.php:276
 #: src/deprecated/Tribe__Events__Asset__Bootstrap_Datepicker.php:27
 msgid "Clear"
-msgstr "Esborrar"
+msgstr "Neteja"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:257
 msgid "Add another %s"
-msgstr ""
+msgstr "Afegeix un altre %s"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:170
 msgid "Create New %s"
@@ -5878,7 +5878,7 @@ msgstr "Crea nou(s) %s"
 
 #: src/Tribe/Organizer.php:375
 msgid "Unnamed %s"
-msgstr ""
+msgstr "Sense nom %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:47
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
@@ -6041,8 +6041,8 @@ msgstr ""
 #: src/views/month/single-day.php:47
 msgid "View %1$s %2$s"
 msgid_plural "View All %1$s %2$s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Visualitza %1$s %2$s"
+msgstr[1] "Visualitza %1$s %2$s"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:54
 msgid "Completed!"
@@ -6058,7 +6058,7 @@ msgstr "organitzadors"
 #: src/admin-views/aggregator/origins/ical.php:111
 #: src/admin-views/aggregator/tabs/import-form.php:251
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #: common/src/Tribe/Validate.php:214
 msgid "%s must be a positive number or percent."
@@ -6155,7 +6155,7 @@ msgstr "Pendent"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:134
 msgid "Published"
-msgstr "Publicat"
+msgstr "Publicada"
 
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:238
 msgid "Import Settings"
@@ -6248,7 +6248,7 @@ msgstr "Etiquetes d'esdeveniments:"
 #: src/modules/blocks/classic-event-details/template.js:42
 #: src/resources/js/app/blocks.js:44958
 msgid "Details"
-msgstr "Detalls"
+msgstr "Mostra els detalls"
 
 #: src/admin-views/widget-admin-list.php:31
 msgid "Show widget only if there are upcoming events"
@@ -6337,7 +6337,7 @@ msgstr "Aquí és on es poden modificar tots els ajustos de xarxa de The Events 
 
 #: common/src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
-msgstr "Configuració de xarxa"
+msgstr "Paràmetres de xarxa"
 
 #: common/src/admin-views/tribe-options-licenses.php:38
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
@@ -6510,7 +6510,7 @@ msgstr "Habilita els comentaris a les pàgines dels esdeveniments."
 
 #: src/admin-views/tribe-options-general.php:61
 msgid "Show comments"
-msgstr "Mostrar comentaris"
+msgstr "Mostra els comentaris"
 
 #: src/admin-views/tribe-options-general.php:53
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
@@ -6522,7 +6522,7 @@ msgstr "Número d'esdeveniments a mostrar per pàgina"
 
 #: src/admin-views/tribe-options-general.php:40
 msgid "General Settings"
-msgstr "Configuració general"
+msgstr "Opcions generals"
 
 #: common/src/admin-views/tribe-options-general.php:35
 msgid "Show The Events Calendar link"
@@ -6706,7 +6706,7 @@ msgstr "Configuració de la plantilla bàsica"
 
 #: src/admin-views/tribe-options-display.php:53
 msgid "Display Settings"
-msgstr "Configuració de visualització"
+msgstr "Mostra la configuració"
 
 #: src/admin-views/tribe-options-display.php:7
 msgid "Default Page Template"
@@ -6728,13 +6728,13 @@ msgstr "suprimeix"
 
 #: common/src/admin-views/event-log.php:65
 msgid "View"
-msgstr "Veure"
+msgstr "Visualitza"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:366
 #: src/modules/elements/edit-link/element.js:49
 #: src/resources/js/app/blocks.js:13608 src/resources/js/app/elements.js:10234
 msgid "Edit"
-msgstr "Editar"
+msgstr "Edita"
 
 #: src/admin-views/create-venue-fields.php:74
 #: src/admin-views/venue-meta-box.php:38
@@ -6752,7 +6752,7 @@ msgstr "El nom de l'%s ja existeix"
 #: src/views/blocks/parts/organizer.php:69 src/resources/js/app/blocks.js:11510
 #: src/resources/js/app/elements.js:8136
 msgid "Email:"
-msgstr "Correu electrònic:"
+msgstr "Email:"
 
 #: src/admin-views/create-venue-fields.php:194
 #: src/admin-views/organizer-meta-box.php:37
@@ -7223,7 +7223,7 @@ msgstr "Vietnam"
 
 #: common/src/Tribe/Languages/Locations.php:289
 msgid "Venezuela"
-msgstr "Venezuela"
+msgstr "Veneçuela"
 
 #: common/src/Tribe/Languages/Locations.php:288
 msgid "Vanuatu"
@@ -7239,15 +7239,15 @@ msgstr "Uruguai"
 
 #: common/src/Tribe/Languages/Locations.php:285
 msgid "United States Minor Outlying Islands"
-msgstr "Illes Perifèriques Menors dels Estats Units"
+msgstr "Illes Perifèriques Menors dels EUA"
 
 #: common/src/Tribe/Languages/Locations.php:284
 msgid "United Kingdom"
-msgstr "regne Unit"
+msgstr "Regne Unit"
 
 #: common/src/Tribe/Languages/Locations.php:283
 msgid "United Arab Emirates"
-msgstr "Emirats Àrabs Units"
+msgstr "Unió dels Emirats Àrabs"
 
 #: common/src/Tribe/Languages/Locations.php:282
 msgid "Ukraine"
@@ -7303,7 +7303,7 @@ msgstr "Tanzània, República Unida de"
 
 #: common/src/Tribe/Languages/Locations.php:269
 msgid "Tajikistan"
-msgstr "Tajikistan"
+msgstr "Tadjikistan"
 
 #: common/src/Tribe/Languages/Locations.php:268
 msgid "Taiwan"
@@ -7311,7 +7311,7 @@ msgstr "Taiwan"
 
 #: common/src/Tribe/Languages/Locations.php:267
 msgid "Syrian Arab Republic"
-msgstr "Síria"
+msgstr "República Àrab Síria"
 
 #: common/src/Tribe/Languages/Locations.php:266
 msgid "Switzerland"
@@ -7339,7 +7339,7 @@ msgstr "Sudan"
 
 #: common/src/Tribe/Languages/Locations.php:241
 msgid "Saint Pierre and Miquelon"
-msgstr "Saint-Pierre i Miquelon"
+msgstr "Saint Pierre i Miquelon"
 
 #: common/src/Tribe/Languages/Locations.php:260
 msgid "Sri Lanka"
@@ -7355,7 +7355,7 @@ msgstr "Illes Geòrgia del Sud i Sandwich del Sud"
 
 #: common/src/Tribe/Languages/Locations.php:257
 msgid "South Africa"
-msgstr "Sud-àfrica"
+msgstr "Sudàfrica"
 
 #: common/src/Tribe/Languages/Locations.php:256
 msgid "Somalia"
@@ -7451,7 +7451,7 @@ msgstr "Polònia"
 
 #: common/src/Tribe/Languages/Locations.php:228
 msgid "Pitcairn"
-msgstr "Illes Pitcairn"
+msgstr "Pitcairn"
 
 #: common/src/Tribe/Languages/Locations.php:227
 msgid "Philippines"
@@ -7663,7 +7663,7 @@ msgstr "Letònia"
 
 #: common/src/Tribe/Languages/Locations.php:175
 msgid "Lao People's Democratic Republic"
-msgstr "Laos, República Democràtica Popular de"
+msgstr "República Democràtica Popular de Laos"
 
 #: common/src/Tribe/Languages/Locations.php:174
 msgid "Kyrgyzstan"
@@ -7675,11 +7675,11 @@ msgstr "Kuwait"
 
 #: common/src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr "Corea, República de"
+msgstr "Corea del Sud"
 
 #: common/src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr "Corea, República Popular Democràtica de"
+msgstr "Corea del Nord"
 
 #: common/src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
@@ -7723,7 +7723,7 @@ msgstr "Iraq"
 
 #: common/src/Tribe/Languages/Locations.php:160
 msgid "Iran, Islamic Republic of"
-msgstr "Iran (República Islàmica de l')"
+msgstr "Iran, República Islàmica de l'"
 
 #: common/src/Tribe/Languages/Locations.php:159
 msgid "Indonesia"
@@ -7751,7 +7751,7 @@ msgstr "Hondures"
 
 #: common/src/Tribe/Languages/Locations.php:153
 msgid "Holy See (Vatican City State)"
-msgstr "Santa Seu (Ciutat del Vaticà)"
+msgstr "Santa Seu (Estat del Vaticà)"
 
 #: common/src/Tribe/Languages/Locations.php:152
 msgid "Heard and McDonald Islands"
@@ -7767,7 +7767,7 @@ msgstr "Guyana"
 
 #: common/src/Tribe/Languages/Locations.php:149
 msgid "Guinea-Bissau"
-msgstr "Guinea-Bissau"
+msgstr "Guinea Bissau"
 
 #: common/src/Tribe/Languages/Locations.php:148
 msgid "Guinea"
@@ -7828,7 +7828,7 @@ msgstr "Territoris Francesos del Sud"
 
 #: common/src/Tribe/Languages/Locations.php:134
 msgid "French Polynesia"
-msgstr "Polinèsia Francesa"
+msgstr "Polinèsia francesa"
 
 #: common/src/Tribe/Languages/Locations.php:133
 msgid "French Guiana"
@@ -7944,7 +7944,7 @@ msgstr "Colòmbia"
 
 #: common/src/Tribe/Languages/Locations.php:102
 msgid "Cocos (Keeling) Islands"
-msgstr "Cocos (Keeling)"
+msgstr "Illes Cocos (Keeling)"
 
 #: common/src/Tribe/Languages/Locations.php:101
 msgid "Christmas Island"
@@ -8000,7 +8000,7 @@ msgstr "Bulgària"
 
 #: common/src/Tribe/Languages/Locations.php:88
 msgid "Brunei Darussalam"
-msgstr "Brunei Darussalam"
+msgstr "Brunei (Negara Brunei Darussalam)"
 
 #: common/src/Tribe/Languages/Locations.php:87
 msgid "British Indian Ocean Territory"
@@ -8032,7 +8032,7 @@ msgstr "Bhutan"
 
 #: common/src/Tribe/Languages/Locations.php:80
 msgid "Bermuda"
-msgstr "Bermudes"
+msgstr "Bermuda"
 
 #: common/src/Tribe/Languages/Locations.php:79
 msgid "Benin"
@@ -8068,7 +8068,7 @@ msgstr "Bahames"
 
 #: common/src/Tribe/Languages/Locations.php:71
 msgid "Azerbaijan"
-msgstr "Azerbaidjan"
+msgstr "Azerbaitjan"
 
 #: common/src/Tribe/Languages/Locations.php:70
 msgid "Austria"
@@ -8112,7 +8112,7 @@ msgstr "Andorra"
 
 #: common/src/Tribe/Languages/Locations.php:60
 msgid "American Samoa"
-msgstr "Samoa Nord-americana"
+msgstr "Samoa Americana"
 
 #: common/src/Tribe/Languages/Locations.php:59
 msgid "Algeria"
@@ -8223,7 +8223,7 @@ msgstr "Tiquets"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:387
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "Suprimeix"
 
 #: src/admin-views/admin-welcome-message.php:30
 msgid "Email"
@@ -8398,7 +8398,7 @@ msgstr "Data"
 
 #: src/Tribe/Main.php:4255
 msgid "Search"
-msgstr "Buscar"
+msgstr "Cerca"
 
 #: src/Tribe/Main.php:4229 src/admin-views/aggregator/fields/schedule.php:44
 #: src/admin-views/aggregator/fields/schedule.php:62
@@ -8420,7 +8420,7 @@ msgstr "Calendari"
 #: common/src/Tribe/Settings.php:254 src/Tribe/Main.php:4177
 #: src/Tribe/Admin/Bar/Default_Configurator.php:89
 msgid "Settings"
-msgstr "Configuració"
+msgstr "Opcions"
 
 #: src/Tribe/Aggregator/Record/CSV.php:75
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:239
@@ -8430,7 +8430,7 @@ msgstr "CSV"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:53
 msgid "Add %s"
-msgstr "Afegir %s"
+msgstr "Afegeix %s"
 
 #: src/Tribe/Main.php:4128 src/Tribe/Admin/Bar/Default_Configurator.php:45
 msgid "View Calendar"
@@ -8562,11 +8562,11 @@ msgstr "%s actualitzat."
 
 #: src/Tribe/Main.php:2015 src/Tribe/Main.php:2053 src/Tribe/Main.php:2073
 msgid "Custom field deleted."
-msgstr "Camp personalitzat eliminat."
+msgstr "S'ha suprimit el camp personalitzat."
 
 #: src/Tribe/Main.php:2014 src/Tribe/Main.php:2052 src/Tribe/Main.php:2072
 msgid "Custom field updated."
-msgstr "Camp personalitzat actualitzat."
+msgstr "S'ha actualitzat el camp personalitzat."
 
 #: src/Tribe/Main.php:1992
 msgid "New %s Category Name"
@@ -8758,7 +8758,7 @@ msgstr "Un giny que mostra els propers esdeveniments."
 #: common/src/Tribe/Settings.php:643
 #: src/deprecated/Tribe__Events__Importer__Options.php:55
 msgid "Settings saved."
-msgstr "Configuració guardada."
+msgstr "S'han desat les opcions."
 
 #: src/Tribe/Importer/File_Uploader.php:36
 msgid "Could not save %s."
@@ -8939,7 +8939,7 @@ msgstr "El fitxer ha desaparegut. Si us plau, intenta-ho de nou."
 #: src/Tribe/Aggregator/Page.php:263
 #: src/admin-views/aggregator/tabs/import-form.php:248
 msgid "Import"
-msgstr "Importar"
+msgstr "Importa"
 
 #: common/src/Tribe/Field.php:626
 msgid "No select options specified"
@@ -9086,7 +9086,7 @@ msgstr "Anar a la pàgina d'actualitzacions de WordPress"
 #: common/src/Tribe/Admin/Activation_Page.php:84
 #: src/deprecated/Tribe__Events__Activation_Page.php:41
 msgid "Return to Plugins page"
-msgstr "Tornar a la pàgina de plugins"
+msgstr "Torna a la pàgina web de les extensions"
 
 #: common/src/Tribe/Admin/Activation_Page.php:84
 #: src/deprecated/Tribe__Events__Activation_Page.php:41

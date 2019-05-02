@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-01 14:52:51+0000\n"
+"PO-Revision-Date: 2019-04-21 11:54:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -223,7 +223,7 @@ msgstr "Symbol meny nasleduje po cene"
 #: src/modules/blocks/event-price/template.js:123
 #: src/resources/js/app/blocks.js:48791
 msgid "enter 0 as price for free events"
-msgstr ""
+msgstr "zadajte 0 ako cenu pre vstup zadarmo"
 
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
@@ -265,7 +265,7 @@ msgstr "Vytvoriť organizátor"
 #: src/modules/blocks/classic-event-details/index.js:22
 #: src/resources/js/app/blocks.js:45285
 msgid "Display your event info together in one place — just like in the Classic Editor."
-msgstr ""
+msgstr "Zobraziť informácie o udalosti na jednom mieste - presne ako v klasickom editore."
 
 #: src/modules/blocks/classic-event-details/index.js:21
 #: src/resources/js/app/blocks.js:45284
@@ -574,23 +574,23 @@ msgstr "Keď chcete zastaviť a vyčistiť aktuálne asynchrónne procesy import
 
 #: src/admin-views/aggregator/origins/eventbrite.php:127
 msgid "Import from Eventbrite URL"
-msgstr ""
+msgstr "Importovať z URL adresy Eventbrite"
 
 #: src/Tribe/Google/Maps_API_Key.php:109
 msgid "to create your own free Google Maps API key."
-msgstr ""
+msgstr "vytvoriť vlastný kľúč API služby Mapy Google zadarmo. "
 
 #: src/Tribe/Google/Maps_API_Key.php:106
 msgid "If you do not add your own API key, the built-in API key will always populate this field and some map-related functionality will be limited "
-msgstr ""
+msgstr "Pokiaľ nepridáte vlastný kľúč API, integrovaný kľúč API zakaždým vyplní toto pole a niektoré funkcie mapy budú obmedzené"
 
 #: src/Tribe/Google/Maps_API_Key.php:105
 msgid "You are using The Events Calendar's built-in Google Maps API key."
-msgstr ""
+msgstr "Používate The Events Calendar integrovaný kľúč API služby Google Maps."
 
 #: src/Tribe/Google/Maps_API_Key.php:77
 msgid "Read More"
-msgstr ""
+msgstr "Čítať viac"
 
 #: src/Tribe/Google/Maps_API_Key.php:72
 msgid "The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s."
@@ -598,7 +598,7 @@ msgstr ""
 
 #: src/Tribe/Google/Maps_API_Key.php:56
 msgid "to learn more about using it with The Events Calendar"
-msgstr ""
+msgstr "pre zistenie viacerých informácií o použití s The Events Calendar"
 
 #: src/Tribe/Google/Maps_API_Key.php:54
 msgid "You are using a custom Google Maps API key."
@@ -619,13 +619,13 @@ msgstr "Nepodporovaný"
 #: src/Tribe/Aggregator/Processes/Service_Provider.php:74
 msgid "Successfully stopped and cleared 1 asynchronous queue process."
 msgid_plural "Successfully stopped and cleared %d asynchronous queue processes."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Úspešne zastavený a vyčistený 1 asynchrónny proces frontu."
+msgstr[1] "Úspešne zastavených a vyčistených %d asynchrónnych procesov frontu."
+msgstr[2] "Úspešne zastavených a vyčistených %d asynchrónnych procesov frontu."
 
 #: src/Tribe/Aggregator/Processes/Service_Provider.php:72
 msgid "No asynchronous queue processes to clear."
-msgstr ""
+msgstr "Žiaden asynchrónny proces frontu na vyčistenie."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:338
 msgid "The event tag ID or name"
@@ -774,11 +774,11 @@ msgstr "Informácie o udalosti, mieste konania a organizátorovi"
 
 #: src/admin-views/privacy.php:18
 msgid "What personal data we collect and why we collect it"
-msgstr ""
+msgstr "Ktoré osobné údaje zbierame a prečo "
 
 #: src/admin-views/privacy.php:16
 msgid "This information is only for guidance and not to be considered as legal advice."
-msgstr ""
+msgstr "Informácia slúži len ako poučenie a nie právne rada. "
 
 #: src/admin-views/privacy.php:16
 msgid "Disclaimer:"
@@ -786,7 +786,7 @@ msgstr "Vyhlásenie:"
 
 #: src/admin-views/privacy.php:15
 msgid "You should include the information below in the correct sections of you privacy policy."
-msgstr ""
+msgstr "Informácie nižšie by ste mali zahrnúť do vhodnej sekcie zásad ochrany osobných údajov."
 
 #: src/admin-views/privacy.php:14
 msgid "This information serves as a guide on what sections need to be modified due to usage of The Events Calendar and its Add-ons."
@@ -798,7 +798,7 @@ msgstr "Ahojte,"
 
 #: src/admin-views/aggregator/settings.php:513
 msgid "The default event category for events imported via Eventbrite"
-msgstr ""
+msgstr "Predvolená kategória udalosti pre udalosti importované cez Eventbrite"
 
 #: src/admin-views/aggregator/settings.php:501
 msgid "The default post status for events imported via Eventbrite"
@@ -910,7 +910,7 @@ msgstr "4 čísla roku pomlčka 2 čísla mesiaca pomlčka 2 čísla dňa"
 
 #: src/Tribe/Main.php:4252
 msgid "Search for %s by Keyword."
-msgstr ""
+msgstr "Vyhľadávať %s podľa Kľúčového slova."
 
 #: src/Tribe/API.php:826 src/Tribe/API.php:837
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
@@ -946,11 +946,11 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:52
 msgid "Refresh your connection to Eventbrite"
-msgstr ""
+msgstr "Obnoviť pripojenie k Eventbrite"
 
 #: src/admin-views/tribe-options-addons-api.php:50
 msgid "Connect to Eventbrite"
-msgstr ""
+msgstr "Pripojiť k Eventbrite"
 
 #: src/admin-views/tribe-options-addons-api.php:49
 msgid "You need to connect to Eventbrite for Event Aggregator to work properly"
@@ -958,7 +958,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:45
 msgid "Eventbrite Token"
-msgstr ""
+msgstr "Token Eventbrite"
 
 #: src/admin-views/aggregator/tabs/import-form.php:306
 msgid "Settings > General"
@@ -986,12 +986,12 @@ msgstr ""
 
 #: src/admin-views/aggregator/status.php:175
 msgid "Limited connectivity with Eventbrite"
-msgstr ""
+msgstr "Obmedzená konektivita s Eventbrite"
 
 #: src/admin-views/aggregator/status.php:171
 msgctxt "link for connecting eventbrite"
 msgid "Connect to Eventbrite"
-msgstr ""
+msgstr "Pripojiť k Eventbrite"
 
 #: src/admin-views/aggregator/status.php:169
 msgid "You have not connected Event Aggregator to Eventbrite"
@@ -1003,7 +1003,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:154
 msgid "Invalid Meetup URL"
-msgstr ""
+msgstr "Neplatná Meetup URL adresa"
 
 #: src/deprecated/facebook.php:129
 msgid "Invalid Facebook URL"
@@ -1011,7 +1011,7 @@ msgstr "Neplatná URL Facebook adresa"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:183
 msgid "Invalid Eventbrite URL"
-msgstr ""
+msgstr "Neplatná URL adresa Eventbrite"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:153
 msgid "eventbrite.com/e/example-12345"
@@ -1031,11 +1031,11 @@ msgstr "Importovať Zdroj"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:44
 msgid "Log into Eventbrite"
-msgstr ""
+msgstr "Prihlásiť sa do Eventbrite"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:38
 msgid "Please log in to enable event imports from Eventbrite."
-msgstr ""
+msgstr "Prosím prihláste sa, aby prebehlo importovanie udalostí z Eventbrite."
 
 #: src/admin-views/aggregator/origins/eventbrite.php:15
 #: src/admin-views/aggregator/origins/eventbrite.php:121
@@ -6880,7 +6880,7 @@ msgstr ""
 
 #: src/admin-views/event-sidebar-options.php:16
 msgid "Hide From %s Listings"
-msgstr ""
+msgstr "Skryť z %s zoznamov"
 
 #: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
@@ -8629,7 +8629,7 @@ msgstr "Všetky %s kategórie"
 
 #: src/Tribe/Main.php:1985
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Vyhľadávať %s kategórie"
 
 #: src/Tribe/Main.php:1984
 msgid "%s Category"
@@ -9066,7 +9066,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:100
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:210
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% dokončené"
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: time zone data has been added to all events in the database."
@@ -9074,7 +9074,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while time zone data is added to your events."
-msgstr ""
+msgstr "Prosím počkajte pokým sa údaje časovej zóny nepridajú do udalosti."
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:211 src/Tribe/Main.php:1969
 #: src/Tribe/Main.php:5064 src/Tribe/Main.php:5111
@@ -9089,11 +9089,11 @@ msgstr "Použiť uložené %s:"
 
 #: src/Tribe/Main.php:1098
 msgid " ask the site administrator set a different Events URL slug."
-msgstr ""
+msgstr "požiadajte správcu stránky, aby nastavil iný URL slug udalostí."
 
 #: src/Tribe/Main.php:1092
 msgid "Ask the site administrator to edit the %s slug"
-msgstr ""
+msgstr "Požiadajte správcu stránku, aby upravil %s slug"
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
@@ -9107,22 +9107,22 @@ msgstr "Vitajte v Kalendári udalostí"
 #: common/src/Tribe/Admin/Activation_Page.php:92
 #: src/deprecated/Tribe__Events__Activation_Page.php:49
 msgid "Return to WordPress Updates"
-msgstr ""
+msgstr "Vrátiť sa k aktualizáciám WordPress"
 
 #: common/src/Tribe/Admin/Activation_Page.php:92
 #: src/deprecated/Tribe__Events__Activation_Page.php:49
 msgid "Go to WordPress Updates page"
-msgstr ""
+msgstr "Prejsť na stránku WordPress aktualizácie"
 
 #: common/src/Tribe/Admin/Activation_Page.php:84
 #: src/deprecated/Tribe__Events__Activation_Page.php:41
 msgid "Return to Plugins page"
-msgstr ""
+msgstr "Vrátiť sa na stránku Pluginy"
 
 #: common/src/Tribe/Admin/Activation_Page.php:84
 #: src/deprecated/Tribe__Events__Activation_Page.php:41
 msgid "Go to plugins page"
-msgstr ""
+msgstr "Prejdite na stránku pluginov"
 
 #: common/src/Tribe/Languages/Locations.php:55 src/Tribe/Venue.php:320
 #: src/functions/template-tags/venue.php:379

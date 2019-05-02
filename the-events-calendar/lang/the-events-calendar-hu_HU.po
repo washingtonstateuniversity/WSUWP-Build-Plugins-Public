@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-03 15:48:41+0000\n"
+"PO-Revision-Date: 2019-03-28 14:10:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -483,7 +483,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:91
 msgid "<strong>The Events Calendar & Gutenberg</strong>"
-msgstr ""
+msgstr "<strong>A The Events Calendar és Gutenberg</strong>"
 
 #: src/Tribe/Main.php:1464
 msgid "When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s"
@@ -508,29 +508,29 @@ msgstr ""
 #: common/src/Tribe/Editor/Configuration.php:96
 #: src/resources/js/app/blocks.js:45852 src/resources/js/app/blocks.js:46326
 msgid "F j"
-msgstr ""
+msgstr "F j"
 
 #: common/src/Tribe/Editor/Configuration.php:95
 msgid "F j, Y"
-msgstr ""
+msgstr "F j, Y"
 
 #: common/src/Tribe/Editor/Configuration.php:94
 msgid "g:i a"
-msgstr ""
+msgstr "g:i a"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "%s telt el"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s múlva"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
-msgstr ""
+msgstr "A blokk betöltése közben hiba lépett fel. Távolítsd el ezt a blokkot az újrakezdéshez."
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
@@ -649,11 +649,11 @@ msgstr ""
 
 #: common/src/Tribe/Plugins_API.php:37
 msgid "Event Aggregator adds massive import functionality to your calendar. Before you know it, you’ll be importing events from Meetup, Eventbrite, Google Calendar, iCalendar, and other URLs with ease. Schedule imports to run automatically behind-the-scenes or run them manually when you’re ready. Go ahead and import to your heart’s content—Event Aggregator hooks you up with a central dashboard in the admin to make managing your imports a breeze."
-msgstr ""
+msgstr "Az Event Aggregator erőteljes importálási funkciókat ad a naptáradhoz. Segítségével könnyen importálhatsz eseményeket a Meetup-ról, Google Naptárból, iCalendar-okból és már URL-ekből. Az importálás lehet időzített, ami a háttérben fut, vagy futtathatod manuálisan, amikor csak szeretnéd. Gyerünk, importáld a kedvenc eseményeidet — az Event Aggregator irányítópultja segítségével könnyen kezelheted az importjaidat."
 
 #: src/views/month/single-day.php:57
 msgid "%s for %s"
-msgstr ""
+msgstr "%s %s-i napra"
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
 msgid "Calendar of %s"
@@ -673,11 +673,11 @@ msgstr ""
 
 #: src/views/modules/bar.php:86
 msgid "%s Views Navigation"
-msgstr ""
+msgstr "%s nézet navigáció"
 
 #: src/views/modules/bar.php:38
 msgid "%s Search and Views Navigation"
-msgstr ""
+msgstr "%s keresése és nézet választás"
 
 #: src/admin-views/privacy.php:63
 msgid "If you have extended our plugin(s) to send data to a third-party service such as Eventbrite, Google Maps, or PayPal, user information may be passed to these external services. These services may be located abroad."
@@ -701,7 +701,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:53
 msgid "How Long You Retain this Data"
-msgstr "Amennyi ideig ezt az adatot tárolja "
+msgstr "Amennyi ideig ez az adat tárolásra kerül"
 
 #: src/admin-views/privacy.php:51
 msgid "These API keys may include the following third party services: Google Maps, Meetup, PayPal, and Eventbrite (API key, auth URL and Client Secret)."
@@ -825,11 +825,11 @@ msgstr ""
 
 #: src/Tribe/Main.php:4335
 msgid "Search for %s by month. Please use the format %s."
-msgstr ""
+msgstr "%s keresése hónap alapján. Kérjük, használd az alábbi formátumot: %s."
 
 #: src/Tribe/Main.php:4330
 msgid "Search for %s by Date. Please use the format %s."
-msgstr ""
+msgstr "%s keresése dátum alapján. Kérjük, használd az alábbi formátumot: %s."
 
 #: src/Tribe/Main.php:4298 src/Tribe/Main.php:4299
 msgid "2 digit month dot 4 digit year"
@@ -909,7 +909,7 @@ msgstr "4 számjegyű év kötőjel 2 számjegyű hónap kötőjel 2 számjegyű
 
 #: src/Tribe/Main.php:4252
 msgid "Search for %s by Keyword."
-msgstr ""
+msgstr "%s keresése kulcsszó alapján."
 
 #: src/Tribe/API.php:826 src/Tribe/API.php:837
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
@@ -933,11 +933,11 @@ msgstr ""
 
 #: common/src/Tribe/Admin/Notice/Php_Version.php:101
 msgid "Starting March 2019, %1$s will no longer work with versions prior to PHP 5.4. Currently your site is using PHP version %2$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
+msgstr "2019. márciustól a(z) %1$s nem fog működni a PHP 5.4-nél régebbi verzióin. A weboldalon jelenleg PHP %2$s verzió fut. A legjobb eredmény érdekében javasolt a PHP 5.6 vagy újabb használata."
 
 #: common/src/Tribe/Admin/Notice/Php_Version.php:98
 msgid "Starting March 2019, %1$s will no longer support versions prior to PHP 5.6. Your site is currently using PHP version %2$s which will no longer be supported by %1$s. For best results, we recommend using PHP 5.6 or above."
-msgstr ""
+msgstr "2019 márciustól a(z) %1$s nem fog működni a PHP 5.6-nál régebbi verzióin. A weboldalon jelenleg PHP %2$s verzió fut, amit a(z) %1$s nem fog támogatni. A legjobb eredmény érdekében javasoljuk a PHP 5.6 vagy újabb használatát."
 
 #: src/admin-views/tribe-options-addons-api.php:74
 msgid "You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite."
@@ -1230,7 +1230,7 @@ msgstr ""
 
 #: common/src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
-msgstr ""
+msgstr "Az Event Tickets Plus segítségével jegyeket árulhatsz az eseményeidre a WooCommerce, az Easy Digital Downloads vagy a beépített Tribe Commerce eszköz segítségével. Készíthetsz jegyeket blogbejegyzésekhez, oldalakhoz, vagy telepítsd a %1$sThe Events Calendar%2$st és árulj jegyeket az eseményeidre. Hozz létre egyedi regisztrációs űrlapokat, kezeld a résztvevőket, használj egyedi készlet kezelést, és még sok minden más. A jegyekhez QR-kód is készül a résztvevők beléptetéshez, ami az egyedi jegyszkennelő applikációnkkal még könnyebb."
 
 #: src/admin-views/tribe-options-general.php:31
 msgid "The number of events per page on the List, Photo, and Map Views. Does not affect other views."
@@ -1251,7 +1251,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:140
 msgid "The organizer with the specified ID is not accessible."
-msgstr ""
+msgstr "A megadott azonosítóval (ID) rendelkező szervező nem érhető el."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:130
 msgid "An event with the specified ID does not exist."
@@ -1263,7 +1263,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:2020
 msgid "%1$s published. %2$sView %3$s"
-msgstr ""
+msgstr "%1$s közzétéve. %2$s%3$s megtekintése"
 
 #: common/src/Tribe/Validate.php:184
 msgid "%s must not be empty"
@@ -1321,11 +1321,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
-msgstr ""
+msgstr "A kért esemény kifejezés archívum oldala nem létezik"
 
 #: src/Tribe/REST/V1/Messages.php:43
 msgid "The requested organizer archive page does not exist"
-msgstr ""
+msgstr "A kért szervező archívum oldala nem létezik"
 
 #: src/Tribe/REST/V1/Messages.php:42
 msgid "The requested venue archive page does not exist"
@@ -1377,7 +1377,7 @@ msgstr "A kért helyszín nem elérhető"
 
 #: src/Tribe/REST/V1/Messages.php:30
 msgid "The provided linked post ID is not valid"
-msgstr ""
+msgstr "A megadott kapcsolódó bejegyzés azonosító (ID) nem érvényes"
 
 #: src/Tribe/REST/V1/Messages.php:29
 msgid "The organizer could not be created from the provided data"
@@ -1389,7 +1389,7 @@ msgstr "A helyszínt nem lehetett létrehozni a megadott adatok alapján"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue_Slug.php:36
 msgid "the venue post name"
-msgstr ""
+msgstr "a helyszín bejegyzés neve"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:309
 msgid "The venue state and province"
@@ -1405,27 +1405,27 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:240
 msgid "The venue post status"
-msgstr ""
+msgstr "A helyszín bejegyzés állapota"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:234
 msgid "The venue description"
-msgstr ""
+msgstr "A helyszín leírása"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:221
 msgid "The venue publication date (UTC time zone)"
-msgstr ""
+msgstr "A helyszín létrehozásának dátuma (UTC idő szerint)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:215
 msgid "The venue publication date"
-msgstr ""
+msgstr "A helyszín létrehozásának dátuma"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:209
 msgid "The venue author ID"
-msgstr ""
+msgstr "A helyszín szerzőjének azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:187
 msgid "the venue post ID"
-msgstr ""
+msgstr "a helyszín bejegyzés azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:167
 msgid "The venue with the specified ID could not be deleted."
@@ -1441,7 +1441,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:158
 msgid "The venue post ID is missing or does not exist."
-msgstr ""
+msgstr "A helyszín bejegyzés azonosítója (ID) hiányzik vagy nem létezik."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:152
 msgid "Deletes a venue and returns its data"
@@ -1449,27 +1449,27 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:144
 msgid "The user is not authorized to create venues"
-msgstr ""
+msgstr "A felhasználónak nincs engedélye helyszínek létrehozásához"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:135
 msgid "Returns the data of the created venue"
-msgstr ""
+msgstr "Visszaadja a létrehozott helyszín adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:129
 msgid "Returns the data of the updated venue"
-msgstr ""
+msgstr "Visszaadja a frissített helyszín adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:120
 msgid "A venue with the specified post ID does not exist."
-msgstr ""
+msgstr "Nem létezik helyszín a megadott bejegyzés azonosítóval (ID)."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:114
 msgid "The venue post ID is missing."
-msgstr ""
+msgstr "A helyszín bejegyzés azonosítója (ID) hiányzik."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:108
 msgid "Returns the data of the venue with the specified post ID"
-msgstr ""
+msgstr "Visszaadja a megadott azonosítóval (ID) rendelkező helyszín adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:142
 msgid "the event tag term ID"
@@ -1497,15 +1497,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:99
 msgid "The user is not authorized to create event tags"
-msgstr ""
+msgstr "A felhasználónak nincs engedélye esemény cimkék létrehozásához"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:90
 msgid "Returns the data of the created event tag"
-msgstr ""
+msgstr "Visszaadja a létrehozott esemény cimke adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:84
 msgid "Returns the data of the updated event tag"
-msgstr ""
+msgstr "Visszaadja a frissített esemény cimke adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:72
 msgid "The event tag term ID is missing."
@@ -1513,7 +1513,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:66
 msgid "Returns the data of the event tag with the specified term ID"
-msgstr ""
+msgstr "Visszaadja a megadott azonosítóval (ID) rendelkező esemény címke adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:37
 msgid "The event tag slug"
@@ -1529,12 +1529,12 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer_Slug.php:36
 msgid "the organizer post name"
-msgstr ""
+msgstr "a szervező bejegyzés-neve"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:291
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:323
 msgid "The organizer featured image ID or URL"
-msgstr ""
+msgstr "A szervező kiemelt képének azonosítója (ID) vagy URL-je"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:284
 msgid "The organizer e-mail address"
@@ -1542,31 +1542,31 @@ msgstr "A szervező email címe"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:255
 msgid "The organizer description"
-msgstr ""
+msgstr "A szervező leírása"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:241
 msgid "The organizer publication date (UTC time zone)"
-msgstr ""
+msgstr "A szervező létrehozásának dátuma (UTC idő szerint)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:234
 msgid "The organizer publication date"
-msgstr ""
+msgstr "A szervező létrehozásának dátuma"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:227
 msgid "The organizer author ID"
-msgstr ""
+msgstr "A szervező szerzőjének azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:204
 msgid "the organizer post ID"
-msgstr ""
+msgstr "a szervező bejegyzés azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:184
 msgid "The organizer with the specified ID could not be deleted."
-msgstr ""
+msgstr "A megadott azonosítóval (ID) rendelkező szervezőt nem lehetett törölni."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:181
 msgid "The organizer with the specified ID has been deleted already."
-msgstr ""
+msgstr "A megadott azonosítóval (ID) rendelkező szervező már törölve lett."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:178
 msgid "The current user cannot delete the organizer with the specified ID."
@@ -1574,7 +1574,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:175
 msgid "The organizer post ID is missing or does not exist."
-msgstr ""
+msgstr "A szervező bejegyzés azonosítója (ID) hiányzik vagy nem létezik."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:169
 msgid "Deletes an organizer and returns its data"
@@ -1582,19 +1582,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:161
 msgid "The user is not authorized to create organizers"
-msgstr ""
+msgstr "A felhasználónak nincs engedélye szervezők létrehozásához"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:152
 msgid "Returns the data of the created organizer"
-msgstr ""
+msgstr "Visszaadja a létrehozott szervező adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:137
 msgid "The organizer post ID is missing."
-msgstr ""
+msgstr "A szervező bejegyzés azonosítója (ID) hiányzik."
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:131
 msgid "Returns the data of the organizer with the specified post ID"
-msgstr ""
+msgstr "Visszaadja a megadott azonosítóval (ID) rendelkező szervező adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event_Slug.php:36
 msgid "the event post name"
@@ -1666,11 +1666,11 @@ msgstr "Az esemény címe"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:226
 msgid "The event publication date (UTC time zone)"
-msgstr "Az esemény létrehozásának dátuma (UTC időzóna)"
+msgstr "Az esemény létrehozásának dátuma (UTC idő szerint)"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:220
 msgid "The event publication date"
-msgstr ""
+msgstr "Az esemény létrehozásának dátuma"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:214
 msgid "The event author ID"
@@ -1698,15 +1698,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:154
 msgid "The user is not authorized to create events"
-msgstr ""
+msgstr "A felhasználónak nincs engedélye esemény létrehozásához"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:145
 msgid "Returns the data of the created event"
-msgstr ""
+msgstr "Visszaadja a létrehozott esemény adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:139
 msgid "Returns the data of the updated event"
-msgstr ""
+msgstr "Visszaadja a frissített esemény adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:148
 msgid "the event category term ID"
@@ -1734,7 +1734,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:105
 msgid "The user is not authorized to create event categories"
-msgstr ""
+msgstr "A felhasználónak nincs engedélye esemény kategóriák létrehozásához"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:158
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:141
@@ -1742,15 +1742,15 @@ msgstr ""
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:96
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:102
 msgid "A required parameter is missing or an input parameter is in the wrong format"
-msgstr ""
+msgstr "Hiányzik egy szükséges paraméter vagy egy input paraméter rossz formátumú"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:96
 msgid "Returns the data of the created event category"
-msgstr ""
+msgstr "Visszaadja a létrehozott esemény kategória adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:90
 msgid "Returns the data of the updated event category"
-msgstr ""
+msgstr "Visszaadja a frissített esemény kategória adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:81
 msgid "An event category with the specified term ID does not exist."
@@ -1762,7 +1762,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:72
 msgid "Returns the data of the event category with the specified term ID"
-msgstr ""
+msgstr "Visszaadja a megadott azonosítóval (ID) rendelkező esemény kategória adatait"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:37
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:43
@@ -1799,15 +1799,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:199
 msgid "The number of venues to return on each page"
-msgstr ""
+msgstr "A minden oldalon visszaadandó helyszínek száma"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:53
 msgid "Returns all the venues matching the search criteria"
-msgstr ""
+msgstr "Visszaadja a keresési feltételnek megfelelő összes helyszínt"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:118
 msgid "The number of event tags to return on each page"
-msgstr ""
+msgstr "A minden oldalon visszaadandó esemény cimkék száma"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:56
 msgid "No event tags match the query or the requested page was not found."
@@ -1815,13 +1815,13 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:45
 msgid "Returns all the event tags matching the search criteria"
-msgstr ""
+msgstr "Visszaadja a keresési feltételnek megfelelő összes esemény cimkét"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:262
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:233
 #: src/Tribe/REST/V1/Endpoints/Archive_Venue.php:230
 msgid "The organizer post status"
-msgstr ""
+msgstr "A szervező bejegyzés állapota"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:224
 msgid "Organizers should have upcoming events associated to them"
@@ -1841,11 +1841,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:202
 msgid "The number of organizers to return on each page"
-msgstr ""
+msgstr "A minden oldalon visszaadandó szervezők száma"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Organizer.php:56
 msgid "Returns all the organizers matching the search criteria"
-msgstr ""
+msgstr "Visszaadja a keresési feltételnek megfelelő összes szervezőt"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:494
 msgid "Requires Events Calendar Pro. Events should be filtered by their venue longitude location, must also provide geoloc_lat"
@@ -1927,11 +1927,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:101
 msgid "The number of event categories to return on each page"
-msgstr ""
+msgstr "A minden oldalon visszaadandó esemény kategóriák száma"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Category.php:28
 msgid "Returns all the event categories matching the search criteria"
-msgstr ""
+msgstr "Visszaadja a keresési feltételnek megfelelő összes esemény kategóriát"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:136
 msgid "The venue geo longitude"
@@ -1943,7 +1943,7 @@ msgstr "A helyszín földrajzi szélessége"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:77
 msgid "The venue slug"
-msgstr ""
+msgstr "A helyszín keresőbarát URL-je (slug)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:57
 msgid "The venue status"
@@ -1951,11 +1951,11 @@ msgstr "A helyszín állapota"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:77
 msgid "The organizer slug"
-msgstr ""
+msgstr "A szervező keresőbarát URL-je (slug)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:57
 msgid "The organizer status"
-msgstr ""
+msgstr "A szervező állapota"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:244
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:81
@@ -1978,7 +1978,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts.php:1237
 msgid "Find a Venue"
-msgstr ""
+msgstr "Helyszín keresése"
 
 #: src/Tribe/Linked_Posts.php:1236
 msgid "Create or Find a Venue"
@@ -2014,7 +2014,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:136
 msgid "A record already exists with these settings, %1$s."
-msgstr ""
+msgstr "Már létezik adat ezekkel a beállításokkal, %1$s."
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:135
 msgid "click here to edit it"
@@ -2048,7 +2048,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Page.php:87
 msgid "A warning was generated while fetching the results from your import:"
-msgstr ""
+msgstr "Egy figyelmeztetés érkezett, amíg az importálásod eredményét lekértük:"
 
 #: common/src/admin-views/tribe-options-help.php:20
 msgid "Check out our %s for developers."
@@ -2109,17 +2109,17 @@ msgstr ""
 
 #: src/Tribe/Main.php:1094
 msgid "Edit the %s slug"
-msgstr ""
+msgstr "A %s keresőbarát hivatkozás (slug) szerkesztése"
 
 #: src/Tribe/Linked_Posts.php:1178
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
-msgstr ""
+msgstr "egy"
 
 #: src/Tribe/Linked_Posts.php:1171
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
-msgstr ""
+msgstr "egy"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:396
@@ -2136,7 +2136,7 @@ msgstr "Minden oldal kiválasztása"
 
 #: common/src/Tribe/Main.php:249
 msgid "All items on this page were selected. "
-msgstr "Az összes elem ki lett választva ezen az oldalon."
+msgstr "Az oldalon található összes elem ki lett választva. "
 
 #: src/admin-views/aggregator/tabs/import-form.php:101
 msgid "Add more sources"
@@ -2148,7 +2148,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:311
 msgid "Featured Highlight Color"
-msgstr ""
+msgstr "Kiemelt"
 
 #: src/Tribe/Aggregator/Service.php:235
 msgid "The response from the Event Aggregator server was badly formed and could not be understood. Please try again."
@@ -2200,7 +2200,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Abstract.php:350
 msgid "Something went wrong while inserting the record in the database."
-msgstr ""
+msgstr "Valami félresikerült az adatok adatbázisba mentése közben."
 
 #: common/src/Tribe/PUE/Notices.php:397
 msgid "You can always check the status of your licenses by logging in to %1$syour account on theeventscalendar.com%2$s."
@@ -2254,7 +2254,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:14
 msgid "The requested post ID does not exist or is not an event"
-msgstr ""
+msgstr "A kért bejegyzés azonosító (ID) nem létezik vagy nem esemény"
 
 #: src/Tribe/REST/V1/Messages.php:13
 msgid "The event ID is missing from the request"
@@ -2266,11 +2266,11 @@ msgstr "Az eseményhez nincs hozzárendelve helyszín"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:118
 msgid "Returns the data of the event with the specified post ID"
-msgstr ""
+msgstr "Visszaadja a megadott azonosítóval (ID) rendelkező esemény adatait"
 
 #: src/Tribe/REST/V1/Messages.php:27
 msgid "The requested post ID does not exist or is not an organizer"
-msgstr ""
+msgstr "A kért bejegyzés azonosító (ID) nem létezik vagy nem szervező"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:53
 msgid "The event last modification date in UTC time"
@@ -2459,7 +2459,7 @@ msgstr "Az esemény szervezői"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:24
 msgid "The organizer WordPress post ID"
-msgstr ""
+msgstr "A szervező WordPress bejegyzés azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:33
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:33
@@ -2468,19 +2468,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:37
 msgid "The organizer author WordPress post ID"
-msgstr ""
+msgstr "A szervező szerzőjének WordPress bejegyzés azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:41
 msgid "The organizer creation date in the site time zone"
-msgstr ""
+msgstr "A szervező létrehozásának ideje ugyanabban az időzónában"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:45
 msgid "The organizer creation date in UTC time"
-msgstr ""
+msgstr "A szervező létrehozásának ideje UTC idő szerint"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:49
 msgid "The organizer last modification date in the site time zone"
-msgstr ""
+msgstr "A szervező utolsó módosításának ideje ugyanabban az időzónában"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:61
 msgid "The URL to the organizer page"
@@ -2515,7 +2515,7 @@ msgstr "A szervező email címe"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:28
 msgid "The venue ID used to globally identify in Event Aggregator"
-msgstr ""
+msgstr "A helyszín Event Aggregator-ban való globális azonosításához használt azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:41
 msgid "The venue creation date in the site time zone"
@@ -2633,7 +2633,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:374
 msgid "Returns all the upcoming events matching the search criteria"
-msgstr ""
+msgstr "Visszaadja a keresési feltételnek megfelelő összes közelgő eseményt"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:382
 #: src/Tribe/REST/V1/Endpoints/Archive_Tag.php:53
@@ -2649,11 +2649,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Swagger_Documentation.php:126
 msgid "Returns the documentation for The Events Calendar REST API in Swagger consumable format."
-msgstr ""
+msgstr "Visszaadja a The Events Calendar REST API dokumentációját Swagger által feldolgozható formátumban."
 
 #: src/Tribe/REST/V1/Messages.php:26
 msgid "The requested post ID does not exist or is not an venue"
-msgstr ""
+msgstr "A kért bejegyzés azonosító (ID) nem létezik vagy nem helyszín"
 
 #: src/admin-views/aggregator/fields/schedule.php:3
 msgid "Schedule:"
@@ -2709,15 +2709,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:28
 msgid "The organizer ID used to globally identify in Event Aggregator"
-msgstr ""
+msgstr "A szervező Event Aggregator-ban való globális azonosításához használt azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Documentation/Organizer_Definition_Provider.php:53
 msgid "The organizer last modification date in UTC time"
-msgstr ""
+msgstr "A szervező utolsó módosításának ideje UTC idő szerint"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:37
 msgid "The venue author WordPress post ID"
-msgstr ""
+msgstr "A helyszín szerzőjének WordPress bejegyzés azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:53
 msgid "The venue last modification date in UTC time"
@@ -2730,7 +2730,7 @@ msgstr "A helyszín hosszabb leírása"
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:281
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:106
 msgid "The venue province"
-msgstr ""
+msgstr "A helyszín tartománya"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:288
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:110
@@ -2863,7 +2863,7 @@ msgstr "Esemény címkék megtekintése"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:28
 msgid "The event ID used to globally identify in Event Aggregator"
-msgstr ""
+msgstr "Az esemény Event Aggregator-ban való globális azonosításához használt azonosítója (ID)"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:33
 msgid "An Array containing the lineage of where this event comes from, this should not change after the event is created."
@@ -2919,7 +2919,7 @@ msgstr "Változtasd meg az alapértelmezett napi 3 eseményt a hónap nézetben.
 #: src/Tribe/Main.php:869
 msgctxt "all events slug"
 msgid "all"
-msgstr "Összes"
+msgstr "mind"
 
 #: common/src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
@@ -3040,7 +3040,7 @@ msgstr "Kulcsszó"
 #: src/functions/template-tags/loop.php:177
 msgctxt "featured events title"
 msgid "Featured %s"
-msgstr ""
+msgstr "Kiemelt %s"
 
 #: src/admin-views/widget-admin-list.php:35
 msgctxt "events list widget setting"
@@ -3103,7 +3103,7 @@ msgstr "Események exportálása"
 #: src/Tribe/Main.php:868
 msgctxt "featured events slug"
 msgid "featured"
-msgstr ""
+msgstr "kiemelt"
 
 #: src/Tribe/Linked_Posts.php:1134
 msgid "Create: <b><%= term %></b>"
@@ -3172,7 +3172,7 @@ msgstr "Gomb színe"
 
 #: src/Tribe/Customizer/Global_Elements.php:167
 msgid "Filter Bar Color"
-msgstr ""
+msgstr "Filter Bar színe"
 
 #: src/Tribe/Customizer/Global_Elements.php:145
 msgid "Link Color"
@@ -3192,11 +3192,11 @@ msgstr "Egyedi"
 
 #: src/Tribe/Customizer/General_Theme.php:396
 msgid "Sunshine"
-msgstr "Napsugár"
+msgstr "Napsütés"
 
 #: src/Tribe/Customizer/General_Theme.php:390
 msgid "Skyfall"
-msgstr ""
+msgstr "Égszakadás (Skyfall)"
 
 #: src/Tribe/Customizer/General_Theme.php:384
 msgid "Malachite"
@@ -3228,7 +3228,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:291
 msgid "Accent Color"
-msgstr ""
+msgstr "Kiemelés színe"
 
 #: src/Tribe/Customizer/General_Theme.php:260
 msgid "Global configurations for the styling of The Events Calendar"
@@ -3236,7 +3236,7 @@ msgstr ""
 
 #: src/Tribe/Customizer/General_Theme.php:259
 msgid "General Theme"
-msgstr ""
+msgstr "Általános sablon"
 
 #: src/Tribe/Customizer/Day_List_View.php:115
 msgid "Price Background Color"
@@ -3443,7 +3443,7 @@ msgstr "Lejárt licensz. Lépj kapcsolatba a hálózati adminisztrátorral."
 
 #: common/src/Tribe/PUE/Checker.php:1677
 msgid "No license entered. Consult your network administrator."
-msgstr "Nincs megadva licensz kulcs. Lépj kapcsolatba a hálózati adminisztrátorral. "
+msgstr "Nincs megadva licenc kulcs. Lépj kapcsolatba a hálózati adminisztrátorral."
 
 #: common/src/Tribe/PUE/Checker.php:1676
 msgid "A valid license has been entered by your network administrator."
@@ -3455,7 +3455,7 @@ msgstr "Az oldal licensz kulcsa"
 
 #: common/src/Tribe/PUE/Checker.php:539
 msgid "Check this box if you wish to override the network license key with your own"
-msgstr "Jelöld be ezt a négyzetet, ha a hálózati licensz kulcsot felül akarod írni a sajátoddal."
+msgstr "Jelöld be ezt a négyzetet, ha a hálózati licenc kulcsot felül akarod írni a sajátoddal"
 
 #: common/src/Tribe/PUE/Checker.php:538
 msgid "Override network license key"
@@ -3532,7 +3532,7 @@ msgstr "Összes %s"
 
 #: src/admin-views/widget-admin-list.php:40
 msgid "Generate JSON-LD data"
-msgstr ""
+msgstr "JSON-LD adat generálása"
 
 #: src/admin-views/tribe-options-addons-api.php:99
 msgid "Some features and add-ons require you to enter an API key or log into a third-party website so that The Events Calendar can communicate with an outside source."
@@ -3610,7 +3610,7 @@ msgstr "Válassz egy státuszt az importált eseményeknek és / vagy adj meg eg
 
 #: src/admin-views/aggregator/tabs/import-form.php:104
 msgid "Access more event sources and automatic imports!"
-msgstr ""
+msgstr "Férj hozzá több esemény forráshoz és automata importáláshoz!"
 
 #: src/admin-views/aggregator/tabs/import-form.php:105
 msgid "Buy Event Aggregator"
@@ -3662,7 +3662,7 @@ msgstr "WP Cron engedélyezve"
 
 #: src/admin-views/aggregator/status.php:137
 msgid "Scheduled imports may not run reliably"
-msgstr ""
+msgstr "Az időzített importálások lehet, hogy nem futnak megbízhatóan"
 
 #: src/admin-views/aggregator/status.php:136
 msgid "WP Cron not enabled"
@@ -4468,7 +4468,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Tabs/New.php:355
 msgctxt "separator between date and time"
 msgid " at "
-msgstr ""
+msgstr ", "
 
 #: src/Tribe/Aggregator/Tabs/New.php:351
 msgid "Your scheduled import was saved and the first import is complete!"
@@ -4521,8 +4521,8 @@ msgstr[1] "%1$d új kép lett importálva."
 #: src/Tribe/Aggregator/Tabs/New.php:263
 msgid "%1$d already-imported %2$s was skipped."
 msgid_plural "%1$d already-imported %2$s were skipped."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1$d már korábban beimportált %2$s át lett ugorva."
+msgstr[1] "%1$d már korábban beimportált %2$s át lett ugorva."
 
 #: src/Tribe/Aggregator/Tabs/New.php:252
 msgid "%1$d existing %2$s was updated."
@@ -4538,7 +4538,7 @@ msgstr[1] "%1$d új %2$s lett importálva."
 
 #: src/Tribe/Aggregator/Tabs/New.php:155
 msgid "1 import was scheduled."
-msgstr ""
+msgstr "Az időzített importálás be lett állítva."
 
 #: src/Tribe/Aggregator/Tabs/New.php:80
 msgid "New Import"
@@ -4567,7 +4567,7 @@ msgstr "Minden ütemezett importálás megtekintése"
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:131
 msgid "Scheduled import was successfully updated."
-msgstr ""
+msgstr "Az időzített importálás sikeresen frissítve lett."
 
 #: src/Tribe/Aggregator/Tabs/Edit.php:52
 msgid "Edit Import"
@@ -4661,8 +4661,8 @@ msgstr "Elnézést kérünk, de valami félre ment. Kérjük, próbálja újra."
 msgctxt "event aggregator status"
 msgid "Draft <span class=\"count\">(%s)</span>"
 msgid_plural "Draft <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vázlat <span class=\"count\">(%s)</span>"
+msgstr[1] "Vázlat <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Records.php:217
 msgctxt "event aggregator status"
@@ -4697,13 +4697,13 @@ msgstr ""
 msgctxt "event aggregator status"
 msgid "Failed <span class=\"count\">(%s)</span>"
 msgid_plural "Failed <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sikertelen <span class=\"count\">(%s)</span>"
+msgstr[1] "Sikertelen <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Records.php:187
 msgctxt "event aggregator status"
 msgid "Failed"
-msgstr ""
+msgstr "Sikertelen"
 
 #: src/Tribe/Aggregator/Records.php:178
 msgctxt "event aggregator status"
@@ -4719,68 +4719,68 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Records.php:140
 msgid "No Aggregator Records found in Trash."
-msgstr ""
+msgstr "A lomtárban nem találhatóak Aggregator adatok."
 
 #: src/Tribe/Aggregator/Records.php:139
 msgid "No Aggregator Records found."
-msgstr ""
+msgstr "Nem találhatóak Aggregator adatok."
 
 #: src/Tribe/Aggregator/Records.php:138
 msgid "Parent Aggregator Record:"
-msgstr ""
+msgstr "Szülő Aggregator adat:"
 
 #: src/Tribe/Aggregator/Records.php:137
 msgid "Search Aggregator Records"
-msgstr ""
+msgstr "Keresés az Aggregator adatok között"
 
 #: src/Tribe/Aggregator/Records.php:136
 msgid "All Aggregator Records"
-msgstr "Minden Aggregator rekord"
+msgstr "Minden Aggregator adat"
 
 #: src/Tribe/Aggregator/Records.php:135
 msgid "View Aggregator Record"
-msgstr ""
+msgstr "Aggregator adat megtekintése"
 
 #: src/Tribe/Aggregator/Records.php:134
 msgid "Edit Aggregator Record"
-msgstr ""
+msgstr "Aggregator adat szerkesztése"
 
 #: src/Tribe/Aggregator/Records.php:133
 msgid "New Aggregator Record"
-msgstr ""
+msgstr "Új Aggregator adat"
 
 #: src/Tribe/Aggregator/Records.php:132
 msgid "Add New Aggregator Record"
-msgstr ""
+msgstr "Új Aggregátor adat hozzáadása"
 
 #: src/Tribe/Aggregator/Records.php:131
 msgctxt "record"
 msgid "Add New"
-msgstr ""
+msgstr "Új hozzáadása"
 
 #: src/Tribe/Aggregator/Records.php:130
 msgctxt "add new on admin bar"
 msgid "Aggregator Record"
-msgstr ""
+msgstr "Aggregator adat"
 
 #: src/Tribe/Aggregator/Records.php:129
 msgctxt "admin menu"
 msgid "Aggregator Records"
-msgstr ""
+msgstr "Aggregator adatok"
 
 #: src/Tribe/Aggregator/Records.php:128
 msgctxt "post type singular name"
 msgid "Aggregator Record"
-msgstr ""
+msgstr "Aggregator adat"
 
 #: src/Tribe/Aggregator/Records.php:127
 msgctxt "post type general name"
 msgid "Aggregator Records"
-msgstr ""
+msgstr "Aggregator adatok"
 
 #: src/Tribe/Aggregator/Records.php:110
 msgid "Events Aggregator Record"
-msgstr ""
+msgstr "Events Aggregator adat"
 
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:183
 msgid "Unable to continue inserting data. Please reload this page to continue/try again."
@@ -4971,7 +4971,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/Abstract.php:484
 msgid "Record: "
-msgstr ""
+msgstr "Adat: "
 
 #: src/Tribe/Aggregator/Page.php:422
 msgid "Manage Active Plugins"
@@ -5100,7 +5100,7 @@ msgstr "Importált esemény"
 
 #: src/Tribe/Aggregator/Errors.php:72
 msgid "The records you were attempting to import were still not available when this queue was processed. Please try again."
-msgstr ""
+msgstr "Az adatok, amiket megpróbáltál beimportálni még mindig nem voltak elérhetőek, amikor ez a sor feldolgozásra került. Kérjük, próbáld újra."
 
 #: src/Tribe/Aggregator/Errors.php:71
 msgid "Unable to save scheduled import. Please try again."
@@ -5112,7 +5112,7 @@ msgstr "Az ütemezett importálás mentése sikertelen. Próbáld újra."
 
 #: src/Tribe/Aggregator/Errors.php:69
 msgid "Import records must be finalized before posts can be inserted."
-msgstr ""
+msgstr "Az import adatokat véglegesíteni kell a bejegyzések beillesztése előtt."
 
 #: src/Tribe/Aggregator/Errors.php:68
 msgid "The CSV file cannot be found. You may need to re-upload the file."
@@ -5153,7 +5153,7 @@ msgstr "Az eseményhez nem lehet képet csatolni"
 
 #: src/Tribe/Aggregator/Errors.php:57
 msgid "Unable to find an import record with the ID of %s."
-msgstr "Evvel az azonosítóval nem találtam import adatot: %s"
+msgstr "Evvel az azonosítóval nem találtam import adatot: %s."
 
 #: src/Tribe/Aggregator/Errors.php:56
 msgid "The Event Aggregator API responded with bad data. Please <a href=\"https://theeventscalendar.com/support/post/\" target=\"_blank\">contact support</a>."
@@ -5165,7 +5165,7 @@ msgstr "Evvel az azonosítóval nem találtam eseményt: %s"
 
 #: src/Tribe/Aggregator/Errors.php:54
 msgid "Only scheduled import records can be edited."
-msgstr ""
+msgstr "Csak az időzített import adatokat lehet szerkeszteni."
 
 #: src/Tribe/Aggregator/Errors.php:53
 msgid "Invalid data provided for CSV import."
@@ -5177,7 +5177,7 @@ msgstr "A CSV importáláshoz egy érvényes CSV fájlt kell megadnod."
 
 #: src/Tribe/Aggregator/Errors.php:51
 msgid "An invalid import type was used when trying to create this import record."
-msgstr ""
+msgstr "Érvénytelen import típus lett megadva az import adat létrehozásakor."
 
 #: src/Tribe/Aggregator/Errors.php:49
 msgid "During scheduled import, the limit of HTTP requests was reached and the import was rescheduled."
@@ -5189,7 +5189,7 @@ msgstr "Nincs engedélyed az adat törléséhez."
 
 #: src/Tribe/Aggregator/Errors.php:47
 msgid "You cannot delete a history record (ID: \"%d\"). "
-msgstr "Előzmény adatot nem lehet törölni (ID: \"%d\")."
+msgstr "Előzmény adatot nem lehet törölni (ID: \"%d\"). "
 
 #: src/Tribe/Aggregator/Errors.php:46 src/Tribe/Aggregator/Service.php:694
 msgid "The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later."
@@ -5356,7 +5356,7 @@ msgstr "A(z) %s bővítményhez elérhető egy frissítés. %sEllenőrizd a lice
 #: common/src/Tribe/PUE/Checker.php:969 common/src/Tribe/PUE/Notices.php:342
 #: src/Tribe/Aggregator/Record/Abstract.php:1166
 msgid " (opens in a new window)"
-msgstr "(új ablakban nyílik meg)"
+msgstr " (új ablakban nyílik meg)"
 
 #: common/src/Tribe/PUE/Checker.php:967 common/src/Tribe/PUE/Notices.php:340
 msgid "Renew Your License Now"
@@ -5455,7 +5455,7 @@ msgstr "Event Tickets Plus és Community Events"
 
 #: common/src/Tribe/Plugins_API.php:104
 msgid "Enable Community Events organizers to offer tickets to their events. You can set flexible payment and fee options. They can even check-in attendees to their events! All of this managed from the front-end of your site without ever needing to grant access to your admin"
-msgstr "Engedélyezd a Community Events szervezőknek, hogy jegyeket adjanak az eseményeikhez. Rugalmas fizetési és díjazási lehetőségek állnak rendelkezésre. Még beléptetési / jegyellenőrzési lehetőség is van az eseményekhez! Mindez a weboldal front-end részéről kezelhető anélkül, hogy hozzáférést kellene adni az adminisztrációs felülethez."
+msgstr "Engedélyezd a Community Events szervezőknek, hogy jegyeket kínáljanak az eseményeikhez. Rugalmas fizetési és díjazási lehetőségek állnak rendelkezésre. Még beléptetési / jegyellenőrzési lehetőség is van az eseményekhez! Mindez a weboldal front-end részéről kezelhető anélkül, hogy hozzáférést kellene adni az adminisztrációs felülethez"
 
 #: common/src/Tribe/Plugins_API.php:48
 msgid "The Events Calendar PRO is a paid Add-On to our open source WordPress plugin %1$sThe Events Calendar%2$s. PRO offers a whole host of calendar features including recurring events, custom event attributes, saved venues and organizers, venue pages, advanced event admin and lots more."
@@ -5633,7 +5633,7 @@ msgstr "Nem észlelhetők jelentős sablonváltozások."
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:97
 msgid "based on %s version"
-msgstr "A(z) %s verzió alapján"
+msgstr "a(z) %s verzió alapján"
 
 #: common/src/Tribe/Support/Template_Checker_Report.php:96
 msgid "version data missing from override"
@@ -5653,7 +5653,7 @@ msgstr "Nem észlelhetők jelentős változások"
 
 #: src/Tribe/Main.php:2769
 msgid " (View Full %1$s Description Here: %2$s)"
-msgstr ""
+msgstr " (A teljes %1$s leírás megtekinthető itt: %2$s)"
 
 #: src/Tribe/Importer/Column_Mapper.php:129
 msgid "Organizer Featured Image"
@@ -5758,7 +5758,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1213
 msgid "<strong>Looking for more immediate support?</strong> We offer %1$s with the purchase of any of our premium plugins (like %2$s). Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays."
-msgstr ""
+msgstr "<strong>Még gyorsabb segítséget keresel?</strong> %1$s bármelyik prémium bővítményünk megvásárlásával (például %2$s). Szerezz be egy licencet és közvetlenül kapcsolatba léphetsz velünk, és hétköznapokon 24-48 órán belül várhatsz választ."
 
 #: src/Tribe/Main.php:1209
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our %s. Our support staff monitors these forums once a week and would be happy to assist you there."
@@ -5770,11 +5770,11 @@ msgstr ""
 
 #: src/Tribe/Main.php:1204
 msgid "<strong>Looking for more immediate support?</strong> We offer %s with the purchase of any of our premium plugins. Pick up a license and you can post there directly and expect a response within 24-48 hours during weekdays"
-msgstr ""
+msgstr "<strong>Még gyorsabb segítséget keresel?</strong> %s bármelyik prémium bővítményünk megvásárlásával. Vegyél egy licencet és közvetlenül kapcsolatba léphetsz velünk, és hétköznapokon 24-48 órán belül várhatsz választ"
 
 #: src/Tribe/Main.php:1203 src/Tribe/Main.php:1211
 msgid "premium support on our website"
-msgstr ""
+msgstr "Prémium támogatást kínálunk a weboldalunkon"
 
 #: src/Tribe/Main.php:1201
 msgid "If you have tried the above steps and are still having trouble, you can post a new thread to our WordPress.org forums for %1$s or %2$s. Our support staff monitors these forums once a week and would be happy to assist you there. "
@@ -5866,7 +5866,7 @@ msgstr "CSV importálási beállítások"
 #: common/src/Tribe/Main.php:276
 #: src/deprecated/Tribe__Events__Asset__Bootstrap_Datepicker.php:27
 msgid "Clear"
-msgstr "Kiürítés"
+msgstr "Kiürít"
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:257
 msgid "Add another %s"
@@ -5910,7 +5910,7 @@ msgstr "Tekintse meg a tudásbázisunkat"
 
 #: common/src/admin-views/tribe-options-help.php:31
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
-msgstr "%s. Az összes gyakori (és kevésbé gyakori) kérdés és válasz, amelyekkel találkozunk, itt található. Gyakran ez a leggyorsabb út a válasz megtalálásához."
+msgstr "%s. Az összes gyakori (és kevésbé gyakori) kérdés és válasz, amelyekkel találkozunk, itt található. Gyakran ez a leggyorsabb út a válasz megtalálásához!"
 
 #: common/src/admin-views/tribe-options-help.php:27
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
@@ -6016,7 +6016,7 @@ msgstr "Eventbrite Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:170
 msgid " and "
-msgstr " és"
+msgstr " és "
 
 #: common/src/Tribe/Admin/Help_Page.php:95
 msgid "Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes."
@@ -6036,7 +6036,7 @@ msgstr "Event Tickets"
 
 #: common/src/Tribe/Admin/Help_Page.php:63
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events."
-msgstr "A The Events Calendar egy gondosan kidolgozott, bővíthető plugin, aminek segítségével könnyen közzéteheted az eseményeidet."
+msgstr "A The Events Calendar egy gondosan kidolgozott, bővíthető plugin, aminek segítségével könnyen megoszthatod az eseményeidet."
 
 #: src/views/month/single-day.php:47
 msgid "View %1$s %2$s"
@@ -6475,7 +6475,7 @@ msgstr "A fenti ideális esetben többes számban van, ez pedig egyes számban.<
 
 #: src/admin-views/tribe-options-general.php:115
 msgid "Single event URL slug"
-msgstr "Egyedi esemény hivatkozás előtag"
+msgstr "Egyedi esemény keresőbarát hivatkozása (slug)"
 
 #: src/admin-views/tribe-options-general.php:110
 #: src/functions/template-tags/options.php:39
@@ -6494,7 +6494,7 @@ msgstr "Az események hivatkozásának felépítéséhez használt előtag. "
 #: src/admin-views/tribe-options-general.php:82
 #: src/admin-views/tribe-options-general.php:98
 msgid "Events URL slug"
-msgstr "Események hivatkozás előtagja"
+msgstr "Események URL keresőbarát hivatkozása (slug)"
 
 #: src/admin-views/tribe-options-general.php:76
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
@@ -6586,7 +6586,7 @@ msgstr "Összetett sablonbeállítások"
 
 #: common/src/admin-views/tribe-options-display.php:37
 msgid "Select the date format to use in datepickers"
-msgstr "A dátumválasztóknál használt dátum formátum kiválasztása."
+msgstr "A dátumválasztóknál használt dátum formátum kiválasztása"
 
 #: common/src/admin-views/tribe-options-display.php:36
 msgid "Datepicker Date Format"
@@ -8164,7 +8164,7 @@ msgstr "%s nem lehet duplikált"
 
 #: common/src/Tribe/Validate.php:366
 msgid "%s cannot be the same as %s."
-msgstr "%s nem lehet ugyan az, mint %s"
+msgstr "%s nem lehet ugyan az, mint %s."
 
 #: common/src/Tribe/Validate.php:359
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
@@ -8193,7 +8193,7 @@ msgstr "%s csak számokat, betűket és pontokat tartalmazhat"
 
 #: common/src/Tribe/Validate.php:120 common/src/Tribe/Validate.php:136
 msgid "%s must contain numbers and letters only"
-msgstr "%s csak számokat és betűket tartalmazhat."
+msgstr "%s csak számokat és betűket tartalmazhat"
 
 #: common/src/Tribe/Validate.php:105
 msgctxt "non-existant function name passed for field validation"
@@ -8256,7 +8256,7 @@ msgstr "Ez az %s elmúlt."
 
 #: src/Tribe/Template/Month.php:971
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
-msgstr ""
+msgstr "A kért dátum \"%s\" nem volt érvényes &ndash; helyette az aktuális hónap kerül mutatásra"
 
 #: src/Tribe/Template_Factory.php:242 src/Tribe/Template/Month.php:464
 msgid "There were no results found."
@@ -8286,7 +8286,7 @@ msgstr "Egész nap"
 
 #: common/src/Tribe/Support.php:199
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
-msgstr "A felülírási szabályokat ki lettek tisztítva az oldal betöltésekor. Valószínűleg egy bővítményben vagy sablonban felülírási szabály törlés történik."
+msgstr "A felülírási szabályok ki lettek tisztítva az oldal betöltésekor. Valószínűleg egy bővítményben vagy sablonban felülírási szabály törlés történik!"
 
 #: common/src/Tribe/Support.php:188 common/src/Tribe/Support.php:189
 msgid "Unknown or not set"
@@ -8553,7 +8553,7 @@ msgstr "%s elmentve."
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:2018 src/Tribe/Main.php:2056
 msgid "%1$s restored to revision from %2$s"
-msgstr ""
+msgstr "%1$s visszaállítva erre a változatra: %2$s"
 
 #: src/Tribe/Main.php:2016 src/Tribe/Main.php:2051 src/Tribe/Main.php:2054
 #: src/Tribe/Main.php:2071 src/Tribe/Main.php:2074
@@ -8778,7 +8778,7 @@ msgstr "%s (post ID %d) frissítve."
 
 #: src/Tribe/Importer/File_Importer.php:215
 msgid "Failed to import record in row %d."
-msgstr "Nem sikerült importálni a rekordot a %d sorban."
+msgstr "Nem sikerült importálni a(z) %d. sorban lévő adatot."
 
 #: src/Tribe/Importer/File_Importer.php:361
 msgid "Missing required fields in row %d."
@@ -9035,7 +9035,7 @@ msgstr "Egy probléma miatt a befejezés előtt leállt az időzóna frissítés
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:100
 #: src/Tribe/Aggregator/Record/Queue_Realtime.php:210
 msgid "%d%% complete"
-msgstr "%d%% kész!"
+msgstr "%d%% kész"
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: time zone data has been added to all events in the database."
@@ -9058,11 +9058,11 @@ msgstr "Elmentett %s használata:"
 
 #: src/Tribe/Main.php:1098
 msgid " ask the site administrator set a different Events URL slug."
-msgstr "kérd meg az oldal adminisztrátorát, hogy állítson be egy másik hivatkozást (slug-ot) az Események hivatkozáshoz."
+msgstr "kérd meg az oldal adminisztrátorát, hogy állítson be egy másik keresőbarát hivatkozást (slug-ot) az Események hivatkozáshoz."
 
 #: src/Tribe/Main.php:1092
 msgid "Ask the site administrator to edit the %s slug"
-msgstr "Kérd meg az adminisztrátort, hogy változtassa meg a %s slug-ot."
+msgstr "Kérd meg az adminisztrátort, hogy változtassa meg a %s keresőbarát hivatkozást (slug-ot)."
 
 #: src/deprecated/Tribe__Events__Activation_Page.php:215
 msgid "Thanks for Updating The Events Calendar"
