@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-12 14:45:16+0000\n"
+"PO-Revision-Date: 2019-05-06 13:09:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -53,7 +53,7 @@ msgstr ""
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
-msgstr ""
+msgstr "タイムゾーンの表示"
 
 #: src/resources/js/app/blocks.js:45441
 msgid "Time Zone"
@@ -99,7 +99,7 @@ msgstr ""
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:19
 #: src/resources/js/app/blocks.js:46659
 msgid "Event Date Time Dashboard"
-msgstr ""
+msgstr "イベント日時ダッシュボード"
 
 #: src/modules/blocks/event-datetime/index.js:28
 #: src/modules/blocks/event-datetime/subblocks/dashboard/index.js:20
@@ -122,7 +122,7 @@ msgstr ""
 #: src/modules/blocks/event-website/template.js:26
 #: src/resources/js/app/blocks.js:49305
 msgid "Add Event Website"
-msgstr ""
+msgstr "イベントのウェブサイトを追加"
 
 #: src/modules/blocks/event-links/index.js:22
 #: src/resources/js/app/blocks.js:48614
@@ -141,7 +141,7 @@ msgstr "iCal"
 
 #: src/resources/js/app/blocks.js:47401
 msgid "Show Google Maps Embed"
-msgstr ""
+msgstr "Googleマップの埋め込みを表示 "
 
 #: src/modules/blocks/event-category/index.js:22
 #: src/resources/js/app/blocks.js:49143
@@ -177,7 +177,7 @@ msgstr ""
 #: src/modules/blocks/featured-image/index.js:21
 #: src/resources/js/app/blocks.js:49542 src/resources/js/app/blocks.js:49609
 msgid "Featured Image"
-msgstr ""
+msgstr "注目の画像"
 
 #: src/modules/blocks/event-tags/index.js:22
 #: src/resources/js/app/blocks.js:49255
@@ -193,7 +193,7 @@ msgstr ""
 #: src/modules/blocks/event-tags/index.js:21
 #: src/resources/js/app/blocks.js:49223 src/resources/js/app/blocks.js:49254
 msgid "Tags"
-msgstr ""
+msgstr "タグ"
 
 #: src/modules/blocks/event-venue/index.js:18
 #: src/resources/js/app/blocks.js:47617
@@ -203,7 +203,7 @@ msgstr ""
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "イベント会場"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
@@ -213,7 +213,7 @@ msgstr ""
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "イベント料金"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
@@ -223,12 +223,12 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:123
 #: src/resources/js/app/blocks.js:48791
 msgid "enter 0 as price for free events"
-msgstr ""
+msgstr "無料のイベントは0を入力"
 
 #: src/modules/blocks/event-price/template.js:117
 #: src/resources/js/app/blocks.js:48783
 msgid "Description"
-msgstr ""
+msgstr "詳細"
 
 #: src/modules/blocks/event-price/template.js:109
 #: src/resources/js/app/blocks.js:48775
@@ -238,7 +238,7 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:43
 #: src/resources/js/app/blocks.js:48696
 msgid "Add Price"
-msgstr ""
+msgstr "料金を追加"
 
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:40
 #: src/resources/js/app/blocks.js:44712
@@ -276,64 +276,64 @@ msgstr ""
 #: src/modules/blocks/event-price/template.js:152
 #: src/resources/js/app/blocks.js:45170 src/resources/js/app/blocks.js:48826
 msgid "E.g.: $"
-msgstr ""
+msgstr "例: $"
 
 #: src/modules/blocks/classic-event-details/template.js:191
 #: src/modules/blocks/event-price/template.js:150
 #: src/resources/js/app/blocks.js:45168 src/resources/js/app/blocks.js:48824
 msgid " Currency Symbol"
-msgstr ""
+msgstr "通貨記号"
 
 #: src/modules/blocks/classic-event-details/template.js:186
 #: src/resources/js/app/blocks.js:45163
 msgid "Show symbol before"
-msgstr ""
+msgstr "記号を前に表示"
 
 #: src/modules/blocks/classic-event-details/template.js:184
 #: src/modules/blocks/event-price/template.js:147
 #: src/resources/js/app/blocks.js:45161 src/resources/js/app/blocks.js:48821
 msgid "Price Settings"
-msgstr ""
+msgstr "金額設定"
 
 #: src/modules/blocks/classic-event-details/template.js:179
 #: src/resources/js/app/blocks.js:45154
 msgid "Is All Day Event"
-msgstr ""
+msgstr "終日のイベント"
 
 #: src/modules/blocks/classic-event-details/template.js:177
 #: src/resources/js/app/blocks.js:45152 src/resources/js/app/blocks.js:45425
 msgid "Date Time Settings"
-msgstr ""
+msgstr "日時設定"
 
 #: src/modules/blocks/classic-event-details/template.js:156
 #: src/resources/js/app/blocks.js:45129
 msgid "Event Category:"
-msgstr ""
+msgstr "イベントカテゴリー: "
 
 #: src/modules/blocks/classic-event-details/template.js:122
 #: src/resources/js/app/blocks.js:45091 src/resources/js/app/blocks.js:45895
 msgid "Enter price"
-msgstr ""
+msgstr "価格を入力"
 
 #: src/modules/blocks/classic-event-details/template.js:101
 #: src/resources/js/app/blocks.js:45060
 msgid "Enter url"
-msgstr ""
+msgstr "URL を入力"
 
 #: src/modules/blocks/classic-event-details/template.js:97
 #: src/resources/js/app/blocks.js:45054
 msgid "Website: "
-msgstr ""
+msgstr "Web サイト: "
 
 #: src/modules/blocks/classic-event-details/template.js:79
 #: src/resources/js/app/blocks.js:45022
 msgid "End: "
-msgstr ""
+msgstr "終了: "
 
 #: src/modules/blocks/classic-event-details/template.js:57
 #: src/resources/js/app/blocks.js:44982
 msgid "Start: "
-msgstr ""
+msgstr "開始: "
 
 #: src/modules/blocks/event-organizer/index.js:17
 #: src/resources/js/app/blocks.js:48388
@@ -348,22 +348,22 @@ msgstr ""
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr ""
+msgstr "$"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: src/modules/data/blocks/datetime/reducer.js:22
 #: src/resources/js/app/data.js:6795 src/resources/js/app/blocks.js:6841
 msgid "@"
-msgstr ""
+msgstr "@"
 
 #: src/modules/elements/terms-list/element.js:128
 #: src/resources/js/app/blocks.js:11214 src/resources/js/app/elements.js:7840
 msgid ", "
-msgstr ""
+msgstr "、"
 
 #: src/modules/elements/terms-list/element.js:45
 #: src/modules/blocks/classic-event-details/event-details-organizers/event-details-organizer/template.js:26
@@ -391,7 +391,7 @@ msgstr ""
 
 #: src/views/blocks/event-datetime.php:80
 msgid "All day"
-msgstr ""
+msgstr "終日"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
@@ -417,7 +417,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:257
 msgid "Show Map Link?"
-msgstr ""
+msgstr "地図リンクを表示しますか？"
 
 #: src/admin-views/create-venue-fields.php:248
 #: src/admin-views/create-venue-fields.php:285
@@ -428,7 +428,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:239
 msgid "Show Map?"
-msgstr ""
+msgstr "地図を表示しますか？"
 
 #: src/admin-views/create-venue-fields.php:230
 #: src/admin-views/create-venue-fields.php:268
@@ -451,15 +451,15 @@ msgstr ""
 
 #: src/Tribe/Editor/Blocks/Event_Website.php:26
 msgid "Add Button Text"
-msgstr ""
+msgstr "ボタン文字を追加"
 
 #: src/Tribe/Editor/Meta.php:61 src/Tribe/Editor/Meta.php:70
 msgid "Event Organizers"
-msgstr ""
+msgstr "イベント開催者"
 
 #: src/Tribe/Aggregator/Record/CSV.php:104
 msgid "Unknown Column "
-msgstr ""
+msgstr "不明な列"
 
 #: src/Tribe/Aggregator/Record/Queue_Processor.php:288
 msgid "There was an error building the record queue: "
@@ -471,7 +471,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:106
 msgid "Download the eBook"
-msgstr ""
+msgstr "eBook をダウンロード"
 
 #: src/Tribe/Admin/Notice/Marketing.php:100
 msgid "Get up to speed with our comprehensive Guide to Gutenberg ebook, then see how events and tickets will behave in the block editor by installing our free Events Gutenberg extension."
@@ -479,7 +479,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Notice/Marketing.php:95
 msgid "WordPress 5.0 is coming soon, and with it, the arrival of the new block editor interface."
-msgstr ""
+msgstr "WordPress 5.0がまもなく登場し、それとともに、新しいブロックエディタインターフェイスが登場します。"
 
 #: src/Tribe/Admin/Notice/Marketing.php:91
 msgid "<strong>The Events Calendar & Gutenberg</strong>"
@@ -487,7 +487,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1464
 msgid "When running version %1$s of The Events Calendar alongside %2$s, %2$s must be version %3$s or greater. Please %4$smanually update now.%5$s"
-msgstr ""
+msgstr "The Events Calendarのバージョン%1$sを%2$sと同時に実行する場合、%2$sはバージョン%3$s 以上である必要があります。今すぐ%4$s更新してください。%5$s"
 
 #: src/Tribe/Google/Maps_API_Key.php:107
 msgid "(click here for details)"
@@ -495,7 +495,7 @@ msgstr "（ここをクリックして詳細を表示）"
 
 #: src/Tribe/Editor.php:534
 msgid "Event Blocks"
-msgstr ""
+msgstr "イベントブロック"
 
 #: src/Tribe/Editor.php:258 src/Tribe/Editor.php:301
 msgid "Add Description..."
@@ -534,11 +534,11 @@ msgstr ""
 
 #: common/src/Tribe/Editor/Meta.php:123
 msgid "Text Array"
-msgstr ""
+msgstr "テキスト配列"
 
 #: common/src/Tribe/Editor/Meta.php:105
 msgid "Numeric Array"
-msgstr ""
+msgstr "数値配列"
 
 #: src/admin-views/tribe-options-general.php:69
 msgid "Enable WordPress Custom Fields on Events."
@@ -546,7 +546,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:68
 msgid "Show Custom Fields metabox"
-msgstr ""
+msgstr "カスタムフィールドメタボックスを表示"
 
 #: src/admin-views/tribe-options-display.php:139
 msgid "Please note that you are using The Events Calendar's default Google Maps API key, which will limit the Map View's functionality. Visit %sthe API Settings page%s to learn more and add your own Google Maps API key."
@@ -554,7 +554,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:230
 msgid "Stop current processes"
-msgstr ""
+msgstr "現在の処理を中止"
 
 #: src/admin-views/aggregator/settings.php:219
 msgid "The Asynchronous import process is faster and does not rely on WordPress Cron but might not work correctly in all WordPress installations, try switching to the Cron-based process for maximum compatibility."
@@ -610,7 +610,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:699
 msgid "Asynchronous"
-msgstr ""
+msgstr "非同期"
 
 #: src/Tribe/Aggregator/Record/Unsupported.php:58
 msgid "Unsupported"
@@ -664,11 +664,11 @@ msgstr ""
 
 #: src/views/modules/bar.php:61
 msgid "%s Search"
-msgstr ""
+msgstr "%s の検索"
 
 #: src/views/modules/bar.php:87 src/views/modules/bar.php:93
 msgid "View %s As"
-msgstr ""
+msgstr "%s を表示 "
 
 #: src/views/modules/bar.php:86
 msgid "%s Views Navigation"
@@ -676,7 +676,7 @@ msgstr ""
 
 #: src/views/modules/bar.php:38
 msgid "%s Search and Views Navigation"
-msgstr ""
+msgstr "%sを検索してナビゲーションを表示"
 
 #: src/admin-views/privacy.php:63
 msgid "If you have extended our plugin(s) to send data to a third-party service such as Eventbrite, Google Maps, or PayPal, user information may be passed to these external services. These services may be located abroad."
@@ -716,7 +716,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:43
 msgid "API Keys"
-msgstr ""
+msgstr "API キー"
 
 #: src/admin-views/privacy.php:41
 msgid "When purchasing Eventbrite Tickets, attendee, purchaser, and order information are stored and managed by Eventbrite."
@@ -780,7 +780,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:16
 msgid "Disclaimer:"
-msgstr ""
+msgstr "免責事項: "
 
 #: src/admin-views/privacy.php:15
 msgid "You should include the information below in the correct sections of you privacy policy."
@@ -808,7 +808,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/settings.php:26
 msgid "None"
-msgstr ""
+msgstr "無し"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:13
 msgid "Import from Eventbrite"
@@ -816,7 +816,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 msgid "Learn more"
-msgstr ""
+msgstr "さらに詳しく"
 
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:14
 msgid "Do more with Eventbrite Tickets"
@@ -908,7 +908,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4252
 msgid "Search for %s by Keyword."
-msgstr ""
+msgstr "キーワードで %s を検索"
 
 #: src/Tribe/API.php:826 src/Tribe/API.php:837
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
@@ -944,11 +944,11 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:52
 msgid "Refresh your connection to Eventbrite"
-msgstr ""
+msgstr "Eventbrite への接続を更新します"
 
 #: src/admin-views/tribe-options-addons-api.php:50
 msgid "Connect to Eventbrite"
-msgstr ""
+msgstr "Eventbrite チケット"
 
 #: src/admin-views/tribe-options-addons-api.php:49
 msgid "You need to connect to Eventbrite for Event Aggregator to work properly"
@@ -956,11 +956,11 @@ msgstr ""
 
 #: src/admin-views/tribe-options-addons-api.php:45
 msgid "Eventbrite Token"
-msgstr ""
+msgstr "Eventbrite チケット"
 
 #: src/admin-views/aggregator/tabs/import-form.php:306
 msgid "Settings > General"
-msgstr ""
+msgstr "設定 > 一般"
 
 #: src/admin-views/aggregator/tabs/import-form.php:295
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
@@ -972,7 +972,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "timezone settings"
-msgstr ""
+msgstr "タイムゾーンの設定"
 
 #: src/admin-views/aggregator/tabs/import-form.php:284
 msgid "Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar's"
@@ -989,7 +989,7 @@ msgstr ""
 #: src/admin-views/aggregator/status.php:171
 msgctxt "link for connecting eventbrite"
 msgid "Connect to Eventbrite"
-msgstr ""
+msgstr "Eventbrite に接続する"
 
 #: src/admin-views/aggregator/status.php:169
 msgid "You have not connected Event Aggregator to Eventbrite"
@@ -1001,15 +1001,15 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/meetup.php:154
 msgid "Invalid Meetup URL"
-msgstr ""
+msgstr "無効な Meetup の URL"
 
 #: src/deprecated/facebook.php:129
 msgid "Invalid Facebook URL"
-msgstr ""
+msgstr "無効な Facebook の URL"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:183
 msgid "Invalid Eventbrite URL"
-msgstr ""
+msgstr "無効なEventBrite URL"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:153
 msgid "eventbrite.com/e/example-12345"
@@ -1021,7 +1021,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:115
 msgid "Select Source"
-msgstr ""
+msgstr "ソースを選択"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:114
 msgid "Import Source"
@@ -1114,7 +1114,7 @@ msgstr ""
 #: src/Tribe/Admin/Notice/Timezones.php:74
 #: src/Tribe/Editor/Compatibility.php:104
 msgid "Read more"
-msgstr ""
+msgstr "続きを読む"
 
 #: src/Tribe/Admin/Notice/Marketing.php:78
 msgctxt "2018 user survey"
@@ -1139,11 +1139,11 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Settings.php:407
 msgid "one month"
-msgstr ""
+msgstr "1ヶ月"
 
 #: src/Tribe/Aggregator/Settings.php:395
 msgid "one week"
-msgstr ""
+msgstr "1週間"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:577
 msgctxt "when the retry will happen, a date"
@@ -1166,32 +1166,32 @@ msgstr ""
 #: src/admin-views/tribe-options-general.php:184
 #: src/admin-views/tribe-options-general.php:201
 msgid "3 years"
-msgstr ""
+msgstr "3年"
 
 #: src/admin-views/tribe-options-general.php:183
 #: src/admin-views/tribe-options-general.php:200
 msgid "2 years"
-msgstr ""
+msgstr "2年"
 
 #: src/admin-views/tribe-options-general.php:182
 #: src/admin-views/tribe-options-general.php:199
 msgid "1 year"
-msgstr ""
+msgstr "1年"
 
 #: src/admin-views/tribe-options-general.php:181
 #: src/admin-views/tribe-options-general.php:198
 msgid "9 months"
-msgstr ""
+msgstr "9ヶ月"
 
 #: src/admin-views/tribe-options-general.php:180
 #: src/admin-views/tribe-options-general.php:197
 msgid "6 months"
-msgstr ""
+msgstr "6ヶ月"
 
 #: src/admin-views/tribe-options-general.php:179
 #: src/admin-views/tribe-options-general.php:196
 msgid "3 months"
-msgstr ""
+msgstr "3ヶ月"
 
 #: src/admin-views/tribe-options-general.php:173
 msgid "This option allows you to automatically move past events to trash."
@@ -1211,7 +1211,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:135
 msgid "Time Zone:"
-msgstr ""
+msgstr "タイムゾーン: "
 
 #: src/Tribe/Gutenberg.php:125
 msgid "Looks like you are using Gutenberg on this WordPress installation. %1$s"
@@ -1242,7 +1242,7 @@ msgstr ""
 #: src/Tribe/Rewrite.php:265
 msgctxt "The \"/page/\" URL string component."
 msgid "page"
-msgstr ""
+msgstr "ページ"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:143
 msgid "An organizer with the specified event does not exist."
@@ -1332,15 +1332,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:41
 msgid "The organizer could not be updated"
-msgstr ""
+msgstr "主催者を更新できませんでした"
 
 #: src/Tribe/REST/V1/Messages.php:40
 msgid "The venue could not be updated"
-msgstr ""
+msgstr "会場を更新できませんでした"
 
 #: src/Tribe/REST/V1/Messages.php:39
 msgid "The event could not be updated"
-msgstr ""
+msgstr "イベントを更新できませんでした"
 
 #: src/Tribe/REST/V1/Messages.php:38
 msgid "The organizer is already trashed"
@@ -1348,15 +1348,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:37
 msgid "The organizer could not be deleted"
-msgstr ""
+msgstr "主催者を削除できませんでした"
 
 #: src/Tribe/REST/V1/Messages.php:36
 msgid "The venue is already trashed"
-msgstr ""
+msgstr "会場は既に存在しています"
 
 #: src/Tribe/REST/V1/Messages.php:35
 msgid "The venue could not be deleted"
-msgstr ""
+msgstr "会場を削除できませんでした"
 
 #: src/Tribe/REST/V1/Messages.php:34
 msgid "The event is already trashed"
@@ -1364,7 +1364,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Messages.php:33
 msgid "The event could not be deleted"
-msgstr ""
+msgstr "イベントを削除できませんでした"
 
 #: src/Tribe/REST/V1/Messages.php:32
 msgid "The requested organizer is not accessible"
@@ -1392,7 +1392,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:309
 msgid "The venue state and province"
-msgstr ""
+msgstr "会場の州と県"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:253
 msgid "Whether events linked to the venue should show a map link or not"
@@ -1420,11 +1420,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:209
 msgid "The venue author ID"
-msgstr ""
+msgstr "主催者の ID"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:187
 msgid "the venue post ID"
-msgstr ""
+msgstr "主催者の投稿 ID"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:167
 msgid "The venue with the specified ID could not be deleted."
@@ -1516,15 +1516,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:37
 msgid "The event tag slug"
-msgstr ""
+msgstr "イベントタグスラッグ"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:31
 msgid "The event tag description"
-msgstr ""
+msgstr "イベントタグの説明"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:25
 msgid "The event tag name"
-msgstr ""
+msgstr "イベントタグ名"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer_Slug.php:36
 msgid "the organizer post name"
@@ -1597,7 +1597,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event_Slug.php:36
 msgid "the event post name"
-msgstr ""
+msgstr "イベント投稿名"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:355
 msgid "The event organizer IDs or data"
@@ -1629,7 +1629,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:292
 msgid "The event cost"
-msgstr ""
+msgstr "イベント料金"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:287
 msgid "The event featured image ID or URL"
@@ -1637,11 +1637,11 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:281
 msgid "The event end date and time"
-msgstr ""
+msgstr "イベント終了日時"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:275
 msgid "The event start date and time"
-msgstr ""
+msgstr "イベント開始日時"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:269
 msgid "Whether the event lasts the whole day or not"
@@ -1649,19 +1649,19 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:263
 msgid "The event time zone"
-msgstr ""
+msgstr "イベントのタイムゾーン"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:250
 msgid "The event excerpt"
-msgstr ""
+msgstr "イベントの抜粋"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:238
 msgid "The event description"
-msgstr ""
+msgstr "イベントの説明"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:232
 msgid "The event title"
-msgstr ""
+msgstr "イベントのタイトル"
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:226
 msgid "The event publication date (UTC time zone)"
@@ -1774,7 +1774,7 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:25
 msgid "The event category name"
-msgstr ""
+msgstr "イベントカテゴリー名"
 
 #: src/Tribe/REST/V1/Endpoints/Base.php:38
 msgid "No description provided"
@@ -1934,15 +1934,15 @@ msgstr ""
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:136
 msgid "The venue geo longitude"
-msgstr ""
+msgstr "会場の経度"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:131
 msgid "The venue geo latitude"
-msgstr ""
+msgstr "会場の緯度"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:77
 msgid "The venue slug"
-msgstr ""
+msgstr "会場スラッグ"
 
 #: src/Tribe/REST/V1/Documentation/Venue_Definition_Provider.php:57
 msgid "The venue status"
@@ -1959,7 +1959,7 @@ msgstr ""
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:244
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:81
 msgid "The event slug"
-msgstr ""
+msgstr "イベントスラッグ"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:57
 msgid "The event status"
@@ -2017,7 +2017,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Tabs/Abstract.php:135
 msgid "click here to edit it"
-msgstr ""
+msgstr "編集するにはここをクリック"
 
 #: src/Tribe/Aggregator/Settings.php:359
 msgid "Do not limit (not recommended)"
@@ -2075,7 +2075,7 @@ msgstr ""
 
 #: common/src/Tribe/Languages/Locations.php:238
 msgid "Saint Helena"
-msgstr ""
+msgstr "セントヘレナ"
 
 #: common/src/Tribe/Languages/Locations.php:237
 msgid "Saint Barth&eacute;lemy"
@@ -7645,11 +7645,11 @@ msgstr "クウェート"
 
 #: common/src/Tribe/Languages/Locations.php:172
 msgid "Korea, Republic of"
-msgstr ""
+msgstr "大韓民国"
 
 #: common/src/Tribe/Languages/Locations.php:171
 msgid "Korea, Democratic People's Republic of"
-msgstr ""
+msgstr "朝鮮民主主義人民共和国"
 
 #: common/src/Tribe/Languages/Locations.php:170
 msgid "Kiribati"
@@ -7898,7 +7898,7 @@ msgstr "クック諸島"
 
 #: common/src/Tribe/Languages/Locations.php:107
 msgid "Congo, Democratic Republic of the"
-msgstr ""
+msgstr "コンゴ民主共和国"
 
 #: common/src/Tribe/Languages/Locations.php:106
 msgid "Congo"
@@ -7990,7 +7990,7 @@ msgstr "ボツワナ"
 
 #: common/src/Tribe/Languages/Locations.php:83
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "ボスニア・ヘルツェゴビナ"
 
 #: common/src/Tribe/Languages/Locations.php:82
 msgid "Bolivia"
@@ -8508,7 +8508,7 @@ msgstr "%sを公開しました。"
 #. translators: %s: date and time of the revision
 #: src/Tribe/Main.php:2076
 msgid "%s restored to revision from %s"
-msgstr ""
+msgstr "リビジョン %s から %s を復元しました"
 
 #. translators: Publish box date format, see http://php.net/date
 #: src/Tribe/Main.php:2036 src/Tribe/Main.php:2064 src/Tribe/Main.php:2084

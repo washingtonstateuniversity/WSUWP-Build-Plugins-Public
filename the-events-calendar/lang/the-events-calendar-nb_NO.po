@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-20 01:20:06+0000\n"
+"PO-Revision-Date: 2019-05-03 14:04:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,19 +37,19 @@ msgstr "Legg til telefon"
 
 #: src/resources/js/app/blocks.js:47394
 msgid "Venue Settings"
-msgstr ""
+msgstr "Innstillinger for arrangementssted"
 
 #: src/resources/js/app/blocks.js:47272
 msgid "Add or find a venue"
-msgstr ""
+msgstr "Legg til eller finn et arrangementsssted"
 
 #: src/resources/js/app/blocks.js:46934
 msgid "(Untitled Venue)"
-msgstr ""
+msgstr "(arrangementssted uten navn)"
 
 #: src/resources/js/app/blocks.js:46387
 msgid "Multi-Day"
-msgstr ""
+msgstr "Flerdags"
 
 #: src/resources/js/app/blocks.js:45448
 msgid "Show Time Zone"
@@ -61,15 +61,15 @@ msgstr "Tidssone"
 
 #: src/resources/js/app/blocks.js:45434
 msgid "Time Range Separator"
-msgstr ""
+msgstr "Tidsrammeseparator"
 
 #: src/resources/js/app/blocks.js:45427
 msgid "Date Time Separator"
-msgstr ""
+msgstr "Dato Tid-separator"
 
 #: src/resources/js/app/blocks.js:13219 src/resources/js/app/elements.js:9845
 msgid "Add or Find"
-msgstr ""
+msgstr "Legg til eller finn"
 
 #: src/resources/js/app/blocks.js:12598 src/resources/js/app/elements.js:9224
 msgid "A Google Map API KEY is required to view the map"
@@ -203,7 +203,7 @@ msgstr ""
 #: src/modules/blocks/event-venue/index.js:17
 #: src/resources/js/app/blocks.js:47616
 msgid "Event Venue"
-msgstr ""
+msgstr "Arangementssted"
 
 #: src/modules/blocks/event-price/index.js:18
 #: src/resources/js/app/blocks.js:49019
@@ -213,7 +213,7 @@ msgstr ""
 #: src/modules/blocks/event-price/index.js:17
 #: src/resources/js/app/blocks.js:49018
 msgid "Event Price"
-msgstr ""
+msgstr "Arrangementspris"
 
 #: src/modules/blocks/event-price/template.js:156
 #: src/resources/js/app/blocks.js:48830
@@ -343,12 +343,12 @@ msgstr ""
 #: src/modules/blocks/event-organizer/index.js:16
 #: src/resources/js/app/blocks.js:48387
 msgid "Event Organizer"
-msgstr ""
+msgstr "Arrangør"
 
 #: src/modules/data/blocks/price/reducer.js:23
 #: src/resources/js/app/data.js:9364 src/resources/js/app/blocks.js:10508
 msgid "$"
-msgstr "$"
+msgstr "NOK"
 
 #: src/modules/data/blocks/datetime/reducer.js:23
 #: src/resources/js/app/data.js:6796 src/resources/js/app/blocks.js:6842
@@ -395,11 +395,11 @@ msgstr "Hel dag"
 
 #: src/views/modules/bar.php:51
 msgid "Hide %s Search"
-msgstr ""
+msgstr "Skjul %s søk"
 
 #: src/views/modules/bar.php:50 src/views/modules/bar.php:54
 msgid "Show %s Search"
-msgstr ""
+msgstr "Vis %s søk"
 
 #: src/admin-views/aggregator/settings.php:159
 #: src/admin-views/aggregator/settings.php:268
@@ -503,30 +503,30 @@ msgstr ""
 
 #: common/src/Tribe/Editor/Configuration.php:97
 msgid "F j, Y g:i a"
-msgstr ""
+msgstr "j. F Y H:i"
 
 #: common/src/Tribe/Editor/Configuration.php:96
 #: src/resources/js/app/blocks.js:45852 src/resources/js/app/blocks.js:46326
 msgid "F j"
-msgstr ""
+msgstr "j. F"
 
 #: common/src/Tribe/Editor/Configuration.php:95
 msgid "F j, Y"
-msgstr ""
+msgstr "j. F Y"
 
 #: common/src/Tribe/Editor/Configuration.php:94
 msgid "g:i a"
-msgstr ""
+msgstr "H:i"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:90
 msgid "%s ago"
-msgstr ""
+msgstr "%s siden"
 
 #. translators: %s: duration
 #: common/src/Tribe/Editor/Configuration.php:88
 msgid "%s from now"
-msgstr ""
+msgstr "%s fra nå"
 
 #: common/src/Tribe/Editor/Blocks/Abstract.php:127
 msgid "Problem loading the block, please remove this block to restart."
@@ -909,7 +909,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4252
 msgid "Search for %s by Keyword."
-msgstr ""
+msgstr "Søk på %s med nøkkelord."
 
 #: src/Tribe/API.php:826 src/Tribe/API.php:837
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
@@ -1182,17 +1182,17 @@ msgstr "1 år"
 #: src/admin-views/tribe-options-general.php:181
 #: src/admin-views/tribe-options-general.php:198
 msgid "9 months"
-msgstr ""
+msgstr "9 måneder"
 
 #: src/admin-views/tribe-options-general.php:180
 #: src/admin-views/tribe-options-general.php:197
 msgid "6 months"
-msgstr ""
+msgstr "6 måneder"
 
 #: src/admin-views/tribe-options-general.php:179
 #: src/admin-views/tribe-options-general.php:196
 msgid "3 months"
-msgstr ""
+msgstr "3 måneder"
 
 #: src/admin-views/tribe-options-general.php:173
 msgid "This option allows you to automatically move past events to trash."
@@ -1271,7 +1271,7 @@ msgstr ""
 
 #: src/functions/template-tags/general.php:1345
 msgid "Calendar powered by %s"
-msgstr ""
+msgstr "Kalender drevet av %s"
 
 #: src/admin-views/tribe-options-general.php:85
 msgid "The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href=\"%2$s\">enable pretty permalinks</a>."
@@ -2919,7 +2919,7 @@ msgstr ""
 #: src/Tribe/Main.php:869
 msgctxt "all events slug"
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: common/src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
@@ -3881,7 +3881,7 @@ msgstr "Overskriv mitt arrangement med endringer fra originalkilden."
 
 #: src/admin-views/aggregator/settings.php:49
 msgid "You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed."
-msgstr "Du kan gjøre endringer i importerte arrangementer i The Events Calendar og se endringene i sidens kalender. Eieren av den originale hendelsestkilden (f.eks. iCalendar-innmatingen eller Facebook-siden) kan også gjøre endringer i sine arrangementer. Hvis du velger å importere på nytt et endret arrangement (manuelt eller via planlagt import), vil endringer gjort i kilden eller i din kalender måtte håndteres."
+msgstr "Du kan gjøre endringer i importerte arrangementer i The Events Calendar og se endringene i sidens kalender. Eieren av den originale arrangementskilden (f.eks. iCalendar-innmatingen eller Facebook-siden) kan også gjøre endringer i sine arrangementer. Hvis du velger å importere på nytt et endret arrangement (manuelt eller via planlagt import), vil endringer gjort i kilden eller i din kalender måtte håndteres."
 
 #: src/admin-views/aggregator/settings.php:44
 #: src/admin-views/aggregator/settings.php:54
@@ -6163,7 +6163,7 @@ msgstr "Import-innstillinger"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
-msgstr "Du %1$skan ikke%2$s bruke den samme kortlenke som over. Det som står over skal ideelt være flertall, og dette er entall.%3$sDin lenke for enkelthendelser er for eksempel: %4$s"
+msgstr "Du %1$skan ikke%2$s bruke den samme kortlenke som over. Det som står over skal ideelt være flertall, og dette er entall.%3$sDin lenke for enkeltarrangementer er for eksempel: %4$s"
 
 #: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
@@ -6242,7 +6242,7 @@ msgstr "Opphav:"
 #: src/modules/blocks/classic-event-details/template.js:160
 #: src/resources/js/app/blocks.js:45133
 msgid "Event Tags:"
-msgstr "Hendelse tag:"
+msgstr "Arrangementstikkord:"
 
 #: src/views/modules/meta/details.php:56 src/views/blocks/parts/details.php:61
 #: src/modules/blocks/classic-event-details/template.js:42

@@ -19,6 +19,7 @@ class QM_Collector_Theme extends QM_Collector {
 		add_filter( 'body_class',       array( $this, 'filter_body_class' ), 9999 );
 		add_filter( 'timber/output',    array( $this, 'filter_timber_output' ), 9999, 3 );
 		add_action( 'template_redirect', array( $this, 'action_template_redirect' ) );
+		add_action( 'get_template_part', array( $this, 'action_get_template_part' ), 10, 3 );
 	}
 
 	public function get_concerned_actions() {
@@ -54,25 +55,32 @@ class QM_Collector_Theme extends QM_Collector {
 	}
 
 	public static function get_query_template_names() {
-		return array(
-			'embed'             => 'is_embed',
-			'404'               => 'is_404',
-			'search'            => 'is_search',
-			'front_page'        => 'is_front_page',
-			'home'              => 'is_home',
-			'post_type_archive' => 'is_post_type_archive',
-			'taxonomy'          => 'is_tax',
-			'attachment'        => 'is_attachment',
-			'single'            => 'is_single',
-			'page'              => 'is_page',
-			'singular'          => 'is_singular',
-			'category'          => 'is_category',
-			'tag'               => 'is_tag',
-			'author'            => 'is_author',
-			'date'              => 'is_date',
-			'archive'           => 'is_archive',
-			'index'             => '__return_true',
-		);
+		$names = array();
+
+		$names['embed']             = 'is_embed';
+		$names['404']               = 'is_404';
+		$names['search']            = 'is_search';
+		$names['front_page']        = 'is_front_page';
+		$names['home']              = 'is_home';
+
+		if ( function_exists( 'is_privacy_policy' ) ) {
+			$names['privacy_policy'] = 'is_privacy_policy';
+		}
+
+		$names['post_type_archive'] = 'is_post_type_archive';
+		$names['taxonomy']          = 'is_tax';
+		$names['attachment']        = 'is_attachment';
+		$names['single']            = 'is_single';
+		$names['page']              = 'is_page';
+		$names['singular']          = 'is_singular';
+		$names['category']          = 'is_category';
+		$names['tag']               = 'is_tag';
+		$names['author']            = 'is_author';
+		$names['date']              = 'is_date';
+		$names['archive']           = 'is_archive';
+		$names['index']             = '__return_true';
+
+		return $names;
 	}
 
 	// https://core.trac.wordpress.org/ticket/14310
@@ -96,6 +104,17 @@ class QM_Collector_Theme extends QM_Collector {
 			}
 		}
 
+	}
+
+	/**
+	 * Fires before a template part is loaded.
+	 *
+	 * @param string   $slug      The slug name for the generic template.
+	 * @param string   $name      The name of the specialized template.
+	 * @param string[] $templates Array of template files to search for, in order.
+	 */
+	public function action_get_template_part( $slug, $name, $templates ) {
+		$this->data['requested_template_parts'][] = func_get_args();
 	}
 
 	public function filter_template_hierarchy( array $templates ) {
@@ -143,28 +162,64 @@ class QM_Collector_Theme extends QM_Collector {
 			$this->data['template_hierarchy'] = array_unique( $this->data['template_hierarchy'] );
 		}
 
-		foreach ( get_included_files() as $file ) {
-			$file = QM_Util::standard_dir( $file );
-			$filename = str_replace( array(
-				$stylesheet_directory,
-				$template_directory,
-			), '', $file );
-			if ( $filename !== $file ) {
-				$slug          = trim( str_replace( '.php', '', $filename ), '/' );
-				$display       = trim( $filename, '/' );
-				$theme_display = trim( str_replace( $theme_directory, '', $file ), '/' );
-				$count         = did_action( "get_template_part_{$slug}" );
-				if ( $count ) {
+		if ( function_exists( 'wp_body_open' ) ) {
+			if ( ! empty( $this->data['requested_template_parts'] ) ) {
+				$this->data['template_parts']       = array();
+				$this->data['theme_template_parts'] = array();
+				$this->data['count_template_parts'] = array();
+
+				foreach ( $this->data['requested_template_parts'] as $party ) {
+					$file = locate_template( $party[2] );
+					if ( ! $file ) {
+						continue;
+					}
+
+					$file = QM_Util::standard_dir( $file );
+
+					if ( isset( $this->data['count_template_parts'][ $file ] ) ) {
+						$this->data['count_template_parts'][ $file ]++;
+						continue;
+					}
+
+					$this->data['count_template_parts'][ $file ] = 1;
+
+					$filename = str_replace( array(
+						$stylesheet_directory,
+						$template_directory,
+					), '', $file );
+
+					$slug          = trim( str_replace( '.php', '', $filename ), '/' );
+					$display       = trim( $filename, '/' );
+					$theme_display = trim( str_replace( $theme_directory, '', $file ), '/' );
+
 					$this->data['template_parts'][ $file ]       = $display;
 					$this->data['theme_template_parts'][ $file ] = $theme_display;
-					$this->data['count_template_parts'][ $file ] = $count;
-				} else {
-					$slug  = trim( preg_replace( '|\-[^\-]+$|', '', $slug ), '/' );
-					$count = did_action( "get_template_part_{$slug}" );
+				}
+			}
+		} else {
+			foreach ( get_included_files() as $file ) {
+				$file = QM_Util::standard_dir( $file );
+				$filename = str_replace( array(
+					$stylesheet_directory,
+					$template_directory,
+				), '', $file );
+				if ( $filename !== $file ) {
+					$slug          = trim( str_replace( '.php', '', $filename ), '/' );
+					$display       = trim( $filename, '/' );
+					$theme_display = trim( str_replace( $theme_directory, '', $file ), '/' );
+					$count         = did_action( "get_template_part_{$slug}" );
 					if ( $count ) {
 						$this->data['template_parts'][ $file ]       = $display;
 						$this->data['theme_template_parts'][ $file ] = $theme_display;
 						$this->data['count_template_parts'][ $file ] = $count;
+					} else {
+						$slug  = trim( preg_replace( '|\-[^\-]+$|', '', $slug ), '/' );
+						$count = did_action( "get_template_part_{$slug}" );
+						if ( $count ) {
+							$this->data['template_parts'][ $file ]       = $display;
+							$this->data['theme_template_parts'][ $file ] = $theme_display;
+							$this->data['count_template_parts'][ $file ] = $count;
+						}
 					}
 				}
 			}
