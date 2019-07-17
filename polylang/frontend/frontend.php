@@ -10,7 +10,7 @@
  * links_model    => inherited, reference to PLL_Links_Model object
  * links          => reference to PLL_Links object
  * static_pages   => reference to PLL_Frontend_Static_Pages object
- * choose_lang    => reference to PLL_Choose_lang object
+ * choose_lang    => reference to PLL_Choose_Lang object
  * curlang        => current language
  * filters        => reference to PLL_Frontend_Filters object
  * filters_links  => reference to PLL_Frontend_Filters_Links object
@@ -52,53 +52,50 @@ class PLL_Frontend extends PLL_Base {
 	}
 
 	/**
-	 * Is the current request a REST API request?
-	 * Inspired by WP::parse_request()
-	 * Needed because at this point, the constant REST_REQUEST is not defined yet
-	 *
-	 * @since 2.4.1
-	 *
-	 * @return bool
-	 */
-	public function is_rest_request() {
-		$home_path       = trim( parse_url( home_url(), PHP_URL_PATH ), '/' );
-		$home_path_regex = sprintf( '|^%s|i', preg_quote( $home_path, '|' ) );
-
-		$req_uri = trim( $_SERVER['REQUEST_URI'], '/' );
-		$req_uri = preg_replace( $home_path_regex, '', $req_uri );
-		$req_uri = trim( $req_uri, '/' );
-		$req_uri = str_replace( 'index.php', '', $req_uri );
-		$req_uri = trim( $req_uri, '/' );
-
-		return 0 === strpos( $req_uri, rest_get_url_prefix() . '/' );
-	}
-
-	/**
 	 * Setups the language chooser based on options
 	 *
 	 * @since 1.2
 	 */
 	public function init() {
+		parent::init();
+
 		$this->links = new PLL_Frontend_Links( $this );
 
-		// Don't set any language for REST requests when Polylang Pro is not active
-		if ( ! class_exists( 'PLL_REST_Translated_Object' ) && $this->is_rest_request() ) {
-			/** This action is documented in include/class-polylang.php */
-			do_action( 'pll_no_language_defined' );
-		} else {
-			// Static front page and page for posts
-			if ( 'page' === get_option( 'show_on_front' ) ) {
-				$this->static_pages = new PLL_Frontend_Static_Pages( $this );
+		// Static front page and page for posts
+		if ( 'page' === get_option( 'show_on_front' ) ) {
+			$this->static_pages = new PLL_Frontend_Static_Pages( $this );
+		}
+
+		// Setup the language chooser
+		$c = array( 'Content', 'Url', 'Url', 'Domain' );
+		$class = 'PLL_Choose_Lang_' . $c[ $this->options['force_lang'] ];
+		$this->choose_lang = new $class( $this );
+		$this->choose_lang->init();
+
+		// Need to load nav menu class early to correctly define the locations in the customizer when the language is set from the content
+		$this->nav_menu = new PLL_Frontend_Nav_Menu( $this );
+
+		// Cross domain
+		if ( PLL_COOKIE ) {
+			$class = array( 2 => 'PLL_Xdata_Subdomain', 3 => 'PLL_Xdata_Domain' );
+			if ( isset( $class[ $this->options['force_lang'] ] ) && class_exists( $class[ $this->options['force_lang'] ] ) ) {
+				$this->xdata = new $class[ $this->options['force_lang'] ]( $this );
+			}
+		}
+
+		if ( get_option( 'permalink_structure' ) ) {
+			// Translate slugs
+			if ( class_exists( 'PLL_Frontend_Translate_Slugs' ) ) {
+				$slugs_model = new PLL_Translate_Slugs_Model( $this );
+				$this->translate_slugs = new PLL_Frontend_Translate_Slugs( $slugs_model, $this->curlang );
 			}
 
-			// Setup the language chooser
-			$c = array( 'Content', 'Url', 'Url', 'Domain' );
-			$class = 'PLL_Choose_Lang_' . $c[ $this->options['force_lang'] ];
-			$this->choose_lang = new $class( $this );
-			$this->choose_lang->init();
-
-			// Need to load nav menu class early to correctly define the locations in the customizer when the language is set from the content
-			$this->nav_menu = new PLL_Frontend_Nav_Menu( $this );
+			// Share term slugs
+			if ( $this->options['force_lang'] && class_exists( 'PLL_Share_Term_Slug' ) ) {
+				$this->share_term_slug = version_compare( $GLOBALS['wp_version'], '4.8', '<' ) ?
+					new PLL_Frontend_Share_Term_Slug( $this ) :
+					new PLL_Share_Term_Slug( $this );
+			}
 		}
 	}
 
@@ -163,7 +160,7 @@ class PLL_Frontend extends PLL_Base {
 
 			// Remove pages query when the language is set unless we do a search
 			// Take care not to break the single page, attachment and taxonomies queries!
-			if ( empty( $qv['post_type'] ) && ! $query->is_search && ! $query->is_page && ! $query->is_attachment && empty( $taxonomies ) ) {
+			if ( empty( $qv['post_type'] ) && ! $query->is_search && ! $query->is_singular && empty( $taxonomies ) ) {
 				$query->set( 'post_type', 'post' );
 			}
 

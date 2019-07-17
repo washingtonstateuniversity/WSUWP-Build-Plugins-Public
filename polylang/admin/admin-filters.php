@@ -57,24 +57,27 @@ class PLL_Admin_Filters extends PLL_Filters {
 		$screen = get_current_screen();
 
 		// Test the Widgets screen and the Customizer to avoid displaying the option in page builders
-		// Saving the widget reloads the form. And curiously the action is in $_REQUEST but neither in $_POST, not in $_GET.
-		if ( ( isset( $screen ) && 'widgets' === $screen->base ) || ( isset( $_REQUEST['action'] ) && 'save-widget' === $_REQUEST['action'] ) || isset( $GLOBALS['wp_customize'] ) ) {
+		// Saving the widget reloads the form. And curiously the action is in $_REQUEST but neither in $_POST, nor in $_GET.
+		if ( ( isset( $screen ) && 'widgets' === $screen->base ) || ( isset( $_REQUEST['action'] ) && 'save-widget' === $_REQUEST['action'] ) || isset( $GLOBALS['wp_customize'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$dropdown = new PLL_Walker_Dropdown();
+
+			$dropdown_html = $dropdown->walk(
+				array_merge(
+					array( (object) array( 'slug' => 0, 'name' => __( 'All languages', 'polylang' ) ) ),
+					$this->model->get_languages_list()
+				),
+				array(
+					'name'     => $widget->id . '_lang_choice',
+					'class'    => 'tags-input pll-lang-choice',
+					'selected' => empty( $instance['pll_lang'] ) ? '' : $instance['pll_lang'],
+				)
+			);
+
 			printf(
 				'<p><label for="%1$s">%2$s %3$s</label></p>',
 				esc_attr( $widget->id . '_lang_choice' ),
 				esc_html__( 'The widget is displayed for:', 'polylang' ),
-				$dropdown->walk(
-					array_merge(
-						array( (object) array( 'slug' => 0, 'name' => __( 'All languages', 'polylang' ) ) ),
-						$this->model->get_languages_list()
-					),
-					array(
-						'name'     => $widget->id . '_lang_choice',
-						'class'    => 'tags-input pll-lang-choice',
-						'selected' => empty( $instance['pll_lang'] ) ? '' : $instance['pll_lang'],
-					)
-				)
+				$dropdown_html // phpcs:ignore WordPress.Security.EscapeOutput
 			);
 		}
 	}
@@ -92,8 +95,10 @@ class PLL_Admin_Filters extends PLL_Filters {
 	 * @return array Widget options
 	 */
 	public function widget_update_callback( $instance, $new_instance, $old_instance, $widget ) {
-		if ( ! empty( $_POST[ $key = $widget->id . '_lang_choice' ] ) && in_array( $_POST[ $key ], $this->model->get_languages_list( array( 'fields' => 'slug' ) ) ) ) {
-			$instance['pll_lang'] = $_POST[ $key ];
+		$key = $widget->id . '_lang_choice';
+
+		if ( ! empty( $_POST[ $key ] ) && $lang = $this->model->get_language( sanitize_key( $_POST[ $key ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$instance['pll_lang'] = $lang->slug;
 		} else {
 			unset( $instance['pll_lang'] );
 		}
@@ -112,7 +117,7 @@ class PLL_Admin_Filters extends PLL_Filters {
 		// Biography translations
 		foreach ( $this->model->get_languages_list() as $lang ) {
 			$meta = $lang->slug == $this->options['default_lang'] ? 'description' : 'description_' . $lang->slug;
-			$description = empty( $_POST[ 'description_' . $lang->slug ] ) ? '' : trim( $_POST[ 'description_' . $lang->slug ] );
+			$description = empty( $_POST[ 'description_' . $lang->slug ] ) ? '' : trim( $_POST[ 'description_' . $lang->slug ] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput
 
 			/** This filter is documented in wp-includes/user.php */
 			$description = apply_filters( 'pre_user_description', $description ); // Applies WP default filter wp_filter_kses
@@ -183,11 +188,11 @@ class PLL_Admin_Filters extends PLL_Filters {
 	 * @return string
 	 */
 	public function get_locale( $locale ) {
-		if ( isset( $_POST['post_lang_choice'] ) && $lang = $this->model->get_language( $_POST['post_lang_choice'] ) ) {
+		if ( isset( $_POST['post_lang_choice'] ) && $lang = $this->model->get_language( sanitize_key( $_POST['post_lang_choice'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$locale = $lang->locale;
-		} elseif ( isset( $_POST['term_lang_choice'] ) && $lang = $this->model->get_language( $_POST['term_lang_choice'] ) ) {
+		} elseif ( isset( $_POST['term_lang_choice'] ) && $lang = $this->model->get_language( sanitize_key( $_POST['term_lang_choice'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$locale = $lang->locale;
-		} elseif ( isset( $_POST['inline_lang_choice'] ) && $lang = $this->model->get_language( $_POST['inline_lang_choice'] ) ) {
+		} elseif ( isset( $_POST['inline_lang_choice'] ) && $lang = $this->model->get_language( sanitize_key( $_POST['inline_lang_choice'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$locale = $lang->locale;
 		} elseif ( ! empty( $this->curlang ) ) {
 			$locale = $this->curlang->locale;

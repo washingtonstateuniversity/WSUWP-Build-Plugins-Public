@@ -21,7 +21,7 @@ class PLL_Settings_CPT extends PLL_Settings_Module {
 			array(
 				'module'      => 'cpt',
 				'title'       => __( 'Custom post types and Taxonomies', 'polylang' ),
-				'description' => __( 'Activate the languages and translations management for the custom post types and taxonomies.', 'polylang' ),
+				'description' => __( 'Activate languages and translations management for the custom post types and the taxonomies.', 'polylang' ),
 			)
 		);
 
@@ -71,8 +71,8 @@ class PLL_Settings_CPT extends PLL_Settings_Module {
 						printf(
 							'<li><label><input name="post_types[%s]" type="checkbox" value="1" %s %s/> %s</label></li>',
 							esc_attr( $post_type ),
-							in_array( $post_type, $this->options['post_types'] ) || $disabled ? 'checked="checked"' : '',
-							$disabled ? 'disabled="disabled"' : '',
+							checked( in_array( $post_type, $this->options['post_types'] ) || $disabled, true, false ),
+							disabled( $disabled, true, false ),
 							esc_html( $pt->labels->name )
 						);
 					}
@@ -95,8 +95,8 @@ class PLL_Settings_CPT extends PLL_Settings_Module {
 						printf(
 							'<li><label><input name="taxonomies[%s]" type="checkbox" value="1" %s %s/> %s</label></li>',
 							esc_attr( $taxonomy ),
-							in_array( $taxonomy, $this->options['taxonomies'] ) || $disabled ? 'checked="checked"' : '',
-							$disabled ? 'disabled="disabled"' : '',
+							checked( in_array( $taxonomy, $this->options['taxonomies'] ) || $disabled, true, false ),
+							disabled( $disabled, true, false ),
 							esc_html( $tax->labels->name )
 						);
 					}

@@ -1,78 +1,154 @@
-.tribe-events {
+.tribe-common {
 	/* -----------------------------------------------------------------------------
 	 *
 	 * Search
 	 *
 	 * Example:
 	 * <form action="" method="post" class="tribe-common-c-search">
-	 *   <div class="tribe-common-form-control-text-group">
-	 *     <div class="tribe-common-form-control-text">
-	 *       <label for="keyword">Keyword</label>
-	 *       <input type="text" id="keyword" name="keyword" placeholder="Keyword" />
+	 *   <div class="tribe-common-form-control-input-group tribe-common-c-search__input-group">
+	 *     <div class="tribe-common-form-control-text tribe-common-c-search__input-control">
+	 *       <label class="tribe-common-form-control-text__label" for="keyword">Keyword</label>
+	 *       <input
+	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
+	 *         type="text"
+	 *         id="keyword"
+	 *         name="keyword"
+	 *         placeholder="Keyword"
+	 *       />
+	 *     </div>
+	 *     <div class="tribe-common-form-control-text tribe-common-c-search__input-control">
+	 *       <label class="tribe-common-form-control-text__label" for="location">Location</label>
+	 *       <input
+	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
+	 *         type="text"
+	 *         id="location"
+	 *         name="location"
+	 *         placeholder="Location"
+	 *       />
 	 *     </div>
 	 *     <div class="tribe-common-form-control-text">
-	 *       <label for="location">Location</label>
-	 *       <input type="text" id="location" name="location" placeholder="Location" />
-	 *     </div>
-	 *     <div class="tribe-common-form-control-text">
-	 *       <label for="date">Date</label>
-	 *       <input type="text" id="date" name="date" placeholder="Enter Date" />
+	 *       <label class="tribe-common-form-control-text__label" for="date">Date</label>
+	 *       <input
+	 *         class="tribe-common-form-control-text__input tribe-common-c-search__input"
+	 *         type="text"
+	 *         id="date"
+	 *         name="date"
+	 *         placeholder="Enter Date"
+	 *       />
 	 *     </div>
 	 *   </div>
-	 *   <button type="submit" class="tribe-common-c-btn">Find Events</button>
+	 *   <button type="submit" class="tribe-common-c-btn tribe-common-c-search__button">Find Events</button>
 	 * </form>
 	 *
 	 * ----------------------------------------------------------------------------- */
 
+	/**
+	 * @todo: consider moving to TEC styles
+	 */
 	.tribe-common-c-search {
-
 		@media (--viewport-medium) {
 			display: flex;
+			align-items: center;
 		}
+	}
+
+	.tribe-common-c-search__input-group {
+		@media (--viewport-medium) {
+			align-items: center;
+			display: flex;
+			flex: auto;
+		}
+	}
+
+	.tribe-common-c-search__input-control {
+		@media (--viewport-medium) {
+			border-right: 1px solid var(--color-border-default);
+			flex: auto;
+			margin: var(--spacer-2) 0;
+		}
+
+		&:last-child {
+			@media (--viewport-medium) {
+				border-right: none;
+			}
+		}
+	}
+
+	.tribe-common-c-search__input {
+		@media (--viewport-medium) {
+			margin: calc(var(--spacer-2) * -1) 0;
+		}
+	}
+
+	.tribe-common-c-search__input--icon {
+		background-repeat: no-repeat;
+		background-position: right center;
+
+		@media (--viewport-medium) {
+			background-position: 16px center;
+		}
+	}
+
+	.tribe-common-c-search__input-control--keyword {
+
+		.tribe-common-c-search__input {
+			background-image: svg-inline(search);
+			background-size: 16px;
+
+			&:focus {
+				background-image: svg-inline(search-focus);
+			}
+		}
+	}
+
+	.tribe-common-c-search__input-control--keyword-focus {
+
+		.tribe-common-c-search__input {
+			background-image: svg-inline(search-focus);
+		}
+	}
+
+	.tribe-common-c-search__input-control--location {
+
+		.tribe-common-c-search__input {
+			background-image: svg-inline(location);
+			background-size: 10px 15px;
+
+			&:focus {
+				background-image: svg-inline(location-focus);
+			}
+		}
+	}
+
+	.tribe-common-c-search__input-control--location-focus {
+
+		.tribe-common-c-search__input {
+			background-image: svg-inline(location-focus);
+		}
+	}
+
+	.tribe-common-c-search__button {
+		margin-top: var(--spacer-5);
+
+		@media (--viewport-medium) {
+			flex: none;
+			margin-top: 0;
+		}
+	}
+
+
+	body#top & { /* Enfold Compatibility */
 
 		.tribe-common-form-control-text-group {
 			@media (--viewport-medium) {
-				border: 1px solid var(--color-border-default);
-				border-right: none;
-				display: flex;
-				flex: auto;
-				max-width: 645px;
 				padding: 8px 0;
-			}
-
-			> * {
-				@media (--viewport-medium) {
-					margin-bottom: 0;
-				}
-
-				&:first-child {
-					flex: 1 1 34.5%;
-				}
-
-				&:nth-child(2) {
-					flex: 1 1 37.5%;
-				}
-
-				&:nth-child(3) {
-					flex: 1 1 28%;
-				}
 			}
 		}
 
-		input[type="text"] {
+		.tribe-common-c-search__input {
 			@media (--viewport-medium) {
 				border: none;
 				border-right: 1px solid var(--color-border-default);
-				padding: 7px 18px 8px;
-			}
-		}
-
-		button {
-			flex: none;
-			margin-top: 8px;
-
-			@media (--viewport-medium) {
-				margin-top: 0;
 			}
 		}
 	}

@@ -7,7 +7,7 @@
  * @since 1.0
  */
 class PLL_Plugins_Compat {
-	static protected $instance; // for singleton
+	protected static $instance; // for singleton
 
 	/**
 	 * Constructor
@@ -35,8 +35,8 @@ class PLL_Plugins_Compat {
 		add_filter( 'option_duplicate_post_taxonomies_blacklist', array( $this, 'duplicate_post_taxonomies_blacklist' ) );
 
 		// Jetpack
-		$this->jetpack          = new PLL_Jetpack(); // Must be loaded before the plugin is active
-		$this->featured_content = new PLL_Featured_Content();
+		$this->jetpack = new PLL_Jetpack(); // Must be loaded before the plugin is active
+		add_action( 'pll_init', array( $this->featured_content = new PLL_Featured_Content(), 'init' ) );
 
 		// WP Sweep
 		add_filter( 'wp_sweep_excluded_taxonomies', array( $this, 'wp_sweep_excluded_taxonomies' ) );
@@ -83,7 +83,7 @@ class PLL_Plugins_Compat {
 	public function plugins_loaded() {
 		// Yoast SEO
 		if ( defined( 'WPSEO_VERSION' ) ) {
-			add_action( 'pll_language_defined', array( $this->wpseo = new PLL_WPSEO(), 'init' ) );
+			add_action( 'pll_init', array( $this->wpseo = new PLL_WPSEO(), 'init' ) );
 		}
 
 		if ( pll_is_cache_active() ) {
@@ -113,6 +113,16 @@ class PLL_Plugins_Compat {
 		// Admin Columns & Admin Columns Pro
 		if ( ( defined( 'AC_FILE' ) || defined( 'ACP_FILE' ) ) && class_exists( 'PLL_CPAC' ) ) {
 			add_action( 'admin_init', array( $this->cpac = new PLL_CPAC(), 'init' ) );
+		}
+
+		// WP Offload Media Lite
+		if ( function_exists( 'as3cf_init' ) && class_exists( 'PLL_AS3CF' ) ) {
+			add_action( 'pll_init', array( $this->as3cf = new PLL_AS3CF(), 'init' ) );
+		}
+
+		// Content Blocks (Custom Post Widget)
+		if ( function_exists( 'custom_post_widget_plugin_init' ) && class_exists( 'PLL_Content_Blocks' ) ) {
+			add_action( 'pll_init', array( $this->content_blocks = new PLL_Content_Blocks(), 'init' ) );
 		}
 	}
 
@@ -153,7 +163,7 @@ class PLL_Plugins_Compat {
 		load_plugin_textdomain( 'wordpress-importer', false, basename( dirname( $class->getFileName() ) ) . '/languages' );
 
 		$GLOBALS['wp_import'] = new PLL_WP_Import();
-		register_importer( 'wordpress', 'WordPress', __( 'Import <strong>posts, pages, comments, custom fields, categories, and tags</strong> from a WordPress export file.', 'wordpress-importer' ), array( $GLOBALS['wp_import'], 'dispatch' ) ); // WPCS: spelling ok.
+		register_importer( 'wordpress', 'WordPress', __( 'Import <strong>posts, pages, comments, custom fields, categories, and tags</strong> from a WordPress export file.', 'polylang' ), array( $GLOBALS['wp_import'], 'dispatch' ) ); // phpcs:ignore WordPress.WP.CapitalPDangit.Misspelled
 	}
 
 	/**
@@ -167,14 +177,14 @@ class PLL_Plugins_Compat {
 	 * @return array
 	 */
 	public function wp_import_terms( $terms ) {
-		include PLL_SETTINGS_INC . '/languages.php';
+		$languages = include PLL_SETTINGS_INC . '/languages.php';
 
 		foreach ( $terms as $key => $term ) {
 			if ( 'language' === $term['term_taxonomy'] ) {
 				$description = maybe_unserialize( $term['term_description'] );
 				if ( empty( $description['flag_code'] ) && isset( $languages[ $description['locale'] ] ) ) {
 					$description['flag_code'] = $languages[ $description['locale'] ]['flag'];
-					$terms[ $key ]['term_description'] = serialize( $description );
+					$terms[ $key ]['term_description'] = maybe_serialize( $description );
 				}
 			}
 		}
@@ -214,7 +224,7 @@ class PLL_Plugins_Compat {
 	 */
 	public function cft_copy( $post_type, $post ) {
 		global $custom_field_template;
-		if ( isset( $custom_field_template, $_REQUEST['from_post'], $_REQUEST['new_lang'] ) && ! empty( $post ) ) {
+		if ( isset( $custom_field_template, $_REQUEST['from_post'], $_REQUEST['new_lang'] ) && ! empty( $post ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$_REQUEST['post'] = $post->ID;
 		}
 	}
@@ -298,23 +308,26 @@ class PLL_Plugins_Compat {
 			}
 
 			// Don't redirect post previews
-			if ( isset( $_GET['preview'] ) && 'true' === $_GET['preview'] ) {
+			if ( isset( $_GET['preview'] ) && 'true' === $_GET['preview'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 				return;
 			}
 
 			// Don't redirect theme customizer
-			if ( isset( $_POST['customize'] ) && isset( $_POST['theme'] ) && 'on' === $_POST['customize'] ) {
+			if ( isset( $_POST['customize'] ) && isset( $_POST['theme'] ) && 'on' === $_POST['customize'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 				return;
 			}
 
 			// If we can't associate the requested domain to a language, redirect to the default domain
+			$requested_url  = pll_get_requested_url();
+			$requested_host = wp_parse_url( $requested_url, PHP_URL_HOST );
+
 			$hosts = PLL()->links_model->get_hosts();
-			$lang = array_search( $_SERVER['HTTP_HOST'], $hosts );
+			$lang  = array_search( $requested_host, $hosts );
 
 			if ( empty( $lang ) ) {
-				$status = get_site_option( 'dm_301_redirect' ) ? '301' : '302'; // Honor status redirect option
-				$redirect = ( is_ssl() ? 'https://' : 'http://' ) . $hosts[ $options['default_lang'] ] . $_SERVER['REQUEST_URI'];
-				wp_redirect( $redirect, $status );
+				$status   = get_site_option( 'dm_301_redirect' ) ? '301' : '302'; // Honor status redirect option
+				$redirect = str_replace( '://' . $requested_host, '://' . $hosts[ $options['default_lang'] ], $requested_url );
+				wp_safe_redirect( $redirect, $status );
 				exit;
 			}
 		} else {

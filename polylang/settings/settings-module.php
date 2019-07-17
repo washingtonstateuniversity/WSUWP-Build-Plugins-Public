@@ -48,13 +48,13 @@ class PLL_Settings_Module {
 			'deactivate'  => sprintf(
 				'<a title="%s" href="%s">%s</a>',
 				esc_attr__( 'Deactivate this module', 'polylang' ),
-				wp_nonce_url( '?page=mlang&amp;tab=modules&amp;pll_action=deactivate&amp;noheader=true&amp;module=' . $this->module, 'pll_deactivate' ),
+				esc_url( wp_nonce_url( '?page=mlang&tab=modules&pll_action=deactivate&noheader=true&module=' . $this->module, 'pll_deactivate' ) ),
 				esc_html__( 'Deactivate', 'polylang' )
 			),
 			'activate'    => sprintf(
 				'<a title="%s" href="%s">%s</a>',
 				esc_attr__( 'Activate this module', 'polylang' ),
-				wp_nonce_url( '?page=mlang&amp;tab=modules&amp;pll_action=activate&amp;noheader=true&amp;module=' . $this->module, 'pll_activate' ),
+				esc_url( wp_nonce_url( '?page=mlang&tab=modules&pll_action=activate&noheader=true&module=' . $this->module, 'pll_activate' ) ),
 				esc_html__( 'Activate', 'polylang' )
 			),
 			'activated'   => esc_html__( 'Activated', 'polylang' ),
@@ -62,8 +62,8 @@ class PLL_Settings_Module {
 		);
 
 		$this->buttons = array(
-			'cancel' => sprintf( '<button type="button" class="button button-secondary cancel">%s</button>', esc_html__( 'Cancel' ) ),
-			'save'   => sprintf( '<button type="button" class="button button-primary save">%s</button>', esc_html__( 'Save Changes' ) ),
+			'cancel' => sprintf( '<button type="button" class="button button-secondary cancel">%s</button>', esc_html__( 'Cancel', 'polylang' ) ),
+			'save'   => sprintf( '<button type="button" class="button button-primary save">%s</button>', esc_html__( 'Save Changes', 'polylang' ) ),
 		);
 
 		// Ajax action to save options
@@ -155,7 +155,7 @@ class PLL_Settings_Module {
 			wp_die( -1 );
 		}
 
-		if ( $this->module == $_POST['module'] ) {
+		if ( isset( $_POST['module'] ) && $this->module === $_POST['module'] ) {
 			// It's up to the child class to decide which options are saved, whether there are errors or not
 			$post = array_diff_key( $_POST, array_flip( array( 'action', 'module', 'pll_ajax_backend', '_pll_nonce' ) ) );
 			$options = $this->update( $post );
@@ -173,7 +173,7 @@ class PLL_Settings_Module {
 
 			if ( ! get_settings_errors() ) {
 				// Send update message
-				add_settings_error( 'general', 'settings_updated', __( 'Settings saved.' ), 'updated' );
+				add_settings_error( 'general', 'settings_updated', __( 'Settings saved.', 'polylang' ), 'updated' );
 				settings_errors();
 				$x = new WP_Ajax_Response( array( 'what' => 'success', 'data' => ob_get_clean() ) );
 				$x->send();
@@ -230,7 +230,7 @@ class PLL_Settings_Module {
 	protected function default_upgrade_message() {
 		return sprintf(
 			'%s <a href="%s">%s</a>',
-			__( 'You need Polylang Pro to enable this feature.', 'polylang' ),
+			__( 'To enable this feature, you need Polylang Pro.', 'polylang' ),
 			'https://polylang.pro',
 			__( 'Upgrade now.', 'polylang' )
 		);

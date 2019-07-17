@@ -8,342 +8,275 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-/* -----------------------------------------------------------------------------
-	*
-	* Global "Resets"
-	*
-	* ----------------------------------------------------------------------------- */
+/*
+ * Reset CSS
+ *
+ * DO NOT EDIT THIS CSS FILE DIRECTLY.
+ * -------------------------------------------------------------
+ * This file is just a clearing-house, see the pcss directory
+ * and edit the source files found there.
+ */
 
-	.tribe-events * {
+/* Reset */
+
+.tribe-common {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-smoothing: antialiased;
+}
+
+/* -----------------------------------------------------------------------------
+	 *
+	 * Global "Resets"
+	 *
+	 * ----------------------------------------------------------------------------- */
+
+.tribe-common * {
 		box-sizing: border-box;
 	}
 
-	/* -----------------------------------------------------------------------------
-	*
-	* HTML5 Elements
-	*
-	* ----------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+	 *
+	 * HTML5 Elements
+	 *
+	 * ----------------------------------------------------------------------------- */
 
-	.tribe-events article,
-	.tribe-events aside,
-	.tribe-events details,
-	.tribe-events figcaption,
-	.tribe-events figure,
-	.tribe-events footer,
-	.tribe-events header,
-	.tribe-events main,
-	.tribe-events menu,
-	.tribe-events nav,
-	.tribe-events section,
-	.tribe-events summary {
+.tribe-common article,
+	.tribe-common aside,
+	.tribe-common details,
+	.tribe-common figcaption,
+	.tribe-common figure,
+	.tribe-common footer,
+	.tribe-common header,
+	.tribe-common main,
+	.tribe-common menu,
+	.tribe-common nav,
+	.tribe-common section,
+	.tribe-common summary {
 		display: block;
 	}
 
-	/* -----------------------------------------------------------------------------
-	*
-	* Normalize "Light"
-	*
-	* See normalize source code for clarity on rules
-	* https://github.com/necolas/normalize.css
-	*
-	* ----------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+	 *
+	 * Normalize "Light"
+	 *
+	 * ----------------------------------------------------------------------------- */
 
-	.tribe-events figure {
-		line-height: 0;
-	}
-
-	.tribe-events figcaption {
-		line-height: normal;
-	}
-
-	.tribe-events svg:not(:root) {
+.tribe-common svg:not(:root) {
 		overflow: hidden;
 	}
 
-	.tribe-events audio,
-	.tribe-events canvas,
-	.tribe-events progress,
-	.tribe-events video {
+.tribe-common audio,
+	.tribe-common canvas,
+	.tribe-common progress,
+	.tribe-common video {
 		display: inline-block;
 	}
 
-	.tribe-events audio:not([controls]) {
+.tribe-common audio:not([controls]) {
 		display: none;
 		height: 0;
 	}
 
-	.tribe-events progress {
+.tribe-common progress {
 		vertical-align: baseline;
 	}
 
-	.tribe-events template,
-	.tribe-events [hidden] {
+.tribe-common template,
+	.tribe-common [hidden] {
 		display: none;
 	}
 
-	.tribe-events a {
-		background-color: transparent;
-		-webkit-text-decoration-skip: objects;
-	}
-
-	.tribe-events abbr[title] {
-		border-bottom: none;
-		text-decoration: underline;
-		-webkit-text-decoration: underline dotted;
-		        text-decoration: underline dotted;
-	}
-
-	.tribe-events pre {
+.tribe-common pre {
 		overflow: auto;
 	}
 
-	.tribe-events code,
-	.tribe-events kbd,
-	.tribe-events pre,
-	.tribe-events samp {
-		font-family: monospace;
-		font-size: 1em;
-	}
-
-	.tribe-events b,
-	.tribe-events strong {
-		font-weight: inherit;
-		font-weight: bolder;
-	}
-
-	.tribe-events dfn {
-		font-style: italic;
-	}
-
-	.tribe-events mark {
-		background-color: #ff0;
-		color: #000;
-	}
-
-	.tribe-events small {
-		font-size: 80%;
-	}
-
-	.tribe-events sub,
-	.tribe-events sup {
-		font-size: 75%;
-		line-height: 0;
+.tribe-common sub,
+	.tribe-common sup {
 		position: relative;
 		vertical-align: baseline;
 	}
 
-	.tribe-events sup {
+.tribe-common sup {
 		top: -0.5em;
 	}
 
-	.tribe-events sub {
+.tribe-common sub {
 		bottom: -0.25em;
 	}
 
-	.tribe-events hr {
-		border: 0;
-		height: 0;
-	}
-
-	/* Input: Kill browser input chrome */
-
-	.tribe-events input[type="text"],
-	.tribe-events input[type="email"],
-	.tribe-events input[type="url"],
-	.tribe-events input[type="search"],
-	.tribe-events input[type="submit"],
-	.tribe-events input[type="password"],
-	.tribe-events input[type="reset"],
-	.tribe-events input[type="button"],
-	.tribe-events button,
-	.tribe-events textarea {
-		-webkit-appearance: none;
-		   -moz-appearance: none;
-		        appearance: none;
-	}
-
-	.tribe-events input,
-	.tribe-events button,
-	.tribe-events select,
-	.tribe-events textarea,
-	.tribe-events optgroup {
-		color: inherit;
-		font: inherit;
-		line-height: normal;
-		-webkit-font-smoothing: antialiased;
-	}
-
-	.tribe-events input,
-	.tribe-events button,
-	.tribe-events select,
-	.tribe-events textarea {
-		outline: 0;
+.tribe-common input,
+	.tribe-common button,
+	.tribe-common select,
+	.tribe-common textarea {
 		box-sizing: border-box;
 		margin: 0;
-		border-radius: 0;
 	}
 
-	.tribe-events input[type="number"]::-webkit-inner-spin-button,
-	.tribe-events input[type="number"]::-webkit-outer-spin-button {
+.tribe-common input[type="number"]::-webkit-inner-spin-button,
+	.tribe-common input[type="number"]::-webkit-outer-spin-button {
 		height: auto;
 	}
 
-	.tribe-events select:-moz-focusring {
-			color: transparent;
-			text-shadow: 0 0 0 #000;
-		}
-
-	.tribe-events legend {
+.tribe-common legend {
 		color: inherit;
 		display: table;
 		max-width: 100%;
 		white-space: normal;
 	}
 
-	.tribe-events textarea {
+.tribe-common textarea {
 		resize: none;
 		overflow: auto;
 	}
 
-	.tribe-events optgroup {
-		font-weight: bold;
-	}
-
-	.tribe-events button,
-	.tribe-events input[type="button"],
-	.tribe-events input[type="reset"],
-	.tribe-events input[type="submit"] {
+.tribe-common button,
+	.tribe-common input[type="button"],
+	.tribe-common input[type="reset"],
+	.tribe-common input[type="submit"] {
 		cursor: pointer;
 		overflow: visible;
 	}
 
-	.tribe-events button[disabled],
-	.tribe-events input[disabled] {
+.tribe-common button[disabled],
+	.tribe-common input[disabled] {
 		cursor: default;
 	}
 
-	.tribe-events button::-moz-focus-inner,
-	.tribe-events input::-moz-focus-inner {
+.tribe-common button::-moz-focus-inner,
+	.tribe-common input::-moz-focus-inner {
 		border: 0;
 		padding: 0;
 	}
 
-	/* -----------------------------------------------------------------------------
-	*
-	* Reset "Light"
-	*
-	* ----------------------------------------------------------------------------- */
+/* -----------------------------------------------------------------------------
+	 *
+	 * Reset "Light"
+	 *
+	 * ----------------------------------------------------------------------------- */
 
-	.tribe-events div,
-	.tribe-events span,
-	.tribe-events applet,
-	.tribe-events object,
-	.tribe-events iframe,
-	.tribe-events h1,
-	.tribe-events h2,
-	.tribe-events h3,
-	.tribe-events h4,
-	.tribe-events h5,
-	.tribe-events h6,
-	.tribe-events p,
-	.tribe-events blockquote,
-	.tribe-events pre,
-	.tribe-events a,
-	.tribe-events abbr,
-	.tribe-events acronym,
-	.tribe-events address,
-	.tribe-events big,
-	.tribe-events cite,
-	.tribe-events code,
-	.tribe-events del,
-	.tribe-events dfn,
-	.tribe-events em,
-	.tribe-events img,
-	.tribe-events ins,
-	.tribe-events kbd,
-	.tribe-events q,
-	.tribe-events s,
-	.tribe-events samp,
-	.tribe-events small,
-	.tribe-events strike,
-	.tribe-events strong,
-	.tribe-events sub,
-	.tribe-events sup,
-	.tribe-events tt,
-	.tribe-events var,
-	.tribe-events b,
-	.tribe-events u,
-	.tribe-events i,
-	.tribe-events center,
-	.tribe-events dl,
-	.tribe-events dt,
-	.tribe-events dd,
-	.tribe-events ol,
-	.tribe-events ul,
-	.tribe-events li,
-	.tribe-events fieldset,
-	.tribe-events form,
-	.tribe-events label,
-	.tribe-events legend,
-	.tribe-events table,
-	.tribe-events caption,
-	.tribe-events tbody,
-	.tribe-events tfoot,
-	.tribe-events thead,
-	.tribe-events tr,
-	.tribe-events th,
-	.tribe-events td,
-	.tribe-events article,
-	.tribe-events aside,
-	.tribe-events canvas,
-	.tribe-events details,
-	.tribe-events embed,
-	.tribe-events figure,
-	.tribe-events figcaption,
-	.tribe-events footer,
-	.tribe-events header,
-	.tribe-events main,
-	.tribe-events menu,
-	.tribe-events nav,
-	.tribe-events output,
-	.tribe-events ruby,
-	.tribe-events section,
-	.tribe-events summary,
-	.tribe-events time,
-	.tribe-events mark,
-	.tribe-events audio,
-	.tribe-events video {
+.tribe-common div,
+	.tribe-common span,
+	.tribe-common applet,
+	.tribe-common object,
+	.tribe-common iframe,
+	.tribe-common h1,
+	.tribe-common h2,
+	.tribe-common h3,
+	.tribe-common h4,
+	.tribe-common h5,
+	.tribe-common h6,
+	.tribe-common p,
+	.tribe-common blockquote,
+	.tribe-common pre,
+	.tribe-common a,
+	.tribe-common abbr,
+	.tribe-common acronym,
+	.tribe-common address,
+	.tribe-common big,
+	.tribe-common cite,
+	.tribe-common code,
+	.tribe-common del,
+	.tribe-common dfn,
+	.tribe-common em,
+	.tribe-common img,
+	.tribe-common ins,
+	.tribe-common kbd,
+	.tribe-common q,
+	.tribe-common s,
+	.tribe-common samp,
+	.tribe-common small,
+	.tribe-common strike,
+	.tribe-common strong,
+	.tribe-common sub,
+	.tribe-common sup,
+	.tribe-common tt,
+	.tribe-common var,
+	.tribe-common b,
+	.tribe-common u,
+	.tribe-common i,
+	.tribe-common center,
+	.tribe-common dl,
+	.tribe-common dt,
+	.tribe-common dd,
+	.tribe-common ol,
+	.tribe-common ul,
+	.tribe-common li,
+	.tribe-common fieldset,
+	.tribe-common form,
+	.tribe-common label,
+	.tribe-common legend,
+	.tribe-common table,
+	.tribe-common caption,
+	.tribe-common tbody,
+	.tribe-common tfoot,
+	.tribe-common thead,
+	.tribe-common tr,
+	.tribe-common th,
+	.tribe-common td,
+	.tribe-common article,
+	.tribe-common aside,
+	.tribe-common canvas,
+	.tribe-common details,
+	.tribe-common embed,
+	.tribe-common figure,
+	.tribe-common figcaption,
+	.tribe-common footer,
+	.tribe-common header,
+	.tribe-common main,
+	.tribe-common menu,
+	.tribe-common nav,
+	.tribe-common output,
+	.tribe-common ruby,
+	.tribe-common section,
+	.tribe-common summary,
+	.tribe-common time,
+	.tribe-common mark,
+	.tribe-common audio,
+	.tribe-common video {
 		margin: 0;
 		padding: 0;
 		border: 0;
 	}
 
-	.tribe-events ol,
-	.tribe-events ul {
-		list-style: none;
-	}
-
-	.tribe-events h1,
-	.tribe-events h2,
-	.tribe-events h3,
-	.tribe-events h4,
-	.tribe-events h5,
-	.tribe-events h6,
-	.tribe-events p {
-		font-weight: normal;
-		text-rendering: optimizeLegibility;
-	}
-
-	.tribe-events img {
+.tribe-common img {
 		-ms-interpolation-mode: bicubic;
 		height: auto;
 		max-width: 100%;
 		border-style: none;
 	}
 
-	.tribe-events iframe,
-	.tribe-events video,
-	.tribe-events embed {
+.tribe-common iframe,
+	.tribe-common video,
+	.tribe-common embed {
 		max-width: 100%;
 		max-height: 100%;
 	}
+
+/* Theme Overrides */
+
+.tribe-theme-avada {
+
+}
+
+.tribe-theme-divi {
+
+}
+
+/* Enfold is using the #top id in the <body> */
+
+#top.tribe-theme-enfold .tribe-common input {
+				margin: 0;
+			}
+
+.tribe-theme-genesis {
+
+}
+
+.tribe-theme-twentynineteen {
+
+}
+
+.tribe-theme-twentyseventeen {
+
+}
