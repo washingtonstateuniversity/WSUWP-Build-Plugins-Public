@@ -28,7 +28,7 @@ class PLL_Admin_Filters_Media extends PLL_Admin_Filters_Post_Base {
 		add_filter( 'attachment_fields_to_save', array( $this, 'save_media' ), 10, 2 );
 
 		// Creates a media translation
-		if ( isset( $_GET['action'], $_GET['new_lang'], $_GET['from_media'] ) && 'translate_media' === $_GET['action'] ) {
+		if ( isset( $_GET['action'], $_GET['new_lang'], $_GET['from_media'] ) && 'translate_media' === $_GET['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 			add_action( 'admin_init', array( $this, 'translate_media' ) );
 		}
 	}
@@ -74,21 +74,23 @@ class PLL_Admin_Filters_Media extends PLL_Admin_Filters_Post_Base {
 	 * @since 0.9
 	 */
 	public function translate_media() {
-		// Security check
-		check_admin_referer( 'translate_media' );
-		$post_id = (int) $_GET['from_media'];
+		if ( isset( $_GET['from_media'], $_GET['new_lang'] ) ) {
+			// Security check
+			check_admin_referer( 'translate_media' );
+			$post_id = (int) $_GET['from_media'];
 
-		// Bails if the translations already exists
-		// See https://wordpress.org/support/topic/edit-translation-in-media-attachments?#post-7322303
-		// Or if the source media does not exist
-		if ( $this->model->post->get_translation( $post_id, $_GET['new_lang'] ) || ! get_post( $post_id ) ) {
-			wp_safe_redirect( wp_get_referer() );
+			// Bails if the translations already exists
+			// See https://wordpress.org/support/topic/edit-translation-in-media-attachments?#post-7322303
+			// Or if the source media does not exist
+			if ( $this->model->post->get_translation( $post_id, sanitize_key( $_GET['new_lang'] ) ) || ! get_post( $post_id ) ) {
+				wp_safe_redirect( wp_get_referer() );
+				exit;
+			}
+
+			$tr_id = $this->posts->create_media_translation( $post_id, sanitize_key( $_GET['new_lang'] ) );
+			wp_safe_redirect( admin_url( sprintf( 'post.php?post=%d&action=edit', $tr_id ) ) ); // WP 3.5+
 			exit;
 		}
-
-		$tr_id = $this->posts->create_media_translation( $post_id, $_GET['new_lang'] );
-		wp_safe_redirect( admin_url( sprintf( 'post.php?post=%d&action=edit', $tr_id ) ) ); // WP 3.5+
-		exit;
 	}
 
 	/**
@@ -108,8 +110,8 @@ class PLL_Admin_Filters_Media extends PLL_Admin_Filters_Post_Base {
 			$this->model->post->set_language( $post['ID'], $attachment['language'] );
 		}
 
-		if ( isset( $_POST['media_tr_lang'] ) ) {
-			$this->save_translations( $post['ID'], $_POST['media_tr_lang'] );
+		if ( isset( $_POST['media_tr_lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$this->save_translations( $post['ID'], array_map( 'absint', $_POST['media_tr_lang'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		return $post;

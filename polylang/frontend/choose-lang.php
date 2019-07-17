@@ -32,8 +32,8 @@ abstract class PLL_Choose_Lang {
 	 * @since 1.8
 	 */
 	public function init() {
-		if ( Polylang::is_ajax_on_front() || false === stripos( $_SERVER['SCRIPT_FILENAME'], 'index.php' ) ) {
-			$this->set_language( empty( $_REQUEST['lang'] ) ? $this->get_preferred_language() : $this->model->get_language( $_REQUEST['lang'] ) );
+		if ( Polylang::is_ajax_on_front() || ! wp_using_themes() ) {
+			$this->set_language( empty( $_REQUEST['lang'] ) ? $this->get_preferred_language() : $this->model->get_language( sanitize_key( $_REQUEST['lang'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		add_action( 'pre_comment_on_post', array( $this, 'pre_comment_on_post' ) ); // sets the language of comment
@@ -101,7 +101,7 @@ abstract class PLL_Choose_Lang {
 				$this->curlang->slug,
 				time() + $expiration,
 				COOKIEPATH,
-				2 == $this->options['force_lang'] ? parse_url( $this->links_model->home, PHP_URL_HOST ) : COOKIE_DOMAIN,
+				2 == $this->options['force_lang'] ? wp_parse_url( $this->links_model->home, PHP_URL_HOST ) : COOKIE_DOMAIN,
 				is_ssl()
 			);
 		}
@@ -120,7 +120,11 @@ abstract class PLL_Choose_Lang {
 
 		if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 			// Break up string into pieces ( languages and q factors )
-			preg_match_all( '/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*((?>1|0)(?>\.[0-9]+)?))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $lang_parse );
+			preg_match_all(
+				'/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*((?>1|0)(?>\.[0-9]+)?))?/i',
+				sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ),
+				$lang_parse
+			);
 
 			$k = $lang_parse[1];
 			$v = $lang_parse[4];
@@ -196,7 +200,7 @@ abstract class PLL_Choose_Lang {
 	public function get_preferred_language() {
 		// check first if the user was already browsing this site
 		if ( isset( $_COOKIE[ PLL_COOKIE ] ) ) {
-			return $this->model->get_language( $_COOKIE[ PLL_COOKIE ] );
+			return $this->model->get_language( sanitize_key( $_COOKIE[ PLL_COOKIE ] ) );
 		}
 
 		/**
@@ -221,11 +225,11 @@ abstract class PLL_Choose_Lang {
 	 * @since 1.2
 	 */
 	protected function home_language() {
-		// test referer in case PLL_COOKIE is set to false
-		// thanks to Ov3rfly http://wordpress.org/support/topic/enhance-feature-when-front-page-is-visited-set-language-according-to-browser
-		$language = $this->options['hide_default'] && ( ( isset( $_SERVER['HTTP_REFERER'] ) && in_array( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ), $this->links_model->get_hosts() ) ) || ! $this->options['browser'] ) ?
+		// Test referer in case PLL_COOKIE is set to false. Since WP 3.6.1, wp_get_referer() validates the host which is exactly what we want
+		// Thanks to Ov3rfly http://wordpress.org/support/topic/enhance-feature-when-front-page-is-visited-set-language-according-to-browser
+		$language = $this->options['hide_default'] && ( wp_get_referer() || ! $this->options['browser'] ) ?
 			$this->model->get_language( $this->options['default_lang'] ) :
-			$this->get_preferred_language(); // sets the language according to browser preference or default language
+			$this->get_preferred_language(); // Sets the language according to browser preference or default language
 		$this->set_language( $language );
 	}
 
@@ -252,9 +256,12 @@ abstract class PLL_Choose_Lang {
 		// Test to avoid crash if get_home_url returns something wrong
 		// FIXME why this happens? http://wordpress.org/support/topic/polylang-crashes-1
 		// Don't redirect if $_POST is not empty as it could break other plugins
-		// Don't forget the query string which may be added by plugins
-		elseif ( is_string( $redirect = $this->curlang->home_url ) && empty( $_POST ) ) {
-			$redirect = empty( $_SERVER['QUERY_STRING'] ) ? $redirect : $redirect . ( $this->links_model->using_permalinks ? '?' : '&' ) . $_SERVER['QUERY_STRING'];
+		elseif ( is_string( $redirect = $this->curlang->home_url ) && empty( $_POST ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			// Don't forget the query string which may be added by plugins
+			$query_string = wp_parse_url( pll_get_requested_url(), PHP_URL_QUERY );
+			if ( ! empty( $query_string ) ) {
+				$redirect .= ( $this->links_model->using_permalinks ? '?' : '&' ) . $query_string;
+			}
 
 			/**
 			 * When a visitor reaches the site home, Polylang redirects to the home page in the correct language.
@@ -267,7 +274,7 @@ abstract class PLL_Choose_Lang {
 			 */
 			if ( $redirect = apply_filters( 'pll_redirect_home', $redirect ) ) {
 				$this->maybe_setcookie();
-				wp_redirect( $redirect, 302, POLYLANG );
+				wp_safe_redirect( $redirect, 302, POLYLANG );
 				exit;
 			}
 		}

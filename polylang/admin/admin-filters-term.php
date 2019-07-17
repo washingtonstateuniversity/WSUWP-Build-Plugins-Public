@@ -55,15 +55,37 @@ class PLL_Admin_Filters_Term {
 	 * @since 0.1
 	 */
 	public function add_term_form() {
-		$taxonomy = $_GET['taxonomy'];
-		$post_type = isset( $GLOBALS['post_type'] ) ? $GLOBALS['post_type'] : $_REQUEST['post_type'];
+		if ( isset( $_GET['taxonomy'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$taxonomy = sanitize_key( $_GET['taxonomy'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		}
 
-		if ( ! taxonomy_exists( $taxonomy ) || ! post_type_exists( $post_type ) ) {
+		if ( isset( $_REQUEST['post_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$post_type = sanitize_key( $_REQUEST['post_type'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		}
+
+		if ( isset( $GLOBALS['post_type'] ) ) {
+			$post_type = $GLOBALS['post_type'];
+		}
+
+		if ( empty( $taxonomy ) || ! taxonomy_exists( $taxonomy ) || ! post_type_exists( $post_type ) ) {
 			return;
 		}
 
-		$lang = isset( $_GET['new_lang'] ) ? $this->model->get_language( $_GET['new_lang'] ) : $this->pref_lang;
+		$from_term_id = isset( $_GET['from_tag'] ) ? (int) $_GET['from_tag'] : 0; // phpcs:ignore WordPress.Security.NonceVerification
+
+		$lang = isset( $_GET['new_lang'] ) ? $this->model->get_language( sanitize_key( $_GET['new_lang'] ) ) : $this->pref_lang; // phpcs:ignore WordPress.Security.NonceVerification
+
 		$dropdown = new PLL_Walker_Dropdown();
+
+		$dropdown_html = $dropdown->walk(
+			$this->model->get_languages_list(),
+			array(
+				'name'     => 'term_lang_choice',
+				'value'    => 'term_id',
+				'selected' => $lang ? $lang->term_id : '',
+				'flag'     => true,
+			)
+		);
 
 		wp_nonce_field( 'pll_language', '_pll_nonce' );
 
@@ -74,20 +96,12 @@ class PLL_Admin_Filters_Term {
 				<p>%s</p>
 			</div>',
 			esc_html__( 'Language', 'polylang' ),
-			$dropdown->walk(
-				$this->model->get_languages_list(),
-				array(
-					'name'     => 'term_lang_choice',
-					'value'    => 'term_id',
-					'selected' => $lang ? $lang->term_id : '',
-					'flag'     => true,
-				)
-			),
+			$dropdown_html, // phpcs:ignore
 			esc_html__( 'Sets the language', 'polylang' )
 		);
 
-		if ( ! empty( $_GET['from_tag'] ) ) {
-			printf( '<input type="hidden" name="from_tag" value="%d" />', (int) $_GET['from_tag'] );
+		if ( ! empty( $from_term_id ) ) {
+			printf( '<input type="hidden" name="from_tag" value="%d" />', (int) $from_term_id );
 		}
 
 		// Adds translation fields
@@ -106,7 +120,13 @@ class PLL_Admin_Filters_Term {
 	 * @param object $tag
 	 */
 	public function edit_term_form( $tag ) {
-		$post_type = isset( $GLOBALS['post_type'] ) ? $GLOBALS['post_type'] : $_REQUEST['post_type'];
+		if ( isset( $_REQUEST['post_type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$post_type = sanitize_key( $_REQUEST['post_type'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		}
+
+		if ( isset( $GLOBALS['post_type'] ) ) {
+			$post_type = $GLOBALS['post_type'];
+		}
 
 		if ( ! post_type_exists( $post_type ) ) {
 			return;
@@ -118,15 +138,27 @@ class PLL_Admin_Filters_Term {
 		$lang = $this->model->term->get_language( $term_id );
 		$lang = empty( $lang ) ? $this->pref_lang : $lang;
 
-		$dropdown = new PLL_Walker_Dropdown();
-
 		// Disable the language dropdown and the translations input fields for default categories to prevent removal
 		$disabled = in_array( get_option( 'default_category' ), $this->model->term->get_translations( $term_id ) );
+
+		$dropdown = new PLL_Walker_Dropdown();
+
+		$dropdown_html = $dropdown->walk(
+			$this->model->get_languages_list(),
+			array(
+				'name'     => 'term_lang_choice',
+				'value'    => 'term_id',
+				'selected' => $lang ? $lang->term_id : '',
+				'disabled' => $disabled,
+				'flag'     => true,
+			)
+		);
+
+		wp_nonce_field( 'pll_language', '_pll_nonce' );
 
 		printf(
 			'<tr class="form-field">
 				<th scope="row">
-					%s
 					<label for="term_lang_choice">%s</label>
 				</th>
 				<td id="select-edit-term-language">
@@ -134,18 +166,8 @@ class PLL_Admin_Filters_Term {
 					<p class="description">%s</p>
 				</td>
 			</tr>',
-			wp_nonce_field( 'pll_language', '_pll_nonce', true, false ),
 			esc_html__( 'Language', 'polylang' ),
-			$dropdown->walk(
-				$this->model->get_languages_list(),
-				array(
-					'name'     => 'term_lang_choice',
-					'value'    => 'term_id',
-					'selected' => $lang ? $lang->term_id : '',
-					'disabled' => $disabled,
-					'flag'     => true,
-				)
-			),
+			$dropdown_html, // phpcs:ignore
 			esc_html__( 'Sets the language', 'polylang' )
 		);
 
@@ -165,10 +187,15 @@ class PLL_Admin_Filters_Term {
 	 * @return string modified html
 	 */
 	public function wp_dropdown_cats( $output ) {
-		if ( isset( $_GET['taxonomy'], $_GET['from_tag'], $_GET['new_lang'] ) && taxonomy_exists( $_GET['taxonomy'] ) ) {
-			$term = get_term( (int) $_GET['from_tag'], $_GET['taxonomy'] );
+		if ( isset( $_GET['taxonomy'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$taxonomy = sanitize_key( $_GET['taxonomy'] ); // phpcs:ignore WordPress.Security.NonceVerification
+		}
+
+		if ( isset( $taxonomy, $_GET['from_tag'], $_GET['new_lang'] ) && taxonomy_exists( $taxonomy ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$term = get_term( (int) $_GET['from_tag'], $taxonomy ); // phpcs:ignore WordPress.Security.NonceVerification
+
 			if ( $term && $id = $term->parent ) {
-				$lang = $this->model->get_language( $_GET['new_lang'] );
+				$lang = $this->model->get_language( sanitize_key( $_GET['new_lang'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 				if ( $parent = $this->model->term->get_translation( $id, $lang ) ) {
 					return str_replace( '"' . $parent . '"', '"' . $parent . '" selected="selected"', $output );
 				}
@@ -185,7 +212,7 @@ class PLL_Admin_Filters_Term {
 	 * @param int $post_id
 	 */
 	public function pre_post_update( $post_id ) {
-		if ( isset( $_GET['bulk_edit'] ) ) {
+		if ( isset( $_GET['bulk_edit'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$this->post_id = $post_id;
 		}
 	}
@@ -205,14 +232,13 @@ class PLL_Admin_Filters_Term {
 
 		// Edit tags
 		if ( isset( $_POST['term_lang_choice'] ) ) {
-			if ( 'add-' . $taxonomy == $_POST['action'] ) {
-				check_ajax_referer( $_POST['action'], '_ajax_nonce-add-' . $taxonomy ); // category metabox
-			}
-			else {
-				check_admin_referer( 'pll_language', '_pll_nonce' ); // edit tags or tags metabox
+			if ( isset( $_POST['action'] ) && sanitize_key( $_POST['action'] ) === 'add-' . $taxonomy ) { // phpcs:ignore WordPress.Security.NonceVerification
+				check_ajax_referer( 'add-' . $taxonomy, '_ajax_nonce-add-' . $taxonomy ); // Category metabox
+			} else {
+				check_admin_referer( 'pll_language', '_pll_nonce' ); // Edit tags or tags metabox
 			}
 
-			$this->model->term->set_language( $term_id, $this->model->get_language( $_POST['term_lang_choice'] ) );
+			$this->model->term->set_language( $term_id, $this->model->get_language( sanitize_key( $_POST['term_lang_choice'] ) ) );
 		}
 
 		// *Post* bulk edit, in case a new term is created
@@ -252,7 +278,7 @@ class PLL_Admin_Filters_Term {
 			}
 
 			else {
-				$this->model->term->set_language( $term_id, $this->model->get_language( $_GET['inline_lang_choice'] ) );
+				$this->model->term->set_language( $term_id, $this->model->get_language( sanitize_key( $_GET['inline_lang_choice'] ) ) );
 			}
 		}
 
@@ -264,7 +290,7 @@ class PLL_Admin_Filters_Term {
 			);
 
 			$old_lang = $this->model->term->get_language( $term_id ); // Stores the old  language
-			$lang = $this->model->get_language( $_POST['inline_lang_choice'] ); // New language
+			$lang = $this->model->get_language( sanitize_key( $_POST['inline_lang_choice'] ) ); // New language
 			$translations = $this->model->term->get_translations( $term_id );
 
 			// Checks if the new language already exists in the translation group
@@ -285,7 +311,7 @@ class PLL_Admin_Filters_Term {
 		// Edit post
 		elseif ( isset( $_POST['post_lang_choice'] ) ) { // FIXME should be useless now
 			check_admin_referer( 'pll_language', '_pll_nonce' );
-			$this->model->term->set_language( $term_id, $this->model->get_language( $_POST['post_lang_choice'] ) );
+			$this->model->term->set_language( $term_id, $this->model->get_language( sanitize_key( $_POST['post_lang_choice'] ) ) );
 		}
 	}
 
@@ -301,10 +327,14 @@ class PLL_Admin_Filters_Term {
 		// Security check as 'wp_update_term' can be called from outside WP admin
 		check_admin_referer( 'pll_language', '_pll_nonce' );
 
+		$translations = array();
+
 		// Save translations after checking the translated term is in the right language ( as well as cast id to int )
-		foreach ( $_POST['term_tr_lang'] as $lang => $tr_id ) {
-			$tr_lang = $this->model->term->get_language( (int) $tr_id );
-			$translations[ $lang ] = $tr_lang && $tr_lang->slug == $lang ? (int) $tr_id : 0;
+		if ( isset( $_POST['term_tr_lang'] ) ) {
+			foreach ( array_map( 'absint', $_POST['term_tr_lang'] ) as $lang => $tr_id ) {
+				$tr_lang = $this->model->term->get_language( $tr_id );
+				$translations[ $lang ] = $tr_lang && $tr_lang->slug == $lang ? $tr_id : 0;
+			}
 		}
 
 		$this->model->term->save_translations( $term_id, $translations );
@@ -332,10 +362,10 @@ class PLL_Admin_Filters_Term {
 		// As 'wp_update_term' can be called from outside WP admin
 		// 2nd test for creating tags when creating / editing a post
 		$tax = get_taxonomy( $taxonomy );
-		if ( current_user_can( $tax->cap->edit_terms ) || ( isset( $_POST['tax_input'][ $taxonomy ] ) && current_user_can( $tax->cap->assign_terms ) ) ) {
+		if ( current_user_can( $tax->cap->edit_terms ) || ( isset( $_POST['tax_input'][ $taxonomy ] ) && current_user_can( $tax->cap->assign_terms ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			$this->save_language( $term_id, $taxonomy );
 
-			if ( isset( $_POST['term_tr_lang'] ) ) {
+			if ( isset( $_POST['term_tr_lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				$translations = $this->save_translations( $term_id );
 			}
 		}
@@ -367,21 +397,21 @@ class PLL_Admin_Filters_Term {
 
 		// If the term already exists in another language
 		if ( ! $slug && $this->model->is_translated_taxonomy( $taxonomy ) && term_exists( $name, $taxonomy ) ) {
-			if ( isset( $_POST['term_lang_choice'] ) ) {
-				$slug = $name . '-' . $this->model->get_language( $_POST['term_lang_choice'] )->slug;
+			if ( isset( $_POST['term_lang_choice'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				$slug = $name . '-' . $this->model->get_language( sanitize_key( $_POST['term_lang_choice'] ) )->slug; // phpcs:ignore WordPress.Security.NonceVerification
 			}
 
-			elseif ( isset( $_POST['inline_lang_choice'] ) ) {
-				$slug = $name . '-' . $this->model->get_language( $_POST['inline_lang_choice'] )->slug;
+			elseif ( isset( $_POST['inline_lang_choice'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				$slug = $name . '-' . $this->model->get_language( sanitize_key( $_POST['inline_lang_choice'] ) )->slug; // phpcs:ignore WordPress.Security.NonceVerification
 			}
 
 			// *Post* bulk edit, in case a new term is created
-			elseif ( isset( $_GET['bulk_edit'], $_GET['inline_lang_choice'] ) ) {
+			elseif ( isset( $_GET['bulk_edit'], $_GET['inline_lang_choice'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				// Bulk edit does not modify the language
-				if ( -1 == $_GET['inline_lang_choice'] ) {
+				if ( -1 == $_GET['inline_lang_choice'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 					$slug = $name . '-' . $this->model->post->get_language( $this->post_id )->slug;
 				} else {
-					$slug = $name . '-' . $this->model->get_language( $_GET['inline_lang_choice'] )->slug;
+					$slug = $name . '-' . $this->model->get_language( sanitize_key( $_GET['inline_lang_choice'] ) )->slug; // phpcs:ignore WordPress.Security.NonceVerification
 				}
 			}
 		}
@@ -397,13 +427,17 @@ class PLL_Admin_Filters_Term {
 	public function term_lang_choice() {
 		check_ajax_referer( 'pll_language', '_pll_nonce' );
 
-		$lang = $this->model->get_language( $_POST['lang'] );
+		if ( ! isset( $_POST['taxonomy'], $_POST['post_type'], $_POST['lang'] ) ) {
+			wp_die( 0 );
+		}
+
+		$lang = $this->model->get_language( sanitize_key( $_POST['lang'] ) );
 		$term_id = isset( $_POST['term_id'] ) ? (int) $_POST['term_id'] : null;
-		$taxonomy = $_POST['taxonomy'];
-		$post_type = $_POST['post_type'];
+		$taxonomy = sanitize_key( $_POST['taxonomy'] );
+		$post_type = sanitize_key( $_POST['post_type'] );
 
 		if ( ! post_type_exists( $post_type ) || ! taxonomy_exists( $taxonomy ) ) {
-			die( 0 );
+			wp_die( 0 );
 		}
 
 		ob_start();
@@ -423,7 +457,7 @@ class PLL_Admin_Filters_Term {
 				'name'             => 'parent',
 				'orderby'          => 'name',
 				'hierarchical'     => true,
-				'show_option_none' => __( 'None' ),
+				'show_option_none' => __( 'None', 'polylang' ),
 				'echo'             => 0,
 			);
 			$x->Add( array( 'what' => 'parent', 'data' => wp_dropdown_categories( $args ) ) );
@@ -460,16 +494,20 @@ class PLL_Admin_Filters_Term {
 	public function ajax_terms_not_translated() {
 		check_ajax_referer( 'pll_language', '_pll_nonce' );
 
-		$s = wp_unslash( $_GET['term'] );
-		$post_type = $_GET['post_type'];
-		$taxonomy = $_GET['taxonomy'];
-
-		if ( ! post_type_exists( $post_type ) || ! taxonomy_exists( $taxonomy ) ) {
-			die( 0 );
+		if ( ! isset( $_GET['term'], $_GET['post_type'], $_GET['taxonomy'], $_GET['term_language'], $_GET['translation_language'] ) ) {
+			wp_die( 0 );
 		}
 
-		$term_language = $this->model->get_language( $_GET['term_language'] );
-		$translation_language = $this->model->get_language( $_GET['translation_language'] );
+		$s = wp_unslash( $_GET['term'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		$post_type = sanitize_key( $_GET['post_type'] );
+		$taxonomy = sanitize_key( $_GET['taxonomy'] );
+
+		if ( ! post_type_exists( $post_type ) || ! taxonomy_exists( $taxonomy ) ) {
+			wp_die( 0 );
+		}
+
+		$term_language = $this->model->get_language( sanitize_key( $_GET['term_language'] ) );
+		$translation_language = $this->model->get_language( sanitize_key( $_GET['translation_language'] ) );
 
 		$return = array();
 
@@ -487,8 +525,8 @@ class PLL_Admin_Filters_Term {
 		}
 
 		// Add current translation in list
-		// Not in add term for as term_id is not set
-		if ( 'undefined' !== $_GET['term_id'] && $term_id = $this->model->term->get_translation( (int) $_GET['term_id'], $translation_language ) ) {
+		// Not in add term as term_id is not set
+		if ( isset( $_GET['term_id'] ) && 'undefined' !== $_GET['term_id'] && $term_id = $this->model->term->get_translation( (int) $_GET['term_id'], $translation_language ) ) {
 			$term = get_term( $term_id, $taxonomy );
 			array_unshift(
 				$return,
@@ -500,7 +538,7 @@ class PLL_Admin_Filters_Term {
 			);
 		}
 
-		wp_die( json_encode( $return ) );
+		wp_die( wp_json_encode( $return ) );
 	}
 
 	/**
@@ -577,7 +615,7 @@ class PLL_Admin_Filters_Term {
 				$translations[ $key ] = _split_shared_term( $tr_id, $tr_term->term_taxonomy_id );
 
 				// Hack translation ids sent by the form to avoid overwrite in PLL_Admin_Filters_Term::save_translations
-				if ( isset( $_POST['term_tr_lang'][ $key ] ) && $_POST['term_tr_lang'][ $key ] == $tr_id ) {
+				if ( isset( $_POST['term_tr_lang'][ $key ] ) && $_POST['term_tr_lang'][ $key ] == $tr_id ) { // phpcs:ignore WordPress.Security.NonceVerification
 					$_POST['term_tr_lang'][ $key ] = $translations[ $key ];
 				}
 			}

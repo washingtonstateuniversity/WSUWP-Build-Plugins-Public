@@ -2,6 +2,7 @@
 
 /**
  * Manages the compatibility with Yoast SEO
+ * Version tested: 11.5
  *
  * @since 2.3
  */
@@ -12,22 +13,8 @@ class PLL_WPSEO {
 	 * @since 1.6.4
 	 */
 	public function init() {
-		if ( ! defined( 'WPSEO_VERSION' ) ) {
-			return;
-		}
-
 		if ( PLL() instanceof PLL_Frontend ) {
 			add_filter( 'option_wpseo_titles', array( $this, 'wpseo_translate_titles' ) );
-
-			// Reloads options once the language has been defined to enable translations
-			// Useful only when the language is set from content
-			if ( version_compare( WPSEO_VERSION, '7.0', '<' ) && did_action( 'wp_loaded' ) ) {
-				$wpseo_front = WPSEO_Frontend::get_instance();
-				$options = WPSEO_Options::get_option_names();
-				foreach ( $options as $opt ) {
-					$wpseo_front->options = array_merge( $wpseo_front->options, (array) get_option( $opt ) );
-				}
-			}
 
 			// Filters sitemap queries to remove inactive language or to get
 			// one sitemap per language when using multiple domains or subdomains
@@ -40,14 +27,11 @@ class PLL_WPSEO {
 			if ( PLL()->options['force_lang'] > 1 ) {
 				add_filter( 'wpseo_enable_xml_sitemap_transient_caching', '__return_false' ); // Disable cache! otherwise WPSEO keeps only one domain (thanks to Junaid Bhura)
 				add_filter( 'home_url', array( $this, 'wpseo_home_url' ), 10, 2 ); // Fix home_url
+				add_action( 'setup_theme', array( $this, 'maybe_deactivate_sitemap' ) ); // Deactivate sitemaps for inactive languages.
 			} else {
 				// Get all terms in all languages when the language is set from the content or directory name
 				add_filter( 'get_terms_args', array( $this, 'wpseo_remove_terms_filter' ) );
-
-				// Add the homepages for all languages to the sitemap when the front page displays posts
-				if ( ! get_option( 'page_on_front' ) ) {
-					add_filter( 'wpseo_sitemap_post_content', array( $this, 'add_language_home_urls' ) );
-				}
+				add_action( 'pre_get_posts', array( $this, 'before_sitemap' ), 0 ); // Needs to be fired before WPSEO_Sitemaps::redirect()
 			}
 
 			add_filter( 'pll_home_url_white_list', array( $this, 'wpseo_home_url_white_list' ) );
@@ -144,9 +128,11 @@ class PLL_WPSEO {
 	 * @return $url
 	 */
 	public function wpseo_home_url( $url, $path ) {
-		$uri = empty( $path ) ? ltrim( $_SERVER['REQUEST_URI'], '/' ) : $path;
+		if ( empty( $path ) ) {
+			$path = ltrim( wp_parse_url( pll_get_requested_url(), PHP_URL_PATH ), '/' );
+		}
 
-		if ( 'sitemap_index.xml' === $uri || preg_match( '#([^/]+?)-sitemap([0-9]+)?\.xml|([a-z]+)?-?sitemap\.xsl#', $uri ) ) {
+		if ( 'sitemap_index.xml' === $path || preg_match( '#([^/]+?)-sitemap([0-9]+)?\.xml|([a-z]+)?-?sitemap\.xsl#', $path ) ) {
 			$url = PLL()->links_model->switch_language_in_link( $url, PLL()->curlang );
 		}
 
@@ -222,30 +208,98 @@ class PLL_WPSEO {
 	}
 
 	/**
-	 * Adds the home urls for all (active) languages to the sitemap
+	 * Deactivates the sitemap for inactive languages when using subdomains or multiple domains
 	 *
-	 * @since 1.9
+	 * @since 2.6.1
+	 */
+	public function maybe_deactivate_sitemap() {
+		global $wpseo_sitemaps;
+
+		if ( isset( $wpseo_sitemaps ) ) {
+			$active_languages = $this->wpseo_get_active_languages();
+			if ( ! empty( $active_languages ) && ! in_array( pll_current_language(), $active_languages ) ) {
+				remove_action( 'pre_get_posts', array( $wpseo_sitemaps, 'redirect' ), 1 );
+			}
+		}
+	}
+
+	/**
+	 * Add filters before the sitemap is evaluated and outputed
+	 *
+	 * @since 2.6
+	 *
+	 * @param object $query Instance of WP_Query being filtered.
+	 */
+	public function before_sitemap( $query ) {
+		$type = $query->get( 'sitemap' );
+
+		// Add the post post type archives in all languages to the sitemap
+		// Add the homepages for all languages to the sitemap when the front page displays posts
+		if ( $type && pll_is_translated_post_type( $type ) && ( 'post' !== $type || ! get_option( 'page_on_front' ) ) ) {
+			add_filter( "wpseo_sitemap_{$type}_content", array( $this, 'add_post_type_archive' ) );
+		}
+	}
+
+	/**
+	 * Generates a post type archive sitemap url
+	 *
+	 * @since 2.6.1
+	 *
+	 * @param string $link      The url.
+	 * @param string $post_type The post type name.
+	 * @return string Formatted sitemap url.
+	 */
+	protected function format_sitemap_url( $link, $post_type ) {
+		global $wpseo_sitemaps;
+
+		return $wpseo_sitemaps->renderer->sitemap_url(
+			array(
+				'loc' => $link,
+				'mod' => WPSEO_Sitemaps::get_last_modified_gmt( $post_type ),
+				'pri' => 1,
+				'chf' => 'daily',
+			)
+		);
+	}
+
+	/**
+	 * Adds the home and post type archives urls for all (active) languages to the sitemap
+	 *
+	 * @since 2.6
 	 *
 	 * @param string $str additional urls to sitemap post
 	 * @return string
 	 */
-	public function add_language_home_urls( $str ) {
-		global $wpseo_sitemaps;
-		$renderer = version_compare( WPSEO_VERSION, '3.2', '<' ) ? $wpseo_sitemaps : $wpseo_sitemaps->renderer;
+	public function add_post_type_archive( $str ) {
+		$post_type     = substr( substr( current_filter(), 14 ), 0, -8 );
+		$post_type_obj = get_post_type_object( $post_type );
+		$languages     = wp_list_filter( PLL()->model->get_languages_list(), array( 'active' => false ), 'NOT' );
 
-		$languages = wp_list_pluck( wp_list_filter( PLL()->model->get_languages_list(), array( 'active' => false ), 'NOT' ), 'slug' );
+		if ( 'post' === $post_type ) {
+			if ( ! empty( PLL()->options['hide_default'] ) ) {
+				// The home url is of course already added by WPSEO.
+				$languages = wp_list_filter( $languages, array( 'slug' => pll_default_language() ), 'NOT' );
+			}
 
-		foreach ( $languages as $lang ) {
-			if ( empty( PLL()->options['hide_default'] ) || pll_default_language() !== $lang ) {
-				$str .= $renderer->sitemap_url(
-					array(
-						'loc' => pll_home_url( $lang ),
-						'pri' => 1,
-						'chf' => apply_filters( 'wpseo_sitemap_homepage_change_freq', 'daily', pll_home_url( $lang ) ),
-					)
-				);
+			foreach ( $languages as $lang ) {
+				$str .= $this->format_sitemap_url( pll_home_url( $lang->slug ), $post_type );
+			}
+		} elseif ( $post_type_obj->has_archive ) {
+			// Exclude cases where a post type archive is attached to a page (ex: WooCommerce).
+			$slug = ( true === $post_type_obj->has_archive ) ? $post_type_obj->rewrite['slug'] : $post_type_obj->has_archive;
+
+			if ( ! get_page_by_path( $slug ) ) {
+				// The post type archive in the current language is already added by WPSEO.
+				$languages = wp_list_filter( $languages, array( 'slug' => pll_current_language() ), 'NOT' );
+
+				foreach ( $languages as $lang ) {
+					PLL()->curlang = $lang; // Switch the language to get the correct archive link.
+					$link = get_post_type_archive_link( $post_type );
+					$str .= $this->format_sitemap_url( $link, $post_type );
+				}
 			}
 		}
+
 		return $str;
 	}
 

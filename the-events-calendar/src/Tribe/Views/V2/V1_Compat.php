@@ -19,7 +19,9 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Backcompat as V1_Backcompat;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Query as V1_Query;
 
 /**
  * Class V1_Compat
@@ -32,8 +34,7 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 	/**
 	 * Registers the provider and sets it up to update, move or remove Views v1 filters.
 	 */
-	public function register()
-	{
+	public function register() {
 		/*
 		 * Depending on the context of the request, this might fire before or after Common did bootstrap.
 		 * Let's handle both cases checking whether Common has already loaded or not.
@@ -57,23 +58,33 @@ class V1_Compat extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function remove_v1_filters() {
+		$backcompat        = V1_Backcompat::instance();
+
 		$filters_to_remove = [
-			'query_vars'    => [
+			'query_vars'              => [
 				[ 'callback' => [ TEC::instance(), 'eventQueryVars' ] ],
 			],
-			'parse_query'   => [
+			'parse_query'             => [
 				[ 'callback' => [ TEC::instance(), 'setDisplay' ], 'priority' => 51 ],
-				[ 'callback' => [ \Tribe__Events__Backcompat::instance(), 'change_qv_to_list' ], 'priority' => 45 ],
-				[ 'callback' => [ \Tribe__Events__Query::class, 'parse_query' ], 'priority' => 50 ],
+				[ 'callback' => [ $backcompat, 'change_qv_to_list' ], 'priority' => 45 ],
+				[ 'callback' => [ V1_Query::class, 'parse_query' ], 'priority' => 50 ],
 			],
-			'pre_get_posts' => [
-				[ 'callback' => [ \Tribe__Events__Query::class, 'pre_get_posts' ], 'priority' => 50 ],
+			'pre_get_posts'           => [
+				[ 'callback' => [ V1_Query::class, 'pre_get_posts' ], 'priority' => 50 ],
 			],
-			'posts_results' => [
-				[ 'callback' => [ \Tribe__Events__Query::class, 'posts_results' ], 'priority' => 10 ],
+			'posts_results'           => [
+				[ 'callback' => [ V1_Query::class, 'posts_results' ], 'priority' => 10 ],
 			],
-			'wp'            => [
-				[ 'callback' => [ \Tribe__Events__Main::instance(), 'issue_noindex' ], 'priority' => 10 ],
+			'wp'                      => [
+				[ 'callback' => [ TEC::instance(), 'issue_noindex' ], 'priority' => 10 ],
+			],
+			'tribe_get_single_option' => [
+				[
+					'callback' => [ $backcompat, 'filter_multiday_cutoff' ],
+					'priority' => 10,
+				],
+				[ 'callback' => [ $backcompat, 'filter_enabled_views' ], 'priority' => 10 ],
+				[ 'callback' => [ $backcompat, 'filter_default_view' ], 'priority' => 10 ],
 			],
 		];
 

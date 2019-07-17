@@ -48,7 +48,7 @@ class PLL_Admin extends PLL_Admin_Base {
 	}
 
 	/**
-	 * Aetups filters and action needed on all admin pages and on plugins page
+	 * Setups filters and action needed on all admin pages and on plugins page
 	 * Loads the settings pages or the filters base on the request
 	 *
 	 * @since 1.2
@@ -60,6 +60,12 @@ class PLL_Admin extends PLL_Admin_Base {
 		// Priority 5 to make sure filters are there before customize_register is fired
 		if ( $this->model->get_languages_list() ) {
 			add_action( 'wp_loaded', array( $this, 'add_filters' ), 5 );
+			add_action( 'admin_init', array( $this, 'maybe_load_sync_post' ) );
+
+			// Bulk Translate
+			if ( class_exists( 'PLL_Bulk_Translate' ) ) {
+				add_action( 'current_screen', array( $this->bulk_translate = new PLL_Bulk_Translate( $this ), 'init' ) );
+			}
 		}
 	}
 
@@ -120,5 +126,68 @@ class PLL_Admin extends PLL_Admin_Base {
 
 		$this->posts = new PLL_CRUD_Posts( $this );
 		$this->terms = new PLL_CRUD_Terms( $this );
+
+		// Advanced media
+		if ( $this->options['media_support'] && class_exists( 'PLL_Admin_Advanced_Media' ) ) {
+			$this->advanced_media = new PLL_Admin_Advanced_Media( $this );
+		}
+
+		// Share term slugs
+		if ( get_option( 'permalink_structure' ) && $this->options['force_lang'] && class_exists( 'PLL_Admin_Share_Term_Slug' ) ) {
+			$this->share_term_slug = new PLL_Admin_Share_Term_Slug( $this );
+		}
+
+		if ( class_exists( 'PLL_Sync_Content' ) ) {
+			$this->sync_content = new PLL_Sync_Content( $this );
+		}
+
+		// Duplicate content
+		if ( class_exists( 'PLL_Duplicate' ) ) {
+			$this->duplicate = new PLL_Duplicate( $this );
+		}
+
+		if ( class_exists( 'PLL_Duplicate_REST' ) ) {
+			$this->duplicate_rest = new PLL_Duplicate_REST();
+		}
+
+		// Block editor metabox
+		if ( pll_use_block_editor_plugin() ) {
+			$this->block_editor_plugin = new PLL_Block_Editor_Plugin( $this );
+		}
+	}
+
+	/**
+	 * Load the post synchronization object, depending on the editor in use.
+	 *
+	 * @since 2.6
+	 */
+	public function maybe_load_sync_post() {
+		// Post synchronization
+		if ( 'post-new.php' === $GLOBALS['pagenow'] && function_exists( 'use_block_editor_for_post' ) ) {
+			// We need to wait until we know which editor is in use
+			add_filter( 'use_block_editor_for_post', array( $this, '_maybe_load_sync_post' ), 999 ); // After the plugin Classic Editor
+		} elseif ( 'post.php' === $GLOBALS['pagenow'] && function_exists( 'use_block_editor_for_post' ) && isset( $_GET['post'] ) && empty( $_GET['meta-box-loader'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$this->_maybe_load_sync_post( use_block_editor_for_post( (int) $_GET['post'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+		} else {
+			$this->_maybe_load_sync_post( false );
+		}
+	}
+
+	/**
+	 * Load the post synchronization object, depending on the editor in use.
+	 *
+	 * @since 2.6
+	 *
+	 * @param bool $is_block_editor Whether to use the block editor or not
+	 * @return bool
+	 */
+	public function _maybe_load_sync_post( $is_block_editor ) {
+		if ( class_exists( 'PLL_Sync_Post_REST' ) && pll_use_block_editor_plugin() && $is_block_editor ) {
+			$this->sync_post = new PLL_Sync_Post_REST( $this );
+		} elseif ( class_exists( 'PLL_Sync_Post' ) ) {
+			$this->sync_post = new PLL_Sync_Post( $this );
+		}
+
+		return $is_block_editor;
 	}
 }

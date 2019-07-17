@@ -21,11 +21,11 @@ class PLL_Settings_Licenses extends PLL_Settings_Module {
 			array(
 				'module'      => 'licenses',
 				'title'       => __( 'License keys', 'polylang' ),
-				'description' => __( 'Manage licenses for Polylang Pro or addons.', 'polylang' ),
+				'description' => __( 'Manage licenses for Polylang Pro and add-ons.', 'polylang' ),
 			)
 		);
 
-		$this->buttons['cancel'] = sprintf( '<button type="button" class="button button-secondary cancel">%s</button>', __( 'Close' ) );
+		$this->buttons['cancel'] = sprintf( '<button type="button" class="button button-secondary cancel">%s</button>', __( 'Close', 'polylang' ) );
 
 		$this->items = apply_filters( 'pll_settings_licenses', array() );
 
@@ -53,7 +53,7 @@ class PLL_Settings_Licenses extends PLL_Settings_Module {
 			<table id="pll-licenses-table" class="form-table">
 				<?php
 				foreach ( $this->items as $item ) {
-					echo $this->get_row( $item );
+					echo $this->get_row( $item ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
 				?>
 			</table>
@@ -153,7 +153,7 @@ class PLL_Settings_Licenses extends PLL_Settings_Module {
 					$class = 'notice-warning notice-alt';
 					$message = sprintf(
 						/* translators: %1$s is a date, %2$s is link start tag, %3$s is link end tag. */
-						__( 'Your license key expires soon! It expires on %1$s. %2$sRenew your license key%3$s.', 'polylang' ),
+						__( 'Your license key will expire soon! Precisely, it will expire on %1$s. %2$sRenew your license key today!%3$s.', 'polylang' ),
 						date_i18n( get_option( 'date_format' ), strtotime( $license->expires, $now ) ),
 						sprintf( '<a href="%s" target="_blank">', 'https://polylang.pro/checkout/?edd_license_key=' . $item->license_key ),
 						'</a>'
@@ -187,15 +187,17 @@ class PLL_Settings_Licenses extends PLL_Settings_Module {
 			wp_die( -1 );
 		}
 
-		if ( $this->module === $_POST['module'] && ! empty( $_POST['licenses'] ) ) {
+		if ( isset( $_POST['module'] ) && $this->module === $_POST['module'] && ! empty( $_POST['licenses'] ) ) {
 			$x = new WP_Ajax_Response();
 			foreach ( $this->items as $item ) {
-				$updated_item = $item->activate_license( sanitize_text_field( $_POST['licenses'][ $item->id ] ) );
-				$x->Add( array( 'what' => 'license-update', 'data' => $item->id, 'supplemental' => array( 'html' => $this->get_row( $updated_item ) ) ) );
+				if ( ! empty( $_POST['licenses'][ $item->id ] ) ) {
+					$updated_item = $item->activate_license( sanitize_key( $_POST['licenses'][ $item->id ] ) );
+					$x->Add( array( 'what' => 'license-update', 'data' => $item->id, 'supplemental' => array( 'html' => $this->get_row( $updated_item ) ) ) );
+				}
 			}
 
 			// Updated message
-			add_settings_error( 'general', 'settings_updated', __( 'Settings saved.' ), 'updated' );
+			add_settings_error( 'general', 'settings_updated', __( 'Settings saved.', 'polylang' ), 'updated' );
 			ob_start();
 			settings_errors();
 			$x->Add( array( 'what' => 'success', 'data' => ob_get_clean() ) );
@@ -215,7 +217,11 @@ class PLL_Settings_Licenses extends PLL_Settings_Module {
 			wp_die( -1 );
 		}
 
-		$id = sanitize_text_field( substr( $_POST['id'], 11 ) );
+		if ( ! isset( $_POST['id'] ) ) {
+			wp_die( 0 );
+		}
+
+		$id = substr( sanitize_text_field( wp_unslash( $_POST['id'] ) ), 11 );
 		wp_send_json(
 			array(
 				'id'   => $id,

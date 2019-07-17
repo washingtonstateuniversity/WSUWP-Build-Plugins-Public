@@ -28,17 +28,17 @@ class PLL_Admin_Model extends PLL_Model {
 	 * @return bool true if success / false if failed
 	 */
 	public function add_language( $args ) {
-		if ( ! $this->validate_lang( $args ) ) {
-			return false;
+		$errors = $this->validate_lang( $args );
+		if ( $errors->get_error_code() ) { // Using has_errors() would be more meaningful but is available only since WP 5.0
+			return $errors;
 		}
 
 		// First the language taxonomy
-		$description = serialize( array( 'locale' => $args['locale'], 'rtl' => (int) $args['rtl'], 'flag_code' => empty( $args['flag'] ) ? '' : $args['flag'] ) );
+		$description = maybe_serialize( array( 'locale' => $args['locale'], 'rtl' => (int) $args['rtl'], 'flag_code' => empty( $args['flag'] ) ? '' : $args['flag'] ) );
 		$r = wp_insert_term( $args['name'], 'language', array( 'slug' => $args['slug'], 'description' => $description ) );
 		if ( is_wp_error( $r ) ) {
 			// Avoid an ugly fatal error if something went wrong ( reported once in the forum )
-			add_settings_error( 'general', 'pll_add_language', __( 'Impossible to add the language.', 'polylang' ) );
-			return false;
+			return new WP_Error( 'pll_add_language', __( 'Impossible to add the language.', 'polylang' ) );
 		}
 		wp_update_term( (int) $r['term_id'], 'language', array( 'term_group' => (int) $args['term_group'] ) ); // can't set the term group directly in wp_insert_term
 
@@ -74,8 +74,6 @@ class PLL_Admin_Model extends PLL_Model {
 
 		$this->clean_languages_cache(); // Again to set add mo_id in the cached languages list
 		flush_rewrite_rules(); // Refresh rewrite rules
-
-		add_settings_error( 'general', 'pll_languages_created', __( 'Language added.', 'polylang' ), 'updated' );
 		return true;
 	}
 
@@ -90,7 +88,7 @@ class PLL_Admin_Model extends PLL_Model {
 		$lang = $this->get_language( (int) $lang_id );
 
 		if ( empty( $lang ) ) {
-			return;
+			return false;
 		}
 
 		// Oops ! we are deleting the default language...
@@ -157,7 +155,7 @@ class PLL_Admin_Model extends PLL_Model {
 
 		update_option( 'polylang', $this->options );
 		flush_rewrite_rules(); // refresh rewrite rules
-		add_settings_error( 'general', 'pll_languages_deleted', __( 'Language deleted.', 'polylang' ), 'updated' );
+		return true;
 	}
 
 	/**
@@ -181,8 +179,10 @@ class PLL_Admin_Model extends PLL_Model {
 	 */
 	public function update_language( $args ) {
 		$lang = $this->get_language( (int) $args['lang_id'] );
-		if ( ! $this->validate_lang( $args, $lang ) ) {
-			return false;
+
+		$errors = $this->validate_lang( $args, $lang );
+		if ( $errors->get_error_code() ) { // Using has_errors() would be more meaningful but is available only since WP 5.0
+			return $errors;
 		}
 
 		// Update links to this language in posts and terms in case the slug has been modified
@@ -235,7 +235,7 @@ class PLL_Admin_Model extends PLL_Model {
 		update_option( 'polylang', $this->options );
 
 		// And finally update the language itself
-		$description = serialize( array( 'locale' => $args['locale'], 'rtl' => (int) $args['rtl'], 'flag_code' => empty( $args['flag'] ) ? '' : $args['flag'] ) );
+		$description = maybe_serialize( array( 'locale' => $args['locale'], 'rtl' => (int) $args['rtl'], 'flag_code' => empty( $args['flag'] ) ? '' : $args['flag'] ) );
 		wp_update_term( (int) $lang->term_id, 'language', array( 'slug' => $slug, 'name' => $args['name'], 'description' => $description, 'term_group' => (int) $args['term_group'] ) );
 		wp_update_term( (int) $lang->tl_term_id, 'term_language', array( 'slug' => 'pll_' . $slug, 'name' => $args['name'] ) );
 
@@ -250,7 +250,6 @@ class PLL_Admin_Model extends PLL_Model {
 
 		$this->clean_languages_cache();
 		flush_rewrite_rules(); // Refresh rewrite rules
-		add_settings_error( 'general', 'pll_languages_updated', __( 'Language updated.', 'polylang' ), 'updated' );
 		return true;
 	}
 
@@ -266,35 +265,45 @@ class PLL_Admin_Model extends PLL_Model {
 	 * @return bool true if success / false if failed
 	 */
 	protected function validate_lang( $args, $lang = null ) {
+		$errors = new WP_Error();
+
 		// Validate locale with the same pattern as WP 4.3. See #28303
 		if ( ! preg_match( '#^[a-z]{2,3}(?:_[A-Z]{2})?(?:_[a-z0-9]+)?$#', $args['locale'], $matches ) ) {
-			add_settings_error( 'general', 'pll_invalid_locale', __( 'Enter a valid WordPress locale', 'polylang' ) );
+			$errors->add( 'pll_invalid_locale', __( 'Enter a valid WordPress locale', 'polylang' ) );
 		}
 
 		// Validate slug characters
 		if ( ! preg_match( '#^[a-z_-]+$#', $args['slug'] ) ) {
-			add_settings_error( 'general', 'pll_invalid_slug', __( 'The language code contains invalid characters', 'polylang' ) );
+			$errors->add( 'pll_invalid_slug', __( 'The language code contains invalid characters', 'polylang' ) );
 		}
 
 		// Validate slug is unique
 		foreach ( $this->get_languages_list() as $language ) {
 			if ( $language->slug === $args['slug'] && ( null === $lang || ( isset( $lang ) && $lang->term_id != $language->term_id ) ) ) {
-				add_settings_error( 'general', 'pll_non_unique_slug', __( 'The language code must be unique', 'polylang' ) );
+				$errors->add( 'pll_non_unique_slug', __( 'The language code must be unique', 'polylang' ) );
 			}
 		}
 
 		// Validate name
 		// No need to sanitize it as wp_insert_term will do it for us
 		if ( empty( $args['name'] ) ) {
-			add_settings_error( 'general', 'pll_invalid_name', __( 'The language must have a name', 'polylang' ) );
+			$errors->add( 'pll_invalid_name', __( 'The language must have a name', 'polylang' ) );
 		}
 
 		// Validate flag
 		if ( ! empty( $args['flag'] ) && ! file_exists( POLYLANG_DIR . '/flags/' . $args['flag'] . '.png' ) ) {
-			add_settings_error( 'general', 'pll_invalid_flag', __( 'The flag does not exist', 'polylang' ) );
+			$flag = PLL_Language::get_flag_informations( $args['flag'] );
+
+			if ( ! empty( $flag['url'] ) ) {
+				$response = function_exists( 'vip_safe_wp_remote_get' ) ? vip_safe_wp_remote_get( esc_url_raw( $flag['url'] ) ) : wp_remote_get( esc_url_raw( $flag['url'] ) );
+			}
+
+			if ( empty( $response ) || is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+				$errors->add( 'pll_invalid_flag', __( 'The flag does not exist', 'polylang' ) );
+			}
 		}
 
-		return get_settings_errors() ? false : true;
+		return $errors;
 	}
 
 	/**
@@ -355,7 +364,7 @@ class PLL_Admin_Model extends PLL_Model {
 			$term = uniqid( 'pll_' ); // the term name
 			$terms[] = $wpdb->prepare( '( %s, %s )', $term, $term );
 			$slugs[] = $wpdb->prepare( '%s', $term );
-			$description[ $term ] = serialize( $t );
+			$description[ $term ] = maybe_serialize( $t );
 			$count[ $term ] = count( $t );
 		}
 
@@ -386,7 +395,7 @@ class PLL_Admin_Model extends PLL_Model {
 
 		// Prepare objects relationships
 		foreach ( $terms as $term ) {
-			$t = unserialize( $term->description );
+			$t = maybe_unserialize( $term->description );
 			if ( in_array( $t, $translations ) ) {
 				foreach ( $t as $object_id ) {
 					if ( ! empty( $object_id ) ) {
@@ -446,7 +455,7 @@ class PLL_Admin_Model extends PLL_Model {
 			)
 		);
 
-		// PHPCS:disable WordPress.DB.PreparedSQL.NotPrepared
+		// PHPCS:disable WordPress.DB.PreparedSQL
 		$terms = $wpdb->get_col(
 			sprintf(
 				"SELECT {$wpdb->term_taxonomy}.term_id FROM {$wpdb->term_taxonomy}
@@ -487,7 +496,7 @@ class PLL_Admin_Model extends PLL_Model {
 
 		foreach ( $terms as $term ) {
 			$term_ids[ $term->taxonomy ][] = $term->term_id;
-			$tr = unserialize( $term->description );
+			$tr = maybe_unserialize( $term->description );
 			if ( ! empty( $tr[ $old_slug ] ) ) {
 				if ( $new_slug ) {
 					$tr[ $new_slug ] = $tr[ $old_slug ]; // Suppress this for delete
@@ -501,7 +510,7 @@ class PLL_Admin_Model extends PLL_Model {
 					$dt['t'][] = (int) $term->term_id;
 					$dt['tt'][] = (int) $term->term_taxonomy_id;
 				} else {
-					$ut['case'][] = $wpdb->prepare( 'WHEN %d THEN %s', $term->term_id, serialize( $tr ) );
+					$ut['case'][] = $wpdb->prepare( 'WHEN %d THEN %s', $term->term_id, maybe_serialize( $tr ) );
 					$ut['in'][] = (int) $term->term_id;
 				}
 			}

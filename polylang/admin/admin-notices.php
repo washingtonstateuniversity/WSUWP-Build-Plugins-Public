@@ -8,7 +8,7 @@
  * @since 2.3.9
  */
 class PLL_Admin_Notices {
-	static private $notices = array();
+	private static $notices = array();
 
 	/**
 	 * Constructor
@@ -155,7 +155,8 @@ class PLL_Admin_Notices {
 		printf(
 			'<a class="notice-dismiss" href="%s"><span class="screen-reader-text">%s</span></a>',
 			esc_url( wp_nonce_url( add_query_arg( 'pll-hide-notice', $name ), $name, '_pll_notice_nonce' ) ),
-			esc_html__( 'Dismiss this notice.' )
+			/* translators: accessibility text */
+			esc_html__( 'Dismiss this notice.', 'polylang' )
 		);
 	}
 
@@ -173,7 +174,7 @@ class PLL_Admin_Notices {
 					<?php
 					printf(
 						/* translators: %1$s is link start tag, %2$s is link end tag. */
-						esc_html__( 'We have noticed that you are using Polylang with WooCommerce. We recommend you to use %1$sPolylang for WooCommerce%2$s to ensure the compatibility.', 'polylang' ),
+						esc_html__( 'We have noticed that you are using Polylang with WooCommerce. To ensure compatibility, we recommend you use %1$sPolylang for WooCommerce%2$s.', 'polylang' ),
 						'<a href="https://polylang.pro/downloads/polylang-for-woocommerce/">',
 						'</a>'
 					);
@@ -198,7 +199,7 @@ class PLL_Admin_Notices {
 					<?php
 					printf(
 						/* translators: %1$s is link start tag, %2$s is link end tag. */
-						esc_html__( 'We have noticed that you are using Polylang for some time. We hope that you love it! We would be thrilled if you could %1$sgive us a 5 stars rating%2$s.', 'polylang' ),
+						esc_html__( 'We have noticed that you have been using Polylang for some time. We hope you love it, and we would really appreciate it if you would %1$sgive us a 5 stars rating%2$s.', 'polylang' ),
 						'<a href="https://wordpress.org/support/plugin/polylang/reviews/?rate=5#new-post">',
 						'</a>'
 					);

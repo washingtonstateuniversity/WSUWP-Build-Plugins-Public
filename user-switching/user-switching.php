@@ -10,7 +10,7 @@
  *
  * Plugin Name:  User Switching
  * Description:  Instant switching between user accounts in WordPress
- * Version:      1.5.0
+ * Version:      1.5.1
  * Plugin URI:   https://johnblackbourn.com/wordpress-plugin-user-switching/
  * Author:       John Blackbourn & contributors
  * Author URI:   https://github.com/johnbillion/user-switching/graphs/contributors
@@ -50,7 +50,7 @@ class user_switching {
 		add_filter( 'user_has_cap',                    array( $this, 'filter_user_has_cap' ), 10, 4 );
 		add_filter( 'map_meta_cap',                    array( $this, 'filter_map_meta_cap' ), 10, 4 );
 		add_filter( 'user_row_actions',                array( $this, 'filter_user_row_actions' ), 10, 2 );
-		add_action( 'plugins_loaded',                  array( $this, 'action_plugins_loaded' ) );
+		add_action( 'plugins_loaded',                  array( $this, 'action_plugins_loaded' ), 1 );
 		add_action( 'init',                            array( $this, 'action_init' ) );
 		add_action( 'all_admin_notices',               array( $this, 'action_admin_notices' ), 1 );
 		add_action( 'wp_logout',                       'user_switching_clear_olduser_cookie' );
@@ -150,7 +150,7 @@ class user_switching {
 
 				// Check authentication:
 				if ( ! current_user_can( 'switch_to_user', $user_id ) ) {
-					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
+					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ), 403 );
 				}
 
 				// Check intent:
@@ -175,7 +175,7 @@ class user_switching {
 					}
 					exit;
 				} else {
-					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
+					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ), 404 );
 				}
 				break;
 
@@ -184,12 +184,12 @@ class user_switching {
 				// Fetch the originating user data:
 				$old_user = self::get_old_user();
 				if ( ! $old_user ) {
-					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
+					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ), 400 );
 				}
 
 				// Check authentication:
 				if ( ! self::authenticate_old_user( $old_user ) ) {
-					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
+					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ), 403 );
 				}
 
 				// Check intent:
@@ -217,7 +217,7 @@ class user_switching {
 					}
 					exit;
 				} else {
-					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ) );
+					wp_die( esc_html__( 'Could not switch users.', 'user-switching' ), 404 );
 				}
 				break;
 
@@ -289,6 +289,10 @@ class user_switching {
 		$old_user = self::get_old_user();
 
 		if ( $old_user ) {
+			$switched_locale = false;
+			if ( function_exists( 'get_user_locale' ) ) {
+				$switched_locale = switch_to_locale( get_user_locale( $old_user ) );
+			}
 			?>
 			<div id="user_switching" class="updated notice is-dismissible">
 				<p><span class="dashicons dashicons-admin-users" style="color:#56c234" aria-hidden="true"></span>
@@ -330,12 +334,19 @@ class user_switching {
 					 * @param bool    $just_switched   Whether the user made the switch on this page request.
 					 */
 					$message = apply_filters( 'user_switching_switched_message', $message, $user, $old_user, $switch_back_url, $just_switched );
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo $message;
+
+					echo wp_kses( $message, array(
+						'a' => array(
+							'href' => array(),
+						),
+					) );
 				?>
 				</p>
 			</div>
 			<?php
+			if ( $switched_locale ) {
+				restore_previous_locale();
+			}
 		} elseif ( isset( $_GET['user_switched'] ) ) {
 			?>
 			<div id="user_switching" class="updated notice is-dismissible">
@@ -461,7 +472,7 @@ class user_switching {
 			) );
 		}
 
-		if ( ! is_admin() && is_author() ) {
+		if ( ! is_admin() && is_author() && ( get_queried_object() instanceof WP_User ) ) {
 			if ( $old_user ) {
 				$wp_admin_bar->add_menu( array(
 					'parent' => 'edit',
@@ -505,7 +516,11 @@ class user_switching {
 			$url = add_query_arg( array(
 				'redirect_to' => urlencode( self::current_url() ),
 			), self::switch_back_url( $old_user ) );
-			echo '<li id="user_switching_switch_on"><a href="' . esc_url( $url ) . '">' . esc_html( $link ) . '</a></li>';
+			printf(
+				'<li id="user_switching_switch_on"><a href="%s">%s</a></li>',
+				esc_url( $url ),
+				esc_html( $link )
+			);
 		}
 	}
 
@@ -529,7 +544,11 @@ class user_switching {
 			$url = add_query_arg( array(
 				'redirect_to' => urlencode( self::current_url() ),
 			), self::switch_back_url( $old_user ) );
-			echo '<p id="user_switching_switch_on"><a href="' . esc_url( $url ) . '">' . esc_html( $link ) . '</a></p>';
+			printf(
+				'<p id="user_switching_switch_on"><a href="%s">%s</a></p>',
+				esc_url( $url ),
+				esc_html( $link )
+			);
 		}
 	}
 
@@ -563,7 +582,11 @@ class user_switching {
 
 			$message .= '<p class="message" id="user_switching_switch_on">';
 			$message .= '<span class="dashicons dashicons-admin-users" style="color:#56c234" aria-hidden="true"></span> ';
-			$message .= '<a href="' . esc_url( $url ) . '" onclick="window.location.href=\'' . esc_url( $url ) . '\';return false;">' . esc_html( $link ) . '</a>';
+			$message .= sprintf(
+				'<a href="%1$s" onclick="window.location.href=\'%1$s\';return false;">%2$s</a>',
+				esc_url( $url ),
+				esc_html( $link )
+			);
 			$message .= '</p>';
 		}
 
@@ -573,9 +596,9 @@ class user_switching {
 	/**
 	 * Adds a 'Switch To' link to each list of user actions on the Users screen.
 	 *
-	 * @param string[] $actions The actions to display for this user row.
+	 * @param string[] $actions Array of actions to display for this user row.
 	 * @param WP_User  $user    The user object displayed in this row.
-	 * @return string[] The actions to display for this user row.
+	 * @return string[] Array of actions to display for this user row.
 	 */
 	public function filter_user_row_actions( array $actions, WP_User $user ) {
 		$link = self::maybe_switch_url( $user );
@@ -584,7 +607,11 @@ class user_switching {
 			return $actions;
 		}
 
-		$actions['switch_to_user'] = '<a href="' . esc_url( $link ) . '">' . esc_html__( 'Switch&nbsp;To', 'user-switching' ) . '</a>';
+		$actions['switch_to_user'] = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( $link ),
+			esc_html__( 'Switch&nbsp;To', 'user-switching' )
+		);
 
 		return $actions;
 	}
@@ -646,11 +673,13 @@ class user_switching {
 			'redirect_to' => urlencode( bbp_get_user_profile_url( $user->ID ) ),
 		), $link );
 
-		?>
-		<ul id="user_switching_switch_to">
-			<li><a href="<?php echo esc_url( $link ); ?>"><?php esc_html_e( 'Switch&nbsp;To', 'user-switching' ); ?></a></li>
-		</ul>
-		<?php
+		echo '<ul id="user_switching_switch_to">';
+		printf(
+			'<li><a href="%s">%s</a></li>',
+			esc_url( $link ),
+			esc_html__( 'Switch&nbsp;To', 'user-switching' )
+		);
+		echo '</ul>';
 	}
 
 	/**
@@ -658,8 +687,8 @@ class user_switching {
 	 *
 	 * @link https://core.trac.wordpress.org/ticket/23367
 	 *
-	 * @param string[] $args List of removable query arguments.
-	 * @return string[] Updated list of removable query arguments.
+	 * @param string[] $args Array of removable query arguments.
+	 * @return string[] Updated array of removable query arguments.
 	 */
 	public function filter_removable_query_args( array $args ) {
 		return array_merge( $args, array(
@@ -733,7 +762,7 @@ class user_switching {
 	 * @return string The current URL.
 	 */
 	public static function current_url() {
-		return ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; // @codingStandardsIgnoreLine
+		return ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 	}
 
 	/**
@@ -803,7 +832,7 @@ class user_switching {
 	 *
 	 * @param bool[]   $user_caps     Array of key/value pairs where keys represent a capability name and boolean values
 	 *                                represent whether the user has that capability.
-	 * @param string[] $required_caps Required primitive capabilities for the requested capability.
+	 * @param string[] $required_caps Array of required primitive capabilities for the requested capability.
 	 * @param array    $args {
 	 *     Arguments that accompany the requested capability check.
 	 *
@@ -812,10 +841,14 @@ class user_switching {
 	 *     @type mixed  ...$2 Optional second and further parameters.
 	 * }
 	 * @param WP_User  $user          Concerned user object.
-	 * @return bool[] Concerned user's capabilities.
+	 * @return bool[] Array of concerned user's capabilities.
 	 */
 	public function filter_user_has_cap( array $user_caps, array $required_caps, array $args, WP_User $user ) {
 		if ( 'switch_to_user' === $args[0] ) {
+			if ( empty( $args[2] ) ) {
+				$user_caps['switch_to_user'] = false;
+				return $user_caps;
+			}
 			if ( array_key_exists( 'switch_users', $user_caps ) ) {
 				$user_caps['switch_to_user'] = $user_caps['switch_users'];
 				return $user_caps;
@@ -843,7 +876,7 @@ class user_switching {
 	 *
 	 * It affects nothing else as Super Admins can do everything by default.
 	 *
-	 * @param string[] $required_caps Required primitive capabilities for the requested capability.
+	 * @param string[] $required_caps Array of required primitive capabilities for the requested capability.
 	 * @param string   $cap           Capability or meta capability being checked.
 	 * @param int      $user_id       Concerned user ID.
 	 * @param array    $args {
@@ -851,11 +884,13 @@ class user_switching {
 	 *
 	 *     @type mixed ...$0 Optional second and further parameters.
 	 * }
-	 * @return string[] Required capabilities for the requested action.
+	 * @return string[] Array of required capabilities for the requested action.
 	 */
 	public function filter_map_meta_cap( array $required_caps, $cap, $user_id, array $args ) {
-		if ( ( 'switch_to_user' === $cap ) && ( $args[0] === $user_id ) ) {
-			$required_caps[] = 'do_not_allow';
+		if ( 'switch_to_user' === $cap ) {
+			if ( empty( $args[0] ) || $args[0] === $user_id ) {
+				$required_caps[] = 'do_not_allow';
+			}
 		}
 		return $required_caps;
 	}

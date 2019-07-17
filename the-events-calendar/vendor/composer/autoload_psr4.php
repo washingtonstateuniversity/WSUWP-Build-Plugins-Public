@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Tribe\\Tests\\Modules\\Core\\' => array($baseDir . '/tests/_support/Modules'),
+    'Tribe\\Events\\Views\\' => array($baseDir . '/tests/views_integration/Tribe/Events/Views'),
     'Tribe\\Events\\' => array($baseDir . '/src/Tribe'),
 );

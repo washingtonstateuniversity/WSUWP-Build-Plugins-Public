@@ -48,7 +48,7 @@ class PLL_Frontend_Filters extends PLL_Filters {
 
 		// Support theme customizer
 		// FIXME of course does not work if 'transport' is set to 'postMessage'
-		if ( isset( $_POST['wp_customize'], $_POST['customized'] ) ) {
+		if ( isset( $_POST['wp_customize'], $_POST['customized'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			add_filter( 'pre_option_blogname', 'pll__', 20 );
 			add_filter( 'pre_option_blogdescription', 'pll__', 20 );
 		}
@@ -94,7 +94,7 @@ class PLL_Frontend_Filters extends PLL_Filters {
 				$_posts = array_fill_keys( $languages, array() ); // Init with empty arrays
 				$languages = implode( ',', $languages );
 
-				// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
+				// PHPCS:ignore WordPress.DB.PreparedSQL
 				$relations = $wpdb->get_results( "SELECT object_id, term_taxonomy_id FROM {$wpdb->term_relationships} WHERE object_id IN ({$posts}) AND term_taxonomy_id IN ({$languages})" );
 
 				foreach ( $relations as $relation ) {
@@ -167,7 +167,7 @@ class PLL_Frontend_Filters extends PLL_Filters {
 			return $sidebars_widgets;
 		}
 
-		$cache_key         = md5( serialize( $sidebars_widgets ) );
+		$cache_key         = md5( maybe_serialize( $sidebars_widgets ) );
 		$_sidebars_widgets = $this->cache->get( "sidebars_widgets_{$cache_key}" );
 
 		if ( false !== $_sidebars_widgets ) {

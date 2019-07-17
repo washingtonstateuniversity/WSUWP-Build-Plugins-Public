@@ -84,6 +84,36 @@ if ( ! function_exists( 'wp_doing_ajax' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_doing_cron' ) ) {
+	/**
+	 * Determines whether the current request is a WordPress cron request.
+	 * Backward compatibility function for WP < 4.8
+	 *
+	 * @since 2.6
+	 *
+	 * @return bool True if it's a WordPress cron request, false otherwise.
+	 */
+	function wp_doing_cron() {
+		/** This filter is documented in wp-includes/load.php */
+		return apply_filters( 'wp_doing_cron', defined( 'DOING_CRON' ) && DOING_CRON );
+	}
+}
+
+if ( ! function_exists( 'wp_using_themes' ) ) {
+	/**
+	 * Determines whether the current request should use themes.
+	 * Backward compatibility function for WP < 5.1
+	 *
+	 * @since 2.6
+	 *
+	 * @return bool True if themes should be used, false otherwise.
+	 */
+	function wp_using_themes() {
+		/** This filter is documented in wp-includes/load.php */
+		return apply_filters( 'wp_using_themes', defined( 'WP_USE_THEMES' ) && WP_USE_THEMES );
+	}
+}
+
 /**
  * Determines whether we should load the cache compatibility
  *
@@ -101,4 +131,42 @@ function pll_is_cache_active() {
 	 *                 incl. WP Fastest Cache which doesn't use WP_CACHE
 	 */
 	return apply_filters( 'pll_is_cache_active', ( defined( 'WP_CACHE' ) && WP_CACHE ) || defined( 'WPFC_MAIN_PATH' ) );
+}
+
+/**
+ * Get the the current requested url
+ *
+ * @since 2.6
+ *
+ * @return string Requested url
+ */
+function pll_get_requested_url() {
+	if ( isset( $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'] ) ) {
+		return set_url_scheme( esc_url_raw( wp_unslash( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) ) );
+	}
+
+	if ( WP_DEBUG ) {
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions
+		trigger_error( '$_SERVER[\'HTTP_HOST\'] or $_SERVER[\'REQUEST_URI\'] are required but not set.' );
+	}
+
+	return '';
+}
+
+/**
+ * Determines whether we should load the block editor plugin or the legacy languages metabox.
+ *
+ * @since 2.6.0
+ *
+ * return bool True to use the block editor plugin.
+ */
+function pll_use_block_editor_plugin() {
+	/**
+	 * Filters whether we should load the block editor plugin or the legacy languages metabox.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param bool $use_plugin True when loading the block editor plugin.
+	 */
+	return class_exists( 'PLL_Block_Editor_Plugin' ) && apply_filters( 'pll_use_block_editor_plugin', ! defined( 'PLL_USE_BLOCK_EDITOR_PLUGIN' ) || PLL_USE_BLOCK_EDITOR_PLUGIN );
 }
