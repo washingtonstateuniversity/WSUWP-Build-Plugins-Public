@@ -273,10 +273,35 @@
 
 }
 
-.tribe-theme-twentynineteen {
+/* -------------------------------------------------------------------------
+	 * Reset Theme Overrides - Twenty Nineteen
+	 * ------------------------------------------------------------------------- */
 
-}
+.tribe-theme-twentynineteen .tribe-common h1:before, .tribe-theme-twentynineteen .tribe-common h2:before {
+			content: none;
+		}
 
-.tribe-theme-twentyseventeen {
+.tribe-theme-twentynineteen .tribe-common button,
+	.tribe-theme-twentynineteen .tribe-common input[type="button"],
+	.tribe-theme-twentynineteen .tribe-common input[type="reset"],
+	.tribe-theme-twentynineteen .tribe-common input[type="submit"] {
+		outline: none;
+	}
 
-}
+.tribe-theme-twentynineteen .tribe-common th,
+	.tribe-theme-twentynineteen .tribe-common td {
+		word-break: normal;
+	}
+
+/* -------------------------------------------------------------------------
+	 * Reset Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+.tribe-theme-twentyseventeen .tribe-common h5 {
+		letter-spacing: normal;
+		text-transform: none;
+	}
+
+.tribe-theme-twentyseventeen .tribe-common input[type="text"] {
+		border-radius: 0;
+	}
