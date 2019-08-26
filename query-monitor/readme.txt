@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: debug, debug-bar, debugging, development, developer, performance, profiler, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 5.2
-Stable tag: 3.3.6
+Stable tag: 3.3.7
 License: GPLv2 or later
 Requires PHP: 5.3
 
@@ -22,7 +22,7 @@ For complete information, please see [the Query Monitor website](https://querymo
 Here's an overview of what's shown for each page load:
 
 * Database queries, including notifications for slow, duplicate, or erroneous queries. Allows filtering by query type (`SELECT`, `UPDATE`, `DELETE`, etc), responsible component (plugin, theme, WordPress core), and calling function, and provides separate aggregate views for each.
-* The template filename, the complete template hierarchy, and names of all template parts used.
+* The template filename, the complete template hierarchy, and names of all template parts that were loaded or not loaded.
 * PHP errors presented nicely along with their responsible component and call stack, and a visible warning in the admin toolbar.
 * Blocks and associated properties in post content when using WordPress 5.0+ or the Gutenberg plugin.
 * Matched rewrite rules, associated query strings, and query vars.
@@ -92,7 +92,16 @@ Yep! You just need to add `define( 'WPCOM_VIP_QM_ENABLE', true );` to your `vip-
 
 = I'm using multiple instances of `wpdb`. How do I get my additional instances to show up in Query Monitor? =
 
-You'll need to hook into the `qm/collect/db_objects` filter and add an item to the array with your connection name as the key and the `wpdb` instance as the value. Your `wpdb` instance will then show up as a separate panel, and the query time and query count will show up separately in the admin toolbar menu. Aggregate information (queries by caller and component) will not be separated.
+You'll need to hook into the `qm/collect/db_objects` filter and add an item to the array containing your `wpdb` instance. For example:
+
+`
+add_filter( 'qm/collect/db_objects', function( $objects ) {
+	$objects['my_db'] = $GLOBALS['my_db'];
+	return $objects;
+} );
+`
+
+Your `wpdb` instance will then show up as a separate panel, and the query time and query count will show up separately in the admin toolbar menu. Aggregate information (queries by caller and component) will not be separated.
 
 = Can I click on stack traces to open the file in my editor? =
 

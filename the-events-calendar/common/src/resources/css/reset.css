@@ -255,19 +255,44 @@
 
 /* Theme Overrides */
 
-.tribe-theme-avada {
+/* -------------------------------------------------------------------------
+	 * Reset Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
 
-}
+.tribe-theme-avada input[type="text"] {
+		margin: 0;
+	}
 
-.tribe-theme-divi {
+/* -------------------------------------------------------------------------
+	 * Reset Theme Overrides - Divi
+	 * ------------------------------------------------------------------------- */
 
-}
+.tribe-theme-divi .entry-content .tribe-common table, .tribe-theme-divibody.et-pb-preview #main-content .container .tribe-common table {
+			border: 0;
+			margin: 0;
+		}
 
-/* Enfold is using the #top id in the <body> */
+.tribe-theme-divi .entry-content .tribe-common td, .tribe-theme-divibody.et-pb-preview #main-content .container .tribe-common td {
+			border: 0;
+		}
+
+.tribe-theme-divi #content-area .tribe-common td,
+		.tribe-theme-divi #content-area .tribe-common th,
+		.tribe-theme-divi #content-area .tribe-common tr {
+			padding: 0;
+		}
+
+/* -------------------------------------------------------------------------
+	 * Reset Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+
+#top.tribe-theme-enfold .tribe-common form {
+		margin: 0;
+	}
 
 #top.tribe-theme-enfold .tribe-common input {
-				margin: 0;
-			}
+		margin: 0;
+	}
 
 .tribe-theme-genesis {
 

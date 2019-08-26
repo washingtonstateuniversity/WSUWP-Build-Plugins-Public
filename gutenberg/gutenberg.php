@@ -3,7 +3,7 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
- * Version: 6.1.1
+ * Version: 6.3.0
  * Author: Gutenberg Team
  * Text Domain: gutenberg
  *
@@ -11,8 +11,8 @@
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '6.1.1' );
-define( 'GUTENBERG_GIT_COMMIT', '3b51c794d5d2b41c9ba52b8d276e4b951001ca7f' );
+define( 'GUTENBERG_VERSION', '6.3.0' );
+define( 'GUTENBERG_GIT_COMMIT', '95c612fc2fd3e97fa74736d93e9fe0b9c4572c27' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -44,14 +44,16 @@ function gutenberg_menu() {
 		'gutenberg'
 	);
 
-	add_submenu_page(
-		'gutenberg',
-		__( 'Widgets (beta)', 'gutenberg' ),
-		__( 'Widgets (beta)', 'gutenberg' ),
-		'edit_theme_options',
-		'gutenberg-widgets',
-		'the_gutenberg_widgets'
-	);
+	if ( get_option( 'gutenberg-experiments' ) && array_key_exists( 'gutenberg-widget-experiments', get_option( 'gutenberg-experiments' ) ) ) {
+		add_submenu_page(
+			'gutenberg',
+			__( 'Widgets (beta)', 'gutenberg' ),
+			__( 'Widgets (beta)', 'gutenberg' ),
+			'edit_theme_options',
+			'gutenberg-widgets',
+			'the_gutenberg_widgets'
+		);
+	}
 
 	if ( current_user_can( 'edit_posts' ) ) {
 		$submenu['gutenberg'][] = array(
@@ -66,6 +68,15 @@ function gutenberg_menu() {
 			'https://developer.wordpress.org/block-editor/',
 		);
 	}
+
+	add_submenu_page(
+		'gutenberg',
+		__( 'Experiments Settings', 'gutenberg' ),
+		__( 'Experiments', 'gutenberg' ),
+		'edit_posts',
+		'gutenberg-experiments',
+		'the_gutenberg_experiments'
+	);
 }
 add_action( 'admin_menu', 'gutenberg_menu' );
 
@@ -118,3 +129,11 @@ function gutenberg_pre_init() {
 
 	require_once dirname( __FILE__ ) . '/lib/load.php';
 }
+
+/**
+ * Outputs a WP REST API nonce.
+ */
+function gutenberg_rest_nonce() {
+	exit( wp_create_nonce( 'wp_rest' ) );
+}
+add_action( 'wp_ajax_gutenberg_rest_nonce', 'gutenberg_rest_nonce' );
