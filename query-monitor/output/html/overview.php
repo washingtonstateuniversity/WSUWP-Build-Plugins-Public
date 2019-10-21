@@ -7,6 +7,13 @@
 
 class QM_Output_Html_Overview extends QM_Output_Html {
 
+	/**
+	 * Collector instance.
+	 *
+	 * @var QM_Collector_Overview Collector.
+	 */
+	protected $collector;
+
 	public function __construct( QM_Collector $collector ) {
 		parent::__construct( $collector );
 		add_filter( 'qm/output/title', array( $this, 'admin_title' ), 10 );
@@ -23,9 +30,11 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			$db_queries_data = $db_queries->get_data();
 			if ( isset( $db_queries_data['types'] ) && isset( $db_queries_data['total_time'] ) ) {
 				$db_query_num = $db_queries_data['types'];
+				$db_query_time = $db_queries_data['total_time'];
 			}
 		}
 
+		$raw_request = QM_Collectors::get( 'raw_request' );
 		$cache = QM_Collectors::get( 'cache' );
 
 		$qm_broken   = __( 'A JavaScript problem on the page is preventing Query Monitor from working correctly. jQuery may have been blocked from loading.', 'query-monitor' );
@@ -40,6 +49,18 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		echo '<section id="qm-ajax-errors">';
 		echo '<p class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>' . esc_html( $ajax_errors ) . '</p>';
 		echo '</section>';
+
+		if ( $raw_request ) {
+			echo '<section id="qm-overview-raw-request">';
+			$raw_data = $raw_request->get_data();
+			printf(
+				'<h2>%1$s %2$s → %3$s</h2>',
+				esc_html( $raw_data['request']['method'] ),
+				esc_html( $raw_data['request']['url'] ),
+				esc_html( $raw_data['response']['status'] )
+			);
+			echo '</section>';
+		}
 
 		echo '</div>';
 		echo '<div class="qm-boxed">';
@@ -116,14 +137,16 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		echo '</p>';
 		echo '</section>';
 
-		if ( isset( $db_query_num ) ) {
+		if ( isset( $db_queries_data ) ) {
 			echo '<section>';
 			echo '<h3>' . esc_html__( 'Database Query Time', 'query-monitor' ) . '</h3>';
 			echo '<p>';
 			echo esc_html( number_format_i18n( $db_queries_data['total_time'], 4 ) );
 			echo '</p>';
 			echo '</section>';
+		}
 
+		if ( isset( $db_query_num ) && isset( $db_queries_data ) ) {
 			echo '<section>';
 			echo '<h3>' . esc_html__( 'Database Queries', 'query-monitor' ) . '</h3>';
 			echo '<p>';
@@ -141,7 +164,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 
 			echo esc_html( sprintf(
 				/* translators: %s: Total number of database queries */
-				_x( 'Total: %s', 'database queries', 'query-monitor' ),
+				_nx( 'Total: %s', 'Total: %s', $db_queries_data['total_qs'], 'database queries', 'query-monitor' ),
 				number_format_i18n( $db_queries_data['total_qs'] )
 			) );
 
@@ -233,7 +256,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		}
 
 		$title[] = sprintf(
-			/* translators: %s: Page load time in seconds */
+			/* translators: %s: Page load time in seconds with a decimal fraction */
 			esc_html_x( '%s S', 'Page load time', 'query-monitor' ),
 			number_format_i18n( $data['time_taken'], 2 )
 		);

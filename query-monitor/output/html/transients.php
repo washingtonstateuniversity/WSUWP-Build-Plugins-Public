@@ -7,6 +7,13 @@
 
 class QM_Output_Html_Transients extends QM_Output_Html {
 
+	/**
+	 * Collector instance.
+	 *
+	 * @var QM_Collector_Transients Collector.
+	 */
+	protected $collector;
+
 	public function __construct( QM_Collector $collector ) {
 		parent::__construct( $collector );
 		add_filter( 'qm/output/menus', array( $this, 'admin_menu' ), 100 );
@@ -75,8 +82,8 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 				$stack          = array();
 				$filtered_trace = $row['trace']->get_display_trace();
-				array_pop( $filtered_trace ); // remove do_action('setted_(site_)?transient')
-				array_pop( $filtered_trace ); // remove set_(site_)?transient()
+				array_shift( $filtered_trace ); // remove do_action('setted_(site_)?transient')
+				array_shift( $filtered_trace ); // remove set_(site_)?transient()
 
 				foreach ( $filtered_trace as $item ) {
 					$stack[] = self::output_filename( $item['display'], $item['calling_file'], $item['calling_line'] );
@@ -84,14 +91,15 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 				echo '<td class="qm-has-toggle qm-nowrap qm-ltr"><ol class="qm-toggler qm-numbered">';
 
-				$caller = array_pop( $stack );
+				$caller = array_shift( $stack );
+
+				echo "<li>{$caller}</li>"; // WPCS: XSS ok.
 
 				if ( ! empty( $stack ) ) {
 					echo self::build_toggler(); // WPCS: XSS ok;
 					echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 				}
 
-				echo "<li>{$caller}</li>"; // WPCS: XSS ok.
 				echo '</ol></td>';
 
 				printf(
@@ -122,7 +130,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 		$title = ( empty( $count ) )
 			? __( 'Transient Updates', 'query-monitor' )
 			/* translators: %s: Number of transient values that were updated */
-			: __( 'Transient Updates (%s)', 'query-monitor' );
+			: _n( 'Transient Updates (%s)', 'Transient Updates (%s)', $count, 'query-monitor' );
 
 		$menu[ $this->collector->id() ] = $this->menu( array(
 			'title' => esc_html( sprintf(

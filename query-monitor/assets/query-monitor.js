@@ -55,7 +55,7 @@ if ( window.jQuery ) {
 		var maxwidth               = $(window).width();
 		var container              = $('#query-monitor-main');
 		var container_height_key   = 'qm-container-height';
-		var container_pinned_key   = 'qm-container-pinned';
+		var container_pinned_key   = 'qm-' + ( $('body').hasClass('wp-admin') ? 'admin' : 'front' ) + '-container-pinned';
 		var container_position_key = 'qm-container-position';
 		var container_width_key    = 'qm-container-width';
 
@@ -414,14 +414,16 @@ if ( window.jQuery ) {
 		var h = localStorage.getItem( container_height_key );
 		var w = localStorage.getItem( container_width_key );
 		if ( ! container.hasClass('qm-peek') ) {
-			if ( p === 'right' && w !== null ) {
-				if ( w < minwidth ) {
-					w = minwidth;
+			if ( p === 'right' ) {
+				if ( w !== null ) {
+					if ( w < minwidth ) {
+						w = minwidth;
+					}
+					if ( w > maxwidth ) {
+						w = maxwidth;
+					}
+					container.width( w );
 				}
-				if ( w > maxwidth ) {
-					w = maxwidth;
-				}
-				container.width( w );
 				container.addClass('qm-show-right');
 			} else if ( p !== 'right' && h !== null ) {
 				if ( h < minheight ) {

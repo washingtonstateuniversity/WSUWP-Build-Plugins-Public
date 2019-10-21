@@ -15,7 +15,7 @@
  * @return string Returns the post content with the legacy widget added.
  */
 function gutenberg_render_block_navigation_menu( $attributes, $content, $block ) {
-	return '<nav className="wp-block-navigation-menu">' . gutenberg_build_navigation_menu_html( $block ) . '</nav>';
+	return '<nav class="wp-block-navigation-menu">' . gutenberg_build_navigation_menu_html( $block ) . '</nav>';
 }
 
 /**
@@ -52,6 +52,8 @@ function gutenberg_build_navigation_menu_html( $block ) {
 
 /**
  * Register the navigation menu block.
+ *
+ * @uses gutenberg_render_block_navigation_menu()
  */
 function gutenberg_register_block_core_navigation_menu() {
 	register_block_type(

@@ -7,6 +7,13 @@
 
 class QM_Output_Html_DB_Queries extends QM_Output_Html {
 
+	/**
+	 * Collector instance.
+	 *
+	 * @var QM_Collector_DB_Queries Collector.
+	 */
+	protected $collector;
+
 	public $query_row = 0;
 
 	public function __construct( QM_Collector $collector ) {
@@ -86,7 +93,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 	}
 
 	protected function output_expensive_queries( array $expensive ) {
-		$dp = strlen( substr( strrchr( QM_DB_EXPENSIVE, '.' ), 1 ) );
+		$dp = strlen( substr( strrchr( (string) QM_DB_EXPENSIVE, '.' ), 1 ) );
 
 		$panel_name = sprintf(
 			/* translators: %s: Database query time in seconds */
@@ -262,7 +269,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			echo '<td colspan="' . intval( $span - 1 ) . '">';
 			printf(
 				/* translators: %s: Number of database queries */
-				esc_html_x( 'Total: %s', 'Database queries', 'query-monitor' ),
+				esc_html( _nx( 'Total: %s', 'Total: %s', $db->total_qs, 'Query count', 'query-monitor' ) ),
 				'<span class="qm-items-number">' . esc_html( number_format_i18n( $db->total_qs ) ) . '</span>'
 			);
 			echo '</td>';
@@ -306,7 +313,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			$caller_name    = self::output_filename( $row['caller'], $caller['calling_file'], $caller['calling_line'] );
 			$stack          = array();
 			$filtered_trace = $row['trace']->get_display_trace();
-			array_pop( $filtered_trace );
+			array_shift( $filtered_trace );
 
 			foreach ( $filtered_trace as $item ) {
 				$stack[] = self::output_filename( $item['display'], $item['calling_file'], $item['calling_line'] );
@@ -372,14 +379,14 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		}
 
 		if ( isset( $cols['caller'] ) ) {
-			echo "<td class='qm-row-caller qm-ltr qm-has-toggle qm-nowrap'><ol class='qm-toggler qm-numbered'>";
+			echo '<td class="qm-row-caller qm-ltr qm-has-toggle qm-nowrap"><ol class="qm-toggler qm-numbered">';
+			echo "<li>{$caller_name}</li>"; // WPCS: XSS ok.
+
 			echo self::build_toggler(); // WPCS: XSS ok;
 
 			if ( ! empty( $stack ) ) {
 				echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 			}
-
-			echo "<li>{$caller_name}</li>"; // WPCS: XSS ok.
 
 			echo '</ol>';
 			if ( $row['is_main_query'] ) {
@@ -446,16 +453,22 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 			foreach ( $data['dbs'] as $key => $db ) {
 				$title[] = sprintf(
 					/* translators: %s: Database query time in seconds */
-					'%s' . esc_html_x( '%s S', 'Query time', 'query-monitor' ),
+					'%s' . esc_html( _nx( '%s S', '%s S', $db->total_time, 'Query time', 'query-monitor' ) ),
 					( count( $data['dbs'] ) > 1 ? '&bull;&nbsp;&nbsp;&nbsp;' : '' ),
 					number_format_i18n( $db->total_time, 4 )
 				);
 				$title[] = sprintf(
 					/* translators: %s: Number of database queries */
-					esc_html_x( '%s Q', 'Query count', 'query-monitor' ),
+					esc_html( _nx( '%s Q', '%s Q', $db->total_qs, 'Query count', 'query-monitor' ) ),
 					number_format_i18n( $db->total_qs )
 				);
 			}
+		} elseif ( isset( $data['total_qs'] ) ) {
+			$title[] = sprintf(
+				/* translators: %s: Number of database queries */
+				esc_html( _nx( '%s Q', '%s Q', $data['total_qs'], 'Query count', 'query-monitor' ) ),
+				number_format_i18n( $data['total_qs'] )
+			);
 		}
 
 		foreach ( $title as &$t ) {
@@ -507,25 +520,28 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 
 		if ( $errors ) {
 			$id          = $this->collector->id() . '-errors';
+			$count       = count( $errors );
 			$menu[ $id ] = $this->menu( array(
 				'id'    => 'query-monitor-errors',
 				'href'  => '#qm-query-errors',
 				'title' => esc_html( sprintf(
 					/* translators: %s: Number of database errors */
-					__( 'Database Errors (%s)', 'query-monitor' ),
-					number_format_i18n( count( $errors ) )
+					_n( 'Database Errors (%s)', 'Database Errors (%s)', $count, 'query-monitor' ),
+					number_format_i18n( $count )
 				) ),
 			) );
 		}
+
 		if ( $expensive ) {
 			$id          = $this->collector->id() . '-expensive';
+			$count       = count( $expensive );
 			$menu[ $id ] = $this->menu( array(
 				'id'    => 'query-monitor-expensive',
 				'href'  => '#qm-query-expensive',
 				'title' => esc_html( sprintf(
 					/* translators: %s: Number of slow database queries */
-					__( 'Slow Queries (%s)', 'query-monitor' ),
-					number_format_i18n( count( $expensive ) )
+					_n( 'Slow Queries (%s)', 'Slow Queries (%s)', $count, 'query-monitor' ),
+					number_format_i18n( $count )
 				) ),
 			) );
 		}
@@ -538,7 +554,7 @@ class QM_Output_Html_DB_Queries extends QM_Output_Html {
 		foreach ( array( 'errors', 'expensive' ) as $sub ) {
 			$id = $this->collector->id() . '-' . $sub;
 			if ( isset( $menu[ $id ] ) ) {
-				$menu[ $id ]['title'] = '└ ' . $menu[ $id ]['title'];
+				$menu[ $id ]['title'] = $menu[ $id ]['title'];
 
 				$menu['qm-db_queries-$wpdb']['children'][] = $menu[ $id ];
 				unset( $menu[ $id ] );

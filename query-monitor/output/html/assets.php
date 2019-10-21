@@ -7,6 +7,13 @@
 
 abstract class QM_Output_Html_Assets extends QM_Output_Html {
 
+	/**
+	 * Collector instance.
+	 *
+	 * @var QM_Collector_Assets Collector.
+	 */
+	protected $collector;
+
 	public function __construct( QM_Collector $collector ) {
 		parent::__construct( $collector );
 		add_filter( 'qm/output/menus',      array( $this, 'admin_menu' ), 70 );
@@ -81,7 +88,7 @@ abstract class QM_Output_Html_Assets extends QM_Output_Html {
 		printf(
 			'<td colspan="7">%1$s</td>',
 			sprintf(
-				esc_html( $type_label['total'] ),
+				esc_html( translate_nooped_plural( $type_label['total'], $data['counts']['total'], 'query-monitor' ) ),
 				'<span class="qm-items-number">' . esc_html( number_format_i18n( $data['counts']['total'] ) ) . '</span>'
 			)
 		);
@@ -92,8 +99,6 @@ abstract class QM_Output_Html_Assets extends QM_Output_Html {
 	}
 
 	protected function dependency_row( $handle, array $asset, $label ) {
-		$data = $this->collector->get_data();
-
 		$highlight_deps       = array_map( array( $this, '_prefix_type' ), $asset['dependencies'] );
 		$highlight_dependents = array_map( array( $this, '_prefix_type' ), $asset['dependents'] );
 
@@ -118,8 +123,19 @@ abstract class QM_Output_Html_Assets extends QM_Output_Html {
 		echo esc_html( $label );
 		echo '</td>';
 
+		$host  = $asset['host'];
+		$parts = explode( '.', $host );
+
+		foreach ( $parts as $k => $part ) {
+			if ( strlen( $part ) > 16 ) {
+				$parts[ $k ] = substr( $parts[ $k ], 0, 6 ) . '&hellip;' . substr( $parts[ $k ], -6 );
+			}
+		}
+
+		$host = implode( '.', $parts );
+
 		echo '<td class="qm-nowrap qm-ltr">' . esc_html( $handle ) . '</td>';
-		echo '<td class="qm-nowrap qm-ltr">' . esc_html( $asset['host'] ) . '</td>';
+		echo '<td class="qm-nowrap qm-ltr">' . esc_html( $host ) . '</td>';
 		echo '<td class="qm-ltr">';
 		if ( is_wp_error( $asset['source'] ) ) {
 			$error_data = $asset['source']->get_error_data();
@@ -175,7 +191,10 @@ abstract class QM_Output_Html_Assets extends QM_Output_Html {
 		}
 
 		$type_label = $this->get_type_labels();
-		$label = sprintf( $type_label['count'], number_format_i18n( $data['counts']['total'] ) );
+		$label = sprintf(
+			translate_nooped_plural( $type_label['count'], $data['counts']['total'], 'query-monitor' ),
+			number_format_i18n( $data['counts']['total'] )
+		);
 
 		$args = array(
 			'title' => esc_html( $label ),
