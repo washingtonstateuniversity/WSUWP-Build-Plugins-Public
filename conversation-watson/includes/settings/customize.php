@@ -31,7 +31,7 @@ class Customize {
                 <a onClick="switch_tab('fab')" class="nav-tab fab_tab">Chat Button</a>
             </h2>
 
-            <form action="options.php" method="POST">
+            <form action="options.php" method="POST" enctype="multipart/form-data">
                 <?php
                     settings_fields(self::SLUG); 
 
@@ -264,7 +264,8 @@ class Customize {
             <?php
                 $pages = get_pages(array(
                     'sort_column' => 'post_date',
-                    'sort_order' => 'desc'
+                    'sort_order' => 'desc',
+                    'post_status' => 'publish,private'
                 ));
                 $checked_pages = get_option('watsonconv_pages');
 
@@ -299,7 +300,10 @@ class Customize {
                 <label for="select_all_posts">Select All Posts</label>
             </legend>
             <?php
-                $posts = get_posts(array('order_by' => 'date'));
+                $posts = get_posts(array(
+                    'order_by' => 'date',
+                    'post_status' => 'publish,private'
+                ));
                 $checked_posts = get_option('watsonconv_posts');
 
                 foreach ($posts as $post) {
@@ -497,7 +501,25 @@ class Customize {
             ),
             esc_html__('Window Size', self::SLUG)
         );
-        
+
+        $logo_title = sprintf(
+            '<span href="#" title="%s">%s</span>',
+            esc_html__(
+                'This adds a chatbot logo.',
+                self::SLUG
+            ),
+            esc_html__('Chatbot logo', self::SLUG)
+        );
+
+        $custom_logo_title = sprintf(
+            '<span href="#" title="%s">%s</span>',
+            esc_html__(
+                'This changes the chatbot logo. Upload a new logo image. The chatbot logo must be a type image: jpg, jpeg, png, gif, ico',
+                self::SLUG
+            ),
+            esc_html__('Chatbot custom logo', self::SLUG)
+        );
+
 
         add_settings_field('watsonconv_full_screen', $full_screen_title,
             array(__CLASS__, 'render_full_screen'), $settings_page, 'watsonconv_appearance_chatbox');
@@ -523,6 +545,10 @@ class Customize {
             array(__CLASS__, 'render_color'), $settings_page, 'watsonconv_appearance_chatbox');
         add_settings_field('watsonconv_size', $size_title,
             array(__CLASS__, 'render_size'), $settings_page, 'watsonconv_appearance_chatbox');
+        add_settings_field('watsonconv_logo', $logo_title,
+            array(__CLASS__, 'render_logo'), $settings_page, 'watsonconv_appearance_chatbox');
+        add_settings_field('watsonconv_custom_logo', $custom_logo_title,
+            array(__CLASS__, 'render_custom_logo'), $settings_page, 'watsonconv_appearance_chatbox');
         add_settings_field('watsonconv_chatbox_preview', esc_html__('Preview'),
             array(__CLASS__, 'render_chatbox_preview'), $settings_page, 'watsonconv_appearance_chatbox');
 
@@ -538,8 +564,104 @@ class Customize {
         register_setting(self::SLUG, 'watsonconv_font_size_fs');
         register_setting(self::SLUG, 'watsonconv_color', array(__CLASS__,  'validate_color'));
         register_setting(self::SLUG, 'watsonconv_size');
+        register_setting(self::SLUG, 'watsonconv_logo');
+        register_setting(self::SLUG, 'watsonconv_custom_logo', array(__CLASS__, 'validate_custom_logo'));
 
         register_setting(self::SLUG, 'watsonconv_css_cache');
+    }
+
+    public static function render_logo() {
+        Main::render_radio_buttons(
+            'watsonconv_logo',
+            'off',
+            array(
+                array(
+                    'label' => esc_html__('On', self::SLUG),
+                    'value' => 'on'
+                ),
+                array(
+                    'label' => esc_html__('Off', self::SLUG),
+                    'value' => 'off'
+                ),
+                array(
+                    'label' => esc_html__('Custom', self::SLUG),
+                    'value' => 'custom'
+                )
+            )
+        );
+    }
+
+    public static function render_custom_logo() {
+        ?>
+        <input name="watsonconv_custom_logo" id="watsonconv_custom_logo"
+               type="file" accept="image/*" multiple="false" />
+        <input type="hidden" name="post_id" id="post_id" value="55" />
+        <?php wp_nonce_field('watsonconv_custom_logo', 'my_logo_upload_nonce'); ?>
+        <?php
+    }
+
+    public static function validate_custom_logo() {
+        if (!isset($_FILES['watsonconv_custom_logo']) || $_FILES['watsonconv_custom_logo']['error'] > 0) {
+            return get_option('watsonconv_custom_logo');
+        }
+
+        if (
+            isset($_POST['_wpnonce'])
+            && wp_verify_nonce($_POST['my_logo_upload_nonce'], 'watsonconv_custom_logo')
+            && current_user_can('edit_posts', $_POST['post_id'])
+        ) {
+
+            $file_type = $_FILES['watsonconv_custom_logo']['type'];
+            $allowed_image_types = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/ico'];
+            $allowed = in_array($file_type, $allowed_image_types);
+
+            if (!$allowed) {
+                $error_message = 'File upload error: ' . $file_type . ' - wrong file type for chatbot logo';
+                add_settings_error('watsonconv_custom_logo', 'invalid-file', $error_message);
+                \WatsonConv\Logger::log_message('File loading error', $error_message);
+                return get_option('watsonconv_custom_logo');
+            }
+
+            $unique_file_name = uniqid('chatbot_logo_') . '.' . explode('/', $file_type)[1];
+            $upload_file = wp_upload_bits( $unique_file_name, null, file_get_contents( $_FILES["watsonconv_custom_logo"]["tmp_name"]) );
+
+            if ( $upload_file && empty($upload_file['error']) ) {
+                $parse_url = parse_url($upload_file['url']);
+                return $parse_url['path'];
+            } else {
+                $error_message = 'Upload the chatbot logo error: ' . $upload_file['error'];
+                add_settings_error('watsonconv_custom_logo', 'invalid-image', $error_message);
+                \WatsonConv\Logger::log_message('Chatbot logo upload error', $error_message);
+                return get_option('watsonconv_custom_logo');
+            }
+
+        } else {
+            \WatsonConv\Logger::log_message('The security check failed', 'Check failed. Unable to upload file.');
+            return get_option('watsonconv_custom_logo');
+        }
+
+    }
+
+    public static function get_watson_logo() {
+        // Check if current user is permitted to control plugins
+        if(!current_user_can('administrator')) {
+            \WatsonConv\Logger::log_message("Unauthorized REST API access", "Unauthorized access while changing the watson logo option");
+            return false;
+        }
+
+        $option_value = $_POST['watsonLogoOption'];
+        $watson_default_logo = WATSON_CONV_URL . 'img/chatbot_logo.png';
+        $watson_custom_logo = get_option('watsonconv_custom_logo') ? get_site_url() . get_option('watsonconv_custom_logo') : $watson_default_logo;
+
+        if ($option_value == 'on') {
+            return $watson_default_logo;
+        }
+
+        if ($option_value == 'custom') {
+            return $watson_custom_logo;
+        }
+
+        return false;
     }
 
     public static function chatbox_description($args) {
@@ -881,6 +1003,7 @@ class Customize {
     }
 
     public static function render_chatbox_preview() {
+        $logo_url = get_option('watsonconv_custom_logo') ? get_site_url() . get_option('watsonconv_custom_logo') : WATSON_CONV_URL . 'img/chatbot_logo.png';
     ?>
         <div id='watson-box' class='drop-shadow animated' style='display: block;'>
             <div id='watson-header' class='watson-font' style='cursor: default;'>
@@ -888,6 +1011,9 @@ class Customize {
                 <span class='dashicons dashicons-trash header-button'></span>
                 <span class='dashicons dashicons-phone header-button'></span>
                 <div id='watson-title' class='overflow-hidden' ><?php echo get_option('watsonconv_title', '') ?></div>
+                <div id="watson-logo" class="header-logo"
+                     style="background-image: url(<?php echo $logo_url?>)">
+                </div>
             </div>
             <div id='message-container'>
                 <div id='messages' class='watson-font'>

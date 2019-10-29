@@ -102,7 +102,7 @@ div.tab-page span[title]
   display: block;
   position: absolute;
   z-index: 10000;
-  
+
   max-width: 40em;
   padding: 8px;
 
@@ -112,13 +112,13 @@ div.tab-page span[title]
 }
 
 pre {
-  white-space: pre-wrap;     
+  white-space: pre-wrap;
   white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;    
-  white-space: -o-pre-wrap;  
-  word-wrap: break-word;     
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
  }
- 
+
  hr {
   display: block;
   height: 1px;
@@ -193,4 +193,26 @@ table.rows, .rows td  {
 
 #watsonconv_credentials_description strong{
   font-weight:bold;
+}
+
+#watson-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: white;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: solid 1px white;
+  position: absolute;
+  top: 50%;
+  left: 7%;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+}
+
+.logo-error {
+  display: block;
+  margin-top: 15px;
+  color: #ff0000;
 }

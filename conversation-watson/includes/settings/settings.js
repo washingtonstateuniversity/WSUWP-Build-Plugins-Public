@@ -482,6 +482,67 @@ jQuery(document).ready(function($) {
             $(this).parent().remove();
         });
 
+    $('#watsonconv_custom_logo')
+        .on('change', function () {
+
+            const file = this.files[0];
+            const fileType = file['type'];
+            const allowedImageTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/ico'];
+            $(this).parent().find('.logo-error').remove();
+
+            if ($.inArray(fileType, allowedImageTypes) < 0) {
+                $(this).parent().append(
+                    '<span class="logo-error">' +
+                    '*' + fileType + ' - wrong file type, the chatbot logo must be a type image: jpg, jpeg, png, gif, ico.' +
+                    '</span>');
+                return false;
+            }
+            const getImagePath = URL.createObjectURL(file);
+            $('#watson-logo').css('background-image', 'url("' + getImagePath + '")');
+        });
+
+    $('input[name="watsonconv_logo"]')
+        .on('change', function () {
+            if (this.value == 'custom') {
+                $('#watsonconv_custom_logo').closest('tr').show();
+            } else {
+                $('#watsonconv_custom_logo').closest('tr').hide();
+            }
+
+            if (this.value == 'off') {
+                $('#watson-logo').css('display', 'none');
+                $('#watson-title').css('margin-left', '0');
+            } else {
+                $('#watson-logo').css('display', 'block');
+                $('#watson-title').css('margin-left', '35px');
+            }
+
+            const watsonLogoOption = this.value;
+            const siteUrl = window.location.origin;
+            const restRoute = "/index.php?rest_route=/watsonconv/v1/get-logo";
+            const fullUrl = siteUrl + restRoute;
+
+            $.ajax({
+                type: "POST",
+                url: fullUrl,
+                data: {watsonLogoOption: watsonLogoOption},
+                beforeSend: function ( xhr ) {
+                    xhr.setRequestHeader( 'X-WP-Nonce', wpApiSettings.nonce);
+                },
+                success: function( response ) {
+                    if (response) {
+                        $('#watson-logo').css('background-image', 'url("' + response + '")');
+                    }
+                },
+                error: function(message) {
+                    console.log(message.responseText);
+                    $(this).parent().append('<span class="logo-type-error">*Error occurred' + message.responseText + '</span>');
+                }
+            })
+        })
+        .filter('input:checked')
+        .trigger('change');
+
   // Watson Assistant Credentials section
   // Function to check V1 credentials in Assistant URL field
   let checkCredentialsV1 = function() {

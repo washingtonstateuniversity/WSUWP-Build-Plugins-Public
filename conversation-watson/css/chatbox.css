@@ -121,6 +121,7 @@
   color: white;
   background-color: rgb(35, 40, 45);
   cursor: default;
+  position: relative;
 
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -238,6 +239,7 @@
   width: 100%;
   border-bottom: 1px solid rgb(215, 215, 215);
   background-color: rgb(235, 235, 235);
+  margin-bottom: 40px;
 }
 
 #message-container #messages
@@ -390,6 +392,9 @@
   flex-direction: row;
 
   min-height: 2.75em;
+  position: absolute;
+  transition: 5s;
+  bottom: 0;
   width: 100%;
   margin: 0;
   background-color: white;
@@ -400,6 +405,7 @@
 
 #watson-box .message-form .message-input
 {
+  float: left;
   width: 100%;
   flex-grow: 1;
   -webkit-flex-grow: 1;
@@ -500,4 +506,18 @@
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
+}
+
+.watson-message a {
+    color: #269EE2;
+    text-decoration: none;
+}
+
+.watson-message a:hover {
+    color: #269EE2;
+    text-decoration: underline;
+}
+
+.show-chatbox {
+  position: fixed;
 }

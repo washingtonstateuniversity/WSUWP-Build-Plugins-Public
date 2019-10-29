@@ -25,6 +25,11 @@ class Frontend {
         $color_rgb = sscanf(get_option('watsonconv_color', '#23282d'), "#%02x%02x%02x");
         $messages_height = get_option('watsonconv_size', 200);
         $position = explode('_', get_option('watsonconv_position', 'bottom_right'));
+        $watsonconv_logo_option = get_option('watsonconv_logo', 'off');
+        $default_logo_url = WATSON_CONV_URL . 'img/chatbot_logo.png';
+        $watsonconv_logo_url = '';
+        $watsonconv_logo_display = 'block';
+        $title_padding = '35px';
         
         $is_dark = self::luminance($color_rgb) <= 0.5;
         $text_color = $is_dark ? 'white' : 'black';
@@ -48,7 +53,25 @@ class Frontend {
 
         $inline_style = get_option('watsonconv_css_cache');
 
-        if (!$inline_style) {
+        if ($watsonconv_logo_option == 'on') {
+            $watsonconv_logo_url = $default_logo_url;
+        }
+
+        if ($watsonconv_logo_option == 'custom') {
+            $watsonconv_logo_url = get_option('watsonconv_custom_logo') ? get_site_url() . get_option('watsonconv_custom_logo') : WATSON_CONV_URL . 'img/chatbot_logo.png';
+        }
+
+        if ($watsonconv_logo_option == 'off') {
+            $watsonconv_logo_display = 'none';
+            $title_padding = '0';
+        }
+
+        $exists_logo_url = true;
+        if($inline_style && $watsonconv_logo_url) {
+            $exists_logo_url = strpos($inline_style, $watsonconv_logo_url);
+        }
+
+        if (!$inline_style || $exists_logo_url === false) {
             $inline_style = '
                 #message-container #messages .watson-message,
                     #watson-box #watson-header,
@@ -114,6 +137,29 @@ class Frontend {
                 #watson-box .watson-font
                 {
                     font-size: '.$font_size.'pt;
+                }
+                
+                #watson-header .watson-font {
+                    padding-left: ' . $title_padding . ';
+                }
+                
+                #watson-box .chatbox-logo
+                {
+                    display: ' . $watsonconv_logo_display . ';
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    background-image: url("' . $watsonconv_logo_url . '");
+                    background-color: white;
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
+                    border: solid 1px white;
+                    position: absolute;
+                    top: 50%;
+                    left: 7%;
+                    transform: translate(-50%,-50%);
+                    -webkit-transform: translate(-50%,-50%);
+                    -moz-transform: translate(-50%,-50%);
                 }
 
                 #watson-float

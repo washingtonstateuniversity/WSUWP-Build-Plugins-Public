@@ -208,13 +208,14 @@ class Setup {
         <ul>
             <li><a href="https://console.bluemix.net/dashboard/apps">Go to your IBM Cloud Dashboard</a>. If nothing shows up, be patient. Sometimes it takes a while to load.</li>
             <li>Click on your Watson Assistant service name in Services list.</li>
-            <li>Click "Launch tool".</li>
+            <li>Click "Launch Watson Assistant".</li>
             <li>On the tool's page go to <strong>"Assistants"</strong> tab.</li>
-            <li>On the Assistants tab, call the menu of your Assistant by clicking on the "threee dots" button on the right and select "View API details" in the menu. </li>
-            <li>Copy "Assistant URL", "Username" and "Password" values.</li>
+            <li>On the Assistants tab, call the menu of your Assistant by clicking on the "threee dots" button on the right and select "Settings" in the menu. </li>
+            <li>On the Assistant Settings tab, select "API Details" from the menu on the left.</li>
+            <li>Copy "Assistant URL" and "Api Key" values.</li>
         </ul>
         <p>
-            Enter these values in their corresponding fields below. Once you click
+            Enter these values in their corresponding fields below. <strong>Please fill Username field with "apikey" word.</strong> Once you click
             "Save Changes", the plugin will verify if the credentials are valid and notify
             you of whether or not the configuration was successful.
         </p>
@@ -364,6 +365,21 @@ class Setup {
 
                 update_option('watsonconv_credentials', $credentials);
             }
+
+            if (isset($credentials['password']) && !isset($credentials['api_key'])) {
+                $credentials['api_key'] = $credentials['password'];
+                update_option('watsonconv_credentials', $credentials);
+            }
+
+
+            if (!isset($credentials['auth_header']) && isset($credentials['username']) && isset($credentials['api_key'])) {
+                $credentials['auth_header'] = 'Basic ' . base64_encode(
+                        $credentials['username'].':'.
+                        $credentials['api_key']
+                    );
+
+                update_option('watsonconv_credentials', $credentials);
+            }
         } catch (\Exception $e) {}
     }
 
@@ -379,10 +395,10 @@ class Setup {
             $settings_page, 'watsonconv_credentials');
         add_settings_field('watsonconv_username', 'Username', array(__CLASS__, 'render_username'),
             $settings_page, 'watsonconv_credentials');
-        add_settings_field('watsonconv_password', 'Password', array(__CLASS__, 'render_password'),
+//        add_settings_field('watsonconv_password', 'Password', array(__CLASS__, 'render_password'),
+//            $settings_page, 'watsonconv_credentials');
+        add_settings_field('watsonconv_api_key', 'API Key', array(__CLASS__, 'render_api_key'),
             $settings_page, 'watsonconv_credentials');
-        /*add_settings_field('watsonconv_api_key', 'API Key', array(__CLASS__, 'render_api_key'),
-            $settings_page, 'watsonconv_credentials');*/
 
         register_setting(self::SLUG, 'watsonconv_credentials', array(__CLASS__, 'validate_credentials'));
     }
@@ -434,8 +450,8 @@ class Setup {
                 add_settings_error('watsonconv_credentials', 'invalid-username', 'Please enter a username.');
                 $empty = true;
             }
-            if (empty($credentials['password'])) {
-                add_settings_error('watsonconv_credentials', 'invalid-password', 'Please enter a password.');
+            if (empty($credentials['api_key'])) {
+                add_settings_error('watsonconv_credentials', 'invalid-api-key', 'Please enter an API key.');
                 $empty = true;
             }
         }
@@ -456,7 +472,7 @@ class Setup {
         } else {
             $auth_header = 'Basic ' . base64_encode(
                     $credentials['username'].':'.
-                    $credentials['password']
+                    $credentials['api_key']
                 );
         }
 
@@ -632,7 +648,7 @@ class Setup {
     public static function workspace_description($args) {
         ?>
         <p id="<?php echo esc_attr( $args['id'] ); ?>" class="basic_cred">
-            <?php esc_html_e('Specify the Assistant URL, username and password for your Watson
+            <?php esc_html_e('Specify the Assistant URL, username and API Key for your Watson
                 Assistant below.', self::SLUG) ?> <br />
         </p>
         <!--
@@ -641,21 +657,21 @@ class Setup {
                 Assistant below.', self::SLUG) ?> <br />
         </p>
         -->
-        <a href="" id="<?php echo esc_attr( $args['id'] ); ?>_link">
-            <?php esc_html_e("I don't see a username and password in my credentials") ?>
-        </a>
-        <div id="<?php echo esc_attr( $args['id'] ); ?>_description">
-            <p>
-                If you have API Key only, please fill Username field with <code>apikey</code> word, and put API Key value into the Password field.
-                <br>
-                Like following:
-            </p>
-            <p>
-                <strong>Username</strong>: apikey
-                <br>
-                <strong>Password</strong>: XxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx
-            </p>
-        </div>
+<!--        <a href="" id="--><?php //echo esc_attr( $args['id'] ); ?><!--_link">-->
+<!--            --><?php //esc_html_e("I don't see a username and password in my credentials") ?>
+<!--        </a>-->
+<!--        <div id="--><?php //echo esc_attr( $args['id'] ); ?><!--_description">-->
+<!--            <p>-->
+<!--                If you have API Key only, please fill Username field with <code>apikey</code> word, and put API Key value into the Password field.-->
+<!--                <br>-->
+<!--                Like following:-->
+<!--            </p>-->
+<!--            <p>-->
+<!--                <strong>Username</strong>: apikey-->
+<!--                <br>-->
+<!--                <strong>Password</strong>: XxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx-->
+<!--            </p>-->
+<!--        </div>-->
         <?php
     }
 
@@ -682,7 +698,7 @@ class Setup {
         ?>
         <input name="watsonconv_credentials[username]" class="watsonconv_credentials basic_cred"
                id="watsonconv_username" type="text"
-               value="<?php echo empty($credentials['username']) ? '' : $credentials['username'] ?>"
+               value="<?php echo empty($credentials['username']) ? 'apikey' : $credentials['username'] ?>"
                placeholder="e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
                style="max-width: 24em; width: 100%;"/>
         <?php

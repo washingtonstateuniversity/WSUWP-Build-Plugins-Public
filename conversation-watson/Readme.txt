@@ -2,8 +2,8 @@
 Contributors: cognitiveclass
 Tags:  chat, chatbot, chat bot, artificial intelligence, support, faq
 Requires at least: 4.7
-Tested up to: 5.1
-Stable tag: 0.8.12
+Tested up to: 5.2.2
+Stable tag: 0.8.20
 License: Apache v2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -87,6 +87,36 @@ On the same page where you build your chatbot in IBM Cloud, you can click on the
 1. An example of your chatbot greeting a website visitor.
 
 == Changelog ==
+
+= 0.8.20 =
+* Fixed bug with layout on mobile Safari
+
+= 0.8.19 =
+* Updated compatibility with IBM Watson Assistant after API changing
+
+= 0.8.18 =
+* Fixed bug with initiate a conversation
+
+= 0.8.17 =
+* Added private pages to the list of pages on which the Chat Box may be displayed.
+
+= 0.8.16 =
+* Fixed conflict with translate plugin
+* Upgraded instruction for updating Assistant credentials
+* Fixed out of screen input field on mobile (android)
+
+= 0.8.15 =
+* Fixed bug with layout in Safari desktop
+
+= 0.8.14 =
+* Fixed out of screen input field on mobile
+
+= 0.8.13 =
+* Fix misspelling
+* Automatically make a plain URL clickable in the chatbot
+* Associate a face or logo to the chatbot
+* Fix out of screen input field on mobile Chrome
+* Check curl availability
 
 = 0.8.12 =
 * Refactored cross-tab session synchronization

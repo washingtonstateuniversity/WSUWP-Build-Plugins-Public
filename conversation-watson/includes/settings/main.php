@@ -29,6 +29,16 @@ class Main {
         Advanced::init_page();
 
         remove_submenu_page(self::SLUG, self::SLUG);
+
+        self::check_curl_availability();
+    }
+
+    public static function check_curl_availability() {
+        $curl_availability = extension_loaded('curl');
+        if(!$curl_availability){
+            \WatsonConv\Logger::log_message('PHP-Curl is not installed', 'Php-curl is required for the chatbot to work. Please install it on your server.');
+            add_settings_error('watsonconv', 'php-curl-is-not-installed', 'Php-curl is required for the chatbot to work. Please install it on your server.');
+        }
     }
 
     public static function init_settings() {
@@ -100,7 +110,7 @@ class Main {
                     <span style='color:orange; margin-right:0.3em'
                           class='dashicons dashicons-admin-network'></span>
                     <a href="admin.php?page=<?php echo Setup::SLUG ?>">
-                        <?php esc_html_e('Please update your Watson Assistant Credentials to make plugin compatible with new functions.', self::SLUG) ?>
+                        <?php esc_html_e('Please update your Watson Assistant Credentials to make the plugin compatible with new functions.', self::SLUG) ?>
                     </a>
                 </div>
             </td></tr>
