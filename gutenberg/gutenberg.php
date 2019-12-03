@@ -3,7 +3,7 @@
  * Plugin Name: Gutenberg
  * Plugin URI: https://github.com/WordPress/gutenberg
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
- * Version: 6.7.0
+ * Version: 7.0.0
  * Author: Gutenberg Team
  * Text Domain: gutenberg
  *
@@ -11,8 +11,8 @@
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '6.7.0' );
-define( 'GUTENBERG_GIT_COMMIT', '99586ed7f3458d4f1c394bcfa298a33eb3cfe2d2' );
+define( 'GUTENBERG_VERSION', '7.0.0' );
+define( 'GUTENBERG_GIT_COMMIT', '3534dee58ca76da57a3f5c4b1d9c5898b9f3489a' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
@@ -88,7 +88,7 @@ add_action( 'admin_menu', 'gutenberg_menu' );
 function gutenberg_wordpress_version_notice() {
 	echo '<div class="error"><p>';
 	/* translators: %s: Minimum required version */
-	printf( __( 'Gutenberg requires WordPress %s or later to function properly. Please upgrade WordPress before activating Gutenberg.', 'gutenberg' ), '5.0.0' );
+	printf( __( 'Gutenberg requires WordPress %s or later to function properly. Please upgrade WordPress before activating Gutenberg.', 'gutenberg' ), '5.2.0' );
 	echo '</p></div>';
 
 	deactivate_plugins( array( 'gutenberg/gutenberg.php' ) );
@@ -123,7 +123,7 @@ function gutenberg_pre_init() {
 	// Strip '-src' from the version string. Messes up version_compare().
 	$version = str_replace( '-src', '', $wp_version );
 
-	if ( version_compare( $version, '5.0.0', '<' ) ) {
+	if ( version_compare( $version, '5.2.0', '<' ) ) {
 		add_action( 'admin_notices', 'gutenberg_wordpress_version_notice' );
 		return;
 	}
