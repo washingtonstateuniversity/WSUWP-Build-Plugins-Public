@@ -370,22 +370,51 @@ if ( window.jQuery ) {
 			e.preventDefault();
 		});
 
+		var editorSuccessIndicator = $('#qm-editor-save-status');
+		editorSuccessIndicator.hide();
+
+		$('.qm-editor-button').on('click',function(e){
+			var state  = $('#qm-settings').data('qm-state');
+			var editor = $('#qm-editor-select').val();
+
+			$.ajax(qm_l10n.ajaxurl,{
+				type : 'POST',
+				context : this,
+				data : {
+					action : 'qm_editor_set',
+					nonce  : qm_l10n.auth_nonce['editor-set'],
+					editor : editor
+				},
+				success : function(response){
+					if (response.success) {
+						editorSuccessIndicator.show();
+					}
+				},
+				dataType : 'json',
+				xhrFields: {
+					withCredentials: true
+				}
+			});
+
+			e.preventDefault();
+		});
+
 		$.qm.tableSort({target: $('.qm-sortable')});
 
 		var startY, startX, resizerHeight;
 
-		$(document).on('mousedown', '.qm-resizer', function(event) {
+		$(document).on('mousedown touchstart', '.qm-resizer', function(event) {
 			resizerHeight = $(this).outerHeight() - 1;
-			startY        = container.outerHeight() + event.clientY;
-			startX        = container.outerWidth() + event.clientX;
+			startY        = container.outerHeight() + ( event.clientY || event.originalEvent.targetTouches[0].pageY );
+			startX        = container.outerWidth() + ( event.clientX || event.originalEvent.targetTouches[0].pageX );
 
-			$(document).on('mousemove', qm_do_resizer_drag);
-			$(document).on('mouseup', qm_stop_resizer_drag);
+			$(document).on('mousemove touchmove', qm_do_resizer_drag);
+			$(document).on('mouseup touchend', qm_stop_resizer_drag);
 		});
 
 		function qm_do_resizer_drag(event) {
 			if ( ! container.hasClass('qm-show-right') ) {
-				var h = ( startY - event.clientY );
+				var h = ( startY - ( event.clientY || event.originalEvent.targetTouches[0].pageY ) );
 				if ( h >= resizerHeight && h <= maxheight ) {
 					container.height( h );
 				}
@@ -398,8 +427,8 @@ if ( window.jQuery ) {
 		}
 
 		function qm_stop_resizer_drag(event) {
-			$(document).off('mousemove', qm_do_resizer_drag);
-			$(document).off('mouseup', qm_stop_resizer_drag);
+			$(document).off('mousemove touchmove', qm_do_resizer_drag);
+			$(document).off('mouseup touchend', qm_stop_resizer_drag);
 
 			if ( ! container.hasClass('qm-show-right') ) {
 				localStorage.removeItem( container_position_key );
