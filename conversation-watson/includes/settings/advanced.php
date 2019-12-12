@@ -1111,7 +1111,7 @@ class Advanced {
         }
     }
 
-    public static function send_test_email()
+    public static function send_test_email(\WP_REST_Request $request)
     {
         // Check if current user is permitted to control plugins
         if(!current_user_can('administrator')) {
@@ -1119,7 +1119,7 @@ class Advanced {
             return new \WP_REST_Response('Not Authorized', 403);
         }
 
-        self::set_recipient_email_address($_POST['email']);
+        self::set_recipient_email_address(sanitize_email($request->get_param('email')));
         $user = wp_get_current_user()->get('user_login');
         $emailTo = get_option('watsonconv_mail_vars_email_address_to');
         $subject = "Watson Assistant plug-in for WordPress: test e-mail";
@@ -1498,14 +1498,14 @@ class Advanced {
         return $settings;
     }
 
-    public static function send_test_notification() {
+    public static function send_test_notification(\WP_REST_Request $request) {
         // Check if current user is permitted to control plugins
         if(!current_user_can('administrator')) {
             Logger::log_message("Unauthorized REST API access", "Unauthorized access while sending test notification");
             return new \WP_REST_Response('Not Authorized', 403);
         }
 
-        $emails_list = $_POST['emails'];
+        $emails_list = sanitize_email($request->get_param('emails'));
         $emails_validation = self::validate_emails_string($emails_list);
         $status_message = "";
         $error = false;

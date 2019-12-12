@@ -281,9 +281,8 @@ class API {
      * @return mixed|\WP_Error -- reply
      */
     private static function route_request_v2(\WP_REST_Request $request) {
-        $body = $request->get_json_params();
-        $session_id = array_key_exists('session_id', $body) ? $body['session_id'] : null;
-
+        $body = json_decode($request->get_body());
+        $session_id = property_exists($body, 'session_id') ? $body->session_id : null;
         if (empty($session_id)) {
             # create new session
             $session_id = self::create_session();
@@ -308,15 +307,16 @@ class API {
         $send_body = apply_filters(
             'watsonconv_user_message',
             array(
-                'input' => empty($body['input']) ? new \stdClass() : $body['input'],
-                'context' => empty($body['context']) ? new \stdClass() : $body['context']
+                'input' => empty($body->input) ? new \stdClass() : $body->input,
+                'context' => empty($body->context) ? new \stdClass() : $body->context
             )
         );
+
         // If enabled, request extended data and debut output
         if($history_options["debug"]) {
-            $send_body["input"]["options"]["debug"] = true;
-            $send_body["input"]["options"]["alternate_intents"] = true;
-            $send_body["input"]["options"]["return_context"] = true;
+            $send_body["input"]->options->debug = true;
+            $send_body["input"]->options->alternate_intents = true;
+            $send_body["input"]->options->return_context = true;
         }
         // Adding request data to array
         $watson_request_array['user_request'] = $send_body;
@@ -330,7 +330,7 @@ class API {
                 'Authorization' => $credentials['auth_header'],
                 'Content-Type' => 'application/json'
             ),
-            'body' => json_encode($send_body,  JSON_FORCE_OBJECT)
+            'body' => json_encode($send_body)
         );
 
         $response = wp_remote_post(sprintf($url_tpl, $session_id), $post_args);
@@ -343,30 +343,30 @@ class API {
             $response_code = wp_remote_retrieve_response_code($response);
         }
 
-        $response_body = json_decode(wp_remote_retrieve_body($response), true);
+        $response_body = json_decode(wp_remote_retrieve_body($response));
         $watson_request_array['watson_response'] = $response_body;
         $watson_request_array['session_id'] = $session_id;
         do_action('watsonconv_message_received', $response);
         $response_body = apply_filters('watsonconv_bot_message', $response_body);
 
-        
-
-        if(isset($response_body['output']["actions"])
-            && !empty($response_body['output']["actions"])
+        if(isset($response_body->output->actions)
+            && !empty($response_body->output->actions)
             && get_option('watsonconv_mail_vars_enabled')){
 
-            $response_actions  = $response_body['output']["actions"];
+            $response_actions  = $response_body->output->actions;
 
             for($i = 0; $i < count($response_actions); $i++){
-                if($response_actions[$i]['name'] != self::ACTION_TO_SEND_CONTEXT_VARS){
+                if($response_actions[$i]->name != self::ACTION_TO_SEND_CONTEXT_VARS){
                     continue;
                 }else{
-                    self::mail_context_vars($response_actions[$i]);
-                    unset($response_body['output']["actions"][$i]);
+                    self::mail_context_vars((array) $response_actions[$i]);
+                    unset($response_body->output->actions[$i]);
                 }
             }
         }
 
+        // Convert to an array
+        $watson_request_array = json_decode(json_encode($watson_request_array), true);
         // Writing to database
         if($history_options["enabled"]) {
             Storage::insert("requests", $watson_request_array);
@@ -375,7 +375,7 @@ class API {
         if ($response_code !== 200) {
             return self::reply_with_response_error($response, $session_id);
         } else {
-            $response_body['session_id'] = $session_id;  # inject session_id
+            $response_body->session_id = $session_id;  # inject session_id
             do_action('watsonconv_message_parsed', $response_body);
             return $response_body;
         }

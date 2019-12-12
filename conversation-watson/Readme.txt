@@ -1,9 +1,9 @@
-=== IBM Watson Assistant ===
+=== Chatbot with IBM Watson ===
 Contributors: cognitiveclass
 Tags:  chat, chatbot, chat bot, artificial intelligence, support, faq
 Requires at least: 4.7
-Tested up to: 5.2.2
-Stable tag: 0.8.20
+Tested up to: 5.3
+Stable tag: 0.8.24
 License: Apache v2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -87,6 +87,22 @@ On the same page where you build your chatbot in IBM Cloud, you can click on the
 1. An example of your chatbot greeting a website visitor.
 
 == Changelog ==
+
+= 0.8.24 =
+* Fixed issue with target attribute in links
+
+= 0.8.23 =
+* Renamed the plugin to "Chatbot with IBM Watson"
+* Added '#' escaping in URL
+
+= 0.8.22 =
+* Implemented disambiguation
+* Implemented search skills
+* Added custom user posts to 'Show Chat Box On'
+* Updated compatibility with IBM Watson Assistant
+
+= 0.8.21 =
+* Fixed security vulnerability
 
 = 0.8.20 =
 * Fixed bug with layout on mobile Safari

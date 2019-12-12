@@ -2,16 +2,14 @@
 Contributors: batmoo, danielbachhuber, sbressler, automattic
 Donate link: http://editflow.org/contribute/
 Tags: edit flow, workflow, editorial, newsroom, management, journalism, post status, custom status, notifications, email, comments, editorial comments, usergroups, calendars, editorial calendar, story budget
-Requires at least: 4.5
-Requires PHP: 5.4
-Tested up to: 5.0.3
-Stable tag: 0.9
+Requires at least: 5.1
+Requires PHP: 5.6
+Tested up to: 5.3
+Stable tag: 0.9.2
 
 Redefining your editorial workflow.
 
 == Description ==
-
-[![Build Status](https://travis-ci.org/Automattic/Edit-Flow.svg?branch=master)](https://travis-ci.org/Automattic/Edit-Flow)
 
 Edit Flow empowers you to collaborate with your editorial team inside WordPress. We've made it modular so you can customize it to your needs:
 
@@ -47,7 +45,7 @@ Yep, in the sense that you can activate Edit Flow on each subsite. Edit Flow doe
 
 All development happens on [GitHub](https://github.com/Automattic/Edit-Flow).
 
-For support questions, feedback and ideas, please use the [WordPress.org forums](http://wordpress.org/tags/edit-flow?forum_id=10), which we look at often. For everything else, say [hello@editflow.org](mailto:hello@editflow.org). 
+For support questions, feedback and ideas, please use the [WordPress.org forums](http://wordpress.org/tags/edit-flow?forum_id=10), which we look at often. For everything else, say [hello@editflow.org](mailto:hello@editflow.org).
 
 == Screenshots ==
 
@@ -59,7 +57,13 @@ For support questions, feedback and ideas, please use the [WordPress.org forums]
 
 == Upgrade Notice ==
 
-= 0.9 = 
+= 0.9.2 =
+Fixes issues with scheduling and trashing posts in block editor.
+
+= 0.9.1 =
+Bump PHP minimum to 5.6 to match WordPress core. Plus, various bug fixes.
+
+= 0.9 =
 Bump minimum version of PHP to 5.4. Start implementation of Block Editor compatible modules, various improvements and bugfixes.
 
 = 0.8.3 =
@@ -111,6 +115,22 @@ Proper support for custom post types. We removed the option to enable/disable Cu
 New features, including story budget and editorial metadata, a completely rewritten calendar view, and many bug fixes, including one for editorial comments appearing in the admin.
 
 == Changelog ==
+
+= 0.9.1 (November 24, 2019) =
+* Bug fix: Prevent issues with scheduling and trashing posts when using the block editor (https://github.com/Automattic/Edit-Flow/pull/556 -- props cojennin, davisshaver, batmoo)
+
+= 0.9.1 (November 4, 2019) =
+* Bug fix: Prevent custom status from being reverted when using Gutenberg (https://github.com/Automattic/Edit-Flow/pull/521 -- props mikeyarce, batmoo)
+* Bug fix: Don't break post previews when using custom statuses (https://github.com/Automattic/Edit-Flow/pull/515 -- props
+rebeccahum)
+* Bug fix: Don't auto-subscribe the current user when notification settings are changed (https://github.com/Automattic/Edit-Flow/pull/540 -- props dchymko, jerclarke, mikeyarce)
+* Bug fix: prevent fatals when editing posts on the frontend via certain plugins (https://github.com/Automattic/Edit-Flow/pull/538 -- props kjohnson, dchymko)
+* Bug fix: Don't break classic editor when custom statuses are disabled (https://github.com/Automattic/Edit-Flow/pull/537 -- props batmoo,  thesquaremedia)
+* Bug fix: Prevent `count()` warning on PHP 7.2 (https://github.com/Automattic/Edit-Flow/pull/534 -- props batmoo, NeilWJames)
+* Bug fix: Prevent multiple plugin entries on the plugins page (https://github.com/Automattic/Edit-Flow/pull/530 -- props batmoo, mboynes, joshbetz)
+* Bug fix: jQuery compatibility issues (https://github.com/Automattic/Edit-Flow/pull/499 -- props jameslesliemiller)
+* Dev: Fix Travis CI Tests (props dchymko)
+* Bonus props to jerclarke, mikeyarce, rebeccahum, rinatkhaziev, dchymko, and batmoo for helping with issues/PRs/testing.
 
 = 0.9 (January 10, 2018) =
 * Feature: Block Editor compatibility for Custom Status module. Props [rinatkhaziev](https://github.com/rinatkhaziev). See [BLOCKS.md](BLOCKS.md) for details.

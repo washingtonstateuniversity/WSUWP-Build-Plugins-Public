@@ -306,6 +306,21 @@ class Customize {
                 ));
                 $checked_posts = get_option('watsonconv_posts');
 
+                // Get all custom post types
+                $custom_post_types = get_post_types(array('_builtin' => false));
+
+                foreach ($custom_post_types as $custom_post_type) {
+                    $custom_posts = get_posts(array(
+                        'order_by' => 'date',
+                        'post_type'   => $custom_post_type,
+                        'post_status' => 'publish,private'
+                    ));
+
+                    foreach ($custom_posts as $custom_post) {
+                        array_push($posts, $custom_post);
+                    }
+                }
+
                 foreach ($posts as $post) {
                 ?>
                     <input
@@ -606,33 +621,28 @@ class Customize {
         }
 
         if (
-            isset($_POST['_wpnonce'])
+            isset( $_POST['my_logo_upload_nonce'], $_POST['post_id'] )
             && wp_verify_nonce($_POST['my_logo_upload_nonce'], 'watsonconv_custom_logo')
             && current_user_can('edit_posts', $_POST['post_id'])
         ) {
 
-            $file_type = $_FILES['watsonconv_custom_logo']['type'];
-            $allowed_image_types = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/ico'];
-            $allowed = in_array($file_type, $allowed_image_types);
+            require_once( ABSPATH . 'wp-admin/includes/image.php' );
+            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+            require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
-            if (!$allowed) {
-                $error_message = 'File upload error: ' . $file_type . ' - wrong file type for chatbot logo';
-                add_settings_error('watsonconv_custom_logo', 'invalid-file', $error_message);
-                \WatsonConv\Logger::log_message('File loading error', $error_message);
-                return get_option('watsonconv_custom_logo');
-            }
+            $attachment_id = media_handle_upload( 'watsonconv_custom_logo', $_POST['post_id'] );
 
-            $unique_file_name = uniqid('chatbot_logo_') . '.' . explode('/', $file_type)[1];
-            $upload_file = wp_upload_bits( $unique_file_name, null, file_get_contents( $_FILES["watsonconv_custom_logo"]["tmp_name"]) );
-
-            if ( $upload_file && empty($upload_file['error']) ) {
-                $parse_url = parse_url($upload_file['url']);
-                return $parse_url['path'];
-            } else {
-                $error_message = 'Upload the chatbot logo error: ' . $upload_file['error'];
+            if ( is_wp_error( $attachment_id ) ) {
+                $error_code = $attachment_id->get_error_code();
+                $error_text = $attachment_id->get_error_message();
+                $error_message = 'Upload the chatbot logo ' . $error_code . ': ' . $error_text;
                 add_settings_error('watsonconv_custom_logo', 'invalid-image', $error_message);
-                \WatsonConv\Logger::log_message('Chatbot logo upload error', $error_message);
+                \WatsonConv\Logger::log_message('Chatbot logo ' . $error_code, $error_text);
                 return get_option('watsonconv_custom_logo');
+            } else {
+                $logo_url = wp_get_attachment_url($attachment_id);
+                $parse_url = parse_url($logo_url);
+                return $parse_url['path'];
             }
 
         } else {
@@ -642,22 +652,22 @@ class Customize {
 
     }
 
-    public static function get_watson_logo() {
+    public static function get_watson_logo(\WP_REST_Request $request) {
         // Check if current user is permitted to control plugins
         if(!current_user_can('administrator')) {
             \WatsonConv\Logger::log_message("Unauthorized REST API access", "Unauthorized access while changing the watson logo option");
             return false;
         }
 
-        $option_value = $_POST['watsonLogoOption'];
+        $option_value = sanitize_text_field($request->get_param('watsonLogoOption'));
         $watson_default_logo = WATSON_CONV_URL . 'img/chatbot_logo.png';
-        $watson_custom_logo = get_option('watsonconv_custom_logo') ? get_site_url() . get_option('watsonconv_custom_logo') : $watson_default_logo;
 
         if ($option_value == 'on') {
             return $watson_default_logo;
         }
 
         if ($option_value == 'custom') {
+            $watson_custom_logo = get_option('watsonconv_custom_logo') ? get_site_url() . get_option('watsonconv_custom_logo') : $watson_default_logo;
             return $watson_custom_logo;
         }
 

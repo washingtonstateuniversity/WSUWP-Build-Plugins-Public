@@ -521,3 +521,34 @@
 .show-chatbox {
   position: fixed;
 }
+
+#message-container #messages .watson-message-search {
+  position: relative;
+  max-width: 80%;
+  background-color: white;
+  padding: 10px;
+  margin-bottom: 3px;
+}
+
+#message-container #messages .watson-message-search .watson-search-link {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: inherit;
+}
+
+#message-container #messages .watson-message-search p {
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  text-overflow: revert;
+  -webkit-line-clamp: 4;
+  white-space: normal;
+}
+
+#message-container #messages .watson-message-search .watson-search-link:hover {
+  border: 2px solid #0062ff;
+}
