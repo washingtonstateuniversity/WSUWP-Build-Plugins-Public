@@ -3,8 +3,8 @@ Contributors: amandato, blubrry
 Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts, google podcasts, google play, enclosure, professional, apple, apple tv, ipad, iphone, soundcloud, squarespace, youtube, viddler, ustream, podcasting, audio, video, rss2, feed, player, media, rss, mp3, music, embed, feedburner, statistics, stats, flv, flash, id3, episodes, blubrry, mp4, m4v, wordpressmu, mu, wordpress mu, multisite, multi site, mediacaster, post, plugin, posts, simple, social, dashboard, TSG, Buzzsprout, MTR, WP-boxCast, CastMyBlog, tgs podcasting,  simple podcasting, seriously simple podcasting, seriously-simple-podcasting, serious, seriously, ssp, podlove, podcast.de, clammr, clammr radio, audio player, stitcher, tunein, show, shows, series, docs, documentation, support, free, add-ons, extensions, addons, libsyn, libsyn-podcasting, podbean, podomatic, spreaker
 Requires at least: 3.6
 Requires PHP: 5.2
-Tested up to: 5.2.3
-Stable tag: 8.1.1
+Tested up to: 5.3.2
+Stable tag: 8.1.2
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -235,6 +235,12 @@ To install Blubrry PowerPress manually, follow these steps:
 
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
+
+
+= 8.1.2 =
+* Released 1/17/2020
+* Now, if users define('POWERPRESS_NO_REMOVE_WP_HEAD'), links will not be removed from webpage head
+* Updated readme to reflect that PowerPress is compatible with the most recent version of WordPress
 
 = 8.1.1 =
 * Added images that were missing in the Getting Started section

@@ -3,7 +3,7 @@
 Plugin Name: Co-Authors Plus
 Plugin URI: http://wordpress.org/extend/plugins/co-authors-plus/
 Description: Allows multiple authors to be assigned to a post. This plugin is an extended version of the Co-Authors plugin developed by Weston Ruter.
-Version: 3.4
+Version: 3.4.2
 Author: Mohammad Jangda, Daniel Bachhuber, Automattic
 Copyright: 2008-2015 Shared and distributed between Mohammad Jangda, Daniel Bachhuber, Weston Ruter
 
@@ -32,7 +32,7 @@ Co-author - in the context of a single post, a guest author or user assigned to 
 Author - user with the role of author
 */
 
-define( 'COAUTHORS_PLUS_VERSION', '3.4' );
+define( 'COAUTHORS_PLUS_VERSION', '3.4.2' );
 
 require_once( dirname( __FILE__ ) . '/template-tags.php' );
 require_once( dirname( __FILE__ ) . '/deprecated.php' );
@@ -881,8 +881,9 @@ class CoAuthors_Plus {
 	 * @param int
 	 * @param array
 	 * @param bool
+	 * @param string
 	 */
-	public function add_coauthors( $post_id, $coauthors, $append = false ) {
+	public function add_coauthors( $post_id, $coauthors, $append = false, $query_type = 'user_nicename' ) {
 		global $current_user, $wpdb;
 
 		$post_id = (int) $post_id;
@@ -890,7 +891,8 @@ class CoAuthors_Plus {
 
 		// Best way to persist order
 		if ( $append ) {
-			$existing_coauthors = wp_list_pluck( get_coauthors( $post_id ), 'user_login' );
+			$field              = apply_filters( 'coauthors_post_list_pluck_field', 'user_login' );
+			$existing_coauthors = wp_list_pluck( get_coauthors( $post_id ), $field );
 		} else {
 			$existing_coauthors = array();
 		}
@@ -909,11 +911,13 @@ class CoAuthors_Plus {
 		$coauthors = array_unique( array_merge( $existing_coauthors, $coauthors ) );
 		$coauthor_objects = array();
 		foreach ( $coauthors as &$author_name ) {
-
-			$author = $this->get_coauthor_by( 'user_nicename', $author_name );
+			$field  = apply_filters( 'coauthors_post_get_coauthor_by_field', $query_type, $author_name );
+			$author = $this->get_coauthor_by( $field, $author_name );
 			$coauthor_objects[] = $author;
 			$term = $this->update_author_term( $author );
-			$author_name = $term->slug;
+			if ( is_object( $term ) ) {
+				$author_name = $term->slug;
+			}
 		}
 		wp_set_post_terms( $post_id, $coauthors, $this->coauthor_taxonomy, false );
 
@@ -1014,6 +1018,9 @@ class CoAuthors_Plus {
 					case 'tt_ids' :
 						$terms[] = $author->term_taxonomy_id;
 						break;
+					case 'ids':
+						$terms[] = (int) $author->term_id;
+						break;
 					case 'all' :
 					default :
 						$terms[] = get_term( $author->term_id, $this->coauthor_taxonomy );
@@ -1037,16 +1044,19 @@ class CoAuthors_Plus {
 	 */
 	function filter_count_user_posts( $count, $user_id ) {
 		$user = get_userdata( $user_id );
-		$user = $this->get_coauthor_by( 'user_nicename', $user->user_nicename );
 
-		$term = $this->get_author_term( $user );
+		if ( is_object( $user ) ) {
+			$user = $this->get_coauthor_by( 'user_nicename', $user->user_nicename );
 
-		if ( $term && ! is_wp_error( $term ) ) {
-			if ( 'guest-author' === $user->type ) {
-				// If using guest author term count, add on linked user count. 
-				$count = (int) $count + $term->count;
-			} else {
-				$count = $term->count;
+			$term = $this->get_author_term( $user );
+
+			if ( $term && ! is_wp_error( $term ) ) {
+				if ( 'guest-author' === $user->type ) {
+					// If using guest author term count, add on linked user count.
+					$count = (int) $count + $term->count;
+				} else {
+					$count = $term->count;
+				}
 			}
 		}
 
@@ -1254,7 +1264,7 @@ class CoAuthors_Plus {
 		$ignored_authors = apply_filters( 'coauthors_edit_ignored_authors', $ignored_authors );
 		foreach ( $found_users as $key => $found_user ) {
 			// Make sure the user is contributor and above (or a custom cap)
-			if ( in_array( $found_user->user_nicename, $ignored_authors ) ) { //AJAX sends a list of already present *users_nicenames*
+			if ( in_array( $found_user->user_nicename, $ignored_authors, true ) ) { // AJAX sends a list of already present *users_nicenames*
 				unset( $found_users[ $key ] );
 			} else if ( 'wpuser' === $found_user->type && false === $found_user->has_cap( apply_filters( 'coauthors_edit_author_cap', 'edit_posts' ) ) ) {
 				unset( $found_users[ $key ] );
@@ -1696,7 +1706,7 @@ class CoAuthors_Plus {
 	 */
 	public function get_guest_author_post_count( $guest_author ) {
 		if ( ! is_object( $guest_author ) ) {
-			return;
+			return 0;
 		}
 
 		$term       = $this->get_author_term( $guest_author );
@@ -1705,16 +1715,19 @@ class CoAuthors_Plus {
 		if ( is_object( $guest_term )
 			&& ! empty( $guest_author->linked_account )
 			&& $guest_term->count ) {
-			return count_user_posts( get_user_by( 'login', $guest_author->linked_account )->ID );
+			$user = get_user_by( 'login', $guest_author->linked_account );
+			if ( is_object( $user ) ) {
+				return count_user_posts( $user->ID );
+			}
 		} elseif ( $term ) {
 			return $term->count;
-		} else {
-			return 0;
 		}
+
+		return 0;
 	}
-	
+
 	/**
-	 * Filter to display author image if exists instead of avatar. 
+	 * Filter to display author image if exists instead of avatar.
 	 *
 	 * @param $url string Avatar URL
 	 * @param $id  int Author ID
@@ -1722,7 +1735,11 @@ class CoAuthors_Plus {
 	 * @return string Avatar URL
 	 */
 	public function filter_get_avatar_url( $url, $id ) {
-		if ( has_post_thumbnail( $id ) ) {
+		if ( ! $id || ! $this->is_guest_authors_enabled() || ! is_numeric( $id ) ) {
+			return $url;
+		}
+		$coauthor = $this->get_coauthor_by( 'id', $id );
+		if ( false !== $coauthor && isset( $coauthor->type ) && 'guest-author' === $coauthor->type && has_post_thumbnail( $id ) ) {
 			$url = get_the_post_thumbnail_url( $id, $this->gravatar_size );
 		}
 		return $url;

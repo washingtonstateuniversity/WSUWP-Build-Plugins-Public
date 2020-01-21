@@ -2,9 +2,9 @@
 
 * Contributors: batmoo, danielbachhuber, automattic
 * Tags: authors, users, multiple authors, co-authors, multi-author, publishing
-* Tested up to: 5.1.1
+* Tested up to: 5.3.1
 * Requires at least: 4.1
-* Stable tag: 3.4
+* Stable tag: 3.4.2
 
 Assign multiple bylines to posts, pages, and custom post types via a search-as-you-type input box
 
@@ -46,7 +46,7 @@ Yep! There's a template tag called `coauthors_wp_list_authors()` that accepts ma
 
 If the site has a large database, you may run into issues with heavier than usual queries. You can work around this by disabling compat mode and force it to use simpler, tax-only queries by adding the following to your theme:
 
-```
+```php
 // Use simple tax queries for CAP to improve performance
 add_filter( 'coauthors_plus_should_query_post_author', '__return_false' );
 ```
@@ -58,7 +58,27 @@ Note that this requires the site(s) to have proper terms set up for all users. Y
 $ wp --url=example.com co-authors-plus create-terms-for-posts
 ```
 
+* How do I use custom post types?
+
+To ensure posts with CPTs are counted, use the `coauthors_count_published_post_types` filter.
+```php
+add_filter( 'coauthors_count_published_post_types', function( $post_types ) {
+   $post_types[] = 'my_cpt_slug';
+   return $post_types;
+} );
+```
+
 ## Changelog ##
+
+**3.4.2**
+* Fix incorrect user avatar being displayed from featured post image #706
+* Add check for `filter_get_avatar_url` to ensure valid second parameter #707
+* `add_coauthors()` accepts ID parameter now #685 and ensures valid term slug used #708
+* `filter_count_user_posts` checks that user ID returns valid user object #714
+* Added post count instructions in readme FAQ for CPTs #713
+
+**3.4.1**
+* Fix an issue that may arise in bulk edit #700
 
 **3.4**
 * New filter `get_coauthors` for modifying coauthor data returned in `get_coauthors()` #646
@@ -78,7 +98,7 @@ $ wp --url=example.com co-authors-plus create-terms-for-posts
 * Have `filter_author_archive_title()` run on author archives only #535
 * Improve tests coverage (#529, #540, #546, #576 and #569)
 * Change `posts_selection` to action from filter #563
-* Fix number of args expected for `get_the_archive_title` callback #657 
+* Fix number of args expected for `get_the_archive_title` callback #657
 * Fix spelling, update FAQ for disabling guest authors and credits in readme (#656, #523 and #501)
 * Output `coauthors_links_single()` template tag correctly when guest author has no website #504
 * Number by "Mine" link shows correct listing of posts #663
@@ -90,7 +110,7 @@ $ wp --url=example.com co-authors-plus create-terms-for-posts
 * Fix SQL error (#593 and #628)
 * Fix "Mine" link href for Pages #547
 * Can delete users when guest authors functionality disabled #602
-* Fix incompatibility issue with Yoast of missing posts in author pages #624 
+* Fix incompatibility issue with Yoast of missing posts in author pages #624
 * Resolve undefined index warnings on author archives #521
 * Resolve warnings when current user has no term assigned #517
 
