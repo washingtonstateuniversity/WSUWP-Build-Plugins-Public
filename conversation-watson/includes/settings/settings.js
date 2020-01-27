@@ -543,6 +543,22 @@ jQuery(document).ready(function($) {
         .filter('input:checked')
         .trigger('change');
 
+    $('input[name="watsonconv_typing_delay_from_plugin[typing]"]')
+        .on('change', function() {
+            if (this.value == 'yes') {
+                $('#watsonconv_typing_max_waiting_time').hide();
+                $('#watsonconv_typing_delay_time').show();
+            } else if (this.value == 'waiting_ibm_response') {
+                $('#watsonconv_typing_max_waiting_time').show();
+                $('#watsonconv_typing_delay_time').hide();
+            } else {
+                $('#watsonconv_typing_max_waiting_time').hide();
+                $('#watsonconv_typing_delay_time').hide();
+            }
+        })
+        .filter('input:checked')
+        .trigger('change');
+
   // Watson Assistant Credentials section
   // Function to check V1 credentials in Assistant URL field
   let checkCredentialsV1 = function() {

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453
+class ComposerStaticInit90b2d40d30293114448f01fa5aadf76f
 {
     public static $prefixLengthsPsr4 = array (
         'T' => 
@@ -31,6 +31,7 @@ class ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453
     );
 
     public static $classMap = array (
+        'Tribe\\Events\\Collections\\Lazy_Post_Collection' => __DIR__ . '/../..' . '/src/Tribe/Collections/Lazy_Post_Collection.php',
         'Tribe\\Events\\Models\\Post_Types\\Event' => __DIR__ . '/../..' . '/src/Tribe/Models/Post_Types/Event.php',
         'Tribe\\Events\\Models\\Post_Types\\Venue' => __DIR__ . '/../..' . '/src/Tribe/Models/Post_Types/Venue.php',
         'Tribe\\Events\\Service_Providers\\Context' => __DIR__ . '/../..' . '/src/Tribe/Service_Providers/Context.php',
@@ -52,6 +53,7 @@ class ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453
         'Tribe\\Events\\Views\\V2\\Partials\\Components\\Breadcrumb\\BreadcrumbTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Breadcrumbs/BreadcrumbTest.php',
         'Tribe\\Events\\Views\\V2\\Partials\\Components\\Breadcrumb\\Linked_BreadcrumbTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Breadcrumbs/Linked_BreadcrumbTest.php',
         'Tribe\\Events\\Views\\V2\\Partials\\Components\\BreadcrumbsTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/BreadcrumbsTest.php',
+        'Tribe\\Events\\Views\\V2\\Partials\\Components\\BreakpointsTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/BreakpointsTest.php',
         'Tribe\\Events\\Views\\V2\\Partials\\Components\\DataTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/DataTest.php',
         'Tribe\\Events\\Views\\V2\\Partials\\Components\\Events_BarTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Events_BarTest.php',
         'Tribe\\Events\\Views\\V2\\Partials\\Components\\Events_Bar\\FiltersTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Events_Bar/FiltersTest.php',
@@ -161,6 +163,7 @@ class ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453
         'Tribe\\Events\\Views\\V2\\Repository\\Events_Result_Set' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Repository/Events_Result_Set.php',
         'Tribe\\Events\\Views\\V2\\Rest_Endpoint' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Rest_Endpoint.php',
         'Tribe\\Events\\Views\\V2\\Rest_EndpointTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Rest_EndpointTest.php',
+        'Tribe\\Events\\Views\\V2\\Rewrite' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Rewrite.php',
         'Tribe\\Events\\Views\\V2\\Service_Provider' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Service_Provider.php',
         'Tribe\\Events\\Views\\V2\\Template' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Template.php',
         'Tribe\\Events\\Views\\V2\\TemplateBootstrapTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/TemplateBootstrapTest.php',
@@ -214,21 +217,23 @@ class ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453
         'Tribe\\Events\\Views\\V2\\Views\\HTML\\Month\\MonthDayTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/HTML/Month/MonthDayTest.php',
         'Tribe\\Events\\Views\\V2\\Views\\HTML\\Month\\MonthEventMultidayTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/HTML/Month/MonthEventMultidayTest.php',
         'Tribe\\Events\\Views\\V2\\Views\\HTML\\Month\\Tooltip\\MonthTooltipCostTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/HTML/Month/Tooltip/MonthTooltipCostTest.php',
-        'Tribe\\Events\\Views\\V2\\Views\\List_Behavior' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/List_Behavior.php',
-        'Tribe\\Events\\Views\\V2\\Views\\List_BehaviorTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Views/List_BehaviorTest.php',
         'Tribe\\Events\\Views\\V2\\Views\\List_View' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/List_View.php',
         'Tribe\\Events\\Views\\V2\\Views\\List_ViewTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Views/List_ViewTest.php',
         'Tribe\\Events\\Views\\V2\\Views\\Month_View' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/Month_View.php',
         'Tribe\\Events\\Views\\V2\\Views\\Month_ViewTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Views/Month_ViewTest.php',
         'Tribe\\Events\\Views\\V2\\Views\\Reflector_View' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/Reflector_View.php',
+        'Tribe\\Events\\Views\\V2\\Views\\Traits\\Breakpoint_Behavior' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/Traits/Breakpoint_Behavior.php',
+        'Tribe\\Events\\Views\\V2\\Views\\Traits\\HTML_Cache' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/Traits/HTML_Cache.php',
+        'Tribe\\Events\\Views\\V2\\Views\\Traits\\List_Behavior' => __DIR__ . '/../..' . '/src/Tribe/Views/V2/Views/Traits/List_Behavior.php',
+        'Tribe\\Events\\Views\\V2\\Views\\Traits\\List_BehaviorTest' => __DIR__ . '/../..' . '/tests/views_integration/Tribe/Events/Views/V2/Views/Traits/List_BehaviorTest.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit57a7bee611e58fdf0332bbcb2dd79453::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit90b2d40d30293114448f01fa5aadf76f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit90b2d40d30293114448f01fa5aadf76f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit90b2d40d30293114448f01fa5aadf76f::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -310,6 +310,10 @@ class Frontend {
             $url .= 'index.php';
         }
         $url = add_query_arg( 'rest_route', '/watsonconv/v1/message', $url );
+        $typing_settings = get_option('watsonconv_typing_delay_from_plugin');
+        $typing = isset($typing_settings['typing']) ? $typing_settings['typing'] : 'no';
+        $typing_delay_time = isset($typing_settings['typing_delay_time']) ? $typing_settings['typing_delay_time'] : 1000;
+        $typing_max_waiting_time = isset($typing_settings['typing_max_waiting_time']) ? $typing_settings['typing_max_waiting_time'] : 1000;
 
         return array(
             'delay' => (int) get_option('watsonconv_delay', 0),
@@ -320,7 +324,6 @@ class Frontend {
             'messagePrompt' => get_option('watsonconv_message_prompt', 'Type a Message'),
             'fullScreenQuery' => substr($full_screen_query, 7, -7),
             'showSendBtn' => get_option('watsonconv_send_btn', 'no'),
-            'typingDelay' => get_option('watsonconv_typing_delay', 'no'),
             'fabConfig' => array(
                 'iconPos' => get_option('watsonconv_fab_icon_pos', 'left'),
                 'text' => get_option('watsonconv_fab_text', '')
@@ -336,6 +339,10 @@ class Frontend {
             'context' => self::get_context_var(),
             'nonce' => wp_create_nonce('wp_rest'),
             'apiUrl' => $url,
+            'typingDelayFromPlugin' => $typing,
+            'typingDelayTime' => $typing_delay_time,
+            'typingMaxWaitingtime' => $typing_max_waiting_time,
+            'messageAfterError' => get_option('watsonconv_message_after_error', '')
         );
     }
 

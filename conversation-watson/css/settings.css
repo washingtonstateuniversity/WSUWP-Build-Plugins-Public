@@ -216,3 +216,7 @@ table.rows, .rows td  {
   margin-top: 15px;
   color: #ff0000;
 }
+
+.chat_box_page input[type=number] {
+  padding-right: 1px;
+}

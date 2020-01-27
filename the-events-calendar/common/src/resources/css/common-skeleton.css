@@ -326,13 +326,19 @@
 
 /* } */
 
-/* .tribe-theme-twentyseventeen .tribe-common { */
+.tribe-theme-twentyseventeen .tribe-common {
 
-/* -------------------------------------------------------------------------
+	/* -------------------------------------------------------------------------
 	 * Reset Skeleton Theme Overrides - Twenty Seventeen
 	 * ------------------------------------------------------------------------- */
 
-/* } */
+}
+
+/* dialogs are set to z-index of 1 by default. Twentyseventeen .site-branding (in page header) is set to 3. */
+
+.tribe-theme-twentyseventeen .tribe-common div.tribe-dialog {
+		z-index: 5 !important;
+	}
 
 /* .tribe-theme-twentytwenty .tribe-common { */
 
@@ -955,6 +961,10 @@
 		width: 100%;
 	}
 
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-form-control-text__input {
+			padding: 20px 20px 20px 40px;
+		}
+
 /* -------------------------------------------------------------------------
 	 * Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
@@ -962,6 +972,10 @@
 #top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input {
 			padding: 12px 28px 12px 0;
 			width: 100%;
+		}
+
+#top.tribe-theme-enfold .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
+			padding: 20px 20px 20px 40px;
 		}
 
 .tribe-common {
@@ -1074,10 +1088,20 @@
 		margin-right: -21px;
 	}
 
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-g-row--gutters {
+			margin-left: -24px;
+			margin-right: -24px;
+		}
+
 .tribe-common .tribe-common-g-row--gutters > .tribe-common-g-col {
 			padding-left: 21px;
 			padding-right: 21px;
 		}
+
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-g-row--gutters > .tribe-common-g-col {
+				padding-left: 24px;
+				padding-right: 24px;
+			}
 
 /* -----------------------------------------------------------------------------
 	 * Theme Overrides - Twenty Nineteen
@@ -1089,11 +1113,21 @@
 			padding: 0;
 		}
 
+.tribe-theme-twentynineteen .tribe-common.tribe-common--breakpoint-medium .entry.tribe-common-g-row--gutters {
+			margin-left: -24px;
+			margin-right: -24px;
+		}
+
 .tribe-theme-twentynineteen .tribe-common .tribe-common-g-row--gutters > .entry.tribe-common-g-col {
-				margin: 0;
-				padding-left: 21px;
-				padding-right: 21px;
-			}
+			margin: 0;
+			padding-left: 21px;
+			padding-right: 21px;
+		}
+
+.tribe-theme-twentynineteen .tribe-common.tribe-common--breakpoint-medium .tribe-common-g-row--gutters > .entry.tribe-common-g-col {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
 
 /* Typography */
 
@@ -1315,6 +1349,11 @@
 		width: 100%;
 	}
 
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-l-container {
+			padding-left: 42px;
+			padding-right: 42px;
+		}
+
 /* -------------------------------------------------------------------------
 	 * SVG Icons
 	 * ------------------------------------------------------------------------- */
@@ -1494,6 +1533,11 @@
 		width: 100%;
 	}
 
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-c-btn-border, .tribe-common--breakpoint-medium.tribe-common a.tribe-common-c-btn-border {
+			padding: 6px 15px;
+			width: auto;
+		}
+
 .tribe-common {
 
 	/* -----------------------------------------------------------------------------
@@ -1627,6 +1671,10 @@
 		width: 100%;
 	}
 
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-c-btn, .tribe-common--breakpoint-medium.tribe-common a.tribe-common-c-btn {
+			width: auto;
+		}
+
 /* -----------------------------------------------------------------------------
 	 *
 	 * Component: Image
@@ -1685,6 +1733,10 @@
 		padding-top: 192px;
 	}
 
+.tribe-common--breakpoint-medium.tribe-common .tribe-common-c-loader {
+			padding-top: 288px;
+		}
+
 .tribe-common .tribe-common-c-loader__dot {
 		background-color: rgba(51,74,255, 0.07);
 		height: 15px;
@@ -1694,55 +1746,4 @@
 
 .tribe-common .tribe-common-c-loader__dot:not(:first-of-type) {
 			margin-left: 8px;
-		}
-
-@media (min-width: 768px) {
-
-.tribe-common .tribe-common-form-control-text__input {
-			padding: 20px 20px 20px 40px
-	}
-
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input {
-				padding: 20px 20px 20px 40px
-		}
-
-.tribe-common .tribe-common-g-row--gutters {
-			margin-left: -24px;
-			margin-right: -24px
-	}
-
-.tribe-common .tribe-common-g-row--gutters > .tribe-common-g-col {
-				padding-left: 24px;
-				padding-right: 24px
-		}
-
-.tribe-theme-twentynineteen .tribe-common .entry.tribe-common-g-row--gutters {
-				margin-left: -24px;
-				margin-right: -24px
-		}
-
-.tribe-theme-twentynineteen .tribe-common .tribe-common-g-row--gutters > .entry.tribe-common-g-col {
-					padding-left: 24px;
-					padding-right: 24px
-			}
-
-.tribe-common .tribe-common-l-container {
-			padding-left: 42px;
-			padding-right: 42px
-	}
-
-.tribe-common .tribe-common-c-btn-border,
-	.tribe-common a.tribe-common-c-btn-border {
-			padding: 6px 15px;
-			width: auto
-	}
-
-.tribe-common .tribe-common-c-btn,
-	.tribe-common a.tribe-common-c-btn {
-			width: auto
-	}
-
-.tribe-common .tribe-common-c-loader {
-			padding-top: 288px
-	}
 		}

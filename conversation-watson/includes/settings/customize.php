@@ -436,17 +436,6 @@ class Customize {
             esc_html__('Show Send Message Button', self::SLUG)
         );
 
-        $typing_delay_title = sprintf(
-            '<span href="#" title="%s">%s</span>', 
-            esc_html__(
-                'When this is enabled, the plugin will display a "typing" animation for a short time
-                before displaying chatbot responses, to make it appear as if the chatbot is thinking
-                and typing like a real person.'
-                , self::SLUG
-            ),
-            esc_html__('Chatbot Typing Animation', self::SLUG)
-        );
-
         // Weird, I know
         $title_title = sprintf(
             '<span href="#" title="%s">%s</span>', 
@@ -535,6 +524,25 @@ class Customize {
             esc_html__('Chatbot custom logo', self::SLUG)
         );
 
+        $typing_from_plugin = sprintf(
+            '<span href="#" title="%s">%s</span>',
+            esc_html__(
+                'When this is enabled, the plugin will display the “print” animation for a set time before 
+                displaying the chatbot responses so that it looks like it thinks and prints like a real person. 
+                In this case, the time of all pauses configured in your dialog nodes is replaced with the time specified in the plugin.'
+                , self::SLUG
+            ),
+            esc_html__('Chatbot Typing Animation', self::SLUG)
+        );
+
+        $watsonconv_message_after_error = sprintf(
+            '<span href="#" title="%s">%s</span>',
+            esc_html__(
+                'This is a message that appears in the message box when an error occurs during conversation.'
+                , self::SLUG
+            ),
+            esc_html__('Conversation error message', self::SLUG)
+        );
 
         add_settings_field('watsonconv_full_screen', $full_screen_title,
             array(__CLASS__, 'render_full_screen'), $settings_page, 'watsonconv_appearance_chatbox');
@@ -544,8 +552,10 @@ class Customize {
             array(__CLASS__, 'render_position'), $settings_page, 'watsonconv_appearance_chatbox');
         add_settings_field('watsonconv_send_btn', $send_btn_title,
                 array(__CLASS__, 'render_send_btn'), $settings_page, 'watsonconv_appearance_chatbox');
-        add_settings_field('watsonconv_typing_delay', $typing_delay_title,
-                array(__CLASS__, 'render_typing_delay'), $settings_page, 'watsonconv_appearance_chatbox');
+        add_settings_field('watsonconv_typing_delay_from_plugin', $typing_from_plugin,
+                array(__CLASS__, 'render_typing_delay_from_plugin'), $settings_page, 'watsonconv_appearance_chatbox');
+        add_settings_field('watsonconv_message_after_error', $watsonconv_message_after_error,
+            array(__CLASS__, 'render_message_after_error'), $settings_page, 'watsonconv_appearance_chatbox');
         add_settings_field('watsonconv_title', $title_title,
             array(__CLASS__, 'render_title'), $settings_page, 'watsonconv_appearance_chatbox');
         add_settings_field('watsonconv_clear_text', $clear_text_title,
@@ -571,7 +581,8 @@ class Customize {
         register_setting(self::SLUG, 'watsonconv_full_screen', array(__CLASS__, 'parse_full_screen_settings'));
         register_setting(self::SLUG, 'watsonconv_position');
         register_setting(self::SLUG, 'watsonconv_send_btn');
-        register_setting(self::SLUG, 'watsonconv_typing_delay');
+        register_setting(self::SLUG, 'watsonconv_typing_delay_from_plugin', array(__CLASS__, 'validate_typing_delay_time'));
+        register_setting(self::SLUG, 'watsonconv_message_after_error');
         register_setting(self::SLUG, 'watsonconv_title');
         register_setting(self::SLUG, 'watsonconv_clear_text');
         register_setting(self::SLUG, 'watsonconv_message_prompt');
@@ -583,6 +594,89 @@ class Customize {
         register_setting(self::SLUG, 'watsonconv_custom_logo', array(__CLASS__, 'validate_custom_logo'));
 
         register_setting(self::SLUG, 'watsonconv_css_cache');
+    }
+
+    public static function render_message_after_error() {
+        ?>
+        <input name="watsonconv_message_after_error" id="watsonconv_message_after_error"
+               type="text" style="width: 16em"
+               value="<?php echo get_option('watsonconv_message_after_error', '') ?>"/>
+        <?php
+    }
+
+    public static function validate_typing_delay_time($settings) {
+
+        if ($settings['typing_delay_time'] < 1000 || !is_numeric($settings['typing_delay_time'])) {
+            add_settings_error('watsonconv_typing_delay_from_plugin', 'invalid-time',
+                'The typing duration must be at least 1000 milliseconds');
+            $old_settings = get_option('watsonconv_typing_delay_from_plugin');
+            $settings['typing_delay_time'] = $old_settings['typing_delay_time'] ? $old_settings['typing_delay_time'] : 1000;
+        }
+
+        if ($settings['typing_max_waiting_time'] < 1000 || !is_numeric($settings['typing_max_waiting_time'])) {
+            add_settings_error('watsonconv_typing_delay_from_plugin', 'invalid-time',
+                'The maximum IBM response timeout must be at least 1000 milliseconds');
+            $old_settings = get_option('watsonconv_typing_delay_from_plugin');
+            $settings['typing_max_waiting_time'] = $old_settings['typing_max_waiting_time'] ? $old_settings['typing_max_waiting_time'] : 1000;
+        }
+        return $settings;
+    }
+
+    public static function render_typing_delay_from_plugin() {
+        $settings = get_option('watsonconv_typing_delay_from_plugin');
+
+        $typing = isset($settings['typing']) ? $settings['typing'] : 'no';
+        $typing_delay_time = isset($settings['typing_delay_time']) ? $settings['typing_delay_time'] : 1000;
+        $typing_max_waiting_time = isset($settings['typing_max_waiting_time']) ? $settings['typing_max_waiting_time'] : 1000;
+
+        ?>
+        <label for="watsonconv_typing_delay_from_plugin_no">
+            <input
+                    name="watsonconv_typing_delay_from_plugin[typing]"
+                    id="watsonconv_typing_delay_from_plugin_no"
+                    type="radio"
+                    value="no"
+                <?php checked('no', $typing) ?>
+            >
+            No
+        </label><br />
+
+        <label for="watsonconv_typing_delay_from_plugin_yes">
+            <input
+                    name="watsonconv_typing_delay_from_plugin[typing]"
+                    id="watsonconv_typing_delay_from_plugin_yes"
+                    type="radio"
+                    value="yes"
+                <?php checked('yes', $typing) ?>
+            >
+            Yes
+        </label><br />
+        <div id="watsonconv_typing_delay_time">
+            Typing Duration:
+            <input name="watsonconv_typing_delay_from_plugin[typing_delay_time]"
+                   type="number" min="1000" step="500"
+                   value="<?php echo $typing_delay_time ?>"/>
+            ms
+        </div>
+
+        <label for="watsonconv_typing_delay_from_plugin_waiting_ibm_response">
+            <input
+                    name="watsonconv_typing_delay_from_plugin[typing]"
+                    id="watsonconv_typing_delay_from_plugin_waiting_ibm_response"
+                    type="radio"
+                    value="waiting_ibm_response"
+                <?php checked('waiting_ibm_response', $typing) ?>
+            >
+            Only Waiting IBM Response
+        </label><br />
+        <div id="watsonconv_typing_max_waiting_time">
+            Maximum IBM response timeout:
+            <input name="watsonconv_typing_delay_from_plugin[typing_max_waiting_time]"
+                   type="number" min="1000" step="500"
+                   value="<?php echo $typing_max_waiting_time ?>"/>
+            ms
+        </div>
+        <?php
     }
 
     public static function render_logo() {

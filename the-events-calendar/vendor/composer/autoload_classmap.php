@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Tribe\\Events\\Collections\\Lazy_Post_Collection' => $baseDir . '/src/Tribe/Collections/Lazy_Post_Collection.php',
     'Tribe\\Events\\Models\\Post_Types\\Event' => $baseDir . '/src/Tribe/Models/Post_Types/Event.php',
     'Tribe\\Events\\Models\\Post_Types\\Venue' => $baseDir . '/src/Tribe/Models/Post_Types/Venue.php',
     'Tribe\\Events\\Service_Providers\\Context' => $baseDir . '/src/Tribe/Service_Providers/Context.php',
@@ -27,6 +28,7 @@ return array(
     'Tribe\\Events\\Views\\V2\\Partials\\Components\\Breadcrumb\\BreadcrumbTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Breadcrumbs/BreadcrumbTest.php',
     'Tribe\\Events\\Views\\V2\\Partials\\Components\\Breadcrumb\\Linked_BreadcrumbTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Breadcrumbs/Linked_BreadcrumbTest.php',
     'Tribe\\Events\\Views\\V2\\Partials\\Components\\BreadcrumbsTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/BreadcrumbsTest.php',
+    'Tribe\\Events\\Views\\V2\\Partials\\Components\\BreakpointsTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/BreakpointsTest.php',
     'Tribe\\Events\\Views\\V2\\Partials\\Components\\DataTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/DataTest.php',
     'Tribe\\Events\\Views\\V2\\Partials\\Components\\Events_BarTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Events_BarTest.php',
     'Tribe\\Events\\Views\\V2\\Partials\\Components\\Events_Bar\\FiltersTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Partials/Components/Events_Bar/FiltersTest.php',
@@ -136,6 +138,7 @@ return array(
     'Tribe\\Events\\Views\\V2\\Repository\\Events_Result_Set' => $baseDir . '/src/Tribe/Views/V2/Repository/Events_Result_Set.php',
     'Tribe\\Events\\Views\\V2\\Rest_Endpoint' => $baseDir . '/src/Tribe/Views/V2/Rest_Endpoint.php',
     'Tribe\\Events\\Views\\V2\\Rest_EndpointTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Rest_EndpointTest.php',
+    'Tribe\\Events\\Views\\V2\\Rewrite' => $baseDir . '/src/Tribe/Views/V2/Rewrite.php',
     'Tribe\\Events\\Views\\V2\\Service_Provider' => $baseDir . '/src/Tribe/Views/V2/Service_Provider.php',
     'Tribe\\Events\\Views\\V2\\Template' => $baseDir . '/src/Tribe/Views/V2/Template.php',
     'Tribe\\Events\\Views\\V2\\TemplateBootstrapTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/TemplateBootstrapTest.php',
@@ -189,11 +192,13 @@ return array(
     'Tribe\\Events\\Views\\V2\\Views\\HTML\\Month\\MonthDayTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/HTML/Month/MonthDayTest.php',
     'Tribe\\Events\\Views\\V2\\Views\\HTML\\Month\\MonthEventMultidayTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/HTML/Month/MonthEventMultidayTest.php',
     'Tribe\\Events\\Views\\V2\\Views\\HTML\\Month\\Tooltip\\MonthTooltipCostTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/HTML/Month/Tooltip/MonthTooltipCostTest.php',
-    'Tribe\\Events\\Views\\V2\\Views\\List_Behavior' => $baseDir . '/src/Tribe/Views/V2/Views/List_Behavior.php',
-    'Tribe\\Events\\Views\\V2\\Views\\List_BehaviorTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Views/List_BehaviorTest.php',
     'Tribe\\Events\\Views\\V2\\Views\\List_View' => $baseDir . '/src/Tribe/Views/V2/Views/List_View.php',
     'Tribe\\Events\\Views\\V2\\Views\\List_ViewTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Views/List_ViewTest.php',
     'Tribe\\Events\\Views\\V2\\Views\\Month_View' => $baseDir . '/src/Tribe/Views/V2/Views/Month_View.php',
     'Tribe\\Events\\Views\\V2\\Views\\Month_ViewTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Views/Month_ViewTest.php',
     'Tribe\\Events\\Views\\V2\\Views\\Reflector_View' => $baseDir . '/src/Tribe/Views/V2/Views/Reflector_View.php',
+    'Tribe\\Events\\Views\\V2\\Views\\Traits\\Breakpoint_Behavior' => $baseDir . '/src/Tribe/Views/V2/Views/Traits/Breakpoint_Behavior.php',
+    'Tribe\\Events\\Views\\V2\\Views\\Traits\\HTML_Cache' => $baseDir . '/src/Tribe/Views/V2/Views/Traits/HTML_Cache.php',
+    'Tribe\\Events\\Views\\V2\\Views\\Traits\\List_Behavior' => $baseDir . '/src/Tribe/Views/V2/Views/Traits/List_Behavior.php',
+    'Tribe\\Events\\Views\\V2\\Views\\Traits\\List_BehaviorTest' => $baseDir . '/tests/views_integration/Tribe/Events/Views/V2/Views/Traits/List_BehaviorTest.php',
 );

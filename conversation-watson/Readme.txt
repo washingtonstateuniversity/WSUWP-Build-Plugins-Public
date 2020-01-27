@@ -3,7 +3,7 @@ Contributors: cognitiveclass
 Tags:  chat, chatbot, chat bot, artificial intelligence, support, faq
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 0.8.24
+Stable tag: 0.8.26
 License: Apache v2.0
 License URI: http://www.apache.org/licenses/LICENSE-2.0
 
@@ -87,6 +87,14 @@ On the same page where you build your chatbot in IBM Cloud, you can click on the
 1. An example of your chatbot greeting a website visitor.
 
 == Changelog ==
+
+= 0.8.26 =
+* Fixed output with iframe for video
+* Added ability to configure typing animation in plugin settings
+
+= 0.8.25 =
+* Added user-friendly interface for Voice Calling
+* Fixed output from search skill
 
 = 0.8.24 =
 * Fixed issue with target attribute in links

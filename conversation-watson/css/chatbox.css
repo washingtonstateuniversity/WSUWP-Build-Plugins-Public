@@ -239,7 +239,6 @@
   width: 100%;
   border-bottom: 1px solid rgb(215, 215, 215);
   background-color: rgb(235, 235, 235);
-  margin-bottom: 40px;
 }
 
 #message-container #messages
@@ -392,9 +391,6 @@
   flex-direction: row;
 
   min-height: 2.75em;
-  position: absolute;
-  transition: 5s;
-  bottom: 0;
   width: 100%;
   margin: 0;
   background-color: white;
@@ -551,4 +547,17 @@
 
 #message-container #messages .watson-message-search .watson-search-link:hover {
   border: 2px solid #0062ff;
+}
+
+#call-interface #controls .call-interface-button {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  margin: 0 15px 0 15px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+#call-interface #controls .call-interface-button:hover {
+  opacity: 0.9;
 }

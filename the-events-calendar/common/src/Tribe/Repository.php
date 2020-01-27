@@ -5,6 +5,8 @@ use Tribe__Utils__Array as Arr;
 abstract class Tribe__Repository
 	implements Tribe__Repository__Interface {
 
+	const MAX_NUMBER_OF_POSTS_PER_PAGE = 99999999999;
+
 	/**
 	 * @var  array An array of keys that cannot be updated on this repository.
 	 */
@@ -1562,7 +1564,7 @@ abstract class Tribe__Repository
 	 * Filters the query to only return posts that are related, via a meta key, to posts
 	 * that satisfy a condition.
 	 *
-	 * @param string|array $meta_keys One ore more `meta_keys` relating the queried post type(s)
+	 * @param string|array $meta_keys One or more `meta_keys` relating the queried post type(s)
 	 *                                to another post type.
 	 * @param string       $compare   The SQL comparison operator.
 	 * @param string       $field     One (a column in the `posts` table) that should match
@@ -1581,8 +1583,9 @@ abstract class Tribe__Repository
 			if ( empty( $field ) || empty( $values ) ) {
 				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
 			}
-			$field = esc_sql( $field );
 		}
+
+		$field = esc_sql( $field );
 
 		/** @var wpdb $wpdb */
 		global $wpdb;
@@ -1605,6 +1608,90 @@ abstract class Tribe__Repository
 				$values = $this->prepare_value( $values );
 			}
 			$this->filter_query->where( "{$pm}.meta_key IN {$keys_in} AND {$p}.{$field} {$compare} {$values}" );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Filters the query to only return posts that are related, via a meta key, to posts
+	 * that satisfy a condition.
+	 *
+	 * @since 4.10.3
+	 *
+	 * @throws Tribe__Repository__Usage_Error If the comparison operator requires and no value provided.
+	 *
+	 * @param string|array $meta_keys     One or more `meta_keys` relating the queried post type(s)
+	 *                                    to another post type.
+	 * @param string       $compare       The SQL comparison operator.
+	 * @param string       $meta_field    One (a column in the `postmeta` table) that should match
+	 *                                    the comparison criteria; required if the comparison operator is not `EXISTS` or
+	 *                                    `NOT EXISTS`.
+	 * @param string|array $meta_values   One or more values the post field(s) should be compared to;
+	 *                                    required if the comparison operator is not `EXISTS` or `NOT EXISTS`.
+	 * @param boolean      $or_not_exists Whether or not to also include a clause to check if value IS NULL.
+	 *                                    Example with this as true: `value = X OR value IS NULL`.
+	 *
+	 * @return $this
+	 */
+	public function where_meta_related_by_meta( $meta_keys, $compare, $meta_field = null, $meta_values = null, $or_not_exists = false ) {
+		$meta_keys = Tribe__Utils__Array::list_to_array( $meta_keys );
+
+		if ( ! in_array( $compare, array( 'EXISTS', 'NOT EXISTS' ), true ) ) {
+			if ( empty( $meta_field ) || empty( $meta_values ) ) {
+				throw Tribe__Repository__Usage_Error::because_this_comparison_operator_requires_fields_and_values( $meta_keys, $compare, $this );
+			}
+		}
+
+		$meta_field = esc_sql( $meta_field );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		$pm  = $this->sql_slug( 'post_meta_related_post_meta', $compare, $meta_keys );
+		$pmm = $this->sql_slug( 'meta_post_meta_related_post_meta', $compare, $meta_keys );
+
+		$this->filter_query->join( "LEFT JOIN {$wpdb->postmeta} {$pm} ON {$pm}.post_id = {$wpdb->posts}.ID" );
+		$this->filter_query->join( "
+			LEFT JOIN {$wpdb->postmeta} {$pmm}
+				ON {$pmm}.post_id = {$pm}.meta_value
+					AND {$pmm}.meta_key = '{$meta_field}'
+		" );
+
+		$keys_in = $this->prepare_interval( $meta_keys );
+
+		if ( 'EXISTS' === $compare ) {
+			$this->filter_query->where( "
+				{$pm}.meta_key IN {$keys_in}
+				AND {$pmm}.meta_id IS NOT NULL
+			" );
+		} elseif ( 'NOT EXISTS' === $compare ) {
+			$this->filter_query->where( "
+				{$pm}.meta_key IN {$keys_in}
+				AND {$pmm}.meta_id IS NULL
+			" );
+		} else {
+			if ( in_array( $compare, static::$multi_value_keys, true ) ) {
+				$meta_values = $this->prepare_interval( $meta_values );
+			} else {
+				$meta_values = $this->prepare_value( $meta_values );
+			}
+
+			$clause = "{$pmm}.meta_value {$compare} {$meta_values}";
+
+			if ( $or_not_exists ) {
+				$clause = "
+					(
+						{$clause}
+						OR {$pmm}.meta_id IS NULL
+					)
+				";
+			}
+
+			$this->filter_query->where( "
+				{$pm}.meta_key IN {$keys_in}
+				AND {$clause}
+			" );
 		}
 
 		return $this;
@@ -3082,20 +3169,38 @@ abstract class Tribe__Repository
 		 */
 		$query_args = apply_filters( "tribe_repository_{$this->filter_name}_query_args", $query_args, $query, $this );
 
-		if ( isset( $query_args['offset'] ) ) {
-			$offset = absint( $query_args['offset'] );
+		/**
+		 * Provides a last-ditch effort to override the filtered offset.
+		 *
+		 * This should only be used if doing creating pagination for performance purposes.
+		 *
+		 * @since 4.11.0
+		 *
+		 * @param null|int $filtered_offset Offset parameter setting.
+		 * @param array    $query_args      List of query arguments.
+		 */
+		$filtered_offset = apply_filters( 'tribe_repository_query_arg_offset_override', null, $query_args );
+
+		if ( $filtered_offset || isset( $query_args['offset'] ) ) {
 			$per_page = (int) Tribe__Utils__Array::get( $query_args, 'posts_per_page', get_option( 'posts_per_page' ) );
-			$page = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
 
-			$real_offset = $per_page === - 1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
-			$query_args['offset'] = $real_offset;
-			$query_args['posts_per_page'] = $per_page === - 1 ? 99999999999 : $per_page;
+			if ( $filtered_offset ) {
+				$query_args['offset'] = $filtered_offset;
+			} elseif ( isset( $query_args['offset'] ) ) {
+				$offset = absint( $query_args['offset'] );
+				$page   = (int) Tribe__Utils__Array::get( $query_args, 'paged', 1 );
 
-			/**
-			 * Unset the `offset` query argument to avoid applying it multiple times when this method
-			 * is used, on the same repository, more than once.
-			 */
-			unset( $this->query_args['offset'] );
+				$real_offset          = $per_page === -1 ? $offset : ( $per_page * ( $page - 1 ) ) + $offset;
+				$query_args['offset'] = $real_offset;
+
+				/**
+				 * Unset the `offset` query argument to avoid applying it multiple times when this method
+				 * is used, on the same repository, more than once.
+				 */
+				unset( $this->query_args['offset'] );
+			}
+
+			$query_args['posts_per_page'] = $per_page === -1 ? self::MAX_NUMBER_OF_POSTS_PER_PAGE : $per_page;
 		}
 
 		foreach ( $query_args as $key => $value ) {
