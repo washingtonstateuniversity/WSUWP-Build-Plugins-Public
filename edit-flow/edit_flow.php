@@ -4,7 +4,7 @@ Plugin Name: Edit Flow
 Plugin URI: http://editflow.org/
 Description: Remixing the WordPress admin for better editorial workflow options.
 Author: Daniel Bachhuber, Scott Bressler, Mohammad Jangda, Automattic, and others
-Version: 0.9.3
+Version: 0.9.4
 Author URI: http://editflow.org/
 
 Copyright 2009-2019 Mohammad Jangda, Daniel Bachhuber, Automattic, et al.
@@ -46,7 +46,7 @@ if ( version_compare( phpversion(), '5.6', '<' ) ) {
 }
 
 // Define contants
-define( 'EDIT_FLOW_VERSION' , '0.9.3' );
+define( 'EDIT_FLOW_VERSION' , '0.9.4' );
 define( 'EDIT_FLOW_ROOT' , dirname(__FILE__) );
 define( 'EDIT_FLOW_FILE_PATH' , EDIT_FLOW_ROOT . '/' . basename(__FILE__) );
 define( 'EDIT_FLOW_URL' , plugins_url( '/', __FILE__ ) );
@@ -121,10 +121,6 @@ class edit_flow {
 			if ( file_exists( EDIT_FLOW_ROOT . "/modules/{$module_dir}/$module_dir.php" ) ) {
 				include_once( EDIT_FLOW_ROOT . "/modules/{$module_dir}/$module_dir.php" );
 
-				// Try to load Gutenberg compat files
-				if ( file_exists( EDIT_FLOW_ROOT . "/modules/{$module_dir}/compat/block-editor.php" ) ) {
-					include_once( EDIT_FLOW_ROOT . "/modules/{$module_dir}/compat/block-editor.php" );
-				}
 				// Prepare the class name because it should be standardized
 				$tmp = explode( '-', $module_dir );
 				$class_name = '';
@@ -150,10 +146,6 @@ class edit_flow {
 		foreach( $class_names as $slug => $class_name ) {
 			if ( class_exists( $class_name ) ) {
 				$this->$slug = new $class_name();
-				$compat_class_name = "{$class_name}_Block_Editor_Compat";
-				if ( class_exists( $compat_class_name ) ) {
-					$this->$slug->compat = new $compat_class_name( $this->$slug, $this->$slug->get_compat_hooks() );
-				}
 			}
 		}
 

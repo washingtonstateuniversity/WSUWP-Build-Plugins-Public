@@ -15,16 +15,6 @@ class EF_Module {
 		'private',
 	);
 
-	/**
-	 * Associative array of hook_name => callback_name
-	 * This is used for Gutenberg-compat initialization
-	 * [
-	 *  	'init' => 'init_callback_on_module_instance'
-	 * ]
-	 * @var array
-	 */
-	protected $compat_hooks = [];
-
 	function __construct() {}
 
 	/**
@@ -215,14 +205,12 @@ class EF_Module {
 	 */
 	function enqueue_datepicker_resources() {
 
-		// Add the first day of the week as an available variable to wp_head
-		echo "<script type=\"text/javascript\">var ef_week_first_day=\"" . get_option( 'start_of_week' ) . "\";</script>";
-
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
 		//Timepicker needs to come after jquery-ui-datepicker and jquery
 		wp_enqueue_script( 'edit_flow-timepicker', EDIT_FLOW_URL . 'common/js/jquery-ui-timepicker-addon.js', array( 'jquery', 'jquery-ui-datepicker' ), EDIT_FLOW_VERSION, true );
 		wp_enqueue_script( 'edit_flow-date_picker', EDIT_FLOW_URL . 'common/js/ef_date.js', array( 'jquery', 'jquery-ui-datepicker', 'edit_flow-timepicker' ), EDIT_FLOW_VERSION, true );
+		wp_add_inline_script( 'edit_flow-date_picker', sprintf( 'var ef_week_first_day =  %s;', wp_json_encode( get_option( 'start_of_week' ) ) ), 'before' );
 
 		// Now styles
 		wp_enqueue_style( 'jquery-ui-datepicker', EDIT_FLOW_URL . 'common/css/jquery.ui.datepicker.css', array( 'wp-jquery-ui-dialog' ), EDIT_FLOW_VERSION, 'screen' );
@@ -598,15 +586,6 @@ class EF_Module {
 			wp_update_term( $term->term_id, $taxonomy, array( 'description' => $new_description ) );
 		}
 	}
-
-	/**
-	 * Return compatibility hooks for the current instance
-	 *
-	 * @return array
-	 */
-	function get_compat_hooks() {
-		return isset( $this->compat_hooks ) && is_array( $this->compat_hooks ) ? $this->compat_hooks : [];
-	}
-
 }
+
 }
