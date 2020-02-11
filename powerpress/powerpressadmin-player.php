@@ -22,7 +22,6 @@ function powerpress_admin_players_init()
 		case 'powerpress-select-player': {
 			
 			$SaveSettings = array();
-			//$SaveSettings = $_POST['Player'];
 			if( isset($_POST['Player']) )
 				$SaveSettings = $_POST['Player'];
 			if( isset($_POST['VideoPlayer']) )
@@ -31,14 +30,8 @@ function powerpress_admin_players_init()
 			powerpress_page_message_add_notice( __('Player activated successfully.', 'powerpress') );
 			
 		}; break;
-		case 'powerpress-audio-player': {
-		
-			$SaveSettings = $_POST['Player'];
-			powerpress_save_settings($SaveSettings, 'powerpress_audio-player');
-			powerpress_page_message_add_notice( __('Audio Player settings saved successfully.', 'powerpress') );
-		
-		}; break;
 		case 'powerpress_bplayer':{   //blubrry player
+			
 			$SaveSettings = $_POST['BBPlayer'];
 			powerpress_save_settings($SaveSettings, 'powerpress_bplayer');
 			powerpress_page_message_add_notice( __('Blubrry Player settings saved successfully.', 'powerpress') );

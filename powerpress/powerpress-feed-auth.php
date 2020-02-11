@@ -33,7 +33,7 @@
 			
 			if(  strpos( $user, '@', 1 ) !== false ) {
 				$userObjID = get_user_by( 'email', $user); // Get the user by email
-				if( !is_wp_error($userIDObj) )
+				if( !is_wp_error($userObjID) )
 					$user = $userObjID->user_login; // Use the user's login (not email) to authenticate
 			}
 			

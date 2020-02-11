@@ -1,0 +1,1059 @@
+/* pp-tooltip container */
+div[class^="pp-tooltip"] {
+    position: relative;
+    display: inline-block;
+    background-color: #dadada;
+    color: white;
+    padding: 1px 6px 1px 6px;
+    border-radius: 9px;
+    width: 6px;
+    height: 16px;
+    text-align: center;
+    font-family: Roboto, serif;
+}
+
+/* pp-tooltip text */
+div[class^="pp-tooltip"] .text-pp-tooltip {
+    position: absolute;
+    visibility: hidden;
+    min-width: 300px;
+    background-color: #3e3f42;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    z-index: 1;
+    font-family: Roboto, sans-serif;
+    top: -100%;
+}
+
+.pp-tooltip-left .text-pp-tooltip {
+    right: 1%;
+    margin-right: 120%;
+}
+
+.pp-tooltip-right .text-pp-tooltip {
+    margin-left: -5px;
+    border-width: 5px;
+    left: 150%;
+}
+
+/* Show the pp-tooltip text when you mouse over the pp-tooltip container */
+div[class^="pp-tooltip"]:hover .text-pp-tooltip {
+    visibility: visible;
+}
+
+/* arrow on pp-tooltip */
+div[class^="pp-tooltip"] .text-pp-tooltip::after {
+    content: " ";
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+    top: 50%;
+}
+
+.pp-tooltip-left .text-pp-tooltip::after {
+    border-color: transparent transparent transparent #3e3f42;
+    right: -3%;
+}
+
+.pp-tooltip-right .text-pp-tooltip::after {
+    border-color: transparent #3e3f42 transparent transparent;
+    left: -3%;
+}
+
+/* Style the tab */
+.pp-tab {
+    font-size: 16px;
+    overflow: hidden;
+    border-bottom: 1px solid #EFEFEF;
+    width: 100%;
+}
+
+/* Style the buttons that are used to open the tab content */
+.pp-tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 3vh 0;
+    margin: 0 3%;
+    transition: 0.3s;
+    width: 19%;
+}
+
+/* Change background color of buttons on hover */
+.pp-tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.pp-tab button.active {
+    border-bottom: 3px solid #1a6deb;
+    font-weight: bold;
+}
+
+.pp-tabcontent {
+    margin: 0 14px 14px 14px;
+}
+
+.pp-metamarks-row {
+    margin-top: 3em;
+    margin-left: 1em;
+    position: relative;
+    width: 90%;
+    box-shadow: inset 0 0 0 1px #EAEDF3;
+    border: 1px solid #EAEDF3;
+    border-radius: 4px;
+}
+.pp-metamarks-row input {
+    vertical-align:top;
+}
+.pp-metamarks-row input.pp-metamark-link {
+    }
+.pp-metamarks-row select {
+    vertical-align:top;
+}
+.pp-metamarks-row textarea {
+    height: 50px;
+    resize: none;
+}
+.pp-metamark-delete a {
+    margin: 4px 0pt 0pt -2px;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    text-indent: -9999px;
+    overflow: hidden;
+    top: 4px;
+    left: -14px;
+}
+
+div[id^="select-media-file"] {
+    vertical-align: top;
+    padding-top: 1vh;
+}
+
+a[id^="pp-change-media-link"], div[id^="save-media"] {
+    cursor: pointer;
+}
+
+select[id^="powerpress_category_"] {
+    max-width: 51.6%;
+    width: 100%;
+    height: 56px;
+}
+
+div[id^="pp-category-dropdown-"] {
+    margin: 1em 1em 0 3em;
+}
+
+.metamark-preview-pos, .metamark-preview-type, .pp-metamark-delete, .pp-metamark-edit {
+    display: inline-block;
+}
+
+.metamark-preview-pos, .pp-metamark-delete {
+
+    margin: 1em;
+}
+
+.pp-metamark-edit, .metamark-preview-type {
+    margin: 1em 0;
+}
+
+.metamark-top-section {
+    border-bottom: 1px solid #EAEDF3;
+    border-radius: 4px 4px 0 0;
+    box-shadow: inset 0 0 0 1px #EAEDF3;
+    width: 100%;
+}
+
+.pp-metamark-edit, .pp-metamark-delete {
+    float: right;
+}
+
+.metamark-input-container {
+    width: 90%;
+    margin: 3em auto auto auto;
+}
+
+.pp-metamark-label {
+    top: 10px;
+    left: 10px;
+    display: inline-block;
+}
+
+.pp-metamark-edit {
+    display: inline-block;
+}
+
+.label-container {
+    display: inline-block;
+    margin-top: 2ch;
+}
+
+select[id^="metamark-type-"] {
+    width: 100%;
+    height: 52px;
+}
+
+div[id^="type-label-"] {
+    width: 40%;
+    margin: 1em 2% 1em 0;
+    display: inline-block;
+}
+
+input[id^="metamark-pos-"], input[id^="metamark-dur-"], input[id^="metamark-link-"] {
+    width: 100%;
+    height: 58px;
+}
+
+div[id^="pos-label-"] {
+    width: 26%;
+    margin: 1em 0 1em 1%;
+    display: inline-block;
+}
+
+div[id^="dur-label-"] {
+    width: 28%;
+    margin: 1em 0 1em 2%;
+    float: right;
+    display: inline-block;
+}
+
+div[id^="value-container-"] {
+    margin-bottom: 3em;
+}
+
+input[id^="metamark-link-"] {
+    margin: auto;
+}
+
+textarea[id^="metamark-val-"] {
+    height: 72px;
+    width: 100%;
+    margin: auto;
+}
+
+#powerpress-podcast .inside {
+    margin: 0;
+    padding: 0;
+}
+
+div[id^="apple-podcast-opt"] {
+    border-radius: 4px;
+    background-color: #F5F5F5;
+    padding: 3%;
+    width: 90%;
+    margin-bottom: 5vh;
+}
+
+div[id^="ep-info-not-apple"] {
+    margin-bottom: 20px;
+}
+
+.pp-blue-button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #0c74d5;
+    color: white;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 1ch 2em 1ch 2em;
+    margin-right: 1em;
+    cursor: pointer;
+    text-align: center;
+}
+
+.pp-gray-button {
+    background-color: #f5f5f5;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+    color: black;
+    display: inline-block;
+    border-radius: 4px;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 1ch 2em 1ch 2em;
+    margin-right: 1em;
+    cursor: pointer;
+    text-align: center;
+    border: 0;
+}
+
+h4[class^="pp-section-title"] {
+    color: #3E3F42;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 38px;
+    margin-bottom: 0;
+    margin-top: 0;
+    float: left;
+    display: inline-block;
+}
+
+.pp-section-title-block {
+    width: 100%;
+}
+
+.ep-box-text {
+    font-size: 14px;
+    margin-top: 2ch;
+    margin-bottom: 0;
+}
+
+.pp-section-subtitle {
+    color: #5A5C60;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+/* Style the tab content */
+.pp-tabcontent {
+    display: none;
+    border-top: none;
+    padding: 40px;
+}
+
+.pp-tabcontent.active {
+    display: block;
+}
+
+h3[id^="pp-pp-selected-media-head"] {
+    color: #263238;
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -0.06px;
+    line-height: 24px;
+    margin-left: 2em;
+    margin-bottom: 1ch;
+}
+
+div[id^="pp-edit-media-button"] {
+    text-align: center;
+    padding: 1ch 2em 1ch 2em;
+}
+
+div[id^="a-pp-selected-media"] {
+    padding: 2em;
+    background-color: #F5F5F5;
+}
+
+div[class^="metamark-preview-"] {
+    font-weight: bold;
+}
+
+
+div[id^="explicit-switch-base"] {
+    display: inline-block;
+    padding: 5px;
+    background-color: #e6e6e6;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.explicit-option {
+    background-color: #e6e6e6;
+}
+
+.explicit-selected {
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16);
+    border-radius: 4px;
+}
+
+.explicit-option, .explicit-selected {
+    border-collapse: collapse;
+    font-weight: bold;
+    display: inline-block;
+    width: 32%;
+    padding-top: 1ch;
+    padding-bottom: 1ch;
+    text-align: center;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    cursor: pointer;
+}
+
+div[id^="pp-selected-media-text"] {
+    max-width: 50%;
+    width: 100%;
+    display: inline-block;
+    margin: 0 1em 0 3em;
+}
+
+.powerpress_podcast_box, #episode-box-container {
+    padding: 10px;
+}
+
+div[id^="pp-change-media-file"] {
+    vertical-align: top;
+    margin-top: 2em;
+}
+
+div[class^="ep-box-line"] {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 1px;
+    width: 100%;
+    border-top: 1px solid #EFEFEF;
+}
+
+div[class="ep-box-line-bold"] {
+    border-top: 2px solid #EFEFEF;
+    width: 92%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.ep-box-line-margin {
+    margin: 17px 0 17px 0;
+}
+
+.pp-shortcode-example {
+    box-sizing: border-box;
+    border: 1px solid #E8E8E8;
+    background-color: #F0F0F0;
+    line-height: 36px;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+div[id^="pp-display-player"] {
+    width: 45%;
+    display: inline-block;
+}
+
+div[id^="pp-player-size"] {
+    width: 53%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.pp-hidden-settings {
+    display: none;
+}
+
+img[id^="pp-image-preview"] {
+    width: 16vh;
+    height: 16vh;
+    border: 3px solid #717171;
+}
+
+img[id^="poster-pp-image-preview"] {
+    width: 32ch;
+    height: 18ch;
+    border: 3px solid #717171;
+}
+
+.powerpress-art-text {
+    width: 70%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.powerpress-art-preview {
+    width: 28%;
+    display: inline-block;
+}
+
+p[id^="ep-box-filename"] {
+    color: #6B6C6F;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.15px;
+    line-height: 56px;
+    margin: 0 5px 0 5px;
+    display: inline;
+}
+
+div[id^="pp-warning-messages"] {
+    margin-left: 3em;
+}
+
+div[id^="media-details-container"] {
+    margin-top: 2ch;
+    margin-bottom: 2ch;
+}
+
+a.media-details, button.apple-advanced {
+    color: #0c74d5;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 22px;
+    cursor: pointer;
+    border: none;
+    box-shadow: none;
+    background-color: #F5F5F5;
+}
+
+input[id^="powerpress_size"] {
+    width: 50%;
+    text-align: center;
+    height: 28px;
+}
+
+input[id^="powerpress_duration_"] {
+    width: 48px;
+    text-align: center;
+    height: 34px;
+}
+
+div[id^="media-file-details"] {
+    width: 100%;
+}
+
+.media-details {
+    margin: 0 3em 0 3em;
+    font-weight: 500;
+}
+
+.pp-detail-section {
+    margin: 2ch 6em 2ch 6em;
+}
+
+.details-auto-detect {
+    font-family: Roboto, sans-serif;
+    display: inline-block;
+    width: 30%
+}
+
+.details-specify {
+    font-family: Roboto, sans-serif;
+    display: inline-block;
+    width: 43%;
+}
+
+.details-not-specified {
+    font-family: Roboto, sans-serif;
+    display: inline-block;
+    width: 25%;
+}
+
+a[id^="select-media-link"], a[id^="pp-change-media-link"] {
+    text-decoration: none;
+    display: inline-block;
+    width: 27ch;
+}
+
+input[class="media-details-radio"] {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #B1B1B1;
+}
+
+input[class="media-details-radio"]:checked {
+    border: 2px solid #0c74d5;
+}
+
+input[class="media-details-radio"]:checked:before {
+    width: 12px;
+    height: 12px;
+    margin: 3px;
+    background-color: #0c74d5;
+}
+
+label[class="ep-box-caption"] {
+    color: rgba(0,0,0,0.6);
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    font-weight: 300;
+    margin-left: 2em;
+}
+
+label[class^="ep-box-label"] {
+    position: relative;
+    top: 2px;
+    padding: 0 2px 0 2px;
+    bottom: 10px;
+    background: transparent;
+}
+
+label[class^="ep-box-label-under"] {
+    position: relative;
+    padding: 0 2px 0 2px;
+    bottom: 10px;
+    left: 10px;
+    top: 0;
+    background: transparent;
+}
+
+input[class="ep-box-input"], textarea[class="ep-box-input"], select[class="ep-box-input"], div[class="ep-box-input"] {
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #B1B1B1;
+    font-size: 14px;
+    height: 56px;
+}
+
+textarea[id^="powerpress_summary_"] {
+    height: 130px;
+    resize: none;
+    padding: 10px;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    width: 100%;
+}
+
+textarea[id^="powerpress_embed_"] {
+    resize: none;
+}
+
+textarea[id^="powerpress_summary_"]::-webkit-scrollbar {
+    height: 85%;
+}
+
+/* Track */
+textarea[id^="powerpress_summary_"]::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 4px;
+}
+
+/* Handle */
+textarea[id^="powerpress_summary_"]::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 4px;
+    border: grey 1px solid;
+}
+
+div[id^="pp-url-input-container-"] {
+    width: 100%;
+}
+
+label[id^="pp-url-input-above"] {
+    position: relative;
+    top: 8px;
+    background-color: #f5f5f5;
+    padding: 0 3px 0 3px;
+}
+
+.pp-url-input-label {
+    color: #0c74d5;
+    margin-left: 10px;
+}
+
+input[id^="powerpress_url_"], div[id^="powerpress_url_"] {
+    width: 100%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 56px;
+}
+
+input[id^="powerpress_url_"] {
+    box-shadow: inset 0 0 0 1px #0c74d5;
+    background: transparent;
+    border-color: #0c74d5;
+}
+
+input[class="apple-opt-input"], select[class="apple-opt-input"], textarea[class="apple-opt-input"] {
+    width: 100%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+    border: 1px solid #B1B1B1;
+    font-size: 14px;
+}
+
+input[class="apple-opt-input"], select[class="apple-opt-input"] {
+    height: 56px;
+}
+
+input[id^="powerpress_itunes_image_"], input[id^="powerpress_image_"] {
+    width: 90%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 56px;
+}
+
+input[id^="powerpress_feature_"] {
+    border-radius: 2px;
+    border: 2px solid #66788A;
+    height: 18px;
+    width: 18px;
+}
+
+input[class="ep-box-checkbox"] {
+    box-sizing: border-box;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #D8DCE6;
+    border-radius: 3px;
+    background: linear-gradient(0deg, #F6F7F9 0%, #FFFFFF 100%);
+    box-shadow: inset 0 2px 0 0 rgba(255,255,255,0.05), 0 1px 1px 0 rgba(22,29,37,0.05);
+    margin: 1em 1ch 1em 1ch;
+}
+
+.pp-section-container {
+    display: block;
+    margin-bottom: 4ch;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.apple-opt-section-container {
+    display: block;
+    margin-bottom: 2ch;
+    width: 100%;
+    justify-content: space-between;
+}
+
+div[id^="height-"] {
+    height: 70px;
+}
+
+div[id^="apple-feature"] {
+    margin-top: 1vh;
+}
+
+div[id^="title-container"] {
+    width: 50%;
+}
+
+div[id^="season-container"] {
+    width: 30%;
+}
+
+input[id^="powerpress_episode_season"]:disabled {
+    background-color: #f5f5f5;
+}
+
+div[id^="explicit-container"] {
+    display:inline-block;
+    width: 35%;
+    float: right;
+    max-height: 30px;
+    margin-right: 1em;
+}
+
+div[id^="apple-title-container"] {
+    width: 58%;
+    margin-right: 3ch;
+}
+
+div[id^="episode-no-container"], div[id^="season-container"] {
+    display:inline-block;
+    width:18%;
+    margin-top: 3vh;
+}
+
+div[id^="season-container"] {
+    float: right;
+}
+
+div[id^="feature-container"] {
+    margin-top: 3vh;
+    width: 70%;
+}
+
+div[id^="type-container"] {
+    width: 29.5%;
+    vertical-align: top;
+    margin: 2ch 0 0 0;
+}
+
+div[id^="media-input"] {
+    width: 100%;
+}
+
+/* Responsiveness with buttons, Apple Opt Section, and third option in media details */
+@media (max-width: 1152px) {
+    div[id^="pp-selected-media-text"] {
+        max-width: 80%;
+        margin-right: 3em;
+    }
+    div[id^="edit-media-file"], div[id^="pp-change-media-file"], div[id^="select-media-file"], div[id^="pp-category-dropdown"] {
+        width: 80%;
+        margin: 1em 3em 0 3em;
+    }
+    .details-not-specified {
+        margin-top: 1em;
+        width: 100%
+    }
+    .details-auto-detect, .details-specify {
+        width: 48%
+    }
+    div[id^="explicit-container"] {
+        width: 40%;
+    }
+    div[id^="feature-container"] {
+        width: 100%;
+    }
+}
+
+/* Responsiveness for second option in media details (all 3 stack), explicit switch, and episode and season no */
+@media (max-width: 832px) {
+    div[class^="details-"] {
+        width: 100%;
+        margin-top: 1em;
+    }
+    .pp-detail-section {
+        margin: 2ch 1em 2ch 1em;
+    }
+    div[id^="explicit-container"] {
+        width: 98%;
+        margin: 1em 0 0 0;
+        float: left;
+    }
+    div[id^="apple-title-container"] {
+        width: 100%;
+        margin-top: 1em;
+    }
+    div[id^="episode-no-container"] {
+        width: 45%;
+    }
+    div[id^="season-container"] {
+        width: 45%;
+    }
+    .pp-tabcontent {
+        padding: 15px;
+    }
+    #wpbody select {
+        height: 52px;
+    }
+    div[id^="type-label-"] {
+        width: 99%;
+        margin: 1em 0 1em 0;
+    }
+    div[id^="pos-label-"] {
+        width: 40%;
+        margin-left: 0;
+    }
+    div[id^="dur-label-"] {
+        width: 40%;
+        margin-right: 0;
+    }
+    .media-details {
+        margin-left: 1em;
+    }
+    div[id^="edit-media-file"], div[id^="pp-change-media-file"], div[id^="select-media-file"], div[id^="pp-category-dropdown"] {
+        margin: 1em 1em 0 1em;
+        width: 90%;
+    }
+    div[id^="pp-selected-media-text"] {
+        margin: 1em 1em 0 1em;
+        max-width: 90%;
+    }
+    .powerpress-art-text, .powerpress-art-preview {
+        width: 100%;
+    }
+    div[id^="type-container"] {
+        width: 50%;
+    }
+    input[type="checkbox"]:checked:before {
+        font: normal 21px/1 dashicons;
+    }
+    h3[id^="pp-pp-selected-media-head"] {
+        margin-left: 1em;
+    }
+    .powerpress-art-preview {
+        text-align: center;
+    }
+    input[id^="powerpress_itunes_image_"], input[id^="powerpress_image_"] {
+        width: 100%;
+    }
+}
+
+/* More responsiveness with buttons */
+@media (max-width: 592px) {
+    .pp-blue-button, .pp-gray-button {
+        display: block;
+        margin: 1ch 0 0 0;
+    }
+    div[id^="edit-media-file"], div[id^="pp-change-media-file"], div[id^="select-media-file"], div[id^="pp-category-dropdown"] {
+        max-width: 90%;
+    }
+    .explicit-option, .explicit-selected {
+        font-size: 12px;
+    }
+    .artwork-button {
+        padding: 1em 2ch;
+    }
+    div[id^="apple-podcast-opt"] {
+        padding: 6%;
+    }
+    div[id^="pp-display-player"], div[id^="pp-player-size"] {
+        width: 100%;
+    }
+    div[id^="type-container"] {
+         width: 100%;
+    }
+    input[id^="powerpress_duration_"] {
+        width: 36px;
+        padding: 6px;
+        height: 28px;
+    }
+    a[id^="select-media-link"] {
+        width: 100%;
+    }
+    select[id^="powerpress_category"] option {
+        width: 100%;
+    }
+}
+
+@media (max-width: 375px) {
+    .pp-detail-section {
+        margin: 2ch 1em 2ch 0;
+    }
+    .media-details {
+        margin-left: 0;
+    }
+    .explicit-option, .explicit-selected {
+        width: 31%;
+    }
+    div[id^="pos-label-"], div[id^="dur-label-"] {
+        width: 100%;
+        margin: 1em 0 1em 0;
+    }
+    .tab {
+        font-size: 12px;
+    }
+    a[id^="show-details-link"], a[id^="hide-details-link"] {
+        font-size: 12px;
+    }
+    input[id^="powerpress_duration_"] {
+        width: 28px;
+        padding: 2px;
+    }
+}
+
+
+/* Responsiveness with buttons, Apple Opt Section, and third option in media details */
+@media (max-width: 1456px) {
+    .classic-editor div[id^="pp-selected-media-text"] {
+        max-width: 80%;
+        margin-right: 3em;
+    }
+    .classic-editor div[id^="edit-media-file"], .classic-editor div[id^="pp-change-media-file"], .classic-editor div[id^="select-media-file"], .classic-editor div[id^="pp-category-dropdown"] {
+        width: 80%;
+        margin: 1em 3em 0 5em;
+    }
+    .classic-editor .details-not-specified {
+        margin-top: 1em;
+        width: 100%
+    }
+    .classic-editor .details-auto-detect, .details-specify {
+        width: 48%
+    }
+    .classic-editor div[id^="explicit-container"] {
+        width: 40%;
+    }
+    .classic-editor div[id^="feature-container"] {
+        width: 100%;
+    }
+}
+
+/* Responsiveness for second option in media details (all 3 stack), explicit switch, and episode and season no */
+@media (max-width: 1132px) {
+    .classic-editor div[class^="details-"] {
+        width: 100%;
+        margin-top: 1em;
+    }
+    .classic-editor .pp-detail-section {
+        margin: 2ch 1em 2ch 1em;
+    }
+    .classic-editor div[id^="explicit-container"] {
+        width: 98%;
+        margin: 1em 0 0 0;
+        float: left;
+    }
+    .classic-editor div[id^="apple-title-container"] {
+        width: 100%;
+        margin-top: 1em;
+    }
+    .classic-editor div[id^="episode-no-container"] {
+        width: 45%;
+    }
+    .classic-editor div[id^="season-container"] {
+        width: 45%;
+    }
+    .classic-editor .pp-tabcontent {
+        padding: 15px;
+    }
+    .classic-editor #wpbody select {
+        height: 52px;
+    }
+    .classic-editor div[id^="type-label-"] {
+        width: 99%;
+        margin: 1em 0 1em 0;
+    }
+    .classic-editor div[id^="pos-label-"] {
+        width: 40%;
+        margin-left: 0;
+    }
+    .classic-editor div[id^="dur-label-"] {
+        width: 40%;
+        margin-right: 0;
+    }
+    .classic-editor .media-details {
+        margin-left: 1em;
+    }
+    .classic-editor div[id^="edit-media-file"], .classic-editor div[id^="pp-change-media-file"] .classic-editor div[id^="select-media-file"], .classic-editor div[id^="pp-category-dropdown"] {
+        margin: 1em 1em 0 1em;
+        width: 90%;
+    }
+    .classic-editor div[id^="pp-selected-media-text"] {
+        margin: 1em 1em 0 1em;
+        max-width: 90%;
+    }
+    .classic-editor .powerpress-art-text, .classic-editor .powerpress-art-preview {
+        width: 100%;
+    }
+    .classic-editor div[id^="type-container"] {
+        width: 50%;
+    }
+    .classic-editor input[type="checkbox"]:checked:before {
+        font: normal 21px/1 dashicons;
+    }
+    .classic-editor h3[id^="pp-pp-selected-media-head"] {
+        margin-left: 1em;
+    }
+    .classic-editor .powerpress-art-preview {
+        text-align: center;
+    }
+    .classic-editor input[id^="powerpress_itunes_image_"], .classic-editor input[id^="powerpress_image_"] {
+        width: 100%;
+    }
+}
+
+/* More responsiveness with buttons */
+@media (max-width: 892px) {
+    .classic-editor .pp-blue-button, .classic-editor .pp-gray-button {
+        display: block;
+        margin: 1ch 0 0 0;
+    }
+    .classic-editor div[id^="edit-media-file"], .classic-editor div[id^="pp-change-media-file"], .classic-editor div[id^="select-media-file"], .classic-editor div[id^="pp-category-dropdown"] {
+        max-width: 90%;
+    }
+    .classic-editor .explicit-option, .classic-editor .explicit-selected {
+        font-size: 12px;
+    }
+    .classic-editor .artwork-button {
+        padding: 1em 2ch;
+    }
+    .classic-editor div[id^="apple-podcast-opt"] {
+        padding: 6%;
+    }
+    .classic-editor div[id^="pp-display-player"], .classic-editor div[id^="pp-player-size"] {
+        width: 100%;
+    }
+    .classic-editor div[id^="type-container"] {
+        width: 100%;
+    }
+    .classic-editor input[id^="powerpress_duration_"] {
+        width: 36px;
+        padding: 6px;
+        height: 28px;
+    }
+    .classic-editor select[id^="powerpress_category"] option {
+        width: 100%;
+    }
+}

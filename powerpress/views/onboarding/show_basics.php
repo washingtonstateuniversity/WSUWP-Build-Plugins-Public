@@ -147,7 +147,7 @@ if (isset($_POST['pp_start']['title'])) {
                                         <input id="itunes_image" type="hidden" name="pp_start[itunes_image]" <?php echo !empty($FeedSettings['itunes_image']) ? "value='{$FeedSettings['itunes_image']}'" : ""  ?>>
                                         <?php
                                         if (!isset($previewImageURL)) {
-                                            $previewImageURL = !empty($FeedSettings['itunes_image']) ? $FeedSettings['itunes_image'] : 'https://via.placeholder.com/275?text=Artwork+Preview';
+                                            $previewImageURL = !empty($FeedSettings['itunes_image']) ? $FeedSettings['itunes_image'] : powerpress_get_root_url() . "itunes_default.jpg";
                                         } ?>
                                         <img id="preview_image" class="image_wrapper" src="<?php echo $previewImageURL ?>" alt="Podcast Artwork Preview">
                                         <input type="hidden" name="basic_details" id="basic-details">
@@ -235,11 +235,13 @@ if (isset($_POST['pp_start']['title'])) {
         });
         jQuery("#continue-button").on("click", function () {
             let valid_image = true;
-            jQuery(".success-fail-icon").each(function(index) {
+            <?php if (!empty($FeedSettings['itunes_image'])) { ?>
+            jQuery(".success-fail-icon").each(function (index) {
                 if (jQuery(this).attr("src").includes("cancel.svg")) {
                     valid_image = false;
                 }
             });
+            <?php } ?>
             if (valid_image) {
                 jQuery('#artwork :input').not(':submit').clone().hide().appendTo('#basic-feed');
                 jQuery("#basic-feed").submit();

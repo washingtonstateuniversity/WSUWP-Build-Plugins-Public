@@ -135,8 +135,8 @@ jQuery(document).ready(function($) {
 
 <div id="powerpress_settings_page" class="powerpress_tabbed_content"> 
   <ul class="powerpress_settings_tabs">
-		<li><a href="#tab0"><span><?php echo htmlspecialchars(__('Welcome', 'powerpress')); ?></span></a></li> 
-		<li><a href="#tab1"><span><?php echo htmlspecialchars(__('Episodes', 'powerpress')); ?></span></a></li> 
+		<li><a href="#tab0"><span><?php echo htmlspecialchars(__('Welcome', 'powerpress')); ?></span></a></li>
+        <!-- #tab1 deprecated. was episodes tab -->
 		<li><a href="#tab2"><span><?php echo htmlspecialchars(__('Services & Stats', 'powerpress')); ?></span></a></li>
 		<li><a href="#tab3"><span><?php echo htmlspecialchars(__('Website', 'powerpress')); ?></span></a></li>
 		<li><a href="#tab4"><span><?php echo htmlspecialchars(__('Feeds', 'powerpress')); ?></span></a></li>
@@ -147,13 +147,6 @@ jQuery(document).ready(function($) {
 	
 	<div id="tab0" class="powerpress_tab">
 	<?php	powerpressadmin_welcome($General); ?>
-	</div>
-	
-  <div id="tab1" class="powerpress_tab">
-		<?php
-		powerpressadmin_edit_entry_options($General);
-		powerpressadmin_edit_podpress_options($General);
-		?>
 	</div>
 	
 	<div id="tab2" class="powerpress_tab">
@@ -173,6 +166,7 @@ jQuery(document).ready(function($) {
 	<div id="tab3" class="powerpress_tab">
 		<?php
 		powerpressadmin_appearance($General, $FeedSettings);
+		powerpressadmin_edit_podpress_options($General);
 		?>
 	</div>
 	
@@ -294,13 +288,6 @@ jQuery(document).ready( function() {
 			<span style="font-size: 85%;">(<a href="<?php echo admin_url('admin.php?page=powerpress/powerpressadmin_categoryfeeds.php'); ?>"><?php echo __('configure podcast categories', 'powerpress'); ?></a>)</span>
 			<?php } ?>
 		</div>
-		<div>
-			<input type="checkbox" name="General[metamarks]" value="1" <?php echo ( !empty($General['metamarks']) ?' checked':'');  ?> /> 
-			<strong><?php echo __('Meta Marks', 'powerpress'); ?></strong> - 
-			<?php echo __('Add additional meta information to your media for syndication.', 'powerpress'); ?> 
-			<?php echo powerpress_help_link('http://www.powerpresspodcast.com/metamarks/'); ?> 
-			<span style="font-size: 85%;">(<?php echo __('feature will appear in episode entry box', 'powerpress'); ?>)</span>
-		</div>
 		
 		
 		<div>
@@ -399,307 +386,6 @@ jQuery(document).ready( function() {
 <?php
 }
 
-function powerpressadmin_edit_entry_options($General)
-{
-	if( !isset($General['default_url']) )
-		$General['default_url'] = '';
-	if( !isset($General['episode_box_mode']) )
-		$General['episode_box_mode'] = 0; // Default not set, 1 = no duration/file size, 2 = yes duration/file size (default if not set)
-	if( !isset($General['episode_box_embed']) )
-		$General['episode_box_embed'] = 0;
-	if( !isset($General['set_duration']) )
-		$General['set_duration'] = 0;
-	if( !isset($General['set_size']) )
-		$General['set_size'] = 0;
-	if( !isset($General['auto_enclose']) )
-		$General['auto_enclose'] = 0;
-	if( !isset($General['episode_box_player_size']) )
-		$General['episode_box_player_size'] = 0;
-	if( !isset($General['episode_box_closed_captioned']) )
-		$General['episode_box_closed_captioned'] = 0;
-	if( !isset($General['episode_box_order']) )
-		$General['episode_box_order'] = 0;	
-	if( !isset($General['episode_box_feature_in_itunes']) )
-		$General['episode_box_feature_in_itunes'] = 0;
-		
-?>
-<h3><?php echo __('Episode Entry Options', 'powerpress'); ?></h3>
-
-
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
-
-<?php echo __('Podcast Entry Box', 'powerpress'); ?></th> 
-<td>
-	<p style="margin-top: 5px;">
-		<?php echo __('Configure your podcast episode entry box with the options that fit your needs.', 'powerpress'); ?>
-	</p>
-				<div id="episode_box_mode_adv">
-				
-					<p style="margin-top: 15px;"><input class="episode_box_option" name="Null[ignore]" type="checkbox" value="1" checked onclick="return false" onkeydown="return false" /> <?php echo __('Media URL', 'powerpress'); ?>
-						(<?php echo __('Specify URL to episode\'s media file', 'powerpress'); ?>)</p>
-					
-					<p style="margin-top: 15px;"><input id="episode_box_mode" class="episode_box_option" name="General[episode_box_mode]" type="checkbox" value="2" <?php if( empty($General['episode_box_mode']) || $General['episode_box_mode'] != 1 ) echo ' checked'; ?> /> <?php echo __('Media File Size and Duration', 'powerpress'); ?>
-						(<?php echo __('Specify episode\'s media file size and duration', 'powerpress'); ?>)</p>
-						
-					<p style="margin-top: 15px; margin-bottom: 0;"><input id="episode_box_embed" class="episode_box_option" name="General[episode_box_embed]" type="checkbox" value="1"<?php if( !empty($General['episode_box_embed']) ) echo ' checked'; ?> onclick="SelectEmbedField(this.checked);"  /> <?php echo __('Embed Field', 'powerpress'); ?>
-						(<?php echo __('Enter embed code from sites such as YouTube', 'powerpress'); ?>)</p>
-							<p style="margin-top: 5px; margin-left: 20px; font-size: 90%;"><input id="embed_replace_player" class="episode_box_option" name="General[embed_replace_player]" type="checkbox" value="1"<?php if( !empty($General['embed_replace_player']) ) echo ' checked'; ?> /> <?php echo __('Replace Player with Embed', 'powerpress'); ?>
-								(<?php echo __('Do not display default player if embed present for episode.', 'powerpress'); ?>)</p>
-					
-					<p style="margin-top: 15px;"><input id="episode_box_player_links_options" class="episode_box_option" name="NULL[episode_box_player_links_options]" type="checkbox" value="1"<?php if( !empty($General['episode_box_no_player_and_links']) || !empty($General['episode_box_no_player']) || !empty($General['episode_box_no_links']) ) echo ' checked'; ?> /> <?php echo __('Display Player and Links Options', 'powerpress'); ?>
-					</p>
-					<div id="episode_box_player_links_options_div" style="margin-left: 20px;<?php if( empty($General['episode_box_no_player_and_links']) && empty($General['episode_box_no_player']) && empty($General['episode_box_no_links']) ) echo 'display:none;'; ?>">
-						
-						<p style="margin-top: 0px; margin-bottom: 5px;"><input id="episode_box_no_player_and_links" class="episode_box_option" name="General[episode_box_no_player_and_links]" type="checkbox" value="1"<?php if( !empty($General['episode_box_no_player_and_links']) ) echo ' checked'; ?> /> <?php echo htmlspecialchars(__('No Player & Links Option', 'powerpress')); ?>
-							(<?php echo __('Disable media player and links on a per episode basis', 'powerpress'); ?>)</p>
-						
-						<p style="margin-top: 0; margin-bottom: 0; margin-left: 20px;"><?php echo __('- or -', 'powerpress'); ?></p>
-						
-						<p style="margin-top: 5px;  margin-bottom: 10px;"><input id="episode_box_no_player" class="episode_box_option episode_box_no_player_or_links" name="General[episode_box_no_player]" type="checkbox" value="1"<?php if( !empty($General['episode_box_no_player']) ) echo ' checked'; ?> /> <?php echo __('No Player Option', 'powerpress'); ?>
-							(<?php echo __('Disable media player on a per episode basis', 'powerpress'); ?>)</p>
-						
-						<p style="margin-top: 5px;  margin-bottom: 20px;"><input id="episode_box_no_links" class="episode_box_option episode_box_no_player_or_links" name="General[episode_box_no_links]" type="checkbox" value="1"<?php if( !empty($General['episode_box_no_links']) ) echo ' checked'; ?> /> <?php echo __('No Links Option', 'powerpress'); ?>
-							(<?php echo __('Disable media links on a per episode basis', 'powerpress'); ?>)</p>
-						
-					</div>
-				
-					<p style="margin-top: 15px;"><input id="episode_box_cover_image" class="episode_box_option" name="General[episode_box_cover_image]" type="checkbox" value="1"<?php if( !empty($General['episode_box_cover_image']) ) echo ' checked'; ?> /> <?php echo __('Poster Image', 'powerpress'); ?>
-						(<?php echo __('Specify URL to poster artwork specific to each episode', 'powerpress'); ?>)</p>
-						
-					<p style="margin-top: 15px;"><input id="episode_box_player_size" class="episode_box_option" name="General[episode_box_player_size]" type="checkbox" value="1"<?php if( !empty($General['episode_box_player_size']) ) echo ' checked'; ?> /> <?php echo __('Player Width and Height', 'powerpress'); ?> 
-						(<?php echo __('Customize player width and height on a per episode basis', 'powerpress'); ?>)</p>
-					<p style="margin-top: 15px;"><input id="episode_box_subtitle" class="episode_box_option" name="General[episode_box_subtitle]" type="checkbox" value="1"<?php if( !empty($General['episode_box_subtitle']) ) echo ' checked'; ?> /> <?php echo __('iTunes Subtitle Field', 'powerpress'); ?>
-						(<?php echo __('Leave unchecked to use the first 250 characters of your blog post', 'powerpress'); ?>)</p>
-					<p style="margin-top: 15px;"><input id="episode_box_summary" class="episode_box_option" name="General[episode_box_summary]" type="checkbox" value="1"<?php if( !empty($General['episode_box_summary']) ) echo ' checked'; ?> /> <?php echo __('iTunes Summary Field', 'powerpress'); ?>
-						(<?php echo __('Leave unchecked to use your blog post', 'powerpress'); ?>)</p>
-					
-					
-						
-					<p style="margin-top: 15px;"><input id="episode_box_author" class="episode_box_option" name="General[episode_box_author]" type="checkbox" value="1"<?php if( !empty($General['episode_box_author']) ) echo ' checked'; ?> /> <?php echo __('iTunes Author Field', 'powerpress'); ?>
-						(<?php echo __('Leave unchecked to the post author name', 'powerpress'); ?>)</p>
-					
-					<p style="margin-top: 15px;"><input id="episode_box_explicit" class="episode_box_option" name="General[episode_box_explicit]" type="checkbox" value="1"<?php if( !empty($General['episode_box_explicit']) ) echo ' checked'; ?> /> <?php echo __('iTunes Explicit Field', 'powerpress'); ?>
-						(<?php echo __('Leave unchecked to use your feed\'s explicit setting', 'powerpress'); ?>)</p>
-					
-						
-					<p style="margin-top: 15px;"><label><input id="episode_box_itunes_image" class="episode_box_option" name="General[episode_box_itunes_image]" type="checkbox" value="1"<?php if( !empty($General['episode_box_itunes_image']) ) echo ' checked'; ?> /> <?php echo __('iTunes Episode Image Field', 'powerpress'); ?></label>
-						(<?php echo __('Leave unchecked to use the image embedded into your media files.', 'powerpress'); ?>)</p>	
-						
-					<p style="margin-top: 15px;"><label><input id="episode_box_closed_captioned" class="episode_box_option" name="General[episode_box_closed_captioned]" type="checkbox" value="1"<?php if( !empty($General['episode_box_closed_captioned']) ) echo ' checked'; ?> /> <?php echo __('iTunes Closed Captioned', 'powerpress'); ?></label> 
-						(<?php echo __('Leave unchecked if you do not distribute closed captioned media', 'powerpress'); ?>)</p>
-						
-					<p style="margin-top: 15px;"><label><input id="episode_box_order" class="episode_box_option" name="General[episode_box_order]" type="checkbox" value="1"<?php if( !empty($General['episode_box_order']) ) echo ' checked'; ?> <?php if( !empty($General['episode_box_feature_in_itunes']) ) echo ' disabled'; ?> /> <?php echo __('iTunes Order', 'powerpress'); ?></label> 
-						(<?php echo __('Override the default ordering of episodes on the Apple and Google Podcast directories', 'powerpress'); ?>)</p>
-						<em><strong><?php echo __('If conflicting values are present the directories will use the default ordering.', 'powerpress'); ?></strong></em><br />
-						<em><strong><?php echo __('This feature only applies to the default podcast feed and Custom Podcast Channel feeds added by PowerPress.', 'powerpress'); ?></strong></em>
-
-					<p><label><select name="General[ebititle]" class="bpp_input_sm">
-<?php
-$linkoptions = array('false'=>__('Hide Field', 'powerpress'),
-		1=>__('Show Field', 'powerpress') );
-	
-foreach( $linkoptions as $value => $desc )
-	echo "\t<option value=\"$value\"". ( !empty($General['episode_box_itunes_title']) && $General['episode_box_itunes_title'] == $value ?' selected':''). ">$desc</option>\n";
-	
-?>
-</select> <?php echo __('iTunes Episode Title Field', 'powerpress'); ?></label> </p>
-						<em><strong><?php echo __('Specify iTunes episode title separate from podcast feed title.', 'powerpress'); ?></strong></em>
-
-
-					<p><label><select name="General[ebinst]" class="bpp_input_sm">
-<?php
-$linkoptions = array('false'=>__('Hide Field', 'powerpress'),
-		1=>__('Show Field', 'powerpress') );
-	
-foreach( $linkoptions as $value => $desc )
-	echo "\t<option value=\"$value\"". ( !empty($General['episode_box_itunes_nst']) && $General['episode_box_itunes_nst'] == $value ?' selected':''). ">$desc</option>\n";
-	
-?>
-</select> <?php echo __('iTunes Episode Number, Season and Type Fields', 'powerpress'); ?></label> </p>
-						<em><strong><?php echo __('Enter specifics about episode including episode number, season number and type (full, trailer, or bonus).', 'powerpress'); ?></strong></em>
-				
-					<p style="margin-top: 15px;"><label><input id="episode_box_feature_in_itunes" class="episode_box_option" name="General[episode_box_feature_in_itunes]" type="checkbox" value="1"<?php if( !empty($General['episode_box_feature_in_itunes']) ) echo ' checked'; ?> /> <?php echo __('Feature Episode in Apple and Google Podcasts', 'powerpress'); ?></label>
-						(<?php echo __('Display selected episode at top of your Apple and Google Podcasts listings', 'powerpress'); ?>)</p>
-						<em><strong><?php echo __('All other episodes will be listed following the featured episode.', 'powerpress'); ?></strong></em><br />
-						<em><strong><?php echo __('This feature only applies to the default podcast feed and Custom Podcast Channel feeds added by PowerPress.', 'powerpress'); ?></strong></em>
-						
-						
-					<p style="margin-top: 15px;"><input id="episode_box_gp_desc" class="episode_box_option" name="General[episode_box_gp_desc]" type="checkbox" value="1"<?php if( !empty($General['episode_box_gp_desc']) ) echo ' checked'; ?> /> <?php echo __('Google Play Description Field', 'powerpress'); ?>
-						(<?php echo __('Leave unchecked to use your blog post', 'powerpress'); ?>)</p>
-					<p style="margin-top: 15px;"><input id="episode_box_gp_explicit" class="episode_box_option" name="General[episode_box_gp_explicit]" type="checkbox" value="1"<?php if( !empty($General['episode_box_gp_explicit']) ) echo ' checked'; ?> /> <?php echo __('Google Play Explicit Field', 'powerpress'); ?>
-						(<?php echo __('Leave unchecked to use your feed\'s explicit setting', 'powerpress'); ?>)</p>
-						
-				<fieldset style="border: 1px dashed #333333; margin: 10px 0 10px -20px;">
-					<legend style="margin: 0 20px; padding: 0 5px 5px 5px; font-weight: bold;"><?php echo __('Advanced Options', 'powerpress');  ?></legend>
-					<p style="margin: 15px 0 0 20px;"><label><input id="episode_box_block" class="episode_box_option" name="General[episode_box_block]" type="checkbox" value="1"<?php if( !empty($General['episode_box_block']) ) echo ' checked'; ?> /> <?php echo __('iTunes Block', 'powerpress'); ?> (<?php echo htmlspecialchars('<itunes:block>yes</itunes:block>'); ?>)</label></p>
-					<div style="margin: 0 10px 10px 20px;"><em><strong><?php echo __('Prevent episodes from appearing in iTunes and other diretories that support the iTunes:block tag. Episodes may still appear in other directories and applications.', 'powerpress'); ?></strong></em></div>
-					
-					<p style="margin: 15px 0 0 20px;"><label><input id="episode_box_gp_block" class="episode_box_option" name="General[episode_box_gp_block]" type="checkbox" value="1"<?php if( !empty($General['episode_box_gp_block']) ) echo ' checked'; ?> /> <?php echo __('Google Play Block', 'powerpress'); ?> (<?php echo htmlspecialchars('<googleplay:block>yes</itunes:googleplay>'); ?>)</label></p>
-					<div style="margin: 0 10px 10px 20px;"><em><strong><?php echo __('Prevent episodes from appearing in Google Play Music. Episodes may still appear in other directories and applications.', 'powerpress'); ?></strong></em></div>
-				</fieldset>
-
-				</div>
-
-</td>
-</tr>
-</table>
-<script language="javascript"><!--
-SelectEmbedField(<?php echo $General['episode_box_embed']; ?>);
-//-->
-</script>
-
-<?php
-	
-	$AdvanecdOptions = false;
-	if( !empty($General['default_url']) )
-		$AdvanecdOptions = true;
-	if( !empty($General['set_duration']) )
-		$AdvanecdOptions = true;
-	if( !empty($General['set_size']) )
-		$AdvanecdOptions = true;
-	if( !empty($General['auto_enclose']) )
-		$AdvanecdOptions = true;
-	if( !empty($General['permalink_feeds_only']) )
-		$AdvanecdOptions = true;
-	if( !empty($General['hide_warnings']) )
-		$AdvanecdOptions = true;
-		
-	$DefaultMediaURL = false;
-	
-	if( !empty($General['default_url']) )
-		$DefaultMediaURL = true;
-
-	if( !$AdvanecdOptions ) {
-?>
-	<div style="margin-left: 10px; font-weight: bold;" id="advanced_basic_options_show_link"><a href="#" onclick="document.getElementById('advanced_basic_options').style.display='block';document.getElementById('advanced_basic_options_show_link').style.display='none';return false;"><?php echo __('Show Advanced Episode Entry Settings', 'powerpress'); ?></a></div>
-<?php } ?>
-<!-- start advanced features -->
-<div id="advanced_basic_options" <?php echo ($AdvanecdOptions?'':'style="display:none;"'); ?>>
-<?php if( $DefaultMediaURL || defined('POWERPRESS_DEFAULT_MEDIA_URL') ) { ?>
-<table class="form-table">
-<tr valign="top">
-<th scope="row"><?php echo __('Default Media URL', 'powerpress'); ?></th> 
-<td>
-	<input type="text" style="width: 80%;" name="General[default_url]" value="<?php echo esc_attr($General['default_url']); ?>" maxlength="255" />
-	<p><?php echo __('e.g. http://example.com/mediafolder/', 'powerpress'); ?></p>
-	<p><?php echo __('URL above will prefix entered file names that do not start with \'http://\'. URL above must end with a trailing slash. You may leave blank if you always enter the complete URL to your media when creating podcast episodes.', 'powerpress'); ?>
-	</p>
-</td>
-</tr>
-</table>
-<?php } ?>
-
-<div id="episode_entry_settings">
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
-
-<?php echo __('File Size Default', 'powerpress'); ?></th> 
-<td>
-		<select name="General[set_size]" class="bpp_input_med">
-<?php
-$options = array(0=>__('Auto detect file size', 'powerpress'), 1=>__('User specify', 'powerpress') );
-	
-foreach( $options as $value => $desc )
-	echo "\t<option value=\"$value\"". ($General['set_size']==$value?' selected':''). ">$desc</option>\n";
-	
-?>
-		</select> (<?php echo __('specify default file size option when creating a new episode', 'powerpress'); ?>)
-</td>
-</tr>
-
-<tr valign="top">
-<th scope="row">
-<?php echo __('Duration Default', 'powerpress'); ?></th> 
-<td>
-		<select name="General[set_duration]" class="bpp_input_med">
-<?php
-$options = array(0=>__('Auto detect duration', 'powerpress'), 1=>__('User specify', 'powerpress'), -1=>__('Not specified (not recommended)', 'powerpress') );
-	
-foreach( $options as $value => $desc )
-	echo "\t<option value=\"$value\"". ($General['set_duration']==$value?' selected':''). ">$desc</option>\n";
-	
-?>
-		</select> (<?php echo __('specify default duration option when creating a new episode', 'powerpress'); ?>)
-</td>
-</tr>
-</table>
-</div>
-
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
-<?php echo __('Auto Add Media', 'powerpress'); ?></th> 
-<td>
-		<select name="General[auto_enclose]" class="bpp_input_med">
-<?php
-$options = array(0=>__('Disabled (default)', 'powerpress'), 1=>__('First media link found in post content', 'powerpress'), 2=>__('Last media link found in post content', 'powerpress') );
-	
-foreach( $options as $value => $desc )
-	echo "\t<option value=\"$value\"". ($General['auto_enclose']==$value?' selected':''). ">$desc</option>\n";
-	
-?>
-		</select>
-		<p><?php echo __('When enabled, the first or last media link found in the post content is automatically added as your podcast episode.', 'powerpress'); ?></p>
-		<p style="margin-bottom: 0;" class="description"><em><?php echo __('NOTE: Use this feature with caution. Links to media files could unintentionally become podcast episodes.', 'powerpress'); ?></em></p>
-		<p><em><?php echo __('WARNING: Episodes created with this feature will <u>not</u> include Duration (total play time) information.', 'powerpress'); ?></em></p>
-</td>
-</tr>
-<tr valign="top">
-<th scope="row">
-<?php echo __('Disable Warnings', 'powerpress'); ?></th> 
-<td>
-		<select name="General[hide_warnings]" class="bpp_input_med">
-<?php
-$options = array(0=>__('No (default)', 'powerpress'), 1=>__('Yes', 'powerpress') );
-$current_value = (!empty($General['hide_warnings'])?$General['hide_warnings']:0);
-foreach( $options as $value => $desc )
-	echo "\t<option value=\"$value\"". ($current_value==$value?' selected':''). ">$desc</option>\n";
-	
-?>
-		</select>
-		<p><?php echo __('Disable warning messages displayed in episode entry box. Errors are still displayed.', 'powerpress'); ?></p>
-</td>
-</tr>
-</table>
-</div>
-<!-- end advanced features -->
-<?php
-		
-
-		global $wp_rewrite;
-		if( $wp_rewrite->permalink_structure ) // Only display if permalinks is enabled in WordPress
-		{
-?>
-<h3><?php echo __('Permalinks', 'powerpress'); ?></h3>
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
-<?php echo __('Podcast Permalinks', 'powerpress'); ?></th> 
-<td>
-		<select name="General[permalink_feeds_only]" class="bpp_input_normal">
-<?php
-$options = array(0=>__('Default WordPress Behavior', 'powerpress'), 1=>__('Match Feed Name to Page/Category', 'powerpress') );
-$current_value = (!empty($General['permalink_feeds_only'])?$General['permalink_feeds_only']:0);
-
-foreach( $options as $value => $desc )
-	echo "\t<option value=\"$value\"". ($current_value==$value?' selected':''). ">$desc</option>\n";
-	
-?>
-		</select>
-		<p><?php echo sprintf(__('When configured, %s/podcast/ is matched to page/category named \'podcast\'.', 'powerpress'), get_bloginfo('url') ); ?></p>
-</td>
-</tr>
-</table>
-<?php
-		}
-?>
-
-
-<?php
-}
 
 function powerpressadmin_edit_podpress_options($General)
 {
@@ -750,131 +436,6 @@ foreach( $options as $value => $desc )
 	</table>
 <?php
 	}
-}
-
-
-function powerpressadmin_edit_googleplay($FeedSettings, $General, $FeedAttribs = array() )
-{
-	$feed_slug = $FeedAttribs['feed_slug'];
-	$cat_ID = $FeedAttribs['category_id'];
-
-	// Set default settings (if not set)
-	if( empty($FeedSettings['googleplay_url']) )
-		$FeedSettings['googleplay_url'] = '';
-	if( empty($FeedSettings['googleplay_email']) )
-		$FeedSettings['googleplay_email'] = '';
-	if( empty($FeedSettings['googleplay_author']) )
-		$FeedSettings['googleplay_author'] = '';
-	if( empty($FeedSettings['googleplay_description']) )
-		$FeedSettings['googleplay_description'] = '';
-	if( empty($FeedSettings['googleplay_explicit']) )
-		$FeedSettings['googleplay_explicit'] = '';
-	if( empty($FeedSettings['googleplay_cat']) )
-		$FeedSettings['googleplay_cat'] = '';
-
-	$gp_feed_url = '';
-	switch( $FeedAttribs['type'] )
-	{
-		case 'ttid': {
-			$gp_feed_url = get_term_feed_link($FeedAttribs['term_taxonomy_id'], $FeedAttribs['taxonomy_type'], 'rss2' );
-		}; break;
-		case 'category': {
-			if( !empty($General['cat_casting_podcast_feeds']) )
-				$gp_feed_url = get_category_feed_link($cat_ID, 'podcast');
-			else
-				$gp_feed_url = get_category_feed_link($cat_ID);
-		}; break;
-		case 'channel': {
-			$gp_feed_url = get_feed_link($feed_slug);
-		}; break;
-		case 'post_type': {
-			$gp_feed_url = get_post_type_archive_feed_link($FeedAttribs['post_type'], $feed_slug);
-		}; break;
-		case 'general':
-		default: {
-			$gp_feed_url = get_feed_link('podcast');
-		}
-	}
-
-	?>
-	<h3><?php echo __('Google Play Settings', 'powerpress'); ?> </h3>
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
-<?php echo __('Google Play Email', 'powerpress'); ?> 
-</th>
-<td>
-<input type="text" name="Feed[googleplay_email]" class="bpp_input_med" value="<?php echo esc_attr($FeedSettings['googleplay_email']); ?>" maxlength="255" />
-<div>(<?php echo __('Google will email this address when your podcast is accepted to the Google Play Music Podcast directory.', 'powerpress'); ?>)</div>
-<p><?php echo __('iTunes email setting will be used if left blank.', 'powerpress'); ?></p>
-</td>
-</tr>
-<tr valign="top">
-<th scope="row">
-<?php echo __('Google Play Author', 'powerpress'); ?> 
-</th>
-<td>
-<input type="text" name="Feed[googleplay_author]" class="bpp_input_med" value="<?php echo esc_attr($FeedSettings['googleplay_author']); ?>" maxlength="255" />
-	<p><?php echo __('iTunes Author will be used if left blank', 'powerpress'); ?></p>
-	<?php if( !empty($General['seo_itunes']) ) { ?>
-	<p class="description"><?php echo __('Podcasting SEO Suggestion: This field may be indexed for Google Play Music search.', 'powerpress'); ?></p>
-	<?php } ?>
-</td>
-</tr>
-<tr valign="top">
-<th scope="row">
-<?php echo __('Google Play Description', 'powerpress'); ?> 
-</th>
-<td>
-<p style="margin-top: 5px;"><?php echo __('Your description cannot exceed 4,000 characters in length.', 'powerpress'); ?></p>
-<textarea name="Feed[googleplay_description]" rows="5" class="bpp-input-normal"><?php echo esc_textarea($FeedSettings['googleplay_description']); ?></textarea>
-<p><?php echo __('iTunes Summary will be used if left blank', 'powerpress'); ?></p>
-	<?php if( !empty($General['seo_itunes']) ) { ?>
-	<p class="description"><?php echo __('Podcasting SEO Suggestion: This field may be indexed for Google Play Music search.', 'powerpress'); ?></p>
-	<?php } ?>
-</td>
-</tr>
-<tr valign="top">
-<th scope="row">
-<?php echo __('Google Play Explicit', 'powerpress'); ?> 
-</th>
-<td>
-<select name="Feed[googleplay_explicit]" class="bpp_input_med">
-<?php
-$explicit = array(0=> __('No - display nothing', 'powerpress'), 1=>__('Yes - explicit content', 'powerpress') );
-
-foreach( $explicit as $value => $desc )
-	echo "\t<option value=\"$value\"". ($FeedSettings['googleplay_explicit']==$value?' selected':''). ">$desc</option>\n";
-
-?>
-</select>
-</td>
-</tr>
-<tr valign="top">
-<th scope="row">
-<?php echo __('Google Play Category', 'powerpress'); ?>
-<span class="powerpress-required"><?php echo __('Required', 'powerpress'); ?></span>
-</th>
-<td>
-<select name="Feed[googleplay_cat]" class="bpp_input_med">
-<?php
-
-$MoreCategories = false;
-
-
-$Categories = powerpress_googleplay_categories();
-
-echo '<option value="">'. __('Select Category', 'powerpress') .'</option>';
-foreach( $Categories as $value => $desc )
-	echo "\t<option value=\"$value\"". ($FeedSettings['googleplay_cat']==$value?' selected':''). ">".htmlspecialchars($desc)."</option>\n";
-
-?>
-</select>
-</td>
-</tr>
-
-</table>
-	<?php
 }
 
 function powerpressadmin_edit_itunes_general($FeedSettings, $General, $FeedAttribs = array() )
@@ -1189,7 +750,36 @@ function powerpressadmin_appearance($General=false, $Feed = false)
 </div><!-- end enable_presentation_settings -->
 <div id="presentation_settings"<?php if($General['disable_appearance']) echo ' style="display: none;"'; ?>>
 <!-- start presentation_settings in advanced mode -->
+    <?php
 
+
+    global $wp_rewrite;
+    if( $wp_rewrite->permalink_structure ) // Only display if permalinks is enabled in WordPress
+    {
+        ?>
+        <h3><?php echo __('Permalinks', 'powerpress'); ?></h3>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row">
+                    <?php echo __('Podcast Permalinks', 'powerpress'); ?></th>
+                <td>
+                    <select name="General[permalink_feeds_only]" class="bpp_input_normal">
+                        <?php
+                        $options = array(0=>__('Default WordPress Behavior', 'powerpress'), 1=>__('Match Feed Name to Page/Category', 'powerpress') );
+                        $current_value = (!empty($General['permalink_feeds_only'])?$General['permalink_feeds_only']:0);
+
+                        foreach( $options as $value => $desc )
+                            echo "\t<option value=\"$value\"". ($current_value==$value?' selected':''). ">$desc</option>\n";
+
+                        ?>
+                    </select>
+                    <p><?php echo sprintf(__('When configured, %s/podcast/ is matched to page/category named \'podcast\'.', 'powerpress'), get_bloginfo('url') ); ?></p>
+                </td>
+            </tr>
+        </table>
+        <?php
+    }
+    ?>
 
 <h3><?php echo __('Blog Posts and Pages', 'powerpress'); ?></h3>
 
@@ -1392,6 +982,58 @@ foreach( $linkoptions as $value => $desc )
 
 </table>
 </div><!-- end new_window_settings -->
+
+<h3><?php echo __('Miscellaneous Settings', 'powerpress'); ?></h3>
+    <table class="form-table">
+        <tr>
+        <th><?php echo __('Media Embed Options', 'powerpress'); ?></th>
+            <td>
+                <label style="font-size: 110%;">
+                    <input id="embed_replace_player" name="General[embed_replace_player]" type="checkbox" value="1"<?php if( !empty($General['embed_replace_player']) ) echo ' checked'; ?> />
+                    <?php echo __('Replace Player with Embed', 'powerpress'); ?>
+                    (<?php echo __('Do not display default player if embed present for episode.', 'powerpress'); ?>)
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <?php
+                echo __('Auto Add Media', 'powerpress');
+                if( !isset($General['auto_enclose']) )
+                    $General['auto_enclose'] = 0;
+                ?></th>
+            <td>
+                <select name="General[auto_enclose]" class="bpp_input_med">
+                    <?php
+                    $options = array(0=>__('Disabled (default)', 'powerpress'), 1=>__('First media link found in post content', 'powerpress'), 2=>__('Last media link found in post content', 'powerpress') );
+
+                    foreach( $options as $value => $desc )
+                        echo "\t<option value=\"$value\"". ($General['auto_enclose']==$value?' selected':''). ">$desc</option>\n";
+
+                    ?>
+                </select>
+                <p><?php echo __('When enabled, the first or last media link found in the post content is automatically added as your podcast episode.', 'powerpress'); ?></p>
+                <p style="margin-bottom: 0;" class="description"><em><?php echo __('NOTE: Use this feature with caution. Links to media files could unintentionally become podcast episodes.', 'powerpress'); ?></em></p>
+                <p><em><?php echo __('WARNING: Episodes created with this feature will <u>not</u> include Duration (total play time) information.', 'powerpress'); ?></em></p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <?php echo __('Disable Warnings', 'powerpress'); ?></th>
+            <td>
+                <select name="General[hide_warnings]" class="bpp_input_med">
+                    <?php
+                    $options = array(0=>__('No (default)', 'powerpress'), 1=>__('Yes', 'powerpress') );
+                    $current_value = (!empty($General['hide_warnings'])?$General['hide_warnings']:0);
+                    foreach( $options as $value => $desc )
+                        echo "\t<option value=\"$value\"". ($current_value==$value?' selected':''). ">$desc</option>\n";
+
+                    ?>
+                </select>
+                <p><?php echo __('Disable warning messages displayed in episode entry box. Errors are still displayed.', 'powerpress'); ?></p>
+            </td>
+        </tr>
+    </table>
 
 </div><!-- end presentation_settings in advanced mode -->
 <!-- end presentation settings -->

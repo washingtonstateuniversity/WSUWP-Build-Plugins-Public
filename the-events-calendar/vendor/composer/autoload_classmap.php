@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Tribe\\Events\\Collections\\Lazy_Post_Collection' => $baseDir . '/src/Tribe/Collections/Lazy_Post_Collection.php',
+    'Tribe\\Events\\Integrations\\WP_Rocket' => $baseDir . '/src/Tribe/Integrations/WP_Rocket.php',
     'Tribe\\Events\\Models\\Post_Types\\Event' => $baseDir . '/src/Tribe/Models/Post_Types/Event.php',
     'Tribe\\Events\\Models\\Post_Types\\Venue' => $baseDir . '/src/Tribe/Models/Post_Types/Venue.php',
     'Tribe\\Events\\Service_Providers\\Context' => $baseDir . '/src/Tribe/Service_Providers/Context.php',

@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 5.3.2
-Stable tag: 8.1.2
+Stable tag: 8.2
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -231,11 +231,17 @@ To install Blubrry PowerPress manually, follow these steps:
 = Next Major Release Announcements =
 * We are looking for beta testers! If you would like to beta test future versions of PowerPress, please [contact us](http://blubrry.com/contact.php#feedback) with your name and email.
 
-* PowerPress 8.1 beta 1 will be available in mid October, 2019! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
+* PowerPress 8.3 beta 1 will be available in early Feburary, 2020! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
 
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
 
+= 8.2 =
+* Released 2/10/2020
+* Eliminated Episode tab--whole episode box appears
+* New interface with multiple tabs and cleaner, clearer settings
+* Media link is now verified automatically
+* Updated id3 library to be compatible with PHP 7.4
 
 = 8.1.2 =
 * Released 1/17/2020
@@ -523,13 +529,12 @@ If you are a fan of PowerPress, we would greatly appreciate it if you could take
 * Quicktime Embed option for m4a audio removed due to security concerns with Quicktime.
 * SWF embed support dropped.
 * Embed link now toggles embed box when clicked multiple times.
-* ATTENTION: The 1 pixel out audio player will be removed from PowerPress 7.1.
 
 = Additional PowerPress Version History =
 Please visit the [PowerPress Version History](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/powerpress-version-history/) page for history prior to version 6.0.
 
 == Upgrade Notice ==
-ATTENTION: The 1 pixel out audio player will be removed from PowerPress 7.1.
+None
 
 == Contributors ==
 Angelo Mandato, CIO [Blubrry](http://www.blubrry.com) - Plugin founder, architect and lead developer

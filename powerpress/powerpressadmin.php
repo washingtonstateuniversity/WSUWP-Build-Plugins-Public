@@ -586,9 +586,7 @@ function powerpress_admin_init()
 					if( !isset($General['posttype_podcasting'] ) )
 						$General['posttype_podcasting'] = 0;
 					if( !isset($General['playlist_player'] ) )
-						$General['playlist_player'] = 0;	
-					if( !isset($General['metamarks'] ) )
-						$General['metamarks'] = 0;
+						$General['playlist_player'] = 0;
 					if(!isset($General['network_mode']))
 					    $General['network_mode'] = 0;
 						
@@ -648,8 +646,6 @@ function powerpress_admin_init()
 						$General['taxonomy_podcasting'] = 0;
 					if( !isset($General['posttype_podcasting'] ) )
 						$General['posttype_podcasting'] = 0;
-					if( !isset($General['metamarks'] ) )
-						$General['metamarks'] = 0;
 				}
 				
 				if( !empty($_POST['action']) && $_POST['action'] == 'powerpress-save-search' )
@@ -1629,7 +1625,7 @@ function powerpress_admin_menu()
 	else if( empty($Powerpress['use_caps']) || current_user_can('edit_podcast') )
 	{ // Otherwise we're using a version of wordpress that is not supported.
 		
-		require_once( POWERPRESS_ABSPATH .'/powerpressadmin-metabox.php');
+		require_once( POWERPRESS_ABSPATH .'/views/episode-box.php');
 		$FeedSlugPostTypesArray = array();
 		if( !empty($Powerpress['posttype_podcasting']) )
 		{
@@ -2112,12 +2108,9 @@ function powerpress_edit_post($post_ID, $post)
 			
 			powerpress_save_settings( $FeatureEpisodes, 'powerpress_itunes_featured');
 		}
-		
-		if( !empty($GeneralSettings['metamarks']) )
-		{
-			require_once(POWERPRESS_ABSPATH .'/powerpressadmin-metamarks.php');
-			powerpress_metabox_save($post_ID);
-		}
+
+        require_once(POWERPRESS_ABSPATH .'/powerpress-metamarks.php');
+        powerpress_metabox_save($post_ID);
 	}
     // Anytime the post is marked published, private or scheduled for the future we need to make sure we're making the media available for hosting
     if( $post->post_status == 'publish' || $post->post_status == 'private' || $post->post_status == 'future' )
@@ -2513,9 +2506,8 @@ jQuery(document).ready(function($) {
 
 g_powerpress_last_selected_channel = '';
 
-function powerpress_check_url(url)
+function powerpress_check_url(url, DestDiv)
 {
-	var DestDiv = 'powerpress_warning';
 	if( powerpress_check_url.arguments.length > 1 )
 		DestDiv = powerpress_check_url.arguments[1];
 	
@@ -2530,6 +2522,8 @@ function powerpress_check_url(url)
 		{
 			jQuery( '#'+DestDiv ).text('<?php echo esc_js( __('Media URL contains characters that may cause problems for some clients. For maximum compatibility, only use letters, numbers, dash - and underscore _ characters only.', 'powerpress')); ?>');
 			jQuery( '#'+DestDiv ).css('display', 'block');
+            jQuery('#powerpress_fail_'+FeedSlug).css("display", 'inline-block');
+            jQuery( '#powerpress_url_show' ).css('background-color', '#eba2a2');
 			return false;
 		}
 	
@@ -2547,8 +2541,9 @@ function powerpress_get_media_info(FeedSlug)
 	if( jQuery('#powerpress_check_'+FeedSlug).css("display") != "none" )
 		return; // Another process is already running
 
+    jQuery('#powerpress_fail_'+FeedSlug).css("display", 'none');
 	jQuery( '#powerpress_success_'+FeedSlug ).css('display', 'none');
-	jQuery( '#powerpress_warning_'+FeedSlug ).text('');
+	//jQuery( '#powerpress_warning_'+FeedSlug ).text('');
 	jQuery( '#powerpress_warning_'+FeedSlug ).css('display', 'none');
 	jQuery( '#powerpress_warning_'+FeedSlug ).addClass("error");
 	jQuery( '#powerpress_warning_'+FeedSlug ).removeClass("updated");
@@ -2560,7 +2555,7 @@ function powerpress_get_media_info(FeedSlug)
 	{
 		if( powerpress_check_url(Value, 'powerpress_warning_'+FeedSlug ) )
 		{
-			jQuery('#powerpress_check_'+FeedSlug).css("display", 'inline');
+			jQuery('#powerpress_check_'+FeedSlug).css("display", 'inline-block');
 			jQuery.ajax( {
 				type: 'POST',
 				url: '<?php echo admin_url(); ?>admin-ajax.php', 
@@ -2629,12 +2624,12 @@ function powerpress_get_media_info(FeedSlug)
 						}
 						else
 						{
-							jQuery( '#powerpress_success_'+FeedSlug ).html( '<?php echo __('Media verified successfully.', 'powerpress'); ?> <a href="#" onclick="jQuery( \'#powerpress_success_'+ FeedSlug +'\' ).fadeOut(1000);return false;" title="Close" class="close">X<\/a>' );
-							jQuery( '#powerpress_success_'+FeedSlug ).css('display', 'block');
+							jQuery( '#powerpress_success_'+FeedSlug ).css('display', 'inline-block');
+                            jQuery( '#powerpress_url_show_'+FeedSlug ).css('background-color', '#c1f2b8');
 							// setTimeout( function() { jQuery( '#powerpress_success_'+FeedSlug ).fadeOut(1000); }, 10000 );
 							<?php
 						if( defined('POWERPRESS_AJAX_DEBUG') )
-							echo "\t\t\t\tjQuery( '#powerpress_success_'+FeedSlug ).append( '<br/>Complete Response: '+ response);\n";
+							echo "\t\t\t\tjQuery( '#powerpress_warning_'+FeedSlug ).append( '<br/>Complete Response: '+ response);\n";
 						?>
 						}
 					}
@@ -2650,12 +2645,14 @@ function powerpress_get_media_info(FeedSlug)
 							jQuery( '#powerpress_warning_'+FeedSlug ).html( Parts[1] );
 						else
 							jQuery( '#powerpress_warning_'+FeedSlug ).text( '<?php echo __('Unknown error occurred while checking Media URL.', 'powerpress'); ?>' );
-							
+
 						<?php
 						if( defined('POWERPRESS_AJAX_DEBUG') )
 							echo "\t\t\t\tjQuery( '#powerpress_warning_'+FeedSlug ).append( '<br/>Complete Response: '+ response);\n";
 						?>
 						jQuery( '#powerpress_warning_'+FeedSlug ).css('display', 'block');
+                        jQuery('#powerpress_fail_'+FeedSlug).css("display", 'inline-block');
+                        jQuery( '#powerpress_url_show_'+FeedSlug ).css('background-color', '#eba2a2');
 					}
 				},
 				error: function(objAJAXRequest, textStatus, errorThrown) {
@@ -2668,6 +2665,10 @@ function powerpress_get_media_info(FeedSlug)
 					}
 					
 					jQuery('#powerpress_check_'+FeedSlug).css("display", 'none');
+                    jQuery( '#powerpress_warning_'+FeedSlug ).css('display', 'block');
+                    jQuery('#powerpress_fail_'+FeedSlug).css("display", 'inline-block');
+                    jQuery( '#powerpress_url_show_'+FeedSlug ).css('background-color', '#eba2a2');
+
 					if( textStatus == 'timeout' ) {
 						jQuery( '#powerpress_warning_'+FeedSlug ).text( '<?php echo __('Operation timed out.', 'powerpress'); ?>' );
 					}
@@ -2693,7 +2694,7 @@ function powerpress_get_media_info(FeedSlug)
 					if( textStatus != 'error' && errorThrown ) { // If we have an error thrown, lets append it to the error message
 						jQuery('#powerpress_warning_'+FeedSlug).append('<br/>'+errorThrown);
 					}
-					
+
 					<?php
 					if( defined('POWERPRESS_AJAX_DEBUG') ) {
 						echo "\t\t\tif( objAJAXRequest.responseText ) {\n";
@@ -2701,8 +2702,6 @@ function powerpress_get_media_info(FeedSlug)
 						echo "\t\t\t}\n";
 					}
 					?>
-					
-					jQuery( '#powerpress_warning_'+FeedSlug ).css('display', 'block');
 				}
 			});
 		}
@@ -2928,7 +2927,7 @@ add_action('wp_ajax_powerpress_media_info', 'powerpress_media_info_ajax');
 
 function powerpress_metamarks_addrow_ajax()
 {
-	require_once(POWERPRESS_ABSPATH .'/powerpressadmin-metamarks.php');
+	require_once(POWERPRESS_ABSPATH .'/views/episode-box.php');
 	powerpress_metamarks_addrow();
 }
 add_action('wp_ajax_powerpress_metamarks_addrow', 'powerpress_metamarks_addrow_ajax');

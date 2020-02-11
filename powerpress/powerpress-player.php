@@ -484,9 +484,6 @@ function powerpressplayer_player_audio($content, $media_url, $EpisodeData = arra
 				case 'blubrryaudio': {
 					$content .= powerpressplayer_build_blubrryaudio($media_url, $EpisodeData);
 				}; break;
-				case 'audio-player': {
-					$content .= powerpressplayer_build_1pxoutplayer($media_url, $EpisodeData);
-				}; break;
 				case 'html5audio': {
 					$content .= powerpressplayer_build_html5audio($media_url, $EpisodeData);
 				}; break;
@@ -1545,91 +1542,6 @@ function powerpressplayer_build_playimageepub($media_url, $include_div = false)
 	$content .= '</a>';
 	if( $include_div )
 		$content .= "</div>\n";
-	return $content;
-}
-
-/*
-1 pixel out player
-*/
-function powerpressplayer_build_1pxoutplayer($media_url, $EpisodeData = array())
-{
-	$content = '';
-	$autoplay = false;
-	if( isset($EpisodeData['autoplay']) && $EpisodeData['autoplay'] )
-		$autoplay = true; // TODO: We need to handle this
-
-	$PlayerSettings = get_option('powerpress_audio-player');
-	if( !$PlayerSettings )
-	{
-		$PlayerSettings = array(
-			'width'=>'290',
-			'transparentpagebg' => 'yes',
-			'lefticon' => '#333333',
-			'leftbg' => '#CCCCCC',
-			'bg' => '#E5E5E5',
-			'voltrack' => '#F2F2F2',
-			'volslider' => '#666666',
-			'rightbg' => '#B4B4B4',
-			'rightbghover' => '#999999',
-			'righticon' => '#333333',
-			'righticonhover' => '#FFFFFF',
-			'loader' => '#009900',
-			'track' => '#FFFFFF',
-			'tracker' => '#DDDDDD',
-			'border' => '#CCCCCC',
-			'skip' => '#666666',
-			'text' => '#333333',
-			'pagebg' => '',
-			'noinfo'=>'yes',
-			'rtl' => 'no' );
-	}
-
-	if( empty($PlayerSettings['titles']) )
-		$PlayerSettings['titles'] = 'Blubrry PowerPress';
-	else if( strtoupper($PlayerSettings['titles']) == __('TRACK', 'powerpress') )
-		unset( $PlayerSettings['titles'] );
-
-	// Set player width
-	if( !isset($PlayerSettings['width']) )	
-		$PlayerSettings['width'] = 290;
-	if( !empty($EpisodeData['width']) && is_numeric($EpisodeData['width']) )
-		$PlayerSettings['width'] = $EpisodeData['width'];
-	
-	$transparency = '<param name="wmode" value="transparent" />';
-	$PlayerSettings['transparentpagebg'] = 'yes';
-	if( !empty($PlayerSettings['pagebg']) )
-	{
-		$transparency = '<param name="bgcolor" value="'.$PlayerSettings['pagebg'].'" />';
-		$PlayerSettings['transparentpagebg'] = 'no';
-	}
-	
-	$flashvars ='';
-	foreach( $PlayerSettings as $key => $value )
-	{
-		$flashvars .= '&amp;'. $key .'='. preg_replace('/\#/','',$value);
-	}
-	
-	if( $autoplay )
-	{
-		$flashvars .= '&amp;autostart=yes';
-	}
-	
-	// TODO: Add 1 px out audio-player player here
-	$player_id = powerpressplayer_get_next_id();
-	if( empty($EpisodeData['nodiv']) )
-		$content .= '<div class="powerpress_player" id="powerpress_player_'. $player_id .'">';
-	$content .= '<object type="application/x-shockwave-flash" data="'.powerpress_get_root_url().'audio-player.swf" id="'.$player_id.'" height="24" width="'. $PlayerSettings['width'] .'">'.PHP_EOL_WEB;
-	$content .= '<param name="movie" value="'.powerpress_get_root_url().'audio-player.swf" />'.PHP_EOL_WEB;
-	$content .= '<param name="FlashVars" value="playerID='.$player_id.'&amp;soundFile='.urlencode($media_url).$flashvars.'" />'.PHP_EOL_WEB;
-	$content .= '<param name="quality" value="high" />'.PHP_EOL_WEB;
-	$content .= '<param name="menu" value="false" />'.PHP_EOL_WEB;
-	$content .= '<param name="wmode" value="transparent" />'.PHP_EOL_WEB;
-	// $content .= powerpressplayer_build_html5audio($media_url, $EpisodeData, true); // Feature removed since it causes double players to be insrted in Safari/Firefox
-	$content .=  powerpressplayer_build_playimageaudio($media_url);
-	$content .= '</object>'.PHP_EOL_WEB;
-	if( empty($EpisodeData['nodiv']) )
-		$content .= '</div>'.PHP_EOL_WEB;
-	
 	return $content;
 }
 

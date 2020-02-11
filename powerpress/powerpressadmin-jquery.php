@@ -349,6 +349,8 @@ window.onload = function() {
                 <select id="blubrry_program_keyword" name="Settings[blubrry_program_keyword]">
                     <option value="!selectPodcast"><?php echo __('Select Program', 'powerpress'); ?></option>
                     <?php
+                    //TODO: I THINK THIS LINE WILL SOLVE THE ISSUE OF NETWORK STUFF BEING IN THE WRONG ORDER
+                    //ksort($Programs);
                     foreach ($Programs as $value => $desc)
                         echo "\t<option value=\"$value\"" . ($blubrryProgramKeyword == $value ? ' selected' : '') . ">$desc</option>\n";
                     ?>
@@ -652,13 +654,13 @@ window.onload = function() {
 							if( !empty($SaveSettings['blubrry_program_keyword']) )
 							{
 								powerpress_add_blubrry_redirect($SaveSettings['blubrry_program_keyword']);
-								$SaveSettings['blubrry_hosting'] = $ProgramHosting[ $SaveSettings['blubrry_program_keyword'] ];
-								if( !is_bool($SaveSettings['blubrry_hosting']) )
-								{
-									if( $SaveSettings['blubrry_hosting'] === 'false' || empty($SaveSettings['blubrry_hosting']) )
-										$SaveSettings['blubrry_hosting'] = false;
-								}
-									
+								if ($SaveSettings['blubrry_program_keyword'] != 'no_default') {
+                                    $SaveSettings['blubrry_hosting'] = $ProgramHosting[$SaveSettings['blubrry_program_keyword']];
+                                    if (!is_bool($SaveSettings['blubrry_hosting'])) {
+                                        if ($SaveSettings['blubrry_hosting'] === 'false' || empty($SaveSettings['blubrry_hosting']))
+                                            $SaveSettings['blubrry_hosting'] = false;
+                                    }
+                                }
 								$Save = true;
 								$Close = true;
 							}
@@ -847,7 +849,7 @@ foreach( $Programs as $value => $desc )
                 jQuery("#blubrry_program_keyword").prepend('<option value="no_default"><?php echo __("No Default", "powerpress"); ?></option>');
             }
             else {
-                jQuery('#blubrry_program_keyword option[value="no_default"').remove();
+                jQuery('#blubrry_program_keyword option[value="no_default"]').remove();
             }
 
         } );

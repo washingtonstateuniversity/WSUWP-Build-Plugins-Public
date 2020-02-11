@@ -86,12 +86,12 @@
 
 <table class="form-table">
 <tr valign="top">
-<th scope="row"><?php echo __('Google', 'powerpress'); ?> <?php echo powerpressadmin_new(); ?></th>
+<th scope="row"><?php echo __('Google', 'powerpress'); ?></th>
 <td>
 	<p><strong><a href="https://create.blubrry.com/manual/podcast-promotion/submit-podcast-google-podcasts/?podcast-feed=<?php echo urlencode($feed_url); ?>" target="_blank"><?php echo  __('Learn more about Google Podcasts', 'powerpress'); ?></a></strong></p>
 	<label for="googleplay_url" style="font-size: 120%; display: block; font-weight: bold;"><?php echo __('Google Listing URL', 'powerpress'); ?></label>
 	<input type="text" class="bpp-input-normal" style="<?php echo ( empty($FeedSettings['google_url'])?'':'display: none;'); ?>" id="google_url" name="Null[google_url]" value="<?php echo esc_attr($googleUrl); ?>" maxlength="255" readOnly onclick="javascript: this.select();" onfocus="javascript: this.select();" />
-	<input type="text" class="bpp-input-normal" placeholder="<?php echo esc_attr($googleUrl); ?>" style="<?php echo ( empty($FeedSettings['google_url'])?'display: none;':''); ?>" id="google_url_override" name="Feed[google_url]" value="<?php echo esc_attr($FeedSettings['google_url']); ?>" maxlength="255"  />
+	<input type="text" class="bpp-input-normal" placeholder="<?php echo esc_attr($googleUrl); ?>" style="<?php echo ( empty($FeedSettings['google_url'])?'display: none;':''); ?>" id="google_url_override" name="Feed[google_url]" value="<?php echo esc_attr($FeedSettings['google_url']); ?>" maxlength="1024"  />
 	<label><input type="checkbox" name="NULL[google_url_toggle]" id="google_url_toggle"  value="1" <?php echo ( empty($FeedSettings['google_url'])?'':'checked'); ?> /> <?php echo __('Modify', 'powerpress'); ?></label>
 	<p><?php echo __('Google Podcasts directory is available through Google search, Google Home smart speakers, and the new Google Podcasts app for Android. As long as your podcast website is discoverable by Google search, your podcast will be included in this directory.', 'powerpress'); ?></p>
 </td>
@@ -161,7 +161,7 @@ jQuery( document ).ready(function() {
 
 <table class="form-table">
 <tr valign="top">
-<th scope="row"><?php echo __('Spotify', 'powerpress'); ?> <?php echo powerpressadmin_new(); ?></th>
+<th scope="row"><?php echo __('Spotify', 'powerpress'); ?></th>
 <td>
 	<p><strong><a href="https://create.blubrry.com/manual/podcast-promotion/submit-podcast-to-spotify/?podcast-feed=<?php echo urlencode($feed_url); ?>" target="_blank"><?php echo  __('Submit podcast to Spotify', 'powerpress'); ?></a></strong></p>
 	<label for="spotify_url" style="font-size: 120%; display: block; font-weight: bold;"><?php echo __('Spotify Listing URL', 'powerpress'); ?></label>
@@ -171,7 +171,7 @@ jQuery( document ).ready(function() {
 </td>
 </tr>
 <tr valign="top">
-    <th scope="row"><?php echo __('iHeartRadio', 'powerpress'); ?> <?php echo powerpressadmin_new(); ?></th>
+    <th scope="row"><?php echo __('iHeartRadio', 'powerpress'); ?></th>
     <td>
         <p><strong><a href="https://create.blubrry.com/manual/podcast-promotion/submit-podcast-to-iheartradio/?podcast-feed=<?php echo urlencode($feed_url); ?>" target="_blank"><?php echo  __('Submit podcast to iHeartRadio', 'powerpress'); ?></a></strong></p>
         <label for="iheart_url" style="font-size: 120%; display: block; font-weight: bold;"><?php echo __('iHeartRadio Listing URL', 'powerpress'); ?></label>
@@ -181,7 +181,7 @@ jQuery( document ).ready(function() {
     </td>
 </tr>
 <tr valign="top">
-    <th scope="row"><?php echo __('Deezer', 'powerpress'); ?> <?php echo powerpressadmin_new(); ?></th>
+    <th scope="row"><?php echo __('Deezer', 'powerpress'); ?></th>
     <td>
         <p><strong><a href="https://powerpresspodcast.com/2019/08/07/blubrry-podcasts-coming-deezer/?podcast-feed=<?php echo urlencode($feed_url); ?>" target="_blank"><?php echo  __('Submit podcast to Deezer', 'powerpress'); ?></a></strong></p>
         <label for="deezer_url" style="font-size: 120%; display: block; font-weight: bold;"><?php echo __('Deezer Listing URL', 'powerpress'); ?></label>
@@ -191,7 +191,7 @@ jQuery( document ).ready(function() {
     </td>
 </tr>
 <tr valign="top">
-    <th scope="row"><?php echo __('Pandora', 'powerpress'); ?> <?php echo powerpressadmin_new(); ?></th>
+    <th scope="row"><?php echo __('Pandora', 'powerpress'); ?></th>
     <td>
         <p><strong><a href="https://create.blubrry.com/manual/podcast-promotion/submit-podcast-to-pandora/?podcast-feed=<?php echo urlencode($feed_url); ?>" target="_blank"><?php echo  __('Submit podcast to Pandora', 'powerpress'); ?></a></strong></p>
         <label for="pandora_url" style="font-size: 120%; display: block; font-weight: bold;"><?php echo __('Pandora Listing URL', 'powerpress'); ?></label>
