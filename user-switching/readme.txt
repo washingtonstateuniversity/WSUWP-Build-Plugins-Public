@@ -4,7 +4,7 @@ Contributors: johnbillion
 Tags: users, profiles, user switching, fast user switching, multisite, buddypress, bbpress, become, user management, developer
 Requires at least: 3.7
 Tested up to: 5.3
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 Requires PHP: 5.3
 License: GPL v2 or later
 
@@ -154,7 +154,6 @@ In addition, User Switching respects the following filters from WordPress core w
 
 * `login_redirect` when switching to another user.
 * `logout_redirect` when switching off.
-* `send_auth_cookies` before setting any cookies.
 
 == Changelog ==
 
