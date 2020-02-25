@@ -31,7 +31,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
         <h3 id="pp-pp-selected-media-head-<?php echo $FeedSlug; ?>"
             style="<?php echo $style4; ?>"><?php echo __('Attach podcast media or enter URL', 'powerpress'); ?></h3>
         <div id="pp-selected-media-text-<?php echo $FeedSlug; ?>">
-            <div id="media-input-<?php echo $FeedSlug; ?>" class="label-container">
+            <div id="media-input-<?php echo $FeedSlug; ?>" class="powerpress-label-container">
                 <div id="pp-url-input-container-<?php echo $FeedSlug; ?>" style="<?php echo $style1 ?>">
                     <label id="pp-url-input-above-<?php echo $FeedSlug; ?>" class="pp-url-input-label"
                            style="display: none;"
@@ -43,7 +43,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
                            style="display: none;"
                            for="powerpress_url_<?php echo $FeedSlug; ?>"><?php echo __('Update URL or attach new media file'); ?></label>
                 </div>
-                <div style="<?php echo $style3 ?>" class="ep-box-input"
+                <div style="<?php echo $style3 ?>" class="pp-ep-box-input" title="<?php echo $EnclosureURL; ?>"
                      id="powerpress_url_show_<?php echo $FeedSlug; ?>">
                     <p id="ep-box-filename-<?php echo $FeedSlug; ?>"><?php echo $filename ?></p>
                     <img id="powerpress_success_<?php echo $FeedSlug; ?>"
@@ -68,14 +68,14 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
                      id="select-media-button-<?php echo $FeedSlug; ?>"><?php echo __('SELECT FILE', 'powerpress'); ?></div>
             </a>
             <div id="continue-to-episode-settings-<?php echo $FeedSlug; ?>" class="pp-blue-button"
-                 onclick="continueToEpisodeSettings(this)"><?php echo __('CONTINUE', 'powerpress'); ?></div>
+                 onclick="powerpress_continueToEpisodeSettings(this)"><?php echo __('CONTINUE', 'powerpress'); ?></div>
         </div>
 
         <div id="edit-media-file-<?php echo $FeedSlug; ?>" style="<?php echo $style3 ?>">
             <div id="pp-edit-media-button-<?php echo $FeedSlug; ?>" class="pp-gray-button"
-                 onclick="changeMediaFile(this)"><?php echo __('CHANGE MEDIA', 'powerpress'); ?></div>
+                 onclick="powerpress_changeMediaFile(this)"><?php echo __('CHANGE MEDIA', 'powerpress'); ?></div>
             <div id="verify-button-<?php echo $FeedSlug; ?>" class="pp-blue-button"
-                 onclick="verifyMedia(this)"><?php echo __('VERIFY LINK', 'powerpress'); ?></div>
+                 onclick="powerpress_verifyMedia(this)"><?php echo __('VERIFY LINK', 'powerpress'); ?></div>
         </div>
 
         <div id="pp-change-media-file-<?php echo $FeedSlug; ?>" style="display: none;">
@@ -86,7 +86,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
                      id="change-media-button-<?php echo $FeedSlug; ?>"><?php echo __('CHOOSE FILE', 'powerpress'); ?></div>
             </a>
             <div id="save-media-<?php echo $FeedSlug; ?>" class="pp-blue-button"
-                 onclick="saveMediaFile(this)"><?php echo __('SAVE', 'powerpress'); ?></div>
+                 onclick="powerpress_saveMediaFile(this)"><?php echo __('SAVE', 'powerpress'); ?></div>
         </div>
         <div id="pp-warning-messages">
             <div id="file-select-warning-<?php echo $FeedSlug; ?>"
@@ -127,7 +127,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
                 <div id="pp-category-dropdown-<?php echo $FeedSlug; ?>">
                     <label for="Powerpress[<?php echo $FeedSlug; ?>][category]"><?php echo __('Category', 'powerpress'); ?></label>
                     <div class="powerpress_row_content"><?php
-                        echo '<select id="powerpress_category_'. $FeedSlug . '" name="Powerpress['. $FeedSlug .'][category]" class="ep-box-input"> title="Category"';
+                        echo '<select id="powerpress_category_'. $FeedSlug . '" name="Powerpress['. $FeedSlug .'][category]" class="pp-ep-box-input"> title="Category"';
                         echo '<option value="0"';
                         echo '>' . esc_html( __('Select category', 'powerpress') ) . '</option>' . "\n";
 
@@ -152,8 +152,8 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
             <div id="show-hide-media-details-<?php echo $FeedSlug; ?>">
                 <!--<div class="ep-box-line-bold"></div>-->
                 <div id="media-details-container-<?php echo $FeedSlug; ?>">
-                    <a id="show-details-link-<?php echo $FeedSlug; ?>" class="media-details" title="<?php echo __("Show file size and duration","powerpress"); ?>"
-                       onclick="showHideMediaDetails(this)"><?php echo __('View File Size and Duration', 'powerpress'); ?>  &#709;</a>
+                    <button id="show-details-link-<?php echo $FeedSlug; ?>" class="media-details" title="<?php echo __("Show file size and duration","powerpress"); ?>"
+                       onclick="powerpress_showHideMediaDetails(this); return false;"><?php echo __('View File Size and Duration', 'powerpress'); ?>  &#709;</button>
                     <!--<a id="hide-details-link-<?php //echo $FeedSlug; ?>" class="pp-hidden-settings"
                        onclick="showHideMediaDetails(this)"><?php //echo __('Hide File Size and Duration', 'powerpress'); ?>  &#708;</a>-->
                 </div>
@@ -174,7 +174,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
                                    name="Powerpress[<?php echo $FeedSlug; ?>][set_size]" value="1"
                                    type="radio" <?php echo($GeneralSettings['set_size'] == 1 ? 'checked' : ''); ?> />
                             <?php echo __('Specify', 'powerpress') . ': '; ?>
-                            <input class="ep-box-input" type="text" id="powerpress_size_<?php echo $FeedSlug; ?>" title="<?php echo __("File size in bytes","powerpress"); ?>"
+                            <input class="pp-ep-box-input" type="text" id="powerpress_size_<?php echo $FeedSlug; ?>" title="<?php echo __("File size in bytes","powerpress"); ?>"
                                    name="Powerpress[<?php echo $FeedSlug; ?>][size]"
                                    value="<?php echo esc_attr($EnclosureLength); ?>" style="width: 110px;"
                                    onchange="javascript:jQuery('#powerpress_set_size_1_<?php echo $FeedSlug; ?>').attr('checked', true);"/>
@@ -197,17 +197,17 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
                                    name="Powerpress[<?php echo $FeedSlug; ?>][set_duration]" value="1"
                                    type="radio" <?php echo($GeneralSettings['set_duration'] == 1 ? 'checked' : ''); ?> />
                             <?php echo __('Specify', 'powerpress') . ': '; ?>
-                            <input type="text" class="ep-box-input" id="powerpress_duration_hh_<?php echo $FeedSlug; ?>" title="<?php echo __("Duration hours","powerpress"); ?>"
+                            <input type="text" class="pp-ep-box-input" id="powerpress_duration_hh_<?php echo $FeedSlug; ?>" title="<?php echo __("Duration hours","powerpress"); ?>"
                                    placeholder="HH" name="Powerpress[<?php echo $FeedSlug; ?>][duration_hh]"
                                    maxlength="2" value="<?php echo esc_attr($DurationHH); ?>"
                                    onchange="javascript:jQuery('#powerpress_set_duration_1_<?php echo $FeedSlug; ?>').attr('checked', true);"/><strong
                                     style="margin-left: 4px;">:</strong>
-                            <input type="text" class="ep-box-input" id="powerpress_duration_mm_<?php echo $FeedSlug; ?>" title="<?php echo __("Duration minutes","powerpress"); ?>"
+                            <input type="text" class="pp-ep-box-input" id="powerpress_duration_mm_<?php echo $FeedSlug; ?>" title="<?php echo __("Duration minutes","powerpress"); ?>"
                                    placeholder="MM" name="Powerpress[<?php echo $FeedSlug; ?>][duration_mm]"
                                    maxlength="2" value="<?php echo esc_attr($DurationMM); ?>"
                                    onchange="javascript:jQuery('#powerpress_set_duration_1_<?php echo $FeedSlug; ?>').attr('checked', true);"/><strong
                                     style="margin-left: 4px;">:</strong>
-                            <input type="text" class="ep-box-input" id="powerpress_duration_ss_<?php echo $FeedSlug; ?>" title="<?php echo __("Duration seconds","powerpress"); ?>"
+                            <input type="text" class="pp-ep-box-input" id="powerpress_duration_ss_<?php echo $FeedSlug; ?>" title="<?php echo __("Duration seconds","powerpress"); ?>"
                                    placeholder="SS" name="Powerpress[<?php echo $FeedSlug; ?>][duration_ss]"
                                    maxlength="10" value="<?php echo esc_attr($DurationSS); ?>"
                                    onchange="javascript:jQuery('#powerpress_set_duration_1_<?php echo $FeedSlug; ?>').attr('checked', true);"/>
@@ -227,7 +227,7 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
 }
 
 
-function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesSubtitle, $iTunesSummary, $iTunesAuthor, $iTunesOrder, $iTunesBlock, $object)
+function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $seo_feed_title, $GeneralSettings, $iTunesSubtitle, $iTunesSummary, $iTunesAuthor, $iTunesOrder, $iTunesBlock, $object)
 {
     ?>
     <!-- Tab content -->
@@ -258,19 +258,20 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
             <div class="pp-tooltip-right" style="margin: 1ch 0 0 1ch;">i
                 <span class="text-pp-tooltip" style="top: -50%; min-width: 200px;"><?php echo __('Please enter your episode title in the space for post title, above the post description.', 'powerpress'); ?></span>
             </div>
-            <?php if (!empty($GeneralSettings['seo_feed_title'])) { ?>
+            <?php if ($seo_feed_title) { ?>
             <div class="powerpress_row">
                 <div class="powerpress_row_content">
                     <input type="text" id="powerpress_feed_title_<?php echo $FeedSlug; ?>" title="<?php echo __("Episode title","powerpress"); ?>"
-                                       class="ep-box-input"
+                                       class="pp-ep-box-input"
                                        name="Powerpress[<?php echo $FeedSlug; ?>][feed_title]"
                                        value="<?php echo esc_attr($ExtraData['feed_title']); ?>"
                                        placeholder="<?php echo __('Custom episode title', 'powerpress'); ?>"
-                                       style="width: 100%; margin-top: 1em;"/>
+                                       style="width: 96%; margin-top: 1em;"/>
                 </div>
+                <label class="pp-ep-box-label-under"><?php echo __("Leave blank to use WordPress post title at the top of this page.", 'powerpress'); ?></label>
             </div>
             <?php } else { ?>
-                <p class="ep-box-text"><?php echo __("The episode title is pulled from your WordPress post title at the top of this page.", 'powerpress'); ?></p>
+                <p class="pp-ep-box-text"><?php echo __("The episode title is pulled from your WordPress post title at the top of this page.", 'powerpress'); ?></p>
             <?php } ?>
         </div>
         <div class="pp-section-container">
@@ -278,7 +279,7 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
             <div class="pp-tooltip-right" style="margin: 1ch 0 0 1ch;">i
                 <span class="text-pp-tooltip"><?php echo __('Please enter your description in the space above the episode box, underneath the post title.', 'powerpress'); ?></span>
             </div>
-            <p class="ep-box-text"><?php echo __("The episode description is pulled from your WordPress post content, which can be edited above.", 'powerpress'); ?></p>
+            <p class="pp-ep-box-text"><?php echo __("The episode description is pulled from your WordPress post content, which can be edited above.", 'powerpress'); ?></p>
         </div>
         <div id="apple-podcast-opt-<?php echo $FeedSlug; ?>" class="pp-section-container">
             <div class="pp-section-container">
@@ -286,79 +287,61 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
                 <div class="pp-tooltip-right">i
                     <span class="text-pp-tooltip"><?php echo __('Fill this section out thoroughly to optimize the exposure that your podcast gets on Apple.', 'powerpress'); ?></span>
                 </div>
-                <div id="explicit-container-<?php echo $FeedSlug; ?>">
-                    <select style="display: none" id="powerpress_explicit_<?php echo $FeedSlug; ?>"
-                            name="Powerpress[<?php echo $FeedSlug; ?>][explicit]" style="height:20px;">
-                        <?php
-                        $explicit_array = array('' => __('Use feed\'s explicit setting', 'powerpress'), 0 => __('no - display nothing', 'powerpress'), 1 => __('yes - explicit content', 'powerpress'), 2 => __('clean - no explicit content', 'powerpress'));
-
-                        foreach ($explicit_array as $value => $desc)
-                            echo "\t<option value=\"$value\"" . ($iTunesExplicit == $value ? ' selected' : '') . ">$desc</option>\n";
-
-                        ?>
-                    </select>
+                <div id="pp-explicit-container-<?php echo $FeedSlug; ?>">
+                    <input type="number" style="display: none" id="powerpress_explicit_<?php echo $FeedSlug; ?>"
+                            name="Powerpress[<?php echo $FeedSlug; ?>][explicit]" value="<?php echo $iTunesExplicit ? $iTunesExplicit : 0; ?>">
+                    <label class="pp-ep-box-label" for="explicit-switch-base-<?php echo $FeedSlug; ?>"><?php echo __("Explicit Setting", "powerpress"); ?></label>
                     <div id="explicit-switch-base-<?php echo $FeedSlug; ?>">
                         <div id="not-set-<?php echo $FeedSlug; ?>" title="<?php echo __("No explicit selected","powerpress"); ?>"
-                             onclick="changeExplicitSwitch(this)"<?php echo $iTunesExplicit == 2 ? ' style="border-right: 1px solid #b3b3b3;"' : '' ?>
-                        " class="<?php echo $iTunesExplicit == 0 ? ' explicit-selected' : 'explicit-option' ?>
+                             onclick="powerpress_changeExplicitSwitch(this)"<?php echo $iTunesExplicit == 2 ? ' style="border-right: 1px solid #b3b3b3;"' : '' ?>
+                        " class="<?php echo $iTunesExplicit == 0 ? 'explicit-selected' : 'pp-explicit-option' ?>
                         "><?php echo __('NOT SET', 'powerpress'); ?></div>
                         <div id="clean-<?php echo $FeedSlug; ?>" title="<?php echo __("Clean content","powerpress"); ?>"
-                             onclick="changeExplicitSwitch(this)"<?php echo $iTunesExplicit == 2 ? '' : ' style="border-left: 1px solid #b3b3b3;border-right: 1px solid #b3b3b3;"' ?>
-                        " class="<?php echo $iTunesExplicit == 2 ? ' explicit-selected' : 'explicit-option' ?>
+                             onclick="powerpress_changeExplicitSwitch(this)"<?php echo $iTunesExplicit == 2 ? '' : ' style="border-left: 1px solid #b3b3b3;border-right: 1px solid #b3b3b3;"' ?>
+                        " class="<?php echo $iTunesExplicit == 2 ? 'explicit-selected' : 'pp-explicit-option' ?>
                         "><?php echo __('CLEAN', 'powerpress'); ?></div>
                         <div id="explicit-<?php echo $FeedSlug; ?>" title="<?php echo __("Explicit content","powerpress"); ?>"
-                             onclick="changeExplicitSwitch(this)"<?php echo $iTunesExplicit == 2 ? ' style="border-left: 1px solid #b3b3b3;"' : '' ?>
-                        " class="<?php echo $iTunesExplicit == 1 ? ' explicit-selected' : 'explicit-option' ?>
+                             onclick="powerpress_changeExplicitSwitch(this)"<?php echo $iTunesExplicit == 2 ? ' style="border-left: 1px solid #b3b3b3;"' : '' ?>
+                        " class="<?php echo $iTunesExplicit == 1 ? 'explicit-selected' : 'pp-explicit-option' ?>
                         "><?php echo __('EXPLICIT', 'powerpress'); ?></div>
                     </div>
                 </div>
             </div>
             <div class="pp-section-container">
-                <div class="label-container" id="apple-title-container-<?php echo $FeedSlug; ?>">
-                    <label class="ep-box-label-apple"
+                <div class="powerpress-label-container" id="apple-title-container-<?php echo $FeedSlug; ?>">
+                    <label class="pp-ep-box-label-apple"
                            for="powerpress_episode_apple_title_<?php echo $FeedSlug; ?>"><?php echo __('Title', 'powerpress'); ?></label>
-                    <input class="apple-opt-input" type="text" title="<?php echo __("Apple Podcasts episode title","powerpress"); ?>"
+                    <input class="pp-ep-box-input" type="text" title="<?php echo __("Apple Podcasts episode title","powerpress"); ?>"
                            id="powerpress_episode_apple_title_<?php echo $FeedSlug; ?>"
                            name="Powerpress[<?php echo $FeedSlug; ?>][episode_title]"
                            value="<?php echo esc_attr($ExtraData['episode_title']); ?>" maxlength="255"/>
                 </div>
-                <div class="label-container" id="episode-no-container-<?php echo $FeedSlug; ?>">
-                    <label class="ep-box-label-apple"
+                <div class="powerpress-label-container" id="episode-no-container-<?php echo $FeedSlug; ?>">
+                    <label class="pp-ep-box-label-apple"
                            for="powerpress_episode_episode_no_<?php echo $FeedSlug; ?>"><?php echo __('Episode #', 'powerpress'); ?></label>
-                    <input class="apple-opt-input" type="number" title="<?php echo __("Apple Podcasts episode number","powerpress"); ?>"
+                    <input class="pp-ep-box-input" type="number" title="<?php echo __("Apple Podcasts episode number","powerpress"); ?>"
                            id="powerpress_episode_episode_no_<?php echo $FeedSlug; ?>"
                            name="Powerpress[<?php echo $FeedSlug; ?>][episode_no]"
                            value="<?php echo esc_attr($ExtraData['episode_no']); ?>"/>
                 </div>
-                <div class="label-container" id="season-container-<?php echo $FeedSlug; ?>">
-                    <label class="ep-box-label-apple"
+                <div class="powerpress-label-container" id="season-container-<?php echo $FeedSlug; ?>">
+                    <label class="pp-ep-box-label-apple"
                            for="powerpress_episode_season_<?php echo $FeedSlug; ?>"><?php echo __('Season #', 'powerpress'); ?></label>
-                    <div class="pp-tooltip-left" style="float: right;">i
+                    <!--<div class="pp-tooltip-left" style="float: right;">i
                         <span class="text-pp-tooltip"
                               style="float: right;"><?php echo __('If your feed type is set to serial, you may specify a season for each episode.', 'powerpress'); ?></span>
-                    </div>
-                    <input class="apple-opt-input" type="number" onclick="setCurrentSeason(this)"
+                    </div>-->
+                    <input class="pp-ep-box-input" type="number" oninput="powerpress_setCurrentSeason(this)"
                            id="powerpress_episode_season_<?php echo $FeedSlug; ?>"
                            name="Powerpress[<?php echo $FeedSlug; ?>][season]" title="<?php echo __("Apple Podcasts season number","powerpress"); ?>"
-                           value="<?php if ($canSetSeason) {
-                               if (isset($ExtraData['season']) && $ExtraData['season']) {
-                                   echo esc_attr($ExtraData['season']) . "\"/>";
+                           style="width: 100%;"
+                           <?php if (isset($ExtraData['season']) && $ExtraData['season']) {
+                                   echo " value=\"" . esc_attr($ExtraData['season']) . "\"/>";
                                } elseif (isset($GeneralSettings['current_season'])) {
-                                   echo esc_attr($GeneralSettings['current_season']) . "\"/>";
+                                   echo " value=\"" . esc_attr($GeneralSettings['current_season']) . "\"/>";
                                } else {
-                                   echo "1\"/>";
-                               }
-                           } else {
-                               if (isset($ExtraData['season']) && $ExtraData['season']) {
-                                   $season = esc_attr($ExtraData['season']);
-                               } else {
-                                   $season = '1';
-                               }
-                               echo "$season\" style=\"display: none\"/>";
-                               echo "<input class='ep-box-input' type='number' id='powerpress_episode_season_disabled_$FeedSlug' value='$season' disabled \>";
-                           } ?>
-                    <input id="most-recent-season-<?php echo $FeedSlug; ?>" type="number"
-                    name="General[current_season]" style="display: none;" value="1" />
+                                   echo " />";
+                               } ?>
                 </div>
             </div>
             <?php
@@ -377,41 +360,41 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
                 <div class="ep-box-line-margin" style="border-top: 2px solid #EFEFEF;"></div>
                 <div id="apple-advanced-container-<?php echo $FeedSlug; ?>">
                     <button id="show-apple-link-<?php echo $FeedSlug; ?>" class="apple-advanced" aria-pressed="false" title="<?php echo __("More settings button","powerpress"); ?>"
-                            onclick="showHideAppleAdvanced(this)"><?php echo __('See More Settings &#709;', 'powerpress'); ?></button>
+                            onclick="powerpress_showHideAppleAdvanced(this); return false;"><?php echo __('See More Settings &#709;', 'powerpress'); ?></button>
                 </div>
             </div>
             <div id="apple-advanced-settings-<?php echo $FeedSlug; ?>" class="pp-hidden-settings">
                 <div class="apple-opt-section-container">
-                    <div id="apple-summary-<?php echo $FeedSlug; ?>" class="label-container" style="width: 100%;">
-                        <label class="ep-box-label-apple"
+                    <div id="apple-summary-<?php echo $FeedSlug; ?>" class="powerpress-label-container" style="width: 100%;">
+                        <label class="pp-ep-box-label-apple"
                                for="Powerpress[<?php echo $FeedSlug; ?>][summary]"><?php echo __('Summary', 'powerpress'); ?></label>
-                        <textarea id="powerpress_summary_<?php echo $FeedSlug; ?>" class="apple-opt-input" title="<?php echo __("Apple Podcasts episode summary","powerpress"); ?>"
+                        <textarea id="powerpress_summary_<?php echo $FeedSlug; ?>" class="pp-ep-box-input" title="<?php echo __("Apple Podcasts episode summary","powerpress"); ?>"
                                   name="Powerpress[<?php echo $FeedSlug; ?>][summary]"><?php echo esc_textarea($iTunesSummary); ?></textarea>
-                        <label class="ep-box-label-under"><?php echo __('Leave blank to use post content.', 'powerpress'); ?></label>
+                        <label class="pp-ep-box-label-under"><?php echo __('Leave blank to use post content.', 'powerpress'); ?></label>
                     </div>
                 </div>
                 <div class="apple-opt-section-container">
-                    <div class="label-container" style="width: 100%;" id="height-apple-author-<?php echo $FeedSlug; ?>">
-                        <label class="ep-box-label" for="Powerpress[<?php echo $FeedSlug; ?>][author]"><?php echo __('Author', 'powerpress'); ?></label>
-                        <input class="apple-opt-input" type="text" id="powerpress_author_<?php echo $FeedSlug; ?>"  title="<?php echo __("Apple Podcasts episode author","powerpress"); ?>" name="Powerpress[<?php echo $FeedSlug; ?>][author]" value="<?php echo esc_attr($iTunesAuthor); ?>" />
-                        <label class="ep-box-label-under"><?php echo __('Leave blank to use post author name.', 'powerpress'); ?></label>
+                    <div class="powerpress-label-container" style="width: 100%;" id="apple-author-<?php echo $FeedSlug; ?>">
+                        <label class="pp-ep-box-label" for="Powerpress[<?php echo $FeedSlug; ?>][author]"><?php echo __('Author', 'powerpress'); ?></label>
+                        <input class="pp-ep-box-input" type="text" id="powerpress_author_<?php echo $FeedSlug; ?>"  title="<?php echo __("Apple Podcasts episode author","powerpress"); ?>" name="Powerpress[<?php echo $FeedSlug; ?>][author]" value="<?php echo esc_attr($iTunesAuthor); ?>" />
+                        <label class="pp-ep-box-label-under"><?php echo __('Leave blank to use default.', 'powerpress'); ?></label>
                     </div>
                 </div>
                 <div class="apple-opt-section-container">
-                    <div class="label-container" style="width: 100%;" id="height-apple-subtitle-<?php echo $FeedSlug; ?>">
-                        <label class="ep-box-label"
+                    <div class="powerpress-label-container" style="width: 100%;" id="apple-subtitle-<?php echo $FeedSlug; ?>">
+                        <label class="pp-ep-box-label"
                                for="Powerpress[<?php echo $FeedSlug; ?>][subtitle]"><?php echo __('Subtitle', 'powerpress'); ?></label>
-                        <input class="apple-opt-input" type="text" id="powerpress_subtitle_<?php echo $FeedSlug; ?>"
+                        <input class="pp-ep-box-input" type="text" id="powerpress_subtitle_<?php echo $FeedSlug; ?>"
                                name="Powerpress[<?php echo $FeedSlug; ?>][subtitle]" title="<?php echo __("Apple Podcasts episode subtitle","powerpress"); ?>"
                                value="<?php echo esc_attr($iTunesSubtitle); ?>" size="250" />
-                        <label class="ep-box-label-under"><?php echo __('Leave blank to use post excerpt.', 'powerpress'); ?></label>
+                        <label class="pp-ep-box-label-under"><?php echo __('Leave blank to use post excerpt.', 'powerpress'); ?></label>
                     </div>
                 </div>
                 <div class="apple-opt-section-container">
-                    <div class="label-container">
-                        <label class="ep-box-label-apple"
+                    <div class="powerpress-label-container">
+                        <label class="pp-ep-box-label-apple"
                                for="powerpress_episode_type_<?php echo $FeedSlug; ?>"><?php echo __('Type', 'powerpress'); ?></label>
-                        <select style="font-size: 14px;" class="apple-opt-input" id="powerpress_episode_type_<?php echo $FeedSlug; ?>"
+                        <select style="font-size: 14px;" class="pp-ep-box-input" id="powerpress_episode_type_<?php echo $FeedSlug; ?>"
                                 name="Powerpress[<?php echo $FeedSlug; ?>][episode_type]" title="<?php echo __("Apple Podcasts episode type","powerpress"); ?>">
                             <?php
                             $type_array = array('' => __('Full (default)', 'powerpress'), 'full' => __('Full Episode', 'powerpress'), 'trailer' => __('Trailer', 'powerpress'), 'bonus' => __('Bonus', 'powerpress'));
@@ -421,9 +404,9 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
                             ?>
                         </select>
                     </div>
-                    <div class="label-container" style="float: right;">
-                        <label class="ep-box-label" for="Powerpress[<?php echo $FeedSlug; ?>][block]"><?php echo __('Block', 'powerpress'); ?></label>
-                        <select class="apple-opt-input" id="powerpress_block_<?php echo $FeedSlug; ?>" name="Powerpress[<?php echo $FeedSlug; ?>][block]" title="<?php echo __("Apple Podcasts block episode","powerpress"); ?>">
+                    <div class="powerpress-label-container" style="float: right;">
+                        <label class="pp-ep-box-label" for="Powerpress[<?php echo $FeedSlug; ?>][block]"><?php echo __('Block', 'powerpress'); ?></label>
+                        <select class="pp-ep-box-input" id="powerpress_block_<?php echo $FeedSlug; ?>" name="Powerpress[<?php echo $FeedSlug; ?>][block]" title="<?php echo __("Apple Podcasts block episode","powerpress"); ?>">
                             <?php
                             $block_array = array(''=>__('No', 'powerpress'), 1=>__('Yes, Block episode from Apple Podcasts', 'powerpress') );
 
@@ -435,7 +418,7 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
                     </div>
                 </div>
                 <div class="apple-opt-section-container">
-                    <div class="label-container" id="apple-feature-<?php echo $FeedSlug; ?>">
+                    <div class="powerpress-label-container" id="apple-feature-<?php echo $FeedSlug; ?>" style="width: 65%;">
                         <h4 class="pp-section-title-block" style="width: 100%;"><?php echo __("Feature Episode", 'powerpress') ?></h4>
                         <?php if ($FeaturedChecked) { ?>
                         <input type="hidden" name="PowerpressFeature[<?php echo $FeedSlug; ?>]" value="0" />
@@ -446,9 +429,9 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
                         <span for="powerpress_feature_<?php echo $FeedSlug; ?>"
                               style="font-size: 14px;"> <?php echo __('Episode will appear at the top of your episode list in the Apple Podcast directory.', 'powerpress'); ?></span>
                     </div>
-                    <div class="label-container" id="height-type-<?php echo $FeedSlug; ?>" style="float: right;">
-                        <label class="ep-box-label" for="Powerpress[<?php echo $FeedSlug; ?>][order]"><?php echo __('Order', 'powerpress'); ?></label>
-                        <input class="apple-opt-input" type="number" id="powerpress_order_<?php echo $FeedSlug; ?>" title="<?php echo __("Apple Podcasts episode order","powerpress"); ?>" name="Powerpress[<?php echo $FeedSlug; ?>][order]" value="<?php echo esc_attr($iTunesOrder); ?>" />
+                    <div class="powerpress-label-container" id="type-<?php echo $FeedSlug; ?>" style="float: right; width: 30%;">
+                        <label class="pp-ep-box-label" for="Powerpress[<?php echo $FeedSlug; ?>][order]"><?php echo __('Order', 'powerpress'); ?></label>
+                        <input class="pp-ep-box-input" type="number" id="powerpress_order_<?php echo $FeedSlug; ?>" title="<?php echo __("Apple Podcasts episode order","powerpress"); ?>" name="Powerpress[<?php echo $FeedSlug; ?>][order]" value="<?php echo esc_attr($iTunesOrder); ?>" />
                     </div>
                 </div>
             </div>
@@ -457,7 +440,7 @@ function seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesS
     <?php
 }
 
-function artwork_tab($FeedSlug, $ExtraData, $object, $IsVideo, $CoverImage)
+function artwork_tab($FeedSlug, $ExtraData, $object, $CoverImage)
 {
     ?>
 
@@ -478,12 +461,12 @@ function artwork_tab($FeedSlug, $ExtraData, $object, $IsVideo, $CoverImage)
                           style="top: -150%;"><?php echo __('Episode artwork should be square and have dimensions between 1400 x 1400 pixels and 3000 x 3000 pixels.', 'powerpress'); ?></span>
                 </div>
                 <br/>
-                <input type="text" class="ep-box-input" title="<?php echo __("Apple Image URL","powerpress"); ?>"
+                <input type="text" class="pp-ep-box-input" title="<?php echo __("Apple Image URL","powerpress"); ?>"
                        id="powerpress_itunes_image_<?php echo $FeedSlug; ?>"
                        placeholder="<?php echo htmlspecialchars(__('e.g. http://example.com/path/to/image.jpg', 'powerpress')); ?>"
                        name="Powerpress[<?php echo $FeedSlug; ?>][itunes_image]"
                        value="<?php echo esc_attr($ExtraData['itunes_image']); ?>"
-                       style="font-size: 90%;" size="250" oninput="insertArtIntoPreview(this)"/>
+                       style="font-size: 90%;" size="250" oninput="powerpress_insertArtIntoPreview(this)"/>
                 <br/>
                 <br/>
                 <a href="<?php echo $form_action_url; ?>" class="thickbox powerpress-itunes-image-browser"
@@ -500,43 +483,38 @@ function artwork_tab($FeedSlug, $ExtraData, $object, $IsVideo, $CoverImage)
                    style="font-weight: bold;margin: 3px;"><?php echo get_filename_from_path(esc_attr($ExtraData['itunes_image'])); ?></p>
             </div>
         </div>
-        <?php //Setting for poster image
-        if ($IsVideo) { ?>
-            <div class="ep-box-line-margin"></div>
-            <div class="pp-section-container">
-                <div class="powerpress-art-text">
-                    <h4 class="pp-section-title"><?php echo __('Thumbnail Image', 'powerpress'); ?></h4>
-                    <div class="pp-tooltip-right">i
-                        <span class="text-pp-tooltip"><?php echo __('This setting is displayed because your podcast media is a video file.', 'powerpress'); ?></span>
-                    </div>
-                    <br/> <br/>
-                    <input type="text" class="ep-box-input" id="powerpress_image_<?php echo $FeedSlug; ?>"
-                           name="Powerpress[<?php echo $FeedSlug; ?>][image]" title="<?php echo __("Poster image URL","powerpress"); ?>"
-                           value="<?php echo esc_attr($CoverImage); ?>"
-                           placeholder="<?php echo htmlspecialchars(__('e.g. http://example.com/path/to/image.jpg', 'powerpress')); ?>"
-                           style="font-size: 90%;" size="250" oninput="insertArtIntoPreview(this)"/>
-                    <br/>
-                    <label class="ep-box-caption"
-                           for="powerpress_image_<?php echo $FeedSlug; ?>"><?php echo __('Poster image for video (m4v, mp4, ogv, webm, etc..)', 'powerpress'); ?></label>
-                    <br/>
-                    <a href="<?php echo $form_action_url; ?>" class="thickbox powerpress-image-browser"
-                       id="powerpress_image_browser_<?php echo $FeedSlug; ?>"
-                       title="<?php echo __('Select Poster Image', 'powerpress'); ?>">
-                        <button class="pp-gray-button"><?php echo __('UPLOAD THUMBNAIL', 'powerpress'); ?></button>
-                    </a>
+        <div class="ep-box-line-margin"></div>
+        <div id="powerpress_thumbnail_container_<?php echo $FeedSlug; ?>" class="pp-section-container">
+            <div class="powerpress-art-text">
+                <h4 class="pp-section-title"><?php echo __('Thumbnail Image', 'powerpress'); ?></h4>
+                <div class="pp-tooltip-right">i
+                    <span class="text-pp-tooltip"><?php echo __('This artwork only shows up if your podcast media is a video file.', 'powerpress'); ?></span>
                 </div>
-                <div class="powerpress-art-preview">
-                    <p class="pp-section-subtitle"
-                       style="font-weight: bold;"><?php echo __('PREVIEW', 'powerpress'); ?></p>
-                    <img id="poster-pp-image-preview-<?php echo $FeedSlug; ?>"
-                         src="<?php echo esc_attr($CoverImage); ?>" alt="No thumbnail selected"/>
-                    <p id="poster-pp-image-preview-caption-<?php echo $FeedSlug; ?>" class="pp-section-subtitle"
-                       style="font-weight: bold;margin: 3px;"><?php echo get_filename_from_path(esc_attr($CoverImage)); ?></p>
-                </div>
+                <br/> <br/>
+                <input type="text" class="pp-ep-box-input" id="powerpress_image_<?php echo $FeedSlug; ?>"
+                       name="Powerpress[<?php echo $FeedSlug; ?>][image]" title="<?php echo __("Poster image URL","powerpress"); ?>"
+                       value="<?php echo esc_attr($CoverImage); ?>"
+                       placeholder="<?php echo htmlspecialchars(__('e.g. http://example.com/path/to/image.jpg', 'powerpress')); ?>"
+                       style="font-size: 90%;" size="250" oninput="powerpress_insertArtIntoPreview(this)"/>
+                <br/>
+                <label class="ep-box-caption"
+                       for="powerpress_image_<?php echo $FeedSlug; ?>"><?php echo __('Poster image for video (m4v, mp4, ogv, webm, etc..)', 'powerpress'); ?></label>
+                <br/>
+                <a href="<?php echo $form_action_url; ?>" class="thickbox powerpress-image-browser"
+                   id="powerpress_image_browser_<?php echo $FeedSlug; ?>"
+                   title="<?php echo __('Select Poster Image', 'powerpress'); ?>">
+                    <button class="pp-gray-button"><?php echo __('UPLOAD THUMBNAIL', 'powerpress'); ?></button>
+                </a>
             </div>
-            <?php
-        }
-        ?>
+            <div class="powerpress-art-preview">
+                <p class="pp-section-subtitle"
+                   style="font-weight: bold;"><?php echo __('PREVIEW', 'powerpress'); ?></p>
+                <img id="poster-pp-image-preview-<?php echo $FeedSlug; ?>"
+                     src="<?php echo esc_attr($CoverImage); ?>" alt="No thumbnail selected"/>
+                <p id="poster-pp-image-preview-caption-<?php echo $FeedSlug; ?>" class="pp-section-subtitle"
+                   style="font-weight: bold;margin: 3px;"><?php echo get_filename_from_path(esc_attr($CoverImage)); ?></p>
+            </div>
+        </div>
     </div>
 
     <?php
@@ -567,25 +545,27 @@ function display_tab($FeedSlug, $IsVideo, $NoPlayer, $NoLinks, $Width, $Height, 
         </div>
 
         <?php //Setting for audio player size
-        if ($IsVideo) { ?>
-            <div id="pp-player-size-<?php echo $FeedSlug; ?>" class="pp-section-container">
-                <h4 class="pp-section-title"><?php echo __('Video Player Size', 'powerpress') ?></h4>
-                <div class="powerpress_row_content">
-                    <input type="text" id="powerpress_episode_player_width_<?php echo $FeedSlug; ?>" title="<?php echo __("Player width","powerpress"); ?>"
-                           class="ep-box-input" placeholder="<?php echo htmlspecialchars(__('Width', 'powerpress')); ?>"
-                           name="Powerpress[<?php echo $FeedSlug; ?>][width]" value="<?php echo esc_attr($Width); ?>"
-                           style="width: 40%;font-size: 90%;" size="5"/>
-                    x
-                    <input type="text" id="powerpress_episode_player_height_<?php echo $FeedSlug; ?>"
-                           class="ep-box-input"
-                           placeholder="<?php echo htmlspecialchars(__('Height', 'powerpress')); ?>" title="<?php echo __("Player height","powerpress"); ?>"
-                           name="Powerpress[<?php echo $FeedSlug; ?>][height]" value="<?php echo esc_attr($Height); ?>"
-                           style="width: 40%; font-size: 90%;" size="5"/>
-                </div>
+        if ($IsVideo) {
+            $display = "block";
+        } else {
+            $display = "none";
+        } ?>
+        <div id="line-above-player-size-<?php echo $FeedSlug; ?>" style="display: <?php echo $display; ?>" class="ep-box-line"></div>
+        <div id="pp-player-size-<?php echo $FeedSlug; ?>" style="display: <?php echo $display; ?>" class="pp-section-container">
+            <h4 class="pp-section-title" style="width: 100%;"><?php echo __('Video Player Size', 'powerpress') ?></h4>
+            <div class="powerpress-label-container">
+                <input type="text" id="powerpress_episode_player_width_<?php echo $FeedSlug; ?>" title="<?php echo __("Player width","powerpress"); ?>"
+                       class="pp-ep-box-input" placeholder="<?php echo htmlspecialchars(__('Width', 'powerpress')); ?>"
+                       name="Powerpress[<?php echo $FeedSlug; ?>][width]" value="<?php echo esc_attr($Width); ?>"
+                       style="width: 40%;font-size: 90%;" size="5"/>
+                x
+                <input type="text" id="powerpress_episode_player_height_<?php echo $FeedSlug; ?>"
+                       class="pp-ep-box-input"
+                       placeholder="<?php echo htmlspecialchars(__('Height', 'powerpress')); ?>" title="<?php echo __("Player height","powerpress"); ?>"
+                       name="Powerpress[<?php echo $FeedSlug; ?>][height]" value="<?php echo esc_attr($Height); ?>"
+                       style="width: 40%; font-size: 90%;" size="5"/>
             </div>
-            <?php
-        }
-        ?>
+        </div>
         <div class="ep-box-line"></div>
         <div id="player-shortcode-<?php echo $FeedSlug; ?>" class="pp-section-container">
             <h4 class="pp-section-title-block"><?php echo __('Display Player Anywhere on Page', 'powerpress'); ?></h4>
@@ -604,9 +584,9 @@ function display_tab($FeedSlug, $IsVideo, $NoPlayer, $NoLinks, $Width, $Height, 
                       style="top: -50%;"><?php echo __('Here, you can enter a link to embed a media player.', 'powerpress'); ?></span>
             </div>
             <div class="powerpress_row_content">
-                <textarea class="ep-box-input" id="powerpress_embed_<?php echo $FeedSlug; ?>"
+                <textarea class="pp-ep-box-input" id="powerpress_embed_<?php echo $FeedSlug; ?>"
                           name="Powerpress[<?php echo $FeedSlug; ?>][embed]" title="<?php echo __("Media Embed","powerpress"); ?>"
-                          style="font-size: 14px; width: 90%; height: 80px;"
+                          style="font-size: 14px; width: 95%; height: 80px;"
                           onfocus="this.select();"><?php echo esc_textarea($Embed); ?></textarea>
             </div>
         </div>

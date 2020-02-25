@@ -4,11 +4,6 @@ function powerpress_metabox_save($post_ID)
 {
     $MetaMarks = ( !empty($_POST['MetaMarks']) ? $_POST['MetaMarks'] : false);
     $Episodes = ( !empty($_POST['Powerpress']) ? $_POST['Powerpress'] : false);
-    $currentSeason = (!empty($_POST['General']['current_season']) ? $_POST['General']['current_season'] : false);
-    if ($currentSeason) {
-        $General = array('current_season' => $currentSeason);
-        powerpress_save_settings($General, 'powerpress_general');
-    }
     if( $Episodes )
     {
         foreach( $Episodes as $feed_slug => $Powerpress )
@@ -24,6 +19,11 @@ function powerpress_metabox_save($post_ID)
                 // No URL specified, then it's not really a podcast to save
                 if( $Powerpress['url'] == '' )
                     continue; // go to the next media file
+
+                if (isset($Powerpress['season'])) {
+                    $new = array("current_season" => $Powerpress['season']);
+                    powerpress_save_settings($new, 'powerpress_general');
+                }
 
                 if( !empty($MetaMarks[ $feed_slug ]) )
                 {
@@ -115,19 +115,19 @@ function powerpress_metamarks_editrow_html($feed_slug, $next_row, $data = null, 
     }
     $html = '<div class="pp-metamarks-row" id="powerpress_metamarks_row_'. $feed_slug .'_'. $next_row .'">';
     $html .= '<div class="metamark-top-section id="metamark-top-section-' . $feed_slug .'-'. $next_row . '">';
-    $html .= '<div id="metamark-preview-pos-' . $feed_slug .'-'. $next_row . '" class="metamark-preview-pos">' . $pos . '</div>';
-    $html .= '<div id="metamark-preview-type-' . $feed_slug .'-'. $next_row . '" class="metamark-preview-type">' . $type . '</div>';
+    $html .= '<div id="pp-metamark-preview-pos-' . $feed_slug .'-'. $next_row . '" class="pp-metamark-preview-pos-">' . $pos . '</div>';
+    $html .= '<div id="pp-metamark-preview-type--' . $feed_slug .'-'. $next_row . '" class="pp-metamark-preview-type-">' . $type . '</div>';
     $html .= '<div class="pp-metamark-delete"><a href="#" onclick="return powerpress_metamarks_deleterow(\'powerpress_metamarks_row_'. $feed_slug .'_'. $next_row .'\');" title="'. __('Delete', 'powerpress') .'">';
-    $html .= __('Delete', 'powerpress') . '</a></div><div class="pp-metamark-edit"><a href="#" id="toggle-metamark-'. $next_row . '-' . $feed_slug . '" title="'. __('Save', 'powerpress') .'" onclick="toggleMetamarksSettings(this)">' . __($option, 'powerpress') . '</a></div>';
-    $html .= '</div><div id="hide-metamark-' . $feed_slug .'-'. $next_row . '"' . $class . '>';
-    $html .= '<div class="metamark-input-container"><div class="pp-metamark-label-container" id="type-label-' . $feed_slug .'-'. $next_row . '"><label class="pp-metamark-label" for="metamark-type-'. $feed_slug .'_'. $next_row .'">' . __('Type', 'powerpress') . '</label><select id="metamark-type-'. $feed_slug .'-'. $next_row .'" class="ep-box-input" type="text" title="'. __('Type', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][type]">';
+    $html .= __('Delete', 'powerpress') . '</a></div><div class="pp-metamark-edit"><a href="#" id="pp-toggle-metamark-'. $next_row . '-' . $feed_slug . '" title="'. __($option, 'powerpress') .'" onclick="powerpress_toggleMetamarksSettings(this)">' . __($option, 'powerpress') . '</a></div>';
+    $html .= '</div><div id="pp-hide-metamark-' . $feed_slug .'-'. $next_row . '"' . $class . '>';
+    $html .= '<div class="pp-section-container"><div class="powerpress-label-container" id="pp-type-label' . $feed_slug .'-'. $next_row . '"><label class="pp-ep-box-label" style="width: 100%;" for="pp-metamark-type-'. $feed_slug .'_'. $next_row .'">' . __('Type', 'powerpress') . '</label><select id="pp-metamark-type-'. $feed_slug .'-'. $next_row .'" class="pp-ep-box-input" style="width: 100%;" type="text" title="'. __('Type', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][type]">';
     $html .= powerpress_print_options( array(''=>'Select Type')+ $MarkTypes, $data['type'], true);
-    $html .= '</select></div><div class="pp-metamark-label-container" id="pos-label-' .  $feed_slug .'-'. $next_row . '"><label class="pp-metamark-label" for="metamark-pos-'.  $feed_slug .'-'. $next_row .'">' . __('Position', 'powerpress') . '</label>';
-    $html .= '<input id="metamark-pos-'. $feed_slug .'-'. $next_row .'" class="ep-box-input" type="text" title="'. __('Position', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][position]" value="' .htmlspecialchars($data['position']) .'" placeholder="'. htmlspecialchars(__('Position', 'powerpress'))  .'" /></div>';
-    $html .= '<div class="pp-metamark-label-container" id="dur-label-' .  $feed_slug .'-'. $next_row . '"><label class="pp-metamark-label" for=\"metamark-dur-'.  $feed_slug .'-'. $next_row .'\">' . __('Duration', 'powerpress') . '</label>';
-    $html .= '<input id="metamark-dur-'. $feed_slug .'-'. $next_row .'" class="ep-box-input" type="text" title="'. __('Duration', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][duration]" value="' .htmlspecialchars($data['duration']) .'" placeholder="'. htmlspecialchars(__('Duration', 'powerpress'))  .'" /></div></div>';
-    $html .= '<div class="metamark-input-container"><label class="pp-metamark-label" for="metamark-link-'. $feed_slug .'-'. $next_row .'">' . __('Link', 'powerpress') . '</label><input id="metamark-link-'. $feed_slug .'-'. $next_row .'" class="ep-box-input" type="text" title="'. __('Link', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][link]" value="' .htmlspecialchars($data['link']) .'" placeholder="'. htmlspecialchars(__('Link', 'powerpress'))  .'" /></div>';
-    $html .= '<div class="metamark-input-container" id="value-container-' . $feed_slug .'-'. $next_row . '"><label class="pp-metamark-label" for="metamark-val-'. $next_row .'">' . __('Value', 'powerpress') . '</label><textarea id="metamark-val-'. $feed_slug .'-'. $next_row .'" class="ep-box-input" name="MetaMarks['.$feed_slug.']['.$next_row.'][value]" title="'. __('Value', 'powerpress') .'" placeholder="'. htmlspecialchars(__('Value', 'powerpress'))  .'">' .htmlspecialchars($data['value']) .'</textarea></div>';
+    $html .= '</select></div><div class="powerpress-label-container" id="pp-pos-label' .  $feed_slug .'-'. $next_row . '"><label class="pp-ep-box-label" for="pp-metamark-pos-'.  $feed_slug .'-'. $next_row .'">' . __('Position', 'powerpress') . '</label>';
+    $html .= '<input id="pp-metamark-pos-'. $feed_slug .'-'. $next_row .'" class="pp-ep-box-input" style="width: 100%;" type="text" title="'. __('Position', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][position]" value="' .htmlspecialchars($data['position']) .'" placeholder="'. htmlspecialchars(__('Position', 'powerpress'))  .'" /></div>';
+    $html .= '<div class="powerpress-label-container" id="pp-dur-label' .  $feed_slug .'-'. $next_row . '"><label class="pp-ep-box-label" for=\"pp-metamark-dur-'.  $feed_slug .'-'. $next_row .'\">' . __('Duration', 'powerpress') . '</label>';
+    $html .= '<input id="pp-metamark-dur-'. $feed_slug .'-'. $next_row .'" class="pp-ep-box-input" style="width: 100%;" type="text" title="'. __('Duration', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][duration]" value="' .htmlspecialchars($data['duration']) .'" placeholder="'. htmlspecialchars(__('Duration', 'powerpress'))  .'" /></div></div>';
+    $html .= '<div class="pp-section-container"><div class="powerpress-label-container" style="width: 100%;"><label class="pp-ep-box-label" for="pp-metamark-link-' . $feed_slug .'-'. $next_row .'">' . __('Link', 'powerpress') . '</label><input id="pp-metamark-link-'. $feed_slug .'-'. $next_row .'" class="pp-ep-box-input" style="width: 100%;" type="text" title="'. __('Link', 'powerpress') .'" name="MetaMarks['.$feed_slug.']['.$next_row.'][link]" value="' .htmlspecialchars($data['link']) .'" placeholder="'. htmlspecialchars(__('Link', 'powerpress'))  .'" /></div></div>';
+    $html .= '<div class="pp-section-container" id="pp-value-container-' . $feed_slug .'-'. $next_row . '"><div class="powerpress-label-container" style="width: 100%;"><label class="pp-ep-box-label" for="pp-metamark-val-' . $next_row .'">' . __('Value', 'powerpress') . '</label><textarea id="pp-metamark-val-'. $feed_slug .'-'. $next_row .'" class="pp-ep-box-input" style="width: 100%;" name="MetaMarks['.$feed_slug.']['.$next_row.'][value]" title="'. __('Value', 'powerpress') .'" placeholder="'. htmlspecialchars(__('Value', 'powerpress'))  .'">' .htmlspecialchars($data['value']) .'</textarea></div></div>';
 
 
     $html .= '</div></div>';

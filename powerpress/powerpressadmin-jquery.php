@@ -1075,9 +1075,16 @@ do_action('admin_head');
 
 echo '<!-- done adding extra stuff -->';
 
-?>
+if (defined('WP_DEBUG')) {
+    if (WP_DEBUG) {?>
 <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/jquery.css" type="text/css" media="screen" />
-<?php if( $other ) echo $other; ?>
+    <?php } else { ?>
+<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/jquery.min.css" type="text/css" media="screen" />
+    <?php   }
+} else { ?>
+<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/jquery.min.css" type="text/css" media="screen" />
+<?php }
+if( $other ) echo $other; ?>
 </head>
 <body>
 <div id="container">

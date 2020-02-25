@@ -1047,7 +1047,7 @@ function powerpressadmin_welcome($GeneralSettings)
 ?>
 <div>
 	<div class="powerpress-welcome-news">
-		<h2><?php echo __('Blubrry PowerPress and Community Podcast', 'powerpress'); ?></h2>
+		<h2><?php echo __('Podcast Insider by Blubrry', 'powerpress'); ?></h2>
 		<?php powerpressadmin_community_news(); ?>
 		<p style="margin-bottom: 0; font-size: 85%;">
 			<input type="checkbox" name="General[disable_dashboard_news]" value="1" <?php echo (empty($GeneralSettings['disable_dashboard_news'])?'':'checked'); ?> /> <?php echo __('Remove from dashboard', 'powerpress'); ?>

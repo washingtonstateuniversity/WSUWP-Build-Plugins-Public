@@ -5,10 +5,27 @@
     //Plus maybe general settings and whatever other variables are initialized in powerpress_meta_box
 
 require_once(POWERPRESS_ABSPATH .'/powerpress-metamarks.php');
+
+function powerpress_admin_enqueue_scripts($hook) {
+    if ( 'post-new.php' === $hook || 'post.php' === $hook) {
+        if (defined('WP_DEBUG')) {
+            if (WP_DEBUG) {
+                wp_register_style('powerpress-episode-box', powerpress_get_root_url() . 'css/episode-box.css', array(), POWERPRESS_VERSION);
+            } else {
+                wp_register_style('powerpress-episode-box', powerpress_get_root_url() . 'css/episode-box.min.css', array(), POWERPRESS_VERSION);
+            }
+        } else {
+            wp_register_style('powerpress-episode-box', powerpress_get_root_url() . 'css/episode-box.min.css', array(), POWERPRESS_VERSION);
+        }
+        wp_enqueue_style( 'powerpress-episode-box' );
+        wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
+    }
+}
+add_action('admin_enqueue_scripts', 'powerpress_admin_enqueue_scripts');
+
 function powerpress_meta_box($object, $box)
 {
     $FeedSlug = esc_attr(str_replace('powerpress-', '', $box['id']));
-    wp_enqueue_style("powerpress_episode_box", '/wp-content/plugins/powerpress/css/episode-box.css');
     $DurationHH = '';
     $DurationMM = '';
     $DurationSS = '';
@@ -159,19 +176,21 @@ function powerpress_meta_box($object, $box)
         }
 
     } // if ($object->ID)
-    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-metabox.php');
+    $seo_feed_title = !empty($GeneralSettings['seo_feed_title']);
 
-    if( function_exists( 'is_block_editor' ) && is_block_editor() ) {
-        $editor = "classic-editor";
-    } else {
+    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-metabox.php');
+    global $current_screen;
+    $current_screen = get_current_screen();
+    if( (method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor()) ||  ( function_exists('is_gutenberg_page')) && is_gutenberg_page() ) {
         $editor = "";
+    } else {
+        $editor = "classic-editor";
     }
     if ($EnclosureURL) {
         $style = "display: block";
     } else {
         $style = "display: none";
     }
-    echo "<script src='/wp-content/plugins/powerpress/js/admin.js'></script>";
     echo "<div id=\"powerpress_podcast_box_$FeedSlug\" class=\"$editor\">";
     if (!$EnclosureURL) {
         echo '<input type="hidden" name="Powerpress['. $FeedSlug .'][new_podcast]" value="1" />'.PHP_EOL;
@@ -180,18 +199,25 @@ function powerpress_meta_box($object, $box)
         echo "<input style=\"display:none\" type=\"checkbox\" name=\"Powerpress[$FeedSlug][change_podcast]\"";
         echo "id=\"powerpress_change_$FeedSlug\" value=\"1\" checked/>";
         echo "</div>";
+        echo "<div class=\"powerpress_remove_container\">";
+        echo "<label><b>" .  __('Remove', 'powerpress') . "</b></label>";
+        echo "<div class=\"powerpress_row_content\">";
+        echo "<input type=\"checkbox\" class='ep-box-checkbox' name=\"Powerpress[$FeedSlug][remove_podcast]\" id=\"powerpress_remove_$FeedSlug\" value=\"1\"  onchange=\"javascript:document.getElementById('a-pp-selected-media-$FeedSlug').style.display=(this.checked?'none':'block');javascript:document.getElementById('tab-container-$FeedSlug').style.display=(this.checked?'none':'block');\" />";
+        echo __('Podcast episode will be removed from this post upon save', 'powerpress');
+        echo "</div>";
+        echo "</div>";
     }
     episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings, $EnclosureLength, $DurationHH, $DurationMM, $DurationSS);
     echo "<div id=\"tab-container-$FeedSlug\" style=\"$style\">";
     echo "<div class=\"pp-tab\">";
     $titles = array("info" => __("Episode Info", "powerpress"), "artwork" => __("Episode Artwork", "powerpress"), "website" => __("Website Display", "powerpress"), "advanced" => __("Advanced", "powerpress"));
-    echo "<button class=\"tablinks active\" id=\"0$FeedSlug\" title='{$titles['info']}' onclick=\"openTab(event, 'seo-$FeedSlug')\" id=\"defaultOpen-$FeedSlug\">" . __('Episode Info', 'powerpress') . "</button>";
-    echo "<button class=\"tablinks\" id=\"1$FeedSlug\" title='{$titles['artwork']}' onclick=\"openTab(event, 'artwork-$FeedSlug')\">" . __('Episode Artwork', 'powerpress') . "</button>";
-    echo "<button class=\"tablinks\" id=\"2$FeedSlug\" title='{$titles['website']}' onclick=\"openTab(event, 'display-$FeedSlug')\">" . __('Website Display', 'powerpress') . "</button>";
-    echo "<button class=\"tablinks\" id=\"3$FeedSlug\" title='{$titles['advanced']}' onclick=\"openTab(event, 'notes-$FeedSlug')\">" . __('Advanced', 'powerpress') . "</button>";
+    echo "<button class=\"tablinks active\" id=\"0$FeedSlug\" title='{$titles['info']}' onclick=\"powerpress_openTab(event, 'seo-$FeedSlug')\" id=\"defaultOpen-$FeedSlug\">" . __('Episode Info', 'powerpress') . "</button>";
+    echo "<button class=\"tablinks\" id=\"1$FeedSlug\" title='{$titles['artwork']}' onclick=\"powerpress_openTab(event, 'artwork-$FeedSlug')\">" . __('Episode Artwork', 'powerpress') . "</button>";
+    echo "<button class=\"tablinks\" id=\"2$FeedSlug\" title='{$titles['website']}' onclick=\"powerpress_openTab(event, 'display-$FeedSlug')\">" . __('Website Display', 'powerpress') . "</button>";
+    echo "<button class=\"tablinks\" id=\"3$FeedSlug\" title='{$titles['advanced']}' onclick=\"powerpress_openTab(event, 'notes-$FeedSlug')\">" . __('Advanced', 'powerpress') . "</button>";
     echo "</div>";
-    seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $canSetSeason, $iTunesSubtitle, $iTunesSummary, $iTunesAuthor, $iTunesOrder, $iTunesBlock, $object);
-    artwork_tab($FeedSlug, $ExtraData, $object, $IsVideo, $CoverImage);
+    seo_tab($FeedSlug, $ExtraData, $iTunesExplicit, $seo_feed_title, $GeneralSettings, $iTunesSubtitle, $iTunesSummary, $iTunesAuthor, $iTunesOrder, $iTunesBlock, $object);
+    artwork_tab($FeedSlug, $ExtraData, $object, $CoverImage);
     display_tab($FeedSlug, $IsVideo, $NoPlayer, $NoLinks, $Width, $Height, $Embed);
     notes_tab($FeedSlug, $object);
     echo "</div>";

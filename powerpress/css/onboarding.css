@@ -81,11 +81,11 @@ body {
   .pp_.flex-grid,
   .pp_.flex-grid-thirds {
     display: block;
+  }
     .pp_col {
       width: 100%;
       margin: 0 0 10px 0;
     }
-  }
 }
 
 

@@ -2383,8 +2383,19 @@ jQuery(document).ready(function($) {
 
 //-->
 </script>
-<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/admin.css" type="text/css" media="screen" />
-<?php
+        <?php
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            if (WP_DEBUG) {?>
+            <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/admin.css" type="text/css"
+                  media="screen"/>
+            <?php } else { ?>
+            <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/admin.min.css" type="text/css"
+                  media="screen"/>
+            <?php }
+        } else { ?>
+            <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/admin.min.css" type="text/css"
+                  media="screen"/>
+        <?php }
 	}
 	else if( $page_name == 'edit' || $page_name == 'edit-pages' ) // || $page_name == '' ) // we don't know the page, we better include our CSS just in case
 	{
@@ -2845,9 +2856,16 @@ function powerpress_send_to_poster_image(url)
 	{
 		// Print this line for debugging when looking for other pages to include header data for
 		//echo "<!-- WP Page Name: $page_name; Hook Suffix: $hook_suffix -->\n";
-?>
-<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/dashboard.css" type="text/css" media="screen" />
-<?php
+
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            if (WP_DEBUG) {?>
+            <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/dashboard.css" type="text/css" media="screen" />
+            <?php } else { ?>
+            <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/dashboard.min.css" type="text/css" media="screen" />
+            <?php }
+        } else { ?>
+            <link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/dashboard.min.css" type="text/css" media="screen" />
+        <?php }
 	}
 }
 

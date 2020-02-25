@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 5.3.2
-Stable tag: 8.2
+Stable tag: 8.2.5
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -231,10 +231,41 @@ To install Blubrry PowerPress manually, follow these steps:
 = Next Major Release Announcements =
 * We are looking for beta testers! If you would like to beta test future versions of PowerPress, please [contact us](http://blubrry.com/contact.php#feedback) with your name and email.
 
-* PowerPress 8.3 beta 1 will be available in early Feburary, 2020! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
+* PowerPress 8.3 beta 1 will be available in early March, 2020! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
 
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
+
+= 8.2.5 =
+* Released 2/20/2020
+* Fixed a bug that was preventing the explicit setting from saving
+
+= 8.2.4 =
+* Released 2/18/2020
+* Minified CSS files for faster loading times
+* Consolidated CSS classes and gave them more unique names so as to avoid conflict with other plugins
+* Added the ability for PowerPress to remember the season of the last episode published and put this as a default value in this field for new posts
+* Made poster image setting visible to all
+
+= 8.2.3 =
+* Released 2/13/2020
+* Added Remove Episode option  back into episode box
+* Fixed a bug where title input wasn't showing up (for users who had selected to specify an episode title)
+* Season value is now allowed to be empty
+* Added a label for the explicit setting
+* Fixed a bug where the settings for the player size weren't showing up for video media
+
+= 8.2.2 =
+* Released 2/12/2020
+* Tweaked id3 library so as to prevent php compatibility errors
+* Fixed a bug that was throwing an error in the subscribe widget
+* Slight CSS tweaks
+
+= 8.2.1 =
+* Released 2/11/2020
+* Fixed editor detection--now styling/responsiveness will accommodate for classic editor
+* Fixed a bug where the .js file wasn't getting loaded for everyone
+* Fixed a bug that would reload the page when a "View More"-type link was clicked
 
 = 8.2 =
 * Released 2/10/2020

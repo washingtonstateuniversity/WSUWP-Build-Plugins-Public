@@ -107,18 +107,7 @@ div[class^="pp-tooltip"] .text-pp-tooltip::after {
     border: 1px solid #EAEDF3;
     border-radius: 4px;
 }
-.pp-metamarks-row input {
-    vertical-align:top;
-}
-.pp-metamarks-row input.pp-metamark-link {
-    }
-.pp-metamarks-row select {
-    vertical-align:top;
-}
-.pp-metamarks-row textarea {
-    height: 50px;
-    resize: none;
-}
+
 .pp-metamark-delete a {
     margin: 4px 0pt 0pt -2px;
     cursor: pointer;
@@ -130,9 +119,74 @@ div[class^="pp-tooltip"] .text-pp-tooltip::after {
     left: -14px;
 }
 
+div[id^="pp-hide-metamark"] {
+    padding: 2em 2em 0 2em;
+}
+
+.pp-metamark-preview-pos-, .pp-metamark-delete {
+    display: inline-block;
+    margin: 1em;
+}
+
+.pp-metamark-edit, .pp-metamark-preview-type- {
+    margin: 1em 0;
+    display: inline-block;
+}
+
+.metamark-top-section {
+    border-bottom: 1px solid #EAEDF3;
+    border-radius: 4px 4px 0 0;
+    box-shadow: inset 0 0 0 1px #EAEDF3;
+    width: 100%;
+}
+
+div[class^="metamark-preview-"] {
+    font-weight: bold;
+}
+
+.pp-metamark-edit, .pp-metamark-delete {
+    float: right;
+}
+
+select[id^="pp-metamark-type-"] {
+    width: 100%;
+    height: 52px;
+    vertical-align: top;
+}
+
+input[id^="pp-metamark-pos-"], input[id^="pp-metamark-dur-"], input[id^="pp-metamark-link-"] {
+    width: 100%;
+    height: 58px;
+    vertical-align: top;
+}
+
+textarea[id^="pp-metamark-val-"][class="pp-ep-box-input"] {
+    height: 72px;
+    width: 100%;
+    margin: auto;
+    vertical-align: top;
+    resize: none;
+}
+
+div[id^="pp-dur-label"] {
+    float: right;
+    width: 30%;
+}
+
+div[id^="pp-pos-label"], div[id^="pp-type-label"] {
+    margin-right: 4%;
+    width: 30%;
+}
+
+.powerpress-label-container {
+    display: inline-block;
+    margin-top: 2ch;
+    height: 70px;
+}
+
 div[id^="select-media-file"] {
     vertical-align: top;
-    padding-top: 1vh;
+    padding-top: 2vh;
 }
 
 a[id^="pp-change-media-link"], div[id^="save-media"] {
@@ -149,91 +203,8 @@ div[id^="pp-category-dropdown-"] {
     margin: 1em 1em 0 3em;
 }
 
-.metamark-preview-pos, .metamark-preview-type, .pp-metamark-delete, .pp-metamark-edit {
-    display: inline-block;
-}
-
-.metamark-preview-pos, .pp-metamark-delete {
-
-    margin: 1em;
-}
-
-.pp-metamark-edit, .metamark-preview-type {
-    margin: 1em 0;
-}
-
-.metamark-top-section {
-    border-bottom: 1px solid #EAEDF3;
-    border-radius: 4px 4px 0 0;
-    box-shadow: inset 0 0 0 1px #EAEDF3;
+.pp-ep-box-input.pp-width {
     width: 100%;
-}
-
-.pp-metamark-edit, .pp-metamark-delete {
-    float: right;
-}
-
-.metamark-input-container {
-    width: 90%;
-    margin: 3em auto auto auto;
-}
-
-.pp-metamark-label {
-    top: 10px;
-    left: 10px;
-    display: inline-block;
-}
-
-.pp-metamark-edit {
-    display: inline-block;
-}
-
-.label-container {
-    display: inline-block;
-    margin-top: 2ch;
-}
-
-select[id^="metamark-type-"] {
-    width: 100%;
-    height: 52px;
-}
-
-div[id^="type-label-"] {
-    width: 40%;
-    margin: 1em 2% 1em 0;
-    display: inline-block;
-}
-
-input[id^="metamark-pos-"], input[id^="metamark-dur-"], input[id^="metamark-link-"] {
-    width: 100%;
-    height: 58px;
-}
-
-div[id^="pos-label-"] {
-    width: 26%;
-    margin: 1em 0 1em 1%;
-    display: inline-block;
-}
-
-div[id^="dur-label-"] {
-    width: 28%;
-    margin: 1em 0 1em 2%;
-    float: right;
-    display: inline-block;
-}
-
-div[id^="value-container-"] {
-    margin-bottom: 3em;
-}
-
-input[id^="metamark-link-"] {
-    margin: auto;
-}
-
-textarea[id^="metamark-val-"] {
-    height: 72px;
-    width: 100%;
-    margin: auto;
 }
 
 #powerpress-podcast .inside {
@@ -299,7 +270,7 @@ h4[class^="pp-section-title"] {
     width: 100%;
 }
 
-.ep-box-text {
+.pp-ep-box-text {
     font-size: 14px;
     margin-top: 2ch;
     margin-bottom: 0;
@@ -340,15 +311,18 @@ div[id^="pp-edit-media-button"] {
     padding: 1ch 2em 1ch 2em;
 }
 
-div[id^="a-pp-selected-media"] {
-    padding: 2em;
+div[id^="a-pp-selected-media"], .powerpress_remove_container {
+    padding: 0 2em 2em 2em;
     background-color: #F5F5F5;
+}
+
+div[class="powerpress_remove_container"] {
+    padding: 0 4em;
 }
 
 div[class^="metamark-preview-"] {
     font-weight: bold;
 }
-
 
 div[id^="explicit-switch-base"] {
     display: inline-block;
@@ -358,7 +332,7 @@ div[id^="explicit-switch-base"] {
     border-radius: 4px;
 }
 
-.explicit-option {
+.pp-explicit-option {
     background-color: #e6e6e6;
 }
 
@@ -368,7 +342,7 @@ div[id^="explicit-switch-base"] {
     border-radius: 4px;
 }
 
-.explicit-option, .explicit-selected {
+.pp-explicit-option, .explicit-selected {
     border-collapse: collapse;
     font-weight: bold;
     display: inline-block;
@@ -394,7 +368,7 @@ div[id^="pp-selected-media-text"] {
 
 div[id^="pp-change-media-file"] {
     vertical-align: top;
-    margin-top: 2em;
+    margin-top: 3em;
 }
 
 div[class^="ep-box-line"] {
@@ -423,17 +397,6 @@ div[class="ep-box-line-bold"] {
     line-height: 36px;
     padding-left: 2em;
     padding-right: 2em;
-}
-
-div[id^="pp-display-player"] {
-    width: 45%;
-    display: inline-block;
-}
-
-div[id^="pp-player-size"] {
-    width: 53%;
-    display: inline-block;
-    vertical-align: top;
 }
 
 .pp-hidden-settings {
@@ -482,7 +445,7 @@ div[id^="media-details-container"] {
     margin-bottom: 2ch;
 }
 
-a.media-details, button.apple-advanced {
+button.media-details, button.apple-advanced {
     color: #0c74d5;
     font-family: Roboto, sans-serif;
     font-size: 14px;
@@ -500,7 +463,7 @@ input[id^="powerpress_size"] {
     height: 28px;
 }
 
-input[id^="powerpress_duration_"] {
+input[id^="powerpress_duration_"][class="pp-ep-box-input"]  {
     width: 48px;
     text-align: center;
     height: 34px;
@@ -569,7 +532,7 @@ label[class="ep-box-caption"] {
     margin-left: 2em;
 }
 
-label[class^="ep-box-label"] {
+label[class^="pp-ep-box-label"] {
     position: relative;
     top: 2px;
     padding: 0 2px 0 2px;
@@ -577,7 +540,7 @@ label[class^="ep-box-label"] {
     background: transparent;
 }
 
-label[class^="ep-box-label-under"] {
+label[class^="pp-ep-box-label-under"] {
     position: relative;
     padding: 0 2px 0 2px;
     bottom: 10px;
@@ -586,12 +549,13 @@ label[class^="ep-box-label-under"] {
     background: transparent;
 }
 
-input[class="ep-box-input"], textarea[class="ep-box-input"], select[class="ep-box-input"], div[class="ep-box-input"] {
+input[class="pp-ep-box-input"], textarea[class="pp-ep-box-input"], select[class="pp-ep-box-input"], div[class="pp-ep-box-input"] {
     border-radius: 4px;
     background-color: white;
     border: 1px solid #B1B1B1;
     font-size: 14px;
     height: 56px;
+    width: 100%;
 }
 
 textarea[id^="powerpress_summary_"] {
@@ -654,19 +618,6 @@ input[id^="powerpress_url_"] {
     border-color: #0c74d5;
 }
 
-input[class="apple-opt-input"], select[class="apple-opt-input"], textarea[class="apple-opt-input"] {
-    width: 100%;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: white;
-    border: 1px solid #B1B1B1;
-    font-size: 14px;
-}
-
-input[class="apple-opt-input"], select[class="apple-opt-input"] {
-    height: 56px;
-}
-
 input[id^="powerpress_itunes_image_"], input[id^="powerpress_image_"] {
     width: 90%;
     border-radius: 4px;
@@ -706,10 +657,6 @@ input[class="ep-box-checkbox"] {
     justify-content: space-between;
 }
 
-div[id^="height-"] {
-    height: 70px;
-}
-
 div[id^="apple-feature"] {
     margin-top: 1vh;
 }
@@ -726,7 +673,7 @@ input[id^="powerpress_episode_season"]:disabled {
     background-color: #f5f5f5;
 }
 
-div[id^="explicit-container"] {
+div[id^="pp-explicit-container"] {
     display:inline-block;
     width: 35%;
     float: right;
@@ -735,7 +682,7 @@ div[id^="explicit-container"] {
 }
 
 div[id^="apple-title-container"] {
-    width: 58%;
+    width: 55%;
     margin-right: 3ch;
 }
 
@@ -781,7 +728,7 @@ div[id^="media-input"] {
     .details-auto-detect, .details-specify {
         width: 48%
     }
-    div[id^="explicit-container"] {
+    div[id^="pp-explicit-container"] {
         width: 40%;
     }
     div[id^="feature-container"] {
@@ -798,9 +745,9 @@ div[id^="media-input"] {
     .pp-detail-section {
         margin: 2ch 1em 2ch 1em;
     }
-    div[id^="explicit-container"] {
+    div[id^="pp-explicit-container"] {
         width: 98%;
-        margin: 1em 0 0 0;
+        margin: 1em 0 3em 0;
         float: left;
     }
     div[id^="apple-title-container"] {
@@ -819,15 +766,15 @@ div[id^="media-input"] {
     #wpbody select {
         height: 52px;
     }
-    div[id^="type-label-"] {
+    div[id^="pp-type-label"] {
         width: 99%;
         margin: 1em 0 1em 0;
     }
-    div[id^="pos-label-"] {
+    div[id^="pp-pos-label"] {
         width: 40%;
         margin-left: 0;
     }
-    div[id^="dur-label-"] {
+    div[id^="pp-dur-label"] {
         width: 40%;
         margin-right: 0;
     }
@@ -871,7 +818,7 @@ div[id^="media-input"] {
     div[id^="edit-media-file"], div[id^="pp-change-media-file"], div[id^="select-media-file"], div[id^="pp-category-dropdown"] {
         max-width: 90%;
     }
-    .explicit-option, .explicit-selected {
+    .pp-explicit-option, .explicit-selected {
         font-size: 12px;
     }
     .artwork-button {
@@ -886,7 +833,7 @@ div[id^="media-input"] {
     div[id^="type-container"] {
          width: 100%;
     }
-    input[id^="powerpress_duration_"] {
+    input[id^="powerpress_duration_"][class="pp-ep-box-input"] {
         width: 36px;
         padding: 6px;
         height: 28px;
@@ -906,10 +853,10 @@ div[id^="media-input"] {
     .media-details {
         margin-left: 0;
     }
-    .explicit-option, .explicit-selected {
+    .pp-explicit-option, .explicit-selected {
         width: 31%;
     }
-    div[id^="pos-label-"], div[id^="dur-label-"] {
+    div[id^="pp-pos-label"], div[id^="pp-dur-label"] {
         width: 100%;
         margin: 1em 0 1em 0;
     }
@@ -919,7 +866,7 @@ div[id^="media-input"] {
     a[id^="show-details-link"], a[id^="hide-details-link"] {
         font-size: 12px;
     }
-    input[id^="powerpress_duration_"] {
+    input[id^="powerpress_duration_"][class="pp-ep-box-input"]  {
         width: 28px;
         padding: 2px;
     }
@@ -940,14 +887,28 @@ div[id^="media-input"] {
         margin-top: 1em;
         width: 100%
     }
-    .classic-editor .details-auto-detect, .details-specify {
+    .classic-editor .details-auto-detect, .classic-editor .details-specify {
         width: 48%
     }
-    .classic-editor div[id^="explicit-container"] {
+    .classic-editor div[id^="pp-explicit-container"] {
         width: 40%;
     }
     .classic-editor div[id^="feature-container"] {
         width: 100%;
+    }
+}
+
+@media (max-width: 1350px) {
+    .classic-editor div[id^="pp-explicit-container-"] {
+        width: 98%;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 1256px) {
+    .classic-editor div[class^="details-"] {
+        width: 100%;
+        margin-top: 1em;
     }
 }
 
@@ -960,7 +921,7 @@ div[id^="media-input"] {
     .classic-editor .pp-detail-section {
         margin: 2ch 1em 2ch 1em;
     }
-    .classic-editor div[id^="explicit-container"] {
+    .classic-editor div[id^="pp-explicit-container"] {
         width: 98%;
         margin: 1em 0 0 0;
         float: left;
@@ -981,15 +942,15 @@ div[id^="media-input"] {
     .classic-editor #wpbody select {
         height: 52px;
     }
-    .classic-editor div[id^="type-label-"] {
+    .classic-editor div[id^="pp-type-label"] {
         width: 99%;
         margin: 1em 0 1em 0;
     }
-    .classic-editor div[id^="pos-label-"] {
+    .classic-editor div[id^="pp-pos-label"] {
         width: 40%;
         margin-left: 0;
     }
-    .classic-editor div[id^="dur-label-"] {
+    .classic-editor div[id^="pp-dur-label"] {
         width: 40%;
         margin-right: 0;
     }
@@ -1033,7 +994,7 @@ div[id^="media-input"] {
     .classic-editor div[id^="edit-media-file"], .classic-editor div[id^="pp-change-media-file"], .classic-editor div[id^="select-media-file"], .classic-editor div[id^="pp-category-dropdown"] {
         max-width: 90%;
     }
-    .classic-editor .explicit-option, .classic-editor .explicit-selected {
+    .classic-editor .pp-explicit-option, .classic-editor .explicit-selected {
         font-size: 12px;
     }
     .classic-editor .artwork-button {
@@ -1048,7 +1009,7 @@ div[id^="media-input"] {
     .classic-editor div[id^="type-container"] {
         width: 100%;
     }
-    .classic-editor input[id^="powerpress_duration_"] {
+    .classic-editor input[id^="powerpress_duration_"][class="pp-ep-box-input"]  {
         width: 36px;
         padding: 6px;
         height: 28px;

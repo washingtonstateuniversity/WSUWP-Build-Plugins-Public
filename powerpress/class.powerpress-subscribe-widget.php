@@ -53,12 +53,12 @@ PowerPress subscribe sidebar widget
 	}
 
 	function form( $instance ) {
-        $General = powerpress_get_settings('powerpress_general');
+        $GeneralSettings = get_option('powerpress_general');
 		if ( empty($instance['title']) ) {
 			$instance['title'] = __( 'Subscribe to Podcast' , 'powerpress');
 		}
 		if(empty($instance['style'])) {
-		    if (empty($General['timestamp']) || $General['timestamp'] > 1570366800) {
+		    if (empty($GeneralSettings['timestamp']) || $GeneralSettings['timestamp'] > 1570366800) {
                 $instance['style'] = 'modern';
             } else {
                 $instance['style'] = 'classic';
@@ -83,7 +83,6 @@ PowerPress subscribe sidebar widget
 			$instance['subscribe_category_id'] = '';
 		}
 
-		$GeneralSettings = get_option('powerpress_general');
 ?>
 		<p>
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:' , 'powerpress'); ?></label>
@@ -234,7 +233,11 @@ PowerPress subscribe sidebar widget
 		if( isset($instance['style']) )
 			$Settings['style'] = $instance['style'];
         if (defined('WP_DEBUG')) {
-            wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.css');
+            if (WP_DEBUG) {
+                wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.css');
+            } else {
+                wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.min.css');
+            }
         } else {
             wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.min.css');
         }

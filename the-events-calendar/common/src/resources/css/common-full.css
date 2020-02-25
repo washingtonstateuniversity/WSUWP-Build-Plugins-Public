@@ -174,13 +174,13 @@
 
 /* } */
 
-/* #top.tribe-theme-enfold .tribe-common { */
-
 /* -------------------------------------------------------------------------
 	 * Reset Full Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
 
-/* } */
+#top.tribe-theme-enfold .tribe-common button[disabled], #top .main_color .tribe-common button[disabled] {
+		opacity: 1;
+	}
 
 /* .tribe-theme-genesis { */
 
@@ -421,6 +421,10 @@
 
 /* -----------------------------------------------------------------------------
  * SVG - Photo
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Plus
  * ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
@@ -694,7 +698,7 @@
 		line-height: 1.62;
 		font-weight: 400;
 
-		color: #727272;
+		color: #5D5D5D;
 	}
 
 .tribe-common .tribe-common-form-control-checkbox__input,
@@ -767,7 +771,7 @@
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-checkbox__label {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-checkbox__label, #top .main_color .tribe-common .tribe-common-form-control-checkbox__label {
 			font-weight: 400;
 			font-size: 14px;
 		}
@@ -776,7 +780,7 @@
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-radio__label {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-radio__label, #top .main_color .tribe-common .tribe-common-form-control-radio__label {
 			font-weight: 400;
 			font-size: 14px;
 		}
@@ -948,14 +952,14 @@
 		line-height: 1.38;
 		font-weight: 400;
 
-		color: #727272;
+		color: #5D5D5D;
 	}
 
 /* -----------------------------------------------------------------------------
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-slider__label {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-slider__label, #top .main_color .tribe-common .tribe-common-form-control-slider__label {
 			font-weight: 400;
 			font-size: 12px;
 		}
@@ -1009,28 +1013,33 @@
 		}
 
 .tribe-common .tribe-common-form-control-text__input::-webkit-input-placeholder {
-			color: #727272;
+			color: #5D5D5D;
 			font-style: normal;
+			opacity: 1;
 		}
 
 .tribe-common .tribe-common-form-control-text__input::-moz-placeholder {
-			color: #727272;
+			color: #5D5D5D;
 			font-style: normal;
+			opacity: 1;
 		}
 
 .tribe-common .tribe-common-form-control-text__input:-ms-input-placeholder {
-			color: #727272;
+			color: #5D5D5D;
 			font-style: normal;
+			opacity: 1;
 		}
 
 .tribe-common .tribe-common-form-control-text__input::-ms-input-placeholder {
-			color: #727272;
+			color: #5D5D5D;
 			font-style: normal;
+			opacity: 1;
 		}
 
 .tribe-common .tribe-common-form-control-text__input::placeholder {
-			color: #727272;
+			color: #5D5D5D;
 			font-style: normal;
+			opacity: 1;
 		}
 
 .tribe-common .tribe-common-form-control-text__input:focus {
@@ -1058,23 +1067,24 @@
 	 * Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input, #top .main_color .tribe-common .tribe-common-form-control-text__input {
 			color: #141827;
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
 			font-size: 16px;
 			line-height: 1.62;
 			font-weight: 400;
 
+			background: #FFFFFF;
 			border: 0;
 			border-bottom: 1px solid #D5D5D5;
 		}
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input:focus {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input:focus, #top .main_color .tribe-common .tribe-common-form-control-text__input:focus {
 				border-bottom-color: #141827;
 				box-shadow: none;
 			}
 
-#top.tribe-theme-enfold .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
+#top.tribe-theme-enfold .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input, #top .main_color .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
 			color: #141827;
 			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
 			font-size: 14px;
@@ -1180,14 +1190,14 @@
 		line-height: 1.38;
 		font-weight: 400;
 
-		color: #727272;
+		color: #5D5D5D;
 	}
 
 /* -----------------------------------------------------------------------------
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-toggle__label {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-toggle__label, #top .main_color .tribe-common .tribe-common-form-control-toggle__label {
 			font-weight: 400;
 			font-size: 12px;
 		}
@@ -2019,7 +2029,7 @@
 		-webkit-transition: color 0.2s ease, border-color 0.2s ease;
 		transition: color 0.2s ease, border-color 0.2s ease;
 
-		color: #727272;
+		color: #5D5D5D;
 		padding: 14px 20px 14px;
 	}
 

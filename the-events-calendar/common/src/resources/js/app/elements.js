@@ -14809,7 +14809,7 @@ var moment_resetTimes = function resetTimes(start) {
  * @returns {{start: {moment}, end: {moment}}} Object with two keys: start, end
  */
 var adjustStart = function adjustStart(start, end) {
-	if (end.isSameOrBefore(start)) {
+	if (end.isBefore(start)) {
 		return moment_resetTimes(start);
 	}
 

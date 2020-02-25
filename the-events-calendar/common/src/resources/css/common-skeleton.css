@@ -302,21 +302,33 @@
 	 * Reset Skeleton Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common form {
+#top.tribe-theme-enfold .tribe-common button[disabled], #top .main_color .tribe-common button[disabled] {
+		cursor: default;
+	}
+
+#top.tribe-theme-enfold .tribe-common form,
+	#top.tribe-theme-enfold .tribe-common input,
+	#top .main_color .tribe-common form,
+	#top .main_color .tribe-common input {
 		margin: 0;
 	}
 
-#top.tribe-theme-enfold .tribe-common input {
+.entry-content-wrapper .tribe-common li {
 		margin: 0;
+		padding: 0;
 	}
-
-/* .tribe-theme-genesis { */
 
 /* -------------------------------------------------------------------------
 	 * Reset Skeleton Theme Overrides - Genesis
 	 * ------------------------------------------------------------------------- */
 
-/* } */
+.tribe-theme-genesis .tribe-common ol,
+	.tribe-theme-genesis .tribe-common ul,
+	.entry-content .tribe-common ol,
+	.entry-content .tribe-common ul {
+		margin: 0;
+		padding: 0;
+	}
 
 /* .tribe-theme-twentynineteen .tribe-common { */
 
@@ -528,6 +540,10 @@
 
 /* -----------------------------------------------------------------------------
  * SVG - Photo
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Plus
  * ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
@@ -817,7 +833,7 @@
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-checkbox__input {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-checkbox__input, #top .main_color .tribe-common .tribe-common-form-control-checkbox__input {
 			display: inline-block;
 		}
 
@@ -969,12 +985,12 @@
 	 * Theme Overrides - Enfold
 	 * ------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-text__input, #top .main_color .tribe-common .tribe-common-form-control-text__input {
 			padding: 12px 28px 12px 0;
 			width: 100%;
 		}
 
-#top.tribe-theme-enfold .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
+#top.tribe-theme-enfold .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input, #top .main_color .tribe-common.tribe-common--breakpoint-medium .tribe-common-form-control-text__input {
 			padding: 20px 20px 20px 40px;
 		}
 
@@ -1039,7 +1055,7 @@
 	 * Theme Overrides - Enfold
 	 * ----------------------------------------------------------------------------- */
 
-#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-toggle__input {
+#top.tribe-theme-enfold .tribe-common .tribe-common-form-control-toggle__input, #top .main_color .tribe-common .tribe-common-form-control-toggle__input {
 			display: inline-block;
 			margin: 5px 0;
 		}
@@ -1316,6 +1332,15 @@
 		padding: 0;
 	}
 
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Genesis
+	 * ------------------------------------------------------------------------- */
+
+.entry-content .tribe-common ul > li,
+		.entry-content .tribe-common ol > li {
+			list-style-type: none;
+		}
+
 .tribe-common {
 
 	/* -------------------------------------------------------------------------
@@ -1364,7 +1389,7 @@
 	}
 
 .tribe-common .tribe-common-svgicon--close {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='square' stroke-width='2'%3E%3Cpath d='M16 2L2 16M16 16L2 2' stroke='%23727272'/%3E%3C/g%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='square' stroke-width='2'%3E%3Cpath d='M16 2L2 16M16 16L2 2' stroke='%235D5D5D'/%3E%3C/g%3E%3C/svg%3E");
 	}
 
 .tribe-common .tribe-common-svgicon--close-secondary {
@@ -1376,7 +1401,7 @@
 	}
 
 .tribe-common .tribe-common-svgicon--filters {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23727272' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M3 3V0M3 15v-2' stroke='%23727272'/%3E%3Ccircle cx='3' cy='9' r='3' stroke='%23727272'/%3E%3Cpath d='M12 9v6' stroke='%23727272'/%3E%3Ccircle cx='12' cy='3' r='3' transform='matrix(1 0 0 -1 0 6)' stroke='%23727272'/%3E%3C/g%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23727272' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M3 3V0M3 15v-2' stroke='%235D5D5D'/%3E%3Ccircle cx='3' cy='9' r='3' stroke='%235D5D5D'/%3E%3Cpath d='M12 9v6' stroke='%235D5D5D'/%3E%3Ccircle cx='12' cy='3' r='3' transform='matrix(1 0 0 -1 0 6)' stroke='%235D5D5D'/%3E%3C/g%3E%3C/svg%3E");
 	}
 
 .tribe-common .tribe-common-svgicon--list {
@@ -1400,7 +1425,7 @@
 	}
 
 .tribe-common .tribe-common-svgicon--search {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%23727272'/%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235D5D5D'/%3E%3C/svg%3E");
 	}
 
 .tribe-common .tribe-common-svgicon--week {
@@ -1420,15 +1445,15 @@
 	}
 
 .tribe-common .tribe-common-svgicon--search {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%23727272'/%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235D5D5D'/%3E%3C/svg%3E");
 	}
 
 .tribe-common .tribe-common-svgicon--filters {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23727272' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M3 3V0M3 15v-2' stroke='%23727272'/%3E%3Ccircle cx='3' cy='9' r='3' stroke='%23727272'/%3E%3Cpath d='M12 9v6' stroke='%23727272'/%3E%3Ccircle cx='12' cy='3' r='3' transform='matrix(1 0 0 -1 0 6)' stroke='%23727272'/%3E%3C/g%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23727272' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M3 3V0M3 15v-2' stroke='%235D5D5D'/%3E%3Ccircle cx='3' cy='9' r='3' stroke='%235D5D5D'/%3E%3Cpath d='M12 9v6' stroke='%235D5D5D'/%3E%3Ccircle cx='12' cy='3' r='3' transform='matrix(1 0 0 -1 0 6)' stroke='%235D5D5D'/%3E%3C/g%3E%3C/svg%3E");
 	}
 
 .tribe-common .tribe-common-svgicon--close {
-		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='square' stroke-width='2'%3E%3Cpath d='M16 2L2 16M16 16L2 2' stroke='%23727272'/%3E%3C/g%3E%3C/svg%3E");
+		background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='square' stroke-width='2'%3E%3Cpath d='M16 2L2 16M16 16L2 2' stroke='%235D5D5D'/%3E%3C/g%3E%3C/svg%3E");
 	}
 
 /* .tribe-common { */
@@ -1585,7 +1610,7 @@
 		}
 
 .tribe-common .tribe-common-c-btn-icon--caret-left:active:before, .tribe-common .tribe-common-c-btn-icon--caret-left:hover:before, .tribe-common .tribe-common-c-btn-icon--caret-left:focus:before {
-				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.916 17.841L10 19.757l-9.9-9.9L10-.041l1.916 1.916-7.983 7.984z' fill='%23727272'/%3E%3C/svg%3E");
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.916 17.841L10 19.757l-9.9-9.9L10-.041l1.916 1.916-7.983 7.984z' fill='%235D5D5D'/%3E%3C/svg%3E");
 			}
 
 .tribe-common .tribe-common-c-btn-icon--caret-left:disabled:before {
@@ -1603,7 +1628,7 @@
 		}
 
 .tribe-common .tribe-common-c-btn-icon--caret-right:active:before, .tribe-common .tribe-common-c-btn-icon--caret-right:hover:before, .tribe-common .tribe-common-c-btn-icon--caret-right:focus:before {
-				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.084 2.159L2 .243l9.9 9.9L2 20.041.084 18.126l7.983-7.984z' fill='%23727272'/%3E%3C/svg%3E");
+				background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='12' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.084 2.159L2 .243l9.9 9.9L2 20.041.084 18.126l7.983-7.984z' fill='%235D5D5D'/%3E%3C/svg%3E");
 			}
 
 .tribe-common .tribe-common-c-btn-icon--caret-right:disabled:before {
@@ -1615,7 +1640,7 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-common .tribe-common-c-btn-icon--filters:before {
-			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23727272' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M3 3V0M3 15v-2' stroke='%23727272'/%3E%3Ccircle cx='3' cy='9' r='3' stroke='%23727272'/%3E%3Cpath d='M12 9v6' stroke='%23727272'/%3E%3Ccircle cx='12' cy='3' r='3' transform='matrix(1 0 0 -1 0 6)' stroke='%23727272'/%3E%3C/g%3E%3C/svg%3E");
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23727272' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M3 3V0M3 15v-2' stroke='%235D5D5D'/%3E%3Ccircle cx='3' cy='9' r='3' stroke='%235D5D5D'/%3E%3Cpath d='M12 9v6' stroke='%235D5D5D'/%3E%3Ccircle cx='12' cy='3' r='3' transform='matrix(1 0 0 -1 0 6)' stroke='%235D5D5D'/%3E%3C/g%3E%3C/svg%3E");
 			height: 20px;
 			width: 24px;
 		}
@@ -1633,7 +1658,7 @@
 	 * ----------------------------------------------------------------------------- */
 
 .tribe-common .tribe-common-c-btn-icon--search:before {
-			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%23727272'/%3E%3C/svg%3E");
+			background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235D5D5D'/%3E%3C/svg%3E");
 			height: 20px;
 			width: 20px;
 		}

@@ -7,8 +7,16 @@ function powerpressadmin_default_steps($Step = 0, $Heading = true, $ThisPage=tru
 		$Step = $_GET['pp-step'];
 ?>
 <div id="pp-getting-started-box">
-	<?php echo ($Heading?'<h2>'. __('Start your podcast in 3 easy steps...', 'powerpress') .'</h2>':''); ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo powerpress_get_root_url(); ?>css/steps.css">
+	<?php echo ($Heading?'<h2>'. __('Start your podcast in 3 easy steps...', 'powerpress') .'</h2>':'');
+    if (defined('WP_DEBUG')) {
+        if (WP_DEBUG) {?>
+	    <link rel="stylesheet" type="text/css" href="<?php echo powerpress_get_root_url(); ?>css/steps.css">
+        <?php } else { ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo powerpress_get_root_url(); ?>css/steps.min.css">
+        <?php }
+    } else { ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo powerpress_get_root_url(); ?>css/steps.min.css">
+    <?php } ?>
 	<ul id="powerpress-steps">
 	<?php if( $ThisPage ) { ?>
 		<li class="pp-step-1<?php echo ($Step >= 0? ' pp-step-active':''); ?>"><h3 class="<?php echo ($Step >= 1? 'pp-step-h-completed':''); ?>"><?php echo __('Fill out the settings on this page', 'powerpress'); ?></h3></li>

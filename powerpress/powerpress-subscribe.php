@@ -544,7 +544,11 @@ function powerpress_subscribe_shortcode( $attr ) {
 		return '';
 	$Settings['itunes_url'] = powerpresssubscribe_get_itunes_url($Settings);
     if (defined('WP_DEBUG')) {
-        wp_enqueue_style('powerpress-subscribe-style-modern', plugin_dir_url(__FILE__) . 'css/subscribe.css');
+        if (WP_DEBUG) {
+            wp_enqueue_style('powerpress-subscribe-style-modern', plugin_dir_url(__FILE__) . 'css/subscribe.css');
+        } else {
+            wp_enqueue_style('powerpress-subscribe-style-modern', plugin_dir_url(__FILE__) . 'css/subscribe.min.css');
+        }
     } else {
         wp_enqueue_style('powerpress-subscribe-style-modern', plugin_dir_url(__FILE__) . 'css/subscribe.min.css');
     }
