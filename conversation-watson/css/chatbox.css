@@ -561,3 +561,12 @@
 #call-interface #controls .call-interface-button:hover {
   opacity: 0.9;
 }
+
+.embedded-watsonconv-on-ios {
+  position: fixed;
+  z-index: 100000;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
