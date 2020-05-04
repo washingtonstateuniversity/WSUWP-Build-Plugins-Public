@@ -1,0 +1,17 @@
+{
+  "name": "washingtonstateuniversity/cahnrswsuwp-plugin-people",
+  "authors": [
+    {
+      "name": "Washington State University",
+      "name": "Dania Bleile"
+    }
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.x.x",
+    "wp-coding-standards/wpcs": "0.14.x"
+  },
+  "scripts": {
+    "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
+    "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
+  }
+}
