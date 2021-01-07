@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>A54B4900-DD5D-4F3E-BBAD-08EF0C67BB12</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M18,4 L18,0 L16,0 L16,4 L14,4 L14,6 L16,6 L16,20 L18,20 L18,6 L20,6 L20,4 L18,4 Z M11,0 L9,0 L9,9 L7,9 L7,11 L9,11 L9,20 L11,20 L11,11 L13,11 L13,9 L11,9 L11,0 Z M4,14 L6,14 L6,16 L4,16 L4,20 L2,20 L2,16 L0,16 L0,14 L2,14 L2,0 L4,0 L4,14 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/option_bar_settings-[#1399]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Icon/20px/option_bar_settings-[#1399]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/Grey-Darker-⚙️Atoms/Colour/Blue/1---100%" mask="url(#mask-2)" fill="#1665D8">
+                <g transform="translate(-1.000000, -1.000000)" id="Rectangle">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

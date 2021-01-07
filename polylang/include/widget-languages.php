@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * The language switcher widget
@@ -32,24 +35,47 @@ class PLL_Widget_Languages extends WP_Widget {
 	 * @param array $instance The settings for the particular instance of the widget
 	 */
 	public function widget( $args, $instance ) {
-		// Sets a unique id for dropdown
+		// Sets a unique id for dropdown.
 		$instance['dropdown'] = empty( $instance['dropdown'] ) ? 0 : $args['widget_id'];
 
 		if ( $list = pll_the_languages( array_merge( $instance, array( 'echo' => 0 ) ) ) ) {
 			$title = empty( $instance['title'] ) ? '' : $instance['title'];
+
 			/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 			$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 			echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
+
 			if ( $title ) {
 				echo $args['before_title'] . $title . $args['after_title']; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
+
+			// The title may be filtered: Strip out HTML and make sure the aria-label is never empty.
+			$aria_label = trim( wp_strip_all_tags( $title ) );
+			if ( ! $aria_label ) {
+				$aria_label = __( 'Choose a language', 'polylang' );
+			}
+
 			if ( $instance['dropdown'] ) {
-				echo '<label class="screen-reader-text" for="' . esc_attr( 'lang_choice_' . $instance['dropdown'] ) . '">' . esc_html__( 'Choose a language', 'polylang' ) . '</label>';
+				echo '<label class="screen-reader-text" for="' . esc_attr( 'lang_choice_' . $instance['dropdown'] ) . '">' . esc_html( $aria_label ) . '</label>';
 				echo $list; // phpcs:ignore WordPress.Security.EscapeOutput
 			} else {
+				$format = current_theme_supports( 'html5', 'navigation-widgets' ) ? 'html5' : 'xhtml';
+
+				/** This filter is documented in wp-includes/widgets/class-wp-nav-menu-widget.php */
+				$format = apply_filters( 'navigation_widgets_format', $format );
+
+				if ( 'html5' === $format ) {
+					echo '<nav role="navigation" aria-label="' . esc_attr( $aria_label ) . '">';
+				}
+
 				echo "<ul>\n" . $list . "</ul>\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+
+				if ( 'html5' === $format ) {
+					echo '</nav>';
+				}
 			}
+
 			echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 	}
@@ -63,8 +89,8 @@ class PLL_Widget_Languages extends WP_Widget {
 	 * @param array $old_instance Old settings for this instance
 	 * @return array Settings to save or bool false to cancel saving
 	 */
-	public function update( $new_instance, $old_instance ) {
-		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+	public function update( $new_instance, $old_instance ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		$instance = array( 'title' => sanitize_text_field( $new_instance['title'] ) );
 		foreach ( array_keys( PLL_Switcher::get_switcher_options( 'widget' ) ) as $key ) {
 			$instance[ $key ] = ! empty( $new_instance[ $key ] ) ? 1 : 0;
 		}
@@ -104,53 +130,5 @@ class PLL_Widget_Languages extends WP_Widget {
 				esc_attr( 'pll-' . $key )
 			);
 		}
-
-		// FIXME echoing script in form is not very clean
-		// but it does not work if enqueued properly :
-		// clicking save on a widget makes this code unreachable for the just saved widget ( ?! )
-		$this->admin_print_script();
-	}
-
-	/**
-	 * Add javascript to control the language switcher options
-	 *
-	 * @since 1.3
-	 */
-	public function admin_print_script() {
-		static $done = false;
-
-		if ( $done ) {
-			return;
-		}
-
-		$done = true;
-		?>
-		<script type='text/javascript'>
-			//<![CDATA[
-			jQuery( document ).ready( function( $ ) {
-				function pll_toggle( a, test ) {
-					test ? a.show() : a.hide();
-				}
-
-				// Remove all options if dropdown is checked
-				$( '.widgets-sortables,.control-section-sidebar' ).on( 'change', '.pll-dropdown', function() {
-					var this_id = $( this ).parent().parent().parent().children( '.widget-id' ).attr( 'value' );
-					pll_toggle( $( '.no-dropdown-' + this_id ), 'checked' != $( this ).attr( 'checked' ) );
-				} );
-
-				// Disallow unchecking both show names and show flags
-				var options = ['-show_flags', '-show_names'];
-				$.each( options, function( i, v ) {
-					$( '.widgets-sortables,.control-section-sidebar' ).on( 'change', '.pll' + v, function() {
-						var this_id = $( this ).parent().parent().parent().children( '.widget-id' ).attr( 'value' );
-						if ( 'checked' != $( this ).attr( 'checked' ) ) {
-							$( '#widget-' + this_id + options[ 1-i ] ).prop( 'checked', true );
-						}
-					} );
-				} );
-			} );
-			//]]>
-		</script>
-		<?php
 	}
 }

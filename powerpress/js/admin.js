@@ -4,39 +4,156 @@ function powerpress_verifyMedia(el) {
 }
 
 var interval = false;
+var verify_interval = false;
+
+jQuery(window).on("load", function(){
+    let url = jQuery("#verify-account-url").val();
+    if (url) {
+        tb_show('Verify Blubrry Account', url + '&KeepThis=true&TB_iframe=true&width=600&height=400&modal=true', false);
+        jQuery('#adminmenuwrap, #adminmenuwrap > *, #wpadminbar, #wpadminbar > *').css('z-index', '200000');
+        let height = jQuery('#wpwrap').height();
+        jQuery('#TB_overlay').css('height', height.toString() + 'px');
+        jQuery('body.modal-open').css('overflow-y', 'scroll');
+        jQuery('#TB_window, #TB_window iframe').css('height', '400px');
+        jQuery('#TB_window, #TB_window iframe').css('width', '800px');
+        jQuery('#TB_window').css('margin-left', '-315px');
+        jQuery('#TB_window').css('margin-top', '-220px');
+        jQuery('#TB_window').css('top', '50%');
+    }
+    return false;
+});
 
 function powerpress_openTab(evt, cityName) {
     // Declare all variables
-    var i, tabcontent, tablinks;
+    var tabcontent, tablinks;
 
     let feed_slug = event.currentTarget.id.substring(1);
     evt.preventDefault();
 
+    let desired_tab = jQuery("#" + event.currentTarget.id);
+    let id = "#" + cityName;
+    let desired_tab_contents = jQuery(id);
+
     // Get all elements with class="pp-tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("pp-tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
+    tabcontent = jQuery('.pp-tabcontent');
+    tabcontent.each(function(index, element) {
+        //jQuery(this).css("display", "none");
+        jQuery(this).attr("class", "pp-tabcontent has-sidenav");
+    });
 
     // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
+    tablinks = jQuery(".tablinks");
+    tablinks.each(function(index, element) {
+        jQuery(this).attr("class", "tablinks");
+    });
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
+    desired_tab_contents.attr("class", "pp-tabcontent has-sidenav active");
+    desired_tab.attr("class", "tablinks active");
 
     //Set/unset the interval for updating artwork previews
-    if (cityName == 'artwork-' + feed_slug && !interval) {
+    if (cityName == 'artwork-' + feed_slug) {
         let el = jQuery("#powerpress_itunes_image_" + feed_slug);
-        interval = setInterval(function() { powerpress_insertArtIntoPreview(el[0]); }, 1000);
+        let el_a = jQuery("#powerpress_image_" + feed_slug);
+        jQuery.merge(el, el_a);
+        if (el.length > 0) {
+            interval = setInterval(function () {
+                powerpress_insertArtIntoPreview(el[0]);
+            }, 1000);
+        }
     }
     if (cityName != 'artwork-' + feed_slug && interval) {
         clearInterval(interval);
         interval = false;
     }
+
+    //In Settings tabs, need to set the sidenav
+    if (cityName.includes("settings")) {
+        let settingsTab = cityName.replace("settings-", "");
+        switch(settingsTab) {
+            case "welcome":
+                document.getElementById("welcome-default-open").click();
+                break;
+            case "feeds":
+                document.getElementById("feeds-default-open").click();
+                break;
+            case "website":
+                document.getElementById("website-default-open").click();
+                break;
+            case "destinations":
+                document.getElementById("destinations-default-open").click();
+                break;
+            case "analytics":
+
+                break;
+            case "advanced":
+                document.getElementById("advanced-default-open").click();
+                break;
+            case "other":
+                document.getElementById("other-default-open").click();
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+function sideNav(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks, tabs;
+    let target;
+    evt.preventDefault();
+
+    if (event.currentTarget.id == "pp-welcome-artwork-link") {
+        target = document.getElementById("feeds-artwork-tab");
+    } else if(event.currentTarget.id == "pp-welcome-applesubmit-link"){
+        target = document.getElementById("destinations-apple-tab");
+    } else if(event.currentTarget.id == "advanced-tab-seo-link"){
+        target = document.getElementById("feeds-seo-tab");
+    }
+    else {
+        target = event.currentTarget;
+    }
+    let desired_tab = jQuery("#" + target.id);
+    let id = "#" + cityName;
+    let desired_tab_contents = jQuery(id);
+
+    let icon = target.firstElementChild;
+
+    // Get all elements with class="pp-tabcontent" and hide them
+    tabcontent = jQuery(".pp-sidenav-tab");
+    tabcontent.each(function(index, element) {
+        jQuery(this).attr("class", "pp-sidenav-tab");
+    });
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tabs = jQuery(".pp-sidenav-tablinks");
+    tabs.each(function(index, element) {
+        jQuery(this).attr("class", "pp-sidenav-tablinks");
+    });
+
+    tablinks = document.getElementsByClassName("pp-sidenav-tablinks");
+    if (!cityName.includes("destinations")) {
+        for (i = 0; i < tablinks.length; i++) {
+            //Set any icons that are blue back to gray
+            let img_file = tablinks[i].firstElementChild.getAttribute("src");
+            if (img_file && img_file.includes("blue")) {
+                let new_img_file = img_file.replace("blue", "gray");
+                tablinks[i].firstElementChild.setAttribute("src", new_img_file);
+            }
+        }
+
+        if (cityName != "feeds-apple") {
+            //Set the selected icon to blue
+            let img_file = icon.getAttribute("src");
+            let new_img_file = img_file.replace("gray", "blue");
+            icon.setAttribute("src", new_img_file);
+        }
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    desired_tab_contents.attr("class", "pp-sidenav-tab active");
+    desired_tab.attr("class", "pp-sidenav-tablinks active");
 }
 
 //Controls the three-way explicit setting switch
@@ -107,16 +224,24 @@ function powerpress_toggleMetamarksSettings(el) {
     }
 }
 
+function powerpress_verifyButtonColor(feed_slug) {
+    let verify_button = jQuery("#save-media-" + feed_slug);
+    let other_v_button = jQuery("#continue-to-episode-settings-" + feed_slug);
+    if (jQuery("#powerpress_url_" + feed_slug).val().length > 0) {
+        verify_button.attr("style", "background-color: #0c74d5; color: white;");
+        other_v_button.attr("style", "background-color: #0c74d5; color: white;");
+    } else {
+        verify_button.attr("style", "background-color: #fafafa; color: #263238; border: 1px solid black;");
+        other_v_button.attr("style", "background-color: #fafafa; color: #263238; border: 1px solid black;");
+    }
+}
+
 function powerpress_showHideMediaDetails(el) {
     let feed_slug = el.id.replace("show-details-link-", "");
-    //feed_slug = feed_slug.replace("hide-details-link-", "");
     let show_det = jQuery("#show-details-link-" + feed_slug);
-    //let hide_det = jQuery("#hide-details-link-" + feed_slug);
     let div = jQuery("#hidden-media-details-" + feed_slug);
     show_det.toggleClass('pp-hidden-settings');
-    //hide_det.toggleClass('pp-hidden-settings');
     show_det.toggleClass('media-details');
-    //hide_det.toggleClass('media-details');
     div.toggleClass('pp-hidden-settings');
 }
 
@@ -142,7 +267,8 @@ function powerpress_showHideAppleAdvanced(el) {
     div.toggleClass('pp-hidden-settings');
 }
 
-function powerpress_changeMediaFile(el) {
+function powerpress_changeMediaFile(evt, el) {
+    evt.preventDefault();
     let feed_slug = el.id.replace("pp-edit-media-button-", "");
     let input = jQuery("#pp-url-input-container-" + feed_slug);
     input.removeAttr("style");
@@ -156,67 +282,110 @@ function powerpress_changeMediaFile(el) {
     let buttons = jQuery("#pp-change-media-file-" + feed_slug);
     buttons.removeAttr("style");
     buttons.attr("style", "display: inline-block");
-    let above_label = jQuery("#pp-url-input-above-" + feed_slug);
-    let below_label = jQuery("#pp-url-input-below-" + feed_slug);
-    above_label.removeAttr("style");
-    below_label.removeAttr("style");
+    let blubrry_info = jQuery("#ep-box-blubrry-service-" + feed_slug);
+    blubrry_info.removeAttr("style");
+    blubrry_info.attr("style", "display: block");
+    let container = jQuery("#pp-media-blubrry-container-" + feed_slug);
+    container.attr("style", "background-color: #f1f4f9; padding: 2ch;");
+    if(!verify_interval) {
+        verify_interval = setInterval(function() { powerpress_verifyButtonColor(feed_slug); })
+    }
+}
+
+//save button for edit media link
+function powerpress_cancelMediaEdit(el) {
+    let feed_slug = el.id.replace("cancel-media-edit-", "");
+    let display_filename = jQuery("#ep-box-filename-" + feed_slug);
+    let link = display_filename.val();
+    let input = jQuery("#pp-url-input-container-" + feed_slug);
+    let url_field = jQuery("#powerpress_url_" + feed_slug + " > input");
+    let show_input = jQuery("#powerpress_url_show_" + feed_slug);
+    let edit_media = jQuery("#edit-media-file-" + feed_slug);
+    let select_file = jQuery("#select-media-file-" + feed_slug);
+    let buttons = jQuery("#pp-change-media-file-" + feed_slug);
+    let warning = jQuery("#file-change-warning-" + feed_slug);
+    let blubrry_info = jQuery("#ep-box-blubrry-service-" + feed_slug);
+    let container = jQuery("#pp-media-blubrry-container-" + feed_slug);
+    if(verify_interval) {
+        clearInterval(verify_interval);
+        verify_interval = false;
+    }
+    url_field.val(link);
+    warning.css('display', 'none');
+    input.removeAttr("style");
+    input.attr("style", "display: none");
+    show_input.css("display", "inline-block");
+    edit_media.removeAttr("style");
+    edit_media.attr("style", "display: inline-block");
+    select_file.removeAttr("style");
+    select_file.attr("style", "display: none");
+    buttons.removeAttr("style");
+    buttons.attr("style", "display: none");
+    blubrry_info.removeAttr("style");
+    blubrry_info.attr("style", "display: none");
+    container.removeAttr("style");
 }
 
 //save button for edit media link
 function powerpress_saveMediaFile(el) {
     let feed_slug = el.id.replace("save-media-", "");
     powerpress_get_media_info(feed_slug);
-    let player_size = jQuery("#pp-player-size-" + feed_slug);
-    let player_size_line = jQuery("#line-above-player-size-" + feed_slug);
-    let link = jQuery("#pp-url-input-container-" + feed_slug + " > input").val();
+    let link = jQuery("#pp-url-input-label-container-" + feed_slug + " > input").val();
     let display_filename = jQuery("#ep-box-filename-" + feed_slug);
-    let link_parts = "";
     let input = jQuery("#pp-url-input-container-" + feed_slug);
     let show_input = jQuery("#powerpress_url_show_" + feed_slug);
     let edit_media = jQuery("#edit-media-file-" + feed_slug);
     let buttons = jQuery("#pp-change-media-file-" + feed_slug);
     let warning = jQuery("#file-change-warning-" + feed_slug);
-    let above_label = jQuery("#pp-url-input-above-" + feed_slug);
-    let below_label = jQuery("#pp-url-input-below-" + feed_slug);
+    let blubrry_info = jQuery("#ep-box-blubrry-service-" + feed_slug);
+    let container = jQuery("#pp-media-blubrry-container-" + feed_slug);
     if (link !== '') {
-        let video_types = [".mp4", ".m4v", ".webm", ".ogg", ".ogv"];
-        let video = false;
-        video_types.forEach(function(element) {
-            if (link.endsWith(element)) {
-                player_size.removeAttr("style");
-                player_size.attr("style", "display: block");
-                player_size_line.removeAttr("style");
-                player_size_line.attr("style", "display: block");
-                video = true;
-            }
-        });
-        if (!video) {
-            player_size.removeAttr("style");
-            player_size.attr("style", "display: none");
-            player_size_line.removeAttr("style");
-            player_size_line.attr("style", "display: none");
+        if(verify_interval) {
+            clearInterval(verify_interval);
+            verify_interval = false;
         }
-        if (link.includes("/")) {
-            link_parts = link.split("/");
-        } else {
-            link_parts = link.split("\\");
-        }
-        let fname = link_parts.pop();
-        display_filename.html(fname);
+        show_input.attr("title", link);
+        display_filename.html(link);
         warning.css('display', 'none');
         input.removeAttr("style");
         input.attr("style", "display: none");
-        show_input.removeAttr("style");
-        show_input.attr("style", "display: inline-block");
+        show_input.css("display", "inline-block");
         edit_media.removeAttr("style");
         edit_media.attr("style", "display: inline-block");
         buttons.removeAttr("style");
         buttons.attr("style", "display: none");
-        above_label.attr("style", "display: none");
-        below_label.attr("style", "display: none");
+        blubrry_info.removeAttr("style");
+        blubrry_info.attr("style", "display: none");
+        container.removeAttr("style");
     } else {
         warning.css('display', 'block');
         warning.addClass("error");
+    }
+}
+
+//Display all tabs along with an empty field for media
+function powerpress_skipToEpisodeSettings(feed_slug) {
+    let tab_container = jQuery("#tab-container-" + feed_slug);
+    let warning = jQuery("#file-select-warning-" + feed_slug);
+    let details = jQuery("#media-file-details-" + feed_slug);
+    let blu_container = jQuery("#pp-media-blubrry-container-" + feed_slug);
+    let connect_info = jQuery("#ep-box-blubrry-connect-" + feed_slug);
+    let connect_info_small = jQuery("#ep-box-min-blubrry-connect-" + feed_slug);
+    tab_container.removeAttr("style");
+    tab_container.attr("style", "display: block");
+    warning.removeAttr("style");
+    warning.attr("style", "display: none");
+    details.removeAttr("style");
+    details.attr("style", "display: inline-block");
+    blu_container.removeAttr("style");
+    blu_container.attr("style", "background-color: #f1f4f9; padding: 2ch;");
+    if(verify_interval) {
+        clearInterval(verify_interval);
+        verify_interval = false;
+    }
+    if (connect_info.length) {
+        connect_info.attr("style", "display: none");
+        connect_info_small.removeAttr("style");
     }
 }
 
@@ -224,48 +393,26 @@ function powerpress_saveMediaFile(el) {
 function powerpress_continueToEpisodeSettings(el) {
     let feed_slug = el.id.replace("continue-to-episode-settings-", "");
     powerpress_get_media_info(feed_slug);
-    let player_size = jQuery("#pp-player-size-" + feed_slug);
-    let player_size_line = jQuery("#line-above-player-size-" + feed_slug);
-    let link = jQuery("#pp-url-input-container-" + feed_slug + " > input").val();
+    let link = jQuery("#pp-url-input-label-container-" + feed_slug + " > input").val();
     let file_input = jQuery("#pp-url-input-container-" + feed_slug);
     let file_show = jQuery("#powerpress_url_show_" + feed_slug);
     let display_filename = jQuery("#ep-box-filename-" + feed_slug);
-    let link_parts = [];
     let tab_container = jQuery("#tab-container-" + feed_slug);
     let warning = jQuery("#file-select-warning-" + feed_slug);
     let edit_file = jQuery("#edit-media-file-" + feed_slug);
     let select_file = jQuery("#select-media-file-" + feed_slug);
-    let head = jQuery("#pp-pp-selected-media-head-" + feed_slug);
-    let above_label = jQuery("#pp-url-input-above-" + feed_slug);
-    let below_label = jQuery("#pp-url-input-below-" + feed_slug);
-    let container = jQuery("#a-pp-selected-media-" + feed_slug);
     let details = jQuery("#media-file-details-" + feed_slug);
+    let blubrry_info = jQuery("#ep-box-blubrry-service-" + feed_slug);
+    let blu_container = jQuery("#pp-media-blubrry-container-" + feed_slug);
+    let connect_info = jQuery("#ep-box-blubrry-connect-" + feed_slug);
+    let connect_info_small = jQuery("#ep-box-min-blubrry-connect-" + feed_slug);
     if (link.length > 0) {
-        let video_types = [".mp4", ".m4v", ".webm", ".ogg", ".ogv"];
-        let video = false;
-        video_types.forEach(function(element) {
-            if (link.endsWith(element)) {
-                player_size.removeAttr("style");
-                player_size.attr("style", "display: block");
-                player_size_line.removeAttr("style");
-                player_size_line.attr("style", "display: block");
-                video = true;
-            }
-        });
-        if (!video) {
-            player_size.removeAttr("style");
-            player_size.attr("style", "display: none");
-            player_size_line.removeAttr("style");
-            player_size_line.attr("style", "display: none");
+        if(verify_interval) {
+            clearInterval(verify_interval);
+            verify_interval = false;
         }
         file_show.attr("title", link);
-        if (link.includes("/")) {
-            link_parts = link.split("/");
-        } else {
-            link_parts = link.split("\\");
-        }
-        let fname = link_parts.pop();
-        display_filename.html(fname);
+        display_filename.html(link);
         tab_container.removeAttr("style");
         tab_container.attr("style", "display: block");
         select_file.removeAttr("style");
@@ -274,17 +421,18 @@ function powerpress_continueToEpisodeSettings(el) {
         edit_file.attr("style", "display: inline-block");
         file_input.removeAttr("style");
         file_input.attr("style", "display: none");
-        file_show.removeAttr("style");
-        file_show.attr("style", "display: inline-block");
+        file_show.css("display", "inline-block");
         warning.removeAttr("style");
         warning.attr("style", "display: none");
-        head.removeAttr("style");
-        head.attr("style", "display: none");
-        above_label.attr("style", "display: none");
-        below_label.attr("style", "display: none");
+        blubrry_info.removeAttr("style");
+        blubrry_info.attr("style", "display: none");
         details.removeAttr("style");
         details.attr("style", "display: inline-block");
-        container.removeAttr("style");
+        blu_container.removeAttr("style");
+        if (connect_info.length) {
+            connect_info.attr("style", "display: none");
+            connect_info_small.removeAttr("style");
+        }
     } else {
         warning.css('display', 'block');
         warning.addClass("error");
@@ -294,6 +442,7 @@ function powerpress_continueToEpisodeSettings(el) {
 //keeps art previews up to date
 function powerpress_insertArtIntoPreview(el) {
     let feed_slug = el.id.replace("powerpress_itunes_image_", "");
+    feed_slug = feed_slug.replace("powerpress_image_", "");
     let art_input = "#powerpress_itunes_image_" + feed_slug;
     let poster_input = "#powerpress_image_" + feed_slug;
     let episode_artwork = jQuery(art_input);
@@ -302,7 +451,7 @@ function powerpress_insertArtIntoPreview(el) {
     let poster_image = jQuery(poster_input);
     let poster_img_tag = jQuery("#poster-pp-image-preview-" + feed_slug);
     let poster_caption_tag = jQuery("#poster-pp-image-preview-caption-" + feed_slug);
-    if (poster_img_tag.attr("src") != poster_image.val()) {
+    if (poster_img_tag.attr("src") != poster_image.val() && poster_image.val().length > 0) {
         poster_img_tag.attr("src", poster_image.val());
         let filename = "";
         if (poster_image.val().includes("/")) {
@@ -314,7 +463,7 @@ function powerpress_insertArtIntoPreview(el) {
         }
         poster_caption_tag[0].innerHTML = filename;
     }
-    if (img_tag.attr("src") != episode_artwork.val()) {
+    if (img_tag.attr("src") != episode_artwork.val() && episode_artwork.val().length > 0) {
         img_tag.attr("src", episode_artwork.val());
         let filename = "";
         if (episode_artwork.val().includes("/")) {
@@ -327,3 +476,157 @@ function powerpress_insertArtIntoPreview(el) {
         caption_tag[0].innerHTML = filename;
     }
 }
+
+function unlinkAccount(idForm)
+{
+    let unlinkInput = jQuery('<input name="unlinkAccount" hidden>');
+    jQuery(function($){ $('#' + idForm).append(unlinkInput) });
+    jQuery(function($){ $('#' + idForm).attr('action', '#/') });
+}
+
+function unlinkNetwork()
+{ //Add an input of unlink to form and submit
+    jQuery(function($){ $('#linkNetwork').attr('value', 'unlink') });
+}
+
+function directStatus (status, idForm, changeOrCreate = false)
+{
+    if (changeOrCreate){
+        let input = jQuery('<input name="changeOrCreate" value=true hidden>');
+        jQuery(function($){ $('#' + idForm).append(input) });
+    }
+    jQuery(function($){ $('#' + idForm).attr('action', '?page=network-plugin&status='+status) });
+    jQuery(function($){ $('#'+idForm).unbind('submit') });
+    jQuery(function($){ $('#'+idForm).submit() });
+}
+
+function toggle(id, subItem = '')
+{
+
+    if (document.getElementById(subItem + id).style.display === "none")
+        jQuery(function($){ $('#toggle' + subItem + id).html('more_vert') });
+    else {
+        ('#toggle' + subItem + id).html('more_horiz');
+        if (subItem === '') {
+            jQuery(function($){ $('#shortCode' + id).hide() });
+            jQuery(function($){ $('#toggle' + 'shortCode' + id).html('more_vert') });
+        }
+    }
+    jQuery(function($){ $('#'+ subItem + id).slideToggle() });
+}
+
+function showApplication (application)
+{
+    let x = document.getElementsByClassName("tabContent");
+    let i;
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    document.getElementById(application).style.display = "block";
+    jQuery(function($){ $(".tabActive").addClass("tabInactive") });
+    jQuery(function($){ $(".tabActive").removeClass("tabActive") });
+    jQuery(function($){ $("#" + application + "Tab").removeClass("tabInactive") });
+    jQuery(function($){ $("#" + application + "Tab").addClass("tabActive") });
+}
+
+function createPage(id, target, idForm, pageTitle = false)
+{
+    let content = '';
+    if (target === 'Program') {
+        if (pageTitle === false) {
+            pageTitle = 'program id = ' + id;
+        }
+        content = '[ppn-program id = ' + id + '] ';
+    } else if (target === 'List') {
+        if (pageTitle === false) {
+            pageTitle = 'list id = ' + id;
+        }
+        content = '[ppn-list id = ' + id + '] ';
+    }
+    let addElement = jQuery('<input name="target" value="' + target + '" hidden>' +
+        '<input name="targetId" value=' + id + ' hidden>' +
+        '<input name="content" value="' + content + '" hidden>'+
+        '<input name="pageTitle" value="' + pageTitle + '" hidden>');
+    jQuery(function($){ $('#' + idForm).append (addElement) });
+    directStatus('Manage ' + target, idForm);
+}
+
+function createApplicationPage(target, idForm, pageTitle = false)
+{
+    let content = '';
+    if (target === 'Application') {
+        if (pageTitle === false) {
+            pageTitle = 'Application Page';
+        }
+        content = '[ppn-application terms-url=]';
+    }
+
+    let addElement = jQuery('<input name="target" value="' + target + '" hidden>' +
+        '<input name="content" value="' + content + '" hidden>' +
+        '<input name="pageTitle" value="' + pageTitle + '" hidden>');
+    jQuery(function($) { $('#' + idForm).append (addElement) });
+    directStatus('Manage ' + target, idForm);
+}
+
+function confirmUnlink(idForm)
+{
+    let unlink = jQuery('<input name="pageAction" value="unlink" hidden>');
+    jQuery(function($){ $("#"+idForm).append(unlink) });
+}
+
+function refreshAndCallDirectAPI(currentPage, idForm)
+{
+    let refresh = jQuery('<input name = "needDirectAPI" value= "true" hidden>') ;
+    jQuery(function($){ $("#"+idForm).append(refresh) });
+    directStatus(currentPage, idForm, false);
+}
+
+function manageProgram(programId, linkPage)
+{
+    jQuery(function($){ $('#programId').attr('value', programId) });
+    jQuery(function($){ $('#linkPageProgram').attr('value', linkPage) });
+}
+
+function manageList(listId, linkPage = false)
+{
+    jQuery(function($){ $('#listId').attr('value', listId) });
+    jQuery(function($){ $('#linkPageList').attr('value', linkPage) });
+}
+
+function showSelectPage()
+{
+    jQuery(function($){ $(".selectPageBox").show() });
+    jQuery(function($){ $("#choiceBox").hide() });
+}
+function showSelectChoice()
+{
+    jQuery(function($){ $(".selectPageBox").hide() });
+    jQuery(function($){ $("#choiceBox").show() });
+}
+function showConfirmUnlink()
+{
+    jQuery(function($){ $("#choiceBox").hide() });
+    jQuery(function($){ $(".confirmUnlink").show() });
+}
+
+function approveProgram (applicantId, approve = true){
+    let addInfo = null;
+    if (approve === false)
+        addInfo = jQuery ('<input name ="appAction" value="disapprove" hidden>');
+    else
+        addInfo = jQuery ('<input name ="appAction" value="approve" hidden>');
+    let applicantInfo = jQuery ('<input name ="applicantId" value='+ applicantId+' hidden>');
+    jQuery(function($){ $('#createForm').append(addInfo).append(applicantInfo) });
+    directStatus('List Applicants', 'createForm', true);
+}
+
+function confirmRemovalOfProgram(programId)
+{
+    let url = window.location.href;
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {'program_id' : programId},
+    });
+}
+

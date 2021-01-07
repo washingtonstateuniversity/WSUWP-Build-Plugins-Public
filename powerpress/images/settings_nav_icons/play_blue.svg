@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>B79E34A1-4360-4C39-80BC-1B145C28416E</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M3.61735454,1.45408586 C2.17182954,0.651016413 1,1.34331197 1,2.99420208 L1,17.0057979 C1,18.6594501 2.18103027,19.3438721 3.61735454,18.5459141 L16.3826455,11.4540859 C17.8281705,10.6510164 17.8189697,9.34387207 16.3826455,8.54591414 L3.61735454,1.45408586 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/play-[Extra]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="play-[#1001]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/White-⚙️Atoms/Colour/Grey-Darker/1---100%" mask="url(#mask-2)" fill="#1665D8">
+                <g transform="translate(-1.000000, -1.000000)" id="Colour">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Settings class to advertize the Translate slugs module
@@ -6,6 +9,13 @@
  * @since 1.9
  */
 class PLL_Settings_Translate_Slugs extends PLL_Settings_Module {
+	/**
+	 * Stores the display order priority.
+	 *
+	 * @var int
+	 */
+	public $priority = 80;
+
 	/**
 	 * Constructor
 	 *

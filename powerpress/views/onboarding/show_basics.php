@@ -26,40 +26,30 @@ if (isset($_FILES['itunes_image_file'])) {
                 break;
         }
     }
-    $upload_path = false;
-    $upload_url = false;
-    $error = false;
-    $UploadArray = wp_upload_dir();
-    if( false === $UploadArray['error'] )
-    {
-        $upload_path =  $UploadArray['basedir'].'/powerpress/';
-        $upload_url =  $UploadArray['baseurl'].'/powerpress/';
-    }
-    $filename = str_replace(" ", "_", basename($_FILES['itunes_image_file']['name']) );
+
     $temp = $_FILES['itunes_image_file']['tmp_name'];
 
-    if( file_exists($upload_path . $filename ) )
-    {
-        $filenameParts = pathinfo($filename);
-        if( !empty($filenameParts['extension']) ) {
-            do {
-                $filename_no_ext = substr($filenameParts['basename'], 0, (strlen($filenameParts['extension'])+1) * -1 );
-                $filename = sprintf('%s-%03d.%s', $filename_no_ext, rand(0, 999), $filenameParts['extension'] );
-            } while( file_exists($upload_path . $filename ) );
-        }
-    }
+    //Make sure the file extension is alright
+    $acceptable_extensions = ['jpg', 'jpeg', 'png'];
+    $name = $_FILES['itunes_image_file']['name'];
+    $ext = substr($name, strrpos($name, '.') + 1);
 
-    // Check the image...
-    if( file_exists($temp) )
-    {
-        if (!file_exists($upload_path)) {
-            mkdir($upload_path, 0777, true);
-        }
-        if (!move_uploaded_file($temp, $upload_path . $filename)) {
-            powerpress_page_message_add_error(__('Error saving Apple Podcasts image', 'powerpress') . ':	' . htmlspecialchars($_FILES['itunes_image_file']['name']) . ' - ' . __('An error occurred saving the iTunes image on the server.', 'powerpress') . ' ' . sprintf(__('Local folder: %s; File name: %s', 'powerpress'), $upload_path, $filename));
-            $error = true;
-        } else {
-            $previewImageURL = $upload_url . $filename;
+    if (!in_array(strtolower($ext), $acceptable_extensions)) {
+        powerpress_page_message_add_error(__('Image has an invalid file type: ' . $ext, 'powerpress') );
+        $error = true;
+    } else {
+        // Check the image...
+        if (file_exists($temp)) {
+            $upload_result = wp_handle_upload($_FILES['itunes_image_file'], array('test_form' => false));
+            if (is_array($upload_result) && isset($upload_result['error'])) {
+                powerpress_page_message_add_error(__('Error saving Apple Podcasts image', 'powerpress') . ':	' . $upload_result['error']);
+                $error = true;
+            } elseif (is_array($upload_result) && isset($upload_result['url'])) {
+                $previewImageURL = $upload_result['url'];
+            } else {
+                powerpress_page_message_add_error(__('Error saving Apple Podcasts image', 'powerpress'));
+                $error = true;
+            }
         }
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>4B1C7D43-6A2F-4049-B01F-ECDE8363CC14</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M10,9.5 C7.791,9.5 6,11.291 6,13.5 C6,15.709 7.791,17.5 10,17.5 C12.209,17.5 14,15.709 14,13.5 C14,11.291 12.209,9.5 10,9.5 L10,9.5 Z M7,6 L7,5 C7,4.448 7.448,4 8,4 L12,4 C12.552,4 13,4.448 13,5 L13,6 L7,6 Z M13,2 L7,2 C5.895,2 5,2.895 5,4 L5,6 L2,6 C0.895,6 0,6.895 0,8 L0,16 C0,17.105 0.895,18 2,18 L3,18 C3.552,18 4,17.552 4,17 C4,16.448 3.552,16 3,16 C2.448,16 2,15.552 2,15 L2,9 C2,8.448 2.448,8 3,8 L17,8 C17.552,8 18,8.448 18,9 L18,15 C18,15.552 17.552,16 17,16 C16.448,16 16,16.448 16,17 C16,17.552 16.448,18 17,18 L18,18 C19.105,18 20,17.105 20,16 L20,6 L19,6 L19,5 C19,4.448 18.552,4 18,4 C17.448,4 17,4.448 17,5 L17,6 L15,6 L15,4 C15,2.895 14.105,2 13,2 L13,2 Z M10,11.5 C11.103,11.5 12,12.397 12,13.5 C12,14.603 11.103,15.5 10,15.5 C8.897,15.5 8,14.603 8,13.5 C8,12.397 8.897,11.5 10,11.5 L10,11.5 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/camera-[#962]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="camera-[#962]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/White-⚙️Atoms/Colour/Grey-Darker/1---100%" mask="url(#mask-2)" fill="#9EA0A5">
+                <g transform="translate(-1.000000, -1.000000)" id="Colour">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

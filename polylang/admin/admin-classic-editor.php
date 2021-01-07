@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Manages filters and actions related to the classic editor
@@ -22,7 +25,7 @@ class PLL_Admin_Classic_Editor {
 		$this->pref_lang = &$polylang->pref_lang;
 
 		// Adds the Languages box in the 'Edit Post' and 'Edit Page' panels
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
 		// Ajax response for changing the language in the post metabox
 		add_action( 'wp_ajax_post_lang_choice', array( $this, 'post_lang_choice' ) );
@@ -41,9 +44,8 @@ class PLL_Admin_Classic_Editor {
 	 * @since 0.1
 	 *
 	 * @param string $post_type Current post type
-	 * @param object $post      Current post
 	 */
-	public function add_meta_boxes( $post_type, $post ) {
+	public function add_meta_boxes( $post_type ) {
 		if ( $this->model->is_translated_post_type( $post_type ) ) {
 			add_meta_box(
 				'ml_box',
@@ -66,10 +68,10 @@ class PLL_Admin_Classic_Editor {
 	 */
 	public function post_language() {
 		global $post_ID;
-		$post_id = $post_ID;
 		$post_type = get_post_type( $post_ID );
 
-		$from_post_id = isset( $_GET['from_post'] ) ? (int) $_GET['from_post'] : 0; // phpcs:ignore WordPress.Security.NonceVerification
+		// phpcs:ignore WordPress.Security.NonceVerification, VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+		$from_post_id = isset( $_GET['from_post'] ) ? (int) $_GET['from_post'] : 0;
 
 		$lang = ( $lg = $this->model->post->get_language( $post_ID ) ) ? $lg :
 			( isset( $_GET['new_lang'] ) ? $this->model->get_language( sanitize_key( $_GET['new_lang'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification
@@ -112,7 +114,11 @@ class PLL_Admin_Classic_Editor {
 
 		echo '<div id="post-translations" class="translations">';
 		if ( $lang ) {
-			include PLL_ADMIN_INC . '/view-translations-' . ( 'attachment' == $post_type ? 'media' : 'post' ) . '.php';
+			if ( 'attachment' === $post_type ) {
+				include __DIR__ . '/view-translations-media.php';
+			} else {
+				include __DIR__ . '/view-translations-post.php';
+			}
 		}
 		echo '</div>' . "\n";
 	}
@@ -130,9 +136,8 @@ class PLL_Admin_Classic_Editor {
 		}
 
 		global $post_ID; // Obliged to use the global variable for wp_popular_terms_checklist
-		$post_id = $post_ID = (int) $_POST['post_id'];
-		$lang = $this->model->get_language( sanitize_key( $_POST['lang'] ) );
-
+		$post_ID   = (int) $_POST['post_id'];
+		$lang      = $this->model->get_language( sanitize_key( $_POST['lang'] ) );
 		$post_type = sanitize_key( $_POST['post_type'] );
 
 		if ( ! post_type_exists( $post_type ) ) {
@@ -153,14 +158,19 @@ class PLL_Admin_Classic_Editor {
 
 		ob_start();
 		if ( $lang ) {
-			include PLL_ADMIN_INC . '/view-translations-' . ( 'attachment' == $post_type ? 'media' : 'post' ) . '.php';
+			if ( 'attachment' === $post_type ) {
+				include __DIR__ . '/view-translations-media.php';
+			} else {
+				include __DIR__ . '/view-translations-post.php';
+			}
 		}
 		$x = new WP_Ajax_Response( array( 'what' => 'translations', 'data' => ob_get_contents() ) );
 		ob_end_clean();
 
 		// Categories
-		if ( isset( $_POST['taxonomies'] ) ) {
-			// Not set for pages
+		if ( isset( $_POST['taxonomies'] ) ) { // Not set for pages
+			$supplemental = array();
+
 			foreach ( array_map( 'sanitize_key', $_POST['taxonomies'] ) as $taxname ) {
 				$taxonomy = get_taxonomy( $taxname );
 

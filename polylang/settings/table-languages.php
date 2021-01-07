@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php'; // since WP 3.1
@@ -128,7 +131,6 @@ class PLL_Table_Languages extends WP_List_Table {
 				/* translators: accessibility text */
 				esc_html__( 'Default language', 'polylang' )
 			);
-			$actions = array();
 		}
 
 		return $s;

@@ -1,8 +1,9 @@
 <?php
-
 /**
  * Displays the translations fields for media
  * Needs WP 3.5+
+ *
+ * @package Polylang
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<td class = "pll-media-language-column"><span class = "pll-translation-flag"><?php echo $language->flag; // phpcs:ignore WordPress.Security.EscapeOutput ?></span><?php echo esc_html( $language->name ); ?></td>
 			<td class = "pll-media-edit-column">
 				<?php
-				if ( ( $translation_id = $this->model->post->get_translation( $post_id, $language ) ) && $translation_id !== $post_id ) {
+				if ( ( $translation_id = $this->model->post->get_translation( $post_ID, $language ) ) && $translation_id !== $post_ID ) {
 					// The translation exists
 					printf(
 						'<input type="hidden" name="media_tr_lang[%s]" value="%d" />',
@@ -31,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					echo $this->links->edit_post_translation_link( $translation_id ); // phpcs:ignore WordPress.Security.EscapeOutput
 				} else {
 					// No translation
-					echo $this->links->new_post_translation_link( $post_id, $language ); // phpcs:ignore WordPress.Security.EscapeOutput
+					echo $this->links->new_post_translation_link( $post_ID, $language ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
 				?>
 			</td>

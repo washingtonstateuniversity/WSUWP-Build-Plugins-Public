@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Setup miscellaneous admin filters as well as filters common to admin and frontend
@@ -34,14 +37,10 @@ class PLL_Admin_Filters extends PLL_Filters {
 		add_filter( 'themes_update_check_locales', array( $this, 'update_check_locales' ) );
 		add_filter( 'plugins_update_check_locales', array( $this, 'update_check_locales' ) );
 
-		// We need specific filters for German and Danish
-		$specific_locales = array( 'da_DK', 'de_DE', 'de_DE_formal', 'de_CH', 'de_CH_informal', 'ca', 'sr_RS', 'bs_BA' );
-		if ( array_intersect( $this->model->get_languages_list( array( 'fields' => 'locale' ) ), $specific_locales ) ) {
-			add_filter( 'sanitize_title', array( $this, 'sanitize_title' ), 10, 3 );
-			add_filter( 'sanitize_user', array( $this, 'sanitize_user' ), 10, 3 );
-		}
-
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+
+		// Add post state for translations of the privacy policy page
+		add_filter( 'display_post_states', array( $this, 'display_post_states' ), 10, 2 );
 	}
 
 	/**
@@ -168,87 +167,15 @@ class PLL_Admin_Filters extends PLL_Filters {
 	}
 
 	/**
-	 * Allows to update translations files for plugins and themes
+	 * Allows to update translations files for plugins and themes.
 	 *
 	 * @since 1.6
 	 *
-	 * @param array $locales Not used
-	 * @return array list of locales to update
+	 * @param array $locales List of locales to update for plugins and themes.
+	 * @return array
 	 */
 	public function update_check_locales( $locales ) {
-		return $this->model->get_languages_list( array( 'fields' => 'locale' ) );
-	}
-
-	/**
-	 * Filters the locale according to the current language instead of the language
-	 * of the admin interface
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $locale
-	 * @return string
-	 */
-	public function get_locale( $locale ) {
-		if ( isset( $_POST['post_lang_choice'] ) && $lang = $this->model->get_language( sanitize_key( $_POST['post_lang_choice'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$locale = $lang->locale;
-		} elseif ( isset( $_POST['term_lang_choice'] ) && $lang = $this->model->get_language( sanitize_key( $_POST['term_lang_choice'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$locale = $lang->locale;
-		} elseif ( isset( $_POST['inline_lang_choice'] ) && $lang = $this->model->get_language( sanitize_key( $_POST['inline_lang_choice'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$locale = $lang->locale;
-		} elseif ( ! empty( $this->curlang ) ) {
-			$locale = $this->curlang->locale;
-		}
-
-		return $locale;
-	}
-
-	/**
-	 * Maybe fix the result of sanitize_title() in case the languages include German or Danish
-	 * Without this filter, if language of the title being sanitized is different from the language
-	 * used for the admin interface and if one this language is German or Danish, some specific
-	 * characters such as ä, ö, ü, ß are incorrectly sanitized.
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $title     Sanitized title.
-	 * @param string $raw_title The title prior to sanitization.
-	 * @param string $context   The context for which the title is being sanitized.
-	 * @return string
-	 */
-	public function sanitize_title( $title, $raw_title, $context ) {
-		static $once = false;
-
-		if ( ! $once && 'save' == $context && ! empty( $title ) ) {
-			$once = true;
-			add_filter( 'locale', array( $this, 'get_locale' ), 20 ); // After the filter for the admin interface
-			$title = sanitize_title( $raw_title, '', $context );
-			remove_filter( 'locale', array( $this, 'get_locale' ), 20 );
-			$once = false;
-		}
-		return $title;
-	}
-
-	/**
-	 * Maybe fix the result of sanitize_user() in case the languages include German or Danish
-	 *
-	 * @since 2.0
-	 *
-	 * @param string $username     Sanitized username.
-	 * @param string $raw_username The username prior to sanitization.
-	 * @param bool   $strict       Whether to limit the sanitization to specific characters. Default false.
-	 * @return string
-	 */
-	public function sanitize_user( $username, $raw_username, $strict ) {
-		static $once = false;
-
-		if ( ! $once ) {
-			$once = true;
-			add_filter( 'locale', array( $this, 'get_locale' ), 20 ); // After the filter for the admin interface
-			$username = sanitize_user( $raw_username, '', $strict );
-			remove_filter( 'locale', array( $this, 'get_locale' ), 20 );
-			$once = false;
-		}
-		return $username;
+		return array_merge( $locales, $this->model->get_languages_list( array( 'fields' => 'locale' ) ) );
 	}
 
 	/**
@@ -264,5 +191,24 @@ class PLL_Admin_Filters extends PLL_Filters {
 			$classes .= ' pll-dir-' . ( $this->curlang->is_rtl ? 'rtl' : 'ltr' );
 		}
 		return $classes;
+	}
+
+	/**
+	 * Add post state for translations of the privacy policy page
+	 *
+	 * @since 2.7
+	 *
+	 * @param array  $post_states An array of post display states.
+	 * @param object $post        The current post object.
+	 * @return array
+	 */
+	public function display_post_states( $post_states, $post ) {
+		$page_for_privacy_policy = get_option( 'wp_page_for_privacy_policy' );
+
+		if ( $page_for_privacy_policy && in_array( $post->ID, $this->model->post->get_translations( $page_for_privacy_policy ) ) ) {
+			$post_states['page_for_privacy_policy'] = __( 'Privacy Policy Page', 'polylang' );
+		}
+
+		return $post_states;
 	}
 }

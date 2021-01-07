@@ -14,69 +14,56 @@
 	{
 		
 ?>
-	<h3><?php echo __('Media Statistics', 'powerpress'); ?></h3>
-	<p>
-	<?php echo __('Enter your Redirect URL issued by your media statistics service provider below.', 'powerpress'); ?>
-	</p>
+    <div class="pp-settings-section">
+	    <h2><?php echo __('Media Statistics', 'powerpress'); ?></h2>
 
-	<table class="form-table">
-	<tr valign="top">
-	<th scope="row">
-	<?php echo __('Redirect URL', 'powerpress'); ?> 
-	</th>
-	<td>
-	<input type="text" style="width: 60%;" name="Feed[redirect]" value="<?php echo esc_attr($FeedSettings['redirect']); ?>" maxlength="255" />
+
+
+	    <h4><?php echo __('REDIRECT URL', 'powerpress'); ?></h4>
+        <p class="pp-settings-text-no-margin">
+            <?php echo __('Enter your Redirect URL issued by your media statistics service provider below.', 'powerpress'); ?>
+
 <?php if( $FeedAttribs['type'] == 'category' ) { ?>
-	<p class="description"><?php echo __('When specified, this will be the only media statistics redirect applied to this category. Please enable Strict Category Podcasting to apply statistics redirect on non category pages.', 'powerpress'); ?></p>
+	<?php echo __('When specified, this will be the only media statistics redirect applied to this category. Please enable Strict Category Podcasting to apply statistics redirect on non category pages.', 'powerpress'); ?>
 <?php } else if( $FeedAttribs['type'] == 'ttid' ) { ?>
-	<p class="description"><?php echo __('Note: Media Redirect URL is applied to this podcast feed only. The redirect will NOT apply to pages.', 'powerpress'); ?></p>
+	<?php echo __('Note: Media Redirect URL is applied to this podcast feed only. The redirect will NOT apply to pages.', 'powerpress'); ?>
 <?php } else if( $FeedAttribs['type'] == 'channel' ) { ?>
-	<p class="description"><?php echo __('When specified, this will be the only media statistics redirect applied to this podcast channel.', 'powerpress'); ?></p>
+	<?php echo __('When specified, this will be the only media statistics redirect applied to this podcast channel.', 'powerpress'); ?>
 <?php } else if( $FeedAttribs['type'] == 'post_type' ) { ?>
-	<p class="description"><?php echo __('When specified, this will be the only media statistics redirect applied to this podcast post type.', 'powerpress'); ?></p>
+	<?php echo __('When specified, this will be the only media statistics redirect applied to this podcast post type.', 'powerpress'); ?>
 <?php } ?>
-	</td>
-	</tr>
-	<!--
-	<tr valign="top">
-	<th scope="row">
-	<?php echo __('Redirect URL 2', 'powerpress'); ?> 
-	</th>
-	<td>
-	<input type="text" style="width: 60%;" name="Feed[redirect2]" value="<?php echo esc_attr($FeedSettings['redirect2']); ?>" maxlength="255" />
-	</td>
-	</tr>
-	-->
-	</table>
+        </p>
+        <input style="margin-top: 1ch;" type="text" class="pp-settings-text-input" name="Feed[redirect]" value="<?php echo esc_attr($FeedSettings['redirect']); ?>" maxlength="255" />
+    </div>
 <?php
 	}
 	
 	if( $feed_slug ) // end if category, else channel...
 	{
 ?>
+<div class="pp-settings-section" style="height: 14em;">
+    <h2><?php echo __('Episode Entry Box', 'powerpress'); ?></h2>
 
-<h3><?php echo __('Episode Entry Box', 'powerpress'); ?></h3>
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
-<?php echo __('Background Color', 'powerpress'); ?>
-</th>
-<td>
-<input type="text" id="episode_background_color" name="EpisodeBoxBGColor[<?php echo $feed_slug; ?>]" style="width: 100px; float:left; border: 1px solid #333333; <?php if( !empty($General['episode_box_background_color'][ $feed_slug ]) ) echo 'background-color: '.$General['episode_box_background_color'][ $feed_slug ]; ?>;" value="<?php if( !empty($General['episode_box_background_color'][ $feed_slug ]) )  echo esc_attr($General['episode_box_background_color'][ $feed_slug ]); ?>" maxlength="10" onblur="jQuery('#episode_background_color').css({'background-color' : this.value });" />
-<div style="background-color: #FFDFEF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#FFDFEF'; jQuery('#episode_background_color').css({'background-color' :'#FFDFEF' });"></div>
-<div style="background-color: #FBECD8;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#FBECD8'; jQuery('#episode_background_color').css({'background-color' :'#FBECD8' });"></div>
-<div style="background-color: #FFFFCC;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#FFFFCC'; jQuery('#episode_background_color').css({'background-color' :'#FFFFCC' });"></div>
-<div style="background-color: #DFFFDF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#DFFFDF'; jQuery('#episode_background_color').css({'background-color' :'#DFFFDF' });"></div>
+    <h4><?php echo __('BACKGROUND COLOR', 'powerpress'); ?></h4>
+    <p class="pp-settings-text-no-margin"><?php echo __('Use a distinctive background color for this podcast channel\'s episode box.', 'powerpress'); ?></p>
+    <div style="margin-top: 1ch;">
+        <h4 style="display: inline-block; margin-right: 1em;margin-top: 2ch;float: left;"><?php echo __('Custom Post Type', 'powerpress'); ?></h4>
+        <input type="text" class="pp-settings-text-input-less-wide" id="episode_background_color" name="EpisodeBoxBGColor[<?php echo $feed_slug; ?>]" style="width: 50%;margin-right: 40%;display: inherit; border: 1px solid #333333; <?php if( !empty($General['episode_box_background_color'][ $feed_slug ]) ) echo 'background-color: '.$General['episode_box_background_color'][ $feed_slug ]; ?>;" value="<?php if( !empty($General['episode_box_background_color'][ $feed_slug ]) )  echo esc_attr($General['episode_box_background_color'][ $feed_slug ]); ?>" maxlength="10" onblur="jQuery('#episode_background_color').css({'background-color' : this.value });" />
+    </div>
+    <div>
+        <h4 style="display: inline-block; margin-right: 1em;margin-top: 1ch;float: left;"><?php echo __('Custom Post Type', 'powerpress'); ?></h4>
+        <div style="background-color: #FFDFEF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#FFDFEF'; jQuery('#episode_background_color').css({'background-color' :'#FFDFEF' });"></div>
+        <div style="background-color: #FBECD8;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#FBECD8'; jQuery('#episode_background_color').css({'background-color' :'#FBECD8' });"></div>
+        <div style="background-color: #FFFFCC;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#FFFFCC'; jQuery('#episode_background_color').css({'background-color' :'#FFFFCC' });"></div>
+        <div style="background-color: #DFFFDF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#DFFFDF'; jQuery('#episode_background_color').css({'background-color' :'#DFFFDF' });"></div>
 
-<div style="background-color: #EBFFFF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#EBFFFF'; jQuery('#episode_background_color').css({'background-color' :'#EBFFFF' });"></div>
-<div style="background-color: #D9E0EF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#D9E0EF'; jQuery('#episode_background_color').css({'background-color' :'#D9E0EF' });"></div>
-<div style="background-color: #EBE0EB;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#EBE0EB'; jQuery('#episode_background_color').css({'background-color' :'#EBE0EB' });"></div>
- &nbsp; (<?php echo __('leave blank for default', 'powerpress'); ?>)
+        <div style="background-color: #EBFFFF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#EBFFFF'; jQuery('#episode_background_color').css({'background-color' :'#EBFFFF' });"></div>
+        <div style="background-color: #D9E0EF;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#D9E0EF'; jQuery('#episode_background_color').css({'background-color' :'#D9E0EF' });"></div>
+        <div style="background-color: #EBE0EB;" class="powerpress_color_box" onclick="document.getElementById('episode_background_color').value='#EBE0EB'; jQuery('#episode_background_color').css({'background-color' :'#EBE0EB' });"></div>
+    </div>
 
-<p class="clear"><?php echo __('Use a distinctive background color for this podcast channel\'s episode box.', 'powerpress'); ?></p>
-</td>
-</tr>
-</table>
+
+</div>
 
 <!-- password protected feed option -->
 
@@ -84,7 +71,8 @@
 		if( @$General['premium_caps'] && $feed_slug && $feed_slug != 'podcast' )
 		{
 ?>
-<h3><?php echo __('Password Protect Podcast Channel', 'powerpress'); ?></h3>
+<div class="pp-settings-section">
+<h2><?php echo __('Password Protect Podcast Channel', 'powerpress'); ?></h2>
 <p>
 	<?php echo __('Require visitors to have membership to your blog in order to gain access to this channel\'s Premium Content.', 'powerpress'); ?>
 </p>
@@ -97,7 +85,7 @@
 	<p style="margin-top: 5px;"><input type="checkbox" name="ProtectContent" value="1" <?php echo ( !empty($FeedSettings['premium']) ?'checked ':''); ?> onchange="powerpress_toggle_premium_content(this.checked);" /> <?php echo __('Require user to be signed-in to access feed.', 'powerpress'); ?></p>
 <?php ?>
 	<div style="margin-left: 20px; display: <?php echo ( !empty($FeedSettings['premium'])?'block':'none'); ?>;" id="premium_role"><?php echo __('User must have the following capability', 'powerpress'); ?>:
-<select name="Feed[premium]" class="bpp_input_med">
+<select name="Feed[premium]" class="pp-settings-select">
 <?php
 			$caps = powerpress_admin_capabilities();
 			$actual_premium_value = 'premium_content';
@@ -167,15 +155,18 @@ function powerpress_default_premium_label(event)
 	</tr>
 	</table>
 </div>
+</div>
 <?php
 		}
 		else if( !empty($General['premium_caps']) && $feed_slug )
 		{
 ?>
-<h3><?php echo __('Password Protect Podcast Channel', 'powerpress'); ?></h3>
-<p>
+<div class="pp-settings-section">
+<h2><?php echo __('Password Protect Podcast Channel', 'powerpress'); ?></h2>
+<p class="pp-settings-text">
 	<?php echo __('This feature is not available for the default podcast channel.', 'powerpress'); ?>
 </p>
+</div>
 <?php
 		}
 		
@@ -184,18 +175,17 @@ function powerpress_default_premium_label(event)
 		if( $FeedAttribs['type'] == 'channel' )
 		{
 		?>
-<h3><?php echo __('Custom Post Types', 'powerpress'); ?></h3>
-<p>
-	<?php echo __('Set whether all post types or a specific custom post type may use this podcast channel. Custom post type must be of type \'Posts\'. Other post types such as \'Pages\' or \'Categories\' do not apply.', 'powerpress'); ?>
-</p>
-<table class="form-table">
-<tr valign="top">
-<th scope="row">
+<div class="pp-settings-section">
+    <h2><?php echo __('Custom Posts', 'powerpress'); ?></h2>
+    <p class="pp-settings-text-no-margin">
+        <?php echo __('Set whether all post types or a specific custom post type may use this podcast channel. Custom post type must be of type \'Posts\'. Other post types such as \'Pages\' or \'Categories\' do not apply.', 'powerpress'); ?>
+        <b>
+            <?php echo __('Use the default setting if you do not understand custom post types.', 'powerpress'); ?>
+        </b>
+    </p>
 
-<?php echo __('Custom Post Type', 'powerpress'); ?></th>
-<td>
-<?php ?>
-<select name="Feed[custom_post_type]" class="bpp_input_med">
+    <h4 style="display: inline-block; margin-right: 1em;"><?php echo __('Custom Post Type', 'powerpress'); ?></h4>
+    <select style="margin-top: 1ch;display: inline-block;" name="Feed[custom_post_type]" class="pp-settings-select">
 <?php
 
 			$post_types = powerpress_admin_get_post_types('post');
@@ -231,13 +221,8 @@ function powerpress_default_premium_label(event)
 				}
 			}
 ?>
-</select>
-<p>
-	<?php echo __('Use the default setting if you do not understand custom post types.', 'powerpress'); ?>
-</p>
-</td>
-</tr>
-</table>
+    </select>
+</div>
 		<?php
 		}
 	} // else if channel

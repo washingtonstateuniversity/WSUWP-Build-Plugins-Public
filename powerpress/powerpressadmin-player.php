@@ -33,7 +33,9 @@ function powerpress_admin_players_init()
 		case 'powerpress_bplayer':{   //blubrry player
 			
 			$SaveSettings = $_POST['BBPlayer'];
+            $GenSettings = $_POST['General'];
 			powerpress_save_settings($SaveSettings, 'powerpress_bplayer');
+            powerpress_save_settings($GenSettings, 'powerpress_general');
 			powerpress_page_message_add_notice( __('Blubrry Player settings saved successfully.', 'powerpress') );
 		}; break;
 	}

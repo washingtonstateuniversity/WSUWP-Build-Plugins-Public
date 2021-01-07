@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Manages links filters on frontend
@@ -6,7 +9,26 @@
  * @since 1.8
  */
 class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
-	public $cache; // Our internal non persistent cache object
+	/**
+	 * Our internal non persistent cache object
+	 *
+	 * @var PLL_Cache
+	 */
+	public $cache;
+
+	/**
+	 * Stores a list of files and functions that home_url() must not filter.
+	 *
+	 * @var array
+	 */
+	private $black_list = array();
+
+	/**
+	 * Stores a list of files and functions that home_url() must filter.
+	 *
+	 * @var array
+	 */
+	private $white_list = array();
 
 	/**
 	 * Constructor
@@ -175,6 +197,8 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 			return;
 		}
 
+		$urls = array();
+
 		// Google recommends to include self link https://support.google.com/webmasters/answer/189077?hl=en
 		foreach ( $this->model->get_languages_list() as $language ) {
 			if ( $url = $this->links->get_translation_url( $language ) ) {
@@ -184,6 +208,8 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 
 		// Outputs the section only if there are translations ( $urls always contains self link )
 		if ( ! empty( $urls ) && count( $urls ) > 1 ) {
+			$languages = array();
+			$hreflangs = array();
 
 			// Prepare the list of languages to remove the country code
 			foreach ( array_keys( $urls ) as $locale ) {
@@ -233,10 +259,8 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 			return $url;
 		}
 
-		static $white_list, $black_list; // Avoid evaluating this at each function call
-
 		// We *want* to filter the home url in these cases
-		if ( empty( $white_list ) ) {
+		if ( empty( $this->white_list ) ) {
 			// On Windows get_theme_root() mixes / and \
 			// We want only \ for the comparison with debug_backtrace
 			$theme_root = get_theme_root();
@@ -252,7 +276,7 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 			 *
 			 * @param array $args
 			 */
-			$white_list = apply_filters(
+			$this->white_list = apply_filters(
 				'pll_home_url_white_list',
 				array(
 					array( 'file' => $theme_root ),
@@ -264,7 +288,7 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 		}
 
 		// We don't want to filter the home url in these cases
-		if ( empty( $black_list ) ) {
+		if ( empty( $this->black_list ) ) {
 
 			/**
 			 * Filter the black list of the Polylang 'home_url' filter
@@ -276,7 +300,7 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 			 *
 			 * @param array $args
 			 */
-			$black_list = apply_filters(
+			$this->black_list = apply_filters(
 				'pll_home_url_black_list',
 				array(
 					array( 'file' => 'searchform.php' ), // Since WP 3.6 searchform.php is passed through get_search_form
@@ -285,18 +309,18 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 			);
 		}
 
-		$traces = version_compare( PHP_VERSION, '5.2.5', '>=' ) ? debug_backtrace( false ) : debug_backtrace(); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+		$traces = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 		unset( $traces[0], $traces[1] ); // We don't need the last 2 calls: this function + call_user_func_array (or apply_filters on PHP7+)
 
 		foreach ( $traces as $trace ) {
 			// Black list first
-			foreach ( $black_list as $v ) {
+			foreach ( $this->black_list as $v ) {
 				if ( ( isset( $trace['file'], $v['file'] ) && false !== strpos( $trace['file'], $v['file'] ) ) || ( isset( $trace['function'], $v['function'] ) && $trace['function'] == $v['function'] ) ) {
 					return $url;
 				}
 			}
 
-			foreach ( $white_list as $v ) {
+			foreach ( $this->white_list as $v ) {
 				if ( ( isset( $trace['function'], $v['function'] ) && $trace['function'] == $v['function'] ) ||
 					( isset( $trace['file'], $v['file'] ) && false !== strpos( $trace['file'], $v['file'] ) && in_array( $trace['function'], array( 'home_url', 'get_home_url', 'bloginfo', 'get_bloginfo' ) ) ) ) {
 					$ok = true;
@@ -359,22 +383,39 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 			}
 		}
 
+		elseif ( $this->links_model->using_permalinks && is_category() && ! empty( $wp_query->query['cat'] ) ) {
+			// When we receive a plain permaling with a cat query var, we need to redirect to the pretty permalink.
+			if ( $this->model->is_translated_taxonomy( $this->get_queried_taxonomy( $wp_query->tax_query ) ) ) {
+				$term_id = $this->get_queried_term_id( $wp_query->tax_query );
+				$language = $this->model->term->get_language( $term_id );
+				$redirect_url = $this->maybe_add_page_to_redirect_url( get_term_link( $term_id ) );
+			}
+		}
+
 		elseif ( is_category() || is_tag() || is_tax() ) {
+			// We need to switch the language when there is no language provided in a pretty permalink.
 			$obj = $wp_query->get_queried_object();
 			if ( ! empty( $obj ) && $this->model->is_translated_taxonomy( $obj->taxonomy ) ) {
 				$language = $this->model->term->get_language( (int) $obj->term_id );
 			}
 		}
 
+		elseif ( is_404() && ! empty( $wp_query->tax_query ) ) {
+			// When a wrong language is passed through a pretty permalink, we just need to switch the language.
+			if ( $this->model->is_translated_taxonomy( $this->get_queried_taxonomy( $wp_query->tax_query ) ) ) {
+				$term_id = $this->get_queried_term_id( $wp_query->tax_query );
+				$language = $this->model->term->get_language( $term_id );
+			}
+		}
+
+		elseif ( $this->links_model->using_permalinks && $wp_query->is_posts_page && ! empty( $wp_query->query['page_id'] ) && $id = get_query_var( 'page_id' ) ) {
+			$language = $this->model->post->get_language( (int) $id );
+			$redirect_url = $this->maybe_add_page_to_redirect_url( get_permalink( $id ) );
+		}
+
 		elseif ( $wp_query->is_posts_page ) {
 			$obj = $wp_query->get_queried_object();
 			$language = $this->model->post->get_language( (int) $obj->ID );
-		}
-
-		elseif ( is_404() && ! empty( $wp_query->query['page_id'] ) && $id = get_query_var( 'page_id' ) ) {
-			// Special case for page shortlinks when using subdomains or multiple domains
-			// Needed because redirect_canonical doesn't accept to change the domain name
-			$language = $this->model->post->get_language( (int) $id );
 		}
 
 		if ( 3 === $this->options['force_lang'] ) {
@@ -420,5 +461,69 @@ class PLL_Frontend_Filters_Links extends PLL_Filters_Links {
 		}
 
 		return $redirect_url;
+	}
+
+	/**
+	 * Returns the link to the paged page if requested.
+	 *
+	 * @since 2.9
+	 *
+	 * @param string $redirect_url The url to redirect to.
+	 * @return string
+	 */
+	protected function maybe_add_page_to_redirect_url( $redirect_url ) {
+		global $wp_query;
+
+		if ( ! empty( $wp_query->query['paged'] ) && $page = get_query_var( 'paged' ) ) {
+			$redirect_url = $this->links_model->add_paged_to_link( $redirect_url, $page );
+		}
+		return $redirect_url;
+	}
+
+	/**
+	 * Returns the term_id of the requested term.
+	 *
+	 * @since 2.9
+	 *
+	 * @param object $tax_query An instance of WP_Tax_Query.
+	 * @return int
+	 */
+	protected function get_queried_term_id( $tax_query ) {
+		$queried_terms = $tax_query->queried_terms;
+		$taxonomy = $this->get_queried_taxonomy( $tax_query );
+
+		$field = $queried_terms[ $taxonomy ]['field'];
+		$term  = reset( $queried_terms[ $taxonomy ]['terms'] );
+
+		// We can get a term_id when requesting a plain permalink, eg /?cat=1.
+		if ( 'term_id' === $field ) {
+			return $term;
+		}
+
+		// We get a slug when requesting a pretty permalink with the wrong language.
+		$args = array(
+			'lang' => '',
+			'taxonomy' => $taxonomy,
+			$field => $term,
+			'hide_empty' => false,
+			'fields' => 'ids',
+		);
+		$terms = get_terms( $args );
+		return reset( $terms );
+	}
+
+	/**
+	 * Find the taxonomy being queried.
+	 *
+	 * @since 2.9
+	 *
+	 * @param object $tax_query An instance of WP_Tax_Query.
+	 * @return string A taxonomy slug
+	 */
+	protected function get_queried_taxonomy( $tax_query ) {
+		$queried_terms = $tax_query->queried_terms;
+		unset( $queried_terms['language'] );
+
+		return key( $queried_terms );
 	}
 }

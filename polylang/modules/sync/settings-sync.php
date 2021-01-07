@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Settings class for synchronization settings management
@@ -6,6 +9,12 @@
  * @since 1.8
  */
 class PLL_Settings_Sync extends PLL_Settings_Module {
+	/**
+	 * Stores the display order priority.
+	 *
+	 * @var int
+	 */
+	public $priority = 50;
 
 	/**
 	 * Constructor
@@ -65,7 +74,7 @@ class PLL_Settings_Sync extends PLL_Settings_Module {
 	 * @param array $options
 	 */
 	protected function update( $options ) {
-		$newoptions['sync'] = empty( $options['sync'] ) ? array() : array_keys( $options['sync'], 1 );
+		$newoptions = array( 'sync' => empty( $options['sync'] ) ? array() : array_keys( $options['sync'], 1 ) );
 		return $newoptions; // take care to return only validated options
 	}
 

@@ -794,7 +794,7 @@ function select_all(index,value)
 <p>
 <?php
 	echo __('Blubrry PowerPress does not allow you to include multiple media files for one feed item (blog post).', 'powerpress');
-	echo __('This is because each podcatcher handles multiple enclosures in feeds differently. iTunes will download the first enclosure that it sees in the feed ignoring the rest.', 'powerpress');
+	echo __('This is because each podcatcher handles multiple enclosures in feeds differently. Apple Podcasts will download the first enclosure that it sees in the feed ignoring the rest.', 'powerpress');
 	echo __('Other podcatchers and podcasting directories either pick up the first enclosure or the last in each post item.', 'powerpress');
 	echo sprintf( __('This inconsistency combined with the fact that Dave Winer does not recommend multiple enclosures (%s) and FeedValidator.org (%s) recommendation against it is why Blubrry PowerPress does not support them.', 'powerpress'),
 			'<a href="http://www.reallysimplesyndication.com/2004/12/21" target="_blank">'. __('Link', 'powerpress') .'</a>',

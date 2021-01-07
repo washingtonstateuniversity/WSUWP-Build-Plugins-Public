@@ -1,5 +1,40 @@
 /* PowerPress Dashboard CSS */
 
+.pp-news-image-container {
+}
+
+.powerpress-news-dashboard  .rss-date {
+	font-size: 80%;
+}
+
+.powerpress-news-dashboard .rsswidget {
+	font-size: 100%;
+	color: black;
+	text-decoration: underline;
+}
+
+.pp-news-details-container {
+	height: 100%;
+	width: auto;
+	overflow: hidden;
+}
+
+.pp-news-image {
+	vertical-align: top;
+	float: left;
+	margin-right: 1em;
+	max-height: 95%;
+	max-width: 40%;
+	height: auto;
+	width: auto;
+}
+
+.pp-news-item {
+	padding: 0 2em 2ch 0;
+	border-bottom: 1px solid #ddd;
+	height: 25vh;
+}
+
 /* Dashboard Notice, based on Dashboard Browser Nag  */
 #powerpress_dashboard_notice_3 a.update-browser-link {
 	font-size: 1.2em;

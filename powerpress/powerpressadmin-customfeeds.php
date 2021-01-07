@@ -17,8 +17,12 @@ add_filter('manage_powerpressadmin_customfeeds_columns', 'powerpress_admin_custo
 function powerpress_admin_customfeeds()
 {
 	$General = powerpress_get_settings('powerpress_general');
-	
-	
+
+
+    // If we have powerpress credentials, check if the account has been verified
+    $creds = get_option('powerpress_creds');
+    powerpress_check_credentials($creds);
+    wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
 ?>
 <h2><?php echo __('Custom Podcast Channels', 'powerpress'); ?></h2>
 <p>

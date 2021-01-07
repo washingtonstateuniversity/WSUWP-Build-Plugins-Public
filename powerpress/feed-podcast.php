@@ -22,8 +22,8 @@
 		$content = wpautop($content);
 		$content = shortcode_unautop($content); // Why do we do this?
 		$content = prepend_attachment($content);
-		if( function_exists('wp_make_content_images_responsive') )
-			$content = wp_make_content_images_responsive($content);
+		if( function_exists('wp_filter_content_tags') )
+			$content = wp_filter_content_tags($content);
 		
 		$shortcodesTemp = $GLOBALS['shortcode_tags'];
 		$GLOBALS['shortcode_tags']['skipto'] = 'powerpress_shortcode_skipto';
@@ -83,7 +83,7 @@
 	$iTunesOrderNumber = 0;
 	$FeaturedPodcastID = 0;
 	
-	if( !empty($GeneralSettings['episode_box_feature_in_itunes']) ) {
+	if( !empty($GeneralSettings['new_episode_box_feature_in_itunes']) ) {
 		$iTunesFeatured = get_option('powerpress_itunes_featured');
 		$feed_slug = get_query_var('feed');
 		if( !empty($iTunesFeatured[ $feed_slug ]) )

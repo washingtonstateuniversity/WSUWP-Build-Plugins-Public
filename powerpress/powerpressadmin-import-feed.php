@@ -4,6 +4,10 @@
 
 function powerpress_admin_import_feed()
 {
+    // If we have powerpress credentials, check if the account has been verified
+    $creds = get_option('powerpress_creds');
+    powerpress_check_credentials($creds);
+    wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
 	?>
 <h2><?php echo __('Import Podcast', 'powerpress'); ?></h2>
 <p><?php echo __('Import your podcast including episodes, media files and settings.', 'powerpress'); ?></p>

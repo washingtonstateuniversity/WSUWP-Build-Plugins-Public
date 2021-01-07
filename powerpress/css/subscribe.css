@@ -35,7 +35,7 @@
 	color: rgb(0, 51, 102);
 }
 .pp-sub-widget-include div.pp-sub-t {
-	margin: -15px 10px 0 10px !important;
+	margin: 15px 10px 0 10px !important;
 	padding: 0 !important;
 	font-size: 200% !important;
 	color: rgb(0, 51, 102) !important;
@@ -248,8 +248,38 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 	background-size: 100%;
 	transition: background 0s;
 }
+.pp-sub-widget-modern .pp-sub-blubrry.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-blubrry.pp-sub-btn-sq:active {
+	background-color: #2278cf;
+	background-size: 100%;
+	transition: background 0s;
+}
 .pp-sub-widget-modern .pp-sub-rss.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-rss.pp-sub-btn-sq:active {
 	background-color: #FF6600;
+	background-size: 100%;
+	transition: background 0s;
+}
+.pp-sub-widget-modern .pp-sub-amazon.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-amazon.pp-sub-btn-sq:active {
+	background-color: #4400FF;
+	background-size: 100%;
+	transition: background 0s;
+}
+.pp-sub-widget-modern .pp-sub-pcindex.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-pcindex.pp-sub-btn-sq:active {
+	background-color: #AB0000;
+	background-size: 100%;
+	transition: background 0s;
+}
+.pp-sub-widget-modern .pp-sub-jiosaavn.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-jiosaavn.pp-sub-btn-sq:active {
+	background-color: #2BC5B4;
+	background-size: 100%;
+	transition: background 0s;
+}
+.pp-sub-widget-modern .pp-sub-gaana.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-gaana.pp-sub-btn-sq:active {
+	background-color: #E62C2F;
+	background-size: 100%;
+	transition: background 0s;
+}
+.pp-sub-widget-modern .pp-sub-podchaser.pp-sub-btn:active, .pp-sub-widget-modern .pp-sub-podchaser.pp-sub-btn-sq:active {
+	background-color: #000000;
 	background-size: 100%;
 	transition: background 0s;
 }
@@ -258,6 +288,7 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 	background-size: 100%;
 	transition: background 0s;
 }
+
 /*Classic widget background colors*/
 .pp-sub-widget-dark a,
 .pp-sub-widget-classic a {
@@ -303,6 +334,24 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 }
 .pp-sub-widget-classic a.pp-sub-pandora {
 	background-color: #3668ff;
+}
+.pp-sub-widget-classic a.pp-sub-blubrry {
+	background-color: #2278cf;
+}
+.pp-sub-widget-classic a.pp-sub-amazon {
+	background-color: #4400ff;
+}
+.pp-sub-widget-classic a.pp-sub-pcindex {
+	background-color: #AB0000;
+}
+.pp-sub-widget-classic a.pp-sub-jiosaavn {
+	background-color: #2BC5B4;
+}
+.pp-sub-widget-classic a.pp-sub-gaana {
+	background-color: #E62C2F;
+}
+.pp-sub-widget-classic a.pp-sub-podchaser {
+	background-color: #000000;
 }
 
 .pp-sub-widget-classic  div.pp-sub-h,
@@ -378,10 +427,10 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 }
 .pp-sub-widget-modern .pp-sub-ic {
 	padding-left: 15px;
-	background-image: url('../images/modern_icon_sprite.svg');
+	background-image: url('../images/modern_icon_sprite_2020.svg');
 }
 .pp-sub-widget-classic .pp-sub-ic, .pp-sub-widget-dark .pp-sub-ic {
-	background-image: url('../images/white_logos.svg');
+	background-image: url('../images/classic_icon_sprite_2020.svg');
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 	/* IE10+ CSS styles go here */
@@ -431,6 +480,24 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 }
 .pp-sub-widget-classic .pp-sub-pandora .pp-sub-ic, .pp-sub-widget-dark .pp-sub-pandora .pp-sub-ic {
 	background-position: 0 -555px;
+}
+.pp-sub-widget-classic .pp-sub-blubrry .pp-sub-ic, .pp-sub-widget-dark .pp-sub-blubrry .pp-sub-ic {
+	background-position: 0 -605px;
+}
+.pp-sub-widget-classic .pp-sub-amazon .pp-sub-ic, .pp-sub-widget-dark .pp-sub-amazon .pp-sub-ic {
+	background-position: 0 -1003px;
+}
+.pp-sub-widget-classic .pp-sub-pcindex .pp-sub-ic, .pp-sub-widget-dark .pp-sub-pcindex .pp-sub-ic {
+	background-position: 0 -1053px;
+}
+.pp-sub-widget-classic .pp-sub-jiosaavn .pp-sub-ic, .pp-sub-widget-dark .pp-sub-jiosaavn .pp-sub-ic {
+	background-position: 0 -1103px;
+}
+.pp-sub-widget-classic .pp-sub-gaana .pp-sub-ic, .pp-sub-widget-dark .pp-sub-gaana .pp-sub-ic {
+	background-position: 0 -1203px;
+}
+.pp-sub-widget-classic .pp-sub-podchaser .pp-sub-ic, .pp-sub-widget-dark .pp-sub-podchaser .pp-sub-ic {
+	background-position: 0 -1153px;
 }
 
 
@@ -501,6 +568,13 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 	background-position: 0 -555px;
 }
 
+.pp-sub-widget-modern .pp-sub-blubrry.pp-sub-btn-sq {
+	border-left: 3px solid #2278cf;
+}
+.pp-sub-widget-modern .pp-sub-blubrry .pp-sub-ic {
+	background-position: 0 -605px;
+}
+
 .pp-sub-widget-modern .pp-sub-rss.pp-sub-btn-sq {
 	border-left: 3px solid #FF6600;
 }
@@ -515,6 +589,42 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 .pp-sub-widget-modern .pp-sub-more .pp-sub-ic {
 	background-position: 0 -405px;
 }
+
+.pp-sub-widget-modern .pp-sub-amazon.pp-sub-btn-sq {
+	border-left: 3px solid #4400ff;
+}
+.pp-sub-widget-modern .pp-sub-amazon .pp-sub-ic {
+	background-position: 0 -1003px;
+}
+
+.pp-sub-widget-modern .pp-sub-pcindex.pp-sub-btn-sq {
+	border-left: 3px solid #AB0000;
+}
+.pp-sub-widget-modern .pp-sub-pcindex .pp-sub-ic {
+	background-position: 0 -1053px;
+}
+
+.pp-sub-widget-modern .pp-sub-jiosaavn.pp-sub-btn-sq {
+	border-left: 3px solid #2BC5B4;
+}
+.pp-sub-widget-modern .pp-sub-jiosaavn .pp-sub-ic {
+	background-position: 0 -1103px;
+}
+
+.pp-sub-widget-modern .pp-sub-gaana.pp-sub-btn-sq {
+	border-left: 3px solid #E62C2F;
+}
+.pp-sub-widget-modern .pp-sub-gaana .pp-sub-ic {
+	background-position: 0 -1203px;
+}
+
+.pp-sub-widget-modern .pp-sub-podchaser.pp-sub-btn-sq {
+	border-left: 3px solid #000000;
+}
+.pp-sub-widget-modern .pp-sub-podchaser .pp-sub-ic {
+	background-position: 0 -1153px;
+}
+
 .pp-sub-widget-modern .pp-sub-btn::after,
 .pp-sub-widget-modern .pp-sub-btn-sq::after {
 	content: url("../images/arrow.svg");;
@@ -522,14 +632,4 @@ body .pp-sub-widget-dark.pp-sub-widget-include a:hover {
 	display: inline-block;
 	float: right;
 	margin-top: 16px;
-}
-
-/* Retina-specific stuff here */
-@media only screen and (-webkit-min-device-pixel-ratio: 2.0),
-only screen and (min--moz-device-pixel-ratio: 2.0),
-only screen and (-o-min-device-pixel-ratio: 200/100),
-only screen and (min-device-pixel-ratio: 2.0) {
-	.pp-sub-ic {
-		/*background-image: url(../images/spriteRetina2.png);*/
-	}
 }

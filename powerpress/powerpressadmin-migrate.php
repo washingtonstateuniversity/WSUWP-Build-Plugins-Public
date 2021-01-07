@@ -59,11 +59,17 @@ function powerpress_admin_migrate_get_files($clean=false, $exclude_blubrry=true)
 				
 				if( $exclude_blubrry && strstr($EpisodeData['url'], 'content.blubrry.com') )
 					continue; // Skip media hosted on blubrry in this case
-					
+
+                if( $exclude_blubrry && strstr($EpisodeData['url'], 'ins.blubrry.com') )
+                    continue; // Skip media hosted on blubrry in this case
+
+                if( $exclude_blubrry && strstr($EpisodeData['url'], 'protected.blubrry.com') )
+                    continue; // Skip media hosted on blubrry in this case
+
 				if( !$clean )
 					$return[$meta_id] = $row;
 				if( !$exclude_blubrry )
-					$return[$meta_id]['on_blubrry'] = ( strstr($EpisodeData['url'], 'content.blubrry.com') );
+					$return[$meta_id]['on_blubrry'] = ( preg_match('/(ins|protected|content)\.blubrry\.com/i',$EpisodeData['url']) == 1 );
 				$return[$meta_id]['src_url'] = $EpisodeData['url'];
 			}
 		}
@@ -74,7 +80,10 @@ function powerpress_admin_migrate_get_files($clean=false, $exclude_blubrry=true)
 function powepress_admin_migrate_add_urls($urls)
 {
 	$Settings = get_option('powerpress_general');
-	if( empty($Settings['blubrry_auth']) )
+    $creds = get_option('powerpress_creds');
+    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+    $auth = new PowerPressAuth();
+	if( empty($Settings['blubrry_auth']) && !$creds )
 	{
 		powerpress_page_message_add_error( sprintf(__('You must have a blubrry Podcast Hosting account to continue.', 'powerpress')) .' '. '<a href="http://create.blubrry.com/resources/podcast-media-hosting/" target="_blank">'. __('Learn More', 'powerpress') .'</a>', 'inline', false );
 		return false;
@@ -84,41 +93,44 @@ function powepress_admin_migrate_add_urls($urls)
 	
 	$json_data = false;
 	$api_url_array = powerpress_get_api_array();
-	foreach( $api_url_array as $index => $api_url )
-	{
-		$req_url = sprintf('%s/media/%s/migrate_add.json', rtrim($api_url, '/'), urlencode($Settings['blubrry_program_keyword']) );
-		$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'&'. POWERPRESS_BLUBRRY_API_QSA:'');
-		
-		$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], $PostArgs );
-		if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
-			$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], $PostArgs, 15, false, true);
-		}
-		if( $json_data != false )
-			break;
-	}
-	
-	if( empty($json_data) )
+    if ($creds) {
+        $accessToken = powerpress_getAccessToken();
+        $req_url = sprintf('/2/media/%s/migrate_add.json', urlencode($Settings['blubrry_program_keyword']));
+        $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+        $results = $auth->api($accessToken, $req_url, $PostArgs);
+    } else {
+        foreach ($api_url_array as $index => $api_url) {
+            $req_url = sprintf('%s/media/%s/migrate_add.json', rtrim($api_url, '/'), urlencode($Settings['blubrry_program_keyword']));
+            $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '&' . POWERPRESS_BLUBRRY_API_QSA : '');
+
+            $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], $PostArgs);
+            if (!$json_data && $api_url == 'https://api.blubrry.com/') { // Lets force cURL and see if that helps...
+                $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], $PostArgs, 15, false, true);
+            }
+            if ($json_data != false)
+                break;
+        }
+        $results = powerpress_json_decode($json_data);
+
+        if (empty($results)) {
+            $results = array();
+            $results['error'] = __('Unknown error occurred decoding results from server.', 'powerpress');
+        }
+    }
+
+    if( !empty($results['error']) )
+    {
+        $error = __('Blubrry Migrate Media Error', 'powerpress') .': '. $results['error'];
+        powerpress_page_message_add_error($error);
+        return false;
+    } else if( empty($results) )
 	{
 		if( !empty($GLOBALS['g_powerpress_remote_errorno']) && $GLOBALS['g_powerpress_remote_errorno'] == 401 )
-			$error .=  __('Incorrect sign-in email address or password.', 'powerpress') .' '. __('Verify your account settings then try again.', 'powerpress');
+			$error =  __('Incorrect sign-in email address or password.', 'powerpress') .' '. __('Verify your account settings then try again.', 'powerpress');
 		else if( !empty($GLOBALS['g_powerpress_remote_error']) )
-			$error .= $GLOBALS['g_powerpress_remote_error'];
+			$error = $GLOBALS['g_powerpress_remote_error'];
 		else
-			$error .= __('Authentication failed.', 'powerpress');
-		powerpress_page_message_add_error($error);
-		return false;
-	}
-	
-	$results = powerpress_json_decode($json_data);
-	if( empty($results) )
-	{
-		$results = array();
-		$results['error'] = __('Unknown error occurred decoding results from server.', 'powerpress');
-	}
-	
-	if( !empty($results['error']) )
-	{
-		$error = __('Blubrry Migrate Media Error', 'powerpress') .': '. $results['error'];
+			$error = __('Authentication failed.', 'powerpress');
 		powerpress_page_message_add_error($error);
 		return false;
 	}
@@ -130,7 +142,10 @@ function powepress_admin_migrate_add_urls($urls)
 function powerpress_admin_migrate_get_status()
 {
 	$Settings = get_option('powerpress_general');
-	if( empty($Settings['blubrry_auth']) )
+    $creds = get_option('powerpress_creds');
+    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+    $auth = new PowerPressAuth();
+	if( empty($Settings['blubrry_auth']) && !$creds )
 	{
 		powerpress_page_message_add_error( sprintf(__('You must have a blubrry Podcast Hosting account to continue.', 'powerpress')), 'inline', false );
 		return false;
@@ -139,34 +154,39 @@ function powerpress_admin_migrate_get_status()
 	
 	$json_data = false;
 	$api_url_array = powerpress_get_api_array();
-	foreach( $api_url_array as $index => $api_url )
-	{
-		$req_url = sprintf('%s/media/%s/migrate_status.json?status=summary&simple=true', rtrim($api_url, '/'), $Settings['blubrry_program_keyword'] );
-		$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'&'. POWERPRESS_BLUBRRY_API_QSA:'');
-		$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
-		if( $json_data != false )
-			break;
-	}
-	
-	if( !$json_data )
-	{
-		$error = '';
-		if( !empty($GLOBALS['g_powerpress_remote_errorno']) && $GLOBALS['g_powerpress_remote_errorno'] == 401 )
-			$error =  __('Incorrect sign-in email address or password.', 'powerpress') .' '. __('Verify your account settings then try again.', 'powerpress');
-		else if( !empty($GLOBALS['g_powerpress_remote_error']) )
-			$error = $GLOBALS['g_powerpress_remote_error'];
-		else
-			$error = __('Authentication failed.', 'powerpress');
-		powerpress_page_message_add_error($error);
-		return false;
-	}
-	//mail('cio', 'ok', $json_data);
-	$results = powerpress_json_decode($json_data);
-	if( empty($results) )
-	{
-		$results = array();
-		$results['error'] = __('Unknown error occurred decoding results from server.', 'powerpress');
-	}
+    if ($creds) {
+        $accessToken = powerpress_getAccessToken();
+        $req_url = sprintf('/2/media/%s/migrate_status.json?status=summary&simple=true', urlencode($Settings['blubrry_program_keyword']));
+        $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+        $results = $auth->api($accessToken, $req_url);
+    } else {
+        foreach ($api_url_array as $index => $api_url) {
+            $req_url = sprintf('%s/media/%s/migrate_status.json?status=summary&simple=true', rtrim($api_url, '/'), $Settings['blubrry_program_keyword']);
+            $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '&' . POWERPRESS_BLUBRRY_API_QSA : '');
+            $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
+            if ($json_data != false)
+                break;
+        }
+
+        if (!$json_data) {
+            $error = '';
+            if (!empty($GLOBALS['g_powerpress_remote_errorno']) && $GLOBALS['g_powerpress_remote_errorno'] == 401)
+                $error = __('Incorrect sign-in email address or password.', 'powerpress') . ' ' . __('Verify your account settings then try again.', 'powerpress');
+            else if (!empty($GLOBALS['g_powerpress_remote_error']))
+                $error = $GLOBALS['g_powerpress_remote_error'];
+            else
+                $error = __('Authentication failed.', 'powerpress');
+            powerpress_page_message_add_error($error);
+            return false;
+        }
+        //mail('cio', 'ok', $json_data);
+        $results = powerpress_json_decode($json_data);
+
+        if (empty($results)) {
+            $results = array();
+            $results['error'] = __('Unknown error occurred decoding results from server.', 'powerpress');
+        }
+    }
 	
 	if( !empty($results['error']) )
 	{
@@ -182,7 +202,10 @@ function powerpress_admin_migrate_get_status()
 function powerpress_admin_migrate_get_migrated_by_status($status='migrated')
 {
 	$Settings = get_option('powerpress_general');
-	if( empty($Settings['blubrry_auth']) )
+    $creds = get_option('powerpress_creds');
+    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+    $auth = new PowerPressAuth();
+	if( empty($Settings['blubrry_auth']) && !$creds )
 	{
 		powerpress_page_message_add_error( sprintf(__('You must have a blubrry Podcast Hosting account to continue.', 'powerpress')), 'inline', false );
 		return false;
@@ -191,35 +214,38 @@ function powerpress_admin_migrate_get_migrated_by_status($status='migrated')
 	
 	$json_data = false;
 	$api_url_array = powerpress_get_api_array();
-	foreach( $api_url_array as $index => $api_url )
-	{
-		$req_url = sprintf('%s/media/%s/migrate_status.json?status=%s&limit=10000&simple=true', rtrim($api_url, '/'), $Settings['blubrry_program_keyword'], urlencode($status) );
-		$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'&'. POWERPRESS_BLUBRRY_API_QSA:'');
-		$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
-		if( $json_data != false )
-			break;
-	}
-	
-	if( !$json_data )
-	{
-		if( !empty($GLOBALS['g_powerpress_remote_errorno']) && $GLOBALS['g_powerpress_remote_errorno'] == 401 )
-			$error .=  __('Incorrect sign-in email address or password.', 'powerpress') .' '. __('Verify your account settings then try again.', 'powerpress');
-		else if( !empty($GLOBALS['g_powerpress_remote_error']) )
-			$error .= '<p>'. $GLOBALS['g_powerpress_remote_error'];
-		else
-			$error .= __('Authentication failed.', 'powerpress');
-		powerpress_page_message_add_error($error);
-		return false;
-	}
-	
-	$results = powerpress_json_decode($json_data);
-	if( empty($results) )
-	{
-		$error = __('Unknown error occurred decoding results from server.', 'powerpress');
-		powerpress_page_message_add_error($error);
-		return false;
-	}
-	
+    if ($creds) {
+        $accessToken = powerpress_getAccessToken();
+        $req_url = sprintf('/2/media/%s/migrate_status.json?status=%s&limit=10000&simple=true', urlencode($Settings['blubrry_program_keyword']), urlencode($status));
+        $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+        $results = $auth->api($accessToken, $req_url);
+    } else {
+        foreach ($api_url_array as $index => $api_url) {
+            $req_url = sprintf('%s/media/%s/migrate_status.json?status=%s&limit=10000&simple=true', rtrim($api_url, '/'), $Settings['blubrry_program_keyword'], urlencode($status));
+            $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '&' . POWERPRESS_BLUBRRY_API_QSA : '');
+            $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
+            if ($json_data != false)
+                break;
+        }
+
+        if (!$json_data) {
+            if (!empty($GLOBALS['g_powerpress_remote_errorno']) && $GLOBALS['g_powerpress_remote_errorno'] == 401)
+                $error = __('Incorrect sign-in email address or password.', 'powerpress') . ' ' . __('Verify your account settings then try again.', 'powerpress');
+            else if (!empty($GLOBALS['g_powerpress_remote_error']))
+                $error = '<p>' . $GLOBALS['g_powerpress_remote_error'];
+            else
+                $error = __('Authentication failed.', 'powerpress');
+            powerpress_page_message_add_error($error);
+            return false;
+        }
+
+        $results = powerpress_json_decode($json_data);
+        if (empty($results)) {
+            $error = __('Unknown error occurred decoding results from server.', 'powerpress');
+            powerpress_page_message_add_error($error);
+            return false;
+        }
+    }
 	if( !empty($results['error']) )
 	{
 		$error = __('Blubrry Migrate Media Error', 'powerpress') .': '. $results['error'];
@@ -826,8 +852,14 @@ function powerpress_admin_migrate()
 		powerpress_admin_migrate_step3($MigrateStatus, $CompletedResults);
 		return;
 	}
-	
-	$CompletedCount = 0;
+
+	// If we have powerpress credentials, check if the account has been verified
+    $creds = get_option('powerpress_creds');
+    powerpress_check_credentials($creds);
+    wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
+
+
+    $CompletedCount = 0;
 	if( !empty($CompletedResults['completed_count']) )
 	{
 		$CompletedCount = $CompletedResults['completed_count'];

@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Some common code for PLL_Admin_Filters_Post and PLL_Admin_Filters_Media
@@ -33,6 +36,8 @@ abstract class PLL_Admin_Filters_Post_Base {
 	protected function save_translations( $post_id, $arr ) {
 		// Security check as 'wp_insert_post' can be called from outside WP admin
 		check_admin_referer( 'pll_language', '_pll_nonce' );
+
+		$translations = array();
 
 		// Save translations after checking the translated post is in the right language
 		foreach ( $arr as $lang => $tr_id ) {

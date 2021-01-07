@@ -151,6 +151,7 @@ function callUpdateListing( $post_id, $guid ) {
 	}
 
 	$FeedSettings = get_option( 'powerpress_feed' );
+    $creds = get_option('powerpress_creds');
 
 	$post_params = array(
 		'feed-url'  => '',                                           // required
@@ -167,25 +168,32 @@ function callUpdateListing( $post_id, $guid ) {
 	);
 
 	$api_url_array = powerpress_get_api_array();
+    if ($creds) {
+        require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+        $auth = new PowerPressAuth();
+        $accessToken = powerpress_getAccessToken();
+        $req_url = "/2/social/{$program_keyword}/update-listing.json";
+        $result = $auth->api($accessToken, $req_url, json_encode($post_params));
+        return $result;
+    } else {
+        foreach ($api_url_array as $api_url) {
+            $response = powerpress_remote_fopen("{$api_url}social/{$program_keyword}/update-listing.json", $Settings['blubrry_auth'], json_encode($post_params));
 
-	foreach ( $api_url_array as $api_url ) {
-		$response = powerpress_remote_fopen( "{$api_url}social/{$program_keyword}/update-listing.json", $Settings['blubrry_auth'], json_encode( $post_params ) );
+            if ($response) {
+                break;
+            }
+        }
 
-		if ( $response ) {
-			break;
-		}
-	}
+        if ($response) {
+            $result = json_decode($response, true);
+            if (!empty($result))
+                return $result;
 
-	if ( $response ) {
-		$result = json_decode( $response, true );
-		if( !empty($result) )
-			return $result;
-			
-		return $response;
-	}
-	else {
-		return false;
-	}
+            return $response;
+        } else {
+            return false;
+        }
+    }
 }
 
 /**
@@ -194,18 +202,28 @@ function callUpdateListing( $post_id, $guid ) {
  */
 function callGetSocialOptions( $program_keyword, $podcast_id ) {
 	$Settings = get_option( 'powerpress_general' );
+    $creds = get_option('powerpress_creds');
 
 	$api_url_array = powerpress_get_api_array();
-	foreach ( $api_url_array as $api_url ) {
-		$response = powerpress_remote_fopen("{$api_url}social/{$program_keyword}/get-social-options.json?podcast_id={$podcast_id}", $Settings['blubrry_auth'] );
-		if ( $response ) {
-			break;
-		}
-	}
+    if ($creds) {
+        require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+        $auth = new PowerPressAuth();
+        $accessToken = powerpress_getAccessToken();
+        $req_url = "/2/social/{$program_keyword}/get-social-options.json?podcast_id={$podcast_id}";
+        $result = $auth->api($accessToken, $req_url);
+        return $result;
+    } else {
+        foreach ($api_url_array as $api_url) {
+            $response = powerpress_remote_fopen("{$api_url}social/{$program_keyword}/get-social-options.json?podcast_id={$podcast_id}", $Settings['blubrry_auth']);
+            if ($response) {
+                break;
+            }
+        }
 
-	if ( $response ) {
-		return json_decode( $response, true );
-	}
+        if ($response) {
+            return json_decode($response, true);
+        }
+    }
 }
 
 /**
@@ -543,6 +561,7 @@ function powerpress_ajax_pts_post($Settings)
 	//$Settings = get_option('powerpress_general');
 
 	$api_url_array = powerpress_get_api_array();
+    $creds = get_option('powerpress_creds');
 
 	$podcast_id = $_POST['podcast-id'];
 	$post_id = $_POST['post-id'];
@@ -613,15 +632,22 @@ function powerpress_ajax_pts_post($Settings)
 
 	$post_params = array( 'podcast-id' => $podcast_id, 'post-data' => $post_data, '' );
 
-	foreach ( $api_url_array as $api_url ) {
-		$response = powerpress_remote_fopen( "{$api_url}social/{$program_keyword}/post.json", $Settings['blubrry_auth'], json_encode( $post_params ) );
-		if ( $response ) {
-			break;
-		}
-	}
+    if ($creds) {
+        require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+        $auth = new PowerPressAuth();
+        $accessToken = powerpress_getAccessToken();
+        $req_url = "/2/social/{$program_keyword}/post.json";
+        $response = $auth->api($accessToken, $req_url, json_encode($post_params));
+    } else {
+        foreach ($api_url_array as $api_url) {
+            $response = powerpress_remote_fopen("{$api_url}social/{$program_keyword}/post.json", $Settings['blubrry_auth'], json_encode($post_params));
+            if ($response) {
+                break;
+            }
+        }
 
-	$response = json_decode( $response, true );
-
+        $response = json_decode($response, true);
+    }
 	if ( $response['status'] == 'success' ) {
 		powerpress_page_message_add_notice( __( 'Posting to social been scheduled! Please allow up to an hour to post.', 'powerpress' ) );
 		powerpress_page_message_print();

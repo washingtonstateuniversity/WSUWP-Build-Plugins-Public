@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Settings class for browser language preference detection
@@ -6,6 +9,12 @@
  * @since 1.8
  */
 class PLL_Settings_Browser extends PLL_Settings_Module {
+	/**
+	 * Stores the display order priority.
+	 *
+	 * @var int
+	 */
+	public $priority = 20;
 
 	/**
 	 * Constructor
@@ -76,17 +85,19 @@ class PLL_Settings_Browser extends PLL_Settings_Module {
 		?>
 		<script type='text/javascript'>
 			//<![CDATA[
-			( function( $ ){
-				$( "input[name='force_lang']" ).change( function() {
-					var value = $( this ).val();
-					if ( 3 > value ) {
-						$( "#pll-module-browser" ).<?php echo $func; // phpcs:ignore WordPress.Security.EscapeOutput ?>.children( "td" ).children( ".row-actions" ).html( '<?php echo $link; // phpcs:ignore WordPress.Security.EscapeOutput ?>' );
-					}
-					else {
-						$( "#pll-module-browser" ).removeClass( "active" ).addClass( "inactive" ).children( "td" ).children( ".row-actions" ).html( '<?php echo $deactivated; // phpcs:ignore WordPress.Security.EscapeOutput ?>' );
-					}
-				} );
-			} )( jQuery );
+			jQuery(
+				function( $ ){
+					$( "input[name='force_lang']" ).on( 'change', function() {
+						var value = $( this ).val();
+						if ( 3 > value ) {
+							$( "#pll-module-browser" ).<?php echo $func; // phpcs:ignore WordPress.Security.EscapeOutput ?>.children( "td" ).children( ".row-actions" ).html( '<?php echo $link; // phpcs:ignore WordPress.Security.EscapeOutput ?>' );
+						}
+						else {
+							$( "#pll-module-browser" ).removeClass( "active" ).addClass( "inactive" ).children( "td" ).children( ".row-actions" ).html( '<?php echo $deactivated; // phpcs:ignore WordPress.Security.EscapeOutput ?>' );
+						}
+					} );
+				}
+			);
 			// ]]>
 		</script>
 		<?php

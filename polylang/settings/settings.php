@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * A class for the Polylang settings pages
@@ -17,7 +20,20 @@
  * @since 1.2
  */
 class PLL_Settings extends PLL_Admin_Base {
-	protected $active_tab, $modules;
+
+	/**
+	 * Name of the active module
+	 *
+	 * @var string $active_tab
+	 */
+	protected $active_tab;
+
+	/**
+	 * Array of modules classes
+	 *
+	 * @var array $modules
+	 */
+	protected $modules;
 
 	/**
 	 * Constructor
@@ -35,7 +51,6 @@ class PLL_Settings extends PLL_Admin_Base {
 
 		PLL_Admin_Strings::init();
 
-		// FIXME put this as late as possible
 		add_action( 'admin_init', array( $this, 'register_settings_modules' ) );
 
 		// Adds screen options and the about box in the languages admin panel
@@ -52,26 +67,18 @@ class PLL_Settings extends PLL_Admin_Base {
 	 * @since 1.8
 	 */
 	public function register_settings_modules() {
-		$modules = array(
-			'PLL_Settings_Tools',
-			'PLL_Settings_Licenses',
-		);
+		$modules = array();
 
 		if ( $this->model->get_languages_list() ) {
-			$modules = array_merge(
-				array(
-					'PLL_Settings_Url',
-					'PLL_Settings_Browser',
-					'PLL_Settings_Media',
-					'PLL_Settings_CPT',
-					'PLL_Settings_Sync',
-					'PLL_Settings_WPML',
-					'PLL_Settings_Share_Slug',
-					'PLL_Settings_Translate_Slugs',
-				),
-				$modules
+			$modules = array(
+				'PLL_Settings_Url',
+				'PLL_Settings_Browser',
+				'PLL_Settings_Media',
+				'PLL_Settings_CPT',
 			);
 		}
+
+		$modules[] = 'PLL_Settings_Licenses';
 
 		/**
 		 * Filter the list of setting modules
@@ -94,7 +101,7 @@ class PLL_Settings extends PLL_Admin_Base {
 	 * @since 0.8
 	 */
 	public function metabox_about() {
-		include PLL_SETTINGS_INC . '/view-about.php';
+		include __DIR__ . '/view-about.php';
 	}
 
 	/**
@@ -108,7 +115,7 @@ class PLL_Settings extends PLL_Admin_Base {
 				'pll-about-box',
 				__( 'About Polylang', 'polylang' ),
 				array( $this, 'metabox_about' ),
-				'settings_page_mlang', // FIXME not shown in screen options
+				'toplevel_page_mlang',
 				'normal'
 			);
 		}
@@ -177,7 +184,7 @@ class PLL_Settings extends PLL_Admin_Base {
 					add_settings_error( 'general', 'pll_languages_created', __( 'Language added.', 'polylang' ), 'updated' );
 					$locale = sanitize_text_field( wp_unslash( $_POST['locale'] ) ); // phpcs:ignore WordPress.Security
 
-					if ( 'en_US' !== $locale ) {
+					if ( 'en_US' !== $locale && current_user_can( 'install_languages' ) ) {
 						// Attempts to install the language pack
 						require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 						if ( ! wp_download_language_pack( $locale ) ) {
@@ -298,13 +305,14 @@ class PLL_Settings extends PLL_Admin_Base {
 		// Handle user input
 		$action = isset( $_REQUEST['pll_action'] ) ? sanitize_key( $_REQUEST['pll_action'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 		if ( 'edit' === $action && ! empty( $_GET['lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$edit_lang = $this->model->get_language( (int) $_GET['lang'] ); // phpcs:ignore WordPress.Security.NonceVerification
+			// phpcs:ignore WordPress.Security.NonceVerification, VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
+			$edit_lang = $this->model->get_language( (int) $_GET['lang'] );
 		} else {
 			$this->handle_actions( $action );
 		}
 
 		// Displays the page
-		include PLL_SETTINGS_INC . '/view-languages.php';
+		include __DIR__ . '/view-languages.php';
 	}
 
 	/**
@@ -317,6 +325,7 @@ class PLL_Settings extends PLL_Admin_Base {
 
 		wp_enqueue_script( 'pll_admin', plugins_url( '/js/admin' . $suffix . '.js', POLYLANG_FILE ), array( 'jquery', 'wp-ajax-response', 'postbox', 'jquery-ui-selectmenu' ), POLYLANG_VERSION );
 		wp_localize_script( 'pll_admin', 'pll_flag_base_url', plugins_url( '/flags/', POLYLANG_FILE ) );
+		wp_localize_script( 'pll_admin', 'pll_dismiss_notice', esc_html__( 'Dismiss this notice.', 'polylang' ) );
 
 		wp_enqueue_style( 'pll_selectmenu', plugins_url( '/css/selectmenu' . $suffix . '.css', POLYLANG_FILE ), array(), POLYLANG_VERSION );
 	}
@@ -360,10 +369,10 @@ class PLL_Settings extends PLL_Admin_Base {
 	 *
 	 * @since 2.3
 	 */
-	public function get_predefined_languages() {
+	public static function get_predefined_languages() {
 		require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 
-		$languages    = include PLL_SETTINGS_INC . '/languages.php';
+		$languages    = include __DIR__ . '/languages.php';
 		$translations = wp_get_available_translations();
 
 		// Keep only languages with existing WP language pack
@@ -378,7 +387,7 @@ class PLL_Settings extends PLL_Admin_Base {
 		 *
 		 * @since 1.7.10
 		 * @since 2.3 The languages arrays use associative keys instead of numerical keys
-		 * @see settings/languages.php
+		 * @see https://github.com/polylang/polylang/blob/2.8.2/settings/languages.php the list of predefined languages
 		 *
 		 * @param array $languages
 		 */

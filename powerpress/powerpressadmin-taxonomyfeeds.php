@@ -18,6 +18,10 @@ function powerpress_admin_taxonomyfeeds()
 {
 	$General = powerpress_get_settings('powerpress_general');
 
+    // If we have powerpress credentials, check if the account has been verified
+    $creds = get_option('powerpress_creds');
+    powerpress_check_credentials($creds);
+    wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
 ?>
 <h2><?php echo __('Taxonomy Podcasting', 'powerpress'); ?></h2>
 <p>

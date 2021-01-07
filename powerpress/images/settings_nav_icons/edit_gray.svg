@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>CF50AD3D-FDD4-46F3-93C5-19EA39996B2F</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M0,20 L19.6763245,20 L19.6763245,18.042095 L0,18.042095 L0,20 Z M6.88671356,13.1473324 L6.88671356,10.5139501 L15.3219539,2.64512971 L17.1233214,4.64317181 L9.41020217,13.1473324 L6.88671356,13.1473324 Z M20,4.64512971 L15.3760638,0 L4.91908112,9.68771415 L4.91908112,15.1052374 L10.2523489,15.1052374 L20,4.64512971 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/edit-[#1482]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Icon/20px/edit-[#1482]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/Grey-Darker-⚙️Atoms/Colour/Grey-Darker/1---100%" mask="url(#mask-2)" fill="#9EA0A5">
+                <g transform="translate(-1.000000, -1.000000)" id="Colour">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

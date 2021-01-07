@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Displays languages in a dropdown list
@@ -19,7 +22,7 @@ class PLL_Walker_Dropdown extends Walker {
 	 * @param array  $args              An array of additional arguments.
 	 * @param int    $current_object_id ID of the current item.
 	 */
-	public function start_el( &$output, $element, $depth = 0, $args = array(), $current_object_id = 0 ) {
+	public function start_el( &$output, $element, $depth = 0, $args = array(), $current_object_id = 0 ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		$value = $args['value'];
 		$output .= sprintf(
 			"\t" . '<option value="%1$s"%2$s%3$s>%4$s</option>' . "\n",
@@ -42,7 +45,7 @@ class PLL_Walker_Dropdown extends Walker {
 	 * @param array  $args              An array of arguments.
 	 * @param string $output            Passed by reference. Used to append additional content.
 	 */
-	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
 		$element = (object) $element; // Make sure we have an object
 		$element->parent = $element->id = 0; // Don't care about this
 		parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
@@ -101,8 +104,8 @@ class PLL_Walker_Dropdown extends Walker {
 
 		$output .= sprintf(
 			'<select name="%1$s"%2$s%3$s%4$s>' . "\n" . '%5$s' . "\n" . '</select>' . "\n",
-			$name = esc_attr( $args['name'] ),
-			isset( $args['id'] ) && ! $args['id'] ? '' : ' id="' . ( empty( $args['id'] ) ? $name : esc_attr( $args['id'] ) ) . '"',
+			esc_attr( $args['name'] ),
+			isset( $args['id'] ) && ! $args['id'] ? '' : ' id="' . ( empty( $args['id'] ) ? esc_attr( $args['name'] ) : esc_attr( $args['id'] ) ) . '"',
 			empty( $args['class'] ) ? '' : ' class="' . esc_attr( $args['class'] ) . '"',
 			disabled( empty( $args['disabled'] ), false, false ),
 			parent::walk( $elements, $max_depth, $args )

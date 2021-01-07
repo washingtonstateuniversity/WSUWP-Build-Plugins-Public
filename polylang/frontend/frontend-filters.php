@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Filters content by language on frontend
@@ -31,7 +34,7 @@ class PLL_Frontend_Filters extends PLL_Filters {
 		add_filter( 'getarchives_where', array( $this, 'getarchives_where' ), 10, 2 );
 
 		// Filters the widgets according to the current language
-		add_filter( 'widget_display_callback', array( $this, 'widget_display_callback' ), 10, 2 );
+		add_filter( 'widget_display_callback', array( $this, 'widget_display_callback' ) );
 		add_filter( 'sidebars_widgets', array( $this, 'sidebars_widgets' ) );
 
 		if ( $this->options['media_support'] ) {
@@ -39,19 +42,12 @@ class PLL_Frontend_Filters extends PLL_Filters {
 		}
 
 		// Strings translation ( must be applied before WordPress applies its default formatting filters )
-		foreach ( array( 'widget_text', 'widget_title', 'option_blogname', 'option_blogdescription', 'option_date_format', 'option_time_format' ) as $filter ) {
+		foreach ( array( 'widget_text', 'widget_title' ) as $filter ) {
 			add_filter( $filter, 'pll__', 1 );
 		}
 
 		// Translates biography
 		add_filter( 'get_user_metadata', array( $this, 'get_user_metadata' ), 10, 4 );
-
-		// Support theme customizer
-		// FIXME of course does not work if 'transport' is set to 'postMessage'
-		if ( isset( $_POST['wp_customize'], $_POST['customized'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			add_filter( 'pre_option_blogname', 'pll__', 20 );
-			add_filter( 'pre_option_blogdescription', 'pll__', 20 );
-		}
 
 		// FIXME test get_user_locale for backward compatibility with WP < 4.7
 		if ( Polylang::is_ajax_on_front() && function_exists( 'get_user_locale' ) ) {
@@ -64,10 +60,9 @@ class PLL_Frontend_Filters extends PLL_Filters {
 	 *
 	 * @since 0.1
 	 *
-	 * @param string $locale
 	 * @return string
 	 */
-	public function get_locale( $locale ) {
+	public function get_locale() {
 		return $this->curlang->locale;
 	}
 
@@ -98,7 +93,7 @@ class PLL_Frontend_Filters extends PLL_Filters {
 				$relations = $wpdb->get_results( "SELECT object_id, term_taxonomy_id FROM {$wpdb->term_relationships} WHERE object_id IN ({$posts}) AND term_taxonomy_id IN ({$languages})" );
 
 				foreach ( $relations as $relation ) {
-					$_posts[ $relation->term_taxonomy_id ][] = $relation->object_id;
+					$_posts[ $relation->term_taxonomy_id ][] = (int) $relation->object_id;
 				}
 				wp_cache_add( 'sticky_posts', $_posts, 'options' );
 			}
@@ -141,11 +136,10 @@ class PLL_Frontend_Filters extends PLL_Filters {
 	 *
 	 * @since 0.3
 	 *
-	 * @param array  $instance Widget settings
-	 * @param object $widget   WP_Widget object
+	 * @param array $instance Widget settings
 	 * @return bool|array false if we hide the widget, unmodified $instance otherwise
 	 */
-	public function widget_display_callback( $instance, $widget ) {
+	public function widget_display_callback( $instance ) {
 		// FIXME it looks like this filter is useless, now the we use the filter sidebars_widgets
 		return ! empty( $instance['pll_lang'] ) && $instance['pll_lang'] != $this->curlang->slug ? false : $instance;
 	}

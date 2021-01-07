@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>95DB9BA9-4A95-4C67-9EE7-9FBF4AF20856</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M18.0004,17 C18.0004,17.552 17.5524,18 17.0004,18 L3.0004,18 C2.4484,18 2.0004,17.552 2.0004,17 L2.0004,3 C2.0004,2.448 2.4484,2 3.0004,2 L12.0004,2 L12.0004,6 C12.0004,7.104 12.8954,8 14.0004,8 L18.0004,8 L18.0004,17 Z M19.7074,5.707 L14.2934,0.293 C14.1054,0.105 13.8514,0 13.5864,0 L2.0004,0 C0.8954,0 0.0004,0.895 0.0004,2 L0.0004,18 C0.0004,19.104 0.8954,20 2.0004,20 L18.0004,20 C19.1054,20 20.0004,19.104 20.0004,18 L20.0004,6.414 C20.0004,6.149 19.8954,5.895 19.7074,5.707 L19.7074,5.707 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/file-[#1699]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Icon/20px/file-[#1699]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/Grey-Darker-⚙️Atoms/Colour/Grey-Darker/1---100%" mask="url(#mask-2)" fill="#9EA0A5">
+                <g transform="translate(-1.000000, -1.000000)" id="Colour">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

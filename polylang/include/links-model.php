@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Links model abstract class
@@ -116,8 +119,8 @@ abstract class PLL_Links_Model {
 				$this->set_home_url( $language );
 			}
 
-			// Ensures that the ( possibly cached ) home url uses the right scheme http or https
-			$language->set_home_url_scheme();
+			// Ensures that the ( possibly cached ) home and flag urls use the right scheme http or https.
+			$language->set_url_scheme();
 		}
 		return $languages;
 	}

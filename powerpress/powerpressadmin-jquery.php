@@ -44,12 +44,16 @@ function powerpress_admin_jquery_init()
 {
 	$Settings = false; // Important, never remove this
 	$Settings = get_option('powerpress_general');
-	
+	$creds = get_option('powerpress_creds');
 	$Error = false;
 
 	$Programs = false;
 	$Step = 1;
-	
+
+
+    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+    $auth = new PowerPressAuth();
+
 	$action = (isset($_GET['action'])?$_GET['action']: (isset($_POST['action'])?$_POST['action']:false) );
 	if( !$action )
 		return;
@@ -126,9 +130,6 @@ function powerpress_admin_jquery_init()
 ?>
 <div style="line-height: 32px; height: 32px;">&nbsp;</div>
 <iframe src="//www.blubrry.com/pp/" frameborder="0" title="<?php echo esc_attr(__('Blubrry Services Integration', 'powerpress')); ?>" style="overflow:hidden; overflow-y: hidden;" width="100%" height="480" scrolling="no" seamless="seamless"></iframe>
-<p><?php echo __('Already have a blubrry hosting account?', 'powerpress'); ?> 
-	<strong><a class="button-primary button-blubrry thickbox" title="<?php echo esc_attr(__('Blubrry Services Integration', 'powerpress')); ?>" href="<?php echo wp_nonce_url(admin_url('admin.php?action=powerpress-jquery-account'), 'powerpress-jquery-account'); ?>"><?php echo __('Click here to link Blubrry account', 'powerpress'); ?></a></strong>
-</p>
 <p style="text-align: center;"><a href="#" onclick="self.parent.tb_remove();"><?php echo __('Close', 'powerpress'); ?></a></p>
 <?php
 				powerpress_admin_jquery_footer();
@@ -168,16 +169,13 @@ function powerpress_admin_jquery_init()
 				exit;
 			}
 			
-			if( empty($Settings['blubrry_auth']) || empty($Settings['blubrry_hosting']) || $Settings['blubrry_hosting'] === 'false' )
+			if( (empty($Settings['blubrry_auth']) && !$creds) || empty($Settings['blubrry_hosting']) || $Settings['blubrry_hosting'] === 'false' )
 			{
 				powerpress_admin_jquery_header( __('Select Media', 'powerpress') );
 ?>
 <h2><?php echo __('Select Media', 'powerpress'); ?></h2>
 <p><?php echo __('Wait a sec! This feature is only available to Blubrry Media Podcast Hosting customers.', 'powerpress'); ?></p>
 <iframe src="//www.blubrry.com/pp/" frameborder="0" title="<?php echo esc_attr(__('Blubrry Services Integration', 'powerpress')); ?>" style="overflow:hidden; overflow-y: hidden;" width="100%" height="480" scrolling="no" seamless="seamless"></iframe>
-<p><?php echo __('Already have a blubrry hosting account?', 'powerpress'); ?> 
-	<strong><a class="button-primary button-blubrry thickbox" title="<?php echo esc_attr(__('Blubrry Services Integration', 'powerpress')); ?>" href="<?php echo wp_nonce_url(admin_url('admin.php?action=powerpress-jquery-account'), 'powerpress-jquery-account'); ?>"><?php echo __('Click here to link Blubrry account', 'powerpress'); ?></a></strong>
-</p>
 <p style="text-align: center;"><a href="#" onclick="self.parent.tb_remove();"><?php echo __('Close', 'powerpress'); ?></a></p>
 <?php
 				powerpress_admin_jquery_footer();
@@ -209,20 +207,28 @@ function powerpress_admin_jquery_init()
 			if( $DeleteFile )
 			{
 				$json_data = false;
+				$results = array();
 				$api_url_array = powerpress_get_api_array();
-				foreach( $api_url_array as $index => $api_url )
-				{
-					$req_url = sprintf('%s/media/%s/%s?format=json', rtrim($api_url, '/'), $Settings['blubrry_program_keyword'], $DeleteFile );
-					$req_url = sprintf('%s/media/%s/%s?format=json', rtrim($api_url, '/'), $blubrryProgramKeyword , $DeleteFile );
-					$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'&'. POWERPRESS_BLUBRRY_API_QSA:'');
-					$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 10, 'DELETE');
-					if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
-						$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 10, 'DELETE', true); // Only give this 2 seconds to return results
-					}
-					if( $json_data != false )
-						break;
-				}
-				$results =  powerpress_json_decode($json_data);
+				if ($creds) {
+                    $accessToken = powerpress_getAccessToken();
+                    $req_url = sprintf('/2/media/%s/%s?format=json', $Settings['blubrry_program_keyword'], $DeleteFile);
+                    $req_url = sprintf('/2/media/%s/%s?format=json', $blubrryProgramKeyword, $DeleteFile);
+                    $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+                    $results = $auth->api($accessToken, $req_url, false, 'DELETE');
+                } else {
+                    foreach ($api_url_array as $index => $api_url) {
+                        $req_url = sprintf('%s/media/%s/%s?format=json', rtrim($api_url, '/'), $Settings['blubrry_program_keyword'], $DeleteFile);
+                        $req_url = sprintf('%s/media/%s/%s?format=json', rtrim($api_url, '/'), $blubrryProgramKeyword, $DeleteFile);
+                        $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '&' . POWERPRESS_BLUBRRY_API_QSA : '');
+                        $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 10, 'DELETE');
+                        if (!$json_data && $api_url == 'https://api.blubrry.com/') { // Lets force cURL and see if that helps...
+                            $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 10, 'DELETE', true); // Only give this 2 seconds to return results
+                        }
+                        if ($json_data != false)
+                            break;
+                    }
+                    $results = powerpress_json_decode($json_data);
+                }
 
 				if( isset($results['text']) )
 					$Msg = $results['text'];
@@ -235,26 +241,34 @@ function powerpress_admin_jquery_init()
 			$json_data = false;
 			$json_data_programs = false;
 			$api_url_array = powerpress_get_api_array();
-			foreach( $api_url_array as $index => $api_url )
-			{
-				$req_url = sprintf('%s/media/%s/index.json?quota=true&published=true', rtrim($api_url, '/'), $blubrryProgramKeyword );
-				$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'&'. POWERPRESS_BLUBRRY_API_QSA:'');
-                $req_url_programs = sprintf('%s/service/index.json', rtrim($api_url, '/') );
-                $req_url_programs .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
-				$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
-				$json_data_programs = powerpress_remote_fopen($req_url_programs, $Settings['blubrry_auth']);
-                if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
-					$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
-				}
-                else if(!$json_data_programs && $api_url == 'https://api.blubrry.com/') {
-                    $json_data_programs = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
+            if ($creds) {
+                $accessToken = powerpress_getAccessToken();
+                $req_url = sprintf('/2/media/%s/index.json?quota=true&published=true&cache=' . md5( rand(0, 999) . time() ), $blubrryProgramKeyword);
+                $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '&' . POWERPRESS_BLUBRRY_API_QSA : '');
+                $req_url_programs = sprintf('/2/service/index.json?cache=' . md5( rand(0, 999) . time() ));
+                $req_url_programs .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '?' . POWERPRESS_BLUBRRY_API_QSA : '');
+                $results = $auth->api($accessToken, $req_url);
+                $results_programs = $auth->api($accessToken, $req_url_programs);
+            } else {
+                foreach ($api_url_array as $index => $api_url) {
+                    $req_url = sprintf('%s/media/%s/index.json?quota=true&published=true&cache=' . md5( rand(0, 999) . time() ), rtrim($api_url, '/'), $blubrryProgramKeyword);
+                    $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '&' . POWERPRESS_BLUBRRY_API_QSA : '');
+                    $req_url_programs = sprintf('%s/service/index.json?cache=' . md5( rand(0, 999) . time() ), rtrim($api_url, '/'));
+                    $req_url_programs .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '?' . POWERPRESS_BLUBRRY_API_QSA : '');
+                    $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
+                    $json_data_programs = powerpress_remote_fopen($req_url_programs, $Settings['blubrry_auth']);
+                    if (!$json_data && $api_url == 'https://api.blubrry.com/') { // Lets force cURL and see if that helps...
+                        $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
+                    } else if (!$json_data_programs && $api_url == 'https://api.blubrry.com/') {
+                        $json_data_programs = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
+                    }
+                    if ($json_data != false)
+                        break;
                 }
-				if( $json_data != false )
-					break;
-			}
-			
-			$results =  powerpress_json_decode($json_data);
-			$results_programs = powerpress_json_decode($json_data_programs);
+                $results =  powerpress_json_decode($json_data);
+                $results_programs = powerpress_json_decode($json_data_programs);
+            }
+
             if( isset($results_programs['error']) )
             {
                 $Error = $results_programs['error'];
@@ -331,12 +345,16 @@ window.onload = function() {
     function reloadFrame() {
         window.location = "<?php echo admin_url('admin.php'); ?>?action=powerpress-jquery-media&blubrryProgramKeyword="+ program.value +"&podcast-feed=<?php echo $FeedSlug; ?>&KeepThis=true&TB_iframe=true&modal=false&remSel=" + remember.checked;
     }
-    program.addEventListener('change', function() {
-        reloadFrame();
-    });
-    remember.addEventListener('change', function() {
-        reloadFrame();
-    });
+    if (program) {
+        program.addEventListener('change', function () {
+            reloadFrame();
+        });
+    }
+    if (remember) {
+        remember.addEventListener('change', function () {
+            reloadFrame();
+        });
+    }
 }
 //-->
 </script>
@@ -349,8 +367,7 @@ window.onload = function() {
                 <select id="blubrry_program_keyword" name="Settings[blubrry_program_keyword]">
                     <option value="!selectPodcast"><?php echo __('Select Program', 'powerpress'); ?></option>
                     <?php
-                    //TODO: I THINK THIS LINE WILL SOLVE THE ISSUE OF NETWORK STUFF BEING IN THE WRONG ORDER
-                    //ksort($Programs);
+                    ksort($Programs);
                     foreach ($Programs as $value => $desc)
                         echo "\t<option value=\"$value\"" . ($blubrryProgramKeyword == $value ? ' selected' : '') . ">$desc</option>\n";
                     ?>
@@ -560,8 +577,126 @@ window.onload = function() {
 			powerpress_admin_jquery_footer(true);
 			exit;
 		}; break;
+        case 'powerpress-jquery-account-verify': {
+
+            if( !current_user_can(POWERPRESS_CAPABILITY_MANAGE_OPTIONS) )
+            {
+                powerpress_admin_jquery_header('Blubrry Services', 'powerpress');
+                powerpress_page_message_add_notice( __('You do not have sufficient permission to manage options.', 'powerpress') );
+                powerpress_page_message_print();
+                powerpress_admin_jquery_footer();
+                exit;
+            }
+            check_admin_referer('powerpress-jquery-account-verify');
+
+            if (isset($_GET['logout']) && $_GET['logout']) {
+                $action_url = admin_url('admin.php?action=powerpress-jquery-account-save');
+                $action = 'powerpress-jquery-account-save';
+                $logout_url = wp_nonce_url($action_url, $action) . '&remove=true';
+                header("Location: " . $logout_url);
+                exit;
+            }
+
+            powerpress_admin_jquery_account_header( __('Blubrry Services', 'powerpress'), false, true );
+
+            if (isset($_GET['email']) && $_GET['email']) {
+                $result = $auth->reSendVerifyEmail();
+                powerpress_page_message_add_notice(__('Email re-sent.', 'powerpress'));
+                powerpress_page_message_print();
+            }
+
+            if (isset($_GET['api']) && $_GET['api']) {
+                $result = $auth->checkAccountVerified();
+                if (isset($result['account_enabled']) && isset($result['account_confirmed'])) {
+                    if (!$result['account_enabled'] || !$result['account_confirmed']) {
+                        powerpress_page_message_add_error(__('Account not verified.', 'powerpress'));
+                        powerpress_page_message_print();
+                    } else {
+                        //If the account wasn't verified until now, we create a program
+                        if (!$creds['account_verified']) {
+                            $FeedSettings = get_option('powerpress_feed_podcast');
+                            $PostVars = [
+                                'title' => $FeedSettings['title'],
+                                'explicit' => $FeedSettings['itunes_explicit'],
+                                'apple category' => $FeedSettings['apple_cat_1'],
+                                'feed_url' => get_home_url() . '/feed/podcast'
+                            ];
+                            $accessToken = powerpress_getAccessToken();
+                            $req_url = '/2/show/add-powerpress.json';
+                            $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '?' . POWERPRESS_BLUBRRY_API_QSA : '');
+                            //try giving this request 30 seconds instead of 15. it times out but if we don't catch that error, everything behaves as should
+                            $auth->api($accessToken, $req_url, $PostVars, false, 30);
+                        }
+                        $creds['account_verified'] = true;
+                        powerpress_save_settings($creds, 'powerpress_creds');
+
+                        // If we're in the onboarding section, we want to close the popup
+                        if (isset($_GET['no_signout_link']) && $_GET['no_signout_link'] == 'true') {
+                            ?>
+                            <script>
+                                jQuery(document).ready(function() {
+                                    window.parent.tb_remove();
+                                    parent.location.reload(1);
+                                })
+                            </script>
+                    <?php
+                        } else {
+                            //If we're somewhere else in settings, we want the popup to redirect to account-edit
+                            $link_action_url = admin_url('admin.php?action=powerpress-jquery-account-edit');
+                            $link_action = 'powerpress-jquery-account-edit';
+                            //header("Location: " . wp_nonce_url($link_action_url, $link_action));
+
+                            echo '<script>window.location.href = "' . wp_nonce_url($link_action_url, $link_action) . '";</script>';
+
+                        }
+
+                    exit;
+                    }
+                } else {
+                    powerpress_page_message_add_error(__('Error verifying account: ', 'powerpress') . ' ' . $auth->GetLastError());
+                    powerpress_page_message_print();
+                }
+            }
+
+            $no_signout_link = "";
+            if (isset($_GET['no_signout_link']) && $_GET['no_signout_link'] == 'true') {
+                $no_signout_link = "&amp;no_signout_link=true";
+            }
+            $action_url = admin_url('admin.php?action=powerpress-jquery-account-verify');
+            $action = 'powerpress-jquery-account-verify';
+            $email_url = wp_nonce_url($action_url, $action) . '&amp;email=true' . $no_signout_link;
+            $verify_url = wp_nonce_url($action_url, $action) . '&amp;api=true' . $no_signout_link;
+            $logout_url = wp_nonce_url($action_url, $action) . '&amp;logout=true' . $no_signout_link;
+            //header("Location: " . wp_nonce_url($link_action_url, $link_action));
+            //powerpress_admin_jquery_account_header(__('Verify Blubrry Services', 'powerpress'), false, true);
+            ?>
+            <script>
+                function clickAndDisable(evt) {
+                    // disable subsequent clicks
+                    //evt.preventDefault();
+                    let links = document.getElementsByClassName("verify-api-call");
+                    for (let link of links){
+                        link.onclick = function(event) {
+                            event.preventDefault();
+                        };
+                    }
+                }
+            </script>
+            <div class="pp-account-verify-container">
+                <h3><?php echo __('Blubrry Account Not Yet Verified', 'powerpress'); ?></h3>
+                <p><?php echo __('Please check your email for a link to verify your account.', 'powerpress'); ?></p>
+                <a href="<?php echo $verify_url; ?>" class="verify-api-call" onclick="clickAndDisable(event)"><?php echo __('I already verified','powerpress'); ?></a>
+                <a href="<?php echo $email_url; ?>" class="verify-api-call" onclick="clickAndDisable(event)"><?php echo __('Re-send email','powerpress'); ?></a>
+                <?php if (!isset($_GET['no_signout_link']) || $_GET['no_signout_link'] == 'false') { ?>
+                <a class="account-verify-signout" href="<?php echo $logout_url; ?>"><?php echo __('Un-link Blubrry account','powerpress'); ?></a>
+                <?php } ?>
+            </div>
+            <?php
+            exit;
+            break;
+        }
 		case 'powerpress-jquery-account-save': {
-		
+
 			if( !current_user_can(POWERPRESS_CAPABILITY_MANAGE_OPTIONS) )
 			{
 				powerpress_admin_jquery_header('Blubrry Services', 'powerpress');
@@ -570,155 +705,160 @@ window.onload = function() {
 				powerpress_admin_jquery_footer();
 				exit;
 			}
-			
-			check_admin_referer('powerpress-jquery-account');
-			
-			$Password = $_POST['Password'];
-			$SaveSettings = $_POST['Settings'];
-			$Password = powerpress_stripslashes($Password);
+
+            check_admin_referer('powerpress-jquery-account-save');
+
+			$SaveSettings = isset($_POST['Settings']) ? $_POST['Settings'] : array();
 			$SaveSettings = powerpress_stripslashes($SaveSettings);
-			
-			$Save = false;
-			$Close = false;
+
+			$Save = true;
+			$Close = true;
 		
 			
-			if( !empty($_POST['Remove']) )
+			if( !empty($_POST['Remove']) || !empty($_GET['remove']) )
 			{
 				$SaveSettings['blubrry_username'] = '';
 				$SaveSettings['blubrry_auth'] = '';
 				$SaveSettings['blubrry_program_keyword'] = '';
 				$SaveSettings['blubrry_hosting'] = false;
+				if ($creds) {
+				    $accessToken = powerpress_getAccessToken();
+                    $auth->revokeClient($accessToken, $creds['client_id'], $creds['client_secret']);
+                    delete_option('powerpress_creds');
+                }
 				$Close = true;
 				$Save = true;
-			}
-			else
-			{
-				$Programs = array();
-				$ProgramHosting = array();
-                // Anytime we change the password we need to test it...
-				$auth = base64_encode( $SaveSettings['blubrry_username'] . ':' . $Password );
-				$json_data = false;
-				$api_url_array = powerpress_get_api_array();
-				foreach( $api_url_array as $index => $api_url )
-				{
-					$req_url = sprintf('%s/service/index.json', rtrim($api_url, '/') );
-					$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
-					$json_data = powerpress_remote_fopen($req_url, $auth);
-					if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
-						$json_data = powerpress_remote_fopen($req_url, $auth, array(), 15, false, true);
+			} else {
+                $Programs = array();
+                $ProgramHosting = array();
+                $json_data = false;
+                $results = array();
+                if ($creds) {
+                    $accessToken = powerpress_getAccessToken();
+                    $req_url = '/2/service/index.json?cache=' . md5( rand(0, 999) . time() );
+                    $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+                    $results = $auth->api($accessToken, $req_url);
+                } else {
+                    $api_url_array = powerpress_get_api_array();
+                    foreach( $api_url_array as $index => $api_url )
+                    {
+                        $req_url = sprintf('%s/service/index.json?cache=' . md5( rand(0, 999) . time() ), rtrim($api_url, '/') );
+                        $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+                        $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
+                        if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
+                            $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
+                        }
+                        if( $json_data != false )
+                            break;
+                    }
+                    if( $json_data ) {
+					    $results =  powerpress_json_decode($json_data);
 					}
-					if( $json_data != false )
-						break;
-				}
+                }
+                if ($results) {
+                    if( isset($results['error']) )
+                    {
+                        $Error = $results['error'];
+                        if( strstr($Error, __('currently not available', 'powerpress') ) )
+                        {
+                            $Error = __('Unable to find podcasts for this account.', 'powerpress');
+                            $Error .= '<br /><span style="font-weight: normal; font-size: 12px;">';
+                            $Error .= 'Verify that the email address you enter here matches the email address you used when you listed your podcast on blubrry.com.</span>';
+                        }
+                        else if( preg_match('/No programs found.*media hosting/i', $results['error']) )
+                        {
+                            $Error .= '<br/><span style="font-weight: normal; font-size: 12px;">';
+                            $Error .= 'Service may take a few minutes to activate.</span>';
+                        }
+                    }
+                    else if( !is_array($results) )
+                    {
+                        $Error = $json_data;
+                    }
+                    else
+                    {
+                        // Get all the programs for this user...
+                        foreach( $results as $null => $row )
+                        {
+                            $Programs[ $row['program_keyword'] ] = $row['program_title'];
+                            if( $row['hosting'] === true || $row['hosting'] == 'true' )
+                                $ProgramHosting[ $row['program_keyword'] ] = true;
+                            else
+                                $ProgramHosting[ $row['program_keyword'] ] = false;
+                        }
 
-
-				if( $json_data )
-				{
-					$results =  powerpress_json_decode($json_data);
-					
-					if( isset($results['error']) )
-					{
-						$Error = $results['error'];
-						if( strstr($Error, __('currently not available', 'powerpress') ) )
-						{
-							$Error = __('Unable to find podcasts for this account.', 'powerpress');
-							$Error .= '<br /><span style="font-weight: normal; font-size: 12px;">';
-							$Error .= 'Verify that the email address you enter here matches the email address you used when you listed your podcast on blubrry.com.</span>';
-						}
-						else if( preg_match('/No programs found.*media hosting/i', $results['error']) )
-						{
-							$Error .= '<br/><span style="font-weight: normal; font-size: 12px;">';
-							$Error .= 'Service may take a few minutes to activate.</span>';
-						}
-					}
-					else if( !is_array($results) )
-					{
-						$Error = $json_data;
-					}
-					else
-					{
-						// Get all the programs for this user...
-						foreach( $results as $null => $row )
-						{
-							$Programs[ $row['program_keyword'] ] = $row['program_title'];
-							if( $row['hosting'] === true || $row['hosting'] == 'true' )
-								$ProgramHosting[ $row['program_keyword'] ] = true;
-							else
-								$ProgramHosting[ $row['program_keyword'] ] = false;
-						}
-						
-						if( count($Programs) > 0 )
-						{
-							$SaveSettings['blubrry_auth'] = $auth;
-
-							if( !empty($SaveSettings['blubrry_program_keyword']) )
-							{
-								powerpress_add_blubrry_redirect($SaveSettings['blubrry_program_keyword']);
-								if ($SaveSettings['blubrry_program_keyword'] != 'no_default') {
-                                    $SaveSettings['blubrry_hosting'] = $ProgramHosting[$SaveSettings['blubrry_program_keyword']];
-                                    if (!is_bool($SaveSettings['blubrry_hosting'])) {
-                                        if ($SaveSettings['blubrry_hosting'] === 'false' || empty($SaveSettings['blubrry_hosting']))
+                        if( count($Programs) > 0 )
+                        {
+                            if( !empty($SaveSettings['blubrry_program_keyword']) )
+                            {
+                                if ($SaveSettings['blubrry_program_keyword'] != 'no_default') {
+                                    powerpress_add_blubrry_redirect($SaveSettings['blubrry_program_keyword']);
+                                    $SaveSettings['blubrry_hosting'] = $ProgramHosting[ $SaveSettings['blubrry_program_keyword'] ];
+                                    if( !is_bool($SaveSettings['blubrry_hosting']) )
+                                    {
+                                        if( $SaveSettings['blubrry_hosting'] === 'false' || empty($SaveSettings['blubrry_hosting']) )
                                             $SaveSettings['blubrry_hosting'] = false;
                                     }
                                 }
-								$Save = true;
-								$Close = true;
-							}
-							else if( isset($SaveSettings['blubrry_program_keyword']) ) // Present but empty
-							{
-								$Error = __('You must select a program to continue.', 'powerpress');
-							}
-							else if( count($Programs) == 1 )
-							{
-								foreach( $Programs as $keyword => $title ) {
-									break;
-								}
-								
-								$SaveSettings['blubrry_program_keyword'] = $keyword;
-								$SaveSettings['blubrry_hosting'] = $ProgramHosting[ $keyword ];
-								if( !is_bool($SaveSettings['blubrry_hosting']) )
-								{
-									if( $SaveSettings['blubrry_hosting'] === 'false' || empty($SaveSettings['blubrry_hosting']) )
-										$SaveSettings['blubrry_hosting'] = false;
-								}
-								powerpress_add_blubrry_redirect($keyword);
-								$Close = true;
-								$Save = true;
-							}
-							else
-							{
-								$Error = __('Please select your podcast program to continue.', 'powerpress');
-								$Step = 2;
-								$Settings['blubrry_username'] = $SaveSettings['blubrry_username'];
-							}
-						}
-						else
-						{
-							$Error = __('No podcasts for this account are listed on blubrry.com.', 'powerpress');
-						}
-					}
-				}
-				else
-				{
-					global $g_powerpress_remote_error, $g_powerpress_remote_errorno;
-					//$Error = '<h3>'. __('Error', 'powerpress') .'</h3>';
-					if( !empty($g_powerpress_remote_errorno) && $g_powerpress_remote_errorno == 401 )
-						$Error .= '<p>'. __('Incorrect sign-in email address or password.', 'powerpress') .'</p><p>'. __('Verify your account settings then try again.', 'powerpress') .'</p>';
-					else if( !empty($g_powerpress_remote_error) )
-						$Error .= '<p>'.$g_powerpress_remote_error .'</p>';
-					else
-						$Error .= '<p>'.__('Authentication failed.', 'powerpress') .'</p>';
-				}
-				
-				if( $Error )
-				{
-					$Error .= '<p style="text-align: center;"><a href="http://create.blubrry.com/resources/powerpress/powerpress-settings/services-stats/" target="_blank">'. __('Click Here For Help','powerpress') .'</a></p>';
-				}
-			}
+
+                                $Save = true;
+                                $Close = true;
+                            }
+                            else if( isset($SaveSettings['blubrry_program_keyword']) ) // Present but empty
+                            {
+                                $Error = __('You must select a program to continue.', 'powerpress');
+                            }
+                            else if( count($Programs) == 1 )
+                            {
+                                foreach( $Programs as $keyword => $title ) {
+                                    break;
+                                }
+
+                                $SaveSettings['blubrry_program_keyword'] = $keyword;
+                                $SaveSettings['blubrry_hosting'] = $ProgramHosting[ $keyword ];
+                                if( !is_bool($SaveSettings['blubrry_hosting']) )
+                                {
+                                    if( $SaveSettings['blubrry_hosting'] === 'false' || empty($SaveSettings['blubrry_hosting']) )
+                                        $SaveSettings['blubrry_hosting'] = false;
+                                }
+                                powerpress_add_blubrry_redirect($keyword);
+                                $Close = true;
+                                $Save = true;
+                            }
+                            else
+                            {
+                                $Error = __('Error: No podcast program selected.', 'powerpress');
+                            }
+                        }
+                        else
+                        {
+                            $Error = __('No podcasts for this account are listed on blubrry.com.', 'powerpress');
+                        }
+                    }
+                }
+                else
+                {
+                    global $g_powerpress_remote_error, $g_powerpress_remote_errorno;
+                    //$Error = '<h3>'. __('Error', 'powerpress') .'</h3>';
+                    if( !empty($g_powerpress_remote_errorno) && $g_powerpress_remote_errorno == 401 )
+                        $Error .= '<p>'. __('Incorrect sign-in email address or password.', 'powerpress') .'</p><p>'. __('Verify your account settings then try again.', 'powerpress') .'</p>';
+                    else if( !empty($g_powerpress_remote_error) )
+                        $Error .= '<p>'.$g_powerpress_remote_error .'</p>';
+                    else
+                        $Error .= '<p>'.__('Authentication failed.', 'powerpress') .'</p>';
+                }
+
+                if( $Error )
+                {
+                    $Error .= '<p style="text-align: center;"><a href="http://create.blubrry.com/resources/powerpress/powerpress-settings/services-stats/" target="_blank">'. __('Click Here For Help','powerpress') .'</a></p>';
+                }
+            }
+
 			
-			if( $Save )
-			    $SaveSettings['network_mode'] = (isset($SaveSettings['network_mode'])) ? 1 : 0;
-				powerpress_save_settings($SaveSettings);
+			if( $Save ) {
+                $SaveSettings['network_mode'] = (isset($SaveSettings['network_mode'])) ? 1 : 0;
+                powerpress_save_settings($SaveSettings);
+            }
 			
 			// Clear cached statistics
 			delete_option('powerpress_stats');
@@ -728,14 +868,33 @@ window.onload = function() {
 				
 			if( $Close )
 			{
-				powerpress_admin_jquery_header( __('Blubrry Services', 'powerpress') );
+			    $next_top_url = admin_url("admin.php?page=powerpressadmin_onboarding.php&step=createEpisode");
+			    ?>
+			    <script type="text/javascript">
+			        let closeClick;
+			        if (window.top.location.href.includes('powerpressadmin_onboarding')) {
+			            closeClick = function() {
+			                window.top.location.href = "<?php echo $next_top_url; ?>";
+			                self.parent.tb_remove();
+			                return false;
+			            };
+			        } else {
+			            closeClick = function() {
+			                self.parent.tb_remove();
+			                return false;
+			            };
+			        }
+                </script>
+			     <?php
+			    $admin_url =  admin_url("admin.php?page=powerpressadmin_basic");
+				powerpress_admin_jquery_account_header( __('Blubrry Services', 'powerpress') );
 				powerpress_page_message_print();
 ?>
 <p style="display: none; text-align: right; position: absolute; top: 5px; right: 5px; margin: 0; padding:0;"><a href="#" onclick="self.parent.tb_remove(); return false;" title="<?php echo __('Close', 'powerpress'); ?>"><img src="<?php echo admin_url(); ?>/images/no.png" alt="<?php echo __('Close', 'powerpress'); ?>" /></a></p>
 <h2><?php echo __('Blubrry Services', 'powerpress'); ?></h2>
 <p style="text-align: center;"><strong><?php echo __('Settings Saved Successfully!', 'powerpress'); ?></strong></p>
 <p style="text-align: center;">
-	<a href="<?php echo admin_url("admin.php?page=powerpressadmin_basic"); ?>" onclick="self.parent.tb_remove(); return false;" target="_top"><?php echo __('Close', 'powerpress'); ?></a>
+	<a href="<?php echo $admin_url; ?>" onclick="closeClick(); return false;" target="_top"><?php echo __('Close', 'powerpress'); ?></a>
 </p>
 <script type="text/javascript"><!--
 
@@ -753,113 +912,143 @@ jQuery(document).ready(function($) {
 				exit;
 			}
 			
-			
-		} // no break here, let the next case catch it...
-		case 'powerpress-jquery-account':
-		{
-			if( !current_user_can(POWERPRESS_CAPABILITY_MANAGE_OPTIONS) )
-			{
-				powerpress_admin_jquery_header( __('Blubrry Services', 'powerpress') );
-				powerpress_page_message_add_notice( __('You do not have sufficient permission to manage options.', 'powerpress') );
-				powerpress_page_message_print();
-				powerpress_admin_jquery_footer();
-				exit;
-			}
-			
-			if( !ini_get( 'allow_url_fopen' ) && !function_exists( 'curl_init' ) )
-			{
-				powerpress_admin_jquery_header( __('Blubrry Services', 'powerpress') );
-				powerpress_page_message_add_notice( __('Your server must either have the php.ini setting \'allow_url_fopen\' enabled or have the PHP cURL library installed in order to continue.', 'powerpress') );
-				powerpress_page_message_print();
-				powerpress_admin_jquery_footer();
-				exit;
-			}
-			
-			check_admin_referer('powerpress-jquery-account');
-			
-			if( !$Settings )
-				$Settings = get_option('powerpress_general');
-			
-			if( empty($Settings['blubrry_username']) )
-				$Settings['blubrry_username'] = '';
-			if( empty($Settings['blubrry_hosting']) || $Settings['blubrry_hosting'] === 'false' )
-				$Settings['blubrry_hosting'] = false;
-			if( empty($Settings['blubrry_program_keyword']) )
-				$Settings['blubrry_program_keyword'] = '';
-			if(empty($Settings['network_mode'])) {
-			    $Settings['network_mode'] = '0';
+            break;
+		}
+        case 'powerpress-jquery-account-edit':
+        {
+            if( !current_user_can(POWERPRESS_CAPABILITY_MANAGE_OPTIONS) )
+            {
+                powerpress_admin_jquery_header( __('Blubrry Services', 'powerpress') );
+                powerpress_page_message_add_notice( __('You do not have sufficient permission to manage options.', 'powerpress') );
+                powerpress_page_message_print();
+                powerpress_admin_jquery_footer();
+                exit;
             }
 
-			if( $Programs == false )
-				$Programs = array();
-			
-			powerpress_admin_jquery_header( __('Blubrry Services', 'powerpress') );
-			powerpress_page_message_print();	
-?>
-<form action="<?php echo admin_url('admin.php'); ?>" enctype="multipart/form-data" method="post">
-<?php wp_nonce_field('powerpress-jquery-account'); ?>
-<input type="hidden" name="action" value="powerpress-jquery-account-save" />
-<div id="accountinfo">
-	<h2><?php echo __('Blubrry Services', 'powerpress'); ?></h2>
-<?php if( $Step == 1 ) { ?>
-	<p>
-		<label for="blubrry_username"><?php echo __('Blubrry User Name (Email)', 'powerpress'); ?></label>
-		<input type="text" id="blubrry_username" name="Settings[blubrry_username]" value="<?php echo esc_attr($Settings['blubrry_username']); ?>" />
-	</p>
-	<p id="password_row">
-		<label for="password_password"><?php echo __('Blubrry Password', 'powerpress'); ?></label>
-		<input type="password" id="password_password" name="Password" value="" />
-	</p>
-<?php } else { ?>
-	<input type="hidden" name="Settings[blubrry_username]" value="<?php echo esc_attr($Settings['blubrry_username']); ?>" />
-	<input type="hidden" name="Password" value="<?php echo esc_attr($Password); ?>" />
-	<!-- <input type="hidden" name="Settings[blubrry_hosting]" value="<?php echo $Settings['blubrry_hosting']; ?>" /> -->
-	<p>
-		<label for="blubrry_program_keyword"><?php echo __('Select Default Program', 'powerpress'); ?></label>
-<select id="blubrry_program_keyword" name="Settings[blubrry_program_keyword]">
-<?php
-if (count($Programs) > 1 && $Settings['network_mode'] == '1') {
-    ?>
-    <option value="no_default"><?php echo __('No Default', 'powerpress'); ?></option>
-    <?php
-}
-foreach( $Programs as $value => $desc )
-	echo "\t<option value=\"$value\"". ($Settings['blubrry_program_keyword']==$value?' selected':''). ">$desc</option>\n";
-?>
-</select>
-	</p>
-    <p>
-        <label for="blubrry_network_mode"><?php echo __('Network mode (publish to multiple Blubrry Hosting Accounts)', 'powerpress') ?></label>
-        <input type="checkbox" id="blubrry_network_mode" value="1" name="Settings[network_mode]" <?php echo $Settings['network_mode'] == '1' ? 'checked' : ''; ?> />
-    </p>
-<?php } ?>
-	<p>
-		<input type="submit" name="Save" value="<?php echo __('Save', 'powerpress'); ?>" />
-		<input type="button" name="Cancel" value="<?php echo __('Cancel', 'powerpress'); ?>" onclick="self.parent.tb_remove();" />
-		<input type="submit" name="Remove" value="Remove" style="float: right;" onclick="return confirm('<?php echo __('Remove Blubrry Services Integration, are you sure?', 'powerpress'); ?>');" />
-	</p>
-</div>
-</form>
-<script type="text/javascript"><!--
-
-
-    jQuery(document).ready(function($) {
-        jQuery('#blubrry_network_mode').change( function(event) {
-            if(this.checked) {
-                jQuery("#blubrry_program_keyword").prepend('<option value="no_default"><?php echo __("No Default", "powerpress"); ?></option>');
-            }
-            else {
-                jQuery('#blubrry_program_keyword option[value="no_default"]').remove();
+            if( !ini_get( 'allow_url_fopen' ) && !function_exists( 'curl_init' ) )
+            {
+                powerpress_admin_jquery_header( __('Blubrry Services', 'powerpress') );
+                powerpress_page_message_add_notice( __('Your server must either have the php.ini setting \'allow_url_fopen\' enabled or have the PHP cURL library installed in order to continue.', 'powerpress') );
+                powerpress_page_message_print();
+                powerpress_admin_jquery_footer();
+                exit;
             }
 
-        } );
-    } );
-    //-->
-</script>
-<?php
-			powerpress_admin_jquery_footer();
-			exit;
-		}; break;
+            check_admin_referer('powerpress-jquery-account-edit');
+
+            if( !$Settings )
+                $Settings = get_option('powerpress_general');
+
+            if( empty($Settings['blubrry_username']) )
+                $Settings['blubrry_username'] = '';
+            if( empty($Settings['blubrry_hosting']) || $Settings['blubrry_hosting'] === 'false' )
+                $Settings['blubrry_hosting'] = false;
+            if( empty($Settings['blubrry_program_keyword']) )
+                $Settings['blubrry_program_keyword'] = '';
+            if(empty($Settings['network_mode'])) {
+                $Settings['network_mode'] = '0';
+            }
+
+            $Programs = array();
+            $ProgramHosting = array();
+            $json_data = false;
+            $results_programs = array();
+            if ($creds) {
+                $accessToken = powerpress_getAccessToken();
+                $req_url = '/2/service/index.json?cache=' . md5( rand(0, 999) . time() );
+                $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+                $results_programs = $auth->api($accessToken, $req_url);
+            } else {
+                $api_url_array = powerpress_get_api_array();
+                foreach( $api_url_array as $index => $api_url )
+                {
+                    $req_url = sprintf('%s/service/index.json?cache=' . md5( rand(0, 999) . time() ), rtrim($api_url, '/') );
+                    $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
+                    $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
+                    if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
+                        $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
+                    }
+                    if( $json_data != false )
+                        break;
+                }
+                if( $json_data ) {
+					$results_programs =  powerpress_json_decode($json_data);
+				}
+            }
+            powerpress_admin_jquery_account_header( __('Blubrry Services', 'powerpress') );
+            powerpress_page_message_print();
+            $Programs = array();
+            // Get all the programs for this user...
+            if ($results_programs) {
+                if( isset($results_programs['error']) || !is_array($results_programs) ) {
+                    if (isset($results_programs['error'])) {
+                        powerpress_page_message_add_notice(__($results_programs['error'], 'powerpress'));
+                        powerpress_page_message_print();
+                    } else {
+                        powerpress_page_message_add_notice(__("Error logging in", 'powerpress'));
+                        powerpress_page_message_print();
+                    }
+                } else {
+                    foreach ($results_programs as $null => $row) {
+                        $Programs[$row['program_keyword']] = $row['program_title'];
+                    }
+                }
+            }
+             ?>
+
+        <form action="<?php echo admin_url('admin.php'); ?>" enctype="multipart/form-data" method="post">
+<?php wp_nonce_field('powerpress-jquery-account-save'); ?>
+            <input type="hidden" name="action" value="powerpress-jquery-account-save" />
+            <div id="accountinfo">
+            <?php if (count($Programs) > 0) { ?>
+                <p>
+                    <label for="blubrry_program_keyword"><?php echo __('Select Default Program', 'powerpress'); ?></label>
+                    <select id="blubrry_program_keyword" name="Settings[blubrry_program_keyword]">
+                        <?php
+                        if (count($Programs) > 1 && $Settings['network_mode'] == '1') {
+                            ?>
+                            <option value="no_default"><?php echo __('No Default', 'powerpress'); ?></option>
+                            <?php
+                        }
+                        foreach( $Programs as $value => $desc )
+                            echo "\t<option value=\"$value\"". ($Settings['blubrry_program_keyword']==$value?' selected':''). ">$desc</option>\n";
+                        ?>
+                    </select>
+                </p>
+                <p>
+                    <label for="blubrry_network_mode"><?php echo __('Multi-program mode (publish to multiple Blubrry Hosting Accounts)', 'powerpress') ?></label>
+                    <input type="checkbox" id="blubrry_network_mode" value="1" name="Settings[network_mode]" <?php echo $Settings['network_mode'] == '1' ? 'checked' : ''; ?> />
+                </p>
+            <?php } ?>
+                <p>
+                    <input type="submit" name="Save" value="<?php echo __('Save', 'powerpress'); ?>" />
+                    <input type="button" name="Cancel" class="pp-plain-link" value="<?php echo __('Cancel', 'powerpress'); ?>" onclick="self.parent.tb_remove();" />
+                    <input type="submit" name="Remove" class="pp-plain-link" value="<?php echo __('Unlink Account', 'powerpress'); ?>" style="float: right;" onclick="return confirm('<?php echo __('Remove Blubrry Services Integration, are you sure?', 'powerpress'); ?>');" />
+                </p>
+            </div>
+            </form>
+            <script type="text/javascript">
+
+
+            <?php if (count($Programs) > 0) { ?>
+                jQuery(document).ready(function($) {
+                    jQuery('#blubrry_network_mode').change( function(event) {
+                        if(this.checked) {
+                            jQuery("#blubrry_program_keyword").prepend('<option value="no_default"><?php echo __("No Default", "powerpress"); ?></option>');
+                        }
+                        else {
+                            jQuery('#blubrry_program_keyword option[value="no_default"').remove();
+                        }
+
+                    } );
+                } );
+
+            <?php } ?>
+            </script><?php
+            powerpress_admin_jquery_footer();
+            exit;
+            break;
+        }
 		case 'powerpress-jquery-subscribe-preview': {
 			
 			// Preview the current styling for the subscribe button
@@ -870,7 +1059,7 @@ foreach( $Programs as $value => $desc )
             $shape = (!empty($_GET['shape']) && $_GET['shape'] == 'squared') ? '-sq' : '';
             $css = plugins_url('css/subscribe.css', __FILE__);
             echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$css\">";
-            echo '<div style="width:90%;margin:0 0;" class="pp-sub-widget pp-sub-widget-' . $style . '"><h3 style="margin:0">Preview:</h3><a href="#" class="pp-sub-btn' . $shape . ' pp-sub-itunes" title="'. esc_attr( __('Subscribe on Apple Podcasts', 'powerpress') ) .'" style="width: 90% !important;"><span class="pp-sub-ic"></span> '. esc_attr( __('Apple Podcasts', 'powerpress') ) .'</a></div>';
+            echo '<div style="width:90%;margin:0 0;" class="pp-sub-widget pp-sub-widget-' . $style . '"><a href="#" class="pp-sub-btn' . $shape . ' pp-sub-itunes" title="'. esc_attr( __('Subscribe on Apple Podcasts', 'powerpress') ) .'" style="width: 90% !important;"><span class="pp-sub-ic"></span> '. esc_attr( __('Apple Podcasts', 'powerpress') ) .'</a></div>';
             echo "</body>";
 			echo "</html>";
             exit;
@@ -913,21 +1102,24 @@ foreach( $Programs as $value => $desc )
 			{
 				$json_data = false;
 				$api_url_array = powerpress_get_api_array();
-				foreach( $api_url_array as $index => $api_url )
-				{
-					$req_url = sprintf('%s/media/%s/upload_session.json', rtrim($api_url, '/'), $blubrryProgramKeyword );
-					$req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA')?'?'. POWERPRESS_BLUBRRY_API_QSA:'');
-					$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
-					if( !$json_data && $api_url == 'https://api.blubrry.com/' ) { // Lets force cURL and see if that helps...
-						$json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
-					}
-					if( $json_data != false )
-						break;
-				}
-				
-				
-				$results =  powerpress_json_decode($json_data);
-				
+                if ($creds) {
+                    $accessToken = powerpress_getAccessToken();
+                    $req_url = sprintf('/2/media/%s/upload_session.json', $blubrryProgramKeyword);
+                    $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '?' . POWERPRESS_BLUBRRY_API_QSA : '');
+                    $results = $auth->api($accessToken, $req_url);
+                } else {
+                    foreach ($api_url_array as $index => $api_url) {
+                        $req_url = sprintf('%s/media/%s/upload_session.json', rtrim($api_url, '/'), $blubrryProgramKeyword);
+                        $req_url .= (defined('POWERPRESS_BLUBRRY_API_QSA') ? '?' . POWERPRESS_BLUBRRY_API_QSA : '');
+                        $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth']);
+                        if (!$json_data && $api_url == 'https://api.blubrry.com/') { // Lets force cURL and see if that helps...
+                            $json_data = powerpress_remote_fopen($req_url, $Settings['blubrry_auth'], array(), 15, false, true);
+                        }
+                        if ($json_data != false)
+                            break;
+                    }
+                    $results = powerpress_json_decode($json_data);
+                }
 				// We need to obtain an upload session for this user...
 				if( isset($results['error']) && strlen($results['error']) > 1 )
 				{
@@ -1035,8 +1227,109 @@ self.parent.tb_remove();
 			else
 				echo "Error";
 		}; break;
+        case 'powerpress-ep-box-options': {
+            if (defined('WP_DEBUG')) {
+                if (WP_DEBUG) {
+                    wp_register_style('powerpress-episode-box', powerpress_get_root_url() . 'css/episode-box.css', array(), POWERPRESS_VERSION);
+                } else {
+                    wp_register_style('powerpress-episode-box', powerpress_get_root_url() . 'css/episode-box.min.css', array(), POWERPRESS_VERSION);
+                }
+            } else {
+                wp_register_style('powerpress-episode-box', powerpress_get_root_url() . 'css/episode-box.min.css', array(), POWERPRESS_VERSION);
+            }
+            wp_enqueue_style( 'powerpress-episode-box' );
+            wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
+
+            powerpress_admin_jquery_header( __('PowerPress Entry Box Settings','powerpress') );
+            require_once(dirname(__FILE__). '/views/ep-box-settings.php');
+            powerpressadmin_edit_entry_options($Settings);
+            powerpress_admin_jquery_footer();
+        }; break;
+        case 'powerpress-ep-box-options-save': {
+            if( !current_user_can(POWERPRESS_CAPABILITY_MANAGE_OPTIONS) )
+            {
+                powerpress_admin_jquery_header('PowerPress Entry Box Settings', 'powerpress');
+                powerpress_page_message_add_notice( __('You do not have sufficient permission to manage options.', 'powerpress') );
+                powerpress_page_message_print();
+                powerpress_admin_jquery_footer();
+                exit;
+            }
+
+            check_admin_referer('powerpress-edit');
+            $Settings = $_POST['General'];
+            powerpress_save_settings($Settings);
+            powerpress_admin_jquery_header('PowerPress Entry Box Settings', 'powerpress');
+            powerpress_page_message_add_notice( __('Settings will be applied on page refresh. If you\'ve already entered information into this post, simply finish the post and the settings will apply when you start your next one.', 'powerpress') );
+            powerpress_page_message_print();
+            powerpress_admin_jquery_footer();
+            exit;
+        }; break;
 	}
 	
+}
+
+function powerpress_admin_jquery_account_header($title, $jquery = false, $no_exit = false) {
+
+	if( function_exists('get_current_screen') ) {
+		$current_screen = get_current_screen();
+		if( !empty($current_screen) && is_object($current_screen) && $current_screen->is_block_editor() ) {
+			return;
+		}
+	}
+
+	nocache_headers();
+	$other = false;
+	if( $jquery )
+		add_thickbox(); // we use the thckbox for some settings
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" <?php do_action('admin_xml_ns'); ?> <?php language_attributes(); ?>>
+<head>
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+<title><?php bloginfo('name') ?> &rsaquo; <?php echo $title; ?> &#8212; <?php echo __('WordPress', 'powerpress'); ?></title>
+<?php
+
+// In case these functions haven't been included yet...
+if( !defined('WP_ADMIN') )
+	require_once(ABSPATH . 'wp-admin/includes/admin.php');
+
+wp_admin_css( 'css/global' );
+wp_admin_css();
+if( $jquery )
+	wp_enqueue_script('utils');
+
+do_action('admin_print_styles');
+do_action('admin_print_scripts');
+do_action('admin_head');
+
+echo '<!-- done adding extra stuff -->';
+
+if (defined('WP_DEBUG')) {
+    if (WP_DEBUG) {?>
+<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/jquery.css" type="text/css" media="screen" />
+    <?php } else { ?>
+<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/jquery.min.css" type="text/css" media="screen" />
+    <?php   }
+} else { ?>
+<link rel="stylesheet" href="<?php echo powerpress_get_root_url(); ?>css/jquery.min.css" type="text/css" media="screen" />
+<?php }
+if( $other ) echo $other; ?>
+</head>
+<body>
+    <div id="TB_title">
+        <div id="TB_ajaxWindowTitle"><?php echo $title; ?></div>
+<?php if (!$no_exit) { ?>
+        <div id="TB_closeAjaxWindow">
+            <button type="button" id="TB_closeWindowButton" onclick="window.parent.tb_remove()">
+                <span class="screen-reader-text"><?php echo __('close', 'powerpress'); ?></span>
+                <span class="tb-close-icon"></span>
+            </button>
+        </div>
+    <?php } ?>
+    </div>
+<div id="container">
+<p style="display: none; text-align: right; position: absolute; top: 5px; right: 5px; margin: 0; padding: 0;"><a href="#" onclick="self.parent.tb_remove();" title="<?php echo __('Cancel', 'powerpress'); ?>"><img src="<?php echo admin_url(); ?>/images/no.png" /></a></p>
+<?php
 }
 
 function powerpress_admin_jquery_header($title, $jquery = false)

@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Setups the objects languages and translations model
@@ -43,6 +46,11 @@ abstract class PLL_Translated_Object {
 		}
 
 		$object_id = (int) $object_id;
+
+		if ( $object_id < 0 ) {
+			return false;
+		}
+
 		$term = get_object_term_cache( $object_id, $taxonomy );
 
 		if ( false === $term ) {
@@ -50,6 +58,7 @@ abstract class PLL_Translated_Object {
 			$taxonomies = array( $this->tax_language, $this->tax_translations );
 
 			// query terms
+			$terms = array();
 			foreach ( wp_get_object_terms( $object_id, $taxonomies, array( 'update_term_meta_cache' => false ) ) as $t ) {
 				$terms[ $t->taxonomy ] = $t;
 				if ( $t->taxonomy == $taxonomy ) {
@@ -154,13 +163,14 @@ abstract class PLL_Translated_Object {
 
 		if ( ! empty( $term ) ) {
 			$d = maybe_unserialize( $term->description );
-			$slug = array_search( $id, $this->get_translations( $id ) ); // in case some plugin stores the same value with different key
-			unset( $d[ $slug ] );
+			if ( is_array( $d ) ) {
+				$slug = array_search( $id, $this->get_translations( $id ) ); // In case some plugin stores the same value with different key.
+				unset( $d[ $slug ] );
+			}
 
 			if ( empty( $d ) ) {
 				wp_delete_term( (int) $term->term_id, $this->tax_translations );
-			}
-			else {
+			} else {
 				wp_update_term( (int) $term->term_id, $this->tax_translations, array( 'description' => maybe_serialize( $d ) ) );
 			}
 		}
@@ -239,7 +249,6 @@ abstract class PLL_Translated_Object {
 	 * @return string where clause
 	 */
 	public function where_clause( $lang ) {
-		global $wpdb;
 		$tt_id = $this->tax_tt;
 
 		// $lang is an object
@@ -250,7 +259,8 @@ abstract class PLL_Translated_Object {
 
 		// $lang is a comma separated list of slugs ( or an array of slugs )
 		// generally the case is the query is coming from outside with 'lang' parameter
-		$slugs = is_array( $lang ) ? $lang : explode( ',', $lang );
+		$slugs     = is_array( $lang ) ? $lang : explode( ',', $lang );
+		$languages = array();
 		foreach ( $slugs as $slug ) {
 			$languages[] = absint( $this->model->get_language( $slug )->$tt_id );
 		}
@@ -270,7 +280,23 @@ abstract class PLL_Translated_Object {
 	public function get_objects_in_language( $lang ) {
 		global $wpdb;
 		$tt_id = $this->tax_tt;
-		return $wpdb->get_col( $wpdb->prepare( "SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d", $lang->$tt_id ) );
+
+		$last_changed = wp_cache_get_last_changed( 'terms' );
+		$cache_key    = "polylang:get_objects_in_language:{$lang->$tt_id}:{$last_changed}";
+		$cache        = wp_cache_get( $cache_key, 'terms' );
+
+		if ( false === $cache ) {
+			$object_ids = $wpdb->get_col( $wpdb->prepare( "SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id = %d", $lang->$tt_id ) );
+			wp_cache_set( $cache_key, $object_ids, 'terms' );
+		} else {
+			$object_ids = (array) $cache;
+		}
+
+		if ( ! $object_ids ) {
+			return array();
+		}
+
+		return $object_ids;
 	}
 
 	/**

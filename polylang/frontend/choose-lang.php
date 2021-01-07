@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Base class to choose the language
@@ -81,29 +84,13 @@ abstract class PLL_Choose_Lang {
 	 * @since 1.5
 	 */
 	public function maybe_setcookie() {
-		// Don't set cookie in javascript when a cache plugin is active
-		// Check headers have not been sent to avoid ugly error
-		// Cookie domain must be set to false for localhost ( default value for COOKIE_DOMAIN ) thanks to Stephen Harris.
-		if ( ! pll_is_cache_active() && ! headers_sent() && PLL_COOKIE !== false && ! empty( $this->curlang ) && ( ! isset( $_COOKIE[ PLL_COOKIE ] ) || $_COOKIE[ PLL_COOKIE ] != $this->curlang->slug ) && ! is_404() ) {
-
-			/**
-			 * Filter the Polylang cookie duration
-			 * /!\ this filter may be fired *before* the theme is loaded
-			 *
-			 * @since 1.8
-			 *
-			 * @param int $duration cookie duration in seconds
-			 */
-			$expiration = apply_filters( 'pll_cookie_expiration', YEAR_IN_SECONDS );
-
-			setcookie(
-				PLL_COOKIE,
-				$this->curlang->slug,
-				time() + $expiration,
-				COOKIEPATH,
-				2 == $this->options['force_lang'] ? wp_parse_url( $this->links_model->home, PHP_URL_HOST ) : COOKIE_DOMAIN,
-				is_ssl()
+		// Don't set cookie in javascript when a cache plugin is active.
+		if ( ! pll_is_cache_active() && ! empty( $this->curlang ) && ! is_404() ) {
+			$args = array(
+				'domain'   => 2 === $this->options['force_lang'] ? wp_parse_url( $this->links_model->home, PHP_URL_HOST ) : COOKIE_DOMAIN,
+				'samesite' => 3 === $this->options['force_lang'] ? 'None' : 'Lax',
 			);
+			PLL_Cookie::set( $this->curlang->slug, $args );
 		}
 	}
 
@@ -158,7 +145,7 @@ abstract class PLL_Choose_Lang {
 			}
 		}
 
-		$accept_langs = wp_list_filter( $accept_langs, array( '0' ), 'NOT' ); // Remove languages markes as unacceptable (q=0).
+		$accept_langs = array_filter( $accept_langs ); // Remove languages marked as unacceptable (q=0).
 
 		$languages = $this->model->get_languages_list( array( 'hide_empty' => true ) ); // Hides languages with no post
 
@@ -191,16 +178,25 @@ abstract class PLL_Choose_Lang {
 	}
 
 	/**
-	 * Returns the language according to browser preference or the default language
+	 * Returns the preferred language
+	 * either from the cookie if it's a returning visit
+	 * or according to browser preference
+	 * or the default language
 	 *
 	 * @since 0.1
 	 *
 	 * @return object browser preferred language or default language
 	 */
 	public function get_preferred_language() {
-		// check first if the user was already browsing this site
+		$language = false;
+		$cookie   = false;
+
 		if ( isset( $_COOKIE[ PLL_COOKIE ] ) ) {
-			return $this->model->get_language( sanitize_key( $_COOKIE[ PLL_COOKIE ] ) );
+			// Check first if the user was already browsing this site.
+			$language = sanitize_key( $_COOKIE[ PLL_COOKIE ] );
+			$cookie   = true;
+		} elseif ( $this->options['browser'] ) {
+			$language = $this->get_preferred_browser_language();
 		}
 
 		/**
@@ -210,12 +206,14 @@ abstract class PLL_Choose_Lang {
 		 * Polylang fallbacks to the default language
 		 *
 		 * @since 1.0
+		 * @since 2.7 Added $cookie parameter.
 		 *
-		 * @param string $language preferred language code
+		 * @param string|bool $language Preferred language code, false if none has been found.
+		 * @param bool        $cookie   Whether the preferred language has been defined by the cookie.
 		 */
-		$slug = apply_filters( 'pll_preferred_language', $this->options['browser'] ? $this->get_preferred_browser_language() : false );
+		$slug = apply_filters( 'pll_preferred_language', $language, $cookie );
 
-		// return default if there is no preferences in the browser or preferences does not match our languages or it is requested not to use the browser preference
+		// Return default if there is no preferences in the browser or preferences does not match our languages or it is requested not to use the browser preference
 		return ( $lang = $this->model->get_language( $slug ) ) ? $lang : $this->model->get_language( $this->options['default_lang'] );
 	}
 
@@ -274,6 +272,7 @@ abstract class PLL_Choose_Lang {
 			 */
 			if ( $redirect = apply_filters( 'pll_redirect_home', $redirect ) ) {
 				$this->maybe_setcookie();
+				header( 'Vary: Accept-Language' );
 				wp_safe_redirect( $redirect, 302, POLYLANG );
 				exit;
 			}

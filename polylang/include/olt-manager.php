@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * It is best practice that plugins do nothing before plugins_loaded is fired
@@ -74,11 +77,12 @@ class PLL_OLT_Manager {
 		// Don't try to save time for en_US as some users have theme written in another language
 		// Now we can load all overridden text domains with the right language
 		if ( ! empty( $this->list_textdomains ) ) {
-
-			// Since WP 4.7 we need to reset the internal cache of _get_path_to_translation when switching from any locale to en_US
-			// See WP_Locale_Switcher::change_locale()
-			// FIXME test _get_path_to_translation for backward compatibility with WP < 4.7
-			if ( function_exists( '_get_path_to_translation' ) ) {
+			/*
+			 * FIXME: Backward compatibility with WP < 5.6
+			 * From WP 4.7 to 5.5, we need to reset the internal cache of _get_path_to_translation when switching from any locale to en_US.
+			 * See WP_Locale_Switcher::change_locale()
+			 */
+			if ( ! class_exists( 'WP_Textdomain_Registry' ) && function_exists( '_get_path_to_translation' ) ) {
 				_get_path_to_translation( null, true );
 			}
 
@@ -136,16 +140,14 @@ class PLL_OLT_Manager {
 
 	/**
 	 * FIXME: Backward compatibility with Polylang for WooCommerce < 0.3.4
-	 * To remove in Polylang 2.1
+	 * Was formerly hooked to the filter 'override_load_textdomain'
 	 *
 	 * @since 0.1
 	 *
-	 * @param bool   $bool   not used
-	 * @param string $domain text domain name
-	 * @param string $mofile translation file name
+	 * @param bool $bool Whether to override the .mo file loading.
 	 * @return bool
 	 */
-	public function mofile( $bool, $domain, $mofile ) {
+	public function mofile( $bool ) {
 		return $bool;
 	}
 

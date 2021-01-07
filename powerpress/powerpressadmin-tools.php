@@ -4,6 +4,11 @@
 	function powerpress_admin_tools()
 	{
 		$General = get_option('powerpress_general');
+
+        // If we have powerpress credentials, check if the account has been verified
+        $creds = get_option('powerpress_creds');
+        powerpress_check_credentials($creds);
+        wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
 ?>
 <h2><?php echo __('PowerPress Tools', 'powerpress'); ?></h2>
 
@@ -11,6 +16,30 @@
 
 
 <table class="form-table">
+<tr valign="top">
+    <th scope="row"><?php echo __('Multi-Program Mode', 'powerpress'); ?></th>
+    <td>
+        <?php
+            if (isset($General['network_mode']) && $General['network_mode'] == 1) { ?>
+                <a style="float: left; text-decoration: none; color: white; background-color: #d21919;" class="powerpress_save_button_other" href="<?php echo admin_url("admin.php?page=powerpress/powerpressadmin_tools.php&amp;action=powerpress-network-mode-off"); ?>">
+
+                <?php
+                echo __('Turn OFF multi-program mode', 'powerpress');?>
+                </a><p style="margin: 7px 0 0 5px;"> - <?php
+                echo __('This feature allows you to publish to multiple Blubrry-hosted shows from a single user account.', 'powerpress');
+                ?> </p><?php
+            } else { ?>
+                <a style="float: left; text-decoration: none; color: white;" class="powerpress_save_button_other" href="<?php echo admin_url("admin.php?page=powerpress/powerpressadmin_tools.php&amp;action=powerpress-network-mode-on"); ?>">
+
+                <?php
+                echo __('Turn ON multi-program mode', 'powerpress');?>
+                </a><p style="margin: 7px 0 0 5px;"> - <?php
+                echo __('This feature allows you to publish to multiple Blubrry-hosted shows from a single user account.', 'powerpress');
+                ?> </p> <?php
+            }
+            ?>
+    </td>
+</tr>
 <tr valign="top">
 <th scope="row"><?php echo __('Podcasting Resources', 'powerpress'); ?></th> 
 <td>

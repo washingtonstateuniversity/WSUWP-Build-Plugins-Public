@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>E7397104-6E7F-4531-8DA1-355C27F94A6E</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M18,3 C18,2.448 17.552,2 17,2 L3,2 C2.448,2 2,2.448 2,3 L2,13 C2,13.552 2.448,14 3,14 L17,14 C17.552,14 18,13.552 18,13 L18,3 Z M20,1.525 L20,1.528 L20,13.528 L20,13.532 C20,14.634 19.328,16 18.226,16 L12.222,16 C11.67,16 11.222,16.448 11.222,17 C11.222,17.552 11.67,18 12.222,18 L15.222,18 C15.775,18 16.222,18.448 16.222,19 C16.222,19.552 15.775,20 15.222,20 L5.222,20 C4.67,20 4.222,19.552 4.222,19 C4.222,18.448 4.67,18 5.222,18 L8.222,18 C8.775,18 9.222,17.552 9.222,17 C9.222,16.448 8.775,16 8.222,16 L2.226,16 L2.222,16 C1.118,16 0,14.633 0,13.528 L0,1.528 C0,0.424 1.118,0 2.222,0 L2.226,0 L18.226,0 C19.328,0 20,0.422 20,1.525 L20,1.525 Z M11.944,7.955 L8.853,9.872 C8.518,10.083 8,9.842 8,9.446 L8,5.611 C8,5.215 8.518,4.974 8.853,5.185 L11.985,7.102 C12.299,7.3 12.258,7.757 11.944,7.955 L11.944,7.955 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/desktop-[#231]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="desktop-[#231]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/White-⚙️Atoms/Colour/Blue/2---75%" mask="url(#mask-2)" fill="#9EA0A5" opacity="0.75">
+                <g transform="translate(-1.000000, -1.000000)" id="Rectangle">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

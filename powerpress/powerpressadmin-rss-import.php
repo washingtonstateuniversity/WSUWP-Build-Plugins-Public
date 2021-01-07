@@ -61,12 +61,12 @@ class PowerPress_RSS_Podcast_Import extends WP_Importer {
 	function header() {
         if (defined('WP_DEBUG')) {
             if (WP_DEBUG) {
-                wp_enqueue_style('powerpress_onboarding_styles', plugin_dir_url(__FILE__) . 'css/onboarding.css');
+                wp_enqueue_style('powerpress_onboarding_styles', plugin_dir_url(__FILE__) . 'css/onboarding.css', array(), POWERPRESS_VERSION);
             } else {
-                wp_enqueue_style('powerpress_onboarding_styles', plugin_dir_url(__FILE__) . 'css/onboarding.min.css');
+                wp_enqueue_style('powerpress_onboarding_styles', plugin_dir_url(__FILE__) . 'css/onboarding.min.css', array(), POWERPRESS_VERSION);
             }
         } else {
-            wp_enqueue_style('powerpress_onboarding_styles', plugin_dir_url(__FILE__) . 'css/onboarding.min.css');
+            wp_enqueue_style('powerpress_onboarding_styles', plugin_dir_url(__FILE__) . 'css/onboarding.min.css', array(), POWERPRESS_VERSION);
         }
         echo '<div class="wrap" style="min-height: 100vh">';
 		echo '<div class="pp_container" style="max-width: 100rem;">';
@@ -569,7 +569,7 @@ jQuery(document).ready( function() {
 						if( !empty($filenameParts['extension']) ) {
 							do {
 								$filename_no_ext = substr($filenameParts['basename'], 0, (strlen($filenameParts['extension'])+1) * -1 );
-								$filename = sprintf('%s-%03d.%s', $filename_no_ext, rand(0, 999), $filenameParts['extension'] );
+								$filename = sprintf('%s-%03d.%s', $filename_no_ext, md5( rand(0, 999) . time() ), $filenameParts['extension'] );
 							} while( file_exists($upload_path . $filename ) );
 						}
 					}
@@ -896,8 +896,8 @@ jQuery(document).ready( function() {
 		}
 		$permalink = get_permalink($post_id);
 		?>
-          <td><?php echo "<a href='{$permalink} target='_blank'>" . htmlspecialchars($post_title) . "</a>" ?></td>
-          <td>Episode Imported</td>
+          <td><?php echo "<a href=\"".  esc_attr($permalink) ."\" target='_blank'>" . esc_html($post_title) . "</a>" ?></td>
+          <td><?php echo __('Episode Imported', 'powerpress'); ?></td>
           <td>&#x2714;&#xFE0F;</td>
 		<?php
 		
@@ -1106,6 +1106,8 @@ jQuery(document).ready( function() {
 			echo "<tr><td>{$count}</td>";
 			$new_start = $item_start_pos + mb_strlen('<item>');
 			$item_content = mb_substr($this->m_content, $new_start, $item_end_pos - $new_start);
+            $item_content = str_replace('<guid', "\n<guid", $item_content);
+            $item_content = str_replace('</guid>', "</guid>\n", $item_content);
 			$this->import_item($item_content, $MatchFilter, $import_blog_posts, $category, $feed_slug, $post_type, $taxonomy, $term, $remove_query_string, $post_status);
 			echo '</tr>';
 			
@@ -1332,7 +1334,8 @@ jQuery(document).ready( function() {
                 $nextUrl = admin_url("admin.php?page=powerpressadmin_basic&step=createEpisode&import=true&migrate=true");
             } else {
                 if ($this->isHostedOnBlubrry) {
-                    $nextUrl = admin_url("admin.php?page=powerpressadmin_basic&step=blubrrySignin&import=true");
+                    $pp_nonce = powerpress_login_create_nonce();
+                    $nextUrl = add_query_arg( '_wpnonce', $pp_nonce, admin_url("admin.php?page=powerpressadmin_basic&step=blubrrySignin&import=true"));
                 } else {
                     $nextUrl = admin_url("admin.php?page=powerpressadmin_basic&step=nohost&import=true&from=import");
                 }
@@ -1343,7 +1346,8 @@ jQuery(document).ready( function() {
                 $nextUrl = admin_url("admin.php?page=powerpressadmin_onboarding.php&step=createEpisode&import=true&migrate=true");
             } else {
                 if ($this->isHostedOnBlubrry) {
-                    $nextUrl = admin_url("admin.php?page=powerpressadmin_onboarding.php&step=blubrrySignin&import=true");
+                    $pp_nonce = powerpress_login_create_nonce();
+                    $nextUrl = add_query_arg( '_wpnonce', $pp_nonce, admin_url("admin.php?page=powerpressadmin_onboarding.php&step=blubrrySignin&import=true"));
                 } else {
                     $nextUrl = admin_url("admin.php?page=powerpressadmin_onboarding.php&step=nohost&import=true&from=import");
                 }
@@ -1374,7 +1378,8 @@ jQuery(document).ready( function() {
 		// Drop back down a step if not setup for hosting...
 		if( !empty($_POST['migrate_to_blubrry']) ) {
 			$Settings = get_option('powerpress_general');
-			if( empty($Settings['blubrry_auth']) ) {
+            $creds = get_option('powerpress_creds');
+			if( empty($Settings['blubrry_auth']) && !$creds ) {
 				echo '<div class="notice is-dismissible updated"><p>'. sprintf(__('You must have a blubrry Podcast Hosting account to continue.', 'powerpress')) .' '. '<a href="http://create.blubrry.com/resources/podcast-media-hosting/" target="_blank">'. __('Learn More', 'powerpress') .'</a>'. '</p></div>';
 				$this->m_step = 0; // Drop back a step
 			}
@@ -1539,8 +1544,18 @@ jQuery(document).ready( function() {
 	
 	function _import_post_to_db($post, $feed_slug = '')
 	{
+	    global $wpdb;
 		extract($post);
 		$post_id = wp_insert_post($post);
+		//Update the post to overwrite wordpress's guid
+		$query = $wpdb->prepare("UPDATE {$wpdb->posts} SET guid=%s WHERE ID='{$post_id}'", $post['guid']);
+		$return = $wpdb->query($query);
+		
+		// If the GUID does not start with a http or https protocol, lets also save it to this custom field so it gets picked up as it was from the original source.
+		if( preg_match('/^https?:\/\//i', $post['guid']) == false ) {	
+			add_post_meta($post_id, '_powerpress_guid', $post['guid'], true);
+		}
+		
 		if ( is_wp_error( $post_id ) )
 			return $post_id;
 		if (!$post_id) {

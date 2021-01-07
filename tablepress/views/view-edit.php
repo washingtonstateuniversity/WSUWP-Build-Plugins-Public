@@ -40,7 +40,7 @@ class TablePress_Edit_View extends TablePress_View {
 		parent::setup( $action, $data );
 
 		if ( isset( $data['table']['is_corrupted'] ) && $data['table']['is_corrupted'] ) {
-			$this->add_text_box( 'table-corrupted', array( $this, 'textbox_corrupted_table' ), 'normal' );
+			$this->add_text_box( 'table-corrupted', array( $this, 'textbox_corrupted_table' ), 'header' );
 			return;
 		};
 
@@ -73,7 +73,7 @@ class TablePress_Edit_View extends TablePress_View {
 		wp_enqueue_script( 'wplink' );
 
 		$this->admin_page->enqueue_style( 'edit' );
-		$this->admin_page->enqueue_script( 'edit', array( 'jquery-core', 'jquery-ui-sortable', 'json2' ), array(
+		$this->admin_page->enqueue_script( 'edit', array( 'jquery', 'jquery-ui-sortable' ), array(
 			'options' => array(
 				/**
 				 * Filter whether debug output shall be printed to the page.
@@ -260,7 +260,7 @@ class TablePress_Edit_View extends TablePress_View {
 				}
 			}
 		}
-		// Fetermine row index of the table foot row, by excluding all hidden rows from the end.
+		// Determine row index of the table foot row, by excluding all hidden rows from the end.
 		if ( $options['table_foot'] ) {
 			for ( $row_idx = $rows - 1; $row_idx > -1; $row_idx-- ) {
 				if ( 1 === $visibility['rows'][ $row_idx ] ) {
@@ -563,7 +563,7 @@ class TablePress_Edit_View extends TablePress_View {
 	</tr>
 	<tr class="top-border">
 		<th class="column-1" scope="row"><?php _e( 'Extra CSS Classes', 'tablepress' ); ?>:</th>
-		<td class="column-2"><label for="option-extra-css-classes"><input type="text" id="option-extra-css-classes" class="large-text" name="table[options][extra_css_classes]" value="<?php echo esc_attr( $options['extra_css_classes'] ); ?>" title="<?php esc_attr_e( 'This field can only contain letters, numbers, spaces, hyphens (-), and underscores (_).', 'tablepress' ); ?>" pattern="[A-Za-z0-9- _]*" /><p class="description"><?php echo __( 'Additional CSS classes for styling purposes can be entered here.', 'tablepress' ) . ' ' . sprintf( __( 'This is NOT the place to enter <a href="%s">Custom CSS</a> code!', 'tablepress' ), TablePress::url( array( 'action' => 'options' ) ) ); ?></p></label></td>
+		<td class="column-2"><label for="option-extra-css-classes"><input type="text" id="option-extra-css-classes" class="large-text" name="table[options][extra_css_classes]" value="<?php echo esc_attr( $options['extra_css_classes'] ); ?>" title="<?php esc_attr_e( 'This field can only contain letters, numbers, spaces, hyphens (-), underscores (_), and colons (:).', 'tablepress' ); ?>" pattern="[A-Za-z0-9- _:]*" /><p class="description"><?php echo __( 'Additional CSS classes for styling purposes can be entered here.', 'tablepress' ) . ' ' . sprintf( __( 'This is NOT the place to enter <a href="%s">Custom CSS</a> code!', 'tablepress' ), TablePress::url( array( 'action' => 'options' ) ) ); ?></p></label></td>
 	</tr>
 </tbody>
 </table>
@@ -635,8 +635,10 @@ class TablePress_Edit_View extends TablePress_View {
 	 */
 	public function textbox_corrupted_table( array $data, array $box ) {
 		?>
-		<div class="error">
-			<p><strong><?php _e( 'Attention: Unfortunately, an error occurred.', 'tablepress' ); ?></strong></p>
+		<div class="notice notice-error notice-large">
+			<h3><em>
+				<?php _e( 'Attention: Unfortunately, an error occurred.', 'tablepress' ); ?>
+			</em></h3>
 			<p>
 				<?php
 					printf( __( 'The internal data of table &#8220;%1$s&#8221; (ID %2$s) is corrupted.', 'tablepress' ), esc_html( $data['table']['name'] ), esc_html( $data['table']['id'] ) );

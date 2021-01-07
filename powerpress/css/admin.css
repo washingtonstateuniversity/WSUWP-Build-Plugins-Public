@@ -1,5 +1,19 @@
 /* admin.css */
 
+.powerpress_save_button_other {
+	float: right;
+	background-color: #2278CF;
+	color: white;
+	box-shadow: none;
+	border-radius: 4px;
+	border: none;
+	padding: 1ch 1em;
+}
+
+#powerpress_settings .form-table th {
+	padding-left: 1em;
+}
+
 .powerpress-notice,
 div.powerpress-notice,
 .wrap div.powerpress-notice {
@@ -62,85 +76,6 @@ div.powerpress-error,
 	
 }
 
-.powerpress_tabbed_content  > ul {
-	margin-left:10px;
-	position:relative;
-	top:1px;
-	z-index:100;
-}
-
-.powerpress_tabbed_content > ul li { list-style:none; float:left; margin-bottom:0;}
-.powerpress_tabbed_content > ul a {
-text-decoration:none;
--moz-border-radius-bottomleft:0;
--moz-border-radius-bottomright:0;
--moz-border-radius-topleft:3px;
--moz-border-radius-topright:3px;
-border-radius-topleft:3px;
-border-radius-topright:3px;
-border-style:solid;
-border-width:1px;
-cursor:pointer;
-display:block;
-height:18px;
-margin:5px 5px 0 0;
-padding:4px 5px 2px;
-background-color:#F1F1F1;
-background-color:#E3E3E3;
-border-color:#DFDFDF;
-border-color:#B3B3B3;
-color:#999999;
-color:#666666;
-font-weight: bold;
-}
-.powerpress_tabbed_content ul a:hover {
-  }
-
-.powerpress_tabbed_content ul .ui-tabs-active a,
-.powerpress_tabbed_content ul .ui-tabs-selected a {
-	background-color:#FFFFFF;
-	border-bottom:0 none;
-	color:#333333;
-	cursor:default;
-	padding-bottom:3px;
-}
-
-
-
-.powerpress_tabbed_content > div {
-  padding: 0px 10px 10px 10px;
-  *padding-top:3px;
-  *margin-top:-15px;
-  clear:left;
-}
-.powerpress_tabbed_content .wrap {
-	padding:0;
-}
-
-.powerpress_tab {
--moz-border-radius-bottomleft:0;
--moz-border-radius-bottomright:0;
--moz-border-radius-topleft:6px;
--moz-border-radius-topright:6px;
-background: #FFF;
-border-collapse:separate;
-border-style:solid;
-border-width:1px;
-border-color:#DFDFDF;
-border-color:#B3B3B3;
-padding-bottom: 15px;
-}
-.powerpress_tab .form-table {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.powerpress_tab  .form-table td {
-	margin-bottom: 4px;
-	padding: 4px 10px 4px;
-	line-height: 20px;
-	font-size: 11px;
-}
 
 #powerpress_support {
 	
@@ -152,25 +87,17 @@ padding-bottom: 15px;
 	margin-bottom: 0;
 }
 
-.powerpress-welcome-news {
+/*.powerpress-welcome-news {
 	margin: 10px 0 0 0;
 	float: left;
 	width: 60%;
 	border-right: 1px solid #CCCCCC;
-}
+}*/
 .powerpress-welcome-news > div {
 	margin: 0 10px 0 0;
 }
 .powerpress-welcome-news a {
 	text-decoration: none;
-}
-.powerpress-welcome-news .rsswidget {
-	font-size: 110%;
-	font-weight: bold;
-}
-.powerpress-welcome-news  .rss-date {
-	font-size: 80%;
-	margin-left: 10px;
 }
 .powerpress-welcome-news .rssSummary {
 	font-size: 95%;
@@ -267,7 +194,7 @@ padding-bottom: 15px;
 	width: 24%;
 	margin-left: 60px;
 	margin-right: 0;
-	text-align: top;
+	vertical-align: top;
 	position: relative;
 	padding: 8px;
 }
@@ -310,7 +237,7 @@ padding-bottom: 15px;
 
 .blubrry-services .blubrry-hosting {
 	margin-right: 50px;
-	background-image: url('../images/BlubrryIcon.png');
+	background-image: url('../images/blubrry_icon.png');
 	background-repeat:no-repeat;
 	background-position: bottom right;
 }
@@ -476,4 +403,437 @@ a.pp-expand-section:visited {
 }
 .pp-form-error {
 	border: red solid 1px;
+}
+
+table{
+	 width: 60%;
+	 margin-top: 1%;
+	 margin-bottom: 1%;
+	 border-radius: 4px;
+	 background-color: #F8F8F8;
+	 border: solid #ddd;
+	 border-collapse: separate;
+ }
+
+input, textarea {
+	border-radius: 4px;
+}
+
+ul{
+	clear:both;
+}
+
+th{
+	background-color: white;
+	color: black;
+	border-radius: 4px 4px 0 0;
+}
+
+tr {
+	line-height: 12px;
+}
+
+th, td {
+	border-collapse: separate;
+	border-bottom: solid #ddd;
+	padding: 2.5%;
+}
+td{
+	text-align: left;
+	font-size: 115%;
+}
+td:hover{
+	background-color: white;
+}
+th{
+	text-align: center;
+	font-size: 100%;
+}
+td.networkTable{
+	text-align: left;
+}
+th.pendingApply{
+	background-color: grey;
+}
+td.pendingApply{
+	color: grey;
+}
+th.processedApply{
+
+	background-color: darkseagreen;
+}
+td.processedApply {
+	color: green;
+}
+td.approvedApply{
+	color: green;
+}
+th.approvedApply{
+	background-color: darkseagreen;
+}
+td.disapprovedApply{
+	color: red;
+}
+th.disapprovedApply{
+	background-color: darkred;
+}
+
+/* Bordered form */
+
+/* Full-width inputs */
+input[type=email], input[type=password], input[type=text], textarea, input[type=url] {
+	width: 100%;
+	padding: .6% .6%;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+.linkInput{
+	width:50% !important;
+}
+
+input[type=radio]{
+	/*width: 16px;*/
+	/*height: 16px;*/
+	transform: scale(1);
+}
+
+select{
+	width: 100%;
+}
+
+.ppn-back-button {
+	background: none; !important;
+	border: none;
+	margin: 5px 10px 5px 10px;
+	padding: 5px; !important;
+	/*optional*/
+	font-family: arial, sans-serif;
+	/*input has OS specific font-family*/
+	color: #069;
+	cursor: pointer;
+}
+
+.primaryButton, #signinButton, .toggleButton, .subToggleButton, .backButton {
+	display: inline-block;
+	border: none;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+	border-radius: 4px;
+	background-color: #0c74d5;
+	color: white;
+	font-family: Roboto, sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 1ch 2em 1ch 2em;
+	cursor: pointer;
+	text-align: center;
+}
+
+.warningButton{
+	display: inline-block;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+	border: none;
+	border-radius: 4px;
+	background-color: #B00000;
+	color: white;
+	font-family: Roboto, sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 1ch 2em 1ch 2em;
+	margin-right: 1em;
+	cursor: pointer;
+	text-align: center;
+}
+
+.cacheButton {
+	background-color: white;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+	color: black;
+	display: inline-block;
+	border-radius: 4px;
+	font-family: Roboto, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 1ch 2em 1ch 2em;
+	margin-right: 1em;
+	cursor: pointer;
+	text-align: center;
+	border: 0
+}
+
+/* Set a style for all buttons */
+#signinButton {
+	width: 100%;
+	border-radius: 0%;
+}
+.toggleButton{
+	display: inline;
+	width: 10%;
+	height: 60%;
+	margin: 0;
+	/*cursor: pointer;*/
+}
+.subToggleButton{
+	display: inline;
+	width: 7.5%;
+	height:6%;
+	background-color: dimgrey;
+}
+.applicantButton{
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+	border: none;
+	border-radius: 4px;
+	color: white;
+	font-family: Roboto, sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 1ch 2em 1ch 2em;
+	margin-right: 1em;
+	cursor: pointer;
+	text-align: center;
+}
+.cancelButton{
+	background-color: #0C74D5;
+	color: white;
+	padding: 1% 1%;
+	margin: 0 auto;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 90%;
+	width: auto;
+	vertical-align: top;
+	border: 1px solid black;
+}
+.cancelButton:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+#choiceForm {
+	margin-top: 2%;
+}
+.tab{
+	background-color: white;
+	border-bottom: 1px solid grey;
+	max-width: 80%;
+}
+.tabInactive{
+	padding: 1.4% 1.4% 2% 1.4%;
+	background-color: white;
+	color: darkgrey;
+	border: none;
+	cursor: pointer;
+	font-size: 150%;
+}
+.tabActive{
+	padding: 1.4% 1.4% 2% 1.4%;
+	background-color: white;
+	color: black;
+	border: none;
+	border-bottom: 2px solid blue;
+	cursor: pointer;
+	font-size: 150%;
+	font-weight: bold;
+}
+
+.tabContent {
+	max-width: 80%;
+}
+
+.programRow{
+	padding: 1% 5% 1% 1% ;
+	background-color: white;
+	border-bottom: 1px black solid;
+}
+.programRow:hover{
+	background-color: lightgrey;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+	opacity: .8;
+}
+.pageTitle{
+	padding: 0 auto;
+	font-size: 220%;
+	letter-spacing: 1px;
+	line-height: 100%;
+}
+h3.baseChoice{
+	text-decoration: underline #0C74D5;
+	display: block;
+	font-size: 150%;
+	color: #0C74D5;
+}
+p {
+	margin: 5px auto;
+	display: inline-block;
+	font-size: 105%;
+}
+.container {
+	padding: 1.8% 15% 1.8% 10%;
+	margin: .08% .08% .08% .08%;
+}
+ul.choiceList{
+	list-style-type: square;
+	padding-left: 5%;
+}
+ul.subChoiceList{
+	list-style-type: circle;
+	padding-left: 10%;
+}
+ul.mainChoiceList{
+	list-style-type: none;
+	max-width: 850px;
+}
+li.material-list {
+	border-radius: 4px;
+	padding: 2px 15px 20px 15px;
+	margin-bottom: 25px;
+	background-color: white;
+}
+
+/* The alert message box */
+.alert {
+	font-size: 130%;
+	padding: .5%;
+	background-color: #f44336; /* Red */
+	color: white;
+	display: inline-block;
+	width: 99%;
+	/*margin-bottom: 1.5%;*/
+}
+
+.alert-success {
+	font-size: 130%;
+	padding: .5%;
+	background-color: darkseagreen; /* Red */
+	color: white;
+	display: inline-block;
+	width: 99%;
+}
+
+/* The close button */
+.closebtn {
+	/*margin-bottom: 100%;*/
+	/*margin-left: 15%;*/
+	/*margin-bottom: 10%;*/
+	color: white;
+	font-weight: bold;
+	float: right;
+	vertical-align: middle;
+	line-height: normal;
+	/*line-height: 40%;*/
+	cursor: pointer;
+	transition: 0.3s;
+	/*width: 100%;*/
+}
+.alertMessage{
+	float:left;
+	vertical-align: middle;
+	line-height: normal;
+}
+
+small{
+	font-size: 100%;
+	padding: 0 auto;
+	margin-bottom: 10%;
+	color: grey;
+	font-style: italic;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+	color: black;
+}
+label{
+	font-size: 85%;
+}
+br{
+	height: 10%;
+}
+figure {
+	width: 6px;
+	height: 6px;
+	border-radius: 5px;
+	background: black;
+	margin: 3px 0;
+}
+
+#choiceBox, .selectPageBox, .confirmUnlink{
+	background-color: white;
+	padding: 0% 0% 2% 0%;
+	width: 50%;
+	text-align: center;
+	margin-bottom: 5%;
+	border-radius: 4%;
+}
+.settingBox{
+	background-color: white;
+	padding: 2% 2% 2% 2%;
+	width: 100%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	border-radius: 4px;
+	border: 1px solid #f5f5f5;
+}
+.boxTitle{
+	padding: 2%;
+	background-color: #0C74D5;
+	color: white;
+	border-radius: 4px;
+}
+.thickboxTitle{
+	color: navy;
+}
+.dropdownChoice{
+	width: 50% !important;
+}
+.material-icons:hover{
+	cursor: pointer;
+}
+
+@media only screen and (max-width: 980px) {
+	.alert, .alert-success{
+		font-size: 80%;
+	}
+	input[type=radio], input[type=checkbox]{
+		transform: scale(0.7);
+	}
+}
+
+@media only screen and (max-width: 1092px) {
+	table
+	{
+		width: 100%;
+	}
+	#choiceBox
+	{
+		width: 100%;
+	}
+	td
+	{
+		font-size: 70%;
+	}
+	th
+	{
+		font-size: 80%;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	table{
+		width: 100%;
+	}
+	#choiceBox{
+		width: 100%;
+	}
+	td{
+		font-size: 70%;
+	}
+	th{
+		font-size: 80%;
+	}
+	input[type=radio], input[type=checkbox]{
+		transform: scale(0.5);
+	}
 }

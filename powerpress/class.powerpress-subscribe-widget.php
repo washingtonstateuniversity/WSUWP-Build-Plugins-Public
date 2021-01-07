@@ -234,12 +234,12 @@ PowerPress subscribe sidebar widget
 			$Settings['style'] = $instance['style'];
         if (defined('WP_DEBUG')) {
             if (WP_DEBUG) {
-                wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.css');
+                wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.css', array(), POWERPRESS_VERSION);
             } else {
-                wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.min.css');
+                wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.min.css', array(), POWERPRESS_VERSION);
             }
         } else {
-            wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.min.css');
+            wp_enqueue_style('powerpress_subscribe_widget_modern', plugin_dir_url(__FILE__) . 'css/subscribe-widget.min.css', array(), POWERPRESS_VERSION);
         }
         if( !empty($instance['modern_style']) && $instance['modern_style'] == 'squared') {
             $Settings['modern_style'] = '-sq';

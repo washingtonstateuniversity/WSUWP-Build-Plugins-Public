@@ -1339,7 +1339,7 @@ function powerpressplayer_build_blubrryaudio($media_url, $EpisodeData=array(), $
 	$instance++;
 	
 	// media URL is all we need., as long as it's hosted at blubrry.com...
-	if( preg_match('/(content|ins)\.blubrry\.com/', $media_url) )
+	if( preg_match('/(content|protected|ins)\.blubrry\.com/', $media_url) )
 	{
 	    $playerSettings = get_option('powerpress_bplayer');
         $hash = '';

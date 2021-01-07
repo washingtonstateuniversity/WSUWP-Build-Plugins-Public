@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Manages custom menus translations as well as the language switcher menu item on frontend
@@ -92,7 +95,7 @@ class PLL_Frontend_Nav_Menu extends PLL_Nav_Menu {
 		$new_items = array();
 		$offset = 0;
 
-		foreach ( $items as $key => $item ) {
+		foreach ( $items as $item ) {
 			if ( $options = get_post_meta( $item->ID, '_pll_menu_item', true ) ) {
 				$i = 0;
 
@@ -106,7 +109,7 @@ class PLL_Frontend_Nav_Menu extends PLL_Nav_Menu {
 				// parent item for dropdown
 				if ( ! empty( $options['dropdown'] ) ) {
 					$name = isset( $options['display_names_as'] ) && 'slug' === $options['display_names_as'] ? $this->curlang->slug : $this->curlang->name;
-					$item->title = $this->get_item_title( $this->curlang->flag, $name, $options );
+					$item->title = $this->get_item_title( $this->curlang->get_display_flag(), $name, $options );
 					$item->attr_title = '';
 					$item->classes = array( 'pll-parent-menu-item' );
 					$new_items[] = $item;
@@ -219,7 +222,7 @@ class PLL_Frontend_Nav_Menu extends PLL_Nav_Menu {
 			// First get multilingual menu locations from DB
 			$theme = get_option( 'stylesheet' );
 
-			foreach ( $menus as $loc => $menu ) {
+			foreach ( array_keys( $menus ) as $loc ) {
 				$menus[ $loc ] = empty( $this->options['nav_menus'][ $theme ][ $loc ][ $this->curlang->slug ] ) ? 0 : $this->options['nav_menus'][ $theme ][ $loc ][ $this->curlang->slug ];
 			}
 
@@ -275,7 +278,7 @@ class PLL_Frontend_Nav_Menu extends PLL_Nav_Menu {
 		if ( ! $menu && ! $args['theme_location'] ) {
 			$menus = wp_get_nav_menus();
 			foreach ( $menus as $menu_maybe ) {
-				if ( $menu_items = wp_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) ) ) {
+				if ( wp_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) ) ) {
 					foreach ( $this->options['nav_menus'][ $theme ] as $menus ) {
 						if ( in_array( $menu_maybe->term_id, $menus ) && ! empty( $menus[ $this->curlang->slug ] ) ) {
 							$args['menu'] = $menus[ $this->curlang->slug ];

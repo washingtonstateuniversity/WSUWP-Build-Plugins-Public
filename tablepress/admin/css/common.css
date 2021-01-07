@@ -93,6 +93,7 @@
 	font-weight: bold;
 	box-shadow: none;
 	text-align: center;
+	vertical-align: baseline;
 }
 
 /* Table ID/name dropdown on "Export" screen */
@@ -104,6 +105,7 @@
 #tablepress-page form :invalid,
 #tablepress-page form .invalid {
 	border-color: #cc0000 !important;
+	box-shadow: 0 0 0 1px #cc0000;
 }
 
 /* Tables in postboxes (on the "Edit" and "Plugin Options" screens) */
@@ -153,12 +155,8 @@
 #tablepress-page select {
 	vertical-align: baseline;
 }
-/* Equal heights for UI elements */
+/* Proper alignment of elements */
 #tablepress-page textarea,
 .tablepress-postbox-table .button {
 	margin: 1px;
-}
-#tablepress-page .button,
-#tablepress-page select {
-	min-height: 30px;
 }

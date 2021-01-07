@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Setups the language and translations model based on WordPress taxonomies
@@ -102,13 +105,6 @@ class PLL_Model {
 				}
 			}
 
-			// Custom flags
-			if ( ! PLL_ADMIN ) {
-				foreach ( $languages as $language ) {
-					$language->set_custom_flag();
-				}
-			}
-
 			/**
 			 * Filter the list of languages *after* it is stored in the persistent cache
 			 * /!\ this filter is fired *before* the $polylang object is available
@@ -182,6 +178,7 @@ class PLL_Model {
 				$this->cache->set( 'language:' . $lang->tl_term_id, $lang );
 				$this->cache->set( 'language:' . $lang->slug, $lang );
 				$this->cache->set( 'language:' . $lang->locale, $lang );
+				$this->cache->set( 'language:' . $lang->w3c, $lang );
 			}
 			$return = $this->cache->get( 'language:' . $value );
 		}
@@ -427,6 +424,7 @@ class PLL_Model {
 		global $wpdb;
 
 		$term_name = trim( wp_unslash( $term_name ) );
+		$term_name = _wp_specialchars( $term_name );
 
 		$select = "SELECT t.term_id FROM $wpdb->terms AS t";
 		$join = " INNER JOIN $wpdb->term_taxonomy AS tt ON t.term_id = tt.term_id";
@@ -443,18 +441,52 @@ class PLL_Model {
 	}
 
 	/**
+	 * Checks if a term slug exists in a given language, taxonomy, hierarchy
+	 *
+	 * @since 1.9
+	 * @since 2.8 Moved from PLL_Share_Term_Slug::term_exists() to PLL_Model::term_exists_by_slug()
+	 *
+	 * @param string        $slug     The term slug to test.
+	 * @param string|object $language The language slug or object.
+	 * @param string        $taxonomy Optional taxonomy name.
+	 * @param int           $parent   Optional parent term id.
+	 * @return null|int The term_id of the found term.
+	 */
+	public function term_exists_by_slug( $slug, $language, $taxonomy = '', $parent = 0 ) {
+		global $wpdb;
+
+		$select = "SELECT t.term_id FROM {$wpdb->terms} AS t";
+		$join   = " INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id";
+		$join  .= $this->term->join_clause();
+		$where  = $wpdb->prepare( ' WHERE t.slug = %s', $slug );
+		$where .= $this->term->where_clause( $this->get_language( $language ) );
+
+		if ( ! empty( $taxonomy ) ) {
+			$where .= $wpdb->prepare( ' AND tt.taxonomy = %s', $taxonomy );
+		}
+
+		if ( $parent > 0 ) {
+			$where .= $wpdb->prepare( ' AND tt.parent = %d', $parent );
+		}
+
+		// PHPCS:ignore WordPress.DB.PreparedSQL.NotPrepared
+		return $wpdb->get_var( $select . $join . $where );
+	}
+
+
+	/**
 	 * Gets the number of posts per language in a date, author or post type archive.
 	 *
 	 * @since 1.2
 	 *
 	 * @param object $lang PLL_Language instance.
-	 * @param array  $q    WP_Query arguments ( accepted: post_type, m, year, monthnum, day, author, author_name, post_format ).
+	 * @param array  $q    WP_Query arguments ( accepted: post_type, m, year, monthnum, day, author, author_name, post_format, post_status ).
 	 * @return int
 	 */
 	public function count_posts( $lang, $q = array() ) {
 		global $wpdb;
 
-		$q = wp_parse_args( $q, array( 'post_type' => 'post' ) );
+		$q = wp_parse_args( $q, array( 'post_type' => 'post', 'post_status' => 'publish' ) );
 
 		if ( ! is_array( $q['post_type'] ) ) {
 			$q['post_type'] = array( $q['post_type'] );
@@ -476,7 +508,7 @@ class PLL_Model {
 		if ( false === $counts ) {
 			$select = "SELECT pll_tr.term_taxonomy_id, COUNT( * ) AS num_posts FROM {$wpdb->posts}";
 			$join = $this->post->join_clause();
-			$where = " WHERE post_status = 'publish'";
+			$where = sprintf( " WHERE post_status = '%s'", esc_sql( $q['post_status'] ) );
 			$where .= sprintf( " AND {$wpdb->posts}.post_type IN ( '%s' )", join( "', '", esc_sql( $q['post_type'] ) ) );
 			$where .= $this->post->where_clause( $this->get_languages_list() );
 			$groupby = ' GROUP BY pll_tr.term_taxonomy_id';
@@ -610,7 +642,7 @@ class PLL_Model {
 
 		if ( ! empty( $o ) && is_object( $this->$o ) && method_exists( $this->$o, $f ) ) {
 			if ( WP_DEBUG ) {
-				$debug = debug_backtrace(); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+				$debug = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 				$i = 1 + empty( $debug[1]['line'] ); // the file and line are in $debug[2] if the function was called using call_user_func
 
 				trigger_error( // phpcs:ignore WordPress.PHP.DevelopmentFunctions
@@ -627,7 +659,7 @@ class PLL_Model {
 			return call_user_func_array( array( $this->$o, $f ), $args );
 		}
 
-		$debug = debug_backtrace(); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+		$debug = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 		trigger_error( // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 			sprintf(
 				'Call to undefined function PLL()->model->%1$s() in %2$s on line %3$s' . "\nError handler",

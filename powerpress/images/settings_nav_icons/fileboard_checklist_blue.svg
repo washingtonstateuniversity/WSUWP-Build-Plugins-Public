@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>07520117-325A-4284-8C53-FE7190EB4623</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M14,15 L14,15 C14,15.552 13.552,16 13,16 L10,16 C9.448,16 9,15.552 9,15 C9,14.448 9.448,14 10,14 L13,14 C13.552,14 14,14.448 14,15 L14,15 Z M14,12 L14,12 C14,12.552 13.552,13 13,13 L10,13 C9.448,13 9,12.552 9,12 C9,11.448 9.448,11 10,11 L13,11 C13.552,11 14,11.448 14,12 L14,12 Z M14,9 C14,9.552 13.552,10 13,10 L10,10 C9.448,10 9,9.552 9,9 C9,8.448 9.448,8 10,8 L13,8 C13.552,8 14,8.448 14,9 L14,9 Z M8,15 L8,15 C8,15.552 7.552,16 7,16 C6.448,16 6,15.552 6,15 C6,14.448 6.448,14 7,14 C7.552,14 8,14.448 8,15 L8,15 Z M8,12 L8,12 C8,12.552 7.552,13 7,13 C6.448,13 6,12.552 6,12 C6,11.448 6.448,11 7,11 C7.552,11 8,11.448 8,12 L8,12 Z M8,9 C8,9.552 7.552,10 7,10 C6.448,10 6,9.552 6,9 C6,8.448 6.448,8 7,8 C7.552,8 8,8.448 8,9 L8,9 Z M15,17 C15,17.552 14.552,18 14,18 L6,18 C5.448,18 5,17.552 5,17 L5,4.5 C5,4.224 5.224,4 5.5,4 L6,4 C6,5.104 6.895,6 8,6 L12,6 C13.105,6 14,5.104 14,4 L14.5,4 C14.776,4 15,4.224 15,4.5 L15,17 Z M8,3 C8,2.448 8.448,2 9,2 L11,2 C11.552,2 12,2.448 12,3 C12,3.552 11.552,4 11,4 L9,4 C8.448,4 8,3.552 8,3 L8,3 Z M15,2 L14,2 C14,0.895 13.105,0 12,0 L8,0 C6.895,0 6,0.895 6,2 L5,2 C3.895,2 3,2.895 3,4 L3,18 C3,19.104 3.895,20 5,20 L15,20 C16.105,20 17,19.104 17,18 L17,4 C17,2.895 16.105,2 15,2 L15,2 Z" id="path-1"></path>
+    </defs>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Icon/20px/fileboard_checklist-[#1595]">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="fileboard_checklist-[#1595]" fill-opacity="0" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <g id="⚙️Atoms/Colour/White-⚙️Atoms/Colour/Grey-Darker/1---100%" mask="url(#mask-2)" fill="#1665D8">
+                <g transform="translate(-1.000000, -1.000000)" id="Colour">
+                    <rect x="0" y="0" width="22" height="22"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

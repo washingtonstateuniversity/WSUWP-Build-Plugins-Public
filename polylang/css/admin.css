@@ -21,6 +21,14 @@
 	font-family: 'dashicons';
 	content: "\f155";
 }
+.pll-icon:before{
+	display: inline-block;
+	text-align: left;
+	width: 15px;
+}
+.pll-circle:before{
+	content: "\25cf";
+}
 
 .form-field input[type="radio"] {
 	width: auto;
@@ -55,9 +63,22 @@
 	vertical-align: top;
 }
 
+.translation {
+	display: flex; /* fix #691 to remove default margin bottom */
+}
+@media screen and (max-width: 782px) { /* reset default display property for small device */
+	.translation{
+		display: block;
+	}
+}
+.translation textarea{
+	display: block; /* fix #691 to remove default margin bottom */
+}
 .translation input,
 .translation textarea {
 	width: 72%;
+	box-sizing: border-box; /* to be sure field don't overrun outside their wrapper */
+	margin-bottom: 4px; /* fix #691 set the same margin bottom for both textarea and input tags */
 }
 
 /* settings */
@@ -143,9 +164,10 @@
 }
 
 /* language columns in edit.php and edit-tags.php */
-th[class*='column-language_'],
-td[class*='column-language_'] {
+.wp-list-table th[class*='column-language_'],
+.wp-list-table td[class*='column-language_'] {
 	width: 1.5em;
+	box-sizing: content-box; /* Override ACF 5.9.0 styles */
 }
 
 /* Text direction in post.php and edit-tags.php */
@@ -219,25 +241,6 @@ td[class*='column-language_'] {
 	float: right;
 }
 
-/* Languages metabox buttons */
-.pll-button {
-	padding: 0;
-	height: 20px;
-	background: none;
-	border: none;
-	font-size: 20px;
-	cursor: pointer;
-}
-
-.pll-button:not(.wp-ui-text-highlight) {
-	color: #DDDDDD;
-}
-
-#pll-duplicate {
-	float: right;
-	margin: 13px 7px;
-}
-
 /* language and translations in edit-tags.php */
 .pll-translation-flag { /* also for media */
 	margin-right: 14px;
@@ -282,10 +285,6 @@ td[class*='column-language_'] {
 }
 
 /* icon fonts */
-.pll_icon_tick:before {
-	content: "\f147";
-}
-
 .pll_icon_add:before {
 	content: "\f132";
 }
@@ -324,24 +323,27 @@ td[class*='column-language_'] {
 	text-decoration: none;
 }
 
-/* Bulk translate */
-.bulk-translate-save .button {
-	margin-right: 20px;
+.pll-notice .button {
+	margin-right: 10px;
 }
 
-#wpbody-content #pll-translate fieldset {
-	display: inline-block;
-	width: 300px;
+/* Metaboxes holder in Strings translations screen */
+.languages_page_mlang_strings .metabox-holder > div {
+	display: flex;
 }
-
-#pll-translate .pll-translation-flag {
-	margin-right: 0.3em;
+.languages_page_mlang_strings .metabox-holder > div > div {
+	flex-grow: 1;
 }
-
-#pll-translate .title {
-	display: block;
-  margin: 0.2em 0;
-  line-height: 2.5;
+.languages_page_mlang_strings .metabox-holder > div > div:nth-child(2n) {
+	margin-left: 1rem;
+}
+.languages_page_mlang_strings .metabox-holder > div > div.closed {
+	border:0;
+	background: none;
+}
+.languages_page_mlang_strings .metabox-holder > div > div.closed .postbox-header{
+	border: 1px solid #ccd0d4;
+	background: #fff;
 }
 
 @media screen and ( max-width: 782px ) {
@@ -385,8 +387,17 @@ td[class*='column-language_'] {
 		padding-left: 0;
 	}
 
-	.translation input {
+	.translation input,
+	.translation textarea {
 		width: 95%;
+	}
+
+	/* Metaboxes holder in Strings translations screen */
+	.languages_page_mlang_strings .metabox-holder > div {
+		flex-direction: column;
+	}
+	.languages_page_mlang_strings .metabox-holder > div > div:nth-child(2n) {
+		margin-left: 0;
 	}
 
 	/* hide selected language flag and translations language name */

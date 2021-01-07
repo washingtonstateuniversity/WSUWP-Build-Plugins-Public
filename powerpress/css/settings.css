@@ -1,0 +1,744 @@
+/* Style the tab */
+.pp-tab {
+    font-size: 16px;
+    overflow: hidden;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 0 0 #EAEDF3, 0 1px 3px 0 rgba(0,0,0,0.05);
+    width: 100%;
+    padding: 0;
+}
+
+/* Style the buttons that are used to open the tab content */
+.pp-tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 3vh 3%;
+    transition: 0.3s;
+    width: auto;
+}
+
+/* Change background color of buttons on hover */
+.pp-tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.pp-tab button.active {
+    border-bottom: 3px solid #1a6deb;
+    font-weight: bold;
+}
+
+/* Style the tab content */
+.pp-tabcontent {
+    background-color: #ffffff;
+    display: none;
+    border-top: none;
+    padding: 0 40px 0 0;
+    height: 100%;
+}
+
+.pp-tabcontent.active {
+    display: flex;
+}
+
+#welcome-title {
+    display: inline-block;
+    margin-top: 1ch;
+    font-size: 22px;
+    width: 70%;
+}
+
+#welcome-tab-new-post {
+    display: inline-block;
+    text-decoration: none;
+    color: #1976d2;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+}
+
+#welcome-tab-new-post div {
+    padding: 1ch;
+    border: 2px solid #1976d2;
+    border-radius: 4px;
+}
+
+#welcome-tab-new-post div:hover {
+    background-color: #1976d2;
+    color: white;
+}
+
+#pp-welcome-artwork-link:hover, #pp-welcome-applesubmit-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#pp-welcome-artwork-link, #pp-welcome-applesubmit-link, .program-status-link, p[class="pp-settings-status-text"] {
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+}
+
+#advanced-tab-seo-link {
+    cursor: pointer;
+}
+
+.submit {
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.powerpress_save_button {
+    border-width: 1px;
+}
+
+.powerpress_save_button:hover {
+    cursor: pointer;
+}
+
+.pp-news-image {
+    vertical-align: top;
+    float: left;
+    margin-right: 1em;
+    max-height: 95%;
+    max-width: 40%;
+    width: auto;
+    height: auto;
+}
+
+.pp-settings-welcome-text img {
+    height: 50px;
+    width: 50px;
+}
+
+.pp-news-item {
+    padding: 0 2em 2ch 0;
+    border-bottom: 1px solid #ddd;
+    height: 17vh;
+}
+
+.powerpress-welcome-news  .rss-date {
+    font-size: 80%;
+}
+.powerpress-welcome-news .rsswidget {
+    font-size: 110%;
+    color: black;
+    text-decoration: underline;
+}
+
+.pp-news-image-container {
+    max-width: 33%;
+    overflow: hidden;
+}
+
+.pp-news-details-container {
+    height: 100%;
+    width: auto;
+    overflow: hidden;
+}
+
+.program-status-link {
+    color: #d21919;
+    text-decoration: underline;
+}
+
+.pp-settings-program-summary {
+    margin-bottom: 4em;
+}
+
+.prog-sum-head, .prog-sum-contents {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.prog-sum-head {
+    width: 72%;
+}
+
+.prog-sum-contents {
+    width: 23%;
+    height: 100%;
+    position: absolute;
+    margin-left: 2em;
+}
+
+.pp-settings-podcast-status {
+    margin-top: 2ch;
+}
+
+.pp-settings-recent-post, .pp-settings-num-episodes, .pp-settings-podcast-status {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.pp-settings-recent-post {
+    width: 70%;
+}
+
+.pp-settings-num-episodes {
+    width: 16%;
+    margin-left: 3em;
+}
+
+.pp-settings-welcome-text {
+    display: inline-block;
+    vertical-align: top;
+    width: 65%;
+    margin-left: 1ch;
+}
+
+#welcome-preview-image {
+    width: 30%;
+    height: auto;
+    display: inline-block;
+}
+
+.destinations-side-text {
+    line-height: 36px;
+}
+
+.directory-summary-head {
+    vertical-align: middle;
+}
+
+.destinations-side-icon {
+    background-image: url('../images/modern_icon_sprite_2020.svg');
+    margin-right: 15px;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background-repeat: no-repeat;
+    background-size: 50px;
+    vertical-align: middle;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    .pp-sidenav .destinations-side-icon {
+        background-image: url('../images/modern-icon-sprite.png');
+    }
+}
+
+/*Sprite background positions for modern buttons*/
+
+span[id^="apple-icon"] {
+    background-position: -5px -10px;
+}
+
+span[id^="android-icon"] {
+    background-position: -5px -60px;
+}
+
+span[id^="email-icon"] {
+    background-position: -5px -111px;
+}
+
+span[id^="google-icon"] {
+    background-position: -5px -160px;
+}
+
+span[id^="stitcher-icon"] {
+    background-position: -7px -210px;
+}
+
+span[id^="tunein-icon"] {
+    background-position: -7px -260px;
+}
+
+span[id^="spotify-icon"] {
+    background-position: -5px -312px;
+}
+
+span[id^="iheart-icon"] {
+    background-position: -5px -461px;
+}
+
+span[id^="deezer-icon"] {
+    background-position: -5px -512px;
+}
+
+span[id^="pandora-icon"] {
+    background-position: -5px -560px;
+}
+
+span[id^="amazon-icon"] {
+    background-position: -5px -1010px;
+}
+
+span[id^="pcindex-icon"] {
+    background-position: -5px -1060px;
+}
+
+span[id^="jiosaavn-icon"] {
+    background-position: -5px -1110px;
+}
+
+span[id^="podchaser-icon"] {
+    background-position: -5px -1160px;
+}
+
+span[id^="gaana-icon"] {
+    background-position: -5px -1210px;
+}
+
+span[id^="all-icon"] {
+    background-position: -5px -360px;
+}
+
+
+.pp-settings-footer {
+    border-top: 1px solid #EFF0F5;
+    margin: 3ch;
+    padding-top: 2ch;
+}
+
+.pp-save-button-container {
+    display: inline-block;
+    float: right;
+}
+
+#connect-blubrry-services .button-blubrry {
+    max-width: 14em;
+    width: 100%;
+}
+
+#connected-blubrry-blurb {
+    display: inline-block;
+    width: 55%;
+    margin: 0 0 0 1ch;
+    text-align: left;
+}
+
+#connect-blubrry-blurb {
+    font-size: 12px;
+    margin: 1ch 1ch 0 4ch;
+}
+
+/* Style the tab */
+.pp-sidenav {
+    overflow: hidden;
+    background-color: white;
+    width: 23%;
+    display: inline-block;
+    float: left;
+    min-height: 70vh;
+    height: 100%;
+}
+
+/* Style the buttons that are used to open the tab content */
+.pp-sidenav button {
+    display: block;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 1vh 2vw 1vh 1vw;
+    transition: 0.3s;
+    width: 100%;
+    text-align: left;
+    line-height: 25px;
+}
+
+.pp-sidenav button img {
+    height: 25px;
+    width: 25px;
+    background-color: rgba(255,255,255,0);
+    vertical-align: middle;
+}
+
+/* Change background color of buttons on hover */
+.pp-sidenav button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.pp-sidenav button.active {
+    border-left: 2px solid #1a6deb;
+    color: #1665D8;
+    background-color: #F6F9FD;
+}
+
+#powerpress_settings_page {
+    min-height: 100vh;
+    margin-top: 1em;
+}
+
+/* Style the tab content */
+.pp-sidenav-tab {
+    background-color: #ffffff;
+    display: none;
+    border-top: none;
+    padding: 3vh 3vw;
+    width: 75%;
+    border-left: 1px solid #ddd;
+}
+
+.pp-sidenav-tab.active {
+    display: inline-block;
+}
+
+#connect-blubrry-services {
+    margin: 30px 10px 10px 10px;
+    text-align: center;
+    border: 1px solid #D0D3DB;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+#connect-see-options, #blubrry-services-connected-settings {
+    padding: 3ch 3ch 3ch 1.5ch;
+}
+
+#connect-blubrry-button-container {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #D0D3DB;
+}
+
+#blubrry-logo-connect {
+    width: 42px;
+    height: 40px;
+}
+
+.pp-settings-section {
+    border-left: 3px solid #EFF0F5;
+    padding-left: 2em;
+    margin-bottom: 4em;
+}
+
+.pp-settings-section h2 {
+    font-weight: bold;
+    font-family: Roboto, sans-serif;
+    font-size: 20px;
+}
+
+.pp-settings-subsection {
+    margin-left: 1em;
+    padding: 1em 0 1em 1em;
+    border-bottom: 1px solid #EFF0F5;
+    display: inline-block;
+    width: 90%;
+}
+
+.pp-settings-subsection-no-border {
+    padding: 1em 0 1em 0;
+    display: inline-block;
+    width: 90%;
+}
+
+.pp-nav-icon {
+    margin: 0 25px 0 10px;
+}
+
+.pp-directory-icon {
+    margin: 0 25px 0 0;
+    vertical-align: middle;
+    /*height: 32px;*/
+}
+
+h1.pp-heading, h2.pp-heading {
+    font-size: 26px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+}
+
+p.pp-main {
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    margin: 0;
+    display: block;
+}
+
+p.pp-sub, a.pp-sub {
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    display: block;
+}
+
+p.pp-sub {
+    color: rgba(0,0,0,0.6);
+}
+
+p.pp-label-bottom {
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    margin: 0 0 2em 0;
+    color: rgba(0,0,0,0.6);
+}
+
+p.pp-sidenav-extra-text, a.pp-sidenav-extra-text {
+    color: #32373c;
+    font-size: 12px;
+    line-height: 18px;
+    font-family: Roboto, sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.pp-sidenav-extra {
+    margin: 2vh 2vw;
+}
+
+.pp-settings-text {
+    margin-top: 0;
+    margin-bottom: 2em;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    display: block;
+}
+
+.pp-settings-text-smaller-margin {
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    display: block;
+}
+
+.pp-settings-text-no-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    display: block;
+}
+
+.pp-show-subscribe {
+    margin-top: 3em;
+}
+
+.pp-show-subscribe input.pp-settings-checkbox {
+    margin-top: 2px;
+    margin-right: 10px;
+}
+
+.pp-settings-text a, .pp-label-bottom a, .pp-right-label a, .pp-main a, .pp-sub a {
+    text-decoration: none;
+    color: #2278CF;
+}
+
+.pp-right-label {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.pp-settings-text-with-label {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+}
+
+b {
+    font-weight: bold;
+}
+
+input.pp-settings-checkbox {
+    border: 2px solid #d4d8e0;
+    border-radius: 3px;
+    height: 18px;
+    width: 18px;
+    vertical-align: top;
+    margin-top: 2ch;
+}
+
+input.pp-settings-checkbox:checked {
+    background-color: #2278cf;
+    border-color: #2278cf;
+}
+
+input.pp-settings-checkbox:checked:disabled {
+    background-color: rgba(0,0,0,0.5);
+    border-color: rgba(0,0,0,0.2);
+}
+
+input.pp-settings-checkbox:checked:before {
+    content: url('../images/check_white.svg');
+    height: 21px;
+    width: 21px;
+    margin: -3px 0 0 -4px;
+}
+
+input.pp-settings-checkbox:checked + label.pp-checkbox-label {
+    color: #0c74d5;
+}
+
+.pp-checkbox-label {
+    font-size: 13px;
+    font-family: Roboto, sans-serif;
+}
+
+.round-checkbox {
+    border-radius: 8px;
+}
+
+input.round-checkbox:checked {
+    background-color: #2278cf;
+    border-color: #2278cf;
+}
+
+input.round-checkbox:checked:before {
+    color: #2278cf;
+}
+
+
+input[class="pp-settings-radio"] {
+    width: 22px;
+    height: 22px;
+    border: 2px solid #B1B1B1;
+    margin-bottom: 3.5em;
+}
+
+input[class="pp-settings-radio"]:checked {
+    border: 2px solid #0c74d5;
+}
+
+input[class="pp-settings-radio"]:checked:before {
+    width: 12px;
+    height: 12px;
+    margin: 3px;
+    background-color: #0c74d5;
+}
+
+input[class="pp-settings-radio-small"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-color: #d8dce6;
+}
+
+input[class="pp-settings-radio-small"]:checked {
+    border: 2px solid #0c74d5;
+    background-color: #0c74d5;
+}
+
+input[class="pp-settings-radio-small"]:checked:before {
+    width: 6px;
+    height: 6px;
+    margin: 3px;
+    background-color: #d8dce6;
+}
+
+input.pp-settings-text-input, textarea.pp-settings-text-input, input.pp-settings-text-input:focus, textarea.pp-settings-text-input:focus {
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #B1B1B1;
+    font-size: 14px;
+    padding: 2ch 1em 2ch 1em;
+    width: 100%;
+}
+
+input.pp-settings-text-input-less-wide, input.pp-settings-text-input-less-wide:focus {
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #B1B1B1;
+    font-size: 14px;
+    padding: 2ch 1em 2ch 1em;
+    width: 70%;
+    margin-right: 30%;
+}
+
+.pp-settings-section h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.powerpress_color_box {
+    float: left;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin: 8px 19px 8px 0;
+    border: 1px solid #666666;
+}
+
+label[class^="pp-settings-label"] {
+    position: relative;
+    top: 9px;
+    padding: 0 9px 0 2px;
+    left: 9px;
+    background-color: white;
+    font-size: 12px;
+}
+
+label[class^="pp-settings-label-under"] {
+    position: relative;
+    top: -2px;
+    padding: 0 9px 0 2px;
+    left: 9px;
+    background-color: white;
+    color: rgba(0,0,0,0.6);
+    font-size: 12px;
+}
+
+select[class^='pp-settings-select'] {
+    background-color: #eff0f5;
+    color: rgba(0,0,0,0.6);
+    border-radius: 4px;
+    padding: 1em 1ch 1em 1ch;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    border: none;
+    box-shadow: none;
+    height: auto;
+    width: 45%;
+    display: block;
+}
+
+select.pp-settings-select-inline {
+    display: inline-block;
+    width: 40%;
+    margin-bottom: 3ch;
+}
+
+.pp-settings-button {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 1.5ch;
+    border: 1px solid #D8DCE6;
+    border-radius: 4px;
+    background: linear-gradient(0deg, #F6F7F9 0%, #FFFFFF 100%);
+    box-shadow: inset 0 2px 0 0 rgba(255,255,255,0.05), 0 1px 1px 0 rgba(22,29,37,0.05);
+    margin: 1em 0 1em 0;
+}
+
+.pp-settings-icon {
+    margin: 0 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.pp-settings-icon-small {
+    margin: 0 5px 0 0;
+    width: 16px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pp-settings-button-label, .pp-settings-icon {
+    vertical-align: middle;
+}
+
+.pp-shortcode {
+    padding: 1em 3ch 1em 3ch;
+}
+
+.pp-shortcode-container {
+    margin: 4ch 0;
+}

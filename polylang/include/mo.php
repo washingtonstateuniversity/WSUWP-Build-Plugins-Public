@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Manages strings translations storage
@@ -101,5 +104,16 @@ class PLL_MO extends MO {
 	 */
 	public function clean_cache() {
 		wp_cache_delete( 'polylang_mo_ids' );
+	}
+
+	/**
+	 * Deletes a string
+	 *
+	 * @since 2.9
+	 *
+	 * @param string $string The source string to remove from the translations.
+	 */
+	public function delete_entry( $string ) {
+		unset( $this->entries[ $string ] );
 	}
 }

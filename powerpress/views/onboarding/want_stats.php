@@ -1,4 +1,5 @@
 <?php
+$pp_nonce = powerpress_login_create_nonce();
 ?>
 <div class="wrap">
     <div class="pp_container">
@@ -43,7 +44,7 @@
                                     <p class="pp_align-center"><?php echo __('Don\'t miss out on Blubrry\'s free podcast stats and directory listing.', 'powerpress'); ?></p>
                                 </div>
                                 <div class="pp_button-container">
-                                    <a href="<?php echo admin_url("admin.php?page={$_GET['page']}&step=blubrrySignin"); ?>">
+                                    <a href="<?php echo add_query_arg( '_wpnonce', $pp_nonce, admin_url("admin.php?page={$_GET['page']}&step=blubrrySignin")); ?>">
                                         <button type="button" class="pp_button"><span><?php echo __('I\'d like free tools', 'powerpress'); ?></span></button>
                                     </a>
                                 </div>

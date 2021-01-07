@@ -153,7 +153,7 @@ abstract class TablePress_View {
 		if ( is_rtl() ) {
 			$this->admin_page->enqueue_style( 'common-rtl', array( 'tablepress-common' ) );
 		}
-		$this->admin_page->enqueue_script( 'common', array( 'jquery-core', 'postbox' ), array(
+		$this->admin_page->enqueue_script( 'common', array( 'jquery', 'postbox' ), array(
 			'common' => array(
 				'ays_delete_single_table'    => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 1, 'tablepress' ),
 				'ays_delete_multiple_tables' => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 2, 'tablepress' ),
@@ -178,12 +178,19 @@ abstract class TablePress_View {
 	 *
 	 * @param string $text  Text for the header message.
 	 * @param string $class Optional. Additional CSS class for the header message.
+	 * @param string $title Optional. Text for the header title.
 	 */
-	protected function add_header_message( $text, $class = 'notice-success' ) {
+	protected function add_header_message( $text, $class = 'notice-success', $title = '' ) {
 		if ( ! stripos( $class, 'not-dismissible' ) ) {
 			$class .= ' is-dismissible';
 		}
-		$this->header_messages[] = "<div class=\"notice {$class}\"><p>{$text}</p></div>\n";
+		if ( ! empty( $title ) ) {
+			$title = "<h3>{$title}</h3>";
+		}
+		if ( ! empty( $text ) ) {
+			$text = "<p>{$text}</p>";
+		}
+		$this->header_messages[] = "<div class=\"notice {$class}\">{$title}{$text}</div>\n";
 	}
 
 	/**

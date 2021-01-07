@@ -5,6 +5,11 @@ function powerpress_admin_tags()
 {
 	$General = powerpress_get_settings('powerpress_general');
 	$TagSettings = powerpress_default_settings($General, 'tags');
+
+    // If we have powerpress credentials, check if the account has been verified
+    $creds = get_option('powerpress_creds');
+    powerpress_check_credentials($creds);
+    wp_enqueue_script('powerpress-admin', powerpress_get_root_url() . 'js/admin.js', array(), POWERPRESS_VERSION );
 ?>
 <script language="javascript"><!--
 function ToggleID3Tags(Obj)

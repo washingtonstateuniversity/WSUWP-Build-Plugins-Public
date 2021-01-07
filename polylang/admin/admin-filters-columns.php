@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Adds the language column in posts and terms list tables
@@ -21,25 +24,28 @@ class PLL_Admin_Filters_Columns {
 		$this->model = &$polylang->model;
 		$this->filter_lang = &$polylang->filter_lang;
 
-		// Add the language and translations columns in 'All Posts', 'All Pages' and 'Media library' panels
+		// Hide the column of the filtered language.
+		add_filter( 'hidden_columns', array( $this, 'hidden_columns' ) ); // Since WP 4.4.
+
+		// Add the language and translations columns in 'All Posts', 'All Pages' and 'Media library' panels.
 		foreach ( $this->model->get_translated_post_types() as $type ) {
 			// Use the latest filter late as some plugins purely overwrite what's done by others :(
-			// Specific case for media
+			// Specific case for media.
 			add_filter( 'manage_' . ( 'attachment' == $type ? 'upload' : 'edit-' . $type ) . '_columns', array( $this, 'add_post_column' ), 100 );
 			add_action( 'manage_' . ( 'attachment' == $type ? 'media' : $type . '_posts' ) . '_custom_column', array( $this, 'post_column' ), 10, 2 );
 		}
 
-		// Quick edit and bulk edit
-		add_filter( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 2 );
-		add_filter( 'bulk_edit_custom_box', array( $this, 'quick_edit_custom_box' ), 10, 2 );
+		// Quick edit and bulk edit.
+		add_filter( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ) );
+		add_filter( 'bulk_edit_custom_box', array( $this, 'quick_edit_custom_box' ) );
 
-		// Adds the language column in the 'Categories' and 'Post Tags' tables
+		// Adds the language column in the 'Categories' and 'Post Tags' tables.
 		foreach ( $this->model->get_translated_taxonomies() as $tax ) {
 			add_filter( 'manage_edit-' . $tax . '_columns', array( $this, 'add_term_column' ) );
 			add_filter( 'manage_' . $tax . '_custom_column', array( $this, 'term_column' ), 10, 3 );
 		}
 
-		// Ajax responses to update list table rows
+		// Ajax responses to update list table rows.
 		add_action( 'wp_ajax_pll_update_post_rows', array( $this, 'ajax_update_post_rows' ) );
 		add_action( 'wp_ajax_pll_update_term_rows', array( $this, 'ajax_update_term_rows' ) );
 	}
@@ -60,10 +66,7 @@ class PLL_Admin_Filters_Columns {
 		}
 
 		foreach ( $this->model->get_languages_list() as $language ) {
-			// Don't add the column for the filtered language
-			if ( empty( $this->filter_lang ) || $language->slug != $this->filter_lang->slug ) {
-				$columns[ 'language_' . $language->slug ] = $language->flag ? $language->flag . '<span class="screen-reader-text">' . esc_html( $language->name ) . '</span>' : esc_html( $language->slug );
-			}
+			$columns[ 'language_' . $language->slug ] = $this->get_flag_html( $language ) . '<span class="screen-reader-text">' . esc_html( $language->name ) . '</span>';
 		}
 
 		return isset( $end ) ? array_merge( $columns, $end ) : $columns;
@@ -77,13 +80,28 @@ class PLL_Admin_Filters_Columns {
 	 * @return string first language column name
 	 */
 	protected function get_first_language_column() {
+		$columns = array();
+
 		foreach ( $this->model->get_languages_list() as $language ) {
-			if ( empty( $this->filter_lang ) || $language->slug != $this->filter_lang->slug ) {
-				$columns[] = 'language_' . $language->slug;
-			}
+			$columns[] = 'language_' . $language->slug;
 		}
 
 		return empty( $columns ) ? '' : reset( $columns );
+	}
+
+	/**
+	 * Hide the column for the filtered language
+	 *
+	 * @since 2.7
+	 *
+	 * @param array $hidden Array of hidden columns
+	 * @return array
+	 */
+	public function hidden_columns( $hidden ) {
+		if ( ! empty( $this->filter_lang ) ) {
+			$hidden[] = 'language_' . $this->filter_lang->slug;
+		}
+		return $hidden;
 	}
 
 	/**
@@ -122,15 +140,15 @@ class PLL_Admin_Filters_Columns {
 			printf( '<div class="hidden" id="lang_%d">%s</div>', intval( $post_id ), esc_html( $lang->slug ) );
 		}
 
-		$post_type_object = get_post_type_object( get_post_type( $post_id ) );
-
 		// Link to edit post ( or a translation )
 		if ( $id = $this->model->post->get( $post_id, $language ) ) {
 			// get_edit_post_link returns nothing if the user cannot edit the post
 			// Thanks to Solinx. See http://wordpress.org/support/topic/feature-request-incl-code-check-for-capabilities-in-admin-screens
 			if ( $link = get_edit_post_link( $id ) ) {
+				$flag = '';
 				if ( $id === $post_id ) {
-					$class = 'pll_icon_tick';
+					$flag = $this->get_flag_html( $language );
+					$class = 'pll_column_flag';
 					/* translators: accessibility text, %s is a native language name */
 					$s = sprintf( __( 'Edit this item in %s', 'polylang' ), $language->name );
 				} else {
@@ -139,17 +157,19 @@ class PLL_Admin_Filters_Columns {
 					$s = sprintf( __( 'Edit the translation in %s', 'polylang' ), $language->name );
 				}
 				printf(
-					'<a class="%1$s" title="%2$s" href="%3$s"><span class="screen-reader-text">%4$s</span></a>',
+					'<a class="%1$s" title="%2$s" href="%3$s"><span class="screen-reader-text">%4$s</span>%5$s</a>',
 					esc_attr( $class ),
 					esc_attr( get_post( $id )->post_title ),
 					esc_url( $link ),
-					esc_html( $s )
+					esc_html( $s ),
+					$flag // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 				);
 			} elseif ( $id === $post_id ) {
 				printf(
-					'<span class="pll_icon_tick"><span class="screen-reader-text">%s</span></span>',
+					'<span class="pll_column_flag" style=""><span class="screen-reader-text">%1$s</span>%2$s</span>',
 					/* translators: accessibility text, %s is a native language name */
-					esc_html( sprintf( __( 'This item is in %s', 'polylang' ), $language->name ) )
+					esc_html( sprintf( __( 'This item is in %s', 'polylang' ), $language->name ) ),
+					$this->get_flag_html( $language ) // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 				);
 			}
 		}
@@ -165,10 +185,9 @@ class PLL_Admin_Filters_Columns {
 	 * @since 0.9
 	 *
 	 * @param string $column column name
-	 * @param string $type either 'edit-tags' for terms list table or post type for posts list table
 	 * @return string unmodified $column
 	 */
-	public function quick_edit_custom_box( $column, $type ) {
+	public function quick_edit_custom_box( $column ) {
 		if ( $column == $this->get_first_language_column() ) {
 
 			$elements = $this->model->get_languages_list();
@@ -256,8 +275,10 @@ class PLL_Admin_Filters_Columns {
 		// Link to edit term ( or a translation )
 		if ( ( $id = $this->model->term->get( $term_id, $language ) ) && $term = get_term( $id, $taxonomy ) ) {
 			if ( $link = get_edit_term_link( $id, $taxonomy, $post_type ) ) {
+				$flag = '';
 				if ( $id === $term_id ) {
-					$class = 'pll_icon_tick';
+					$flag = $this->get_flag_html( $language );
+					$class = 'pll_column_flag';
 					/* translators: accessibility text, %s is a native language name */
 					$s = sprintf( __( 'Edit this item in %s', 'polylang' ), $language->name );
 				} else {
@@ -266,17 +287,19 @@ class PLL_Admin_Filters_Columns {
 					$s = sprintf( __( 'Edit the translation in %s', 'polylang' ), $language->name );
 				}
 				$out .= sprintf(
-					'<a class="%1$s" title="%2$s" href="%3$s"><span class="screen-reader-text">%4$s</span></a>',
+					'<a class="%1$s" title="%2$s" href="%3$s"><span class="screen-reader-text">%4$s</span>%5$s</a>',
 					$class,
 					esc_attr( $term->name ),
 					esc_url( $link ),
-					esc_html( $s )
+					esc_html( $s ),
+					$flag // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 				);
 			} elseif ( $id === $term_id ) {
-				$out .= printf(
-					'<span class="pll_icon_tick"><span class="screen-reader-text">%s</span></span>',
+				$out .= sprintf(
+					'<span class="pll_column_flag"><span class="screen-reader-text">%1$s</span>%2$s</span>',
 					/* translators: accessibility text, %s is a native language name */
-					esc_html( sprintf( __( 'This item is in %s', 'polylang' ), $language->name ) )
+					esc_html( sprintf( __( 'This item is in %s', 'polylang' ), $language->name ) ),
+					$this->get_flag_html( $language ) // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 				);
 			}
 		}
@@ -372,5 +395,17 @@ class PLL_Admin_Filters_Columns {
 		}
 
 		$x->send();
+	}
+
+	/**
+	 * Returns the language flag or teh language slug if there is no flag.
+	 *
+	 * @since 2.8
+	 *
+	 * @param object $language PLL_Language object.
+	 * @return string
+	 */
+	protected function get_flag_html( $language ) {
+		return $language->flag ? $language->flag : sprintf( '<abbr>%s</abbr>', esc_html( $language->slug ) );
 	}
 }

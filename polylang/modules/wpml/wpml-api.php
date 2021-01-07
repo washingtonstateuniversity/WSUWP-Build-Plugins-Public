@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * A class to handle the WPML API based on hooks, introduced since WPML 3.2
@@ -9,6 +12,7 @@
  * @since 2.0
  */
 class PLL_WPML_API {
+	private static $original_language = null;
 
 	/**
 	 * Constructor
@@ -29,7 +33,7 @@ class PLL_WPML_API {
 		add_filter( 'wpml_language_is_active', array( $this, 'wpml_language_is_active' ), 10, 2 );
 		add_filter( 'wpml_is_rtl', array( $this, 'wpml_is_rtl' ) );
 		// wpml_language_form_input_field          => See wpml_add_language_form_field
-		// wpml_language_has_switched              => not implemented
+		// wpml_language_has_switched              => See wpml_switch_language
 		// wpml_element_trid                       => not implemented
 		// wpml_get_element_translations           => not implemented
 		// wpml_language_switcher                  => not implemented
@@ -42,7 +46,7 @@ class PLL_WPML_API {
 		// Retrieving Language Information for Content
 
 		add_filter( 'wpml_post_language_details', 'wpml_get_language_information', 10, 2 );
-		// wpml_switch_language                    => not implemented
+		add_action( 'wpml_switch_language', array( __CLASS__, 'wpml_switch_language' ), 10, 2 );
 		add_filter( 'wpml_element_language_code', array( $this, 'wpml_element_language_code' ), 10, 3 );
 		// wpml_element_language_details           => not applicable
 
@@ -122,18 +126,16 @@ class PLL_WPML_API {
 
 	/**
 	 * In WPML, get a language's native and translated name for display in a custom language switcher
-	 * Since Polylang does not implement the translated name, always returns only the native name
+	 * Since Polylang does not implement the translated name, always returns only the native name,
+	 * so the 3rd, 4th and 5th parameters are not used.
 	 *
 	 * @since 2.2
 	 *
-	 * @param mixed       $null              Not used.
-	 * @param string      $native_name       The language native name.
-	 * @param string|bool $translated_name   The language translated name. Not used.
-	 * @param bool        $native_hidden     Whether to hide the language native name or not. Not used.
-	 * @param bool        $translated_hidden Whether to hide the language translated name or not. Not used.
+	 * @param mixed  $null        Not used.
+	 * @param string $native_name The language native name.
 	 * @return string
 	 */
-	public function wpml_display_language_names( $null, $native_name, $translated_name = false, $native_hidden = false, $translated_hidden = false ) {
+	public function wpml_display_language_names( $null, $native_name ) {
 		return $native_name;
 	}
 
@@ -168,11 +170,39 @@ class PLL_WPML_API {
 	 *
 	 * @since 2.0
 	 *
-	 * @param mixed $null Not used
 	 * @return bool
 	 */
-	public function wpml_is_rtl( $null ) {
+	public function wpml_is_rtl() {
 		return pll_current_language( 'is_rtl' );
+	}
+
+	/**
+	 * Switches whole site to the given language or restores the language that was set when first calling this function.
+	 * Unlike the WPML original action, it is not possible to set the current language and the cookie to different values.
+	 *
+	 * @since 2.7
+	 *
+	 * @param null|string $lang   Language code to switch into, restores the original language if null.
+	 * @param bool|string $cookie Optionally also switches the cookie.
+	 */
+	public static function wpml_switch_language( $lang = null, $cookie = false ) {
+		if ( null === self::$original_language ) {
+			self::$original_language = PLL()->curlang;
+		}
+
+		if ( empty( $lang ) ) {
+			PLL()->curlang = self::$original_language;
+		} elseif ( 'all' === $lang ) {
+			PLL()->curlang = null;
+		} elseif ( in_array( $lang, pll_languages_list() ) ) {
+			PLL()->curlang = PLL()->model->get_language( $lang );
+		}
+
+		if ( $cookie && isset( PLL()->choose_lang ) ) {
+			PLL()->choose_lang->maybe_setcookie();
+		}
+
+		do_action( 'wpml_language_has_switched', $lang, $cookie, self::$original_language );
 	}
 
 	/**
@@ -188,7 +218,7 @@ class PLL_WPML_API {
 		$type = $args['element_type'];
 		$id = $args['element_id'];
 		$pll_type = ( 'post' == $type || pll_is_translated_post_type( $type ) ) ? 'post' : ( 'term' == $type || pll_is_translated_taxonomy( $type ) ? 'term' : false );
-		if ( 'term' === $pll_type && $term = wpcom_vip_get_term_by( 'term_taxonomy_id', $id ) ) {
+		if ( 'term' === $pll_type && $term = get_term_by( 'term_taxonomy_id', $id ) ) {
 			$id = $term->term_id;
 		}
 		return $pll_type ? call_user_func( "pll_get_{$pll_type}_language", $id ) : $language_code;

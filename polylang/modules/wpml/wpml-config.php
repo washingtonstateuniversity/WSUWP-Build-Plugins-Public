@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package Polylang
+ */
 
 /**
  * Reads and interprets the file wpml-config.xml
@@ -80,11 +83,16 @@ class PLL_WPML_Config {
 				foreach ( $xml->xpath( 'admin-texts/key' ) as $key ) {
 					$attributes = $key->attributes();
 					$name = (string) $attributes['name'];
-					if ( PLL() instanceof PLL_Frontend ) {
-						$this->options[ $name ] = $key;
-						add_filter( 'option_' . $name, array( $this, 'translate_strings' ) );
+
+					if ( false !== strpos( $name, '*' ) ) {
+						$pattern = '#^' . str_replace( '*', '(?:.+)', $name ) . '$#';
+						$names = preg_grep( $pattern, array_keys( wp_load_alloptions() ) );
+
+						foreach ( $names as $_name ) {
+							$this->register_or_translate_option( $context, $_name, $key );
+						}
 					} else {
-						$this->register_string_recursive( $context, get_option( $name ), $key );
+						$this->register_or_translate_option( $context, $name, $key );
 					}
 				}
 			}
@@ -184,112 +192,40 @@ class PLL_WPML_Config {
 	}
 
 	/**
-	 * Translates the strings for an option
+	 * Registers or translates the strings for an option
 	 *
-	 * @since 1.0
+	 * @since 2.8
 	 *
-	 * @param array|string $value Either a string to translate or a list of strings to translate
-	 * @return array|string translated string(s)
+	 * @param string $context The group in which the strings will be registered.
+	 * @param string $name    Option name.
+	 * @param object $key     XML node.
 	 */
-	public function translate_strings( $value ) {
-		$option = substr( current_filter(), 7 );
-		return $this->translate_strings_recursive( $value, $this->options[ $option ] );
+	protected function register_or_translate_option( $context, $name, $key ) {
+		$option_keys = $this->xml_to_array( $key );
+		new PLL_Translate_Option( $name, reset( $option_keys ), array( 'context' => $context ) );
 	}
 
 	/**
-	 * Recursively registers strings for a serialized option
+	 * Recursively transforms xml nodes to an array, ready for PLL_Translate_Option.
 	 *
-	 * @since 1.0
+	 * @since 2.9
 	 *
-	 * @param string $context the group in which the strings will be registered
-	 * @param array  $options
-	 * @param object $key XML node
+	 * @param object $key XML node.
+	 * @param array  $arr Array of option keys to translate.
+	 * @return array
 	 */
-	protected function register_string_recursive( $context, $options, $key ) {
+	protected function xml_to_array( $key, &$arr = array() ) {
+		$attributes = $key->attributes();
+		$name = (string) $attributes['name'];
 		$children = $key->children();
+
 		if ( count( $children ) ) {
 			foreach ( $children as $child ) {
-				$attributes = $child->attributes();
-				$name = (string) $attributes['name'];
-				if ( '*' === $name && is_array( $options ) ) {
-					foreach ( $options as $n => $option ) {
-						$this->register_wildcard_options_recursive( $context, $option, $n );
-					}
-				} elseif ( isset( $options[ $name ] ) ) {
-					$this->register_string_recursive( $context, $options[ $name ], $child );
-				}
+				$arr[ $name ] = $this->xml_to_array( $child, $arr[ $name ] );
 			}
 		} else {
-			$attributes = $key->attributes();
-			pll_register_string( (string) $attributes['name'], $options, $context, true ); // Multiline as in WPML
+			$arr[ $name ] = true; // Multiline as in WPML.
 		}
-	}
-
-	/**
-	 * Recursively registers strings with a wildcard
-	 *
-	 * @since 2.1
-	 *
-	 * @param string $context the group in which the strings will be registered
-	 * @param array  $options
-	 * @param string $name    Option name
-	 */
-	protected function register_wildcard_options_recursive( $context, $options, $name ) {
-		if ( is_array( $options ) ) {
-			foreach ( $options as $n => $option ) {
-				$this->register_wildcard_options_recursive( $context, $option, $n );
-			}
-		} else {
-			pll_register_string( $name, $options, $context );
-		}
-	}
-
-	/**
-	 * Recursively translates strings for a serialized option
-	 *
-	 * @since 1.0
-	 *
-	 * @param array|string $values either a string to translate or a list of strings to translate
-	 * @param object       $key    XML node
-	 * @return array|string translated string(s)
-	 */
-	protected function translate_strings_recursive( $values, $key ) {
-		$children = $key->children();
-		if ( count( $children ) ) {
-			foreach ( $children as $child ) {
-				$attributes = $child->attributes();
-				$name = (string) $attributes['name'];
-				if ( '*' === $name && is_array( $values ) ) {
-					foreach ( $values as $n => $v ) {
-						$values[ $n ] = $this->translate_wildcard_options_recursive( $v, $n );
-					}
-				} elseif ( isset( $values[ $name ] ) ) {
-					$values[ $name ] = $this->translate_strings_recursive( $values[ $name ], $child );
-				}
-			}
-		} else {
-			$values = pll__( $values );
-		}
-		return $values;
-	}
-
-	/**
-	 * Recursively translates strings registered by a wildcard
-	 *
-	 * @since 2.1
-	 *
-	 * @param array|string $options Either a string to translate or a list of strings to translate
-	 * @param string       $name    Option name
-	 * @return array|string Translated string(s)
-	 */
-	protected function translate_wildcard_options_recursive( $options, $name ) {
-		if ( is_array( $options ) ) {
-			foreach ( $options as $n => $option ) {
-				$options[ $n ] = $this->translate_wildcard_options_recursive( $option, $n );
-			}
-		} else {
-			$options = pll__( $options );
-		}
-		return $options;
+		return $arr;
 	}
 }

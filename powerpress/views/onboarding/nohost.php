@@ -1,6 +1,7 @@
 <?php
 $GeneralSettings = powerpress_get_settings('powerpress_general');
-if (isset($GeneralSettings['blubrry_auth']) && $GeneralSettings['blubrry_auth'] != null) {
+$creds = get_option('powerpress_creds');
+if ((isset($GeneralSettings['blubrry_auth']) && $GeneralSettings['blubrry_auth'] != null) || $creds) {
     $next_page = 'createEpisode';
 } else {
     $next_page = 'wantStats';
@@ -10,6 +11,7 @@ if (isset($_GET['from']) && $_GET['from'] == 'import') {
 } else {
     $querystring_import = "";
 }
+$pp_nonce = powerpress_login_create_nonce();
 ?>
 <div class="wrap">
     <div class="pp_container">
@@ -56,10 +58,17 @@ if (isset($_GET['from']) && $_GET['from'] == 'import') {
                                         <p class="pp_align-center"><?php echo __('Secure media storage, unlimited bandwidth, and pro stats included. Create an account or sign in.', 'powerpress'); ?></p>
                                     </div>
                                     <div class="pp_button-container">
-                                        <a href="<?php echo admin_url("admin.php?page={$_GET['page']}&step=blubrrySignin$querystring_import"); ?>">
-                                            <button type="button" class="pp_button"><span><?php echo __('Host with Blubrry', 'powerpress'); ?></span></button>
+                                        <a href="<?php echo add_query_arg( '_wpnonce', $pp_nonce, admin_url("admin.php?page={$_GET['page']}&step=blubrrySignin$querystring_import")); ?>">
+                                            <button type="button" class="pp_button"><span><?php echo __('Login to Blubrry', 'powerpress'); ?></span></button>
                                         </a>
                                     </div>
+                                    <?php if (defined('blubrry_internal_create_account_beta')){ ?>
+                                    <div class="pp_button-container">
+                                        <a href="<?php echo add_query_arg( '_wpnonce', $pp_nonce, admin_url("admin.php?page={$_GET['page']}&blubrry_create=true&step=blubrrySignin$querystring_import")); ?>">
+                                            <button type="button" class="pp_button"><span><?php echo __('Create Account with Blubrry', 'powerpress'); ?></span></button>
+                                        </a>
+                                    </div>
+                                <?php } ?>
                                 <!--</div>-->
                             </div>
                         </div>
