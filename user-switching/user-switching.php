@@ -10,7 +10,7 @@
  *
  * Plugin Name:  User Switching
  * Description:  Instant switching between user accounts in WordPress
- * Version:      1.5.4
+ * Version:      1.5.6
  * Plugin URI:   https://johnblackbourn.com/wordpress-plugin-user-switching/
  * Author:       John Blackbourn & contributors
  * Author URI:   https://github.com/johnbillion/user-switching/graphs/contributors
@@ -104,7 +104,7 @@ class user_switching {
 		}
 
 		?>
-		<tr>
+		<tr class="user-switching-wrap">
 			<th scope="row"><?php echo esc_html_x( 'User Switching', 'User Switching title on user profile screen', 'user-switching' ); ?></th>
 			<td><a id="user_switching_switcher" href="<?php echo esc_url( $link ); ?>"><?php esc_html_e( 'Switch&nbsp;To', 'user-switching' ); ?></a></td>
 		</tr>
@@ -112,11 +112,11 @@ class user_switching {
 	}
 
 	/**
-	 * Returns whether or not the current logged in user is being remembered in the form of a persistent browser cookie
+	 * Returns whether the current logged in user is being remembered in the form of a persistent browser cookie
 	 * (ie. they checked the 'Remember Me' check box when they logged in). This is used to persist the 'remember me'
 	 * value when the user switches to another user.
 	 *
-	 * @return bool Whether the current user is being 'remembered' or not.
+	 * @return bool Whether the current user is being 'remembered'.
 	 */
 	public static function remember() {
 		/** This filter is documented in wp-includes/pluggable.php */
@@ -549,6 +549,17 @@ class user_switching {
 			return;
 		}
 
+		/**
+		 * Allows the 'Switch back to {user}' link in the WordPress footer to be disabled.
+		 *
+		 * @since 1.5.5
+		 *
+		 * @param bool $show_in_footer Whether to show the 'Switch back to {user}' link in footer.
+		 */
+		if ( ! apply_filters( 'user_switching_in_footer', true ) ) {
+			return;
+		}
+
 		$old_user = self::get_old_user();
 
 		if ( $old_user instanceof WP_User ) {
@@ -797,7 +808,7 @@ class user_switching {
 	}
 
 	/**
-	 * Returns whether or not User Switching's equivalent of the 'logged_in' cookie should be secure.
+	 * Returns whether User Switching's equivalent of the 'logged_in' cookie should be secure.
 	 *
 	 * This is used to set the 'secure' flag on the old user cookie, for enhanced security.
 	 *
@@ -810,11 +821,11 @@ class user_switching {
 	}
 
 	/**
-	 * Returns whether or not User Switching's equivalent of the 'auth' cookie should be secure.
+	 * Returns whether User Switching's equivalent of the 'auth' cookie should be secure.
 	 *
-	 * This is used to determine whether to set a secure auth cookie or not.
+	 * This is used to determine whether to set a secure auth cookie.
 	 *
-	 * @return bool Should the auth cookie be secure?
+	 * @return bool Whether the auth cookie should be secure.
 	 */
 	public static function secure_auth_cookie() {
 		return ( is_ssl() && ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) ) );
@@ -978,7 +989,6 @@ if ( ! function_exists( 'user_switching_set_olduser_cookie' ) ) {
 		 *
 		 * @param string $auth_cookie JSON-encoded array of authentication cookie values.
 		 * @param int    $expiration  The time when the authentication cookie expires as a UNIX timestamp.
-		 *                            Default is 48 hours from now.
 		 * @param int    $old_user_id User ID.
 		 * @param string $scheme      Authentication scheme. Values include 'auth' or 'secure_auth'.
 		 * @param string $token       User's session token to use for the latest cookie.
@@ -994,9 +1004,8 @@ if ( ! function_exists( 'user_switching_set_olduser_cookie' ) ) {
 		 *
 		 * @param string $olduser_cookie The old user cookie value.
 		 * @param int    $expiration     The time when the logged-in authentication cookie expires as a UNIX timestamp.
-		 *                               Default is 48 hours from now.
 		 * @param int    $old_user_id    User ID.
-		 * @param string $scheme         Authentication scheme. Default 'logged_in'.
+		 * @param string $scheme         Authentication scheme. Values include 'auth' or 'secure_auth'.
 		 * @param string $token          User's session token to use for this cookie.
 		 */
 		do_action( 'set_olduser_cookie', $olduser_cookie, $expiration, $old_user_id, $scheme, $token );
@@ -1231,7 +1240,7 @@ if ( ! function_exists( 'switch_off_user' ) ) {
 
 if ( ! function_exists( 'current_user_switched' ) ) {
 	/**
-	 * Returns whether or not the current user switched into their account.
+	 * Returns whether the current user switched into their account.
 	 *
 	 * @return false|WP_User False if the user isn't logged in or they didn't switch in; old user object (which evaluates to
 	 *                       true) if the user switched into the current user account.
