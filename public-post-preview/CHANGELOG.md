@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.2 (2020-10-03):
+* Fixes saving of preview status without a previous Ajax request.
+
+## 2.9.1 (2020-07-25):
+* Improve HTTP status codes for expired/invalid preview links.
+
 ## 2.9.0 (2019-07-20):
 * Requires WordPress 5.0
 * Requires PHP 5.6

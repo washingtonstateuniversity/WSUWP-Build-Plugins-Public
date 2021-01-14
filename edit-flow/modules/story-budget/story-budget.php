@@ -188,22 +188,55 @@ class EF_Story_Budget extends EF_Module {
 	 */
 	function handle_form_date_range_change() {
 		
-		if ( !isset( $_POST['ef-story-budget-range-submit'], $_POST['ef-story-budget-number-days'], $_POST['ef-story-budget-start-date'] ) )
+		if ( ! isset( $_POST['ef-story-budget-range-submit'], $_POST['ef-story-budget-number-days'], $_POST['ef-story-budget-start-date_hidden'] ) ) {
 			return;
+		}
 			
 		if ( !wp_verify_nonce( $_POST['nonce'], 'change-date' ) )
 			wp_die( $this->module->messages['nonce-failed'] );
 		
 		$current_user = wp_get_current_user();
-		$user_filters = $this->get_user_meta( $current_user->ID, self::usermeta_key_prefix . 'filters', true );
-		$user_filters['start_date'] = date( 'Y-m-d', strtotime( $_POST['ef-story-budget-start-date'] ) );
-		$user_filters['number_days'] = (int)$_POST['ef-story-budget-number-days'];
-		if ( $user_filters['number_days'] <= 1 )
-			$user_filters['number_days'] = 1;
+		$new_filters = array (
+			'start_date' => $_POST['ef-story-budget-start-date_hidden'],
+			'number_days' => (int) $_POST['ef-story-budget-number-days'],
+		);
+		$user_filters = $this->update_user_filters_from_form_date_range_change( $current_user, $new_filters );
 		
 		$this->update_user_meta( $current_user->ID, self::usermeta_key_prefix . 'filters', $user_filters );
 		wp_redirect( menu_page_url( $this->module->slug, false ) );
 		exit;
+	}
+
+	/**
+	 * Handles updating the users
+	 */
+	public function update_user_filters_from_form_date_range_change( $current_user, $new_filters ) {
+		$existing_filters = $this->get_user_meta( $current_user->ID, self::usermeta_key_prefix . 'filters', true );
+
+		// Default start date value
+		if ( isset( $new_filters['start_date'] ) ) {
+			// Validate that it's a legitimate date
+			$valid_date = DateTime::createFromFormat( 'Y-m-d', $new_filters['start_date'] );
+
+			if ( false === $valid_date ) {
+				$start_date = date_i18n( 'Y-m-d' );
+			} else {
+				$start_date = $valid_date->format( 'Y-m-d' );
+			}
+
+			// Set the start_date filter (to new value or default)
+			$existing_filters['start_date'] = $start_date;
+		}
+
+		if ( isset( $new_filters['number_days'] ) ) {
+			if ( $new_filters['number_days'] <= 1 ) {
+				$existing_filters['number_days'] = 1;
+			} else {
+				$existing_filters['number_days'] = $new_filters['number_days'];
+			}
+		}
+		
+		return $existing_filters;
 	}
 	
 	/**
@@ -320,32 +353,24 @@ class EF_Story_Budget extends EF_Module {
 	 * @since 0.7
 	 */
 	function story_budget_time_range() {
-		
-		$output = '<form method="POST" action="' . menu_page_url( $this->module->slug, false ) . '">';
-			
-		$start_date_value = '<input type="text" id="ef-story-budget-start-date" name="ef-story-budget-start-date"'
-			. ' size="10" class="date-pick" value="'
-			. esc_attr( date_i18n( get_option( 'date_format' ), strtotime( $this->user_filters['start_date'] ) ) ) . '" /><span class="form-value">';
-		
-		$start_date_value .= esc_html( date_i18n( get_option( 'date_format' ), strtotime( $this->user_filters['start_date'] ) ) );
-		$start_date_value .= '</span>';
-		
-		$number_days_value = '<input type="text" id="ef-story-budget-number-days" name="ef-story-budget-number-days"'
-			. ' size="3" maxlength="3" value="'
-			. esc_attr( $this->user_filters['number_days'] ) . '" /><span class="form-value">' . esc_html( $this->user_filters['number_days'] )
-			. '</span>';		
-		
-		$output .= sprintf( _x( 'starting %1$s showing %2$s %3$s', '%1$s = start date, %2$s = number of days, %3$s = translation of \'Days\'', 'edit-flow' ), $start_date_value, $number_days_value, _n( 'day', 'days', $this->user_filters['number_days'], 'edit-flow' ) );
-		$output .= '&nbsp;&nbsp;<span class="change-date-buttons">';
-		$output .= '<input id="ef-story-budget-range-submit" name="ef-story-budget-range-submit" type="submit"';
-		$output .= ' class="button-primary" value="' . __( 'Change', 'edit-flow' ) . '" />';
-		$output .= '&nbsp;';
-		$output .= '<a class="change-date-cancel hidden" href="#">' . __( 'Cancel', 'edit-flow' ) . '</a>';
-		$output .= '<a class="change-date" href="#">' . __( 'Change', 'edit-flow' ) . '</a>';
-		$output .= wp_nonce_field( 'change-date', 'nonce', 'change-date-nonce', false );
-		$output .= '</span></form>';
-		
-		echo $output;
+		?>
+		<form method="POST" action="<?php echo esc_attr( menu_page_url( $this->module->slug, false ) ); ?>">
+			<?php _e( 'starting', 'edit-flow' ); ?>
+			<span class="form-value"><?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $this->user_filters['start_date'] ) ) ); ?></span>
+			<input type="text" id="ef-story-budget-start-date" name="ef-story-budget-start-date" size="20" autocomplete="off" class="date-pick" value="<?php echo esc_attr( date_i18n( get_option( 'date_format' ), strtotime( $this->user_filters['start_date'] ) ) ); ?>" />
+			<input type="hidden" id="ef-story-budget-start-date_hidden" name="ef-story-budget-start-date_hidden" />
+			<?php _e( 'showing', 'edit-flow' ); ?>
+			<input type="text" id="ef-story-budget-number-days" name="ef-story-budget-number-days" size="3" maxlength="3" value="<?php echo esc_attr( $this->user_filters['number_days'] ); ?>" />
+			<span class="form-value"><?php echo esc_html( $this->user_filters['number_days'] ); ?></span>
+			<?php echo esc_html( _n( 'day', 'days', $this->user_filters['number_days'], 'edit-flow' ) ); ?>			
+			<span class="change-date-buttons">
+				<input id="ef-story-budget-range-submit" name="ef-story-budget-range-submit" type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Change', 'edit-flow' ) ); ?>" />
+				<a class="change-date-cancel hidden" href="#"><?php echo esc_html( __( 'Cancel', 'edit-flow' ) ); ?></a>
+				<a class="change-date" href="#"><?php echo esc_html( __( 'Change', 'edit-flow' ) ); ?></a>
+			</span>
+			<?php wp_nonce_field( 'change-date', 'nonce', 'change-date-nonce', true ); ?>
+		</form>
+		<?php	
 	}
 
 	/**
@@ -380,14 +405,13 @@ class EF_Story_Budget extends EF_Module {
 		// Unpublished as a status is just an array of everything but 'publish'.
 		if ( 'unpublish' == $args['post_status'] ) {
 			$args['post_status'] = '';
-			$post_stati = get_post_stati();
-			unset( $post_stati['inherit'], $post_stati['auto-draft'], $post_stati['trash'], $post_stati['publish'] );
+			$post_stati = wp_filter_object_list( $this->get_budget_post_stati(), array( 'name' => 'publish' ), 'not' );
+
 			if ( ! apply_filters( 'ef_show_scheduled_as_unpublished', false ) ) {
-				unset( $post_stati['future'] );
+				$post_stati = wp_filter_object_list( $post_stati, array( 'name' => 'future' ), 'not' );
 			}
-			foreach ( $post_stati as $post_status ) {
-				$args['post_status'] .= $post_status . ', ';
-			}
+
+			$args['post_status'] .= join( wp_list_pluck( $post_stati, 'name' ), ',' );
 		}
 
 		// Filter by post_author if it's set
@@ -723,16 +747,13 @@ class EF_Story_Budget extends EF_Module {
 	function story_budget_filter_options( $select_id, $select_name, $filters ) {
 		switch( $select_id ) {
 			case 'post_status': 
-			$post_stati = get_post_stati();
-			unset( $post_stati['inherit'], $post_stati['auto-draft'], $post_stati['trash'] );
+			$post_stati = $this->get_budget_post_stati();
 			?>
 				<select id="post_status" name="post_status"><!-- Status selectors -->
 						<option value=""><?php _e( 'View all statuses', 'edit-flow' ); ?></option>
 						<?php
-							foreach ( $post_stati as $post_status ) {
-								$value = $post_status;
-								$status = get_post_status_object($post_status)->label;
-								echo '<option value="' . esc_attr( $value ) . '" ' . selected( $value, $filters['post_status'] ) . '>' . esc_html( $status ) . '</option>';
+							foreach ( $post_stati as $status ) { 
+								echo '<option value="' . esc_attr( $status->name ) . '" ' . selected( $status->name, $filters['post_status'] ) . '>' . esc_html( $status->label ) . '</option>';
 							}
 							echo '<option value="unpublish"' . selected('unpublish', $filters['post_status']) . '>' . __( 'Unpublished', 'edit-flow' ) . '</option>';
 						?>
@@ -767,6 +788,30 @@ class EF_Story_Budget extends EF_Module {
 				do_action( 'ef_story_budget_filter_display', $select_id, $select_name, $filters);
 			break;
 		}
+	}
+
+	/**
+	 * Returns a list of custom status objects used by the story budget
+	 * 
+	 * @return array An array of StdClass objects representing statuses
+	 */
+	public function get_budget_post_stati() {
+		$post_stati = get_post_stati( array(), 'object' );
+		$custom_status_slugs = wp_list_pluck( $this->get_post_statuses(), 'slug' );
+		$custom_status_slugs[] = 'future';	
+		$custom_status_slugs[] = 'publish';
+
+		$custom_status_slug_keys = array_flip( $custom_status_slugs );
+
+		$final_statuses = [];
+
+		foreach( $post_stati as $status ) {
+			if ( !empty( $custom_status_slug_keys[ $status->name ] ) ) {
+				$final_statuses[] = $status;
+			}
+		}
+
+		return apply_filters( 'ef_budget_post_stati', $final_statuses );
 	}
 	
 }
