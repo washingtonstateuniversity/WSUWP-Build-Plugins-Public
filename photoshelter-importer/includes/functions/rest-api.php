@@ -384,7 +384,8 @@ function handle_importer_sideload( \WP_REST_Request $request ) {
 
 	$file_name = $info->data->attributes->file_name;
 
-	$tmp_path = sprintf( '/tmp/%s', $file_name );
+	//$tmp_path = sprintf( '/tmp/%s', $file_name ); WSUTODO: Request fix
+	$tmp_path = sprintf( '%s%s', get_temp_dir(), $file_name );
 	$download = $media->download_media( compact( 'file_type', 'file_quality', 'media_id' ) );
 
 	if ( is_wp_error( $download ) ) {
