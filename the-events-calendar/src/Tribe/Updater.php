@@ -39,7 +39,7 @@ class Tribe__Events__Updater {
 				}
 			}
 
-			foreach ( $this->constant_updates() as $callback )  {
+			foreach ( $this->get_constant_update_callbacks() as $callback ) {
 				call_user_func( $callback );
 			}
 
@@ -77,27 +77,14 @@ class Tribe__Events__Updater {
 	 * @return array
 	 */
 	public function get_update_callbacks() {
-		return array(
-			'2.0.1'  => array( $this, 'migrate_from_sp_events' ),
-			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
-			'3.10a4' => array( $this, 'set_enabled_views' ),
-			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
-			'4.2'    => array( $this, 'migrate_import_option' ),
-			'4.6.23' => array( $this, 'migrate_wordpress_custom_field_option' ),
-		);
-	}
-
-	/**
-	 * Returns an array of callbacks that should be called
-	 * every time the version is updated
-	 *
-	 * This method has been deprecated in favor of a more testable public function
-	 *
-	 * @return array
-	 * @deprecated 4.0
-	 */
-	protected function constant_updates() {
-		return $this->get_constant_update_callbacks();
+		return [
+			'2.0.1'  => [ $this, 'migrate_from_sp_events' ],
+			'2.0.6'  => [ $this, 'migrate_from_sp_options' ],
+			'3.10a4' => [ $this, 'set_enabled_views' ],
+			'3.10a5' => [ $this, 'remove_30_min_eod_cutoffs' ],
+			'4.2'    => [ $this, 'migrate_import_option' ],
+			'4.6.23' => [ $this, 'migrate_wordpress_custom_field_option' ],
+		];
 	}
 
 	/**
@@ -107,10 +94,10 @@ class Tribe__Events__Updater {
 	 * @return array
 	 */
 	public function get_constant_update_callbacks() {
-		return array(
-			array( $this, 'flush_rewrites' ),
-			array( $this, 'set_capabilities' ),
-		);
+		return [
+			[ $this, 'flush_rewrites' ],
+			[ $this, 'set_capabilities' ],
+		];
 	}
 
 	public function get_version_from_db() {
@@ -168,22 +155,22 @@ class Tribe__Events__Updater {
 		}
 
 		// update post type names
-		$wpdb->update( $wpdb->posts, array( 'post_type' => Tribe__Events__Main::POSTTYPE ), array( 'post_type' => 'sp_events' ) );
-		$wpdb->update( $wpdb->posts, array( 'post_type' => Tribe__Events__Main::VENUE_POST_TYPE ), array( 'post_type' => 'sp_venue' ) );
-		$wpdb->update( $wpdb->posts, array( 'post_type' => Tribe__Events__Main::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer' ) );
+		$wpdb->update( $wpdb->posts, [ 'post_type' => Tribe__Events__Main::POSTTYPE ], [ 'post_type' => 'sp_events' ] );
+		$wpdb->update( $wpdb->posts, [ 'post_type' => Tribe__Events__Main::VENUE_POST_TYPE ], [ 'post_type' => 'sp_venue' ] );
+		$wpdb->update( $wpdb->posts, [ 'post_type' => Tribe__Events__Main::ORGANIZER_POST_TYPE ], [ 'post_type' => 'sp_organizer' ] );
 
 		// update taxonomy names
-		$wpdb->update( $wpdb->term_taxonomy, array( 'taxonomy' => Tribe__Events__Main::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat' ) );
+		$wpdb->update( $wpdb->term_taxonomy, [ 'taxonomy' => Tribe__Events__Main::TAXONOMY ], [ 'taxonomy' => 'sp_events_cat' ] );
 		wp_cache_flush();
 	}
 
 	public function migrate_from_sp_options() {
 		$tec_options = Tribe__Settings_Manager::get_options();
-		$option_names     = array(
+		$option_names = [
 			'spEventsTemplate'   => 'tribeEventsTemplate',
 			'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
 			'spEventsAfterHTML'  => 'tribeEventsAfterHTML',
-		);
+		];
 		foreach ( $option_names as $old_name => $new_name ) {
 			if ( isset( $tec_options[ $old_name ] ) && empty( $tec_options[ $new_name ] ) ) {
 				$tec_options[ $new_name ] = $tec_options[ $old_name ];
@@ -198,10 +185,21 @@ class Tribe__Events__Updater {
 		add_action( 'wp_loaded', 'flush_rewrite_rules' );
 	}
 
+	/**
+	 * Set the Capabilities for Events and Related Post Types.
+	 *
+	 * @since 5.1.1 - change method of calling set_capabilities.
+	 */
 	public function set_capabilities() {
-		$this->capabilities = new Tribe__Events__Capabilities();
-		add_action( 'wp_loaded', array( $this->capabilities, 'set_initial_caps' ) );
-		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
+		// @var Tribe__Events__Capabilities $capabilities
+		$capabilities = tribe( Tribe__Events__Capabilities::class );
+
+		// We need to set the requirement on update to allow the next page load to trigger
+		// only when the current request fails before `wp_loaded`, dont run `set_initial_caps` here.
+		$capabilities->set_needs_init();
+
+		add_action( 'wp_loaded', [ $capabilities, 'set_initial_caps' ], 10, 0 );
+		add_action( 'wp_loaded', [ $this, 'reload_current_user' ], 11, 0 );
 	}
 
 	/**
@@ -233,7 +231,7 @@ class Tribe__Events__Updater {
 	public function set_enabled_views() {
 		$enabled_views = tribe_get_option( 'tribeEnableViews', null );
 		if ( $enabled_views == null ) {
-			$views = wp_list_pluck( apply_filters( 'tribe-events-bar-views', array() ), 'displaying' );
+			$views = wp_list_pluck( apply_filters( 'tribe-events-bar-views', [] ), 'displaying' );
 			tribe_update_option( 'tribeEnableViews', $views );
 		}
 	}

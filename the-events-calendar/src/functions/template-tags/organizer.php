@@ -6,6 +6,8 @@
  */
 
 // Don't load directly
+use Tribe\Events\Models\Post_Types\Organizer;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
@@ -50,7 +52,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_organizer_ids( $event_id = null ) {
 		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 
-		$organizer_ids = array();
+		$organizer_ids = [];
 
 		if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
 			$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
@@ -77,15 +79,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array
 	 */
-	function tribe_sanitize_organizers( $current = array(), $ordered = array() ) {
+	function tribe_sanitize_organizers( $current = [], $ordered = [] ) {
 		_deprecated_function( __METHOD__, '4.6.23', 'No longer needed after removing reliance on a separate postmeta field to store the ordering.' );
 
 		if ( empty( $ordered ) ) {
 			return $current;
 		}
 
-		$order    = array();
-		$excluded = array();
+		$order    = [];
+		$excluded = [];
 		foreach ( (array) $current as $post_id ) {
 			$key = array_search( $post_id, $ordered );
 			if ( false === $key ) {
@@ -95,38 +97,75 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
-		// Make sure before the merge the order is ordered by the keys
+		// Make sure before the merge the order is ordered by the keys.
 		ksort( $order );
 
 		return array_merge( $order, $excluded );
 	}
 
 	/**
-	 * Get Organizer Label Singular
+	 * Get Organizer Label Singular.
+	 * Returns the singular version of the Organizer Label.
 	 *
-	 * Returns the singular version of the Organizer Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.7
+	 * @since5.1.6 remove escaping.
+	 *
+	 * @return string The singular version of the Organizer Label.
 	 */
 	function tribe_get_organizer_label_singular() {
-		return apply_filters( 'tribe_organizer_label_singular', esc_html__( 'Organizer', 'the-events-calendar' ) );
+		/**
+		 * Allows customization of the singular version of the Organizer Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.7
+		 * @since5.1.6 Added docblock, remove escaping.
+		 *
+		 * @param string $label The singular version of the Organizer label, defaults to "Organizer" (uppercase)
+		 */
+		return apply_filters(
+			'tribe_organizer_label_singular',
+			__( 'Organizer', 'the-events-calendar' )
+		);
 	}
 
 	/**
 	 * Get Organizer Label Plural
+	 * Returns the plural version of the Organizer Label.
 	 *
-	 * Returns the plural version of the Organizer Label
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
 	 *
-	 * @return string
+	 * @since 3.7
+	 * @since5.1.6 remove escaping.
+	 *
+	 * @return string The plural version of the Organizer Label.
 	 */
 	function tribe_get_organizer_label_plural() {
-		return apply_filters( 'tribe_organizer_label_plural', esc_html__( 'Organizers', 'the-events-calendar' ) );
+		/**
+		 * Allows customization of the plural version of the Organizer Label.
+		 * Note: the output of this filter is not escaped!
+		 *
+		 * @since 3.7
+		 * @since5.1.6 Added docblock, remove escaping.
+		 *
+		 * @param string $label The plural version of the Organizer label, defaults to "Organizers" (uppercase).
+		 */
+		return apply_filters(
+			'tribe_organizer_label_plural',
+			__( 'Organizers', 'the-events-calendar' )
+		);
 	}
 
 	/**
-	 * Get the organizer label
+	 * Get the organizer label.
 	 *
-	 * @param bool $singular TRUE to return the singular label, FALSE to return plural
+	 * Note: the output of this function is not escaped.
+	 * You should escape it wherever you use it!
+	 *
+	 * @param bool $singular TRUE to return the singular label, FALSE to return plural.
 	 *
 	 * @return string
 	 */
@@ -144,14 +183,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Typically this is a pipe separated format containing the organizer's telephone
 	 * number, email address and website where available.
 	 *
-	 * @param int $post_id
+	 * @param int $post_id Either the organizer or event ID, if none specified, current post is used.
 	 *
 	 * @return string
 	 */
 	function tribe_get_organizer_details( $post_id = null ) {
-		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
+		$post_id      = Tribe__Events__Main::postIdHelper( $post_id );
 		$organizer_id = (int) tribe_get_organizer_id( $post_id );
-		$details = array();
+		$details      = [];
 
 		if ( $organizer_id && $tel = tribe_get_organizer_phone() ) {
 			$details[] = '<span class="tel">' . $tel . '</span>';
@@ -175,9 +214,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Provides an opportunity to modify the organizer details HTML.
 		 *
-		 * @param string $html
-		 * @param int    $post_id
-		 * @param int    $organizer_id
+		 * @param string $html         Organizer details HTML.
+		 * @param int    $post_id      Either the organizer or event ID.
+		 * @param int    $organizer_id The organizer ID.
 		 */
 		return apply_filters( 'tribe_get_organizer_details', $html, $post_id, $organizer_id );
 	}
@@ -187,7 +226,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the name of the Organizer
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Either event id or organizer id, if none specified, current post is used.
 	 *
 	 * @return string Organizer's Name
 	 */
@@ -205,9 +244,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Test
 	 *
-	 * Returns true or false depending on if the post id has/is a n organizer
+	 * Returns true or false depending on if the post id has/is an organizer
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Either event id or organizer id, if none specified, current post is used.
 	 *
 	 * @return bool
 	 */
@@ -221,9 +260,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Email
 	 *
-	 * Returns the Organizer's Email
+	 * Returns the Organizer's Email.
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int  $postId      Either event id or organizer id, if none specified, current post is used.
 	 * @param bool $antispambot Whether the email should pass through the `antispambot` function or not.
 	 *
 	 * @return string Organizer's Email
@@ -249,38 +288,73 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Organizer Page Link
 	 *
-	 * Returns the event Organizer Name with a link to their single organizer page
+	 * Returns the event Organizer Name with a link to their single organizer page.
 	 *
-	 * @param int  $postId    Can supply either event id or organizer id, if none specified, current post is used
-	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output
-	 * @param bool $echo      If true, echo the link, otherwise return
+	 * @param int  $post_id   Either event id or organizer id, if none specified, current post is used.
+	 * @param bool $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output.
+	 * @param bool $echo      Deprecated. If true, echo the link, otherwise return.
 	 *
 	 * @return string Organizer Name and Url
 	 */
-	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = false ) {
+	function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = false ) {
 
-		// As of TEC 4.0 this argument is deprecated
-		// If needed precede the call to this function with echo
-		if ( $echo != false ) _deprecated_argument( __FUNCTION__, '4.0' );
+		// As of TEC 4.0 this argument is deprecated.
+		// If needed precede the call to this function with echo.
+		if ( false != $echo ) {
+			_deprecated_argument( __FUNCTION__, '4.0', 'As of TEC 4.0 this argument is deprecated. If needed, precede the call to this function with echo' );
+		}
 
-		$org_id = tribe_get_organizer_id( $postId );
+		$org_id = tribe_get_organizer_id( $post_id );
 		if ( class_exists( 'Tribe__Events__Pro__Main' ) && get_post_status( $org_id ) == 'publish' ) {
+
 			$url = esc_url_raw( get_permalink( $org_id ) );
+			/**
+			 * Filter the organizer link target attribute.
+			 *
+			 * @since 5.1.0
+			 *
+			 * @param string   $target  The target attribute string. Defaults to "_self".
+			 * @param string   $url     The link URL.
+			 * @param int      $post_id Either event id or organizer id, if none specified, current post is used.
+			 * @param int      $org_id  The organizer id.
+			 */
+			$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id, $org_id );
+			$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : '';
+
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $org_id );
-				$attr_title = the_title_attribute( array( 'post' => $org_id, 'echo' => false ) );
-				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'">' . $name . '</a>' : false;
+
+				if ( empty( $url ) || empty( $name ) ) {
+					$link = false;
+				} else {
+					$link = sprintf(
+						'<a href="%s" title="%s" target="%s" rel="%s">%s</a>',
+						esc_url( $url ),
+						the_title_attribute(
+							[
+								'post' => $org_id,
+								'echo' => false,
+							]
+						),
+						esc_attr( $target ),
+						esc_attr( $rel ),
+						esc_html( $name )
+					);
+				}
 			} else {
 				$link = $url;
 			}
 
-			// Remove this in or before 5.x to fully deprecate the echo arg
-			if ( $echo ) {
-				echo apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url );
-			} else {
-				return apply_filters( 'tribe_get_organizer_link', $link, $postId, $full_link, $url );
-			}
+			/**
+			 * Filter the organizer link HTML
+			 *
+			 * @since 4.0
+			 *
+			 * @param string the link HTML.
+			 */
+			return apply_filters( 'tribe_get_organizer_link', $link, $post_id, $full_link, $url );
 		}
+
 		//Return Organizer Name if Pro is not Active
 		return tribe_get_organizer( $org_id );
 	}
@@ -324,16 +398,39 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the event Organizer Name with a link to their supplied website
 	 *
-	 * @param $post_id post ID for an event
-	 * @param $label   text for the link
+	 * @param null|int    $post_id The post ID for an event.
+	 * @param null|string $label   The text for the link.
 	 *
 	 * @return string
 	 **/
 	function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 		$post_id = tribe_get_organizer_id( $post_id );
 		$url     = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
+
+		/**
+		 * Filter the organizer link target attribute.
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param string   $target  The target attribute string. Defaults to "_self".
+		 * @param string   $url     The link URL.
+		 * @param null|int $post_id post ID for the organizer.
+		 */
+		$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id );
+		$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
+
+		/**
+		 * Filter the organizer link label
+		 *
+		 * @since 5.1.0
+		 *
+		 * @param string the link label/text.
+		 */
+		$label = apply_filters( 'tribe_get_organizer_website_link_label', $label, $post_id );
+
 		if ( ! empty( $url ) ) {
 			$label = is_null( $label ) ? $url : $label;
+
 			if ( ! empty( $url ) ) {
 				$parseUrl = parse_url( $url );
 				if ( empty( $parseUrl['scheme'] ) ) {
@@ -341,16 +438,46 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				}
 			}
 			$html = sprintf(
-				'<a href="%s" target="%s">%s</a>',
+				'<a href="%s" target="%s" rel="%s">%s</a>',
 				esc_attr( esc_url( $url ) ),
-				apply_filters( 'tribe_get_organizer_website_link_target', '_self' ),
-				apply_filters( 'tribe_get_organizer_website_link_label', esc_html( $label ) )
+				esc_attr( $target ),
+				esc_attr( $rel ),
+				esc_html( $label )
 			);
 		} else {
 			$html = '';
 		}
 
+		/**
+		 * Filter the organizer link HTML
+		 *
+		 * @since 3.0
+		 *
+		 * @param string the link HTML.
+		 */
 		return apply_filters( 'tribe_get_organizer_website_link', $html );
+	}
+
+	/**
+	 * Get the link for the organizer website.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param null|int $post_id The event or organizer ID.
+	 * @return string  Formatted title for the organizer website link
+	 */
+	function tribe_events_get_organizer_website_title( $post_id = null ) {
+		$post_id = tribe_get_organizer_id( $post_id );
+
+		/**
+		 * Allows customization of a organizer's website title link.
+		 *
+		 * @since 5.5.0
+		 *
+		 * @param string $title The title of the organizer's website link.
+		 * @param int 	 $post_id The organizer ID.
+		 */
+		return apply_filters( 'tribe_events_get_organizer_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
 	}
 
 	/**
@@ -369,7 +496,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return array|int An array of organizer post objects or an integer value if `found_posts` is set to a truthy value.
 	 */
-	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = - 1, $suppress_filters = true, array $args = array() ) {
+	function tribe_get_organizers( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = [] ) {
 		// filter out the `null` values
 		$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
@@ -377,11 +504,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['only_with_upcoming'] = true;
 		}
 
-		$filter_args = array(
+		$filter_args = [
 			'event'              => 'find_for_event',
 			'has_events'         => 'find_with_events',
 			'only_with_upcoming' => 'find_with_upcoming_events',
-		);
+		];
 
 		foreach ( $filter_args as $filter_arg => $method ) {
 			if ( ! isset( $args[ $filter_arg ] ) ) {
@@ -398,7 +525,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( empty( $found ) ) {
-				return array();
+				return [];
 			}
 
 			$args['post__in'] = ! empty( $args['post__in'] )
@@ -406,15 +533,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				: $found;
 
 			if ( empty( $args['post__in'] ) ) {
-				return array();
+				return [];
 			}
 		}
 
-		$parsed_args = wp_parse_args( $args, array(
+		$parsed_args = wp_parse_args(
+			$args,
+			[
 				'post_type'        => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 				'posts_per_page'   => $posts_per_page,
 				'suppress_filters' => $suppress_filters,
-			)
+			]
 		);
 
 		$return_found_posts = ! empty( $args['found_posts'] );
@@ -435,7 +564,88 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return 0;
 		}
 
-		return $query->have_posts() ? $query->posts : array();
+		return $query->have_posts() ? $query->posts : [];
 	}
 
+	/**
+	 * Fetches and returns a decorated post object representing a Organizer.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param null|int|WP_Post $organizer  The organizer ID or post object or `null` to use the global one.
+	 * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
+	 *                                 correspond to a WP_Post object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string           $filter Type of filter to apply. Accepts 'raw'.
+	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
+	 *
+	 * @return array|mixed|void|WP_Post|null {
+	 *                              The Organizer post object or array, `null` if not found.
+	 *
+	 *                              @type string $phone The organizer phone number NOT filtered, apply anti-spambot filters if required.
+	 *                              @type string $website The organizer full website URL.
+	 *                              @type string $email The organizer email address NOT filtered, apply anti-spambot filters if required.
+	 *                          }
+	 */
+	function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filter = 'raw', $force = false ) {
+		/**
+		 * Filters the organizer result before any logic applies.
+		 *
+		 * Returning a non `null` value here will short-circuit the function and return the value.
+		 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param mixed       $return      The organizer object to return.
+		 * @param mixed       $organizer       The organizer object to fetch.
+		 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+		 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+		 *                                 respectively. Defaults to `OBJECT`.
+		 * @param string      $filter      Type of filter to apply. Accepts 'raw'.
+		 */
+		$return = apply_filters( 'tribe_get_organizer_object_before', null, $organizer, $output, $filter );
+
+		if ( null !== $return ) {
+			return $return;
+		}
+
+		$post = false;
+		if ( ! $force ) {
+			$cache_key = 'tribe_get_organizer_object_' . md5( json_encode( [ $organizer, $output, $filter ] ) );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			$post  = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		if ( false === $post ) {
+			$post = Organizer::from_post( $organizer )->to_post( $output, $filter );
+
+			if ( empty( $post ) ) {
+				return null;
+			}
+
+			/**
+			 * Filters the organizer post object before caching it and returning it.
+			 *
+			 * Note: this value will be cached; as such this filter might not run on each request.
+			 * If you need to filter the output value on each call of this function then use the `tribe_get_organizer_object_before`
+			 * filter.
+			 *
+			 * @since 5.3.0
+			 *
+			 * @param WP_Post $post   The organizer post object, decorated with a set of custom properties.
+			 * @param string  $output The output format to use.
+			 * @param string  $filter The filter, or context of the fetch.
+			 */
+			$post = apply_filters( 'tribe_get_organizer_object', $post, $output, $filter );
+
+			$cache->set( $cache_key, $post, WEEK_IN_SECONDS, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		if ( OBJECT !== $output ) {
+			$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );
+		}
+
+		return $post;
+	}
 }

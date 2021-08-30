@@ -38,7 +38,7 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 	 * {@inheritDoc}
 	 */
 	protected function repository() {
-		// @todo refine this to handle order depending on the View.
+		// @todo [BTRIA-594]: Refine this to handle order depending on the View.
 		return tribe_events()->order_by( 'event_date', 'ASC' );
 	}
 
@@ -50,6 +50,9 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 	 * @param \WP_Query $query The current WordPress query object.
 	 */
 	public function parse_query( \WP_Query $query ) {
+		if ( ! $this->control_query( $query ) ) {
+			return;
+		}
 
 		/*
 		 * If this method fires on the `tribe_events_parse_query` action, then the `Tribe__Events__Query::parse_query`
@@ -64,10 +67,12 @@ class Event_Query_Controller extends Abstract_Query_Controller {
 				empty( $query->tribe_is_multi_posttype ),
 				// It must be a query for an archive of events.
 				! empty( $query->is_archive ),
+				// It must not be a feed query, we delegate feed filtering to v1 currently.
+				empty( $query->is_feed ),
 			]
 		);
 
-		if ( 3 === $suppress_filters || $query->is_embed ) {
+		if ( 4 === $suppress_filters || $query->is_embed ) {
 			$query->set( 'tribe_suppress_query_filters', true );
 		}
 	}

@@ -27,10 +27,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param string $template_path template to use, defaults to the full month view
 	 *
 	 **/
-	function tribe_show_month( $args = array(), $template_path = 'month/content' ) {
+	function tribe_show_month( $args = [], $template_path = 'month/content' ) {
 
 		// temporarily unset the tribe bar params so they don't apply
-		$hold_tribe_bar_args = array();
+		$hold_tribe_bar_args = [];
 		foreach ( $_REQUEST as $key => $value ) {
 			if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
 				$hold_tribe_bar_args[ $key ] = $value;
@@ -149,7 +149,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Gets the current day in the month loop
 	 *
 	 * Returned array contains the following elements if the day is in the currently displaying month:
-	 *    'daynum'       => Day of the month (int)
+	 *  'daynum'       => Day of the month (int)
 	 *  'date'         => Complete date (Y-m-d)
 	 *  'events'       => Object containing events on this day (WP_Query)
 	 *  'total_events' => Number of events on this day (int)

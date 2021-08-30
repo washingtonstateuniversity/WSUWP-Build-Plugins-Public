@@ -28,6 +28,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/functions/template-tags.php';
+		require_once tribe( 'tec.main' )->plugin_path . 'src/Tribe/Views/V2/functions/classes.php';
 
 		$this->container->singleton( Manager::class, Manager::class );
 		$this->container->singleton( Template_Bootstrap::class, Template_Bootstrap::class );
@@ -37,6 +38,10 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Theme_Compatibility::class, Theme_Compatibility::class );
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 		$this->container->singleton( Template\Settings\Advanced_Display::class, Template\Settings\Advanced_Display::class );
+		$this->container->singleton( Template\JSON_LD::class, Template\JSON_LD::class );
+
+		tribe_register_provider( Widgets\Service_Provider::class );
+		tribe_register_provider( Customizer\Service_Provider::class );
 
 		$this->register_hooks();
 		$this->register_assets();

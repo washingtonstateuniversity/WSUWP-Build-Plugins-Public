@@ -38,12 +38,128 @@ class Tribe__Assets {
 	public function __construct() {
 		// Hook the actual registering of.
 		add_action( 'init', [ $this, 'register_in_wp' ], 1, 0 );
+		add_filter( 'script_loader_tag', [ $this, 'filter_tag_async_defer' ], 50, 2 );
+
+		// Enqueue late.
+		add_filter( 'script_loader_tag', [ $this, 'filter_add_localization_data' ], 500, 2 );
+	}
+
+	/**
+	 * Handles adding localization data, when attached to `script_loader_tag` which allows dependencies to load in their
+	 * localization data as well.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $tag    Tag we are filtering.
+	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
+	 *
+	 * @return string Script tag with the localization variable HTML attached to it.
+	 */
+	public function filter_add_localization_data( $tag, $handle ) {
+		// Only filter for own own filters.
+		if ( ! $asset = $this->get( $handle ) ) {
+			return $tag;
+		}
+
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
+		// Only localize on JS and if we have data.
+		if ( empty( $asset->localize ) ) {
+			return $tag;
+		}
+
+		global $wp_scripts;
+
+		// Makes sure we have an Array of Localize data.
+		if ( is_object( $asset->localize ) ) {
+			$localization = [ $asset->localize ];
+		} else {
+			$localization = (array) $asset->localize;
+		}
+
+		/**
+		 * Check to ensure we haven't already localized it before.
+		 *
+		 * @since 4.5.8
+		 */
+		foreach ( $localization as $localize ) {
+			if ( in_array( $localize->name, $this->localized ) ) {
+				continue;
+			}
+
+			// If we have a Callable as the Localize data we execute it.
+			if ( is_callable( $localize->data ) ) {
+				$localize->data = call_user_func( $localize->data, $asset );
+			}
+
+			wp_localize_script( $asset->slug, $localize->name, $localize->data );
+
+			$this->localized[] = $localize->name;
+		}
+
+		// Fetch the HTML for all the localized data.
+		ob_start();
+		$wp_scripts->print_extra_script( $asset->slug, true );
+		$localization_html = ob_get_clean();
+
+		// After printing it remove data;|
+		$wp_scripts->add_data( $asset->slug, 'data', '' );
+
+		return $localization_html . $tag;
+	}
+
+	/**
+	 * Filters the Script tags to attach Async and/or Defer based on the rules we set in our Asset class.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $tag    Tag we are filtering.
+	 * @param string $handle Which is the ID/Handle of the tag we are about to print.
+	 *
+	 * @return string Script tag with the defer and/or async attached.
+	 */
+	public function filter_tag_async_defer( $tag, $handle ) {
+		// Only filter for own own filters.
+		if ( ! $asset = $this->get( $handle ) ) {
+			return $tag;
+		}
+
+		// Bail when not dealing with JS assets.
+		if ( 'js' !== $asset->type ) {
+			return $tag;
+		}
+
+		// When async and defer are false we bail with the tag.
+		if ( ! $asset->defer && ! $asset->async ) {
+			return $tag;
+		}
+
+		$tag_has_async = false !== strpos( $tag, ' async ' );
+		$tag_has_defer = false !== strpos( $tag, ' defer ' );
+		$replacement = '<script ';
+
+		if ( $asset->async && ! $tag_has_async ) {
+			$replacement .= 'async ';
+		}
+
+		if ( $asset->defer && ! $tag_has_defer ) {
+			$replacement .= 'defer ';
+		}
+
+		$replacement_src  = $replacement . 'src=';
+		$replacement_type = $replacement . 'type=';
+
+		return str_replace( [ '<script src=', '<script type=' ], [ $replacement_src, $replacement_type ], $tag );
 	}
 
 	/**
 	 * Register the Assets on the correct hooks.
 	 *
 	 * @since 4.3
+	 * @param array|object|null $assets Array of asset objects, single asset object, or null.
 	 *
 	 * @return void
 	 */
@@ -68,7 +184,15 @@ class Tribe__Assets {
 					continue;
 				}
 
-				wp_register_script( $asset->slug, $asset->url, $asset->deps, $asset->version, $asset->in_footer );
+				$dependencies = $asset->deps;
+
+				// If the asset is a callable, we call the function,
+				// passing it the asset and expecting back an array of dependencies.
+				if ( is_callable( $asset->deps ) ) {
+					$dependencies = call_user_func( $asset->deps, [ $asset ] );
+				}
+
+				wp_register_script( $asset->slug, $asset->url, $dependencies, $asset->version, $asset->in_footer );
 
 				// Register that this asset is actually registered on the WP methods.
 				$asset->is_registered = wp_script_is( $asset->slug, 'registered' );
@@ -201,7 +325,7 @@ class Tribe__Assets {
 			}
 
 			/**
-			 * Allows developers to hook-in and prevent an asset from been loaded.
+			 * Allows developers to hook-in and prevent an asset from being loaded.
 			 *
 			 * @since 4.3
 			 *
@@ -211,7 +335,7 @@ class Tribe__Assets {
 			$enqueue = apply_filters( 'tribe_asset_enqueue', $enqueue, $asset );
 
 			/**
-			 * Allows developers to hook-in and prevent an asset from been loaded
+			 * Allows developers to hook-in and prevent an asset from being loaded.
 			 *
 			 * @since 4.3
 			 *
@@ -225,38 +349,28 @@ class Tribe__Assets {
 			}
 
 			if ( 'js' === $asset->type ) {
+				if ( $asset->print && ! $asset->already_printed ) {
+					$asset->already_printed = true;
+					wp_print_scripts( [ $asset->slug ] );
+				}
+				// We print first, and tell the system it was enqueued, WP is smart not to do it twice.
 				wp_enqueue_script( $asset->slug );
 
-				// Only localize on JS and if we have data.
-				if ( ! empty( $asset->localize ) ) {
-					// Makes sure we have an Array of Localize data.
-					if ( is_object( $asset->localize ) ) {
-						$localization = [ $asset->localize ];
-					} else {
-						$localization = (array) $asset->localize;
-					}
-
-					/**
-					 * Check to ensure we haven't already localized it before.
-					 *
-					 * @since 4.5.8
-					 */
-					foreach ( $localization as $localize ) {
-						if ( in_array( $localize->name, $this->localized ) ) {
-							continue;
-						}
-
-						// If we have a Callable as the Localize data we execute it.
-						if ( is_callable( $localize->data ) ) {
-							$localize->data = call_user_func( $localize->data, $asset );
-						}
-
-						wp_localize_script( $asset->slug, $localize->name, $localize->data );
-						$this->localized[] = $localize->name;
-					}
+				// If available, load the script translations.
+				if ( isset( $asset->translations['domain'], $asset->translations['path'] ) && function_exists( 'wp_set_script_translations' ) ) {
+					wp_set_script_translations( $asset->slug, $asset->translations['domain'], $asset->translations['path'] );
 				}
 			} else {
+				if ( $asset->print && ! $asset->already_printed ) {
+					$asset->already_printed = true;
+					wp_print_styles( [ $asset->slug ] );
+				}
+				// We print first, and tell the system it was enqueued, WP is smart not to do it twice.
 				wp_enqueue_style( $asset->slug );
+			}
+
+			if ( ! empty( $asset->after_enqueue ) && is_callable( $asset->after_enqueue ) ) {
+				call_user_func_array( $asset->after_enqueue, [ $asset ] );
 			}
 
 			$asset->already_enqueued = true;
@@ -324,22 +438,27 @@ class Tribe__Assets {
 			return false;
 		}
 
+		$script_debug = defined( 'SCRIPT_DEBUG' ) && tribe_is_truthy( SCRIPT_DEBUG );
+
 		// Strip the plugin URL and make this relative.
 		$relative_location = str_replace( $base_url, '', $url );
 
-		// If needed add the Min Files.
-		if ( ! defined( 'SCRIPT_DEBUG' ) || SCRIPT_DEBUG === false ) {
-			if ( substr( $relative_location, - 3, 3 ) === '.js' ) {
-				$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
-			}
-
-			if ( substr( $relative_location, - 4, 4 ) === '.css' ) {
-				$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
-			}
+		if ( $script_debug ) {
+			// Add the actual url after having the min file added.
+			$urls[] = $relative_location;
 		}
 
-		// Add the actual url after having the min file added.
-		$urls[] = $relative_location;
+		// If needed add the Min Files.
+		if ( substr( $relative_location, -3, 3 ) === '.js' ) {
+			$urls[] = substr_replace( $relative_location, '.min', - 3, 0 );
+		} elseif ( substr( $relative_location, -4, 4 ) === '.css' ) {
+			$urls[] = substr_replace( $relative_location, '.min', - 4, 0 );
+		}
+
+		if ( ! $script_debug ) {
+			// Add the actual url after having the min file added.
+			$urls[] = $relative_location;
+		}
 
 		// Check for all Urls added to the array.
 		foreach ( $urls as $partial_path ) {
@@ -363,7 +482,7 @@ class Tribe__Assets {
 	 * @param object            $origin    The main object for the plugin you are enqueueing the asset for.
 	 * @param string            $slug      Slug to save the asset - passes through `sanitize_title_with_dashes()`.
 	 * @param string            $file      The asset file to load (CSS or JS), including non-minified file extension.
-	 * @param array             $deps      The list of dependencies.
+	 * @param array             $deps      The list of dependencies or callable function that will return a list of dependencies.
 	 * @param string|array|null $action    The WordPress action(s) to enqueue on, such as `wp_enqueue_scripts`,
 	 *                                     `admin_enqueue_scripts`, or `login_enqueue_scripts`.
 	 * @param string|array      $arguments {
@@ -429,8 +548,16 @@ class Tribe__Assets {
 			'groups'        => [],
 			'version'       => $version,
 			'media'         => 'all',
+
+			'print'         => false,
+
+			'async'         => false,
+			'defer'         => false,
+
 			'in_footer'     => true,
 			'is_registered' => false,
+
+			// Origin related params
 			'origin_path'   => null,
 			'origin_url'    => null,
 			'origin_name'   => null,
@@ -438,6 +565,14 @@ class Tribe__Assets {
 			// Bigger Variables at the end.
 			'localize'      => [],
 			'conditionals'  => [],
+
+			// Used to handle Translations handled in the JavaScript side of the Assets.
+			'translations'  => [],
+
+			// Execute after the asset is enqueued.
+			'after_enqueue'    => null,
+			'already_enqueued' => false,
+			'already_printed'  => false,
 		];
 
 		// Merge Arguments.
@@ -473,16 +608,6 @@ class Tribe__Assets {
 		}
 
 		/**
-		 * Deprecated filter to allow changing version based on the type of Asset.
-		 *
-		 * @todo remove on 4.6
-		 * @deprecated 4.3
-		 *
-		 * @param string $version
-		 */
-		$asset->version = apply_filters( "tribe_events_{$asset->type}_version", $asset->version );
-
-		/**
 		 * Filter to change version number on assets.
 		 *
 		 * @since 4.3
@@ -502,7 +627,7 @@ class Tribe__Assets {
 			$asset->priority = 1;
 		}
 
-		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false ? true : false;
+		$is_vendor = strpos( $asset->file, 'vendor/' ) !== false || strpos( $asset->file, 'node_modules/' ) !== false ? true : false;
 
 		// Setup the actual URL.
 		if ( filter_var( $asset->file, FILTER_VALIDATE_URL ) ) {
@@ -524,6 +649,11 @@ class Tribe__Assets {
 			$asset->groups = (array) $asset->groups;
 			$asset->groups = array_filter( $asset->groups, 'is_string' );
 			$asset->groups = array_unique( $asset->groups );
+		}
+
+		if ( isset( $arguments['translations']['domain'], $arguments['translations']['path'] ) ) {
+			$asset->translations['domain'] = $arguments['translations']['domain'];
+			$asset->translations['path']   = $arguments['translations']['path'];
 		}
 
 		/**
@@ -667,5 +797,53 @@ class Tribe__Assets {
 	 */
 	public function exists( $slug ) {
 		return is_object( $this->get( $slug ) ) ? true : false;
+	}
+
+	/**
+	 * Prints the `script` (JS) and `link` (CSS) HTML tags associated with one or more assets groups.
+	 *
+	 * The method will force the scripts and styles to print overriding their registration and conditional.
+	 *
+	 * @since 4.12.6
+	 *
+	 * @param string|array $group Which group(s) should be enqueued.
+	 * @param bool         $echo  Whether to print the group(s) tag(s) to the page or not; default to `true` to
+	 *                            print the HTML `script` (JS) and `link` (CSS) tags to the page.
+	 *
+	 * @return string The `script` and `link` HTML tags produced for the group(s).
+	 */
+	public function print_group( $group, $echo = true ) {
+		$all_assets = $this->get();
+		$groups     = (array) $group;
+		$to_print   = array_filter( $all_assets, static function ( $asset ) use ( $groups ) {
+			return isset( $asset->groups ) && array_intersect( $asset->groups, $groups );
+		} );
+		$by_type    = array_reduce( $to_print, static function ( array $acc, \stdClass $asset ) {
+			$acc[ $asset->type ][] = $asset->slug;
+
+			return $acc;
+		}, [ 'css' => [], 'js' => [] ] );
+
+
+		// Make sure each script is registered.
+		foreach ( $to_print as $slug => $data ){
+			if ( $data->is_registered ){
+				continue;
+			}
+			'js' === $data->type
+				? wp_register_script( $slug, $data->file, $data->deps, $data->version )
+				: wp_register_style( $slug, $data->file, $data->deps, $data->version );
+		}
+
+		ob_start();
+		wp_scripts()->do_items( $by_type['js'] );
+		wp_styles()->do_items( $by_type['css'] );
+		$tags = ob_get_clean();
+
+		if ( $echo ) {
+			echo $tags;
+		}
+
+		return $tags;
 	}
 }

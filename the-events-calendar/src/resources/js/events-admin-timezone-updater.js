@@ -1,7 +1,7 @@
 /**
  * Handle the timezone updater process.
  */
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	// Do not proceed if tribe_timezone_update is not available
 	if ( "object" !== typeof tribe_timezone_update ) {
 		return;
@@ -19,7 +19,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		// "Soft failure"?
-		if ( 0 == response ) {
+		if ( 0 == response ) { // eslint-disable-line eqeqeq
 			failure();
 			return;
 		}

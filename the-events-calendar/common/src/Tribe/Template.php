@@ -1,5 +1,8 @@
 <?php
 
+use Tribe\Utils\Paths;
+use Tribe\Utils\Strings;
+
 class Tribe__Template {
 	/**
 	 * The folders into which we will look for the template.
@@ -8,7 +11,7 @@ class Tribe__Template {
 	 *
 	 * @var array
 	 */
-	protected $folder = array();
+	protected $folder = [];
 
 	/**
 	 * The origin class for the plugin where the template lives
@@ -35,7 +38,7 @@ class Tribe__Template {
 	 *
 	 * @var array
 	 */
-	protected $global = array();
+	protected $global = [];
 
 	/**
 	 * Used for finding templates for public templates on themes inside of a folder.
@@ -54,6 +57,15 @@ class Tribe__Template {
 	 * @var boolean
 	 */
 	protected $template_context_extract = false;
+
+	/**
+	 * Current template hook name.
+	 *
+	 * @since 4.12.1
+	 *
+	 * @var string|null
+	 */
+	protected $template_current_hook_name;
 
 	/**
 	 * Base template for where to look for template
@@ -83,6 +95,25 @@ class Tribe__Template {
 	protected $template_current_file_path;
 
 	/**
+	 * Whether to look for template files in common or not; defaults to true.
+	 *
+	 * @since 4.12.10
+	 *
+	 * @var bool
+	 */
+	protected $common_lookup = true;
+
+	/**
+	 * A map of aliases to add a rewritten version of the paths to the template lists.
+	 * The map has format `original => alias`.
+	 *
+	 * @since 4.12.10
+	 *
+	 * @var array<string,string>
+	 */
+	protected $aliases = [];
+
+	/**
 	 * Configures the class origin plugin path
 	 *
 	 * @since  4.6.2
@@ -99,19 +130,33 @@ class Tribe__Template {
 		if ( is_string( $origin ) ) {
 			// Origin needs to be a class with a `instance` method
 			if ( class_exists( $origin ) && method_exists( $origin, 'instance' ) ) {
-				$origin = call_user_func( array( $origin, 'instance' ) );
+				$origin = call_user_func( [ $origin, 'instance' ] );
 			}
 		}
 
-		if ( empty( $origin->plugin_path ) && empty( $origin->pluginPath ) && ! is_dir( $origin ) ) {
+		if (
+			empty( $origin->plugin_path )
+			&& empty( $origin->pluginPath )
+			&& ! is_dir( $origin )
+		) {
 			throw new InvalidArgumentException( 'Invalid Origin Class for Template Instance' );
 		}
 
-		if ( ! is_string( $origin ) ) {
-			$this->origin = $origin;
-			$this->template_base_path = untrailingslashit( ! empty( $this->origin->plugin_path ) ? $this->origin->plugin_path : $this->origin->pluginPath );
+		if ( is_string( $origin ) ) {
+			$this->template_base_path = array_filter(
+				(array) explode(
+					'/',
+					untrailingslashit( $origin )
+				)
+			);
 		} else {
-			$this->template_base_path = untrailingslashit( (array) explode( '/', $origin ) );
+			$this->origin = $origin;
+
+			$this->template_base_path = untrailingslashit(
+				! empty( $this->origin->plugin_path )
+					? $this->origin->plugin_path
+					: $this->origin->pluginPath
+			);
 		}
 
 		return $this;
@@ -170,6 +215,17 @@ class Tribe__Template {
 	}
 
 	/**
+	 * Gets in this instance of the template engine whether we are looking public folders like themes.
+	 *
+	 * @since 4.12.1
+	 *
+	 * @return bool Whether we are looking into theme folders.
+	 */
+	public function get_template_folder_lookup() {
+		return $this->template_folder_lookup;
+	}
+
+	/**
 	 * Configures the class global context
 	 *
 	 * @since  4.6.2
@@ -178,7 +234,7 @@ class Tribe__Template {
 	 *
 	 * @return self
 	 */
-	public function add_template_globals( $context = array() ) {
+	public function add_template_globals( $context = [] ) {
 		// Cast as Array merge and save
 		$this->global = wp_parse_args( (array) $context, $this->global );
 
@@ -202,17 +258,43 @@ class Tribe__Template {
 	}
 
 	/**
-	 * Sets a Index inside of the global or local context
-	 * Final to prevent extending the class when the `get` already exists on the child class
+	 * Set the current hook name for the template include.
+	 *
+	 * @since  4.12.1
+	 *
+	 * @param  string  $value  Which value will be saved as the current hook name.
+	 *
+	 * @return self  Allow daisy-chaining.
+	 */
+	 public function set_template_current_hook_name( $value ) {
+		$this->template_current_hook_name = (string) $value;
+
+		return $this;
+	}
+
+	/**
+	 * Gets the hook name for the current template setup.
+	 *
+	 * @since  4.12.1
+	 *
+	 * @return string Hook name currently set on the class.
+	 */
+	public function get_template_current_hook_name() {
+		return $this->template_current_hook_name;
+	}
+
+	/**
+	 * Sets an Index inside of the global or local context.
+	 * Final to prevent extending the class when the `get` already exists on the child class.
+	 *
+	 * @see    Tribe__Utils__Array::set()
 	 *
 	 * @since  4.6.2
 	 *
-	 * @see    Tribe__Utils__Array::set
-	 *
-	 * @param  array    $index     Specify each nested index in order.
-	 *                             Example: array( 'lvl1', 'lvl2' );
-	 * @param  mixed    $default   Default value if the search finds nothing.
-	 * @param  boolean  $is_local  Use the Local or Global context
+	 * @param array|string $index    Specify each nested index in order.
+	 *                               Example: [ 'lvl1', 'lvl2' ];
+	 * @param mixed        $default  Default value if the search finds nothing.
+	 * @param boolean      $is_local Use the Local or Global context.
 	 *
 	 * @return mixed The value of the specified index or the default if not found.
 	 */
@@ -225,18 +307,19 @@ class Tribe__Template {
 
 		/**
 		 * Allows filtering the the getting of Context variables, also short circuiting
-		 * Following the same strucuture as WP Core
+		 * Following the same structure as WP Core
 		 *
 		 * @since  4.6.2
 		 *
-		 * @param  mixed    $value     The value that will be filtered
-		 * @param  array    $index     Specify each nested index in order.
-		 *                             Example: array( 'lvl1', 'lvl2' );
-		 * @param  mixed    $default   Default value if the search finds nothing.
-		 * @param  boolean  $is_local  Use the Local or Global context
-		 * @param  self     $template  Current instance of the Tribe__Template
+		 * @param mixed        $value    The value that will be filtered.
+		 * @param array|string $index    Specify each nested index in order.
+		 *                               Example: [ 'lvl1', 'lvl2' ];
+		 * @param mixed        $default  Default value if the search finds nothing.
+		 * @param boolean      $is_local Use the Local or Global context.
+		 * @param self         $template Current instance of the Tribe__Template.
 		 */
 		$value = apply_filters( 'tribe_template_context_get', null, $index, $default, $is_local, $this );
+
 		if ( null !== $value ) {
 			return $value;
 		}
@@ -273,13 +356,13 @@ class Tribe__Template {
 	}
 
 	/**
-	 * Merges local and global context, and saves it locally
+	 * Merges local and global context, and saves it locally.
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param  array  $context  Local Context array of data
-	 * @param  string $file     Complete path to include the PHP File
-	 * @param  array  $name     Template name
+	 * @param  array  $context   Local Context array of data.
+	 * @param  string $file      Complete path to include the PHP File.
+	 * @param  array  $name      Template name.
 	 *
 	 * @return array
 	 */
@@ -293,16 +376,30 @@ class Tribe__Template {
 		$context = wp_parse_args( (array) $context, $this->get_values() );
 
 		/**
-		 * Allows filtering the Local context
+		 * Allows filtering the Local context.
 		 *
 		 * @since  4.6.2
 		 *
-		 * @param array  $context   Local Context array of data
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param array  $context   Local Context array of data.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
 		 */
 		$this->context = apply_filters( 'tribe_template_context', $context, $file, $name, $this );
+
+		$hook_name = $this->get_template_current_hook_name();
+
+		/**
+		 * Allows filtering the Local context specifically to the template with the hook name passed to the method.
+		 *
+		 * @since  4.12.13
+		 *
+		 * @param array  $context   Local Context array of data.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$this->context = apply_filters( "tribe_template_context:{$hook_name}", $this->context, $file, $name, $this );
 
 		return $this->context;
 	}
@@ -400,7 +497,7 @@ class Tribe__Template {
 		// Craft the plugin Path
 		$path = array_merge( (array) $base, (array) $this->get_template_public_namespace( $namespace ) );
 
-		// Pick up if the folder needs to be aded to the public template path.
+		// Pick up if the folder needs to be added to the public template path.
 		$folder = array_diff( $this->folder, $this->get_template_origin_base_folder() );
 
 		if ( ! empty( $folder ) ) {
@@ -424,18 +521,30 @@ class Tribe__Template {
 	/**
 	 * Fetches the folders in which we will look for a given file
 	 *
-	 * @since  4.7.20
+	 * @since 4.7.20
+	 * @since 4.12.10 Add support for common lookup.
 	 *
-	 * @return array
+	 * @return array<string,array> A list of possible locations for the template file.
 	 */
 	protected function get_template_path_list() {
 		$folders = [];
 
 		$folders['plugin'] = [
-			'id'        => 'plugin',
-			'priority'  => 20,
-			'path'      => $this->get_template_plugin_path(),
+			'id'       => 'plugin',
+			'priority' => 20,
+			'path'     => $this->get_template_plugin_path(),
 		];
+
+		if ( $this->common_lookup ) {
+			// After the plugin (due to priority) look into Common too.
+			$folders['common'] = [
+				'id'       => 'common',
+				'priority' => 100,
+				'path'     => $this->get_template_common_path(),
+			];
+		}
+
+		$folders = array_merge( $folders, $this->apply_aliases( $folders ) );
 
 		/**
 		 * Allows filtering of the list of folders in which we will look for the
@@ -498,7 +607,7 @@ class Tribe__Template {
 	 *
 	 * @since  4.7.20
 	 *
-	 * @param  mixed  $name  File name we are looking for
+	 * @param  mixed  $name  File name we are looking for.
 	 *
 	 * @return string
 	 */
@@ -518,7 +627,7 @@ class Tribe__Template {
 			}
 
 			// Build the File Path
-			$file = implode( DIRECTORY_SEPARATOR, array_merge( (array) $folder['path'], $name ) );
+			$file = Paths::merge( $folder['path'], $name );
 
 			// Append the Extension to the file path
 			$file .= '.php';
@@ -531,7 +640,7 @@ class Tribe__Template {
 			}
 		}
 
-		if ( $this->template_folder_lookup ) {
+		if ( $this->get_template_folder_lookup() ) {
 			$theme_folders = $this->get_template_theme_path_list( $namespace );
 
 			foreach ( $theme_folders as $folder ) {
@@ -548,6 +657,7 @@ class Tribe__Template {
 				// Skip non-existent files
 				if ( file_exists( $file ) ) {
 					$found_file = $file;
+					break;
 				}
 			}
 		}
@@ -571,13 +681,106 @@ class Tribe__Template {
 	}
 
 	/**
+	 * Runs the entry point hooks and filters.
+	 *
+	 * @param string  $entry_point_name The name of the entry point.
+	 * @param boolean $echo             If we should also print the entry point content.
+	 *
+	 * @return null|string `null` if an entry point is disabled or the entry point HTML.
+	 */
+	public function do_entry_point( $entry_point_name, $echo = true ) {
+		$hook_name = $this->get_template_current_hook_name();
+
+		/**
+		 * Filter if the entry points are enabled.
+		 *
+		 * @since 4.12.1
+		 *
+		 * @param boolean $is_enabled       Is entry_point enabled.
+		 * @param string  $hook_name        For which template include this entry point belongs.
+		 * @param string  $entry_point_name Which entry point specifically we are triggering.
+		 * @param self    $template         Current instance of the template class doing this entry point.
+		 */
+		$is_entry_point_enabled = apply_filters( 'tribe_template_entry_point_is_enabled', true, $hook_name, $entry_point_name, $this );
+
+		if ( ! $is_entry_point_enabled ) {
+			return null;
+		}
+
+		ob_start();
+
+		if ( has_action( "tribe_template_entry_point:{$hook_name}" ) ) {
+			/**
+			 * Generic entry point action for the current template.
+			 *
+			 * @since 4.12.1
+			 *
+			 * @param string $hook_name        For which template include this entry point belongs.
+			 * @param string $entry_point_name Which entry point specifically we are triggering.
+			 * @param self   $template         Current instance of the template class doing this entry point.
+			 */
+			do_action( "tribe_template_entry_point:{$hook_name}", $hook_name, $entry_point_name, $this );
+		}
+
+		if ( has_action( "tribe_template_entry_point:{$hook_name}:{$entry_point_name}" ) ) {
+			/**
+			 * Specific named entry point action called.
+			 *
+			 * @since 4.12.1
+			 *
+			 * @param string $hook_name        For which template include this entry point belongs.
+			 * @param string $entry_point_name Which entry point specifically we are triggering.
+			 * @param self   $template         Current instance of the template class doing this entry point.
+			 */
+			do_action( "tribe_template_entry_point:{$hook_name}:{$entry_point_name}", $hook_name, $entry_point_name, $this );
+		}
+
+		$html = ob_get_clean();
+
+		if ( has_filter( "tribe_template_entry_point_html:{$hook_name}" ) ) {
+			/**
+			 * Generic entry point action for the current template.
+			 *
+			 * @since 4.12.1
+			 *
+			 * @param string $html             HTML returned and/or echoed for this for this entry point.
+			 * @param string $hook_name        For which template include this entry point belongs.
+			 * @param string $entry_point_name Which entry point specifically we are triggering.
+			 * @param self   $template         Current instance of the template class doing this entry point.
+			 */
+			$html = apply_filters( "tribe_template_entry_point_html:{$hook_name}", $html, $hook_name, $entry_point_name, $this );
+		}
+
+		if ( has_filter( "tribe_template_entry_point_html:{$hook_name}:{$entry_point_name}" ) ) {
+			/**
+			 * Specific named entry point action called.
+			 *
+			 * @since 4.12.1
+			 *
+			 * @param string $html             HTML returned and/or echoed for this for this entry point.
+			 * @param string $hook_name        For which template include this entry point belongs.
+			 * @param string $entry_point_name Which entry point specifically we are triggering.
+			 * @param self   $template         Current instance of the template class doing this entry point.
+			 */
+			$html = apply_filters( "tribe_template_entry_point_html:{$hook_name}:{$entry_point_name}", $html, $hook_name, $entry_point_name, $this );
+		}
+
+		if ( $echo ) {
+			echo $html;
+		}
+
+		return $html;
+	}
+
+	/**
 	 * A very simple method to include a Template, allowing filtering and additions using hooks.
 	 *
 	 * @since  4.6.2
 	 *
-	 * @param string  $name    Which file we are talking about including
-	 * @param array   $context Any context data you need to expose to this file
-	 * @param boolean $echo    If we should also print the Template
+	 * @param string|array $name    Which file we are talking about including.
+	 *                              If an array, each item will add a directory separator to get to the single template.
+	 * @param array        $context Any context data you need to expose to this file
+	 * @param boolean      $echo    If we should also print the Template
 	 *
 	 * @return string|false Either the final content HTML or `false` if no template could be found.
 	 */
@@ -585,6 +788,22 @@ class Tribe__Template {
 		static $file_exists    = [];
 		static $files          = [];
 		static $template_names = [];
+
+		/**
+		 * Allow users to disable templates before rendering it by returning empty string.
+		 *
+		 * @since  4.12.0
+		 *
+		 * @param string  null     Whether to continue displaying the template or not.
+		 * @param array   $name    Template name.
+		 * @param array   $context Any context data you need to expose to this file.
+		 * @param boolean $echo    If we should also print the Template.
+		 */
+		$done = apply_filters( 'tribe_template_done', null, $name, $context, $echo );
+
+		if ( null !== $done ) {
+			return false;
+		}
 
 		// Key we'll use for in-memory caching of expensive operations.
 		$cache_name_key = is_array( $name ) ? implode( '/', $name ) : $name;
@@ -603,7 +822,10 @@ class Tribe__Template {
 		}
 
 		// Cache file location and existence.
-		if ( ! isset( $file_exists[ $cache_name_key ] ) || ! isset( $files[ $cache_name_key ] ) ) {
+		if (
+			! isset( $file_exists[ $cache_name_key ] )
+			|| ! isset( $files[ $cache_name_key ] )
+		) {
 			// Check if the file exists
 			$files[ $cache_name_key ] = $file = $this->get_template_file( $name );
 
@@ -638,19 +860,23 @@ class Tribe__Template {
 			$namespace        = array_merge( $origin_folder_appendix, $legacy_namespace );
 		}
 
-		// Setup the Hook name
+		// Setup the Hook name.
 		$legacy_hook_name = implode( '/', $legacy_namespace );
 		$hook_name        = implode( '/', $namespace );
+		$prev_hook_name   = $this->get_template_current_hook_name();
+
+		// Store the current hook name for the purposes of entry-points.
+		$this->set_template_current_hook_name( $hook_name );
 
 		/**
 		 * Allow users to filter the HTML before rendering
 		 *
 		 * @since  4.11.0
 		 *
-		 * @param string $html      The initial HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
+		 * @param string $html     The initial HTML
+		 * @param string $file     Complete path to include the PHP File
+		 * @param array  $name     Template name
+		 * @param self   $template Current instance of the Tribe__Template
 		 */
 		$pre_html = apply_filters( 'tribe_template_pre_html', null, $file, $name, $this );
 
@@ -669,163 +895,94 @@ class Tribe__Template {
 		 * @param array  $name      Template name
 		 * @param self   $template  Current instance of the Tribe__Template
 		 */
-		$pre_html = apply_filters( "tribe_template_pre_html:$hook_name", $pre_html, $file, $name, $this );
+		$pre_html = apply_filters( "tribe_template_pre_html:{$hook_name}", $pre_html, $file, $name, $this );
 
 		if ( null !== $pre_html ) {
 			return $pre_html;
 		}
 
-		ob_start();
-
 		// Merges the local data passed to template to the global scope
 		$this->merge_context( $context, $file, $name );
 
-		/**
-		 * Fires an Action before including the template file
-		 *
-		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longer contains the extension
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( 'tribe_template_before_include', $file, $name, $this );
+		$before_include_html = $this->actions_before_template( $file, $name, $hook_name );
+		$before_include_html = $this->filter_template_before_include_html( $before_include_html, $file, $name, $hook_name );
 
-		/**
-		 * Fires an Action for a given template name before including the template file
-		 *
-		 * E.g.:
-		 *    `tribe_template_before_include:events/blocks/parts/details`
-		 *    `tribe_template_before_include:events/embed`
-		 *    `tribe_template_before_include:tickets/login-to-purchase`
-		 *
-		 * @deprecated   4.11.0
-		 * @since  4.7.20
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( "tribe_template_before_include:$legacy_hook_name", $file, $name, $this );
+		$include_html = $this->template_safe_include( $file );
+		$include_html = $this->filter_template_include_html( $include_html, $file, $name, $hook_name );
 
-		/**
-		 * Fires an Action for a given template name before including the template file
-		 *
-		 * E.g.:
-		 *    `tribe_template_before_include:events/blocks/parts/details`
-		 *    `tribe_template_before_include:events/embed`
-		 *    `tribe_template_before_include:tickets/login-to-purchase`
-		 *
-		 * @since  4.7.20
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( "tribe_template_before_include:$hook_name", $file, $name, $this );
-
-		$this->template_safe_include( $file );
-
-		/**
-		 * Fires an Action after including the template file
-		 *
-		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longer contains the extension
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( 'tribe_template_after_include', $file, $name, $this );
-
-		/**
-		 * Fires an Action for a given template name after including the template file
-		 *
-		 * E.g.:
-		 *    `tribe_template_after_include:events/blocks/parts/details`
-		 *    `tribe_template_after_include:events/embed`
-		 *    `tribe_template_after_include:tickets/login-to-purchase`
-		 *
-		 * @deprecated 4.11.0
-		 * @since  4.7.20
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( "tribe_template_after_include:$legacy_hook_name", $file, $name, $this );
-
-		/**
-		 * Fires an Action for a given template name after including the template file
-		 *
-		 * E.g.:
-		 *    `tribe_template_after_include:events/blocks/parts/details`
-		 *    `tribe_template_after_include:events/embed`
-		 *    `tribe_template_after_include:tickets/login-to-purchase`
-		 *
-		 * @since  4.7.20
-		 *
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		do_action( "tribe_template_after_include:$hook_name", $file, $name, $this );
+		$after_include_html = $this->actions_after_template( $file, $name, $hook_name );
+		$after_include_html = $this->filter_template_after_include_html( $after_include_html, $file, $name, $hook_name );
 
 		// Only fetch the contents after the action
-		$html = ob_get_clean();
+		$html = $before_include_html . $include_html . $after_include_html;
 
-		/**
-		 * Allow users to filter the final HTML
-		 *
-		 * @since  4.6.2
-		 * @since  4.7.20   The $name param no longer contains the extension
-		 *
-		 * @param string $html      The final HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		$html = apply_filters( 'tribe_template_html', $html, $file, $name, $this );
+		$html = $this->filter_template_html( $html, $file, $name, $hook_name );
 
-		/**
-		 * Allow users to filter the final HTML by the name
-		 *
-		 * E.g.:
-		 *    `tribe_template_html:events/blocks/parts/details`
-		 *    `tribe_template_html:events/embed`
-		 *    `tribe_template_html:tickets/login-to-purchase`
-		 *
-		 * @deprecated   4.11.0
-		 * @since  4.7.20
-		 *
-		 * @param string $html      The final HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		$html = apply_filters( "tribe_template_html:$legacy_hook_name", $html, $file, $name, $this );
-
-		/**
-		 * Allow users to filter the final HTML by the name
-		 *
-		 * E.g.:
-		 *    `tribe_template_html:events/blocks/parts/details`
-		 *    `tribe_template_html:events/embed`
-		 *    `tribe_template_html:tickets/login-to-purchase`
-		 *
-		 * @since  4.7.20
-		 *
-		 * @param string $html      The final HTML
-		 * @param string $file      Complete path to include the PHP File
-		 * @param array  $name      Template name
-		 * @param self   $template  Current instance of the Tribe__Template
-		 */
-		$html = apply_filters( "tribe_template_html:$hook_name", $html, $file, $name, $this );
+		// Tries to hook container entry points in the HTML.
+		$html = $this->template_hook_container_entry_points( $html );
 
 		if ( $echo ) {
 			echo $html;
 		}
+
+		// Revert the current hook name.
+		$this->set_template_current_hook_name( $prev_hook_name );
+
+		return $html;
+	}
+
+	/**
+	 * Run the hooks for the container entry points.
+	 *
+	 * @since  4.12.1
+	 *
+	 * @param string $html The html of the current template.
+	 *
+	 * @return string|false Either the final entry point content HTML or `false` if no entry point could be found or set to false.
+	 */
+	private function template_hook_container_entry_points( $html ) {
+
+		$matches      = $this->get_entry_point_matches( $html );
+		$html_matches = $matches[0];
+
+		if ( 0 === count( $html_matches ) ) {
+			return $html;
+		}
+
+		$html_tags      = $matches['tag'];
+		$html_tags_ends = $matches['is_end'];
+
+		// Get first and last tags.
+		$first_tag = reset( $html_tags );
+		$last_tag  = end( $html_tags );
+
+		// Determine if first last tags are tag ends.
+		$first_tag_is_end = '/' === reset( $html_tags_ends );
+		$last_tag_is_end  = '/' === end( $html_tags_ends );
+
+		// When first and last tag are not the same, bail.
+		if ( $first_tag !== $last_tag ) {
+			return $html;
+		}
+
+		// If the first tag is a html tag end, bail.
+		if ( $first_tag_is_end ) {
+			return $html;
+		}
+
+		// If the last tag is not and html tag end, bail.
+		if ( ! $last_tag_is_end ) {
+			return $html;
+		}
+
+		$first_tag_html = reset( $html_matches );
+		$last_tag_html  = end( $html_matches );
+
+		$open_container_entry_point_html  = $this->do_entry_point( 'after_container_open', false );
+		$close_container_entry_point_html = $this->do_entry_point( 'before_container_close', false );
+
+		$html = Strings::replace_first( $first_tag_html, $first_tag_html . $open_container_entry_point_html, $html );
+		$html = Strings::replace_last( $last_tag_html, $close_container_entry_point_html . $last_tag_html, $html );
 
 		return $html;
 	}
@@ -853,7 +1010,10 @@ class Tribe__Template {
 		$namespace_map = (array) apply_filters( 'tribe_template_origin_namespace_map', [], $path, $this );
 
 		foreach ( $namespace_map as $namespace => $contains_string ) {
-			// Skip when we dont have the namespace path.
+			// Normalize the trailing slash to the current OS directory separator.
+			$contains_string = rtrim( $contains_string, '\\/' ) . DIRECTORY_SEPARATOR;
+
+			// Skip when we don't have the namespace path.
 			if ( false === strpos( $path, $contains_string ) ) {
 				continue;
 			}
@@ -882,14 +1042,15 @@ class Tribe__Template {
 	 *
 	 * @param string $file Which file will be included with safe context.
 	 *
-	 * @return void
+	 * @return string Contents of the included file.
 	 */
 	public function template_safe_include( $file ) {
+		ob_start();
 		// We use this instance variable to prevent collisions.
 		$this->template_current_file_path = $file;
 		unset( $file );
 
-		// Only do this if really needed (by default it wont).
+		// Only do this if really needed (by default it won't).
 		if ( true === $this->template_context_extract && ! empty( $this->context ) ) {
 			// Make any provided variables available in the template variable scope.
 			extract( $this->context ); // @phpcs:ignore
@@ -899,6 +1060,7 @@ class Tribe__Template {
 
 		// After the include we reset the variable.
 		unset( $this->template_current_file_path );
+		return ob_get_clean();
 	}
 
 	/**
@@ -950,5 +1112,372 @@ class Tribe__Template {
 	 */
 	public function get_values() {
 		return array_merge( $this->get_global_values(), $this->get_local_values() );
+	}
+
+	/**
+	 * Get the Entry Point Matches.
+	 *
+	 * @since  4.12.1
+	 *
+	 * @param string $html The html of the current template.
+	 *
+	 * @return array An array of matches from the regular expression.
+	 */
+	private function get_entry_point_matches( $html ) {
+		$regexp = '/<(?<is_end>\/)*(?<tag>[A-Z0-9]*)(?:\b)*[^>]*>/mi';
+
+		preg_match_all( $regexp, $html, $matches );
+
+		return $matches;
+	}
+
+	/**
+	 * Fetches the path for locating files in the Common folder part of the plugin that is currently providing it.
+	 *
+	 * Note: the Common path will be dependent on the version that is loaded from the plugin that is bundling it.
+	 * E.g. if both TEC and ET are active (both will bundle Common) and the ET version of Common has been loaded as
+	 * most recent and the ET version of Common does not have a template file, then the template file will not be found.
+	 * This will allow versioning the existence and nature of the template files part of common.
+	 *
+	 * @since 4.12.10
+	 *
+	 * @return string The absolute path, with no guarantee of its existence, to the Common version of the template file.
+	 */
+	protected function get_template_common_path() {
+		// As base path use the current location of Common, remove the trailing slash.
+		$common_abs_path = untrailingslashit( Tribe__Main::instance()->plugin_path );
+		$path            = array_merge( (array) $common_abs_path, $this->folder );
+
+		// Implode to avoid problems on Windows hosts.
+		$path = implode( DIRECTORY_SEPARATOR, $path );
+
+		/**
+		 * Allows filtering the path to a template provided by Common.
+		 *
+		 * @since  4.12.10
+		 *
+		 * @param string $path     Complete path to include the base folder of common part of the plugin.
+		 * @param self   $template Current instance of the Tribe__Template.
+		 */
+		return apply_filters( 'tribe_template_common_path', $path, $this );
+	}
+
+	/**
+	 * Sets the aliases the template should use.
+	 *
+	 * @since 4.12.10
+	 *
+	 * @param array<string,string> $aliases A map of aliases that should be used to add lookup locations, in the format
+	 *                                      `[ original => alias ]`;
+	 *
+	 * @return static This instance, for method chaining.
+	 */
+	public function set_aliases( array $aliases = [] ) {
+		$this->aliases = $aliases;
+
+		return $this;
+	}
+
+	/**
+	 * Applies the template path aliases, if any, to a list of folders.
+	 *
+	 * @since 4.12.10
+	 *
+	 * @param array<string,array> $folders The list of folder to apply the aliases to, if any.
+	 *
+	 * @return array<string,array> The list of new folder entries to add to the folders, in the same input format of the
+	 *                             folders.
+	 */
+	protected function apply_aliases( array $folders ) {
+		$new_folders = [];
+		if ( ! empty( $this->aliases ) ) {
+			foreach ( $folders as $folder_name => $folder ) {
+				$original_path = $folder['path'];
+				foreach ( $this->aliases as $original => $alias ) {
+					// Since an alias could be a path, we take care to handle it with the current directory separator.
+					list( $normalized_original, $normalized_alias ) = str_replace(['\\','/'] , DIRECTORY_SEPARATOR, [ $original, $alias ] );
+					if ( false === strpos( $original_path, $normalized_original ) ) {
+						continue;
+					}
+
+					$alias_path = str_replace( $normalized_original, $normalized_alias, $original_path );
+
+					$new                                        = $folder;
+					$new['path']                                = $alias_path;
+					$new['priority']                            = (int) $new['priority'] + 1;
+					$new_folders[ $folder_name . '_' . $alias ] = $new;
+				}
+			}
+		}
+		return $new_folders;
+	}
+
+
+	/**
+	 * Filters the full HTML for the template.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $html      The final HTML.
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
+	 * @param string $hook_name The hook used to create the filter by name.
+	 *
+	 * @return string HTML after filtering.
+	 */
+	protected function filter_template_html( $html, $file, $name, $hook_name ) {
+		/**
+		 * Allow users to filter the final HTML.
+		 *
+		 * @since  4.6.2
+		 * @since  4.7.20   The $name param no longer contains the extension
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( 'tribe_template_html', $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the final HTML by the name.
+		 *
+		 * E.g.:
+		 *    `tribe_template_html:events/blocks/parts/details`
+		 *    `tribe_template_html:events/embed`
+		 *    `tribe_template_html:tickets/login-to-purchase`
+		 *
+		 * @since  4.7.20
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( "tribe_template_html:{$hook_name}", $html, $file, $name, $this );
+
+		return $html;
+	}
+
+	/**
+	 * Filters the HTML for the Before include actions.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $html      The final HTML.
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
+	 * @param string $hook_name The hook used to create the filter by name.
+	 *
+	 * @return string HTML after filtering.
+	 */
+	protected function filter_template_before_include_html( $html, $file, $name, $hook_name ) {
+		/**
+		 * Allow users to filter the Before include actions.
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( 'tribe_template_before_include_html', $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the Before include actions by name.
+		 *
+		 * E.g.:
+		 *    `tribe_template_before_include_html:events/blocks/parts/details`
+		 *    `tribe_template_before_include_html:events/embed`
+		 *    `tribe_template_before_include_html:tickets/login-to-purchase`
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( "tribe_template_before_include_html:{$hook_name}", $html, $file, $name, $this );
+
+		return $html;
+	}
+
+	/**
+	 * Filters the HTML for the PHP safe include.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $html      The final HTML.
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
+	 * @param string $hook_name The hook used to create the filter by name.
+	 *
+	 * @return string HTML after filtering.
+	 */
+	protected function filter_template_include_html( $html, $file, $name, $hook_name ) {
+		/**
+		 * Allow users to filter the PHP template include actions.
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( 'tribe_template_include_html', $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the PHP template include actions by name.
+		 *
+		 * E.g.:
+		 *    `tribe_template_include_html:events/blocks/parts/details`
+		 *    `tribe_template_include_html:events/embed`
+		 *    `tribe_template_include_html:tickets/login-to-purchase`
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( "tribe_template_include_html:{$hook_name}", $html, $file, $name, $this );
+
+		return $html;
+	}
+
+	/**
+	 * Filters the HTML for the after include actions.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $html      The final HTML.
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
+	 * @param string $hook_name The hook used to create the filter by name.
+	 *
+	 * @return string HTML after filtering.
+	 */
+	protected function filter_template_after_include_html( $html, $file, $name, $hook_name ) {
+		/**
+		 * Allow users to filter the after include actions.
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( 'tribe_template_after_include_html', $html, $file, $name, $this );
+
+		/**
+		 * Allow users to filter the after include actions by name.
+		 *
+		 * E.g.:
+		 *    `tribe_template_after_include_html:events/blocks/parts/details`
+		 *    `tribe_template_after_include_html:events/embed`
+		 *    `tribe_template_after_include_html:tickets/login-to-purchase`
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $html      The final HTML.
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		$html = apply_filters( "tribe_template_after_include_html:{$hook_name}", $html, $file, $name, $this );
+
+		return $html;
+	}
+
+	/**
+	 * Fires of actions before including the template.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
+	 * @param string $hook_name The hook used to create the filter by name.
+	 *
+	 * @return string HTML printed by the before actions.
+	 */
+	protected function actions_before_template( $file, $name, $hook_name ) {
+		ob_start();
+
+		/**
+		 * Fires an Action before including the template file
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $file      Complete path to include the PHP File
+		 * @param array  $name      Template name
+		 * @param self   $template  Current instance of the Tribe__Template
+		 */
+		do_action( 'tribe_template_before_include', $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name before including the template file,
+		 *
+		 * E.g.:
+		 *    `tribe_template_before_include:events/blocks/parts/details`
+		 *    `tribe_template_before_include:events/embed`
+		 *    `tribe_template_before_include:tickets/login-to-purchase`
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		do_action( "tribe_template_before_include:{$hook_name}", $file, $name, $this );
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Fires of actions after including the template.
+	 *
+	 * @since 4.13.0
+	 *
+	 * @param string $file      Complete path to include the PHP File.
+	 * @param array  $name      Template name.
+	 * @param string $hook_name The hook used to create the filter by name.
+	 *
+	 * @return string HTML printed by the after actions.
+	 */
+	protected function actions_after_template( $file, $name, $hook_name ) {
+		ob_start();
+		/**
+		 * Fires an Action after including the template file.
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		do_action( 'tribe_template_after_include', $file, $name, $this );
+
+		/**
+		 * Fires an Action for a given template name after including the template file.
+		 *
+		 * E.g.:
+		 *    `tribe_template_after_include:events/blocks/parts/details`
+		 *    `tribe_template_after_include:events/embed`
+		 *    `tribe_template_after_include:tickets/login-to-purchase`
+		 *
+		 * @since  4.13.0
+		 *
+		 * @param string $file      Complete path to include the PHP File.
+		 * @param array  $name      Template name.
+		 * @param self   $template  Current instance of the Tribe__Template.
+		 */
+		do_action( "tribe_template_after_include:{$hook_name}", $file, $name, $this );
+
+		return ob_get_clean();
 	}
 }

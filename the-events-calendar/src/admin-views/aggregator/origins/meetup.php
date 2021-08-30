@@ -1,23 +1,29 @@
 <?php
 $tab                = $this->tabs->get_active();
 $origin_slug        = 'meetup';
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'Import Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Import Type', 'the-events-calendar' );
-$field->help        = __( 'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.', 'the-events-calendar' );
+$field->help        = __(
+	'One-time imports include all currently listed events, while scheduled imports automatically grab new events and updates from Meetup on a set schedule. Single events can be added via a one-time import.',
+	'the-events-calendar'
+);
 $field->source      = 'meetup_import_type';
 
-$frequency              = (object) array();
+$frequency              = (object) [];
 $frequency->placeholder = __( 'Select Frequency', 'the-events-calendar' );
-$frequency->help        = __( 'Select how often you would like events to be automatically imported.', 'the-events-calendar' );
+$frequency->help        = __(
+	'Select how often you would like events to be automatically imported.',
+	'the-events-calendar'
+);
 $frequency->source      = 'meetup_import_frequency';
 
-$cron = Tribe__Events__Aggregator__Cron::instance();
+$cron        = Tribe__Events__Aggregator__Cron::instance();
 $frequencies = $cron->get_frequency();
 
 $missing_meetup_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_meetup();
-$data_depends = '#tribe-ea-field-origin';
-$data_condition = 'meetup';
+$data_depends               = '#tribe-ea-field-origin';
+$data_condition             = 'meetup';
 
 if ( $missing_meetup_credentials ) :
 	$data_depends = '#tribe-has-meetup-credentials';
@@ -70,21 +76,28 @@ if ( $missing_meetup_credentials ) :
 			</select>
 		<?php endif; ?>
 
-		<select
-			name="aggregator[meetup][import_frequency]"
-			id="tribe-ea-field-meetup_import_frequency"
-			class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
-			placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
-			data-hide-search
+		<span
 			data-depends="#tribe-ea-field-meetup_import_type"
 			data-condition="schedule"
-			data-prevent-clear
 		>
-			<option value=""></option>
-			<?php foreach ( $frequencies as $frequency_object ) : ?>
-				<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
-			<?php endforeach; ?>
-		</select>
+			<select
+				name="aggregator[meetup][import_frequency]"
+				id="tribe-ea-field-meetup_import_frequency"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
+				placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
+				data-hide-search
+				data-prevent-clear
+			>
+				<?php foreach ( $frequencies as $frequency_object ) : ?>
+					<option value="<?php echo esc_attr( $frequency_object->id ); ?>" <?php selected( empty( $record->meta['frequency'] ) ? 'daily' : $record->meta['frequency'], $frequency_object->id ); ?>><?php echo esc_html( $frequency_object->text ); ?></option>
+				<?php endforeach; ?>
+			</select>
+			<span
+				class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
+				data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
+				data-width-rule="all-triggers"
+			></span>
+		</span>
 		<span
 			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
 			data-bumpdown="<?php echo esc_attr( $field->help ); ?>"
@@ -93,24 +106,20 @@ if ( $missing_meetup_credentials ) :
 			data-condition-empty
 			data-width-rule="all-triggers"
 		></span>
-		<span
-			class="tribe-bumpdown-trigger tribe-bumpdown-permanent tribe-bumpdown-nohover tribe-ea-help dashicons dashicons-editor-help tribe-dependent"
-			data-bumpdown="<?php echo esc_attr( $frequency->help ); ?>"
-			data-depends="#tribe-ea-field-meetup_import_type"
-			data-condition="schedule"
-			data-width-rule="all-triggers"
-		></span>
 	</td>
 </tr>
 
 <?php
 if ( 'edit' === $tab->get_slug() ) {
-	$this->template( 'fields/schedule', array( 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ) );
+	$this->template(
+		'fields/schedule',
+		[ 'record' => $record, 'origin' => $origin_slug, 'aggregator_action' => $aggregator_action ]
+	);
 }
 ?>
 
 <?php
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'URL:', 'the-events-calendar' );
 $field->placeholder = __( 'meetup.com/example', 'the-events-calendar' );
 $field->help        = __( 'Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event.', 'the-events-calendar' );

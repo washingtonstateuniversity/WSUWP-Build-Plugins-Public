@@ -9,7 +9,7 @@
  * active     = the class we use to denote an "active" (not hidden & enabled) element
  * selector   = the css selector for the dependency, must be an ID, includes the hash "#"
  * linked     = data attribute for linked dependents mainly for radio buttons to
- *                  ensure they all get triggered togther
+ *                  ensure they all get triggered together
  */
 ( function( $, _, obj ) {
 	'use strict';
@@ -28,9 +28,21 @@
 		active: '.tribe-active',
 		dependency: '.tribe-dependency',
 		dependencyVerified: '.tribe-dependency-verified',
+		dependencyManualControl: '[data-dependency-manual-control]',
 		fields: 'input, select, textarea',
 		advanced_fields: '.select2-container',
 		linked: '.tribe-dependent-linked'
+	};
+
+	/**
+	 * Replacemente for jQuery $.isNumeric that was deprecated on version 5.7 of WP.
+	 *
+	 * @param {string|int} number
+	 *
+	 * @returns {boolean}
+	 */
+	obj.isNumeric = function( number ) {
+		return ! isNaN( parseFloat( number ) ) && isFinite( number );
 	};
 
 	/**
@@ -43,39 +55,43 @@
 	 */
 	obj.constraintConditions = {
 		'condition': function ( val, constraint ) {
-			return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint;
+			return _.isArray( constraint ) ? -1 !== constraint.indexOf( val ) : val == constraint; // eslint-disable-line eqeqeq,max-len
 		},
 		'not_condition': function ( val, constraint ) {
-			return _.isArray( constraint ) ? -1 === constraint.indexOf( val ) : val != constraint;
+			return _.isArray( constraint ) ? -1 === constraint.indexOf( val ) : val != constraint; // eslint-disable-line eqeqeq,max-len
 		},
 		'is_not_empty': function ( val ) {
-			return '' != val;
+			return '' != val; // eslint-disable-line eqeqeq
 		},
 		'is_empty': function ( val ) {
 			return '' === val;
 		},
 		'is_numeric': function ( val ) {
-			return $.isNumeric( val );
+			return obj.isNumeric( val );
 		},
 		'is_not_numeric': function ( val ) {
-			return ! $.isNumeric( val );
+			return ! obj.isNumeric( val );
 		},
 		'is_checked': function ( _, __, $field ) {
-			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? $field.is( ':checked' ) : false;
+			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) )
+				? $field.is( ':checked' )
+				: false;
 		},
 		'is_not_checked': function ( _, __, $field ) {
-			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) ? ! $field.is( ':checked' ) : false;
+			return ( $field.is( ':checkbox' ) || $field.is( ':radio' ) )
+				? ! $field.is( ':checked' )
+				: false;
 		}
 	};
 
 	/**
-	 * Actualy verify the dependencies of a field
+	 * Actually verify the dependencies of a field
 	 *
 	 * @since 4.7.15
 	 *
 	 * @type  {Function}
 	 */
-	obj.verify = function( e ) {
+	obj.verify = function( e ) { // eslint-disable-line no-unused-vars
 		var $field = $( this );
 		var selector = '#' + $field.attr( 'id' );
 		var value = $field.val();
@@ -101,17 +117,18 @@
 		}
 
 		// Fetch dependent elements
-		var $dependents = $document.find( '[data-depends="' + selector + '"]' ).not( '.select2-container' );
+		var $dependents = $document
+			.find( '[data-depends="' + selector + '"]' )
+			.not( '.select2-container' );
 		if ( 0 === $dependents.length ) {
 			return;
 		}
 
 		$dependents.each( function( k, dependent ) {
-			var $dependent         = $( dependent );
-			var hasDependentParent = $dependent.is( '[data-dependent-parent]' );
+			var $dependent = $( dependent );
 
-			if ( hasDependentParent ) {
-				var dependentParent  = $dependent.data( 'dependentParent' );
+			if ( $dependent.is( '[data-dependent-parent]' ) ) {
+				var dependentParent  = $dependent.data( 'dependent-parent' );
 				var $dependentParent = $dependent.closest( dependentParent );
 
 				if ( 0 === $dependentParent.length ) {
@@ -122,6 +139,7 @@
 				$dependent = $dependentParent.find( dependent );
 			}
 
+			/* eslint-disable max-len */
 			var constraints = {
 				condition: $dependent.is( '[data-condition]' ) ? $dependent.data( 'condition' ) : false,
 				not_condition: $dependent.is( '[data-condition-not]' ) ? $dependent.data( 'conditionNot' ) : false,
@@ -132,6 +150,7 @@
 				is_checked: $dependent.data( 'conditionIsChecked' ) || $dependent.is( '[data-condition-is-checked]' ) || $dependent.data( 'conditionChecked' ) || $dependent.is( '[data-condition-checked]' ),
 				is_not_checked: $dependent.data( 'conditionIsNotChecked' ) || $dependent.is( '[data-condition-is-not-checked]' ) || $dependent.data( 'conditionNotChecked' ) || $dependent.is( '[data-condition-not-checked]' ),
 			};
+			/* eslint-enable max-len */
 
 			var activeClass       = obj.selectors.active.replace( '.', '' );
 
@@ -160,12 +179,12 @@
 			}
 
 			if ( passes && ! isDisabled ) {
-				if ( $dependent.data( 'select2' ) ) {
-					$dependent.data( 'select2' ).container.addClass( activeClass );
+				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
+					$dependent.select2().data( 'select2' ).$container.addClass( activeClass );
 
 					// ideally the class should be enough, but just in case...
-					if ( $dependent.data( 'select2' ).container.is( ':hidden' ) ) {
-						$dependent.data( 'select2' ).container.show();
+					if ( $dependent.select2().data( 'select2' ).$container.is( ':hidden' ) ) {
+						$dependent.select2().data( 'select2' ).$container.show();
 					}
 				} else {
 					$dependent.addClass( activeClass );
@@ -180,10 +199,16 @@
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', false );
 				}
 
-				$dependent.find( obj.selectors.fields ).prop( 'disabled', false );
+				$dependent
+					.find( obj.selectors.fields )
+					.not( obj.selectors.dependencyManualControl )
+					.prop( 'disabled', false );
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent.find( '.select2-container' ).select2( 'enable', true );
+					$dependent
+						.find( '.tribe-dropdown, .tribe-ea-dropdown' )
+						.select2()
+						.prop( 'disabled', false );
 				}
 			} else {
 				$dependent.removeClass( activeClass );
@@ -194,15 +219,21 @@
 				}
 
 				if ( ! $dependent.data( 'dependency-dont-disable' ) ) {
-					$dependent.find( obj.selectors.fields ).prop( 'disabled', true );
+					$dependent
+						.find( obj.selectors.fields )
+						.not( obj.selectors.dependencyManualControl )
+						.prop( 'disabled', true );
 				}
 
 				if ( 'undefined' !== typeof $().select2 ) {
-					$dependent.find( '.select2-container' ).select2( 'enable', false );
+					$dependent
+						.find( '.tribe-dropdown, .tribe-ea-dropdown' )
+						.select2()
+						.prop( 'disabled', true );
 				}
 
-				if ( $dependent.data( 'select2' ) ) {
-					$dependent.data( 'select2' ).container.removeClass( activeClass );
+				if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
+					$dependent.select2().data( 'select2' ).$container.removeClass( activeClass );
 				}
 
 				// When we have a flag to always display the field we display when disabled
@@ -210,16 +241,16 @@
 					$dependent.addClass( activeClass ).show();
 					$dependent.filter( obj.selectors.fields ).prop( 'disabled', true );
 
-					if ( $dependent.data( 'select2' ) ) {
-						$dependent.data( 'select2' ).container.addClass( activeClass ).show();
+					if ( $dependent.is( '.tribe-dropdown, .tribe-ea-dropdown' ) ) {
+						$dependent.select2().data( 'select2' ).$container.addClass( activeClass ).show();
 					}
 				}
 			}
 
-			var $dependentChilds = $dependent.find( obj.selectors.dependency );
-			if ( $dependentChilds.length > 0 ) {
+			var $dependentChildren = $dependent.find( obj.selectors.dependency );
+			if ( $dependentChildren.length > 0 ) {
 				// Checks if any child elements have dependencies
-				$dependentChilds.trigger( 'change' );
+				$dependentChildren.trigger( 'change' );
 			}
 		} );
 
@@ -227,14 +258,14 @@
 	};
 
 	/**
-	 * Setup dependency, it might be run on a bunch of diferent places to allow
+	 * Setup dependency, it might be run on a bunch of different places to allow
 	 * AJAX fields to be used.
 	 *
 	 * @since 4.7.15
 	 *
 	 * @type  {Function}
 	 */
-	obj.setup = function ( event ) {
+	obj.setup = function ( event ) { // eslint-disable-line no-unused-vars
 		// Fetch all dependents
 		var $dependents = $( obj.selectors.dependent );
 
@@ -260,8 +291,8 @@
 	 * @type  {Function}
 	 */
 	$.fn.dependency = function () {
-		return this.each( function(){
-			var $el = $(this);
+		return this.each( function() {
+			var $el = $( this );
 			var selector = $el.data( 'depends' );
 			var $selector = $( selector );
 
@@ -277,9 +308,8 @@
 		} );
 	};
 
-
 	/**
-	 * Listen on async recurent elements.
+	 * Listen on async recurrent elements.
 	 *
 	 * @since 4.7.15
 	 */
@@ -299,7 +329,7 @@
 	}, obj.selectors.dependency );
 
 	// Configure on Document ready for the default trigger
-	$document.ready( obj.setup );
+	$( obj.setup );
 
 	// Configure on Window Load again
 	$window.on( 'load', obj.setup );

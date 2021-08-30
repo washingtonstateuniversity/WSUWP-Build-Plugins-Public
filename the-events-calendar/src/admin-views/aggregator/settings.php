@@ -3,7 +3,7 @@
  * Create a easy way to hook to the Add-ons Tab Fields
  * @var array
  */
-$internal = array();
+$internal                   = [];
 $use_global_settings_phrase = esc_html__( 'Use global import settings', 'the-events-calendar' );
 $post_statuses = get_post_statuses();
 $category_dropdown = wp_dropdown_categories( [
@@ -14,17 +14,20 @@ $category_dropdown = wp_dropdown_categories( [
 ] );
 preg_match_all( '!\<option.*value="([^"]+)"[^\>]*\>(.*)\</option\>!m', $category_dropdown, $matches );
 $categories = [
-	'' => __( 'No default category', 'the-events-calendar' ),
+	'-1' => __( 'No default category', 'the-events-calendar' ),
 ];
 $events_aggregator_is_active = tribe( 'events-aggregator.main' )->is_service_active();
 
 $origin_post_statuses = $events_aggregator_is_active
-	? array( '' => $use_global_settings_phrase ) + $post_statuses
-	: $post_statuses;
+		? [ '-1' => $use_global_settings_phrase ] + $post_statuses
+		: $post_statuses;
 
-$origin_categories = array(
-	'' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__( 'None', 'the-events-calendar' ),
-);
+$origin_categories = [
+	'-1' => $events_aggregator_is_active ? $use_global_settings_phrase : esc_html__(
+		'None',
+		'the-events-calendar'
+	),
+];
 
 foreach ( $matches[1] as $key => $match ) {
 	$categories[ $match ]        = $matches[2][ $key ];
@@ -36,7 +39,7 @@ $yes_no_options = [
 	'yes' => __( 'Yes', 'the-events-calendar' ),
 ];
 
-$origin_show_map_options = array( '' => $use_global_settings_phrase ) + $yes_no_options;
+$origin_show_map_options = [ '-1' => $use_global_settings_phrase ] + $yes_no_options;
 
 $change_authority = [
 	'import-defaults-update_authority' => [
@@ -113,14 +116,16 @@ $ea_disable = [
 	],
 ];
 
-$global = $ical = $ics = $gcal = $meetup = $url = $eb_fields = array();
+$global = $ical = $ics = $gcal = $meetup = $url = $eb_fields = [];
 // if there's an Event Aggregator license key, add the Global settings, iCal, and Meetup fields
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$stop_running_processes_message = sprintf(
 		__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
-		sprintf( '<a href="' . add_query_arg( array( Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ) ) . '">%s</a>',
-			esc_html__( 'click here', 'the-events-calendar' )
+		sprintf(
+			'<a href="%1$s">%2$s</a>',
+				add_query_arg( [ Tribe__Events__Aggregator__Processes__Queue_Control::CLEAR_PROCESSES => 1 ] ),
+				esc_html__( 'click here', 'the-events-calendar' )
 		)
 	);
 
@@ -161,7 +166,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => 'no',
-			'can_be_empty'    => true,
+			'can_be_empty'    => false,
 			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 			'options'         => $yes_no_options,
 			'priority'        => 5.4,
@@ -172,7 +177,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'tooltip'         => esc_html__( 'Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results.', 'the-events-calendar' ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
-			'default'         => 'range',
+			'default'         => 'count',
 			'can_be_empty'    => false,
 			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
 			'options'         => tribe( 'events-aggregator.settings' )->get_import_limit_type_options(),
@@ -374,7 +379,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'type'            => 'html',
 			'html'            => '<p>' . sprintf(
 				esc_html__(
-					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > APIs%2$s',
+					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > Integrations%2$s',
 					'the-events-calendar'
 				),
 				'<a href="' . admin_url( Tribe__Settings::$parent_page . '&page=tribe-common&tab=addons' ) . '">',
@@ -496,7 +501,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	// Unset EA's "Use global import settings" option if it's there.
 	if ( $events_aggregator_is_active ) {
-		unset( $eventbrite_origin_post_statuses[''] );
+		unset( $eventbrite_origin_post_statuses['-1'] );
 	}
 
 	$eb_fields = [
@@ -696,7 +701,7 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 	ob_start();
 	?>
 	<p><?php esc_html_e( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ); ?></p>
-	<a href="https://m.tri.be/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
+	<a href="https://evnt.is/196z"><?php esc_html_e( 'Check out Event Aggregator.', 'the-events-calendar' ); ?></a>
 	<?php
 	$import_instructions = ob_get_clean();
 }

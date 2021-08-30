@@ -1,7 +1,7 @@
 (function( $, _ ) {
 	'use strict';
 	// Configure on Document ready for the default trigger
-	$( document ).ready( function() {
+	$( function() {
 		$( '.tribe-bumpdown-trigger' ).bumpdown();
 	} );
 
@@ -19,7 +19,7 @@
 				hover_trigger: '.tribe-bumpdown-trigger:not(.tribe-bumpdown-nohover)',
 				close: '.tribe-bumpdown-close',
 				permanent: '.tribe-bumpdown-permanent',
-				active: '.tribe-bumpdown-active'
+				active: '.tribe-bumpdown-active',
 			},
 			methods = {
 				open: function( $bumpdown ) {
@@ -60,7 +60,7 @@
 						}
 					}
 
-					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' );
+					$content.prepend( '<a class="tribe-bumpdown-close" title="Close"><i class="dashicons dashicons-no"></i></a>' ); // eslint-disable-line max-len
 					$content.prepend( '<span class="tribe-bumpdown-arrow"></span>' );
 					methods.arrow( $bumpdown );
 
@@ -88,9 +88,15 @@
 					var data = $bumpdown.data( 'bumpdown' ),
 						arrow;
 
-					arrow = Math.ceil( data.$trigger.position().left - ( 'block' === data.type ? data.$parent.offset().left : 0 ) );
+					arrow = Math.ceil(
+						data.$trigger.position().left - (
+							'block' === data.type
+								? data.$parent.offset().left
+								: 0
+						)
+					);
 
-					data.$bumpdown.find( '.tribe-bumpdown-arrow' ).css( 'left', arrow );
+					data.$bumpdown.find( '.tribe-bumpdown-arrow' ).css( 'left', arrow ); // eslint-disable-line es5/no-es6-methods,max-len
 				}
 			};
 
@@ -102,23 +108,26 @@
 			}
 		} );
 
+		if ( 'function' === typeof $.fn.hoverIntent ) {
+			$document
+				// Use hoverIntent to make sure we are not opening Bumpdown on a fast hover
+				.hoverIntent( {
+					over: function() {
+						var data = $( this ).data( 'bumpdown' );
+
+						// Flags that it's open
+						data.$trigger.data( 'is_hoverintent_queued', false );
+
+						// Actually opens
+						data.$bumpdown.trigger( 'open.bumpdown' );
+					},
+					out: function() {}, // Prevents Notice on JS
+					selector: selectors.hover_trigger,
+					interval: 200,
+				} );
+		}
+
 		$document
-			// Use hoverIntent to make sure we are not opening Bumpdown on a fast hover
-			.hoverIntent( {
-				over: function() {
-					var data = $( this ).data( 'bumpdown' );
-
-					// Flags that it's open
-					data.$trigger.data( 'is_hoverintent_queued', false );
-
-					// Actually opens
-					data.$bumpdown.trigger( 'open.bumpdown' );
-				},
-				out: function() {}, // Prevents Notice on JS
-				selector: selectors.hover_trigger,
-				interval: 200
-			} )
-
 			// Setup Events on Trigger
 			.on( {
 				mouseenter: function() {
@@ -171,7 +180,8 @@
 			// Triggers closing when clicking on the document
 			.on( 'click', function( e ) {
 				var $target = $( e.target ),
-					is_bumpdown = $target.is( selectors.bumpdown ) || 0 !== $target.parents( selectors.bumpdown ).length;
+					is_bumpdown = $target.is( selectors.bumpdown )
+						|| 0 !== $target.parents( selectors.bumpdown ).length;
 
 				if ( is_bumpdown ) {
 					return;
@@ -189,19 +199,19 @@
 		// Configure all the fields
 		return this.each( function() {
 			var data = {
-					// Store the jQuery Elements
-					$trigger: $( this ),
-					$parent: null,
-					$bumpdown: null,
+				// Store the jQuery Elements
+				$trigger: $( this ),
+				$parent: null,
+				$bumpdown: null,
 
-					// Store other Variables
-					ID: null,
-					html: null,
-					type: 'block',
+				// Store other Variables
+				ID: null,
+				html: null,
+				type: 'block',
 
-					// Flags
-					is_permanent: false
-				};
+				// Flags
+				is_permanent: false,
+			};
 
 			// We need a ID for this Bumpdown
 			data.ID = data.$trigger.attr( 'id' );
@@ -221,13 +231,17 @@
 			// We fetch from `[data-bumpdown-class]` attr the possible class(es) for this Bumpdown
 			data.class = data.$trigger.attr( 'data-bumpdown-class' );
 
-			// Flags about if this bumpdown is permanent, meaning it only closes when clicking on the close button or the trigger
+			// Flags about if this bumpdown is permanent,
+			// meaning it only closes when clicking on the close button or the trigger
 			data.is_permanent = data.$trigger.is( selectors.permanent );
 
 			// Fetch the first Block-Level parent
 			data.$parent = data.$trigger.parents().filter( function() {
-				return -1 < $.inArray( $( this ).css( 'display' ), [ 'block', 'table', 'table-cell', 'table-row' ] );
-			}).first();
+				return -1 < $.inArray(
+					$( this ).css( 'display' ),
+					[ 'block', 'table', 'table-cell', 'table-row' ]
+				);
+			} ).first();
 
 			if ( ! data.html ) {
 				data.$bumpdown = $( selectors.data_trigger( data.ID ) );
@@ -236,7 +250,10 @@
 				data.type = data.$parent.is( 'td, tr, td, table' ) ? 'table' : 'block';
 
 				if ( 'table' === data.type ) {
-					data.$bumpdown = $( '<td>' ).attr( { colspan: 2 } ).addClass( 'tribe-bumpdown-cell' ).html( data.html );
+					data.$bumpdown = $( '<td>' )
+						.attr( { colspan: 2 } )
+						.addClass( 'tribe-bumpdown-cell' )
+						.html( data.html );
 					var classes = data.class ? 'tribe-bumpdown-row ' + data.class : 'tribe-bumpdown-row',
 						$row = $( '<tr>' ).append( data.$bumpdown ).addClass( classes );
 

@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Events\I18n;
+
 
 class Tribe__Events__Integrations__WPML__Filters {
 
@@ -36,10 +38,11 @@ class Tribe__Events__Integrations__WPML__Filters {
 			return $bases;
 		}
 
-		$tec = Tribe__Events__Main::instance();
-
 		// Grab all languages
 		$langs = $sitepress->get_active_languages();
+
+		// Sort the languages to stick w/ the order that will be used to support localized bases.
+		ksort( $langs );
 
 		if ( empty( $langs ) ) {
 			return $bases;
@@ -57,18 +60,28 @@ class Tribe__Events__Integrations__WPML__Filters {
 
 		// Get the strings on multiple Domains and Languages
 		// remove WPML filter to avoid the locale being set to the default one
-		remove_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+		remove_filter( 'locale', [ $sitepress, 'locale_filter' ] );
 
-		$bases = $tec->get_i18n_strings( $bases, $languages, $domains, $current_locale );
+		/*
+		 * Translate only the English version of the bases to ensure the order of the translations.
+		 */
+		$untranslated_bases = array_combine( array_keys( $bases ), array_column( $bases, 0 ) );
+
+		$translated_bases = tribe( 'tec.i18n' )
+			->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale, I18n::COMPILE_STRTOLOWER );
+
+		// Prepend the WPML-translated bases to the set of bases.
+		$bases = array_merge_recursive( $translated_bases, $bases );
 
 		// re-hook WPML filter
-		add_filter( 'locale', array( $sitepress, 'locale_filter' ) );
+		add_filter( 'locale', [ $sitepress, 'locale_filter' ] );
 
-		$string_translation_active = function_exists( 'wpml_st_load_slug_translation' );
+		$string_translation_active = defined( 'WPML_ST_VERSION' );
 		$post_slug_translation_on  = ! empty( $sitepress_settings['posts_slug_translation']['on'] );
 
 		if ( $string_translation_active && $post_slug_translation_on ) {
 			$bases = $this->translate_single_slugs( $bases );
+			$bases = $this->translate_archive_slugs( $bases );
 		}
 
 		return $bases;
@@ -82,7 +95,7 @@ class Tribe__Events__Integrations__WPML__Filters {
 	protected function translate_single_slugs( array $bases ) {
 		global $sitepress_settings;
 
-		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
+		$supported_post_types = [ Tribe__Events__Main::POSTTYPE ];
 
 		foreach ( $supported_post_types as $post_type ) {
 			// check that translations are active for this CPT
@@ -92,16 +105,57 @@ class Tribe__Events__Integrations__WPML__Filters {
 				continue;
 			}
 
-			$slug_translations = WPML_Slug_Translation::get_translations( $post_type );
+			$event_slug = WPML_Slug_Translation::get_slug_by_type( $post_type );
 
-			if ( ! isset( $slug_translations[1] ) ) {
+			$string_id = icl_get_string_id( $event_slug, 'WordPress', 'URL slug: ' . $post_type );
+
+			if ( ! $string_id ) {
 				continue;
 			}
 
-			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations[1], 'value' ) );
+			$slug_translations = icl_get_string_translations_by_id( $string_id );
+
+			if ( empty( $slug_translations ) ) {
+				continue;
+			}
+
+			$bases['single'] = array_merge( $bases['single'], wp_list_pluck( $slug_translations, 'value' ) );
 		}
 
 		return $bases;
 	}
 
+	/**
+	 * @param $bases
+	 *
+	 * @return array
+	 */
+	protected function translate_archive_slugs( array $bases ) {
+		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
+
+		foreach ( $supported_post_types as $post_type ) {
+
+			$slug = Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' );
+
+			$context   = [ 'domain' => 'the-events-calendar', 'context' => 'Archive Events Slug' ];
+			$string_id = icl_get_string_id( $slug, $context );
+
+			if ( ! $string_id ) {
+				// If we couldn't find the string, we might need to register it.
+				icl_register_string( $context, false, $slug );
+
+				continue;
+			}
+
+			$slug_translations = icl_get_string_translations_by_id( $string_id );
+
+			if ( empty( $slug_translations ) ) {
+				continue;
+			}
+
+			$bases['archive'] = array_merge( $bases['archive'], wp_list_pluck( $slug_translations, 'value' ) );
+		}
+
+		return $bases;
+	}
 }

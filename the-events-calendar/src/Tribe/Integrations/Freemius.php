@@ -150,9 +150,9 @@ class Tribe__Events__Integrations__Freemius {
 		] );
 
 		$this->instance->add_filter( 'connect_url', [ $this, 'get_connect_url' ], 10, 10 );
-		$this->instance->add_filter( 'after_skip_url', [ $this, 'get_settings_url' ] );
-		$this->instance->add_filter( 'after_connect_url', [ $this, 'get_settings_url' ] );
-		$this->instance->add_filter( 'after_pending_connect_url', [ $this, 'get_settings_url' ] );
+		$this->instance->add_filter( 'after_skip_url', [ $this, 'get_welcome_url' ] );
+		$this->instance->add_filter( 'after_connect_url', [ $this, 'get_welcome_url' ] );
+		$this->instance->add_filter( 'after_pending_connect_url', [ $this, 'get_welcome_url' ] );
 		$this->instance->add_filter( 'plugin_icon', [ $this, 'get_plugin_icon_url' ] );
 
 		/*
@@ -172,6 +172,14 @@ class Tribe__Events__Integrations__Freemius {
 		], 10, 6 );
 
 		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
+
+		tribe_asset(
+			Tribe__Events__Main::instance(),
+			"tribe-{$this->slug}-freemius",
+			'freemius.css',
+			[],
+			null
+		);
 	}
 
 
@@ -269,6 +277,17 @@ class Tribe__Events__Integrations__Freemius {
 	}
 
 	/**
+	 * Get the Welcome page URL.
+	 *
+	 * @since 5.1.6
+	 *
+	 * @return string The welcome page URL.
+	 */
+	public function get_welcome_url() {
+		return Tribe__Settings::instance()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] );
+	}
+
+	/**
 	 * Action to skip activation since Freemius code does not skip correctly here.
 	 *
 	 * @since  4.9
@@ -316,7 +335,7 @@ class Tribe__Events__Integrations__Freemius {
 	) {
 		$class = $this->object_class;
 
-		wp_enqueue_style( 'tribe-' . $this->slug . '-freemius', $class::instance()->plugin_url . '/src/resources/css/freemius.css' );
+		tribe_asset_enqueue( "tribe-{$this->slug}-freemius" );
 
 		// Add the heading HTML.
 		$plugin_name = $this->name;

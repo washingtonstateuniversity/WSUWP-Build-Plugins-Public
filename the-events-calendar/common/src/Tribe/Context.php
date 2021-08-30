@@ -190,13 +190,13 @@ class Tribe__Context {
 	 *
 	 * @var array
 	 */
-	protected static $associative_locations = array(
+	protected static $associative_locations = [
 		self::TRANSIENT,
 		self::METHOD,
 		self::STATIC_METHOD,
 		self::PROP,
 		self::STATIC_PROP,
-	);
+	];
 
 	/**
 	 * Whether the static dynamic locations were set or not.
@@ -213,7 +213,7 @@ class Tribe__Context {
 	 *
 	 * @var array
 	 */
-	protected $override_locations = array();
+	protected $override_locations = [];
 
 	/**
 	 * Whether the context of the current HTTP request is an AJAX one or not.
@@ -234,7 +234,8 @@ class Tribe__Context {
 	 *
 	 * @var array
 	 */
-	protected $request_cache = array();
+	protected $request_cache = [];
+
 	/**
 	 * Whether this context should use the default locations or not.
 	 * This flag property is set to `false` when a context is obtained using
@@ -281,7 +282,7 @@ class Tribe__Context {
 		}
 
 		if ( ! empty( $post_or_type ) ) {
-			$lookup = array( $_GET, $_POST, $_REQUEST );
+			$lookup = [ $_GET, $_POST, $_REQUEST ];
 
 			$current_post = Tribe__Utils__Array::get_in_any( $lookup, 'post', get_post() );
 
@@ -292,7 +293,7 @@ class Tribe__Context {
 				return ! empty( $post ) && $post == $current_post;
 			}
 
-			$post_types = is_array( $post_or_type ) ? $post_or_type : array( $post_or_type );
+			$post_types = is_array( $post_or_type ) ? $post_or_type : [ $post_or_type ];
 
 			$post = $is_post ? get_post( $current_post ) : null;
 
@@ -306,7 +307,7 @@ class Tribe__Context {
 				$post_type = Tribe__Utils__Array::get_in_any( $lookup, 'post_type', 'post' );
 			}
 
-			return (bool) count( array_intersect( $post_types, array( $post_type ) ) );
+			return (bool) count( array_intersect( $post_types, [ $post_type ] ) );
 		}
 
 		return $is_new || $is_post;
@@ -446,7 +447,7 @@ class Tribe__Context {
 		if ( null !== $key ) {
 			unset( $this->request_cache[ $key ] );
 		} else {
-			$this->request_cache = array();
+			$this->request_cache = [];
 		}
 	}
 
@@ -471,7 +472,9 @@ class Tribe__Context {
 			 *
 			 * @since 4.10.2
 			 *
-			 * @param  array  $locations  An array of locations registered on the Context object.
+			 * @param $locations array           An array of read and write location in the shape of the `Tribe__Context::$locations` one,
+			 *                                   `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+			 * @param $context   Tribe__Context  Current instance of the context.
 			 */
 			$locations = apply_filters( 'tribe_context_locations', $locations, $this );
 		}
@@ -753,7 +756,7 @@ class Tribe__Context {
 
 		foreach ( $classes_and_methods as $class => $method ) {
 			$the_value = class_exists( $class ) && method_exists( $class, $method )
-				? call_user_func( array( $class, $method ) )
+				? call_user_func( [ $class, $method ] )
 				: self::NOT_FOUND;
 
 			if ( $the_value !== self::NOT_FOUND ) {
@@ -867,16 +870,16 @@ class Tribe__Context {
 				foreach ( $targets as $arg_1 => $arg_2 ) {
 					if ( self::FUNC === $location && is_array( $arg_2 ) && is_callable( $arg_2 ) ) {
 						// Handles write functions specified as an array.
-						$location_args = array( $arg_2 );
+						$location_args = [ $arg_2 ];
 					} else {
 						$location_args = in_array( $location, self::$associative_locations, true )
-							? array( $arg_1, $arg_2 )
+							? [ $arg_1, $arg_2 ]
 							: (array) $arg_2;
 					}
 
-					$args = array_merge( $location_args, array( $value ) );
+					$args = array_merge( $location_args, [ $value ] );
 
-					call_user_func_array( array( $this, $write_func ), $args );
+					call_user_func_array( [ $this, $write_func ], $args );
 				}
 			}
 		}
@@ -1055,7 +1058,7 @@ class Tribe__Context {
 		if ( ! class_exists( $class ) ) {
 			return;
 		}
-		call_user_func( array( $class, $method ), $value );
+		call_user_func( [ $class, $method ], $value );
 	}
 
 	/**
@@ -1071,7 +1074,7 @@ class Tribe__Context {
 		if ( ! tribe()->offsetExists( $binding ) ) {
 			return;
 		}
-		call_user_func( array( tribe( $binding ), $method ), $value );
+		call_user_func( [ tribe( $binding ), $method ], $value );
 	}
 
 	/**
@@ -1142,7 +1145,7 @@ class Tribe__Context {
 	 */
 	public function to_array(  ) {
 		$locations = array_keys( array_merge( $this->get_locations(), $this->request_cache ) );
-		$dump      = array();
+		$dump      = [];
 
 		foreach ( $locations as $location ) {
 			$the_value = $this->get( $location, self::NOT_FOUND );
@@ -1232,7 +1235,7 @@ class Tribe__Context {
 	public function get_orm_args( array $fields = null, $whitelist = true ) {
 		$locations         = $this->get_locations();
 		$dump              = $this->to_array();
-		$orm_args          = array();
+		$orm_args          = [];
 		$is_global_context = tribe_context() === $this;
 
 		foreach ( $dump as $key => $value ) {
@@ -1317,6 +1320,22 @@ class Tribe__Context {
 		static::$locations = apply_filters( 'tribe_context_locations', static::$locations, $this );
 
 		static::$did_populate_locations = true;
+	}
+
+	/**
+	 * Just dont...
+	 * Unless you very specifically know what you are doing **DO NOT USE THIS METHOD**!
+	 *
+	 * Please keep in mind this will set force the context to repopulate all locations for the whole request, expensive
+	 * and very dangerous overall since it could affect all this things we hold dear in the request.
+	 *
+	 * With great power comes great responsibility: think a lot before using this.
+	 *
+	 * @since 4.13.0
+	 */
+	public function dangerously_repopulate_locations() {
+		static::$did_populate_locations = false;
+		$this->populate_locations();
 	}
 
 	/**

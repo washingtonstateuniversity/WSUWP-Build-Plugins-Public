@@ -7,6 +7,8 @@ defined( 'WPINC' ) or die;
  *
  * @package Common
  * @since 4.3
+ *
+ * @since 4.14.2 Added get_hex_with_hash function.
  */
 
 /**
@@ -72,7 +74,7 @@ class Tribe__Utils__Color {
 		$G = hexdec( $color[2] . $color[3] );
 		$B = hexdec( $color[4] . $color[5] );
 
-		$HSL = array();
+		$HSL = [];
 
 		$var_R = ( $R / 255 );
 		$var_G = ( $G / 255 );
@@ -127,13 +129,13 @@ class Tribe__Utils__Color {
 	 * @return string HEX string
 	 * @throws Exception "Bad HSL Array"
 	 */
-	public static function hslToHex( $hsl = array() ) {
-		 // Make sure it's HSL
+	public static function hslToHex( $hsl = [] ) {
+		// Make sure it's HSL
 		if ( empty( $hsl ) || ! isset( $hsl['H'] ) || ! isset( $hsl['S'] ) || ! isset( $hsl['L'] ) ) {
 			throw new Exception( 'Param was not an HSL array' );
 		}
 
-		list( $H, $S, $L ) = array( $hsl['H'] / 360, $hsl['S'], $hsl['L'] );
+		list( $H, $S, $L ) = [ $hsl['H'] / 360, $hsl['S'], $hsl['L'] ];
 
 		if ( 0 == $S ) {
 			$r = $L * 255;
@@ -167,7 +169,6 @@ class Tribe__Utils__Color {
 		return $r.$g.$b;
 	}
 
-
 	/**
 	 * Given a HEX string returns a RGB array equivalent.
 	 * @param string $color
@@ -190,15 +191,14 @@ class Tribe__Utils__Color {
 		return $RGB;
 	}
 
-
 	/**
 	 *  Given an RGB associative array returns the equivalent HEX string
 	 * @param array $rgb
 	 * @return string RGB string
 	 * @throws Exception "Bad RGB Array"
 	 */
-	public static function rgbToHex( $rgb = array() ) {
-		 // Make sure it's RGB
+	public static function rgbToHex( $rgb = [] ) {
+		// Make sure it's RGB
 		if ( empty( $rgb ) || ! isset( $rgb['R'] ) || ! isset( $rgb['G'] ) || ! isset( $rgb['B'] ) ) {
 			throw new Exception( 'Param was not an RGB array' );
 		}
@@ -209,9 +209,7 @@ class Tribe__Utils__Color {
 		$hex[2] = dechex( $rgb['B'] );
 
 		return implode( '', $hex );
-
-  }
-
+	}
 
 	/**
 	 * Given a HEX value, returns a darker color. If no desired amount provided, then the color halfway between
@@ -269,9 +267,8 @@ class Tribe__Utils__Color {
 		}
 
 		// Return our gradient array
-		return array( 'light' => $lightColor, 'dark' => $darkColor );
+		return [ 'light' => $lightColor, 'dark' => $darkColor ];
 	}
-
 
 	/**
 	 * Returns whether or not given color is considered "light"
@@ -329,12 +326,25 @@ class Tribe__Utils__Color {
 	public function getHsl() {
 		return $this->_hsl;
 	}
+
 	/**
-	 * Returns your original color
+	 * Returns your original color minus any hash mark.
 	 */
 	public function getHex() {
 		return $this->_hex;
 	}
+
+	/**
+	 * Returns your original color with the hash mark.
+	 *
+	 * @since 4.14.2
+	 *
+	 * @return string Hex color code with hash prefix.
+	 */
+	public function get_hex_with_hash() {
+		return '#' . $this->_hex;
+	}
+
 	/**
 	 * Returns your color's RGB array
 	 */
@@ -449,8 +459,8 @@ class Tribe__Utils__Color {
 		 $gmix = ( ( $rgb1['G'] * $r1 ) + ( $rgb2['G'] * $r2 ) ) / 2;
 		 $bmix = ( ( $rgb1['B'] * $r1 ) + ( $rgb2['B'] * $r2 ) ) / 2;
 
-		 return array( 'R' => $rmix, 'G' => $gmix, 'B' => $bmix );
-	 }
+		return [ 'R' => $rmix, 'G' => $gmix, 'B' => $bmix ];
+	}
 
 	/**
 	 * Given a Hue, returns corresponding RGB value
@@ -503,5 +513,4 @@ class Tribe__Utils__Color {
 
 		return $color;
 	}
-
 }

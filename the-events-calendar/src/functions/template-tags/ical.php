@@ -1,6 +1,8 @@
 <?php
 
-// @TODO two functions that do the exact same thing
+/**
+ * @todo [BTRIA-614]: two functions that do the exact same thing
+ */
 if ( ! function_exists( 'tribe_get_single_ical_link' ) ) {
 	/**
 	 * iCal Link (Single)
@@ -25,7 +27,7 @@ if ( ! function_exists( 'tribe_get_ical_link' ) ) {
 	/**
 	 * iCal Link
 	 *
-	 * Returns a sitewide "Export Events" iCal link
+	 * Returns a sitewide "Export Events" iCal link.
 	 *
 	 * @return string URL for ical dump.
 	 */
@@ -50,20 +52,20 @@ if ( ! function_exists( 'tribe_get_gcal_link' ) ) {
 	/**
 	 * Google Calendar Link
 	 *
-	 * Returns an "Add to Google Calendar" link for a single event. Must be used in the loop.
+	 * Returns an "Add to Google Calendar" link for a single event.
 	 *
-	 * @param int $postId (optional)
+	 * @param int $postId (optional) Function must be used in the loop if empty.
 	 *
-	 * @return string URL for google calendar.
+	 * @return string URL for Google Calendar.
 	 */
 	function tribe_get_gcal_link( $postId = null ) {
 		$postId = Tribe__Events__Main::postIdHelper( $postId );
 		$output = Tribe__Events__Main::instance()->googleCalendarLink( $postId );
 
 		/**
-		 * Filters the Google Calendar gcal link
+		 * Filters the Google Calendar link
 		 *
-		 * @param string $output Gcal link
+		 * @param string $output Google Calendar link
 		 * @param int $postId WP Post ID of an event
 		 */
 		return apply_filters( 'tribe_get_gcal_link', $output, $postId );

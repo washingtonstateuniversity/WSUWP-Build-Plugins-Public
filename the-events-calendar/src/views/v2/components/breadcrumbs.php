@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.9.11
  *
@@ -17,6 +17,7 @@
 if ( empty( $breadcrumbs ) ) {
 	return;
 }
+$fonrd = '';
 ?>
 <div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
 	<ol class="tribe-events-c-breadcrumbs__list">

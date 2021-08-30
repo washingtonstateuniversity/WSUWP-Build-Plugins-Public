@@ -1,6 +1,6 @@
 <?php
 $origin_slug        = 'csv';
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'Content Type:', 'the-events-calendar' );
 $field->placeholder = __( 'Select Content Type', 'the-events-calendar' );
 $field->help        = __( 'Specify the type of content you wish to import, e.g. events.', 'the-events-calendar' );
@@ -25,7 +25,7 @@ $post_types = $csv_record->get_import_post_types();
 			data-hide-search
 			data-prevent-clear
 		>
-			<option value=""></option>
+			<option value=""><?php echo esc_attr( $field->placeholder ); ?></option>
 			<?php foreach ( $post_types as $post_type ) : ?>
 				<option value="<?php echo esc_attr( $post_type->name ); ?>"><?php echo esc_html( $post_type->labels->name ); ?></option>
 			<?php endforeach; ?>
@@ -35,7 +35,7 @@ $post_types = $csv_record->get_import_post_types();
 </tr>
 
 <?php
-$field              = (object) array();
+$field              = (object) [];
 $field->label       = __( 'Choose File:', 'the-events-calendar' );
 $field->placeholder = __( 'Choose a CSV file', 'the-events-calendar' );
 $field->help        = __( 'Select your .CSV file from the WordPress media library. You may need to first upload the file from your computer to the library.', 'the-events-calendar' );

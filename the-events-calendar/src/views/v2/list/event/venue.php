@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.9.11
  *
@@ -20,7 +20,7 @@ if ( ! $event->venues->count() ) {
 	return;
 }
 
-$separator            = esc_html_x( ', ', 'Address separator', 'events-calendar-pro' );
+$separator            = esc_html_x( ', ', 'Address separator', 'the-events-calendar' );
 $venue                = $event->venues[0];
 $append_after_address = array_filter( array_map( 'trim', [ $venue->city, $venue->state_province, $venue->state, $venue->province ] ) );
 $address              = $venue->address . ( $venue->address && $append_after_address ? $separator : '' );
