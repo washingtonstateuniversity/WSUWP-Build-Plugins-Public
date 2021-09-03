@@ -25,37 +25,37 @@
 		.select2-search__field {
 			@mixin desktop-body-1;
 
-			background: svg-inline(search) var(--color-background) 12px center / 14px no-repeat;
-			border: 1px solid var(--color-border-default);
-			border-radius: var(--border-radius-default);
+			background: svg-inline(search) var(--tec-color-background) 12px center / 14px no-repeat;
+			border: 1px solid var(--tec-color-border-default);
+			border-radius: var(--tec-border-radius-default);
 
 			&::placeholder {
-				color: var(--color-text-secondary);
+				color: var(--tec-color-text-secondary);
 			}
 		}
 
 		.select2-selection__choice {
 			@mixin desktop-body-3-bold;
 
-			background-color: var(--color-accent-secondary);
-			border: 1px solid var(--color-accent-secondary);
+			background-color: var(--tec-color-accent-secondary);
+			border: 1px solid var(--tec-color-accent-secondary);
 			border-radius: 14px;
-			color: var(--color-background);
-			transition: var(--transition-background-color);
+			color: var(--tec-color-background);
+			transition: var(--tec-transition-background-color);
 
 			&:hover {
-				background-color: var(--color-accent-secondary-hover);
+				background-color: var(--tec-color-accent-secondary-hover);
 			}
 		}
 
 		.select2-selection__choice__remove {
-			color: var(--color-background);
+			color: var(--tec-color-background);
 			font-size: 16px;
 			font-weight: 600;
 
 			&:hover {
-				color: var(--color-background);
-				opacity: var(--opacity-icon-hover);
+				color: var(--tec-color-background);
+				opacity: var(--tec-opacity-icon-hover);
 			}
 		}
 
@@ -69,8 +69,8 @@
 
 		.select2-results__option--highlighted {
 			background-color: transparent;
-			opacity: var(--opacity-select-highlighted);
-			transition: var(--transition-opacity);
+			opacity: var(--tec-opacity-select-highlighted);
+			transition: var(--tec-transition-opacity);
 		}
 	}
 
@@ -89,8 +89,8 @@
 		.tribe-filter-bar-c-multiselect {
 
 			.select2-search__field {
-				border-radius: var(--border-radius-default);
-				color: var(--color-text-primary);
+				border-radius: var(--tec-border-radius-default);
+				color: var(--tec-color-text-primary);
 			}
 		}
 	}
@@ -104,7 +104,7 @@
 		.tribe-filter-bar-c-multiselect {
 
 			.select2-search__field {
-				background: svg-inline(search) var(--color-background) 12px center / 14px no-repeat;
+				background: svg-inline(search) var(--tec-color-background) 12px center / 14px no-repeat;
 				padding: 0 20px 0 34px;
 			}
 		}

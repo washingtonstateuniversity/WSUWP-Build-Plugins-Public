@@ -7,19 +7,19 @@
 .tribe-filter-bar {
 
 	.tribe-filter-bar-c-filter {
-		border-top: 1px solid var(--color-border-secondary);
+		border-top: 1px solid var(--tec-color-border-secondary);
 	}
 
 	.tribe-filter-bar-c-filter__toggle,
 	.tribe-filter-bar-c-filter--accordion .tribe-filter-bar-c-filter__toggle {
-		font-weight: var(--font-weight-bold);
+		font-weight: var(--tec-font-weight-bold);
 	}
 
 	.tribe-filter-bar-c-filter__toggle-minus-icon,
 	.tribe-filter-bar-c-filter__toggle-plus-icon {
 
 		path {
-			stroke: var(--color-icon-primary);
+			stroke: var(--tec-color-icon-primary);
 		}
 	}
 
@@ -30,50 +30,50 @@
 		.tribe-filter-bar-c-filter__toggle {
 			@mixin desktop-body-3-sup;
 
-			background-color: var(--color-background);
-			border: 1px solid var(--color-icon-disabled);
+			background-color: var(--tec-color-background);
+			border: 1px solid var(--tec-color-icon-disabled);
 			border-radius: 18px;
-			font-weight: var(--font-weight-regular);
+			font-weight: var(--tec-font-weight-regular);
 
 			&:hover,
 			&:focus {
-				background-color: var(--color-background-secondary);
-				border-color: var(--color-icon-primary);
+				background-color: var(--tec-color-background-secondary);
+				border-color: var(--tec-color-icon-primary);
 			}
 
 			&:active {
-				background-color: var(--color-background);
-				border-color: var(--color-border-tertiary);
+				background-color: var(--tec-color-background);
+				border-color: var(--tec-color-border-tertiary);
 			}
 		}
 
 		&.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle {
-			background-color: var(--color-background-secondary);
-			border: 1px solid var(--color-icon-primary);
-			font-weight: var(--font-weight-bold);
+			background-color: var(--tec-color-background-secondary);
+			border: 1px solid var(--tec-color-icon-primary);
+			font-weight: var(--tec-font-weight-bold);
 
 			&:hover,
 			&:focus {
-				background-color: var(--color-background-secondary-hover);
+				background-color: var(--tec-color-background-secondary-hover);
 			}
 
 			&:active {
-				background-color: var(--color-background);
-				border-color: var(--color-border-tertiary);
+				background-color: var(--tec-color-background);
+				border-color: var(--tec-color-border-tertiary);
 			}
 		}
 
 		.tribe-filter-bar-c-filter__remove-button {
 
 			path {
-				transition: var(--transition-opacity);
+				transition: var(--tec-transition-opacity);
 			}
 
 			&:hover,
 			&:focus {
 
 				path {
-					opacity: var(--opacity-icon-hover);
+					opacity: var(--tec-opacity-icon-hover);
 				}
 			}
 		}
@@ -81,14 +81,14 @@
 		.tribe-filter-bar-c-filter__remove-button-icon {
 
 			path {
-				stroke: var(--color-icon-active);
+				stroke: var(--tec-color-icon-active);
 			}
 		}
 
 		.tribe-filter-bar-c-filter__container {
-			border: 1px solid var(--color-border-secondary);
-			border-radius: var(--border-radius-default);
-			box-shadow: var(--box-shadow-tooltip);
+			border: 1px solid var(--tec-color-border-secondary);
+			border-radius: var(--tec-border-radius-default);
+			box-shadow: var(--tec-box-shadow-tooltip);
 		}
 
 		.tribe-filter-bar-c-filter__filters-close {
@@ -97,13 +97,13 @@
 			&:focus {
 
 				.tribe-filter-bar-c-filter__filters-close-icon path {
-					stroke: var(--color-icon-active);
+					stroke: var(--tec-color-icon-active);
 				}
 			}
 		}
 
 		.tribe-filter-bar-c-filter__filters-close-icon path {
-			stroke: var(--color-icon-primary);
+			stroke: var(--tec-color-icon-primary);
 		}
 	}
 

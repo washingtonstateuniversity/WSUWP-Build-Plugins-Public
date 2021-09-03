@@ -65,12 +65,12 @@
 
 	&.tribe-filter-bar--horizontal,
 	&.tribe-filter-bar--vertical {
-		background-color: var(--color-background);
+		background-color: var(--tec-color-background);
 		left: 0;
-		padding: 0 var(--grid-gutter-page-small) var(--spacer-5);
+		padding: 0 var(--tec-grid-gutter-page-small) var(--tec-spacer-5);
 		position: absolute;
 		width: 100%;
-		z-index: var(--z-index-filters);
+		z-index: var(--tec-z-index-filters);
 
 		.tribe-common--breakpoint-medium & {
 			background-color: transparent;
@@ -85,11 +85,11 @@
 
 	.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal& {
 		background-color: transparent;
-		margin: calc(var(--spacer-3) * -1) 0 var(--spacer-8);
+		margin: calc(var(--tec-spacer-3) * -1) 0 var(--tec-spacer-8);
 	}
 
 	.tribe-common--breakpoint-medium .tribe-filter-bar--vertical& {
-		margin-right: var(--grid-gutter-small);
+		margin-right: var(--tec-grid-gutter-small);
 		width: 224px;
 	}
 
@@ -106,7 +106,7 @@
 		.tribe-common--breakpoint-medium .tribe-filter-bar--vertical& {
 			@mixin visually-show;
 
-			padding: var(--spacer-1) 0 var(--spacer-2);
+			padding: var(--tec-spacer-1) 0 var(--tec-spacer-2);
 		}
 	}
 }

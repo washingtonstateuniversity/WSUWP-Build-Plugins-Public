@@ -14,6 +14,7 @@ namespace Tribe\Events\Filterbar\Views\V2_1;
  *
  * @since   5.0.0
  * @since   5.0.3 Refactored the `add_styles` method to the `filter_global_elements_css_template` method.j
+ * @deprecated 5.2.0
  *
  * @package Tribe\Events\Filterbar\Views\V2_1
  */
@@ -29,6 +30,7 @@ class Customizer {
 	 * @return array<string,array<string,array<string,int|float|string>>> The filtered sections.
 	 */
 	public function filter_sections( array $sections, $customizer ) {
+		_deprecated_function( __METHOD__, '5.2.0' );
 		// TODO Filter the sections.
 		return $sections;
 	}
@@ -45,6 +47,7 @@ class Customizer {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
+		_deprecated_function( __METHOD__, '5.2.0' );
 		if ( $customizer->has_option( $section->ID, 'accent_color' ) ) {
 			// This changes the Filter Icon underline color to match the global accent color.
 			$css_template .= '
@@ -86,6 +89,7 @@ class Customizer {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+		_deprecated_function( __METHOD__, '5.2.0' );
 		// TODO Filter the CSS template.
 		return $css_template;
 	}

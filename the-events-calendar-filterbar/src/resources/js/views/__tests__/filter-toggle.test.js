@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 describe( 'Filter Toggle', () => {
 	const openedFilter = `
 		<div class="tribe-filter-bar-c-filter tribe-filter-bar-c-filter--has-selections tribe-filter-bar-c-filter--pill tribe-filter-bar-c-filter--open">

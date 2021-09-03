@@ -5,7 +5,7 @@
  * src/resources/postcss/ file. For more information, check out our engineering
  * docs on how we handle CSS in our engineering docs.
  *
- * @see: http://moderntribe.github.io/products-engineering/css/
+ * @see: https://the-events-calendar.github.io/products-engineering/docs/code-standards/css/
  */
 
 .tribe-events #tribe_events_filters_wrapper.tribe-events-filters-horizontal,
@@ -34,8 +34,8 @@
 
 	.tribe-filters-vertical .tribe-events .tribe_events_filters_reset {
 			display: block;
-			width: 100%;
 			padding: 12px 0 13px;
+			width: 100%;
 		}
 
 	.tribe-filters-vertical .tribe-events .tribe_events_filters_reset .tribe-reset-icon {
@@ -44,11 +44,11 @@
 			}
 
 .tribe-dropdown.select2-container .select2-dropdown.select2-dropdown--below {
-				margin-top:0;
+				margin-top: 0;
 			}
 
 .tribe-dropdown.select2-container .select2-dropdown.select2-dropdown--above {
-				margin-bottom:0;
+				margin-bottom: 0;
 			}
 
 .tribe-dropdown.select2-container .select2-results ul {
@@ -57,9 +57,9 @@
 			}
 
 .tribe-dropdown.select2-container .select2-results ul .select2-results__option {
+					font-size: 12px;
 					margin: 0;
 					padding: 6px;
-					font-size: 12px;
 				}
 
 @media (min-width: 769px) {.tribe-filters-open .tribe-events .tribe-events-filters-vertical + .tribe-events-calendar-list,
@@ -81,9 +81,9 @@
 		.tribe-filters-open .tribe-events .tribe-events-filters-vertical + .tribe-events-pro-map,
 		.tribe-filters-open .tribe-events .tribe-events-filters-vertical + .tribe-bar-disabled + .tribe-events-pro-map {
 				float: right;
+				margin-bottom: 20px;
 				margin-left: 32px;
-				width: calc(75% - 32px);
-				margin-bottom: 20px
+				width: calc(75% - 32px)
 		}
 
 		.tribe-filters-open .tribe-events .tribe-events-filters-vertical .tribe_events_filters_close_filters {

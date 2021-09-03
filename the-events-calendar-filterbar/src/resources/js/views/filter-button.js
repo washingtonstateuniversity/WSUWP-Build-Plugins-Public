@@ -1,6 +1,3 @@
-/* global tribe */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -110,7 +107,9 @@ tribe.filterBar.filterButton = {};
 		var $target = $( event.target );
 		var isParentFilterBar = Boolean( $target.closest( obj.selectors.filterBar ).length );
 		var isParentFilterButton = Boolean( $target.closest( obj.selectors.filterButton ).length );
-		var isParentSelect2ChoiceRemove = Boolean( $target.closest( obj.selectors.select2ChoiceRemove ).length );
+		var isParentSelect2ChoiceRemove = Boolean(
+			$target.closest( obj.selectors.select2ChoiceRemove ).length
+		);
 
 		if ( ! isParentFilterBar && ! isParentFilterButton && ! isParentSelect2ChoiceRemove ) {
 			tribe.filterBar.filterBarState.closeFilterBar( $container );
@@ -150,7 +149,7 @@ tribe.filterBar.filterButton = {};
 			tribe.filterBar.filterBarState.openFilterBar( $container );
 		}
 
-		const data = { container: $container };
+		var data = { container: $container };
 		tribe.filterBar.filterBarSlider.handleResize( { data: data } );
 	};
 
@@ -187,12 +186,12 @@ tribe.filterBar.filterButton = {};
 		$filterButton.on(
 			'click',
 			{ target: $filterButton, actionDone: $actionDone, container: $container },
-			obj.handleFilterButtonClick,
+			obj.handleFilterButtonClick
 		);
 		$actionDone.on(
 			'click',
 			{ target: $actionDone, filterButton: $filterButton, container: $container },
-			obj.handleActionDoneClick,
+			obj.handleActionDoneClick
 		);
 		$document.on( 'click', { container: $container }, obj.handleClick );
 		$container.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
@@ -262,7 +261,11 @@ tribe.filterBar.filterButton = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready.

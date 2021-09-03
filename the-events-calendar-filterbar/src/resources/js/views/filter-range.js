@@ -1,6 +1,3 @@
-/* global tribe, tribe_events_filter_bar_js_config */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -71,7 +68,7 @@ tribe.filterBar.filterRange = {};
 		var max = Number( $rangeSlider.data( 'max' ) );
 
 		// Return early if min or max are not numbers.
-		if ( Number.isNaN( min ) || Number.isNaN( max ) ) {
+		if ( isNaN( min ) || isNaN( max ) ) {
 			return;
 		}
 
@@ -141,7 +138,11 @@ tribe.filterBar.filterRange = {};
 				var $rangeSlider = $( rangeSlider );
 				$rangeSlider
 					.on( 'slide', { target: $rangeSlider, container: $container }, obj.handleRangeSlide )
-					.on( 'slidechange', { target: $rangeSlider, container: $container }, obj.handleRangeSlideChange );
+					.on(
+						'slidechange',
+						{ target: $rangeSlider, container: $container },
+						obj.handleRangeSlideChange
+					);
 			} );
 	};
 
@@ -163,7 +164,9 @@ tribe.filterBar.filterRange = {};
 			low = min;
 			high = max;
 		} else {
-			[ low, high ] = value.split( '-' );
+			var values = value.split( '-' );
+			low = values[ 0 ];
+			high = values[ 1 ];
 		}
 
 		$rangeSlider.slider( {
@@ -243,7 +246,11 @@ tribe.filterBar.filterRange = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready.

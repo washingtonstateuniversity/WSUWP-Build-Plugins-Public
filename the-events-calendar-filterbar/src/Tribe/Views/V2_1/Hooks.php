@@ -51,8 +51,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.0.0
 	 */
 	public function register() {
-		$this->container->singleton( Customizer::class, Customizer::class );
-
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -95,11 +93,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_filter_bar_views_v2_1_is_checked_filterbar_cost', [ $this, 'filterbar_cost_is_checked' ], 10, 4 );
 		add_filter( 'tribe_events_filter_bar_views_v2_1_range_label_filterbar_cost', [ $this, 'filterbar_cost_range_label' ], 10, 3 );
 		add_filter( 'tribe_context_locations', [ $this, 'filter_context_locations' ] );
-
-		// Customizer.
-		add_filter( 'tribe_customizer_pre_sections', [ $this, 'filter_customizer_sections' ], 20, 2 );
-		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
-		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
 	}
 
 	/**
@@ -495,6 +488,16 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $locations;
 	}
 
+
+
+	/************************
+	 *                      *
+	 *  Deprecated Methods  *
+	 *                      *
+	 ************************/
+
+	 // @codingStandardsIgnoreStart
+
 	/**
 	 * Filters the currently registered Customizer sections to add or modify them.
 	 *
@@ -506,6 +509,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return array<string,array<string,array<string,int|float|string>>> The filtered sections.
 	 */
 	public function filter_customizer_sections( $sections, $customizer ) {
+		_deprecated_function( __METHOD__, '5.2.0' );
 		if ( ! ( is_array( $sections ) && $customizer instanceof \Tribe__Customizer ) ) {
 			return $sections;
 		}
@@ -525,6 +529,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
+		_deprecated_function( __METHOD__, '5.2.0' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
 			return $css_template;
 		}
@@ -544,10 +549,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string The filtered CSS template.
 	 */
 	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+		_deprecated_function( __METHOD__, '5.2.0' );
 		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
 			return $css_template;
 		}
 
 		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section, $customizer );
 	}
+
+	// @codingStandardsIgnoreEnd
 }

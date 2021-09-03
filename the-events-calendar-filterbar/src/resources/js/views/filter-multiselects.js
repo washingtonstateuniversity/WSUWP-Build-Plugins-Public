@@ -1,6 +1,3 @@
-/* global tribe, tribe_dropdowns */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -121,7 +118,11 @@ tribe.filterBar.filterMultiselects = {};
 			templateSelection: obj.handleTemplateSelection,
 		} );
 		$multiselectInput
-			.on( 'change', { target: $multiselectInput, container: $container }, obj.debouncedHandleMultiselectChange )
+			.on(
+				'change',
+				{ target: $multiselectInput, container: $container },
+				obj.debouncedHandleMultiselectChange
+			)
 			.data( 'select2' ).$container.addClass( 'select2-container--open' );
 		$multiselectInput.data( 'select2' ).trigger( 'query', {} );
 	};
@@ -250,7 +251,11 @@ tribe.filterBar.filterMultiselects = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready.

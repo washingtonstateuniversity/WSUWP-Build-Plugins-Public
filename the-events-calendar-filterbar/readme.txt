@@ -1,11 +1,11 @@
 === The Events Calendar: Filter Bar ===
 
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
-Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro, filters, categories, sort, tags, taxonomy, find, search
+Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, the events calendar, widget, pro, filters, categories, sort, tags, taxonomy, find, search
 Donate link: http://evnt.is/29
-Requires at least: 4.9.16
-Tested up to: 5.7.2
-Stable tag: 5.1.4
+Requires at least: 4.9.18
+Tested up to: 5.8.0
+Stable tag: 5.2.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -194,6 +194,13 @@ Our Premium Plugins:
 * <a href="http://evnt.is/18h9" target="_blank">The Events Calendar: iCal Importer</a>
 
 == Changelog ==
+
+= [5.2.0] 2021-08-24 =
+
+* Version - Filter Bar 5.2.0 is only compatible with The Events Calendar 5.9.0 and higher
+* Feature - Stop compiling CSS custom props and leave them exposed and accessible to the Customizer and third parties. [TEC-3011]
+* Feature - Update hooked Customizer styles to account for surfaced CSS custom properties and for new TEC Customizer font controls. [TEC-3897]
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
 
 = [5.1.4] 2021-07-01 =
 

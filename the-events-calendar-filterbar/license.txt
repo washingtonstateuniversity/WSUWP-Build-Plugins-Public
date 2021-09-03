@@ -1,6 +1,6 @@
 The Events Calendar - Filter Bar Add-On
 
-Copyright 2011-2018 by Modern Tribe Inc and the contributors
+Copyright 2011-2018 by The Events Calendar and the contributors
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

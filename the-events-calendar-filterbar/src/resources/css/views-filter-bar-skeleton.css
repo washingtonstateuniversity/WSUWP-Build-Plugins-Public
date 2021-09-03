@@ -5,7 +5,7 @@
  * src/resources/postcss/ file. For more information, check out our engineering
  * docs on how we handle CSS in our engineering docs.
  *
- * @see: http://moderntribe.github.io/products-engineering/css/
+ * @see: https://the-events-calendar.github.io/products-engineering/docs/code-standards/css/
  */
 
 /**
@@ -26,91 +26,7 @@
  *
  * ----------------------------------------------------------------------------- */
 
-/* Variables */
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Borders - Radius
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Borders - Width
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Box Shadows
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Layers of z-index
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Colors - Typography
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Colors - Iconography
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Colors - UI
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Colors - Borders & Misc
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Colors - Theme-specific
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Forms - Colors
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Forms - Box Shadows
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Gutter - Default
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Gutter - Page
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Grid Width - Default
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Grid Width - Relative
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Opacities
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Spacers
-	 * ----------------------------------------------------------------------------- */
-}
+/* Variables - needed everywhere. */
 
 /* -----------------------------------------------------------------------------
  * SVG - Arrow Right
@@ -254,30 +170,6 @@
 
 /* stylelint-disable-line block-no-empty */
 
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Transitions
-	 * ----------------------------------------------------------------------------- */
-}
-
-:root {
-	/* -----------------------------------------------------------------------------
-	 * Font Stacks
-	 * ----------------------------------------------------------------------------- */ /* stylelint-disable-line value-keyword-case */
-
-	/* -----------------------------------------------------------------------------
-	 * Font Weights
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Font Sizing
-	 * ----------------------------------------------------------------------------- */
-
-	/* -----------------------------------------------------------------------------
-	 * Line Height
-	 * ----------------------------------------------------------------------------- */
-}
-
 /* Mixins */
 
 /* -----------------------------------------------------------------------------
@@ -361,6 +253,13 @@
  * ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
+ * Anchor - Event Title
+ *
+ * This mixin intentionally only affects the text and border _colors_
+ * to make sure they all follow the Customizer overrides.
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
  * Button - Global
  * ----------------------------------------------------------------------------- */
 
@@ -424,7 +323,7 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe-filter-bar .tribe-filter-bar-c-checkbox {
-		margin: 12px 0;
+		margin: var(--tec-spacer-2) 0;
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-checkbox:first-child {
@@ -452,7 +351,7 @@
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon {
-		margin-right: 4px;
+		margin-right: var(--tec-spacer-0);
 		position: relative;
 		top: 3px;
 		width: 14px;
@@ -483,7 +382,7 @@
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search {
-			margin: 8px 0 12px;
+			margin: var(--tec-spacer-1) 0 var(--tec-spacer-2);
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field {
@@ -499,13 +398,13 @@
 
 .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__clear {
 			line-height: 8px;
-			margin: 0 0 2px 4px;
+			margin: 0 0 2px var(--tec-spacer-0);
 			order: 1;
 			padding: 3px;
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option {
-			padding: 6px 0;
+			padding: calc(var(--tec-spacer-2)/2) 0;
 		}
 
 /* -----------------------------------------------------------------------------
@@ -517,13 +416,13 @@
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle {
 		align-items: center;
 		display: flex;
-		padding: 16px 0 20px;
+		padding: var(--tec-spacer-3) 0 var(--tec-spacer-4);
 		text-align: left;
 		width: 100%;
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-text {
-		padding-right: 8px;
+		padding-right: var(--tec-spacer-1);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-label-colon {
@@ -549,8 +448,8 @@
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-minus-icon,
 	.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-plus-icon {
-		width: 10px;
 		vertical-align: middle;
+		width: 10px;
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-minus-icon path, .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-plus-icon path {
@@ -564,8 +463,8 @@
 
 .tribe-filter-bar .tribe-filter-bar-c-filter__container {
 		display: none;
-		margin-top: -4px;
-		padding-bottom: 20px;
+		margin-top: calc(var(--tec-spacer-0)*-1);
+		padding-bottom: var(--tec-spacer-4);
 		visibility: hidden;
 	}
 
@@ -573,14 +472,14 @@
 	.tribe-filter-bar .tribe-filter-bar-c-filter--multiselect .tribe-filter-bar-c-filter__container,
 	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--dropdown .tribe-filter-bar-c-filter__filter-fields,
 	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--multiselect .tribe-filter-bar-c-filter__filter-fields {
-		margin-top: -8px;
+		margin-top: calc(var(--tec-spacer-1)*-1);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter--checkbox .tribe-filter-bar-c-filter__container,
 	.tribe-filter-bar .tribe-filter-bar-c-filter--radio .tribe-filter-bar-c-filter__container,
 	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--checkbox .tribe-filter-bar-c-filter__filter-fields,
 	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--radio .tribe-filter-bar-c-filter__filter-fields {
-		margin-top: -2px;
+		margin-top: calc(var(--tec-spacer-0)/2*-1);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-checkbox .tribe-common-form-control-checkbox__input,
@@ -590,7 +489,7 @@
 
 .tribe-filter-bar .tribe-filter-bar-c-checkbox .tribe-common-form-control-checkbox__label,
 	.tribe-filter-bar .tribe-filter-bar-c-radio .tribe-common-form-control-radio__label {
-		margin-left: 8px;
+		margin-left: var(--tec-spacer-1);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-filter--open .tribe-filter-bar-c-filter__container {
@@ -610,7 +509,7 @@
 		}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle {
-			padding: 8px 12px;
+			padding: var(--tec-spacer-1) var(--tec-spacer-2);
 		}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle-text {
@@ -641,14 +540,14 @@
 			}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container {
-			background-color: #fff;
-			bottom: -12px;
+			background-color: var(--tec-color-background);
+			bottom: calc(var(--tec-spacer-2)*-1);
 			left: 0;
-			padding: 16px 20px 24px;
+			padding: var(--tec-spacer-3) var(--tec-spacer-4) var(--tec-spacer-5);
 			position: absolute;
 			transform: translateY(100%);
 			width: 248px;
-			z-index: 9;
+			z-index: var(--tec-z-index-filters);
 		}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-legend {
@@ -658,8 +557,8 @@
 			position: static;
 			width: auto;
 
-			margin-bottom: 16px;
-			padding-right: 20px;
+			margin-bottom: var(--tec-spacer-3);
+			padding-right: var(--tec-spacer-4);
 			width: 100%;
 		}
 
@@ -667,7 +566,7 @@
 			display: block;
 			height: 20px;
 			position: absolute;
-			right: 16px;
+			right: var(--tec-spacer-3);
 			top: 18px;
 			width: 20px;
 		}
@@ -684,7 +583,7 @@
 			}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle {
-				padding-right: 32px;
+				padding-right: var(--tec-spacer-7);
 			}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle-label-colon {
@@ -693,7 +592,7 @@
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle-selections {
 				display: inline;
-				margin-left: 4px;
+				margin-left: var(--tec-spacer-0);
 			}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__remove-button {
@@ -719,15 +618,15 @@
 .tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__rendered {
 			display: flex;
 			flex-wrap: wrap;
-			margin: 0 -4px;
+			margin: 0 calc(var(--tec-spacer-0)*-1);
 			padding: 0;
 			width: auto;
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search {
 			flex: none;
-			margin: 8px 0 12px;
-			padding: 0 4px;
+			margin: var(--tec-spacer-1) 0 var(--tec-spacer-2);
+			padding: 0 var(--tec-spacer-0);
 			width: 100%;
 		}
 
@@ -748,8 +647,8 @@
 			display: flex;
 			flex-wrap: nowrap;
 			float: none;
-			margin: 0 4px 8px;
-			max-width: calc(100% - 8px);
+			margin: 0 var(--tec-spacer-0) var(--tec-spacer-1);
+			max-width: calc(100% - var(--tec-spacer-0)*2);
 			padding: 6px 11px 6px 12px;
 		}
 
@@ -759,7 +658,7 @@
 
 .tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice__remove {
 			line-height: 8px;
-			margin: 0 0 2px 4px;
+			margin: 0 0 2px var(--tec-spacer-0);
 			order: 1;
 			padding: 3px;
 		}
@@ -769,7 +668,7 @@
 		}
 
 .tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-results__option {
-			padding: 6px 0;
+			padding: calc(var(--tec-spacer-2)/2) 0;
 		}
 
 /* -----------------------------------------------------------------------------
@@ -784,11 +683,11 @@
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-pill__pill {
-		padding: 8px 12px;
+		padding: var(--tec-spacer-1) var(--tec-spacer-2);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
-		padding-right: 32px;
+		padding-right: var(--tec-spacer-7);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-pill__pill-label-colon {
@@ -832,11 +731,11 @@
 
 .tribe-filter-bar .tribe-filter-bar-c-pill--button.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill-selections {
 				display: inline;
-				margin-left: 4px;
+				margin-left: var(--tec-spacer-0);
 			}
 
 .tribe-filter-bar .tribe-filter-bar-c-pill--button.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
-				padding: 6px 32px 6px 12px;
+				padding: 6px var(--tec-spacer-7) 6px var(--tec-spacer-2);
 			}
 
 /* -----------------------------------------------------------------------------
@@ -846,7 +745,7 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe-filter-bar .tribe-filter-bar-c-range__label {
-		margin: 0 0 12px;
+		margin: 0 0 var(--tec-spacer-2);
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle {
@@ -866,7 +765,7 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe-filter-bar .tribe-filter-bar-c-radio {
-		margin: 12px 0;
+		margin: var(--tec-spacer-2) 0;
 	}
 
 .tribe-filter-bar .tribe-filter-bar-c-radio:first-child {
@@ -884,7 +783,7 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-events-c-events-bar__filter-button-container {
-		margin-right: 8px;
+		margin-right: var(--tec-spacer-1);
 	}
 
 .tribe-common--breakpoint-medium.tribe-events--filter-bar-vertical.tribe-events .tribe-events-c-events-bar__filter-button-container {
@@ -894,24 +793,24 @@
 
 .tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container {
 			flex: none;
-			margin: 12px 0;
+			margin: var(--tec-spacer-2) 0;
 		}
 
 .tribe-events .tribe-events-c-events-bar__filter-button {
 		display: block;
-		padding: 4px;
+		padding: var(--tec-spacer-0);
 		position: relative;
 	}
 
 .tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-c-events-bar__filter-button {
-			padding: 8px;
+			padding: var(--tec-spacer-1);
 		}
 
 .tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button {
 			align-items: center;
 			display: flex;
-			margin: -12px 0;
-			padding: 20px 24px;
+			margin: calc(var(--tec-spacer-2)*-1) 0;
+			padding: var(--tec-spacer-4) var(--tec-spacer-5);
 		}
 
 .tribe-events .tribe-events-c-events-bar__filter-button-icon {
@@ -937,6 +836,10 @@
 			width: 14px;
 		}
 
+.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-text {
+		color: var(--tec-color-text-events-bar-input);
+	}
+
 .tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-text {
 			clip: auto;
 			height: auto;
@@ -945,7 +848,7 @@
 			width: auto;
 
 			flex: none;
-			margin-left: 8px;
+			margin-left: var(--tec-spacer-1);
 		}
 
 /* Views */
@@ -977,7 +880,7 @@
 .tribe-filter-bar .tribe-filter-bar__actions {
 		align-items: center;
 		display: none;
-		padding-bottom: 20px;
+		padding-bottom: var(--tec-spacer-4);
 	}
 
 .tribe-filter-bar--has-selected-filters.tribe-filter-bar .tribe-filter-bar__actions {
@@ -993,10 +896,10 @@
 			display: flex;
 			flex: none;
 			order: 1;
-			padding: 0 0 0 12px;
+			padding: 0 0 0 var(--tec-spacer-2);
 			position: relative;
 			visibility: visible;
-			z-index: 10;
+			z-index: var(--tec-z-index-search);
 		}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--vertical.tribe-filter-bar .tribe-filter-bar__actions {
@@ -1005,7 +908,7 @@
 		}
 
 .tribe-filter-bar .tribe-filter-bar__action-done {
-		margin-right: 6px;
+		margin-right: calc(var(--tec-spacer-2)/2);
 	}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar__action-done {
@@ -1014,7 +917,7 @@
 		}
 
 .tribe-filter-bar .tribe-filter-bar__action-clear {
-		margin-left: 6px;
+		margin-left: calc(var(--tec-spacer-2)/2);
 	}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar__action-clear {
@@ -1077,12 +980,12 @@
 
 .tribe-filter-bar.tribe-filter-bar--horizontal,
 	.tribe-filter-bar.tribe-filter-bar--vertical {
-		background-color: #fff;
+		background-color: var(--tec-color-background);
 		left: 0;
-		padding: 0 19.5px 24px;
+		padding: 0 var(--tec-grid-gutter-page-small) var(--tec-spacer-5);
 		position: absolute;
 		width: 100%;
-		z-index: 9;
+		z-index: var(--tec-z-index-filters);
 	}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--horizontal, .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--vertical {
@@ -1097,11 +1000,11 @@
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar {
 		background-color: transparent;
-		margin: -16px 0 40px;
+		margin: calc(var(--tec-spacer-3)*-1) 0 var(--tec-spacer-8);
 	}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--vertical.tribe-filter-bar {
-		margin-right: 42px;
+		margin-right: var(--tec-grid-gutter-small);
 		width: 224px;
 	}
 
@@ -1117,7 +1020,7 @@
 			position: static;
 			width: auto;
 
-			padding: 8px 0 12px;
+			padding: var(--tec-spacer-1) 0 var(--tec-spacer-2);
 		}
 
 /* -----------------------------------------------------------------------------
@@ -1128,7 +1031,7 @@
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-container {
 			position: absolute;
-			z-index: 9;
+			z-index: var(--tec-z-index-filters);
 		}
 
 /* -----------------------------------------------------------------------------
@@ -1148,7 +1051,7 @@
 			overflow: hidden;
 			position: relative;
 			visibility: visible;
-			z-index: 9;
+			z-index: var(--tec-z-index-filters);
 		}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slider-wrapper, .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters {
@@ -1157,7 +1060,7 @@
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slide, .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar-c-filter {
 			flex: none;
-			margin-right: 8px;
+			margin-right: var(--tec-spacer-1);
 		}
 
 .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slide:last-child, .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar-c-filter:last-child {
@@ -1182,7 +1085,7 @@
 .tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button {
 		display: none;
 		line-height: 0;
-		padding: 4px 0;
+		padding: var(--tec-spacer-0) 0;
 		pointer-events: all;
 		position: absolute;
 		top: 50%;
@@ -1222,7 +1125,7 @@
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
-		padding: 16px 0;
+		padding: var(--tec-spacer-3) 0;
 	}
 
 .tribe-filter-bar .tribe-filter-bar__selected-filters-clear-button {
@@ -1236,15 +1139,15 @@
 		}
 
 .tribe-filter-bar .tribe-filter-bar__selected-filters-list-container {
-		padding-bottom: 20px;
+		padding-bottom: var(--tec-spacer-4);
 	}
 
 .tribe-filter-bar .tribe-filter-bar__selected-filters-list {
 		display: flex;
 		flex-wrap: wrap;
-		margin: 0 -4px -8px;
+		margin: 0 calc(var(--tec-spacer-0)*-1) calc(var(--tec-spacer-1)*-1);
 	}
 
 .tribe-filter-bar .tribe-filter-bar__selected-filters-list-item {
-		padding: 0 4px 8px;
+		padding: 0 var(--tec-spacer-0) var(--tec-spacer-1);
 	}

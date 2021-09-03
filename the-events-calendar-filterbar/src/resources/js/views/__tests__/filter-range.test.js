@@ -23,8 +23,8 @@ describe( 'Filter Checkboxes', () => {
 				reverse_currency_position: false,
 			},
 			l10n: {
-				cost_range_currency_symbol_after: '<%- cost_low %><%- currency_symbol %> - <%- cost_high %><%- currency_symbol %>',
-				cost_range_currency_symbol_before: '<%- currency_symbol %><%- cost_low %> - <%- currency_symbol %><%- cost_high %>',
+				cost_range_currency_symbol_after: '<%- cost_low %><%- currency_symbol %> - <%- cost_high %><%- currency_symbol %>', // eslint-disable-line max-len
+				cost_range_currency_symbol_before: '<%- currency_symbol %><%- cost_low %> - <%- currency_symbol %><%- cost_high %>', // eslint-disable-line max-len
 			},
 		};
 	} );
@@ -133,13 +133,15 @@ describe( 'Filter Checkboxes', () => {
 
 		test( 'Should remove key and value from query', () => {
 			// Setup test.
-			global.tribe.filterBar.filters.removeKeyValueFromQuery = jest.fn().mockImplementation( () => ( {
-				href: 'https://test.tri.be/events/month/',
-				origin: 'https://test.tri.be',
-				pathname: '/events/month/',
-				search: '',
-				hash: '',
-			} ) );
+			global.tribe.filterBar.filters.removeKeyValueFromQuery = jest
+				.fn()
+				.mockImplementation( () => ( {
+					href: 'https://test.tri.be/events/month/',
+					origin: 'https://test.tri.be',
+					pathname: '/events/month/',
+					search: '',
+					hash: '',
+				} ) );
 			const event = {
 				data: {
 					target: $rangeSlider,

@@ -78,8 +78,9 @@ describe( 'Filter Bar Slider', () => {
 			// Confirm final states.
 			expect( $filtersSliderNav.removeClass.mock.calls.length ).toBe( 2 );
 			expect( $filtersSliderNav.addClass.mock.calls.length ).toBe( 1 );
-			expect( $filtersSliderNav.addClass.mock.calls[ 0 ][ 0 ] )
-				.toBe( tribe.filterBar.filterBarSlider.selectors.filtersSliderNavOverflowStart.className() );
+			expect( $filtersSliderNav.addClass.mock.calls[ 0 ][ 0 ] ).toBe(
+				tribe.filterBar.filterBarSlider.selectors.filtersSliderNavOverflowStart.className(),
+			);
 		} );
 
 		test( 'Should add overflow end class', () => {
@@ -114,10 +115,12 @@ describe( 'Filter Bar Slider', () => {
 			// Confirm final states.
 			expect( $filtersSliderNav.removeClass.mock.calls.length ).toBe( 2 );
 			expect( $filtersSliderNav.addClass.mock.calls.length ).toBe( 2 );
-			expect( $filtersSliderNav.addClass.mock.calls[ 0 ][ 0 ] )
-				.toBe( tribe.filterBar.filterBarSlider.selectors.filtersSliderNavOverflowStart.className() );
-			expect( $filtersSliderNav.addClass.mock.calls[ 1 ][ 0 ] )
-				.toBe( tribe.filterBar.filterBarSlider.selectors.filtersSliderNavOverflowEnd.className() );
+			expect( $filtersSliderNav.addClass.mock.calls[ 0 ][ 0 ] ).toBe(
+				tribe.filterBar.filterBarSlider.selectors.filtersSliderNavOverflowStart.className(),
+			);
+			expect( $filtersSliderNav.addClass.mock.calls[ 1 ][ 0 ] ).toBe(
+				tribe.filterBar.filterBarSlider.selectors.filtersSliderNavOverflowEnd.className(),
+			);
 		} );
 	} );
 
@@ -341,7 +344,7 @@ describe( 'Filter Bar Slider', () => {
 			// Setup test.
 			const event = {};
 			const index = 0;
-			const $container = $( '<div class="' + tribe.filterBar.filterBarSlider.selectors.filterBarHorizontal.className() + '"></div>' );
+			const $container = $( '<div class="' + tribe.filterBar.filterBarSlider.selectors.filterBarHorizontal.className() + '"></div>' ); // eslint-disable-line max-len
 			const data = {};
 
 			// Test.

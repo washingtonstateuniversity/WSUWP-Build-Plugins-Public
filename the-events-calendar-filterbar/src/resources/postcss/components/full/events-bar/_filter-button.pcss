@@ -9,7 +9,7 @@
 	.tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container {
 
 		.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal& {
-			border-right: 1px solid var(--color-border-secondary);
+			border-right: 1px solid var(--tec-color-border-events-bar);
 		}
 	}
 
@@ -17,30 +17,30 @@
 
 		&:hover,
 		&:focus {
-			opacity: var(--opacity-icon-hover);
+			opacity: var(--tec-opacity-icon-hover);
 		}
 
 		&:active {
-			opacity: var(--opacity-icon-active);
+			opacity: var(--tec-opacity-icon-active);
 		}
 
 		&:before {
-			background-color: var(--color-accent-primary);
+			background-color: var(--tec-color-icon-events-bar-hover);
 			content: '';
 			display: none;
 			height: 2px;
 			pointer-events: none;
 			position: absolute;
 			top: 100%;
-			transform: translateY(var(--spacer-0));
-			width: calc(100% - (2 * var(--spacer-0)));
+			transform: translateY(var(--tec-spacer-0));
+			width: calc(100% - (2 * var(--tec-spacer-0)));
 		}
 
 		.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal& {
 
 			&:before {
 				transform: none;
-				width: calc(100% - (2 * var(--spacer-1)));
+				width: calc(100% - (2 * var(--tec-spacer-1)));
 			}
 		}
 	}
@@ -63,7 +63,7 @@
 	}
 
 	.tribe-events-c-events-bar__filter-button-icon path {
-		fill: var(--color-icon-active);
+		fill: var(--tec-color-icon-events-bar-active);
 	}
 
 	.tribe-events-c-events-bar__filter-button-text {

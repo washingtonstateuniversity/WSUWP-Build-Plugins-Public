@@ -77,7 +77,7 @@ describe( 'Filter Button', () => {
 			expect( tribe.filterBar.filterBarState.closeFilterBar.mock.calls.length ).toBe( 0 );
 		} );
 
-		test( 'Should not open filter bar on resize from mobile to desktop if layout is not vertical', () => {
+		test( 'Should not open filter bar on resize from mobile to desktop if layout is not vertical', () => { // eslint-disable-line max-len
 			// Setup test.
 			$filterBar.data( 'tribeEventsState', { filterButtonDesktopInitialized: false } );
 			$container.data( 'tribeEventsState', { isMobile: false } );
@@ -311,7 +311,9 @@ describe( 'Filter Button', () => {
 			// Setup test.
 			const $filterButton = $( '<button></button>' );
 			$container.data = () => ( { isMobile: false } );
-			$filterButton.addClass( tribe.filterBar.filterButton.selectors.filterButtonActive.className() );
+			$filterButton.addClass(
+				tribe.filterBar.filterButton.selectors.filterButtonActive.className(),
+			);
 			$filterButton.find = () => $filterButtonText;
 			$filterButton.toggleClass = jest.fn();
 			const event = {

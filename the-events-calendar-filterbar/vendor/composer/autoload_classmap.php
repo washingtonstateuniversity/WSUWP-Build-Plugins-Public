@@ -37,7 +37,7 @@ return array(
     'Tribe\\Events\\Filterbar\\Views\\V2_1\\Configuration' => $baseDir . '/src/Tribe/Views/V2_1/Configuration.php',
     'Tribe\\Events\\Filterbar\\Views\\V2_1\\Customizer' => $baseDir . '/src/Tribe/Views/V2_1/Customizer.php',
     'Tribe\\Events\\Filterbar\\Views\\V2_1\\Customizer\\Hooks' => $baseDir . '/src/Tribe/Views/V2_1/Customizer/Hooks.php',
-    'Tribe\\Events\\Filterbar\\Views\\V2_1\\Customizer\\Section\\Events_Bar' => $baseDir . '/src/Tribe/Views/V2_1/Customizer/Section/Events_Bar.php',
+    'Tribe\\Events\\Filterbar\\Views\\V2_1\\Customizer\\Section\\Global_Elements' => $baseDir . '/src/Tribe/Views/V2_1/Customizer/Section/Global_Elements.php',
     'Tribe\\Events\\Filterbar\\Views\\V2_1\\Customizer\\Service_Provider' => $baseDir . '/src/Tribe/Views/V2_1/Customizer/Service_Provider.php',
     'Tribe\\Events\\Filterbar\\Views\\V2_1\\Filters' => $baseDir . '/src/Tribe/Views/V2_1/Filters.php',
     'Tribe\\Events\\Filterbar\\Views\\V2_1\\Filters\\Data' => $baseDir . '/src/Tribe/Views/V2_1/Filters/Data.php',

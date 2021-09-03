@@ -1,6 +1,3 @@
-/* global tribe */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -100,7 +97,8 @@ tribe.filterBar.filterClear = {};
 			.find( obj.selectors.clearButton )
 			.each( function( index, clearButton ) {
 				var $clearButton = $( clearButton );
-				$clearButton.on( 'click', { target: $clearButton, container: $container }, obj.handleClearClick );
+				$clearButton
+					.on('click', { target: $clearButton, container: $container }, obj.handleClearClick );
 			} );
 	};
 
@@ -143,7 +141,11 @@ tribe.filterBar.filterClear = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready.

@@ -9,7 +9,7 @@
  *
  * @package TribeEventsCalendar
  * @since  1.0
- * @author Modern Tribe Inc.
+ * @author The Events Calendar
  * @version 4.8.0
  *
  */
@@ -51,4 +51,3 @@ do_action( 'tribe_events_filter_view_before_template' );
 
 <?php
 do_action( 'tribe_events_filter_view_after_template' );
-

@@ -20,10 +20,10 @@
 	@mixin desktop-body-2-bold;
 	@mixin button-global;
 
-	border-radius: var(--border-radius-default);
-	color: var(--color-background);
+	border-radius: var(--tec-border-radius-default);
+	color: var(--tec-color-background);
 	text-align: center;
-	transition: var(--transition-background-color);
+	transition: var(--tec-transition-background-color);
 }
 
 /* -----------------------------------------------------------------------------
@@ -37,7 +37,7 @@
 	background-color: transparent;
 	text-align: center;
 	text-decoration: underline;
-	transition: var(--transition-color);
+	transition: var(--tec-transition-color);
 
 	&:hover,
 	&:focus {
@@ -53,11 +53,11 @@
 	@mixin desktop-body-2-bold;
 	@mixin button-global;
 
-	background-color: var(--color-background);
-	border: 1px solid var(--color-accent-primary);
-	border-radius: var(--border-radius-default);
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-accent-primary);
+	border-radius: var(--tec-border-radius-default);
 	text-align: center;
-	transition: var(--transition);
+	transition: var(--tec-transition);
 }
 
 /* -----------------------------------------------------------------------------
@@ -68,19 +68,19 @@
 	@mixin desktop-body-3;
 	@mixin button-global;
 
-	background-color: var(--color-background);
-	border: 1px solid var(--color-border-default);
-	border-radius: var(--border-radius-default);
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-border-default);
+	border-radius: var(--tec-border-radius-default);
 	text-align: center;
-	transition: var(--transition-color-border-color);
+	transition: var(--tec-transition-color-border-color);
 
 	&:hover,
 	&:focus {
-		background-color: var(--color-background);
+		background-color: var(--tec-color-background);
 	}
 
 	&:active {
-		border-color: var(--color-border-active);
+		border-color: var(--tec-color-border-active);
 	}
 }
 
@@ -90,8 +90,8 @@
 
 @define-mixin button-icon-border {
 	align-items: center;
-	background-color: var(--color-background);
-	border: 1px solid var(--color-border-default);
+	background-color: var(--tec-color-background);
+	border: 1px solid var(--tec-color-border-default);
 	display: inline-flex;
 	height: 56px;
 	justify-content: center;
@@ -100,10 +100,10 @@
 
 	&:hover,
 	&:focus {
-		background-color: var(--color-background);
+		background-color: var(--tec-color-background);
 	}
 
 	&:active {
-		border-color: var(--color-border-active);
+		border-color: var(--tec-color-border-active);
 	}
 }

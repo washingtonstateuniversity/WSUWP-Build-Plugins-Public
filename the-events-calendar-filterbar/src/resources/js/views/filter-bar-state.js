@@ -1,6 +1,3 @@
-/* global tribe, tribe_events_filter_bar_js_config */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -41,8 +38,10 @@ tribe.filterBar.filterBarState = {};
 	 */
 	obj.selectors = {
 		actionDone: '[data-js="tribe-filter-bar__action-done"]',
-		container: '[data-js="tribe-events-view"]', // @todo [BTRIA-621]: @paulmskim remove when proper hooks are in place.
-		dataScript: '[data-js="tribe-events-view-data"]', // @todo [BTRIA-621]: @paulmskim remove when proper hooks are in place.
+		// @todo [BTRIA-621]: @paulmskim remove container when proper hooks are in place.
+		container: '[data-js="tribe-events-view"]',
+		// @todo [BTRIA-621]: @paulmskim remove dataScript when proper hooks are in place.
+		dataScript: '[data-js="tribe-events-view-data"]',
 		filterBar: '[data-js~="tribe-filter-bar"]',
 		filterBarOpen: '.tribe-filter-bar--open',
 		filterButton: '[data-js~="tribe-events-filter-button"]',
@@ -106,7 +105,10 @@ tribe.filterBar.filterBarState = {};
 	 * @return {void}
 	 */
 	obj.setup = function( container ) {
-		// @todo [BTRIA-621]: @paulmskim all of this is temporary, this will hook into the breakpoints.js in TEC when released with TEC containing the fixes.
+		/**
+		 * @todo [BTRIA-621]: @paulmskim all of this is temporary, this will hook into the
+		 *                    breakpoints.js in TEC when released with TEC containing the fixes.
+		 */
 		var $container = $( container );
 
 		if ( ! $container.is( obj.selectors.container ) ) {

@@ -1,6 +1,3 @@
-/* global tribe, tribe_dropdowns */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
@@ -397,7 +394,7 @@ tribe.events.views.filterBar = {};
 	 */
 	obj.closeAllFilterGroups = function( event ) {
 		event.data.filterBar
-			.find( obj.selectors.filterItem )
+			.find( obj.selectors.filterItem ) // eslint-disable-line es5/no-es6-methods
 			.each( function( index, filterItem ) {
 				var eventObj = { data: { target: $( filterItem ) } };
 				obj.closeFilterGroup( eventObj );
@@ -669,7 +666,7 @@ tribe.events.views.filterBar = {};
 			$groupHeading.on(
 				'click',
 				{ target: $groupHeading, filterBar: $filterBar },
-				obj.toggleFilterGroup,
+				obj.toggleFilterGroup
 			);
 		} );
 		$filtersToggle.on( 'click', obj.toggleFilters );
@@ -729,7 +726,7 @@ tribe.events.views.filterBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) {
+	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
 		var $container = event.data.container;
 		obj.unbindEvents( $container );
 
@@ -759,7 +756,7 @@ tribe.events.views.filterBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) {
+	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
 		var $filterBar = $container.find( obj.selectors.filterBar );
 
 		if ( ! $filterBar.length ) {
@@ -784,7 +781,7 @@ tribe.events.views.filterBar = {};
 		$document.on(
 			'afterSetup.tribeEvents',
 			tribe.events.views.manager.selectors.container,
-			obj.init,
+			obj.init
 		);
 	};
 

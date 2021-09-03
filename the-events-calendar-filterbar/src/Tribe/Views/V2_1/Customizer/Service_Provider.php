@@ -3,17 +3,18 @@
  * The main service provider for the version 2 of the Views.
  *
  * @package Tribe\Events\Filterbar\Views\V2_1\Customizer
- * @since   5.7.0
+ * @since   5.1.4
  */
 
 namespace Tribe\Events\Filterbar\Views\V2_1\Customizer;
 
 use Tribe\Events\Filterbar\Views\V2_1\Customizer\Section\Events_Bar;
+use Tribe\Events\Filterbar\Views\V2_1\Customizer\Section\Global_Elements;
 
 /**
  * Class Service_Provider
  *
- * @since   5.7.0
+ * @since   5.1.4
  *
  * @package Tribe\Events\Filterbar\Views\V2_1\Customizer
  */
@@ -29,6 +30,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->register_hooks();
 
 		tribe_register( 'filterbar.views.v2_1.customizer.events-bar', Events_Bar::class );
+		tribe_register( 'filterbar.views.v2_1.customizer.global-elements', Global_Elements::class );
 	}
 
 	/**

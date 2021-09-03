@@ -29,7 +29,6 @@ tribe.events.admin.filterBarSettings = {};
  */
 ( function( $, obj ) {
 	'use strict';
-	var $body = null;
 
 	/**
 	 * Selectors used for configuration and setup.
@@ -52,7 +51,7 @@ tribe.events.admin.filterBarSettings = {};
 	 *
 	 * @return {void}
 	 */
-	obj.toggleDefaultStateFieldset = function( event ) {
+	obj.toggleDefaultStateFieldset = function() {
 		var $layoutFieldset = $( obj.selectors.layoutFieldset );
 		var $defaultStateFieldset = $( obj.selectors.defaultStateFieldset );
 		var $layoutField = $layoutFieldset.find( 'input[name="events_filters_layout"]:checked' );
@@ -77,8 +76,6 @@ tribe.events.admin.filterBarSettings = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$body = $( 'body' );
-
 		var $layoutFieldset = $( obj.selectors.layoutFieldset );
 		var $defaultStateFieldset = $( obj.selectors.defaultStateFieldset );
 

@@ -9,16 +9,16 @@
 	.tribe-filter-bar-c-dropdown {
 
 		.select2-selection {
-			background-color: var(--color-accent-secondary);
+			background-color: var(--tec-color-accent-secondary);
 			border: none;
 			border-radius: 14px;
-			color: var(--color-background);
+			color: var(--tec-color-background);
 			display: inline-block;
-			margin-bottom: var(--spacer-1);
-			transition: var(--transition-background-color);
+			margin-bottom: var(--tec-spacer-1);
+			transition: var(--tec-transition-background-color);
 
 			&:hover {
-				background-color: var(--color-accent-secondary-hover);
+				background-color: var(--tec-color-accent-secondary-hover);
 			}
 		}
 
@@ -38,27 +38,27 @@
 		.select2-search__field {
 			@mixin desktop-body-1;
 
-			background: svg-inline(search) var(--color-background) 12px center / 14px no-repeat;
-			border: 1px solid var(--color-border-default);
-			border-radius: var(--border-radius-default);
+			background: svg-inline(search) var(--tec-color-background) 12px center / 14px no-repeat;
+			border: 1px solid var(--tec-color-border-default);
+			border-radius: var(--tec-border-radius-default);
 
 			&::placeholder {
-				color: var(--color-text-secondary);
+				color: var(--tec-color-text-secondary);
 			}
 		}
 
 		.select2-selection__clear {
-			color: var(--color-background);
+			color: var(--tec-color-background);
 			font-size: 16px;
 			font-weight: 600;
 
 			&:hover {
-				opacity: var(--opacity-icon-hover);
+				opacity: var(--tec-opacity-icon-hover);
 			}
 		}
 
 		.select2-selection__choice__text {
-			color: var(--color-background);
+			color: var(--tec-color-background);
 			white-space: normal;
 		}
 
@@ -76,8 +76,8 @@
 
 		.select2-results__option--highlighted {
 			background-color: transparent;
-			opacity: var(--opacity-icon-hover);
-			transition: var(--transition-opacity);
+			opacity: var(--tec-opacity-icon-hover);
+			transition: var(--tec-transition-opacity);
 		}
 
 		.select2-dropdown {
@@ -100,7 +100,7 @@
 		.tribe-filter-bar-c-dropdown {
 
 			.select2-search__field {
-				border-radius: var(--border-radius-default);
+				border-radius: var(--tec-border-radius-default);
 			}
 		}
 	}
@@ -131,7 +131,7 @@
 		.tribe-filter-bar-c-dropdown {
 
 			.select2-search__field {
-				background: svg-inline(search) var(--color-background) 12px center / 14px no-repeat;
+				background: svg-inline(search) var(--tec-color-background) 12px center / 14px no-repeat;
 				padding: 0 20px 0 34px;
 			}
 		}

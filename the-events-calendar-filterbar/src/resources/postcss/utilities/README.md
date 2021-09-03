@@ -16,7 +16,7 @@ The repository structure starts at the root level file `_all.pcss` importing all
 
 ### Variables
 
-Variables are any *reusable* property values named specifically for their use case. They are found in the `/variables` folder. Though some variables may hold the same value (e.g. `--border-radius-default: 4px;` and `--spacer-0: 4px`), their use cases are very different and should not be used interchangeably.
+Variables are any *reusable* property values named specifically for their use case. They are found in the `/variables` folder. Though some variables may hold the same value (e.g. `--tec-border-radius-default: 4px;` and `--tec-spacer-0: 4px`), their use cases are very different and should not be used interchangeably.
 
 SVGs are different from the other variables partial files. They are found in `/variables/_svgs.pcss` and are compiled using the [PostCSS Inline SVG](https://github.com/TrySound/postcss-inline-svg) plugin.
 

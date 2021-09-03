@@ -39,10 +39,10 @@ describe( 'Filter Clear', () => {
 			global.window = Object.create( window );
 			// url = 'https://test.tri.be/events/month/?range=0-50'
 			global.window.location = {
-				href: 'https://test.tri.be/events/month/?tribe_eventcategory[0]=hello&tribe_eventcategory[1]=world&tribe_cost=0-100&tribe_custom=moderntribe',
+				href: 'https://test.tri.be/events/month/?tribe_eventcategory[0]=hello&tribe_eventcategory[1]=world&tribe_cost=0-100&tribe_custom=moderntribe', // eslint-disable-line max-len
 				origin: 'https://test.tri.be',
 				pathname: '/events/month/',
-				search: '?tribe_eventcategory[0]=hello&tribe_eventcategory[1]=world&tribe_cost=0-100&tribe_custom=moderntribe',
+				search: '?tribe_eventcategory[0]=hello&tribe_eventcategory[1]=world&tribe_cost=0-100&tribe_custom=moderntribe', // eslint-disable-line max-len
 				hash: '',
 			};
 			global.tribe.filterBar.filters = {

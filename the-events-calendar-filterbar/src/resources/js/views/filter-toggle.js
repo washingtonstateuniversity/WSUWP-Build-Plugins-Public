@@ -1,6 +1,3 @@
-/* global tribe */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -88,7 +85,8 @@ tribe.filterBar.filterToggle = {};
 		}
 
 		var $filterToggle = $filter.find( obj.selectors.filterToggle );
-		var $filterPillToggle = $filterBar.find( obj.selectors.pillFilterToggle + '[aria-controls="' + filterContainerId + '"]' );
+		var $filterPillToggle = $filterBar
+			.find( obj.selectors.pillFilterToggle + '[aria-controls="' + filterContainerId + '"]' );
 
 		$filter.addClass( obj.selectors.filterOpen.className() );
 		tribe.events.views.accordion.openAccordion( $filterToggle, $filterContainer );
@@ -118,7 +116,8 @@ tribe.filterBar.filterToggle = {};
 		}
 
 		var $filterToggle = $filter.find( obj.selectors.filterToggle );
-		var $filterPillToggle = $filterBar.find( obj.selectors.pillFilterToggle + '[aria-controls="' + filterContainerId + '"]' );
+		var $filterPillToggle = $filterBar
+			.find( obj.selectors.pillFilterToggle + '[aria-controls="' + filterContainerId + '"]' );
 
 		$filter.removeClass( obj.selectors.filterOpen.className() );
 		tribe.events.views.accordion.closeAccordion( $filterToggle, $filterContainer );
@@ -241,7 +240,9 @@ tribe.filterBar.filterToggle = {};
 
 		var $target = $( event.target );
 		var isParentFilter = Boolean( $target.closest( obj.selectors.filter ).length );
-		var isParentFiltersSlidePill = Boolean( $target.closest( obj.selectors.filtersSliderContainer ).length );
+		var isParentFiltersSlidePill = Boolean(
+			$target.closest( obj.selectors.filtersSliderContainer ).length
+		);
 
 		if ( ! isParentFilter && ! isParentFiltersSlidePill ) {
 			var $filterBar = $container.find( obj.selectors.filterBar );
@@ -405,7 +406,11 @@ tribe.filterBar.filterToggle = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready.

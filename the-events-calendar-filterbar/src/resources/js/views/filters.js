@@ -1,6 +1,3 @@
-/* global tribe */
-/* eslint-disable no-var, strict */
-
 /**
  * Makes sure we have all the required levels on the Tribe Object.
  *
@@ -94,7 +91,9 @@ tribe.filterBar.filters = {};
 			} )
 			// Rebuild array numbering for query key.
 			.map( function( queryStringPiece, index ) {
-				var [ queryKey, queryVal ] = queryStringPiece.split( '=' );
+				var queryStringPieces = queryStringPiece.split( '=' );
+				var queryKey = queryStringPieces[ 0 ];
+				var queryVal = queryStringPieces[ 1 ];
 				var baseQueryKey = obj.removeSquareBracketsFromEnd( decodeURIComponent( queryKey ) );
 				var newQueryKey = encodeURIComponent( baseQueryKey + '[' + index + ']' );
 				return [ newQueryKey, queryVal ].join( '=' );
@@ -125,7 +124,9 @@ tribe.filterBar.filters = {};
 		var modifiedQueryStringPieces = [];
 		var baseKeyQueryStringPieces = [];
 		for ( var i = 0; i < queryStringPieces.length; i++ ) {
-			var [ queryKey, queryVal ] = queryStringPieces[ i ].split( '=' );
+			var queryStringPieceKeyVal = queryStringPieces[ i ].split( '=' );
+			var queryKey = queryStringPieceKeyVal[ 0 ];
+			var queryVal = queryStringPieceKeyVal[ 1 ];
 			var baseQueryKey;
 
 			try {
@@ -156,7 +157,8 @@ tribe.filterBar.filters = {};
 		// If we're dealing with an array key, do below.
 		if ( keyIsArray ) {
 			// Filter out query string piece with value.
-			baseKeyQueryStringPieces = obj.removeValueFromBaseKeyQueryStringPieces( baseKeyQueryStringPieces, value );
+			baseKeyQueryStringPieces = obj
+				.removeValueFromBaseKeyQueryStringPieces( baseKeyQueryStringPieces, value );
 		}
 
 		// Add back base key query string pieces to modified query string pieces.
@@ -189,7 +191,8 @@ tribe.filterBar.filters = {};
 		var queryStringPieces = location.search.slice( 1 ).split( '&' );
 
 		// Remove key value from query string pieces.
-		var modifiedQueryStringPieces = obj.removeKeyValueFromQueryStringPieces( queryStringPieces, key, value );
+		var modifiedQueryStringPieces = obj
+			.removeKeyValueFromQueryStringPieces( queryStringPieces, key, value );
 
 		var keyRegex = /([a-z\d_]+)(\[\])?/i;
 		var keyParts = key.match( keyRegex );
@@ -248,7 +251,9 @@ tribe.filterBar.filters = {};
 
 		// Loop through query string pieces.
 		for ( var i = 0; i < queryStringPieces.length; i++ ) {
-			var [ queryKey, queryVal ] = queryStringPieces[ i ].split( '=' );
+			var queryStringPieceKeyVal = queryStringPieces[ i ].split( '=' );
+			var queryKey = queryStringPieceKeyVal[ 0 ];
+			var queryVal = queryStringPieceKeyVal[ 1 ];
 			var baseQueryKey;
 
 			try {
@@ -303,7 +308,9 @@ tribe.filterBar.filters = {};
 		// Build back query string, adding new query if it exists (it could be an empty string).
 		var modifiedQueryString = queryString;
 		if ( queryToAdd ) {
-			modifiedQueryString = queryString ? [ queryString, queryToAdd ].join( '&' ) : '?' + queryToAdd;
+			modifiedQueryString = queryString
+				? [ queryString, queryToAdd ].join( '&' )
+				: '?' + queryToAdd;
 		}
 
 		return {
@@ -456,7 +463,10 @@ tribe.filterBar.filters = {};
 		var requestData = $container.data( 'tribeRequestData' );
 		var data = {};
 
-		// Filter bar is open if making a filter bar request on mobile with filter bar open or on desktop and filter bar is open.
+		/**
+		 * Filter bar is open if making a filter bar request on mobile with filter bar open
+		 * or on desktop and filter bar is open.
+		 */
 		var isFilterBarOpen = $filterBar.is( obj.selectors.filterBarOpen ) && (
 			(
 				containerState.isMobile &&
@@ -519,7 +529,11 @@ tribe.filterBar.filters = {};
 	 * @return {void}
 	 */
 	obj.ready = function() {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on(
+			'afterSetup.tribeEvents',
+			tribe.events.views.manager.selectors.container,
+			obj.init
+		);
 	};
 
 	// Configure on document ready.

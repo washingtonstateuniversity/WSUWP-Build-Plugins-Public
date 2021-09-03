@@ -9,7 +9,7 @@
  *
  * @package TribeEventsCalendar
  * @since  1.0
- * @author Modern Tribe Inc.
+ * @author The Events Calendar
  * @version 4.8.0
  *
  */

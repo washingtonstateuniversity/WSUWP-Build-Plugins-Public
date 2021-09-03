@@ -32,45 +32,73 @@ describe( 'Filters', () => {
 
 	describe( 'Remove square brackets from end', () => {
 		test( 'Should remove square brackets from string', () => {
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[0]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[][]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[0][1]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[]hello[0]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[0]hello[]' ) ).toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[0]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[][]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[0][1]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[]hello[0]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[0]hello[]' ) )
+				.toMatchSnapshot();
 		} );
 
 		test( 'Should return string', () => {
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[]hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[0]hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[hello]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( ']hello' ) ).toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[]hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[0]hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[hello]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello[' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( 'hello]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( '[hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.removeSquareBracketsFromEnd( ']hello' ) )
+				.toMatchSnapshot();
 		} );
 	} );
 
 	describe( 'Has square brackets at end', () => {
 		test( 'Should return true', () => {
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[0]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[][]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[0][1]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[]hello[0]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[0]hello[]' ) ).toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[0]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[][]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[0][1]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[]hello[0]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[0]hello[]' ) )
+				.toMatchSnapshot();
 		} );
 
 		test( 'Should return false', () => {
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[]hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[0]hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[hello]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello]' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[hello' ) ).toMatchSnapshot();
-			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( ']hello' ) ).toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[]hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[0]hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[hello]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello[' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( 'hello]' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( '[hello' ) )
+				.toMatchSnapshot();
+			expect( tribe.filterBar.filters.hasSquareBracketsAtEnd( ']hello' ) )
+				.toMatchSnapshot();
 		} );
 	} );
 
@@ -87,7 +115,10 @@ describe( 'Filters', () => {
 
 		test( 'Should return original query string pieces array', () => {
 			// Test.
-			const result = tribe.filterBar.filters.removeValueFromBaseKeyQueryStringPieces( queryStringPieces, 'baz' );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeValueFromBaseKeyQueryStringPieces( queryStringPieces, 'baz' );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -95,7 +126,10 @@ describe( 'Filters', () => {
 
 		test( 'Should remove value from query string pieces array', () => {
 			// Test.
-			const result = tribe.filterBar.filters.removeValueFromBaseKeyQueryStringPieces( queryStringPieces, 'bar' );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeValueFromBaseKeyQueryStringPieces( queryStringPieces, 'bar' );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -103,7 +137,10 @@ describe( 'Filters', () => {
 
 		test( 'Should reindex query keys in query string pieces array', () => {
 			// Test.
-			const result = tribe.filterBar.filters.removeValueFromBaseKeyQueryStringPieces( queryStringPieces, 'foo' );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeValueFromBaseKeyQueryStringPieces( queryStringPieces, 'foo' );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -120,7 +157,10 @@ describe( 'Filters', () => {
 			];
 
 			// Test.
-			const result = tribe.filterBar.filters.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo', 'baz' );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo', 'baz' );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -135,7 +175,10 @@ describe( 'Filters', () => {
 			];
 
 			// Test.
-			const result = tribe.filterBar.filters.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo', 'bar' );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo', 'bar' );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -150,7 +193,10 @@ describe( 'Filters', () => {
 			];
 
 			// Test.
-			const result = tribe.filterBar.filters.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo', true );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo', true );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -166,7 +212,10 @@ describe( 'Filters', () => {
 			];
 
 			// Test.
-			const result = tribe.filterBar.filters.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo[]', 'bar' );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo[]', 'bar' );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -182,7 +231,10 @@ describe( 'Filters', () => {
 			];
 
 			// Test.
-			const result = tribe.filterBar.filters.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo[]', true );
+			const result = tribe
+				.filterBar
+				.filters
+				.removeKeyValueFromQueryStringPieces( queryStringPieces, 'foo[]', true );
 
 			// Confirm final state.
 			expect( result ).toMatchSnapshot();
@@ -228,7 +280,7 @@ describe( 'Filters', () => {
 
 		test( 'Should remove all instances of key from query', () => {
 			// url = 'https://test.tri.be/events/month/?hello=world'
-			location.href = 'https://test.tri.be/events/month/?hello[0]=world&foo[0]=bar&hello[1]=goodbye&foo[1]=baz';
+			location.href = 'https://test.tri.be/events/month/?hello[0]=world&foo[0]=bar&hello[1]=goodbye&foo[1]=baz'; // eslint-disable-line max-len
 			location.search = '?hello[0]=world&foo[0]=bar&hello[1]=goodbye&foo[1]=baz';
 
 			// Test.
@@ -314,7 +366,7 @@ describe( 'Filters', () => {
 			expect( result ).toMatchSnapshot();
 		} );
 
-		test( 'Should return indexed array query to add if base key value pair exists in query', () => {
+		test( 'Should return indexed array query to add if base key value pair exists in query', () => { // eslint-disable-line max-len
 			// Setup test.
 			queryStringPieces.push( 'foo[0]=bar' );
 
@@ -471,7 +523,9 @@ describe( 'Filters', () => {
 					manager: {
 						request: jest.fn(),
 						shouldManageUrl: jest.fn().mockImplementation( () => true ),
-						getContainerData: jest.fn().mockImplementation( () => ( { prevUrl: '', url: 'https://test.tri.be/events/month/?hello=world' } ) ),
+						getContainerData: jest.fn().mockImplementation( () => (
+							{ prevUrl: '', url: 'https://test.tri.be/events/month/?hello=world' }
+						) ),
 					},
 				},
 			};
@@ -516,7 +570,7 @@ describe( 'Filters', () => {
 			tribe.filterBar.filters.getFiltersState = getFiltersStateHold;
 		} );
 
-		test( 'Should set filter bar state to 0 if filter bar is not open, is mobile, and is not filter bar request', () => {
+		test( 'Should set filter bar state to 0 if filter bar is not open, is mobile, and is not filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: true } );
 			$container.data( 'tribeRequestData', {} );
@@ -535,7 +589,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 0 if filter bar is not open, is mobile, and is filter bar request', () => {
+		test( 'Should set filter bar state to 0 if filter bar is not open, is mobile, and is filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: true } );
 			$container.data( 'tribeRequestData', { tribe_filter_bar_request: 1 } );
@@ -554,7 +608,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 0 if filter bar is not open, is not mobile, and is not filter bar request', () => {
+		test( 'Should set filter bar state to 0 if filter bar is not open, is not mobile, and is not filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: false } );
 			$container.data( 'tribeRequestData', {} );
@@ -573,7 +627,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 0 if filter bar is not open, is not mobile, and is filter bar request', () => {
+		test( 'Should set filter bar state to 0 if filter bar is not open, is not mobile, and is filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: false } );
 			$container.data( 'tribeRequestData', { tribe_filter_bar_request: 1 } );
@@ -592,7 +646,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 0 if filter bar is open, is mobile, and is not filter bar request', () => {
+		test( 'Should set filter bar state to 0 if filter bar is open, is mobile, and is not filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: true } );
 			$container.data( 'tribeRequestData', {} );
@@ -611,7 +665,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 1 if filter bar is open, is mobile, and is filter bar request', () => {
+		test( 'Should set filter bar state to 1 if filter bar is open, is mobile, and is filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: true } );
 			$container.data( 'tribeRequestData', { tribe_filter_bar_request: 1 } );
@@ -630,7 +684,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 1 if filter bar is open, is not mobile, and is not filter bar request', () => {
+		test( 'Should set filter bar state to 1 if filter bar is open, is not mobile, and is not filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: false } );
 			$container.data( 'tribeRequestData', {} );
@@ -649,7 +703,7 @@ describe( 'Filters', () => {
 			expect( $container.data( 'tribeRequestData' ) ).toMatchSnapshot();
 		} );
 
-		test( 'Should set filter bar state to 1 if filter bar is open, is not mobile, and is filter bar request', () => {
+		test( 'Should set filter bar state to 1 if filter bar is open, is not mobile, and is filter bar request', () => { // eslint-disable-line max-len
 			// Setup test.
 			$container.data( 'tribeEventsState', { isMobile: false } );
 			$container.data( 'tribeRequestData', { tribe_filter_bar_request: 1 } );
