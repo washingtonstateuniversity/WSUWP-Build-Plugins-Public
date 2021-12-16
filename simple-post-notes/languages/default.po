@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: popslide\n"
+"POT-Creation-Date: 2015-03-26 13:57+0100\n"
+"PO-Revision-Date: 2015-03-26 13:57+0100\n"
+"Last-Translator: Jakub Mikita <kuba@wordpressgeeks.co.uk>\n"
+"Language-Team: Kuba Mikita <contact@jmikita.com>\n"
+"Language: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../simple-post-notes.php:160 ../simple-post-notes.php:197
+msgid "Notes"
+msgstr ""
+
+#: ../simple-post-notes.php:251 ../simple-post-notes.php:252
+msgid "Post Notes"
+msgstr ""
+
+#: ../simple-post-notes.php:269
+msgid "Simple Post Notes Settings"
+msgstr ""
+
+#: ../simple-post-notes.php:274
+msgid "Save"
+msgstr ""
+
+#: ../simple-post-notes.php:294
+msgid "General Settings"
+msgstr ""
+
+#: ../simple-post-notes.php:301
+msgid "Post types"
+msgstr ""
+
+#: ../simple-post-notes.php:339
+msgid "Apply Post Notes to these post types"
+msgstr ""
