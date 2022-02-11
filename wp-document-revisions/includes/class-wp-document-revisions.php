@@ -283,6 +283,7 @@ class WP_Document_Revisions
 			'public'               => true,
 			'show_ui'              => true,
 			'show_in_menu'         => true,
+			'show_in_rest'         => true,
 			'query_var'            => true,
 			'rewrite'              => true,
 			'capability_type'      => array('document', 'documents'),
