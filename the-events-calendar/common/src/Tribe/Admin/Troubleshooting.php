@@ -48,7 +48,6 @@ class Troubleshooting {
 	 */
 	public function hook() {
 		add_action( 'admin_menu', [ $this, 'add_menu_page' ], 90 );
-		add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 		add_action( 'wp_before_admin_bar_render', [ $this, 'add_toolbar_item' ], 20 );
 	}
 
@@ -105,24 +104,6 @@ class Troubleshooting {
 	}
 
 	/**
-	 * Hooked to admin_body_class to add a class for troubleshooting page.
-	 *
-	 * @since 4.15.0
-	 *
-	 * @param string $classes a space separated string of classes to be added to body.
-	 *
-	 * @return string $classes a space separated string of classes to be added to body.
-	 */
-	public function admin_body_class( $classes ) {
-		if ( ! $this->is_current_page() ) {
-			return $classes;
-		}
-
-		$classes .= ' tec-troubleshooting';
-		return $classes;
-	}
-
-	/**
 	 * Adds the troubleshooting menu to the the WP admin bar under events.
 	 *
 	 * @since 4.14.2
@@ -139,7 +120,7 @@ class Troubleshooting {
 
 		$wp_admin_bar->add_menu( [
 			'id'     => 'tec-troubleshooting',
-			'title'  => esc_html__( 'Troubleshooting', 'tribe-common' ),
+			'title'  => esc_html__( 'Event Add-Ons', 'tribe-common' ),
 			'href'   => Tribe__Settings::instance()->get_url( [ 'page' => static::MENU_SLUG ] ),
 			'parent' => 'tribe-events-settings-group',
 		] );
@@ -166,14 +147,7 @@ class Troubleshooting {
 			return false;
 		}
 
-		global $current_screen;
-
-		$troubleshooting_pages = [
-			'tribe_events_page_tec-troubleshooting',
-			'tickets_page_tec-tickets-troubleshooting',
-		];
-
-		return in_array( $current_screen->id, $troubleshooting_pages );
+		return Tribe__Admin__Helpers::instance()->is_screen( $this->admin_page );
 	}
 
 	/**
@@ -183,7 +157,6 @@ class Troubleshooting {
 	 *
 	 */
 	public function do_menu_page() {
-		tribe_asset_enqueue( 'tribe-admin-help-page' );
 		$main = Tribe__Main::instance();
 		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/troubleshooting.php';
 	}
