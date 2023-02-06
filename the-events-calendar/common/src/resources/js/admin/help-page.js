@@ -22,7 +22,7 @@ tribe.helpPage = tribe.helpPage || {};
 			return;
 		}
 
-		var clipboard = new Clipboard( obj.selectors.copyButton );
+		var clipboard = new ClipboardJS( obj.selectors.copyButton ); /* eslint-disable-line no-undef */
 		var button_icon = '<span class="dashicons dashicons-clipboard license-btn"></span>';
 		var button_text = tribe_system_info.clipboard_btn_text;
 
@@ -59,10 +59,10 @@ tribe.helpPage = tribe.helpPage || {};
 			return;
 		}
 
-		this.$system_info_opt_in     = $( obj.selectors.autoInfoOptIn );
-		this.$system_info_opt_in_msg = $( obj.selectors.optInMsg );
+		obj.$system_info_opt_in     = $( obj.selectors.autoInfoOptIn );
+		obj.$system_info_opt_in_msg = $( obj.selectors.optInMsg );
 
-		this.$system_info_opt_in.on( 'change', function () {
+		obj.$system_info_opt_in.on( 'change', function () {
 			if ( this.checked ) {
 				obj.doAjaxRequest( 'generate' );
 			} else {
@@ -84,11 +84,40 @@ tribe.helpPage = tribe.helpPage || {};
 			ajaxurl,
 			request,
 			function ( results ) {
+
 				if ( results.success ) {
 					obj.$system_info_opt_in_msg.html( "<p class='optin-success'>" + results.data + "</p>" );
 				} else {
-					obj.$system_info_opt_in_msg.html( "<p class='optin-fail'>" + results.data.message + " Code:" + results.data.code + " Status:" + results.data.data.status + "</p>" ); // eslint-disable-line max-len
-					$( "#tribe_auto_sysinfo_opt_in" ).prop( "checked", false );
+					var html = "<p class='optin-fail'>"
+						+ tribe_system_info.sysinfo_error_message_text
+						+ "</p>";
+
+					if ( results.data ) {
+						if ( results.data.message ) {
+							html += '<p>' + results.data.message + '</p>';
+						} else if (  results.message ) {
+							html += '<p>' + results.message + '</p>';
+						}
+
+						if ( results.data.code ) {
+							html += '<p>'
+							+ tribe_system_info.sysinfo_error_code_text
+							+ ' '
+							+ results.data.code
+							+ '</p>';
+						}
+
+						if ( results.data.status ) {
+							html += '<p>'
+							+ tribe_system_info.sysinfo_error_status_text
+							+ results.data.status
+							+ '</p>';
+						}
+
+					}
+
+					obj.$system_info_opt_in_msg.html( html ); // eslint-disable-line max-len
+					$( obj.selectors.autoInfoOptIn ).prop( "checked", false );
 				}
 			}
 		);
