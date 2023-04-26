@@ -1,0 +1,197 @@
+.wt-crppro-allfeat li:before{
+  content: '';
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-image: url(../img/gopro/tick.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  left: 10px;
+}
+
+/* start marketing section */
+.wt-crp-upsell-wrapper.market-box{
+    width:100%;
+    float: right;
+}
+
+
+
+.wrap .wt-crp-upsell-wrapper .crp-premium-upgrade {
+    margin-top: 0px;
+    margin-right: 0px;
+}
+.wt-crp-upsell-wrapper .crp-premium-upgrade {
+    margin-top: 30px;
+    margin-right: 15px;
+}
+
+
+.wt-crp-upsell-small-wrapper.market-box{
+    width:32%;
+    float: left;
+    margin-right: 15px;
+    height:440px;
+    background-color: #fff;
+}
+
+.wt-crppro-header{
+  background: #FFFFFF;
+  box-shadow: 0px 4px 19px rgba(49, 117, 252, 0.2);
+  padding: 8px;
+  margin: 0;
+}
+
+.wt-crp-upsell-small-wrapper .wt-crppro-header{
+  background: #FFFFFF;
+  box-shadow: none;
+  border-radius: 0px;
+  padding: 0px;
+  margin: 0;
+}
+.wt-crp-suite-moneyback-wrap{
+    padding: 5px !important;
+    margin-bottom: 5px !important;
+    background: linear-gradient(178deg, #F4F1FF 3%, rgba(238, 240, 255, 0) 93.18%);
+}
+
+.wt-crppro-features{
+  padding: 20px 10px 10px 10px;
+}
+.wt-crppro-features ul{
+  padding: 0;
+  margin: 0;
+}
+.wt-crppro-features li{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  color: #001A69;
+  list-style: none;
+  position: relative;
+  padding-left: 35px;
+  padding-right: 5px;  
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.wt-crp-upsell-small-wrapper .wt-crppro-features{
+  padding: 0px 5px 5px 10px;
+}
+.wt-crp-upsell-small-wrapper .wt-crppro-features ul{
+  padding: 0;
+  margin: 0;
+}
+.wt-crp-upsell-small-wrapper .wt-crppro-features li{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  color: #001A69;
+  list-style: none;
+  position: relative;
+  padding-left: 35px;
+  padding-right: 5px;  
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+}
+.wt-crppro-name{
+  background: linear-gradient(178deg, #F4F1FF 3%, rgba(238, 240, 255, 0) 93.18%);
+  border-radius: 3px;
+  margin: 0;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+.wt-crppro-name img{
+  width: 50px;
+  height: auto;
+  box-shadow: 4px 4px 4px rgba(92, 98, 215, 0.23);
+  border-radius: 7px;
+}
+.wt-crppro-name h4{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 0 0 5px 12px;
+  color: #5D63D9;
+}
+.wt-crppro-name .star-rating{
+    float: left;
+}
+
+
+.wt-crppro-mainfeatures ul{
+  padding: 0;
+  margin: 15px 25px 20px 25px;
+}
+.wt-crppro-mainfeatures li{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height:24px;
+  letter-spacing: -0.01em;
+  list-style: none;
+  position: relative;
+  color: #091E80;
+  padding-left: 28px;
+}
+.wt-crppro-mainfeatures li.money-back:before{
+  content: '';
+  position: absolute;
+  left: 0;
+  height:24px ;
+  width: 16px;
+  background-image: url(../img/gopro/money-back.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.wt-crppro-mainfeatures li.support:before{
+  content: '';
+  position: absolute;
+  left: 0;
+  height:24px ;
+  width: 16px;
+  background-image: url(../img/gopro/support.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.wt-crppro-btn-wrapper{
+  display: block;
+  margin: 20px auto 20px;
+  text-align: center;
+}
+
+.wt-crppro-blue-btn-suite, .wt-crppro-blue-btn-suite:visited{
+  background: linear-gradient(90.67deg, #2608DF -34.86%, #3284FF 115.74%);
+  box-shadow: 0px 4px 13px rgba(46, 80, 242, 0.39);
+  border-radius: 5px;
+  padding: 10px 15px 10px 38px;
+  display: inline-block;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: all .2s ease;
+  position: relative;
+  border: none;
+  width: 70%;
+}
+
+.wt-crppro-blue-btn-suite:hover{
+  box-shadow: 0px 4px 13px rgba(46, 80, 242, 0.5);
+  text-decoration: none;
+  transform: translateY(2px);
+  transition: all .2s ease;
+  color: #FFFFFF;
+}

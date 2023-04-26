@@ -1,0 +1,599 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2021-10-28 14:11+0530\n"
+"PO-Revision-Date: 2021-10-28 14:14+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-custom-related-products-admin.php:57
+#, php-format
+msgid ""
+"Please select %1$s Working mode %2$s as \"Custom related products\" to "
+"reflect the selected related products on the product page."
+msgstr ""
+"Desative a opção %1$s produtos relacionados padrão do WooCommerce %2$s para "
+"refletir os produtos relacionados selecionados na página do produto."
+
+#: admin/class-custom-related-products-admin.php:61
+msgid "Custom related product settings:"
+msgstr "Configurações personalizadas de produtos relacionados:"
+
+#: admin/class-custom-related-products-admin.php:61
+msgid ""
+"Displays related products for this product based on the following selection."
+msgstr ""
+"Exibe produtos relacionados a este produto com base na seguinte seleção."
+
+#: admin/class-custom-related-products-admin.php:62
+msgid "Related categories"
+msgstr "Categorias relacionadas"
+
+#: admin/class-custom-related-products-admin.php:80
+msgid ""
+"Products from chosen categories will be displayed as related products on the "
+"product page."
+msgstr ""
+"Os produtos das categorias escolhidas serão exibidos como produtos "
+"relacionados na página do produto."
+
+#: admin/class-custom-related-products-admin.php:84
+msgid "Related tags"
+msgstr "Tags Relacionadas"
+
+#: admin/class-custom-related-products-admin.php:113
+msgid ""
+"Products from chosen tags will be displayed as related products on the "
+"product page."
+msgstr ""
+"Os produtos das tags escolhidas serão exibidos como produtos relacionados na "
+"página do produto."
+
+#: admin/class-custom-related-products-admin.php:122
+msgid "Related attributes"
+msgstr "Categorias relacionadas"
+
+#: admin/class-custom-related-products-admin.php:154
+msgid ""
+"Products from chosen attributes will be displayed as related products on the "
+"product page."
+msgstr ""
+"Os produtos das categorias escolhidas serão exibidos como produtos "
+"relacionados na página do produto."
+
+#: admin/class-custom-related-products-admin.php:164
+#: admin/class-custom-related-products-admin.php:178
+msgid "Related products"
+msgstr "Produtos relacionados"
+
+#: admin/class-custom-related-products-admin.php:165
+#: admin/class-custom-related-products-admin.php:184
+msgid "Search for a product&hellip;"
+msgstr "Procure por um produto&hellip;"
+
+#: admin/class-custom-related-products-admin.php:175
+#: admin/class-custom-related-products-admin.php:195
+msgid ""
+"Choose products to be displayed as related products on the product page."
+msgstr ""
+"Escolha os produtos a serem exibidos como produtos relacionados na página do "
+"produto."
+
+#: admin/class-custom-related-products-admin.php:201
+msgid "Exclude categories"
+msgstr "Excluir categorias"
+
+#: admin/class-custom-related-products-admin.php:216
+msgid ""
+"Products from chosen categories will be excluded from related products on "
+"the product page."
+msgstr ""
+"Os produtos das categorias escolhidas serão exibidos como produtos "
+"relacionados na página do produto."
+
+#: admin/class-custom-related-products-admin.php:233
+msgid "Select related categories"
+msgstr "Selecione categorias relacionadas"
+
+#: admin/class-custom-related-products-admin.php:236
+msgid "Select related tags"
+msgstr "Selecione tags relacionadas"
+
+#: admin/class-custom-related-products-admin.php:239
+msgid "Select attributes"
+msgstr "Selecione Atributos"
+
+#: admin/class-custom-related-products-admin.php:242
+msgid "Select categories"
+msgstr "Selecionar categorias"
+
+#: admin/class-custom-related-products-admin.php:374
+msgid "Custom Related Products Settings"
+msgstr "Configurações de produtos relacionados"
+
+#: admin/class-custom-related-products-admin.php:374
+#: admin/class-custom-related-products-admin.php:511
+#: woocommerce/single-product/related.php:126
+msgid "Related Products"
+msgstr "Produtos Relacionados"
+
+#: admin/class-custom-related-products-admin.php:389
+msgid "Choose working mode"
+msgstr "Escolha o modo de trabalho"
+
+#: admin/class-custom-related-products-admin.php:393
+msgid "Show heading as"
+msgstr "Mostrar título como"
+
+#: admin/class-custom-related-products-admin.php:398
+msgid "Globally relate products by"
+msgstr "Produtos personalizados"
+
+#: admin/class-custom-related-products-admin.php:403
+msgid "Order by"
+msgstr "Ordenar por"
+
+#: admin/class-custom-related-products-admin.php:408
+msgid "Order"
+msgstr "Pedido"
+
+#: admin/class-custom-related-products-admin.php:413
+msgid "Number of products to display"
+msgstr "Número de produtos a exibir"
+
+#: admin/class-custom-related-products-admin.php:417
+msgid "Exclude out of stock products"
+msgstr "Excluir produtos fora de estoque"
+
+#: admin/class-custom-related-products-admin.php:421
+msgid "Use slider"
+msgstr "Usar slider"
+
+#: admin/class-custom-related-products-admin.php:425
+msgid "WPML: Use original product ID"
+msgstr "WPML: Use o ID original do produto"
+
+#: admin/class-custom-related-products-admin.php:429
+msgid "Override theme's template"
+msgstr "Substituir o modelo do tema"
+
+#: admin/class-custom-related-products-admin.php:487
+msgid "Custom related products"
+msgstr "Produtos personalizados"
+
+#: admin/class-custom-related-products-admin.php:489
+msgid ""
+"Displays related products as per the settings done in this plugin. You will "
+"get full customization options. (Recommended)."
+msgstr ""
+"Exibe produtos relacionados de acordo com as configurações feitas neste "
+"plugin. Você obterá opções de personalização completas. (Recomendado)."
+
+#: admin/class-custom-related-products-admin.php:493
+msgid "Default related products"
+msgstr "Produtos personalizados"
+
+#: admin/class-custom-related-products-admin.php:495
+msgid ""
+"Works on WooCommerce's default related products settings with limited "
+"customizations."
+msgstr ""
+"Funciona nas configurações de produtos relacionados padrão do WooCommerce "
+"com personalizações limitadas."
+
+#: admin/class-custom-related-products-admin.php:501
+msgid "Remove related products"
+msgstr "Produtos relacionados"
+
+#: admin/class-custom-related-products-admin.php:503
+msgid "Removes the related products section from your site entirely."
+msgstr "Remove totalmente a seção de produtos relacionados do seu site."
+
+#: admin/class-custom-related-products-admin.php:517
+msgid "Enter text to display as heading for the related products."
+msgstr ""
+"Insira o texto a ser exibido como título para os produtos relacionados."
+
+#: admin/class-custom-related-products-admin.php:531
+msgid "Category"
+msgstr "Categoria"
+
+#: admin/class-custom-related-products-admin.php:532
+msgid "Tag"
+msgstr "Tag"
+
+#: admin/class-custom-related-products-admin.php:536
+msgid "Select options"
+msgstr "Selecionar opções"
+
+#: admin/class-custom-related-products-admin.php:543
+msgid ""
+"Select to display related products for all products based on category,tag or "
+"both."
+msgstr ""
+"Permitir a exibição de produtos personalizados relacionados com base na "
+"categoria / tags / produtos."
+
+#: admin/class-custom-related-products-admin.php:544
+#, php-format
+msgid "Use this %1$s code snippet %2$s to relate products by sub-category."
+msgstr ""
+"Use este %1$s snippet de código %2$s para relacionar produtos por "
+"subcategoria."
+
+#: admin/class-custom-related-products-admin.php:548
+msgid ""
+"To override the above 'Globally relate products by' selection or to set "
+"related products individually for each product:"
+msgstr ""
+"Para substituir a seleção \"Relacionar produtos globalmente por\" acima ou "
+"definir produtos relacionados individualmente para cada produto:"
+
+#: admin/class-custom-related-products-admin.php:550
+msgid "Go to Products"
+msgstr "Vá para Produtos"
+
+#: admin/class-custom-related-products-admin.php:550
+msgid "Edit Product"
+msgstr "Editar Produto"
+
+#: admin/class-custom-related-products-admin.php:550
+msgid "Linked Products"
+msgstr "Produtos Relacionados"
+
+#: admin/class-custom-related-products-admin.php:551
+msgid ""
+"Select the category, tag, attribute or product to display related products "
+"individually for each product."
+msgstr ""
+"Selecione a categoria, tag, atributo ou produto para exibir produtos "
+"relacionados individualmente para cada produto."
+
+#: admin/class-custom-related-products-admin.php:565
+msgid "Product title"
+msgstr "Nome do Produto"
+
+#: admin/class-custom-related-products-admin.php:566
+msgid "Date"
+msgstr "Data"
+
+#: admin/class-custom-related-products-admin.php:567
+msgid "Slug name"
+msgstr "Nome da lesma"
+
+#: admin/class-custom-related-products-admin.php:568
+msgid "Random"
+msgstr "Aleatório"
+
+#: admin/class-custom-related-products-admin.php:569
+msgid "Last modified"
+msgstr "Última modificação"
+
+#: admin/class-custom-related-products-admin.php:571
+msgid "Sort related products based on the selection."
+msgstr "Classifique os produtos relacionados com base na seleção."
+
+#: admin/class-custom-related-products-admin.php:582
+msgid "Ascending"
+msgstr "Ascendente"
+
+#: admin/class-custom-related-products-admin.php:583
+msgid "Descending"
+msgstr "Descendente"
+
+#: admin/class-custom-related-products-admin.php:585
+msgid "Arrange the 'Order by' selection in ascending or descending order."
+msgstr "Organize a seleção 'Ordenar por' em ordem crescente ou decrescente."
+
+#: admin/class-custom-related-products-admin.php:598
+msgid ""
+"Enter the maximum number of products to display as related products. Default "
+"value is '3'."
+msgstr ""
+"Escolha os produtos a serem exibidos como produtos relacionados na página do "
+"produto."
+
+#: admin/class-custom-related-products-admin.php:610
+#: admin/class-custom-related-products-admin.php:624
+#: admin/class-custom-related-products-admin.php:638
+#: admin/class-custom-related-products-admin.php:657
+msgid "Enable"
+msgstr "Habilitar"
+
+#: admin/class-custom-related-products-admin.php:612
+msgid ""
+"Enable to exclude out of stock products from displaying in related products."
+msgstr ""
+"Ative para excluir produtos fora de estoque da exibição em produtos "
+"relacionados."
+
+#: admin/class-custom-related-products-admin.php:626
+msgid "Enable slider to swipe related products left or right."
+msgstr ""
+"Ative o controle deslizante para deslizar os produtos relacionados para a "
+"esquerda ou direita."
+
+#: admin/class-custom-related-products-admin.php:641
+msgid ""
+"Enable to display related products for translated products based on original "
+"product ID."
+msgstr ""
+"Permitir a exibição de produtos personalizados relacionados com base na "
+"categoria / tags / produtos."
+
+#: admin/class-custom-related-products-admin.php:644
+#, php-format
+msgid ""
+"%1$s Note:%2$s Ensure that each product has a corresponding translated "
+"product in your site."
+msgstr ""
+"%1$s Observação: %2$s certifique-se de que cada produto tenha um produto "
+"traduzido correspondente em seu site."
+
+#: admin/class-custom-related-products-admin.php:659
+msgid "Enable to override the theme’s existing template for related products."
+msgstr ""
+"Ative para substituir o modelo existente do tema para produtos relacionados."
+
+#: admin/class-custom-related-products-admin.php:662
+msgid "If disabled, the above settings may not be reflected in the front end."
+msgstr ""
+"Se desativado, as configurações acima podem não ser refletidas no front end."
+
+#: admin/class-custom-related-products-admin.php:671
+msgid ""
+"Displays custom related products based on category, tag, attribute or "
+"product."
+msgstr ""
+"Permitir a exibição de produtos personalizados relacionados com base na "
+"categoria / tags / produtos."
+
+#: admin/class-custom-related-products-admin.php:674
+msgid "Read documentation"
+msgstr "Leia a documentação"
+
+#: admin/class-custom-related-products-admin.php:682
+msgid ""
+"Note: Use shortcode [wt-related-products product_id=\"xx\"] to display "
+"related products to posts/pages of your site."
+msgstr ""
+"Nota: Use shortcode [wt-related-products product_id = \"xx\"] para exibir "
+"produtos relacionados a postagens / páginas de seu site."
+
+#: admin/class-custom-related-products-admin.php:697
+msgid "Settings"
+msgstr "Configurações"
+
+#: admin/class-custom-related-products-admin.php:698
+msgid "Documentation"
+msgstr "Documentação"
+
+#: admin/class-custom-related-products-admin.php:699
+#: admin/class-custom-related-products-admin.php:722
+msgid "Support"
+msgstr "Suporte"
+
+#: admin/class-custom-related-products-admin.php:700
+msgid "Review"
+msgstr "Avaliação"
+
+#: admin/class-custom-related-products-admin.php:723
+msgid "Export"
+msgstr "Exportar"
+
+#: admin/class-custom-related-products-admin.php:724
+msgid "Import"
+msgstr "Importar"
+
+#: includes/class-custom-related-products-review-request.php:53
+#, php-format
+msgid ""
+"Hi there! We at %sWebToffee%s would like to thank you for using our plugin. "
+"We would really appreciate if you could take a moment to drop a quick review "
+"that will inspire us to keep going."
+msgstr ""
+"Hai, nós da %s WebToffee %s gostaríamos de agradecê-lo por usar nosso "
+"plugin. Nós realmente apreciaríamos se você pudesse ter um momento para "
+"deixar cair uma revisão rápida que nos inspirará a continuar."
+
+#: includes/class-custom-related-products-review-request.php:56
+msgid "Remind me later"
+msgstr "Lembrar-me mais tarde"
+
+#: includes/class-custom-related-products-review-request.php:57
+msgid "Not interested"
+msgstr "Sem interesse"
+
+#: includes/class-custom-related-products-review-request.php:58
+msgid "Review now"
+msgstr "Avaliar agora"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:19
+msgid "Does not display the related products in product page."
+msgstr ""
+"Escolha os produtos a serem exibidos como produtos relacionados na página do "
+"produto."
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:21
+msgid "Please mention the name of the theme"
+msgstr "Por favor, mencione o nome do tema"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:25
+msgid "Couldn't understand how to configure"
+msgstr "Eu não conseguia entender como fazê-lo funcionar"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:30
+msgid "Lack of customization options"
+msgstr "Falta de opções de personalização"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:32
+msgid "Tell us about what you are looking for"
+msgstr "Não é o que eu procurava"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:36
+msgid "The plugin didn't work as expected"
+msgstr "O plugin não funcionou como esperado"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:38
+msgid "Please share your expected workflow"
+msgstr "Por favor, compartilhe seu fluxo de trabalho esperado"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:42
+msgid "Temporary deactivation for debugging"
+msgstr "Desativação temporária para depuração"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:46
+msgid "Found a better plugin"
+msgstr "Encontrou um plugin melhor"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:48
+msgid "Please mention the name of the plugin"
+msgstr "Mencione o nome do plugin"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:52
+msgid "Suggest a missing feature"
+msgstr "Sugira um recurso ausente"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:54
+msgid "We are listening. Please share your suggestion."
+msgstr "Nós estamos ouvindo. Por favor, compartilhe sua sugestão."
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:58
+msgid "Other"
+msgstr "Outro"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:60
+msgid "Could you tell us a bit more?"
+msgstr "Você poderia nos contar um pouco mais?"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:78
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr ""
+"Se você tiver um momento, deixe-nos saber por que você está desativando:"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:92
+msgid ""
+"We do not collect any personal data when you submit this form. It's your "
+"feedback that we value."
+msgstr ""
+"Não coletamos dados pessoais quando você envia este formulário. É o seu "
+"feedback que valorizamos."
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:93
+msgid "Privacy Policy"
+msgstr "Política de Privacidade"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:97
+msgid "I rather wouldn't say"
+msgstr "Eu prefiro não dizer"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:98
+msgid "Contact Support"
+msgstr "Contatar Suporte"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:99
+msgid "Submit & Deactivate"
+msgstr "Enviar & Desativar"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:100
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:179
+msgid ""
+"It might be due to a theme conflict. Could you please share the theme name "
+"so that we can make it compatible with the upcoming release."
+msgstr ""
+"Pode ser devido a um conflito de tema. Você poderia compartilhar o nome do "
+"tema para que possamos torná-lo compatível com o próximo lançamento."
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:180
+#, php-format
+msgid ""
+"You can also reach us via support forum by using the below %1$s \"Contact "
+"Support\" %2$s button."
+msgstr ""
+"Você também pode entrar em contato conosco por meio do fórum de suporte, "
+"usando o botão %1$s \"Entrar em contato com o suporte\" %2$s abaixo."
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:184
+#, php-format
+msgid "Please check our documentation %1$s here %2$s."
+msgstr "Verifique nossa documentação %1$s aqui %2$s."
+
+#: includes/class-wt-relatedproducts-uninstall-feedback.php:185
+#, php-format
+msgid ""
+"If you have any further queries, reach us via the below %1$s \"Contact "
+"Support\" %2$s button."
+msgstr ""
+"Se você tiver mais perguntas, entre em contato conosco por meio do botão "
+"%1$s \"Entrar em contato com o suporte\" %2$s abaixo."
+
+#~ msgid "Woocommerce default related products"
+#~ msgstr "Produtos relacionados padrão Woocommerce"
+
+#~ msgid "Disable"
+#~ msgstr "Desativar"
+
+#~ msgid "Check this option to disable WooCommerce default related products."
+#~ msgstr ""
+#~ "Marque esta opção para desativar os produtos relacionados padrão do "
+#~ "WooCommerce."
+
+#~ msgid ""
+#~ "'WooCommerce default related products' must be disabled for the 'Custom "
+#~ "related products' settings to reflect on your product page."
+#~ msgstr ""
+#~ "'Produtos relacionados padrão do WooCommerce' deve ser desabilitado para "
+#~ "que as configurações de 'Produtos relacionados personalizados' sejam "
+#~ "refletidas na página do produto."
+
+#~ msgid ""
+#~ "Choose the related products that must appear on the product page on the "
+#~ "basis of category/tags/product."
+#~ msgstr ""
+#~ "Escolha os produtos relacionados que devem aparecer na página do produto "
+#~ "com base na categoria / tags / produto."
+
+#~ msgid "Would you like us to assist you?"
+#~ msgstr "Você gostaria que nós o ajudássemos?"
+
+#~ msgid "Which plugin?"
+#~ msgstr "Qual plugin?"
+
+#~ msgid ""
+#~ "The plugin is great, but I need specific feature that you don't support"
+#~ msgstr ""
+#~ "O plugin é ótimo, mas eu preciso de um recurso específico que você não "
+#~ "suporta"
+
+#~ msgid "Could you tell us more about that feature?"
+#~ msgstr "Você poderia nos contar mais sobre esse recurso?"
+
+#~ msgid "The plugin is not working"
+#~ msgstr "O plugin não funciona"
+
+#~ msgid "Could you tell us a bit more whats not working?"
+#~ msgstr "Você poderia nos contar um pouco mais o que não está funcionando?"
+
+#~ msgid "What did you expect?"
+#~ msgstr "O que você esperava?"
+
+#~ msgid "Related tags are displayed on the product detail page."
+#~ msgstr "As tags relacionadas são exibidas na página de detalhes do produto."
+
+#~ msgid "General"
+#~ msgstr "Geral"
+
+#~ msgid "Please change the settings as needed"
+#~ msgstr "Por favor, altere as configurações conforme necessário"
